@@ -1,0 +1,502 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Docker - MySQL 開發環境設定 | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="練習 MySQL 開發環境的基本安裝與設定，包含 MySQL Server 設定、Data Volume、phpmyadmin 。
+
+準備下載以下 image
+
+docker pull mysql:5.7
+docker pull phpmyadmin/phpmyadmin
+
+Docker Machi">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Docker - MySQL 開發環境設定"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Docker - MySQL 開發環境設定</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Docker - MySQL 開發環境設定</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>練習 MySQL 開發環境的基本安裝與設定，包含 MySQL Server 設定、Data Volume、phpmyadmin 。</p>
+<a id="more"></a>
+<h1 id="準備"><a href="#準備" class="headerlink" title="準備"></a>準備</h1><p>下載以下 image</p>
+<ul>
+<li><code>docker pull mysql:5.7</code></li>
+<li><code>docker pull phpmyadmin/phpmyadmin</code></li>
+</ul>
+<h2 id="Docker-Machine-Info"><a href="#Docker-Machine-Info" class="headerlink" title="Docker Machine Info"></a>Docker Machine Info</h2><p>如果在 OS X or Windows，先取得 Docker Machine 的資訊，利用 <code>docker-machine ls</code> 取得資訊，這邊取得的是 <code>192.168.99.100</code>。Linux 就直接 <code>ifconfig</code> 即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> 18:54:26  ~    docker-machine ls</span><br><span class="line">NAME      ACTIVE   DRIVER       STATE     URL                         SWARM</span><br><span class="line">default   *        virtualbox   Running   tcp://192.168.99.100:2376</span><br></pre></td></tr></table></figure>
+<p>舊版的 docker 則是用 <code>boot2docker</code></p>
+<p>需要去 Docekr Machine 存取 Container Volume 資料，那麼可以用 <code>docker-machine ssh default</code> 連到 Docker Host Machine 確認是否正確，如果是在 Linux 就直接到設定的 Volume Path 就可以。以下的例子是 <code>/data/mysql</code> 的資料。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"> 18:47:38  ~    docker-machine ssh default</span><br><span class="line">                        ##         .</span><br><span class="line">                  ## ## ##        ==</span><br><span class="line">               ## ## ## ## ##    ===</span><br><span class="line">           /&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;\___/ ===</span><br><span class="line">      ~~~ &#123;~~ ~~~~ ~~~ ~~~~ ~~~ ~ /  ===- ~~~</span><br><span class="line">           \______ o           __/</span><br><span class="line">             \    \         __/</span><br><span class="line">              \____\_______/</span><br><span class="line"> _                 _   ____     _            _</span><br><span class="line">| |__   ___   ___ | |_|___ \ __| | ___   ___| | _____ _ __</span><br><span class="line">| &apos;_ \ / _ \ / _ \| __| __) / _` |/ _ \ / __| |/ / _ \ &apos;__|</span><br><span class="line">| |_) | (_) | (_) | |_ / __/ (_| | (_) | (__|   &lt;  __/ |</span><br><span class="line">|_.__/ \___/ \___/ \__|_____\__,_|\___/ \___|_|\_\___|_|</span><br><span class="line">Boot2Docker version 1.9.1, build master : cef800b - Fri Nov 20 19:33:59 UTC 2015</span><br><span class="line">Docker version 1.9.1, build a34a1d5</span><br><span class="line">docker@default:~$ cd /data/mysql/</span><br><span class="line">docker@default:/data/mysql$ ls data/</span><br><span class="line">auto.cnf            ib_logfile0         ibdata1             mysql/              sys/</span><br><span class="line">ib_buffer_pool      ib_logfile1         ibtmp1              performance_schema/</span><br><span class="line">docker@default:/data/mysql$ ls conf/</span><br><span class="line">docker@default:/data/mysql$</span><br></pre></td></tr></table></figure>
+<h1 id="Start-MySQL-Server"><a href="#Start-MySQL-Server" class="headerlink" title="Start MySQL Server"></a>Start MySQL Server</h1><ul>
+<li>開啟一台 MySQL Server 5.7，預設 Root 密碼，例如 <code>P@ssw0rd</code></li>
+<li>資料存在 Docker Host Machine 的 <code>/data/mysql/data</code>, 對應到 container 的 <code>/var/lib/mysql</code></li>
+<li>設定存在 Docker Host Machine 的 <code>/data/mysql/data</code>, 對應到 container 的 <code>/etc/mysql/conf.d</code></li>
+<li>Host Port:33306</li>
+</ul>
+<p>Script 如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MYSQL_ROOT_PASSWORD=&quot;P@ssw0rd&quot;</span><br><span class="line">docker run \</span><br><span class="line">--name rick-mysql \</span><br><span class="line">-p 33306:3306 -d \</span><br><span class="line">-v /data/mysql/conf:/etc/mysql/conf.d \</span><br><span class="line">-v /data/mysql/data:/var/lib/mysql \</span><br><span class="line">-e MYSQL_ROOT_PASSWORD=$&#123;MYSQL_ROOT_PASSWORD&#125; \</span><br><span class="line">mysql:5.7</span><br></pre></td></tr></table></figure>
+<p>執行結果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> 18:45:30  ~    MYSQL_ROOT_PASSWORD=&quot;P@ssw0rd&quot;</span><br><span class="line"> 18:45:35  ~    docker run \</span><br><span class="line">&gt; --name rick-mysql \</span><br><span class="line">&gt; -p 33306:3306 -d \</span><br><span class="line">&gt; -v /data/mysql/conf:/etc/mysql/conf.d \</span><br><span class="line">&gt; -v /data/mysql/data:/var/lib/mysql \</span><br><span class="line">&gt; -e MYSQL_ROOT_PASSWORD=$&#123;MYSQL_ROOT_PASSWORD&#125; \</span><br><span class="line">&gt; mysql:5.7</span><br><span class="line">21fbd0f71381181a05ec19641373025d5b347c670271cc6e5f1ede280b3e1d4f</span><br><span class="line"> 18:45:39  ~    docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                     NAMES</span><br><span class="line">21fbd0f71381        mysql:5.7           &quot;/entrypoint.sh mysql&quot;   8 seconds ago       Up 6 seconds        0.0.0.0:33306-&gt;3306/tcp   rick-mysql</span><br></pre></td></tr></table></figure>
+<p>查看 log: <code>docker logs rick-mysql</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">18:45:41  ~    docker logs rick-mysql</span><br><span class="line">2015-12-26T10:45:33.795287Z 0 [Note] mysqld (mysqld 5.7.10) starting as process 1 ...</span><br><span class="line">2015-12-26T10:45:33.797626Z 0 [Note] InnoDB: PUNCH HOLE support available</span><br><span class="line">2015-12-26T10:45:33.797710Z 0 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins</span><br><span class="line">2015-12-26T10:45:33.797733Z 0 [Note] InnoDB: Uses event mutexes</span><br><span class="line">2015-12-26T10:45:33.797750Z 0 [Note] InnoDB: GCC builtin __atomic_thread_fence() is used for memory barrier</span><br><span class="line">2015-12-26T10:45:33.797766Z 0 [Note] InnoDB: Compressed tables use zlib 1.2.8</span><br><span class="line"></span><br><span class="line">... 略 ...</span><br><span class="line"></span><br><span class="line">2015-12-26T10:45:33.887989Z 0 [Note] InnoDB: Buffer pool(s) load completed at 151226 10:45:33</span><br><span class="line">2015-12-26T10:45:33.889836Z 0 [Note] Event Scheduler: Loaded 0 events</span><br><span class="line">2015-12-26T10:45:33.889967Z 0 [Note] mysqld: ready for connections.</span><br><span class="line">Version: &apos;5.7.10&apos;  socket: &apos;/var/run/mysqld/mysqld.sock&apos;  port: 3306  MySQL Community Server (GPL)</span><br><span class="line"> 18:46:22  ~  </span><br></pre></td></tr></table></figure>
+<p>如果是在 OS X or Windows 使用 docker，那麼可以用 <code>docker-machine ssh default</code> 連到 Docker Host Machine 確認是否正確，如果是在 Linux 就直接到 <code>/data/mysql</code> 就可以看到資料。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"> 18:47:38  ~    docker-machine ssh default</span><br><span class="line">                        ##         .</span><br><span class="line">                  ## ## ##        ==</span><br><span class="line">               ## ## ## ## ##    ===</span><br><span class="line">           /&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;\___/ ===</span><br><span class="line">      ~~~ &#123;~~ ~~~~ ~~~ ~~~~ ~~~ ~ /  ===- ~~~</span><br><span class="line">           \______ o           __/</span><br><span class="line">             \    \         __/</span><br><span class="line">              \____\_______/</span><br><span class="line"> _                 _   ____     _            _</span><br><span class="line">| |__   ___   ___ | |_|___ \ __| | ___   ___| | _____ _ __</span><br><span class="line">| &apos;_ \ / _ \ / _ \| __| __) / _` |/ _ \ / __| |/ / _ \ &apos;__|</span><br><span class="line">| |_) | (_) | (_) | |_ / __/ (_| | (_) | (__|   &lt;  __/ |</span><br><span class="line">|_.__/ \___/ \___/ \__|_____\__,_|\___/ \___|_|\_\___|_|</span><br><span class="line">Boot2Docker version 1.9.1, build master : cef800b - Fri Nov 20 19:33:59 UTC 2015</span><br><span class="line">Docker version 1.9.1, build a34a1d5</span><br><span class="line">docker@default:~$ cd /data/mysql/</span><br><span class="line">docker@default:/data/mysql$ ls data/</span><br><span class="line">auto.cnf            ib_logfile0         ibdata1             mysql/              sys/</span><br><span class="line">ib_buffer_pool      ib_logfile1         ibtmp1              performance_schema/</span><br><span class="line">docker@default:/data/mysql$ ls conf/</span><br><span class="line">docker@default:/data/mysql$</span><br></pre></td></tr></table></figure>
+<h1 id="MySQL-Client-and-DB-Tools"><a href="#MySQL-Client-and-DB-Tools" class="headerlink" title="MySQL Client and DB Tools"></a>MySQL Client and DB Tools</h1><p>連線資訊如下：</p>
+<ul>
+<li>location: 192.168.99.100</li>
+<li>port: 33306</li>
+<li>連結 container: <code>--link rick-mysql</code></li>
+</ul>
+<p>執行 Script 如下，或者用 DB client, e.g. DbVisualzier</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MYSQL_HOST=192.168.99.100</span><br><span class="line">MYSQL_PORT=33306</span><br><span class="line"></span><br><span class="line">docker run -it \</span><br><span class="line">	--link rick-mysql \</span><br><span class="line">	--rm mysql sh -c &apos;exec mysql -h&quot;$MYSQL_HOST&quot; -P&quot;$MYSQL_PORT&quot; -uroot -p&quot;$MYSQL_ENV_MYSQL_ROOT_PASSWORD&quot;&apos;</span><br></pre></td></tr></table></figure>
+<p>執行紀錄：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"> 18:55:58  ~    docker run -it \</span><br><span class="line">&gt; --link rick-mysql \</span><br><span class="line">&gt; --rm mysql sh -c &apos;exec mysql -h&quot;192.168.99.100&quot; -P&quot;33306&quot; -uroot -p&quot;$MYSQL_ENV_MYSQL_ROOT_PASSWORD&quot;&apos;</span><br><span class="line">Enter password:</span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection id is 4</span><br><span class="line">Server version: 5.7.10 MySQL Community Server (GPL)</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2015, Oracle and/or its affiliates. All rights reserved.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</span><br><span class="line"></span><br><span class="line">mysql&gt; show databases;</span><br><span class="line">+--------------------+</span><br><span class="line">| Database           |</span><br><span class="line">+--------------------+</span><br><span class="line">| information_schema |</span><br><span class="line">| mysql              |</span><br><span class="line">| performance_schema |</span><br><span class="line">| sys                |</span><br><span class="line">+--------------------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; exit</span><br><span class="line">Bye</span><br><span class="line"> 18:56:21  ~  </span><br></pre></td></tr></table></figure>
+<h1 id="phpmyadmin"><a href="#phpmyadmin" class="headerlink" title="phpmyadmin"></a>phpmyadmin</h1><p>同樣要知道 MySQL Server 的基本資訊</p>
+<ul>
+<li>container name: phpmyadmin</li>
+<li>PMA_PORT=33306</li>
+<li>PMA_HOST=192.168.99.100</li>
+<li>apache port: 8080</li>
+</ul>
+<p>Script 如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PMA_PORT=33306</span><br><span class="line">PMA_HOST=192.168.99.100</span><br><span class="line">docker run -d \</span><br><span class="line">--name phpmyadmin \</span><br><span class="line">--link rick-mysql \</span><br><span class="line">-e PMA_PORT=$PMA_PORT \</span><br><span class="line">-e PMA_HOST=$PMA_HOST \</span><br><span class="line">-p 8080:8080 \</span><br><span class="line">phpmyadmin/phpmyadmin</span><br></pre></td></tr></table></figure>
+<p>執行紀錄：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> 19:12:06  ~    docker run -d \</span><br><span class="line">&gt; --name phpmyadmin \</span><br><span class="line">&gt; --link rick-mysql \</span><br><span class="line">&gt; -e PMA_PORT=$PMA_PORT \</span><br><span class="line">&gt; -e PMA_HOST=$PMA_HOST \</span><br><span class="line">&gt; -p 8080:8080 \</span><br><span class="line">&gt; phpmyadmin/phpmyadmin</span><br><span class="line">b8d37f1cbdfcff1e4811a6e7b252ba51382a0781aa7d594a4e9de0aa102f3b49</span><br><span class="line"> 19:12:06  ~    docker ps</span><br><span class="line">CONTAINER ID        IMAGE                   COMMAND                  CREATED              STATUS              PORTS                     NAMES</span><br><span class="line">b8d37f1cbdfc        phpmyadmin/phpmyadmin   &quot;/run.sh&quot;                About a minute ago   Up 58 seconds       0.0.0.0:8080-&gt;8080/tcp    phpmyadmin</span><br><span class="line">21fbd0f71381        mysql:5.7               &quot;/entrypoint.sh mysql&quot;   27 minutes ago       Up 27 minutes       0.0.0.0:33306-&gt;3306/tcp   rick-mysql</span><br><span class="line"> 19:13:04  ~  </span><br></pre></td></tr></table></figure>
+<p>然後用瀏覽器開啟 <code>http://192.168.99.100:33306/</code> 應該就會看到 phpmyadmin</p>
+<h1 id="Container-的連結"><a href="#Container-的連結" class="headerlink" title="Container 的連結"></a>Container 的連結</h1><p>前面設定 phpmyadmin 利用參數 <code>--link</code> 讓 phpmyadmin 可以連結到 mysql, 實際上的做法是在 phpmyadmin container 的 <code>/etc/hosts</code> 增加對應的設定，可以用 <code>docker exec phpmyadmin cat /etc/hosts</code> 查看設定：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ocker exec phpmyadmin cat /etc/hosts</span><br><span class="line">172.17.0.4	b8d37f1cbdfc</span><br><span class="line">127.0.0.1	localhost</span><br><span class="line">::1	localhost ip6-localhost ip6-loopback</span><br><span class="line">fe00::0	ip6-localnet</span><br><span class="line">ff00::0	ip6-mcastprefix</span><br><span class="line">ff02::1	ip6-allnodes</span><br><span class="line">ff02::2	ip6-allrouters</span><br><span class="line">172.17.0.2	rick-mysql 21fbd0f71381</span><br></pre></td></tr></table></figure>
+<p>最後一行就是新增的 <code>link</code>.</p>
+<h1 id="Inspect-Docker-Container-or-Docker-Machine"><a href="#Inspect-Docker-Container-or-Docker-Machine" class="headerlink" title="Inspect Docker Container or Docker-Machine"></a>Inspect Docker Container or Docker-Machine</h1><p>## 取得 Docker Machine 網路資訊</p>
+<p>在 OS X or Windows 使用 <code>docker-machine inspect default</code> 取得詳細的資訊，包含網路、SSH、各項路徑等訊息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">22:11:02    docker-machine inspect default</span><br><span class="line">&#123;</span><br><span class="line">    &quot;ConfigVersion&quot;: 3,</span><br><span class="line">    &quot;Driver&quot;: &#123;</span><br><span class="line">        &quot;Driver&quot;: &#123;</span><br><span class="line">            &quot;VBoxManager&quot;: &#123;&#125;,</span><br><span class="line">            &quot;IPAddress&quot;: &quot;192.168.99.100&quot;,</span><br><span class="line">            &quot;MachineName&quot;: &quot;default&quot;,</span><br><span class="line">            &quot;SSHUser&quot;: &quot;docker&quot;,</span><br><span class="line">            &quot;SwarmMaster&quot;: false,</span><br><span class="line"></span><br><span class="line">	... 略 ...</span><br></pre></td></tr></table></figure>
+<p>如果要取得 Docker Container 的資訊，則是 <code>docker inspect &lt;containerId&gt;</code>，像是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">rickh@studio:~$ docker inspect rick-mysql</span><br><span class="line">[</span><br><span class="line">&#123;</span><br><span class="line">    &quot;Id&quot;: &quot;8994a6ea3f6c201f3dd5b6253cf37c137deb301c1f78fd3ac33d65455a83e259&quot;,</span><br><span class="line">    &quot;Created&quot;: &quot;2015-12-26T04:02:30.463035081Z&quot;,</span><br><span class="line">    &quot;Path&quot;: &quot;/entrypoint.sh&quot;,</span><br><span class="line">    &quot;Args&quot;: [</span><br><span class="line">        &quot;mysqld&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;State&quot;: &#123;</span><br><span class="line">        &quot;Status&quot;: &quot;running&quot;,</span><br><span class="line">        &quot;Running&quot;: true,</span><br><span class="line">        &quot;Paused&quot;: false,</span><br><span class="line">        &quot;Restarting&quot;: false,</span><br><span class="line">        &quot;OOMKilled&quot;: false,</span><br></pre></td></tr></table></figure>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2015/12/30/Container/Docker-Hadoop/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2015/12/23/AWS/EC2-Secondary-NI-on-Ubuntu/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2015-12-26 19:41:58
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#準備"><span class="toc-article-text">準備</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Docker-Machine-Info"><span class="toc-article-text">Docker Machine Info</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Start-MySQL-Server"><span class="toc-article-text">Start MySQL Server</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#MySQL-Client-and-DB-Tools"><span class="toc-article-text">MySQL Client and DB Tools</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#phpmyadmin"><span class="toc-article-text">phpmyadmin</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Container-的連結"><span class="toc-article-text">Container 的連結</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Inspect-Docker-Container-or-Docker-Machine"><span class="toc-article-text">Inspect Docker Container or Docker-Machine</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/Container/" style="color: white">Container <span class="badge">9</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Docker/" style="color: white">Docker <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/MySQL/" style="color: white">MySQL <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/phpmyadmin/" style="color: white">phpmyadmin <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

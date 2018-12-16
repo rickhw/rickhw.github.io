@@ -1,0 +1,586 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Study Notes - Deploy Wordpress using Elastic Beanstalk | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="整理如何利用 Elastic Beanstalk 架設 Wordpress 的筆記。
+
+Elastic Beanstalk 基本概念Elastic Beanstalk (以下簡稱 EB) 是 AWS 的 PaaS (platform as a service) 服務，概念類似於以前 Cloud9 或">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Study Notes - Deploy Wordpress using Elastic Beanstalk"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Study Notes - Deploy Wordpress using Elastic Beanstalk</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Study Notes - Deploy Wordpress using Elastic Beanstalk</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>整理如何利用 <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html" target="_blank" rel="noopener">Elastic Beanstalk</a> 架設 <a href="https://wordpress.org/" target="_blank" rel="noopener">Wordpress</a> 的筆記。</p>
+<a id="more"></a>
+<h2 id="Elastic-Beanstalk-基本概念"><a href="#Elastic-Beanstalk-基本概念" class="headerlink" title="Elastic Beanstalk 基本概念"></a>Elastic Beanstalk 基本概念</h2><p><a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html" target="_blank" rel="noopener">Elastic Beanstalk</a> (以下簡稱 EB) 是 AWS 的 PaaS (platform as a service) 服務，概念類似於以前 Cloud9 或者 Parse 線上 IDE + Backend Server ，開發者只要專注把應用程式開發好，透過 CLI or Console 就可以快速部署、測試、Blue/Green Deployment。</p>
+<p>EB 透過 CloudFormation 整合了 AWS 主要的核心服務，包含了以下：</p>
+<ul>
+<li><a href="/tags/VPC/">VPC</a></li>
+<li><a href="/tags/EC2/">EC2</a></li>
+<li><a href="/tags/ELB/">ELB</a></li>
+<li><a href="/tags/Auto-Scaling-Group/">Auto Scaling Group</a></li>
+<li><a href="/tags/S3/">S3</a></li>
+<li><a href="/tags/CloudWatch/">CloudWatch</a></li>
+<li><a href="/tags/RDS/">RDS</a></li>
+<li><a href="/tags/Route53/">Route53</a></li>
+<li><a href="/tags/CloudFormation/">CloudFormation</a></li>
+<li>SQS</li>
+</ul>
+<p>EB 提供了很多語言標準化的部屬環境，像是 Java, C#, Node.js, PHP, Golang, Python, Ruby, Docker …</p>
+<h2 id="Elastic-Beanstalk-Components"><a href="#Elastic-Beanstalk-Components" class="headerlink" title="Elastic Beanstalk Components"></a>Elastic Beanstalk Components</h2><ul>
+<li><code>Application</code>: 一個應用程式邏輯的集合，可以包含多個 <code>環境 (Environment)</code>、<code>版本 (Version)</code>、<code>環境配置 (environment configurations)</code> 等。</li>
+<li><code>Application Version</code>: 應用程式部署的版本，像是 java war, zip 等。</li>
+<li><code>Environment</code>: 提供不同環境的設定，通常會用來配置開發、測試、等不同的環境。</li>
+<li><code>Environment Configuration</code>: 環境配置，儲存了環境設定的資訊，像是 VPC, EC2, ASG … 等</li>
+</ul>
+<h1 id="Deploy-Wordpress-using-Elastic-Beanstalk"><a href="#Deploy-Wordpress-using-Elastic-Beanstalk" class="headerlink" title="Deploy Wordpress using Elastic Beanstalk"></a>Deploy Wordpress using Elastic Beanstalk</h1><h2 id="準備作業"><a href="#準備作業" class="headerlink" title="準備作業"></a>準備作業</h2><p>如果是使用個人的 AWS Account，成本考量通常 VPC 不會自己配置 NAT Gateway / Instance (除非你是自己開公司)，所以為了測試方便，先確認以下：</p>
+<ul>
+<li>VPC:<ul>
+<li>有兩個以上 <code>Public Subnet</code>, 用來放 EC2 使用的. (本 Lab 為了方便，所以放在 Public Subnet, 實務上應該放 Private Subnet)</li>
+<li>有兩個以上 <code>Private Subnet</code>: 用來放 RDS instance</li>
+<li>Network ACLs 已經打開, 確認 Public/Private Subnet 都有開</li>
+</ul>
+</li>
+<li>Security Group: 設定以下三個<ul>
+<li><code>Private-Default-EC2</code>: 設定一個 Security Group 允許 VPC 內部可以存取. RDS 選這個</li>
+<li><code>Protected-Default-EC2</code>: 設定一個允許自己工作環境可以存取</li>
+<li><code>Public-Default-EC2</code>: 允許 WAN 都可以連線<blockquote>
+<p>VPC and Security Group 的設計與規劃, 參閱： <a href="/2017/07/07/AWS/Plan-And-Deisgn-Multiple-VPCs-in-Different-Regions/">Plan and Design Multiple VPCs in Different Regions</a></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>建立好一把 EC2 KeyPair</li>
+<li>RDS<ul>
+<li>為 RDS 建立一個 subnet group, 選 private subnet. 如果想要從外面連進去，那麼就放 Public Subnet</li>
+<li>建立 Seuciry Groups, 設定 VPC CIDR 範圍</li>
+</ul>
+</li>
+</ul>
+<h2 id="安裝步驟"><a href="#安裝步驟" class="headerlink" title="安裝步驟"></a>安裝步驟</h2><ol>
+<li>建立 RDS</li>
+<li>準備 Wordpress 設定檔</li>
+<li>上傳 Application version</li>
+<li>建立 EB Environment</li>
+<li>測試</li>
+<li>建立 DNS</li>
+</ol>
+<h2 id="1-建立-RDS"><a href="#1-建立-RDS" class="headerlink" title="1. 建立 RDS"></a>1. 建立 RDS</h2><p>建立一個 RDS MySQL 測試用，注意 <code>Subnet Group</code>, <code>Security Group</code> 的設定。這裡為了方便測試，打開 RDS 的 Public Access，但是 Security Group 套用的是 <code>Protected</code> Level.</p>
+<p><img src="/images/AWS/EB-Wordpress/rds_01.png" alt=""><br><img src="/images/AWS/EB-Wordpress/rds_02.png" alt=""></p>
+<h2 id="2-設定-Wordpress"><a href="#2-設定-Wordpress" class="headerlink" title="2. 設定 Wordpress"></a>2. 設定 Wordpress</h2><p>到 <a href="https://wordpress.org/" target="_blank" rel="noopener">Wordpress</a> 下載最新版本，複製 <code>wp-config-sample.php</code> 改名為 <code>wp-config.php</code>，</p>
+<p>修改資料庫連線，改成如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="string">'DB_NAME'</span>,     $_SERVER[<span class="string">"RDS_DB_NAME"</span>]);</span><br><span class="line">define(<span class="string">'DB_USER'</span>,     $_SERVER[<span class="string">"RDS_USERNAME"</span>]);</span><br><span class="line">define(<span class="string">'DB_PASSWORD'</span>, $_SERVER[<span class="string">"RDS_PASSWORD"</span>]);</span><br><span class="line">define(<span class="string">'DB_HOST'</span>,     $_SERVER[<span class="string">"RDS_HOSTNAME"</span>]);</span><br></pre></td></tr></table></figure>
+<p>產生認證唯一金鑰設定: <code>https://api.wordpress.org/secret-key/1.1/salt/</code>，點選 link 產生內容，可以把這個內容放到 <code>wp-config.php</code> 或者透過環境變數傳入。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="string">'AUTH_KEY'</span>,         <span class="string">'YvnSl)~ &gt;uq*****************************************************'</span>);</span><br><span class="line">define(<span class="string">'SECURE_AUTH_KEY'</span>,  <span class="string">'VYO&#123;e*OX&amp;dO*****************************************************'</span>);</span><br><span class="line">define(<span class="string">'LOGGED_IN_KEY'</span>,    <span class="string">'+)[ba79A,Bl*****************************************************'</span>);</span><br><span class="line">define(<span class="string">'NONCE_KEY'</span>,        <span class="string">'!hg--^gcw`&#123;*****************************************************'</span>);</span><br><span class="line">define(<span class="string">'AUTH_SALT'</span>,        <span class="string">'MGR1|gqknFZ*****************************************************'</span>);</span><br><span class="line">define(<span class="string">'SECURE_AUTH_SALT'</span>, <span class="string">'e~|+EbTq*dK*****************************************************'</span>);</span><br><span class="line">define(<span class="string">'LOGGED_IN_SALT'</span>,   <span class="string">'BjG&#125;k x4L`-*****************************************************'</span>);</span><br><span class="line">define(<span class="string">'NONCE_SALT'</span>,       <span class="string">',~&lt;E,W@_-=v*****************************************************'</span>);</span><br></pre></td></tr></table></figure>
+<p>建議透過環境變數傳入，這裡為了方便，直接把整個放入 <code>wp-config.php</code></p>
+<p>把 wordpress 壓縮，要注意的是，是要把整包放入壓縮檔，不要另外建立 wordpress 目錄，以下是我的壓縮方式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">TS=`date +%Y%m%d-%H%M`</span><br><span class="line">IMAGE_NAME=<span class="string">"wordpress_b<span class="variable">$&#123;TS&#125;</span>.zip"</span></span><br><span class="line"></span><br><span class="line">rm -rf *.zip</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$IMAGE_NAME</span> &gt; VERSION.txt</span><br><span class="line">zip -ur <span class="variable">$&#123;IMAGE_NAME&#125;</span> *</span><br></pre></td></tr></table></figure>
+<p>這樣會產生一包 <code>wordpress_b20170716-1825.zip</code> 的壓縮檔，裡面會放一個內容同檔名的檔案 <code>VERSION.txt</code> ，用來作為部署時的版本識別。</p>
+<h2 id="3-上傳-Application-version"><a href="#3-上傳-Application-version" class="headerlink" title="3. 上傳 Application version"></a>3. 上傳 Application version</h2><ol>
+<li>建立一個 EB <code>Application</code>，取名為 <code>Wordpress</code></li>
+<li>點選 <code>Wordpress</code> Application –&gt; 點選 <code>Application version</code> –&gt; 點選右上角的 <code>Upload</code></li>
+<li>把前一個步驟壓縮的 <code>wordpress_b20170716-1825.zip</code> 上傳，並且命名為 <code>wordpress_b20170716-1825</code></li>
+</ol>
+<h2 id="4-建立-EB-Environment"><a href="#4-建立-EB-Environment" class="headerlink" title="4. 建立 EB Environment"></a>4. 建立 EB Environment</h2><ol>
+<li><p>點選右上角的 <code>Actions</code> -&gt; <code>Create environment</code></p>
+<ul>
+<li>env name: <code>wp-1-1-1-prod</code></li>
+<li>domain: <code>wp-1-1-1-prod</code><br><img src="/images/AWS/EB-Wordpress/01_create-env.png" alt=""></li>
+</ul>
+</li>
+<li><p>Basic Config:</p>
+<ul>
+<li>Platform: PHP</li>
+<li>Application code: existing version - <code>wordpress_b20170716-1825</code><br><img src="/images/AWS/EB-Wordpress/01-1_basic_config.png" alt=""></li>
+</ul>
+</li>
+<li><p>點選 <code>confirure more options</code>, 不要點選 <code>Create environment</code><br><img src="/images/AWS/EB-Wordpress/01-2_config-more-options.png" alt=""></p>
+</li>
+<li><p>Software Settings</p>
+<ul>
+<li>開啟 <code>CloudWatch Logs</code></li>
+<li>設定 Environment Properties, 加入四個在 <code>wp-config.php</code> 設定的變數，都是 <code>RDS_</code> 開頭的<br><img src="/images/AWS/EB-Wordpress/02_software-settings.png" alt=""></li>
+</ul>
+</li>
+<li><p>Auto Scaling: 把 Single instance 改成 ASG. max/min 先設定 1 就好。<br><img src="/images/AWS/EB-Wordpress/03_asg.png" alt=""></p>
+</li>
+<li><p>設定 Scaling out 的條件<br><img src="/images/AWS/EB-Wordpress/03-2_tigger.png" alt=""></p>
+</li>
+<li><p>設定 EC2 Instance Type, 為了省錢，改為 <code>t2.nano</code><br><img src="/images/AWS/EB-Wordpress/03-1_instance.png" alt=""></p>
+</li>
+<li><p>設定 EC2 的 IAM Role, KeyPair. 為了之後 Debug 先指定一把 keypair.<br><img src="/images/AWS/EB-Wordpress/04_security.png" alt=""></p>
+</li>
+<li><p>指定 VPC, 設定 ELB, EC2 的 Subnet. 這邊為了方便測試，都用 Public Subnets<br><img src="/images/AWS/EB-Wordpress/05_vpc.png" alt=""></p>
+</li>
+<li><p>指定 EC2 跑起來時要使用的 Security Group, 為了方便測試選擇 <code>Private-Default-EC2</code>, <code>Protoected-Default-EC2</code><br><img src="/images/AWS/EB-Wordpress/05-1_sg.png" alt=""></p>
+</li>
+<li><p>建立 EB Environment, 這會需要花一點時間。<br><img src="/images/AWS/EB-Wordpress/06_create-eb-env.png" alt=""></p>
+</li>
+<li><p>EB 是用 CloudFormation 實作，這時候切換去 CFM 可以看到整個進度：<br><img src="/images/AWS/EB-Wordpress/06-1_cfm.png" alt=""></p>
+</li>
+</ol>
+<h2 id="5-測試"><a href="#5-測試" class="headerlink" title="5. 測試"></a>5. 測試</h2><p>順利的話，經過一段時間就可點選 <code>URL</code> 測試，正常會出現以下畫面：</p>
+<p><img src="/images/AWS/EB-Wordpress/07-test.png" alt=""></p>
+<p>把資料填一填，Wordpress 就可以使用了。</p>
+<h2 id="6-建立-DNS-Route53"><a href="#6-建立-DNS-Route53" class="headerlink" title="6. 建立 DNS (Route53)"></a>6. 建立 DNS (Route53)</h2><p>在 Route53 設定 <code>A Record</code>，選擇 <code>alias</code> 可以直接關連到 EB.</p>
+<p><img src="/images/AWS/EB-Wordpress/08_Bind-dns.png" alt=""></p>
+<h2 id="Debug-in-EC2"><a href="#Debug-in-EC2" class="headerlink" title="Debug in EC2"></a>Debug in EC2</h2><p>建立過程，如果有發生問題，可以連到 EC2 Instance 裡面找問題，以下是幾個可以檢查的路徑：</p>
+<ul>
+<li><code>/var/log/eb-cfn-init.log</code>: 確認 EB 可以正常 init.<ul>
+<li>EB 初始的時候需要連去 S3 下載相關工具</li>
+<li>如果是網路問題，像是 EC2 Instance 放在 Private Subnet，卻沒有 NAT，那麼這裡就會到 EB 無法對外存取</li>
+</ul>
+</li>
+<li><code>/var/log/eb-activity.log</code>: EB 安裝工具的 Log，像是安裝 CloudWatch Log</li>
+<li><code>/var/log/cfn-init.log</code>: EB 是用 CloudFormation 實作，CFM 相關的 Log 會放這裡</li>
+<li><code>/var/log/awslogs.log</code>: 如果有開啟 CloudWatch Log, 相關資訊會在這裡</li>
+<li><code>/var/app/current</code>: 安裝的應用程式會放這裡。WP 解壓所後的資料都在這裡，這個會被 link 到 <code>/var/www/html</code></li>
+<li><code>/etc/elasticbeanstalk</code>: EB 的設定檔，包含 <code>ulimit</code></li>
+<li><code>/opt/elasticbeanstalk</code>: EB 應用程式的安裝路徑</li>
+</ul>
+<p>我遇到大部分都是 Network Access Control 的問題，所以一開始設定好 Security Group, VPC Public Subnet 很重要。</p>
+<h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><ul>
+<li><a href="/2017/07/22/AWS/Study-Notes-Deploy-NodeJS-App-using-EBCLI/">Study Notes - Deploy Node.js App using EB CLI</a></li>
+<li><a href="/2017/07/07/AWS/Plan-And-Deisgn-Multiple-VPCs-in-Different-Regions/">Plan and Design Multiple VPCs in Different Regions</a></li>
+<li><a href="/2017/05/12/AWS/Study-Notes-AutoScaling-Lifecycle-And-Introduce/">Study Notes - AutoScaling Lifecycle and Introduce</a></li>
+<li><a href="/2017/02/04/AWS/Study-Notes-AutoScaling_Basic-Concept/">Study Notes - Basic Concept of Auto Scaling</a></li>
+<li><a href="/2016/03/02/AWS/Study-Notes-ELB/">Study Notes - AWS ELB (Elastic Load Balance)</a></li>
+<li><a href="/2016/02/21/AWS/Study-Notes-VPC/">Study Notes - AWS VPC (Virtual Private Cloud)</a></li>
+<li><a href="/2017/03/02/AWS/Study-Notes-CloudWatch/">Study Notes - CloudWatch</a></li>
+<li><a href="/2016/04/07/AWS/Study-Notes-S3/">Study Notes - AWS S3</a></li>
+<li><a href="/2016/03/14/AWS/Study-Notes-Route53/">Study Notes - AWS Route53</a></li>
+</ul>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<li><a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html" target="_blank" rel="noopener">AWS Elastic Beanstalk</a></li>
+<li><a href="https://medium.com/@sebastianhsu/%E7%94%A8aws-elastic-beanstalk%E6%9E%B6%E8%A8%ADwordpress%E5%85%A8%E6%94%BB%E7%95%A5-%E4%B8%80-%E8%AA%AA%E8%AA%AA-64cd2ca6a0b9" target="_blank" rel="noopener">用AWS Elastic Beanstalk架設WordPress全攻略</a></li>
+<li><a href="http://jayendrapatil.com/aws-elastic-beanstalk/" target="_blank" rel="noopener">AWS Elastic Beanstalk – Certification</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2017/07/20/Management/台灣的軟體產業/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2017/07/16/AWS/Deep-Dive_EBS/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2017-07-16 22:22:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Elastic-Beanstalk-基本概念"><span class="toc-article-text">Elastic Beanstalk 基本概念</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Elastic-Beanstalk-Components"><span class="toc-article-text">Elastic Beanstalk Components</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Deploy-Wordpress-using-Elastic-Beanstalk"><span class="toc-article-text">Deploy Wordpress using Elastic Beanstalk</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#準備作業"><span class="toc-article-text">準備作業</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#安裝步驟"><span class="toc-article-text">安裝步驟</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#1-建立-RDS"><span class="toc-article-text">1. 建立 RDS</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-設定-Wordpress"><span class="toc-article-text">2. 設定 Wordpress</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-上傳-Application-version"><span class="toc-article-text">3. 上傳 Application version</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#4-建立-EB-Environment"><span class="toc-article-text">4. 建立 EB Environment</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#5-測試"><span class="toc-article-text">5. 測試</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#6-建立-DNS-Route53"><span class="toc-article-text">6. 建立 DNS (Route53)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Debug-in-EC2"><span class="toc-article-text">Debug in EC2</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀-站內"><span class="toc-article-text">延伸閱讀 (站內)</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/AWS/" style="color: white">AWS <span class="badge">66</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/EC2/" style="color: white">EC2 <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/Elastic-Beanstalk/" style="color: white">Elastic Beanstalk <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/S3/" style="color: white">S3 <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Route53/" style="color: white">Route53 <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/VPC/" style="color: white">VPC <span class="badge">20</span></a></span> <span class="label label-success"><a href="/tags/ELB/" style="color: white">ELB <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">19</span></a></span> <span class="label label-success"><a href="/tags/CloudFormation/" style="color: white">CloudFormation <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/Auto-Scaling-Group/" style="color: white">Auto Scaling Group <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/DevOps/" style="color: white">DevOps <span class="badge">17</span></a></span> <span class="label label-success"><a href="/tags/RDS/" style="color: white">RDS <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Wordpress/" style="color: white">Wordpress <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/SQS/" style="color: white">SQS <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

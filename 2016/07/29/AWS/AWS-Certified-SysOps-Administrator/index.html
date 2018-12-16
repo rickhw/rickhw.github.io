@@ -1,0 +1,625 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>AWS Certified SysOps Administrator - Associate 準備心得 | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="考完 Solutions Architect (以下簡稱 ASA) 之後，就開始準備考這張 SysOps Administrator (以下簡稱 ASOA)，主要因為現在主要的工作內容就是 System Operations / Administration 為主。
+以下整理 Study 的摘要與心">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="AWS Certified SysOps Administrator - Associate 準備心得"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> AWS Certified SysOps Administrator - Associate 準備心得</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> AWS Certified SysOps Administrator - Associate 準備心得</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p><img src="/images/AWS/AWS_Certified_Study-SysOps-Admin.JPG" alt=""></p>
+<p>考完 <a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/">Solutions Architect</a> (以下簡稱 ASA) 之後，就開始準備考這張 <code>SysOps Administrator</code> (以下簡稱 ASOA)，主要因為現在主要的工作內容就是 <code>System Operations / Administration</code> 為主。</p>
+<p>以下整理 Study 的摘要與心得。</p>
+<blockquote>
+<p>Updated 2018/06/12：AWS 已經發布新版的 SysOps 版本，正在準備的人請注意 <a href="https://d1.awsstatic.com/training-and-certification/docs-sysops-associate/AWS_Certified_SysOps_Associate_Beta_Exam_Guide_v1.3_Final.pdf" target="_blank" rel="noopener">官方資訊 - SOA-C01</a> (PDF)。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="準備的方向"><a href="#準備的方向" class="headerlink" title="準備的方向"></a>準備的方向</h1><p>範圍跟 ASA 一樣的參考點，都還是來自 <a href="http://awstrainingandcertification.s3.amazonaws.com/production/AWS_certified_sysops_associate_blueprint.pdf" target="_blank" rel="noopener">BluePrint</a>.</p>
+<h2 id="考試項目"><a href="#考試項目" class="headerlink" title="考試項目"></a>考試項目</h2><p>以下根據 <a href="http://awstrainingandcertification.s3.amazonaws.com/production/AWS_certified_sysops_associate_blueprint.pdf" target="_blank" rel="noopener">BluePrint</a> 的準備 Domain / Topic ，我自己在每個項目放入一些 AWS Services，還有相關的課題當作準備的方向：</p>
+<ol>
+<li>Monitoring and Metrics:<ul>
+<li>CloudWatch 基本的概念，包含 Namespaces、Dimensions、and Metrics.</li>
+<li>透過 CloudWatch 監控相關的服務，像是 ELB、EC2、RDS、ElasticCache、ASG</li>
+<li>EC2 開機的生命週期、狀態等</li>
+<li>如何建構一個 global 的 Monitor System</li>
+<li>如何保護 VPC 裡的 Monitor System</li>
+</ul>
+</li>
+<li>High Availability:<ul>
+<li>ELB / ASG: ASG 的生命週期、跟 ELB 的搭配、預算考量、還有 Troubleshooting</li>
+<li>RDS / ElasticCache: RDS MultiAZ 是什麼，跟 Replica 有啥差？Failover 是啥？</li>
+<li>VPC (AZ): VPC 很重要，真的很重要！不只這張，<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/">ASA</a> 也是很重要，很多觀念都會跟 VPC 有關係，所以一定要把 VPC 概念搞懂、弄熟、多做 Troubleshooting 很重要！</li>
+<li>建立各式各樣的 HA: VPN (VGW)、NAT、EC2</li>
+</ul>
+</li>
+<li>Analysis</li>
+<li>Deployment and Provisioning<ul>
+<li>AWS CLI</li>
+<li>OpsWorks、CloudFormation</li>
+</ul>
+</li>
+<li>Data Management:<ul>
+<li>相關服務：S3、EBS、Storage Options</li>
+<li>Backup and Recovery</li>
+</ul>
+</li>
+<li>Security: IAM、Cloudtrail、STS、Security Process on AWS</li>
+<li>Network: VPC / Route53 / VPC / Direct Connect<ul>
+<li>再次強調，VPC 很重要！實務上更是，因為沒弄好，維護以及資安會是一場災難。</li>
+</ul>
+</li>
+</ol>
+<p>ASOA 的準備方式其實跟 ASA 很像，不過前者分布比較平均，基本上啥都要懂一些，考的內容大概也都是做 Operator 真的會遇到的；而 ASA 比較偏向架構面的設計。</p>
+<h2 id="Whitepapers-必讀"><a href="#Whitepapers-必讀" class="headerlink" title="Whitepapers (必讀)"></a>Whitepapers (必讀)</h2><p>同樣的 Whitepapers 還是很重要，以下是 Blueprint 提到要讀的，有些跟 ASA 重複了。</p>
+<ul>
+<li><a href="https://d0.awsstatic.com/whitepapers/aws-security-whitepaper.pdf" target="_blank" rel="noopener">Overview of Security Processes</a></li>
+<li><a href="https://media.amazonwebservices.com/AWS_Storage_Options.pdf" target="_blank" rel="noopener">Storage Options in the Cloud</a></li>
+<li><a href="http://media.amazonwebservices.com/AWS_Building_Fault_Tolerant_Applications.pdf" target="_blank" rel="noopener">Defining Fault Tolerant Applications in the AWS Cloud</a></li>
+<li><a href="https://d36cz9buwru1tt.cloudfront.net/AWS_Overview.pdf" target="_blank" rel="noopener">Overview of Amazon Web Services</a></li>
+<li><a href="https://media.amazonwebservices.com/AWS_Cloud_Best_Practices.pdf" target="_blank" rel="noopener">Architecting for the AWS Cloud</a></li>
+<li><a href="http://media.amazonwebservices.com/AWS_Disaster_Recovery.pdf" target="_blank" rel="noopener">AWS Disaster Recovery</a><ul>
+<li>這篇 Blueprint 沒提，不過我覺得滿重要的。是很多 System Operations 很重要的任務之一</li>
+<li>DR 也是 Solution Architect Pro 的考試重點之一</li>
+</ul>
+</li>
+</ul>
+<h2 id="準備資源"><a href="#準備資源" class="headerlink" title="準備資源"></a>準備資源</h2><ul>
+<li><a href="http://acloud.guru" target="_blank" rel="noopener">A Cloud Guru</a>: 提供 AWS 認證線上錄影課程，包含五張證照以及其他像是 Lambda、Security、CloudFormation 都有。證照有包含模擬考。</li>
+<li>CloudAcademy: 有 APP 可以做練習，一個月 150，題庫很多。</li>
+<li><a href="http://jayendrapatil.com/" target="_blank" rel="noopener">Jayendra’s Blog</a>: 一個整理很多 AWS 服務重點的 Blog，而且還把蒐集了不少題目，對考試來說，很有參考價值。</li>
+</ul>
+<blockquote>
+<p>補充：A Cloud Guru 是不錯的 Guideline，不過模擬考偏簡單、而且內容有點舊、範圍我覺得可以討論。實際考試會是 Troubleshooting 比較多，所以最好多練習為主。</p>
+</blockquote>
+<p>除了上述東西，其實準備這張的過程，我大部份時間都在看 Youtube 上的 seminar，以下是我自己看過整理的 playlist:</p>
+<ul>
+<li><a href="https://www.youtube.com/playlist?list=PL63J1r2PBvoinfApop278sDizqwH6inbs" target="_blank" rel="noopener">AWS Summit 2016 - Deep Dive</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PL63J1r2PBvog0xRPkwW4zL6ou9XD_uFGu" target="_blank" rel="noopener">AWS Masterclass</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PL63J1r2PBvoi3drRhttKnlj2N0ekh-SQD" target="_blank" rel="noopener">AWS Webinar</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PL63J1r2PBvoigDMinqcgmGXdlG-bxjM7b" target="_blank" rel="noopener">AWS Tutorial Series</a></li>
+</ul>
+<p>不過其實跟這張考試內容沒啥關係 :p</p>
+<h2 id="建議閱讀"><a href="#建議閱讀" class="headerlink" title="建議閱讀"></a>建議閱讀</h2><ul>
+<li><a href="https://www.youtube.com/playlist?list=PL63J1r2PBvoigDMinqcgmGXdlG-bxjM7b" target="_blank" rel="noopener">AWS Tutorial Series</a> 這裡有些不錯的 Tutorial &amp; Lab，針對沒有使用過的 Services 或者應用，如果沒有資源可以練習，可以從這理著手。System Operations 有些事情是很難做 Lab 的，像是 VPN to on-premises ，公司可能沒有那麼多設備可以實驗。</li>
+<li>AWS on Youtube: 這裡的資源真的很多，幾乎所有的 AWS Summit 都在上面。有這幾大類：<code>Introduction</code>、<code>Deep Dive</code>、<code>Masterclass</code>、<code>Webinar</code>、<code>年度各區域的 Summit Series</code>、<code>Case Study</code>. 建議依據 <a href="http://awstrainingandcertification.s3.amazonaws.com/production/AWS_certified_sysops_associate_blueprint.pdf" target="_blank" rel="noopener">Blueprint</a> 的 topic，然後整理出自己的 playlist，定時閱讀，增加內力！</li>
+</ul>
+<h1 id="考試心得"><a href="#考試心得" class="headerlink" title="考試心得"></a>考試心得</h1><h2 id="心得一：證照有用？"><a href="#心得一：證照有用？" class="headerlink" title="心得一：證照有用？"></a>心得一：證照有用？</h2><p>台灣人最厲害的就是考試，特別是證照。像是 M$ MCXX 系列一向在業界的鑑別度不高，也就是不會因為有這張就受公司、老闆信任，也不代表真的能領高薪、有實力。</p>
+<p>考完 <a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/">ASA</a> 之後，我也面臨被公司或同事 Challenge 證照是否有用？是否代表實力？證照是加分還是減分？這張 <code>SysOps Admin</code> 是跟系統維運比較有關係，其實就是我現在工作的主要內容，實務上來說比上一張還有用。考試除了對於 AWS 本身有更多認識，對於 <code>System Operations</code> 則有更深的思考，這部份後述。</p>
+<p>至於證照有沒有用，有時候需要天時、地利、人和，所以現在很難說，但機會來的時候，至少要準備好。</p>
+<p>對我來講，持續學習、思考、組織所學，做什麼都可以發會他的作用。</p>
+<h2 id="心得二：真的夠專業？"><a href="#心得二：真的夠專業？" class="headerlink" title="心得二：真的夠專業？"></a>心得二：真的夠專業？</h2><p>證照是否代表 <code>專業</code> 很難說，對我來說能解決領域問題的就是 <code>專業</code>。</p>
+<p>考過證照應該會有全面性的認識、對系統有基本的駕馭力，再加上有實務的經驗、思考問題本質的能力，進而累積解決問題的能力，其實才是專業。</p>
+<p>能夠從學校畢業，應該要滿足對於特定領域的 <code>全面性認識</code> 與 <code>基本駕馭力</code>，通常最後一年都會有實務專題搭配，讓學生能夠真的滿足專業需求。不過實際上好像不是這樣的 …</p>
+<p>所以回到第一段心得提到的：台灣人很會考證照，跟台灣有很多大學畢業生問題根源是一樣的，但是都跟專業扯不上邊。</p>
+<p><code>思考問題本質</code> 是能否有專業度的關鍵點。</p>
+<blockquote>
+<p>『專業』和『資深』是不同的，另外一篇整理這樣的想法： <a href="/2015/08/22/Management/Senior-Software-Developer/">Senior Software Developer</a></p>
+</blockquote>
+<h2 id="心得三：準備"><a href="#心得三：準備" class="headerlink" title="心得三：準備"></a>心得三：準備</h2><p>其實這張並沒有像 <a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/">ASA</a> 那樣認真準備，因為從上次考完試到這張考試過程當中，公司要求我去上一個 M$ 的課程，為期一個月。</p>
+<p>上完微軟的課之後，就開始準備，剛好 <a href="https://acloud.guru" target="_blank" rel="noopener">A Cloud Guru</a> 有認證課程的 Bundle 在特價，就一次買了全部五張，然後每天讀一點，然後同步也看之前 ASA 的內容，補充一些不足的、不知道的。這時間又因為 <a href="https://www.youtube.com/playlist?list=PL63J1r2PBvoinfApop278sDizqwH6inbs" target="_blank" rel="noopener">AWS Summit 2016 Deep Dive</a> 系列一直在出現在 Youtube，所以反而花最多時間在聽這些東西。我是大考大玩，小考小玩的個性，所以考試前兩週做完 Practice Exam 之後，就不碰相關的東西了，反正會過就過 XDD</p>
+<p>這張重點著重在系統維運管理 (System Operations and Administration)，是我現在工作的主要內容，像是：</p>
+<ul>
+<li>系統監控</li>
+<li>改善既有系統架構、高可用度</li>
+<li>備份還原</li>
+<li>安全性升級</li>
+<li>安全性檢測、SSL、Key 管理</li>
+<li>改善網路架構、串 VPN、不同環境 (Dev/Test/Prod) 資源管理</li>
+<li>資源管理</li>
+<li>預算</li>
+</ul>
+<p>考題的 Troubleshooting 像是：</p>
+<ul>
+<li>要如何解決 Applications 沒有 MultiAZ 的問題？</li>
+<li>要如何處理 EC2 instance 從 public subnet 轉到 private subnet？</li>
+<li><a href="/2016/10/10/AWS/Migrate-to-AWS-NAT-Gateway/">NAT Instance 切換到 NAT Gateway</a></li>
+<li>要如何處理監控環境的 Security Group 設定？</li>
+<li>如何發現系統裡面的單點？發現後怎麼處理？</li>
+<li>線上機器發生 ELB Latency 飆高，要如何處理？</li>
+<li>線上機器 EBS 空間不夠了，要怎麼處理？</li>
+<li>備份的作法與 Storage 的選擇？</li>
+<li>當有行銷單位預告有大量的活動時，要怎麼處理？</li>
+<li>公司不想有太多對外 IP，但是又需要有開機器讓同仁連到 VPC，要怎麼辦？</li>
+</ul>
+<p>這些問題在實務上都遇過，同時也解過，所以準備起來就相對輕鬆。</p>
+<p>考試的範圍大於工作的內容，因為有些東西現在公司沒用到 (e.g. RDS、ASG)，所以只能自己練習。</p>
+<h2 id="心得四：角色的思考"><a href="#心得四：角色的思考" class="headerlink" title="心得四：角色的思考"></a>心得四：角色的思考</h2><p>準備這張之前，我一直在思考 AWS 定義的這五張證照定義之間的差異，以及他們實際在企業組織裡的角色差異是什麼？</p>
+<ul>
+<li><code>SysOps Administrator</code>: 這個角色，比較接近一般企業的 IT 或者 Operator。那這些角色的工作核心是什麼？我覺得依照公司的規模、組織、企業發展的階段，會有不同的角色。<ul>
+<li>這張考試的角色比較像是針對線上產品的 Operation，跟企業內部的 IT 有點不一樣。</li>
+<li>中小型公司這兩個小角色通常都是同一個人 (公司為了省錢)，實務上兩角色的面向還是有差的，一個是對外、一個是對內。</li>
+<li>這角色名稱有很多種：System Operator/Engineer、IT Operator、DevOps Engineer … 都有點像。小公司會包含 MIS ，就是修電腦、打雜的。</li>
+<li>在 AWS 上可以用 CLI 自動化跟維運有關的事情，所以我把它叫 <a href="/2016/08/03/AWS/Ops-as-Code-with-AWSCLI/">Ops as Code</a>，就是利用 Cloud 這種可程式化的特性，做維運管理。</li>
+</ul>
+</li>
+<li><code>Developer</code>: AWS 定義的這個角色就是使用幾個 Key Services 開發應用程式，像是 EC2、ELB、S3、CloudFront、DynamoDB、SQS、SNS、SES、AWS SDK … 等。<ul>
+<li>不過 AWS 新東西進展很快，我覺得還要有這些：Lambda、API Gateway、ECS …</li>
+<li>AWS 對 Developer Certificate Roadmap 的定義只能往 <code>DevOps Engineer</code> 走，我覺得應該也可以往 <code>Solution Architect</code> 走才對。特別是 <code>DevOps Engineer</code> 是做啥的，其實每個人都會有不同的解釋。</li>
+</ul>
+</li>
+<li><code>DevOps Engineer</code>: 專注於部署方法/技術、自動化、以及維運流程的方面。<ul>
+<li>對應到 AWS Services 就是 Beanstalk、CloudFormation、CodeDeploy、CodePipe、CodeCommit、OpsWork …</li>
+<li>實務面我定義負責 <code>CI (Continue Integration)</code>、<code>CD (Continue Delivery)</code>、<code>Infra as Code</code> … 等任務.<ul>
+<li>Infra as Code 工具：Jenkins、CloudFormation、Terraform、Ansible、Chef … etc</li>
+</ul>
+</li>
+<li>具備 <code>Developer</code> 和 <code>SysOps</code> 雙重角色的混合，在組織與流程上扮演潤滑劑的角色。</li>
+<li>有些任務會跟 <code>SysOps</code> 重疊，我用時間軸定義成 DevOps 是 Deployment 後穩定了，之後就是 SysOps 的任務了。當然這隨組織與公司規模，會有不同的說法。</li>
+</ul>
+</li>
+<li><code>Solution Architect</code>: 應該就是 <code>軟體系統架構師</code>，我認為除了軟體架構之外，還要包含網路架構、資安架構、部署方法、維運流程、預算、人員組織、開發流程 … 等面向，不管是針對新的商務需求、或者既有系統，都能夠提出有效的 <code>解決方案</code>，並且在技術上以及流程上提出最佳實務方法，是個地位非常崇高的角色。</li>
+<li><code>Security Operator</code>、<code>Data Engineer</code>: 這兩個角色在 AWS Certified Roadmap 裡面有，但是還沒 ready，但未來應該也是很搶手吧？</li>
+</ul>
+<p>最後回到這張證照的角色，什麼是 <code>System Operations</code>？什麼叫做 <code>Maintain</code>? 中文叫做 <code>系統維運</code> 跟 <code>維護</code>，其實我一直在思考其中的意涵，最後有了這樣的解釋：</p>
+<ul>
+<li><code>維運 (operation)</code>: 名詞，包含的是制度、流程、方法、資源管理、預算、決策 …. 等 <code>制度管理面</code>，可以想像是時間軸的管理，任務項目就會是下面維護中提到的。</li>
+<li><code>維護 (maintain)</code>: 動詞，執行既定的任務，最常見的就是系統監控、資安、系統升級、備份還原、SSL、帳號權限管理、Key 管理、Log 分析、網路架構、處理儲存問題、資源管理 … 等。其實都是單一的任務分類，但是並沒有特別提到流程、制度面。</li>
+</ul>
+<p>兩者的層面以及思維差很多。</p>
+<p>我把考試這件事情當作是投資，重點是學習與思考的過程，目的是能夠看清楚迷霧般的世界，的一小部分。這張考試對我來講，思考角色這件事情的價值，遠大於證照本身。</p>
+<p><img src="/images/AWS/SysOps-Administrator-Associate.png" alt=""></p>
+<h2 id="難易度與薪資"><a href="#難易度與薪資" class="headerlink" title="難易度與薪資"></a>難易度與薪資</h2><p>很多人會問這五張的難易度，網路上有人這樣說：</p>
+<pre><code>Solution Architect Pro &gt; DevOps &gt; SysOps &gt; ASA &gt; Developer
+</code></pre><p>我覺得好像是如此，但因為 ASA 讀太多東西了 (Over SysOps 範圍了)，所以這張 SysOps 反而沒覺得比 ASA 難，ASA 大概是第一次考，心理上的難度反而是最高。</p>
+<p>但這個說法，我猜這個人應該本身就是 <code>Developer</code> 出身，如果是 <code>Operation / IT</code> 出身，排序可能是這樣：</p>
+<pre><code>Solution Architect Pro &gt; DevOps &gt; Developer &gt; ASA &gt; SysOps
+</code></pre><p>難易度問完了，接下來就會有人問這五張的薪資排名？我 <a href="http://blog.globalknowledge.com/certification/whats-the-value-of-an-aws-certification/" target="_blank" rel="noopener">找到</a> 這樣的薪資比例：</p>
+<pre><code>Developer &gt; Solution Architect Pro &gt; ASA &gt; SysOps
+</code></pre><p><img src="/images/AWS/Value-of-AWS-Certification.png" alt=""></p>
+<p>恩，看起來還是寫 Code 最賺錢。不過有沒有價值，應該不是有多少證照，而是因為『你』這個人本身能貢獻什麼。</p>
+<h1 id="思考本質"><a href="#思考本質" class="headerlink" title="思考本質"></a>思考本質</h1><p>考試的目的是在學習每個事物的 <a href="/2017/11/26/Thinking-in-Essence/">本質</a>，了解這些事物的性質、特性、為什麼會有這樣的東西 … 等。然後透過問題將這些 <a href="/2017/11/26/Thinking-in-Essence/">本質</a> 連線起來，創造出應用。</p>
+<p>應用本身可以是既有的、也可以是新創的，然後就會像下面這張圖 (引用自 <a href="https://twitter.com/hughcards/status/423952995240648704" target="_blank" rel="noopener">Hugh MacLeod</a>)：</p>
+<p><img src="/images/About/Learning-Approaches/Knowledge_Experience.png" alt="Photo Credit: Hugh MacLeod"></p>
+<p>透過考試了解了 AWS 的服務用法、思考他的設計 <a href="/2017/11/26/Thinking-in-Essence/">本質</a>，然後串聯、再連結，變成一種應用，或者再創造。</p>
+<p>我在另一個 Blog 整理的心得：<a href="http://rickmidi.blogspot.com/2015/03/arpeggios-gmaj7.html" target="_blank" rel="noopener">吉他琶音的練習 - 以 Gmaj7 為例</a>，最後結論也提到一樣的想法。</p>
+<p>很多領域看似沒什麼關聯，很多時候我們覺得『隔行如隔山』，但其實對我來看，他們背後都有存在著同樣的『道』。而我要繼續往 <a href="/2016/08/20/AWS/AWS-Certified-Developer/">下一個『道』</a> 前進了。</p>
+<h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><ul>
+<li><a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/">AWS Certified Solutions Architect - Associate 考試準備筆記</a> (2016/04/22)</li>
+<li><a href="/2016/08/20/AWS/AWS-Certified-Developer/">AWS Certified Developer - Associate 準備心得</a> (2016/08/20)</li>
+<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用 - AWS User Group Taiwan</a> (2017/06/21)</li>
+<li><a href="/2016/08/03/AWS/Ops-as-Code-with-AWSCLI/">Ops as Code with AWS CLI</a></li>
+<li><a href="/2015/08/22/Management/Senior-Software-Developer/">Senior Software Developer</a></li>
+<li><a href="/2016/10/01/AWS-Study-Roadmap/">AWS Study Roadmap by Categories</a></li>
+<li><a href="/2016/10/10/AWS/Migrate-to-AWS-NAT-Gateway/">Migrate to AWS NAT Gateway</a></li>
+<li><a href="/2017/03/02/AWS/Study-Notes-CloudWatch/">Study Notes - CloudWatch</a></li>
+<li><a href="/2017/09/14/SoftwareEngineering/Software-Development-Lifecycle/">Software Development Lifecycle</a> (2017/09/14)</li>
+<li><a href="/tags/SRE/">Site Reliability Engineering</a></li>
+</ul>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<li><a href="http://jayendrapatil.com/" target="_blank" rel="noopener">Jayendra’s Blog</a></li>
+<li><a href="http://www.syscom.com.tw/ePaper_Content_EPArticledetail.aspx?id=501&amp;EPID=223&amp;j=3&amp;HeaderName=%E7%A0%94%E7%99%BC%E6%96%B0%E8%A6%96%E7%95%8C" target="_blank" rel="noopener">淺談 IT 維運管理系統</a></li>
+<li><a href="http://blog.globalknowledge.com/certification/whats-the-value-of-an-aws-certification/" target="_blank" rel="noopener">What’s the Value of an AWS Certification?</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Solution_architect" target="_blank" rel="noopener">Solution Architect</a></li>
+<li><a href="http://blog.scottlowe.org/2015/11/21/using-ssh-bastion-host/" target="_blank" rel="noopener">Using an SSH Bastion Host</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2016/08/03/AWS/Ops-as-Code-with-AWSCLI/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2016/07/09/AWS/EC2-Instance-Lifecycle-And-Troubleshooting/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2016-07-29 18:53:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#準備的方向"><span class="toc-article-text">準備的方向</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#考試項目"><span class="toc-article-text">考試項目</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Whitepapers-必讀"><span class="toc-article-text">Whitepapers (必讀)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#準備資源"><span class="toc-article-text">準備資源</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#建議閱讀"><span class="toc-article-text">建議閱讀</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#考試心得"><span class="toc-article-text">考試心得</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#心得一：證照有用？"><span class="toc-article-text">心得一：證照有用？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#心得二：真的夠專業？"><span class="toc-article-text">心得二：真的夠專業？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#心得三：準備"><span class="toc-article-text">心得三：準備</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#心得四：角色的思考"><span class="toc-article-text">心得四：角色的思考</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#難易度與薪資"><span class="toc-article-text">難易度與薪資</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#思考本質"><span class="toc-article-text">思考本質</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀-站內"><span class="toc-article-text">延伸閱讀 (站內)</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/AWS/" style="color: white">AWS <span class="badge">66</span></a></span> <span class="label label-info"><a href="/categories/AWS/AWS-Certified/" style="color: white">AWS Certified <span class="badge">6</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/AWS-CLI/" style="color: white">AWS CLI <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Ops-as-Code/" style="color: white">Ops as Code <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/System-Operations/" style="color: white">System Operations <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/創新/" style="color: white">創新 <span class="badge">2</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

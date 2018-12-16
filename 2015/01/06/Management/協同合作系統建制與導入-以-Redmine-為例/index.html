@@ -1,0 +1,737 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>協同合作系統建制與導入 - 以 Redmine 為例 | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="我很重視團隊溝通的效率和方法，包含 問題回報、文件表達、會議、工作管理，因為 溝通＝成本。以前系統沒那麼進步，這些成本就算了，但是現在時代那麼進步，還用很沒效率的方法在做事，就很可惜。通常系統的設計是符合一般的需求，而且是遠大於需求，所以導入一套系統制度，通常要改變的不是系統，而是人。當然系統也要調">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="協同合作系統建制與導入 - 以 Redmine 為例"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> 協同合作系統建制與導入 - 以 Redmine 為例</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> 協同合作系統建制與導入 - 以 Redmine 為例</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>我很重視團隊溝通的效率和方法，包含 <a href="/2018/03/18/SQA/How-To-Report-A-Defect-or-Bug/">問題回報</a>、<a href="/2017/06/29/Management/Why-Document/">文件表達</a>、<a href="/2014/11/26/Management/%E9%96%8B%E6%9C%83%E5%8E%9F%E5%89%87/">會議</a>、<a href="/2014/05/09/Management/%E5%80%8B%E4%BA%BA%E5%B7%A5%E4%BD%9C%E7%AE%A1%E7%90%86/">工作管理</a>，因為 <a href="/2014/12/10/Management/%E6%BA%9D%E9%80%9A-%E6%88%90%E6%9C%AC/">溝通＝成本</a>。以前系統沒那麼進步，這些成本就算了，但是現在時代那麼進步，還用很沒效率的方法在做事，就很可惜。通常系統的設計是符合一般的需求，而且是遠大於需求，所以導入一套系統制度，通常要改變的不是系統，而是人。當然系統也要調整，為人來調整.</p>
+<blockquote>
+<p>2018/12/13 更新：這篇文章寫作的時間是在 2015/01，內容描述的時間約 2013/08 ~ 2015/01 (2.5y)，當時的團隊是 IoT，分別在台北、武漢、珠海、米國加州 Fremont 四個地點，產品是軟硬整合的居家安控系統。</p>
+</blockquote>
+<a id="more"></a>
+<hr>
+<h1 id="導入前的探索與定義"><a href="#導入前的探索與定義" class="headerlink" title="導入前的探索與定義"></a>導入前的探索與定義</h1><p>導入工具之前，了解需求是很重要的。工具要符合現場需求，從角色、流程、任務三個面向分析。</p>
+<h2 id="需求的探索歸納"><a href="#需求的探索歸納" class="headerlink" title="需求的探索歸納"></a>需求的探索歸納</h2><p>當時在導入 <a href="http://www.redmine.org/" target="_blank" rel="noopener">Redmine</a> 之前，我花了很多時間，研究過很多套類似的系統，一開始目的只是做 bug tracking 為主，然後我熟悉的優先。從安裝，然後試著建立 scenario，模擬各種角色 (PM/Dev/QA)，了解系統的需求、如何維護、哪些單位需要使用 … 等等。</p>
+<p>我在之前的工作，用過很多類似的 project management system，或者 bug tracking system，包含 IBM 內部的 <a href="https://en.wikipedia.org/wiki/IBM_Configuration_Management_Version_Control_(CMVC)" target="_blank" rel="noopener">CMVC</a>、Rational 的 ClearCase / CleaRquest、Bugzilla、RTC (Rational Team Concert) … 另外曾經分析過 MES (Manufacturing Execution System, 製造執行系統) 流程、模組以及系統架構，搭配 Open source ERP (<a href="http://www.adempiere.com/ADempiere_ERP" target="_blank" rel="noopener">ADempiere</a>)，所以對於 <code>系統配置、程序、流程、架構</code> 的駕馭很有感覺.</p>
+<p>當時 (2013) 公司內部使用的 <a href="https://www.mantisbt.org/" target="_blank" rel="noopener">Mantis</a>，先前我做過的案子使用的過 <a href="http://www.bugzilla.org/" target="_blank" rel="noopener">Bugzilla</a>，同仁推薦 <a href="https://www.atlassian.com/software/jira" target="_blank" rel="noopener">Jira</a>，因為看到 Jira 和 Redmine 除了 bug tracking 之外，同時也兼具了專案管理的功能，甚至是文件系統、討論區 (Forum) …，另外還可以有 pluggin，基於同樣的想法，我又繼續找看看有沒更完整的系統，後來找到了 <a href="https://codebeamer.com" target="_blank" rel="noopener">CodeBeamer</a>，也試著和台灣的代理商聯繫過。<a href="https://codebeamer.com" target="_blank" rel="noopener">CodeBeamer</a> 是要錢的，但是他對文件以及 Test Management 就有更完整的 support。文件系統有完整的 ToC (table of content) 的支援、diff、異動通知等。另外也有 DevOps、SCCM、Lifecycle、QA 等模組，相對來說是更完整的.</p>
+<p><a href="https://www.atlassian.com/software/jira" target="_blank" rel="noopener">Jira</a> 也是要錢的，它也是很有名的專案管理系統，他有很多整合的套件，也和 CodeBeamer 類似，但是更專業，有不少大的 open source project，或者像 Microsoft 也都在使用。附帶一提，<a href="https://bitbucket.org/" target="_blank" rel="noopener">Bitbucket</a> 就是 Jira 開發公司 Atlassian 所提供的.</p>
+<p>經過這些比較，我歸納出完整的協同合作應該要具備以下的功能，以及使用對象:</p>
+<ol>
+<li><em><a href="/2017/03/11/Management/Requirements-Management/">Requirement Management</a></em>   - PM / Marketing / Support Team</li>
+<li><em><a href="/2017/08/19/Redmine/Issue-Tracking_in_Redmine/">Issue Tracker / Filter / Query</a></em>  - All Members</li>
+<li><em><a href="/2016/09/17/Redmine/Integrate-GIT-in-Redmine/">SCM / Code Association / Code Review</a></em>  – Developer</li>
+<li>Test Management  - QA</li>
+<li>Report System  - QA/PM/Leader</li>
+<li><em><a href="/2018/07/08/DevOps/Artifacts-Management/">Release Management / Baseline</a></em> – Release Engineer</li>
+<li><em><a href="/2017/06/29/Management/Why-Document/">Document System</a></em> - All</li>
+<li><em>Custom Workflow / Status</em> - PM，System Admin</li>
+</ol>
+<p>CodeBeamer 是比較完整的協同合作平台，除了 Issue tracking，也包含其他更多，但是複雜度也更高。以當時正在導入 Redmine 使用的狀況來看，不見得適合。因為大部份的人工作習慣改不過來，加上公司既有的文化特性，導入這些系統只會是專案另一種阻礙，除非有高層下來推動。</p>
+<p>最後老闆選擇了不用錢的 Redmine，敲定機器設備，然後我負責系統規劃安裝，執行新舊系統的合併，導入流程，教育訓練。然後老闆給我很大的精神支持 XD</p>
+<p>Redmine 我透過 config / define workflow、issue status、tracker type、定義一些 custom field、安裝 Plugin、搭配一些 scripts 的方式，針對公司文化以及專案需求，調整很多東西，主要是前述需求斜體部分。</p>
+<blockquote>
+<p>2018/12/16 Updated: 上述的需求，可以在現在 Azure DevOps (VSTS) 的左欄看到類似的結構。</p>
+</blockquote>
+<hr>
+<h2 id="定義追蹤與工作流程-Tracker-and-Workflow-Process"><a href="#定義追蹤與工作流程-Tracker-and-Workflow-Process" class="headerlink" title="定義追蹤與工作流程 (Tracker and Workflow / Process)"></a>定義追蹤與工作流程 (Tracker and Workflow / Process)</h2><p>專案進行當中，有很多事要追蹤管理，這些事情統稱 <code>Tracker</code>。依據不同的單位以及追蹤的屬性，我定義了一些常用的 tracker type，包含: <code>Task</code>，<code>Requirement</code>，<code>Bug</code>，<code>Suggestion</code>，<code>Feature</code>，<code>Improvement</code>，其他額外還定義了 Document Publish，Release Process ..。等。這些流程包含針對不同的角色 Roles (PM，Leader，Developer，Reporter，Release Engineer)，會有不同的狀態和流程。每一種 trackers x roles 會有不同的流程。</p>
+<p>而流程定義有幾個重點：</p>
+<ol>
+<li><code>開始</code> 與 <code>結束</code> 的定義：流程一定要有頭有尾</li>
+<li><code>角色 (Role)</code> 的定義：哪些人？PM、Dev、QA、Ops</li>
+<li><code>狀態 (State)</code> 的定義：狀態是 <code>名詞</code> 或 <code>形容詞</code></li>
+<li><code>狀態改變</code>：從狀態 A -&gt; B 中間的改變，是 <code>動詞</code>，也就是做了怎樣的動作<ul>
+<li>Bug：Dev 把 Bug 從 Open 改變成 Accepted 或者 In Progress，表示接受一個 Bug</li>
+<li>Bug：Dev 把 Bug 從 Open 改變成 Returned 或者 Rejected，表示不接受一個 Bug</li>
+<li>Bug：QA 把 Bug 從 Resolved 改變成 Closed 或者 Reopened，表示 Bug 通過驗證、或者驗證沒通過。</li>
+</ul>
+</li>
+<li>每一種流程定義，會給予一個名稱，例如 <code>Bug</code>、<code>Defect</code>、<code>Feature</code> … 每一種流程稱為：<code>Tracker</code></li>
+</ol>
+<p>下圖是 <code>Bug</code> 這個 Tracker，Role 是 Developer (藍線)：</p>
+<p><img src="/images/Management/Bug_Developer.png" alt=""></p>
+<p>其他根據不同 Tracker 和 Role，都有對應的流程定義。事情追蹤以大的為主，有時候一些小事情，或者無關要緊的，則試狀況，讓同仁自行決定是否建立 Tracker.</p>
+<blockquote>
+<ul>
+<li>Redmine 叫做 Workflow，VSTS 叫做 Process。基本上就是狀態機 (State Machine) 的概念。</li>
+<li>類似的說明參閱：<a href="/2017/08/19/Redmine/Issue-Tracking_in_Redmine/">Issue Tracking in Redmine</a></li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="任務類型管理-Issue-Type-Work-Type"><a href="#任務類型管理-Issue-Type-Work-Type" class="headerlink" title="任務類型管理 (Issue Type / Work Type)"></a>任務類型管理 (Issue Type / Work Type)</h2><p>上一個 Tracker 定義中有一個叫做 <code>Task</code>，主要用來管理同仁的工作狀況以及工作相依性。例如一個功能經常會跨很多 component，也會和其他很多功能有所關連。Redmine 每一個 Issue 都具備 Subtask 以及 related issue 的功能。透過這樣的關聯，PM or Leader 就很容易將要做的工作項目，安排成樹狀結構，然後清楚的設定 owner，工作時程，相關 issue，文件等.</p>
+<p>推動讓 PM 習慣用 Task 的管理，取代過去習慣的 Microsoft Project。在 Redmine 上透過 <code>公開透明，流程標準化</code> (這兩點很熟悉吧 XD) 的方式，讓同仁彼此可以知道彼此的工作內容，然後 Team Leader 可以適度的調度人員，掌握同仁的工作狀況以及 loading; PM 更可以有效而且清楚的知道專案的狀況.</p>
+<blockquote>
+<p>工作管理有一個很重要的目的: 知道範圍。如果無法釐清每個 item 範圍、item 之間的關聯性、priority、ownership、評估 effort，基本上這個產品是不會有品質可言的。而越能把範圍交代清楚，產品輪廓也就越清楚，developer 更能專心做事，品質自然隨之而來。</p>
+<p>爛的產品規劃，會 create 很多 developer 職缺，寫 code 習慣 / 基本功不好的 developer，會 create 出很多 QA 的職缺; 沒有 sense 的 QA 會 create 很多內部溝通的問題，消耗 developer 的時間.</p>
+</blockquote>
+<p>而 QA 和 RD 也得以透過此方法，可以加速專案的執行狀況。這部分也是未來如果，主力 project 要導入 agile，那麼要先具備的條件。我還在試著醞釀中，因為目前還缺少一些必要條件與共識.</p>
+<blockquote>
+<p>Redmine 叫做 Issue Type，VSTS 叫做 Work Type.</p>
+</blockquote>
+<h2 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h2><p>文件是企業裡面很重要的溝通媒介，也是公司重要的資產。大部份的人習慣用 word / powerpoint，然後存成 pdf，檔名加時間，透過 email 寄給相關的人，稍微有 sense 的會開啟 word 的文件追蹤的功能。工作這麼久，我非常非常討厭這種很沒效率的方式。所以我當時借由一個時機點，在內部提出以下問題：</p>
+<p><img src="/images/Management/Why_Wiki.png" alt=""></p>
+<p>現在系統已經很進步，各種 diff 工具，通知，change log … 都非常完整。所以我額外花了一點時間，了解 redmine 能做什麼、什麼不夠、缺什麼，思考導入的可能性 … 等。最後做了一些內部的推動，大概做了下面的事情:</p>
+<ol>
+<li>文件集中管理，定義文件結構 layout、階層.</li>
+<li>建立教育訓練文件，可以提供給未來新人使用.</li>
+<li>Survey redmine wiki plugin，增加 redmine 的不足</li>
+<li>建立文件的樣板 (Template)、view。包含 RD、QA、PM、Support、Marketing 等.</li>
+</ol>
+<p>導入過程我花了不少時間去做 <code>說客</code>，因為要說服一個既定的習慣，是很不容易的，特別是老闆。以身作則是我覺得最好的方式，所以我就自己去做，包含: 幫忙把很多既有的文件 (word) 轉入 redmine (wiki)，試著定義 template，改變 wiki 的樣式，讓他看起來更正式 (header / footer)，然後透過內部教育訓練方式，教大家怎麼寫 wiki，推動用 wiki 寫 design document.</p>
+<p>雖然 redmine 的 wiki 還有很大的改善空間，但是勉強讓同仁有一致性的參考點.</p>
+<p>但是針對: 輸出 (Export as pdf/html)，撰寫方式 (WYSWYG)，文件結構等部分，其實還有很大進步空間。我也提出一些建議方式可以改善，執行上是可行的，可以利用 third-party 的 plugin，或者自己寫，總之，要一些額外的 resource.</p>
+<p>整體而言，文件管理這部分，我覺得還有很多討論的空間，我也持續在 survey 一些更好的方法或系統，目標是希望可以做到像 <a href="http://help.eclipse.org/luna/index.jsp" target="_blank" rel="noopener">eclipse help center</a> 那樣的概念.</p>
+<p>但是原則上不輕易安裝其他 standalone 的 wiki system，因為會 create 更多整合以及管理的問題.</p>
+<blockquote>
+<p>Updated 2018/12/14: 最近我又再找類似的系統，可以配合 CI/CD 流程自動發布，目前找到的有 <a href="https://www.mkdocs.org/" target="_blank" rel="noopener">mkdocs</a></p>
+</blockquote>
+<hr>
+<h1 id="整合與實作"><a href="#整合與實作" class="headerlink" title="整合與實作"></a>整合與實作</h1><p>這個部分描述如何實際利用 Redmine 整合協作、工作流程。</p>
+<h2 id="導入軟體開發流程-Software-development-life-cycle，SDLC"><a href="#導入軟體開發流程-Software-development-life-cycle，SDLC" class="headerlink" title="導入軟體開發流程 (Software development life cycle，SDLC)"></a>導入軟體開發流程 (Software development life cycle，SDLC)</h2><p>前面講的都是 redmine 的功能面，其實貫穿整個協同合作系統的精神是 <code>軟體開發流程 (SDLC)</code>，大的輪廓是底下這張圖：</p>
+<p><img src="/images/Management/SDLC3.jpg" alt=""></p>
+<p>2012/04 到這家公司發現很多讓我覺得很不可思議的事，就是這裏：</p>
+<ul>
+<li>沒有流程控管的概念</li>
+<li>不清楚事情先後相依關係</li>
+<li>不清楚角色定義以及工作流程</li>
+<li>不做專案控管，沒有停損</li>
+<li>沒有 release 概念</li>
+<li>沒有 development、release、deployment、production 等認知</li>
+<li>對於測試更是完全沒概念，更別提 <code>自動化測試</code>。</li>
+</ul>
+<blockquote>
+<p>關於自動化測試的經驗談，請參閱我的怨念文: <a href="/2014/05/09/SQA/Problems_In-Software-Autotest/">軟體自動化測試常見的問題</a></p>
+</blockquote>
+<p>整個工作模式完全是傳統的硬體代工思維，不難想見當時做出來的東西是長得什麼樣.</p>
+<p>2012 下半年，我和一群我雇用的年輕 QA 工程師，還有辛苦的 RD 們，大家憑著一股熱忱 (怨念?)，透過原本公司是既有的 Mantis 追蹤問題，大家天天加班加到昏天暗地，硬是把東西做出來，雖然依舊只是堪用的東西而已，但至少比先前好很多.</p>
+<p>後來我花了很多時間，把以前在 IBM 做 projects / products 的流程和經驗，加上過去半年來對這家公司文化的了解，做了適度的調整與安排，然後說服老闆 (這很重要)，取得對應的資源 (IT/權限/Server …)，讓我對內部做了完整的教育訓練，導入了一般 <code>軟體開發流程 (Software development process，SDLC): 瀑布模式 (Waterfall)</code>，內容引用 IBM development lifecycle 部分的名稱與方法，同時將開發流程整合到系統，讓流程系統化，導入 autobuild，整個流程如下圖:</p>
+<p><img src="/images/Management/SDLC.png" alt=""></p>
+<p>這張圖是整個心法，完整的 slide 快要一百頁，包含每個 stage 的工作重點，以及 release engineering、release process 等。然後在老闆的支持之下，將公司既有架構在 Windows 上的 Manits/SVN/trac (<a href="http://easycm.soft112.com/" target="_blank" rel="noopener">EasyCM</a>)，全部轉換到以 CentOS 為基礎的 Redmine/SVN.</p>
+<blockquote>
+<p>這張圖後來的演進與更完整的想法，參閱：<a href="/2017/09/14/SoftwareEngineering/Software-Development-Lifecycle/">Software Development Lifecycle</a></p>
+</blockquote>
+<p>當然中間也花了一些時間到各個 site 做教育訓練，以及內部的溝通與協調，讓同仁 <code>漸漸了解</code> 軟體開發流程的重要性，以及什麼時間做什麼事情。了解流程之後，同仁就可以自發性的控制自己的工作時間，更能專注的執行專案任務，同時也減少不必要的加班工時。專案也能夠有效的控管，準時的 release (delivery / publish / deployment) 有品質的產品，達到上面的要求.</p>
+<blockquote>
+<p>這個 <code>漸漸了解</code> 其實花了我快一年半的時間.</p>
+</blockquote>
+<p>有了流程、有了系統，透過教育訓練將這兩個制度連結起來，剩下的就是看它發酵，讓大家體驗成果。<code>發酵</code> 過程包含了各式各樣的衝突與相互了解的事件，總之，最後大家漸漸有了 <code>共識、信任、還有默契</code>.</p>
+<p>當然過程中我也考慮過導入現在流行的 agile，不過產品性質 (軟硬整合) 以及公司文化因素，主要的 project 暫時沒導入，次要的則已經導入。</p>
+<blockquote>
+<p>這段要換成 Agile Development 也是可以的，概念上都可以套用。</p>
+</blockquote>
+<hr>
+<h2 id="整合-Issue-與-Source-Code"><a href="#整合-Issue-與-Source-Code" class="headerlink" title="整合 Issue 與 Source Code"></a>整合 Issue 與 Source Code</h2><p>達到 commit code 必須綁定 issue 和 issue status，達到有效追蹤管理。當然這會額外帶給 developer 一些 overhead.</p>
+<p>專案進行中，依照 stage 狀況，完整控制 source code status。通常是進入 RC (Release Candidate)，會進入 code freeze 狀態狀態，然後讓 QA 能夠 focus on Regression。但是也會保留彈性，放行 must fix 的 issue，當然風險就要審慎評估.</p>
+<p>配合 redmine 本身的 repository + change assication，可以很方便的 diff code change，通知相關人員 (developer or QA) code change.</p>
+<ul>
+<li>相關設定參閱：<a href="/2016/09/17/Redmine/Integrate-GIT-in-Redmine/">Integrate GIT in Redmine</a></li>
+</ul>
+<hr>
+<h2 id="持續整合"><a href="#持續整合" class="headerlink" title="持續整合"></a>持續整合</h2><p>包含 Semantic Versioning 和 Artifact 兩部分。Semantic Versioning 我當時用 Version Control 來稱呼，Artifact 則是自行實作 Build Agent，稱為 autobuild.</p>
+<h3 id="Version-Control-Semantic-Versioning"><a href="#Version-Control-Semantic-Versioning" class="headerlink" title="Version Control (Semantic Versioning)"></a>Version Control (Semantic Versioning)</h3><p>Redmine 的 Issue 有個定義：<code>Target Version</code>，是個一對一個關係，每個 Milestone 可以有一個 Target Version。所以我把它當作是實體產出的版本概念使用。Target Version 牽涉到 <a href="/2015/02/11/SoftwareEngineering/Version-Control/">Version Control</a> 的問題，簡單說就是如何定義版本號碼，以利開發過程可以精準溝通。</p>
+<p>當時引入一般 <code>x.y.z</code> 規則，其實就是 <a href="https://semver.org/" target="_blank" rel="noopener">Semantic Versioning</a>。也定義了個別的意義，以及什麼時候該怎麼跳號。version number 除了做控管，有些邏輯也會用到，定義清楚，compare 的邏輯就容易寫。另外就是跳號管控方式與時間，FW 和純 software 會有所慣例的差異，後來我和 Hardware / Device Team 協調統一規則，讓溝通更精確.</p>
+<h3 id="Autobuild-and-Artifact-Management"><a href="#Autobuild-and-Artifact-Management" class="headerlink" title="Autobuild and Artifact Management"></a>Autobuild and Artifact Management</h3><p>我在每個 Component 定義了一個標準的 interface 描述版本控管，格式就是 key/value 的 Properties，欄位如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">comp.name=iOS</span><br><span class="line">version=1.2</span><br><span class="line">fixpack=3</span><br><span class="line">buildId=%TIMESTAMP%</span><br><span class="line">revision=%SVN_REVISION%</span><br><span class="line">buildType=dev</span><br></pre></td></tr></table></figure>
+<p>這個檔案我把它叫做 <code>releng.properties</code>，全名是 <a href="https://en.wikipedia.org/wiki/Release_engineering" target="_blank" rel="noopener">Release Engineering</a> 的縮寫.</p>
+<p><code>releng.properties</code> 在所有 component 裏都會有，優點是透過統一個 agent 管理所有的元件，build script 有一致性的標準。然後透過我就用 python 寫了一個叫 <code>autobuild</code> 作為 daily build agent。透過簡單的架構以及可擴充性的設計，同時部署在數台不同機器，每天 build iOS、Android、WinPhone、JEE application、Embedded、PHP ..。等，產生報表以及通知。Build Fail 會自動通知 developer，build 的過程會有詳細的 log 以及所有的訊息，其實有點像是 jenkens 做的事情。</p>
+<p>build 出來的 image 會有固定的格式，像是: <code>App.iOS-1.2.3_InHouse_b20141203-1200_r2356.ipa</code></p>
+<blockquote>
+<p>Autobuild 出來的結果，就是在談 <a href="/2018/07/08/DevOps/Artifacts-Management/">Artifacts Management</a> 的概念。</p>
+</blockquote>
+<p>人是健忘的，svn revision 意義不大，git hash code 也是，所以 buildId 是一個必要的資訊，讓大家用時間追。裝好之後，會直接在 log 呈現 <code>版本資訊</code>，用來確認 server <code>已經好了</code>.</p>
+<p>autobuild 這件事情間接讓 developer 和 QA 可以專業分工，QA 開的 Bug 會很精確的描述 build 的訊息以及時間.</p>
+<blockquote>
+<p>Updated 2018/03/20：這件事就是 <a href="/2018/03/20/DevOps/First-Step-To-CICD/">導入 CI/CD 的第一步</a>、<a href="/2018/07/08/DevOps/Artifacts-Management/">Artifacts Management</a>。很多開發出來的東西，裝好之後，往往都不知道怎麼確認 <code>好了</code>。如果別人無法拿開發者開發的軟體，自行安裝，然後確認好了，那就是不敏捷的。<code>什麼叫做好了？</code> 請參閱 <a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a> P29 的描述。</p>
+</blockquote>
+<hr>
+<h1 id="議題管理"><a href="#議題管理" class="headerlink" title="議題管理"></a>議題管理</h1><p>議題管理是團隊協作過程中，很重要的一環，能夠讓團隊順利且有效的溝通，建立溝通的協議 (Protocol) 是很重要的。</p>
+<h2 id="有效的-Bug-追蹤與管理"><a href="#有效的-Bug-追蹤與管理" class="headerlink" title="有效的 Bug 追蹤與管理"></a>有效的 Bug 追蹤與管理</h2><p>我們目前專案的進行狀況，每一個 phase 從開發階段 (6w) 到測試階段 (6w)，每一個 phase 的 test stage 平均下來，SQA team 會開出大大小小約 200 ~ 300 個有效的 bug，同時這些問題跨過數個 components (cloud server / logistic / iOS / Android / WinPhone / Web / embedded devices 共有 3 * 4 種組合)，這些 component 從純 software 到 mobile app，到 web，到 embedded devices (數種 IPCam 和 Network Router) 等，要掌握 / 追蹤這些問題的狀況，同時要有效率的和這麼多 function team 的 developers 在三個地方、兩個時差、三種文化差異的溝通，提出改善建議，不是一件容易的事情。</p>
+<p>更別提我還負責 Cloud Performance 測試部分 (模擬 App/Device 在一定的上限數量的壓力測試)，還有其他硬體的問題 (機構 / Wifi Performance/光學/RF/FW …).</p>
+<p>為了有效追蹤這些 bug，達到溝通以及問題反映的需求，針對 redmine 裡的 tracker -&gt; bug，除了重新定義 workflow (參考 “定義追蹤與流程”)，我另外定義了一些欄位，描述如下:</p>
+<ul>
+<li><code>priority</code>: 時間優先級，redmine 預設的，分成 low、normal、high、urgent、immediate。事有輕重緩急，加上人也會有惰性。大部份我採取信任原則，讓 developer 自己控制時間，讓 SQA 自行去跟 developer 溝通。不過有時候太久沒反應，我會適時地調整 priority，同時透過 PM / Team Leader，軟硬兼施的方式，push developer 動作.</li>
+<li><code>severity</code>: 問題的嚴重性，沿用 Mantis 的定義，分成: block、critical、major、minior、warning、suggestion 六個等級。severity 是作為達到 release 的參考準則。能夠 release 的條件如下:<ul>
+<li>1) test case 是要執行完畢</li>
+<li>2) severity major 以上的 bug 必須全數 closed，包含 major、critical、block</li>
+<li>3) 執行過 Regression，超過 80% 以上的覆蓋率</li>
+<li>severity 有一個比較特別的是 suggestion，用來讓同仁對產品提出建議。SQA team 在這方面做了很多功夫，提供很多實質且有效的建議，也讓同仁對於產品更有歸屬感.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li><code>priority &amp; severity</code> (或者說重要性) 是時間管理的兩個軸，也是我在內部教育訓練時，經常會跟同仁提及的。我認為一個好的執行者，必須要學習如何 <a href="/2014/05/09/Management/%E5%80%8B%E4%BA%BA%E5%B7%A5%E4%BD%9C%E7%AE%A1%E7%90%86/">自我管理</a>，而自我管理的第一步就是時間管理，了解事情的輕重緩急。而自我管理則是人生的課題，已經遠在這個主題之外了。</li>
+<li>我不用數字表達 (P1, P0) 之類的描述，而採用名詞、形容詞，主要是因為人對語意比較容易掌握。數字可以精準，但是要花比較多時間訓練。</li>
+</ul>
+</blockquote>
+<ul>
+<li><code>reproducibility</code>: 問題的可重現性，這也是從 mantis 參考過來的.</li>
+<li><code>highlight</code>: boolean，用來追蹤需要特別討論的 bug，以縮短週會的會議時間。通常被 highlight 的問題可能是閒置太久沒反應的，或者是需要討論的，這些問題會直接請 PM push.</li>
+<li><code>TechNotes</code>: boolean，無法解決的問題，通常是環境 (像是 iOS 版本) 因素造成的問題，通常會請 developer 提供 workaround，然後 highlight 給 support team。這欄位是我從 IBM 的流程裡偷來的 XD</li>
+<li><code>Reported From</code>: 用來分析問題的來源單位。<ul>
+<li>很多戲劇小說都有一句話：沒有對錯，只有立場不同。bug 是否是 bug，不同單位會有不同的看法以及見解。</li>
+<li>這是為了分析問題以及需求的根源，定義的有 Developmnet、Field in House、Support、Sales/Marketing、Customer、Manufacturer、Others.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="Issue-Template"><a href="#Issue-Template" class="headerlink" title="Issue Template"></a>Issue Template</h2><p>另外安裝 issue template for redmine，可以針對不同 tracker 定義常用的樣板，讓同仁回報問題時，可以標準化，減少溝通的問題。以下是當時設計的 Bug Report Template:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">[Precondition] -- optional</span><br><span class="line">Precondition <span class="keyword">for</span> this issue.</span><br><span class="line"></span><br><span class="line">[How to reprocedure the problem]</span><br><span class="line"><span class="comment"># install APP form AppStore</span></span><br><span class="line"><span class="comment"># open app with 886929168168/12345678</span></span><br><span class="line"><span class="comment"># goto video view，and click the active device</span></span><br><span class="line"><span class="comment"># ..</span></span><br><span class="line"></span><br><span class="line">[Expected result]</span><br><span class="line">The video should be transferred immediately.</span><br><span class="line"></span><br><span class="line">[Actual result]</span><br><span class="line">The exception occurs.</span><br><span class="line"></span><br><span class="line">[Log] _optional_</span><br><span class="line"></span><br><span class="line">&lt;pre&gt;</span><br><span class="line">put server，app <span class="built_in">log</span> to here</span><br><span class="line">&lt;/pre&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[Environment]</span><br><span class="line"><span class="comment"># Phone brand: iPhone5，iOS 7.0.2</span></span><br><span class="line"><span class="comment"># server version: server_2.3.0_b20130116-1200_r23765.tar.gz</span></span><br><span class="line"></span><br><span class="line">*[Spec]* _optional_</span><br><span class="line">[[Wiki Title Here]]</span><br></pre></td></tr></table></figure>
+<p>主要就是這些項目要填：</p>
+<ul>
+<li>Precondition</li>
+<li>How to reprocedure the problem</li>
+<li>Expected result</li>
+<li>Actual result</li>
+<li>Log (optional)</li>
+<li>Environment</li>
+<li>Spec</li>
+</ul>
+<p>有些是 optional，則視狀況可以自行調整。詳細參閱： <a href="/2018/03/18/SQA/How-To-Report-A-Defect-or-Bug/">如何有效的回報問題 (How to Report Problems Effectively)</a></p>
+<blockquote>
+<p>過程中，始我也試著定義了 Design Document 的 Template，不過基於職務的分權，我只是以建議的角度，理由是基於經驗的分享過去做事的方法，以及身為一個 developer 在 design / coding / unit test 應該要注意些什麼。</p>
+</blockquote>
+<hr>
+<h2 id="Category-and-Target-Version"><a href="#Category-and-Target-Version" class="headerlink" title="Category and Target Version"></a>Category and Target Version</h2><p>這兩個欄位是 Redmine 預設的，但是不是必要選擇的。通常需要 PM 去設定才行。在專案進行中，很多人都搞不清楚這兩個的用途，因為他不是必要的選項，所以常常空著沒選，造成 PM 或者 QA Manager 建立 query or filter 時無法掌握狀況.</p>
+<p>這兩個簡單說:</p>
+<ul>
+<li>Category 是 <code>邏輯</code> 的分類</li>
+<li>Target Version <code>實體</code> 分類</li>
+</ul>
+<p>所有的問題一定需要有明確的修復版本 (Target Version)，明確要 commit 到哪個 Branch，所以 Target version 會在專案一開始就定義清楚，同時要求同仁要確實選，如果不知道怎麼選，表示不清楚問題點在哪，那麼就要討論。</p>
+<p>而 Category 是邏輯的定義，一般就是指一個 function or item。我們的專案很複雜，所以這部份很難定義，目前我在專案逕行中，用來做問題分析使用，每一個 phase 都回重新整理，所以沒有強制同仁要選擇.</p>
+<blockquote>
+<p>概念就是要分析，或者區分所有權。相關概念參閱 <a href="/2014/10/26/Management/Classified-Philosophy/">分類的哲學</a></p>
+</blockquote>
+<h2 id="Bug-的組織分析與管理"><a href="#Bug-的組織分析與管理" class="headerlink" title="Bug 的組織分析與管理"></a>Bug 的組織分析與管理</h2><p>Bug 的追蹤與管理，要善用 query / filter 做有效的 <a href="/2014/10/26/Management/Classified-Philosophy/">組織與分析</a>，然後對於 <code>人</code> 也必須軟硬兼施，不疾不徐，得以讓事情順利進行，同時也不會造成 RD 與 QA 的爭執。有時候必須扮演黑臉，有時候也需要扮演潤滑劑.</p>
+<p>詳細說明參閱 <a href="/2015/10/11/SQA/How-To-Be-An-SQA/">How to be an SQA?</a> - 組織與分析</p>
+<hr>
+<h1 id="導入的成果"><a href="#導入的成果" class="headerlink" title="導入的成果"></a>導入的成果</h1><h2 id="實質效益"><a href="#實質效益" class="headerlink" title="實質效益"></a>實質效益</h2><p>對整個 team 來講，減少溝通所需要的浪費時間、誤解、與衝突。對各個角色來講:</p>
+<ul>
+<li>PM: 有效地控制專案的執行狀況，用數據做決策，給 Dev 明確的方向/時間/資源，然後準時 deliver，對老闆/Sales有交代</li>
+<li>Developer: 可以清楚知道自己的工作範圍，專心寫 code，解 bug，study 有趣的東西</li>
+<li>QA: 清楚知道每一個功能的細節，專心地找問題，同時可以提出建議，增加產品的品質</li>
+<li>大家都可以正常上下班、排假、出國旅行.</li>
+</ul>
+<p>沒有建制這套流程與系統會有什麼不一樣? 大家一樣可以工作，但是各做各的、email 滿天飛、文件到處丟、問題沒有優先次序、每天都在加班、每個人都不清楚自己的工作範圍、客戶電話接不完、整個專案是無法控制的。這種現象，在很多中小企業都有，而且都習以為常.</p>
+<p>導入流程與建制系統這件事情，在時間管理上就是 <code>很重要 + 不急</code>，管理者可能都知道，但是不會有人認真去看待，或者是完全不知道 (這種管理者還真不少 …)</p>
+<h2 id="改進與期望"><a href="#改進與期望" class="headerlink" title="改進與期望"></a>改進與期望</h2><p>經過快要三年來的導入與調整，目前 Redmine 有使用的單位主要是以 Software RD + SQA，另外有 Support，其中包含 RD 有 6 個 team，分別在三個 location (US、TPE、Wuhan、珠海)，人數約在 50 - 60 人左右。不管是彈性還是功能，是滿足大部份的 project。除了傳統的 waterfall 開發流程，有另一個 web project 是使用 agile 在跑，所以 redmine 在專案管理是可以滿足大部份的.</p>
+<blockquote>
+<p>201501: 因為公司組織異動，也把硬體的部分整合進來 …。所以除了軟體，硬體也來了 …。如何改變這一掛人的思維，是最大的挑戰.</p>
+</blockquote>
+<p>另外可以繼續改善的有:</p>
+<ol>
+<li>還是文件系統<ul>
+<li>有更方便的編輯器會更好，或者支援 markdown (redmine 2.x 之後才 support markdown)</li>
+<li>有 review，comment 機制更好</li>
+<li>更好的輸出模組</li>
+</ul>
+</li>
+<li>code review 機制</li>
+<li>整合 slack 這種溝通系統，讓 developer 溝通更有效率</li>
+<li>整合 Test Manamgement (我後來買了 testrail，功能很強大，但是我錯估和 redmine 版本的差異性問題，所以整合的沒有很順</li>
+<li>和公司的 IT 系統整合: LDAP or AD 一直沒有順利，因為公司的 IT 系統複雜，不好整合</li>
+<li>可以整合類似 Google Docs 線上協同作業的系統，同仁可以在上面貢獻想法，發想鬼點子 …。這是我天馬行空的想法 XD</li>
+</ol>
+<p>整體來說，Redmine 是很棒的專案管理系統，管理者還可以配一些免費的 app (easy redmine，rougemine)，隨時掌握狀況; 使用 eclipse 的 developer 也可以搭配一些 plugin，簡化工作流程。但是 Redmine 在文件以及 release 方面並沒有比較嚴謹的功能，勉強只能算是堪用。如果系統使用者要跨越到其他像是 support、marketing、sales、甚至是 end user，就還需要做一些調整，不過我覺得應該是沒問題的.</p>
+<p>除了上述列表中的，其實我還想做幾件事情:</p>
+<ol>
+<li>導入 git，取代 subversion。不是為了趕流行，而是希望讓 developer 能更有彈性做事情.<ul>
+<li>會有這想法是因為我以前在 IBM 做 project，常常會有與世隔絕的感覺，所以會不自主的緊張起來，然後就自己去學了一堆有的沒的。而那些東西也在一些時機點就用上了 …。所以還是要跟外界保持聯絡.</li>
+</ul>
+</li>
+<li>將 redmine 做異地備援，也就是利用 mysql master-to-master 架構，讓不同地區的同仁，可以有同樣存取 redmine 的速度。然後也可以有備份的效果.</li>
+<li>導入 agile 以及落實 requirement management。requirement SOP 導入是困難的，因為這牽涉到與上層溝通的問題.<ul>
+<li>通常我知道台灣很多公司愈高層，越不會用這種系統，也越不懂它的價值所在。而這是一種決策支援系統，決策者沒有信賴依據，憑感覺決策是很不可靠的.</li>
+<li>如果一家公司或者政府機關的財務人事系統是用 excel，你會期望他有什麼效率可言嗎?</li>
+</ul>
+</li>
+<li>將公司其他部門的文件納入管理，因為實際上我們很多文件都是會相互參考，但實際上卻是到處散落.</li>
+<li>讓其他 team (Sales、Marketing、PLM，support ..。) 等，也來使用，讓內部的資訊更同步.</li>
+</ol>
+<hr>
+<h1 id="結尾"><a href="#結尾" class="headerlink" title="結尾"></a>結尾</h1><p>系統的導入目的在於讓 <code>工作流程標準化，公開透明</code> (有沒有和柯 P 的理念很像XD)，讓訊息與資源集中統一管理。</p>
+<ul>
+<li>團隊可以透過它，清楚明白自己的工作任務，即時修正</li>
+<li>管理者可以清楚掌握專案狀況、資源多寡、同仁的工作狀況</li>
+<li>決策者做即時的組織與分析，進一步做出有依據的決策</li>
+</ul>
+<p>系統的最大的目的就是: <code>減少溝通所造成的成本問題</code></p>
+<blockquote>
+<p>我在 “<a href="/2014/12/10/Management/%E6%BA%9D%E9%80%9A-%E6%88%90%E6%9C%AC/">溝通＝成本</a>“ 大概描述了溝通與成本的問題，這個現象很難量化，也很難讓人很快感覺得到，但是他的的確確就正在上演。不管在企業、政府、還是家庭，每天都在演，大家心裡應該都有底，但是很少人會去面對。但我深深覺得，溝通的效率，是一個企業成功與否的關鍵因素之一.</p>
+</blockquote>
+<p>系統流程導入的過程，最難推動的還是管理階層/高層。系統的導入，需要仰賴高層的認同，然後一起推動，或者充分授權與信任，讓執行者得以與不同的 team 溝通，然後重新定義流程，使用規範等。幸運的是，我的老闆很支持我做這件事情，也給予了充分的授權與支持，所以我得以大刀闊斧地去推動這些事情。過程中也有幸同仁給予很多回饋，與配合，讓我能夠驗證這些方法的可行性.</p>
+<h2 id="2018-12-16-補充"><a href="#2018-12-16-補充" class="headerlink" title="2018/12/16 補充"></a>2018/12/16 補充</h2><p>這篇文章從發佈到現在，一直是站內閱讀率非常高的。但這麼多年來其實我很少在提這篇文章的內容，或許是這年頭 <a href="/2018/04/05/Management/Gossip-Agile/">敏捷開發</a> 是顯學，這種傳統的方法，或者仰賴系統的概念，不再是主軸。但是經過這幾年在新創團隊裡，與敏捷教練、Scrum Master 共識後，其實我們想的內容是一樣的，都是希望可以有效地讓團隊溝通，只是用的工具與方法不同而已。</p>
+<p>基於這些觀察，我同樣的不斷的在強調 <a href="/2014/12/10/Management/%E6%BA%9D%E9%80%9A-%E6%88%90%E6%9C%AC/">溝通成本</a>、<a href="/2018/03/18/SQA/How-To-Report-A-Defect-or-Bug/">問題回報</a>、<a href="/2014/11/26/Management/%E9%96%8B%E6%9C%83%E5%8E%9F%E5%89%87/">會議效率</a>、<a href="/2014/05/09/Management/%E5%80%8B%E4%BA%BA%E5%B7%A5%E4%BD%9C%E7%AE%A1%E7%90%86/">工作管理</a>、<a href="/2017/06/29/Management/Why-Document/">文件</a> 等問題。因為這些問題才是讓團隊真的能否走得長久、走得順遂的關鍵因素。</p>
+<hr>
+<h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><h2 id="工作原則"><a href="#工作原則" class="headerlink" title="工作原則"></a>工作原則</h2><ul>
+<li><a href="/2014/12/10/Management/%E6%BA%9D%E9%80%9A-%E6%88%90%E6%9C%AC/">溝通＝成本</a></li>
+<li><a href="/2014/11/26/Management/%E9%96%8B%E6%9C%83%E5%8E%9F%E5%89%87/">開會原則</a></li>
+<li><a href="/2014/05/09/Management/%E5%80%8B%E4%BA%BA%E5%B7%A5%E4%BD%9C%E7%AE%A1%E7%90%86/">個人工作管理</a></li>
+<li><a href="/2014/12/27/Management/%E7%B6%93%E7%87%9F%E4%B9%8B%E9%81%93/">經營之道</a></li>
+<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類的哲學</a></li>
+</ul>
+<h2 id="專案管理"><a href="#專案管理" class="headerlink" title="專案管理"></a>專案管理</h2><ul>
+<li><a href="/2017/03/11/Management/Requirements-Management/">需求管理 (Requirement Management)</a></li>
+<li><a href="/2017/09/14/SoftwareEngineering/Software-Development-Lifecycle/">Software Development Lifecycle</a></li>
+<li><a href="/2017/08/19/Redmine/Issue-Tracking_in_Redmine/">Issue Tracking in Redmine</a></li>
+<li><a href="/2017/06/29/Management/Why-Document/">為什麼要寫文件？</a></li>
+<li><a href="/2018/04/05/Management/Gossip-Agile/">談談敏捷開發的看法</a></li>
+</ul>
+<h2 id="CI-CD-DevOps"><a href="#CI-CD-DevOps" class="headerlink" title="CI/CD/DevOps"></a>CI/CD/DevOps</h2><ul>
+<li><a href="/2018/07/08/DevOps/Artifacts-Management/">Artifacts Management</a></li>
+<li><a href="/2016/09/17/Redmine/Integrate-GIT-in-Redmine/">Integrate GIT in Redmine</a></li>
+<li><a href="/2015/02/26/DevOps/Git-Setup-and-Migrate-SVN/">Setup Git Server，and Migrate SVN</a></li>
+<li><a href="/2015/02/11/SoftwareEngineering/Version-Control/">Version Control</a></li>
+<li><a href="/2018/03/20/DevOps/First-Step-To-CICD/">導入 CI/CD 的第一步</a></li>
+</ul>
+<h2 id="軟體測試"><a href="#軟體測試" class="headerlink" title="軟體測試"></a>軟體測試</h2><ul>
+<li><a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a></li>
+<li><a href="/2015/10/11/SQA/How-To-Be-An-SQA/">How to be an SQA?</a></li>
+<li><a href="/2018/03/18/SQA/How-To-Report-A-Defect-or-Bug/">如何有效的回報問題 (How to Report Problems Effectively)</a></li>
+<li><a href="/2014/05/09/SQA/Problems_In-Software-Autotest/">軟體自動化測試常見的問題</a></li>
+</ul>
+<h2 id="延伸閱讀-其他"><a href="#延伸閱讀-其他" class="headerlink" title="延伸閱讀 (其他)"></a>延伸閱讀 (其他)</h2><ul>
+<li><a href="http://buzzorange.com/techorange/2015/02/05/after-i-stopped-my-startup/" target="_blank" rel="noopener">創業結束後三年，我當員工的心得</a></li>
+<li><a href="http://goo.gl/DYV53V" target="_blank" rel="noopener">Startup 2.0 工程師創業手冊</a></li>
+<li><a href="http://goo.gl/UZujdh" target="_blank" rel="noopener">台灣軟體產業的失落十年</a></li>
+</ul>
+<h2 id="更新紀錄"><a href="#更新紀錄" class="headerlink" title="更新紀錄"></a>更新紀錄</h2><ul>
+<li>2018/12/13 更新：<ol>
+<li>重構的文章主要的結構，加入現代的一些名詞，更符合實際用途。</li>
+<li>重新整理相關連結</li>
+</ol>
+</li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2015/01/07/Container/Private-Repository/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2014/12/27/Management/經營之道/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2015-01-06 15:21:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#導入前的探索與定義"><span class="toc-article-text">導入前的探索與定義</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#需求的探索歸納"><span class="toc-article-text">需求的探索歸納</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#定義追蹤與工作流程-Tracker-and-Workflow-Process"><span class="toc-article-text">定義追蹤與工作流程 (Tracker and Workflow / Process)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#任務類型管理-Issue-Type-Work-Type"><span class="toc-article-text">任務類型管理 (Issue Type / Work Type)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#文件管理"><span class="toc-article-text">文件管理</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#整合與實作"><span class="toc-article-text">整合與實作</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#導入軟體開發流程-Software-development-life-cycle，SDLC"><span class="toc-article-text">導入軟體開發流程 (Software development life cycle，SDLC)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#整合-Issue-與-Source-Code"><span class="toc-article-text">整合 Issue 與 Source Code</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#持續整合"><span class="toc-article-text">持續整合</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Version-Control-Semantic-Versioning"><span class="toc-article-text">Version Control (Semantic Versioning)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Autobuild-and-Artifact-Management"><span class="toc-article-text">Autobuild and Artifact Management</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#議題管理"><span class="toc-article-text">議題管理</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#有效的-Bug-追蹤與管理"><span class="toc-article-text">有效的 Bug 追蹤與管理</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Issue-Template"><span class="toc-article-text">Issue Template</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Category-and-Target-Version"><span class="toc-article-text">Category and Target Version</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Bug-的組織分析與管理"><span class="toc-article-text">Bug 的組織分析與管理</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#導入的成果"><span class="toc-article-text">導入的成果</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#實質效益"><span class="toc-article-text">實質效益</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#改進與期望"><span class="toc-article-text">改進與期望</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#結尾"><span class="toc-article-text">結尾</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2018-12-16-補充"><span class="toc-article-text">2018/12/16 補充</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀-站內"><span class="toc-article-text">延伸閱讀 (站內)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#工作原則"><span class="toc-article-text">工作原則</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#專案管理"><span class="toc-article-text">專案管理</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#CI-CD-DevOps"><span class="toc-article-text">CI/CD/DevOps</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#軟體測試"><span class="toc-article-text">軟體測試</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#延伸閱讀-其他"><span class="toc-article-text">延伸閱讀 (其他)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#更新紀錄"><span class="toc-article-text">更新紀錄</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/經營管理/" style="color: white">經營管理 <span class="badge">33</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Redmine/" style="color: white">Redmine <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/SDLC/" style="color: white">SDLC <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/專案管理/" style="color: white">專案管理 <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/SCM/" style="color: white">SCM <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Software-Test/" style="color: white">Software Test <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/Issue-Tracking/" style="color: white">Issue Tracking <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

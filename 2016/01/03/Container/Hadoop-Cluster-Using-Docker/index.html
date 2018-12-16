@@ -1,0 +1,515 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hadoop Cluster Installation using Docker | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="用 Docker 安裝 Hadoop Multi-Cluster. 利用 Docker - Hadoop Installation 的結論，然後另外做的兩個 images，先 pull 下來：
+12docker pull rickhw/hadoop:namenodedocker pull rickh">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Hadoop Cluster Installation using Docker"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Hadoop Cluster Installation using Docker</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Hadoop Cluster Installation using Docker</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>用 Docker 安裝 Hadoop Multi-Cluster. 利用 <a href="http://rickhw.github.io/2015/12/30/Docker/Docker-Hadoop/">Docker - Hadoop Installation</a> 的結論，然後另外做的兩個 images，先 pull 下來：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull rickhw/hadoop:namenode</span><br><span class="line">docker pull rickhw/hadoop:datanode</span><br></pre></td></tr></table></figure>
+<p>這兩個要在 Ubuntu 上跑，試過在 OS X 跑起來之後，會當掉，不知道與之前發生的 <a href="https://github.com/docker/docker/issues/18180" target="_blank" rel="noopener">ca-certificates-java</a> 問題是否有關。</p>
+<a id="more"></a>
+<h1 id="安裝流程"><a href="#安裝流程" class="headerlink" title="安裝流程"></a>安裝流程</h1><h2 id="啟動並連結-Hadoop-Node"><a href="#啟動並連結-Hadoop-Node" class="headerlink" title="啟動並連結 Hadoop Node"></a>啟動並連結 Hadoop Node</h2><p>Hadoop Cluster 共有一台 Master Node，另外三台 DataNode。我利用 Docker 的 –link 讓彼此可以溝通。用以下方法啟動：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 啟動 Master，Docker 名稱和 hostname 都叫做 hadoop-master</span><br><span class="line">docker run --name hadoop-master -h hadoop-master -p 8088:8088 -p 50070:50070 -it rickhw/hadoop:namenode /bin/bash</span><br><span class="line"></span><br><span class="line"># 啟動 SSH Service</span><br><span class="line">service ssh start</span><br></pre></td></tr></table></figure>
+<p>然後開三個 terminal，啟動三台 datanode，hostname 分別是 hadoop-datanode1 / hadoop-datanode2 / hadoop-datanode3 ，同時都 link 到 master：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run --name hadoop-datanode1 -h hadoop-datanode1 --link hadoop-master -it rickhw/hadoop:datanode /bin/bash</span><br><span class="line">docker run --name hadoop-datanode2 -h hadoop-datanode2 --link hadoop-master -it rickhw/hadoop:datanode /bin/bash</span><br><span class="line">docker run --name hadoop-datanode3 -h hadoop-datanode3 --link hadoop-master -it rickhw/hadoop:datanode /bin/bash</span><br><span class="line"></span><br><span class="line"># 分別啟動 SSH Service</span><br><span class="line">service ssh start</span><br><span class="line"># 取得 datanode ip</span><br><span class="line">ifconfig</span><br></pre></td></tr></table></figure>
+<p>回到 master:</p>
+<ul>
+<li>將 datanode ip 放到 <code>/etc/hosts</code></li>
+</ul>
+<figure class="highlight plain"><figcaption><span>/etc/hosts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">172.17.0.3	hadoop-datanode1</span><br><span class="line">172.17.0.4	hadoop-datanode2</span><br><span class="line">172.17.0.5	hadoop-datanode3</span><br></pre></td></tr></table></figure>
+<ul>
+<li>確認是否可以從 master 連線到三台 data node</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh hadoop-datanod1</span><br><span class="line">ssh hadoop-datanod2</span><br><span class="line">ssh hadoop-datanod3</span><br></pre></td></tr></table></figure>
+<h2 id="啟動-Hadoop-Process"><a href="#啟動-Hadoop-Process" class="headerlink" title="啟動 Hadoop Process"></a>啟動 Hadoop Process</h2><p>都沒問題後，就跟 Single Node 差不多了，</p>
+<ul>
+<li>Foramt HDFS: <code>hadoop namenode -format</code></li>
+<li>啟動 DFS: <code>start-dfs.sh</code></li>
+<li>啟動 YARN: <code>start-yarn.sh</code></li>
+</ul>
+<p>沒問題的話會看到類似以下的訊息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">root@hadoop-master:/opt/hadoop/hdfs# start-dfs.sh</span><br><span class="line">Starting namenodes on [hadoop-master]</span><br><span class="line">hadoop-master: starting namenode, logging to /opt/hadoop/2.6.0/logs/hadoop-root-namenode-hadoop-master.out</span><br><span class="line">hadoop-datanode1: starting datanode, logging to /opt/hadoop/2.6.0/logs/hadoop-root-datanode-hadoop-datanode1.out</span><br><span class="line">hadoop-datanode2: starting datanode, logging to /opt/hadoop/2.6.0/logs/hadoop-root-datanode-hadoop-datanode2.out</span><br><span class="line">hadoop-datanode3: starting datanode, logging to /opt/hadoop/2.6.0/logs/hadoop-root-datanode-hadoop-datanode3.out</span><br><span class="line">Starting secondary namenodes [0.0.0.0]</span><br><span class="line">0.0.0.0: starting secondarynamenode, logging to /opt/hadoop/2.6.0/logs/hadoop-root-secondarynamenode-hadoop-master.out</span><br><span class="line">root@hadoop-master:/opt/hadoop/hdfs# start-yarn.sh</span><br><span class="line">starting yarn daemons</span><br><span class="line">starting resourcemanager, logging to /opt/hadoop/2.6.0/logs/yarn--resourcemanager-hadoop-master.out</span><br><span class="line">hadoop-datanode2: starting nodemanager, logging to /opt/hadoop/2.6.0/logs/yarn-root-nodemanager-hadoop-datanode2.out</span><br><span class="line">hadoop-datanode3: starting nodemanager, logging to /opt/hadoop/2.6.0/logs/yarn-root-nodemanager-hadoop-datanode3.out</span><br><span class="line">hadoop-datanode1: starting nodemanager, logging to /opt/hadoop/2.6.0/logs/yarn-root-nodemanager-hadoop-datanode1.out</span><br><span class="line">root@hadoop-master:/opt/hadoop/hdfs#</span><br></pre></td></tr></table></figure>
+<h2 id="檢查程序是否正確"><a href="#檢查程序是否正確" class="headerlink" title="檢查程序是否正確"></a>檢查程序是否正確</h2><p>Hadoop-Master 會看到四個 process:</p>
+<figure class="highlight plain"><figcaption><span>jps</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@hadoop-master:/opt/hadoop# jps</span><br><span class="line">5496 NameNode</span><br><span class="line">5831 ResourceManager</span><br><span class="line">18898 Jps</span><br><span class="line">5680 SecondaryNameNode</span><br></pre></td></tr></table></figure>
+<p>Hadoop-Datanode 會看到三個 process:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@hadoop-datanode1:/etc# jps</span><br><span class="line">1594 NodeManager</span><br><span class="line">14090 Jps</span><br><span class="line">1480 DataNode</span><br></pre></td></tr></table></figure>
+<p>同樣打開 browser，透過 docker-machine ip 連以下位址：</p>
+<ul>
+<li>Hadoop ResourceManager Web: http://{docker-machine-ip}:8088/<br><img src="/images/Docker/Hadoop-ResourceManager.png" alt=""></li>
+<li>NameNode HDFS Web: http://{docker-machine-ip}:50070/<br><img src="/images/Docker/Hadoop-HDFS.png" alt=""></li>
+</ul>
+<p>如果有問題，參考後面的 Troubleshooting.</p>
+<h1 id="使用-HDFS"><a href="#使用-HDFS" class="headerlink" title="使用 HDFS"></a>使用 HDFS</h1><h2 id="放資料上去-HDFS"><a href="#放資料上去-HDFS" class="headerlink" title="放資料上去 HDFS"></a>放資料上去 HDFS</h2><ul>
+<li>列出根目錄：<code>hadoop fs -ls /</code></li>
+<li>建立目錄：<code>hadoop fs -mkdir /tmp</code></li>
+<li>複製目錄：<code>hadoop fs -copyFromLocal /opt/hadoop/2.6.0/ /2.6.0</code> &lt;– 跑超久, 不用先建立 <code>/2.6.0</code> 目錄</li>
+<li>Put 資料：<code>echo &quot;abc&quot; | hadoop fs -put - /test.txt</code></li>
+<li><code>hadoop fs -cat /test.txt</code></li>
+</ul>
+<h2 id="從-HDFS-拿資料到-local"><a href="#從-HDFS-拿資料到-local" class="headerlink" title="從 HDFS 拿資料到 local"></a>從 HDFS 拿資料到 local</h2><ul>
+<li><code>hadoop fs -copyToLocal /test.txt .</code></li>
+<li><code>hadoop fs -cp /test.txt /tmp/test.txt</code></li>
+</ul>
+<h1 id="Data-Node-實體資料結構"><a href="#Data-Node-實體資料結構" class="headerlink" title="Data Node 實體資料結構"></a>Data Node 實體資料結構</h1><p>檢查 datanode[1-3] 的 <code>/opt/hadoop/hadoop_data/hdfs/datanode</code> 查看結構，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">root@hadoop-datanode1:/opt/hadoop/hadoop_data/hdfs/datanode# tree -d</span><br><span class="line">.</span><br><span class="line">`-- current</span><br><span class="line">    `-- BP-1995057269-172.17.0.2-1451917824095</span><br><span class="line">        |-- current</span><br><span class="line">        |   |-- finalized</span><br><span class="line">        |   |   `-- subdir0</span><br><span class="line">        |   |       |-- subdir0</span><br><span class="line">        |   |       |-- subdir1</span><br><span class="line"></span><br><span class="line">      ... 略 ...</span><br><span class="line"></span><br><span class="line">root@hadoop-datanode2:/opt/hadoop/hadoop_data/hdfs/datanode# tree -d</span><br><span class="line">.</span><br><span class="line">`-- current</span><br><span class="line">    `-- BP-1995057269-172.17.0.2-1451917824095</span><br><span class="line">        |-- current</span><br><span class="line">        |   |-- finalized</span><br><span class="line">        |   |   `-- subdir0</span><br><span class="line">        |   |       |-- subdir0</span><br><span class="line">        |   |       |-- subdir1</span><br><span class="line">        |   |       |-- subdir10</span><br><span class="line"></span><br><span class="line">      ... 略 ...</span><br><span class="line"></span><br><span class="line">root@hadoop-datanode3:/opt/hadoop/hadoop_data/hdfs/datanode# tree -d</span><br><span class="line">.</span><br><span class="line">`-- current</span><br><span class="line">    `-- BP-1995057269-172.17.0.2-1451917824095</span><br><span class="line">        |-- current</span><br><span class="line">        |   |-- finalized</span><br><span class="line">        |   |   `-- subdir0</span><br><span class="line">        |   |       |-- subdir0</span><br><span class="line">        |   |       |-- subdir1</span><br><span class="line">        |   |       |-- subdir10</span><br><span class="line"></span><br><span class="line">      ... 略 ...</span><br></pre></td></tr></table></figure>
+<p>IP <code>172.17.0.2</code> 是 master. 三台 datanode 的結構與名稱都一樣.</p>
+<p>看看檔案大小：</p>
+<figure class="highlight plain"><figcaption><span>-h</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">root@hadoop-datanode1:/opt/hadoop/hadoop_data/hdfs/datanode# du -h</span><br><span class="line">4.0K	./current/BP-1995057269-172.17.0.2-1451917824095/tmp</span><br><span class="line">3.6M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir17</span><br><span class="line">4.1M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir13</span><br><span class="line">38M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir22</span><br><span class="line">86M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir21</span><br><span class="line">204M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir0</span><br><span class="line">8.6M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir18</span><br><span class="line">7.0M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir24</span><br><span class="line">5.4M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir9</span><br><span class="line">6.2M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir8</span><br><span class="line">6.1M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir1</span><br><span class="line">4.2M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir20</span><br><span class="line">4.3M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir5</span><br><span class="line">4.5M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir6</span><br><span class="line">6.1M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir4</span><br><span class="line">5.5M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir3</span><br><span class="line">5.4M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir12</span><br><span class="line">4.5M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir14</span><br><span class="line">6.0M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir2</span><br><span class="line">4.1M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir19</span><br><span class="line">88M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir23</span><br><span class="line">4.3M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir7</span><br><span class="line">5.1M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir11</span><br><span class="line">4.1M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir16</span><br><span class="line">8.2M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir15</span><br><span class="line">6.7M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0/subdir10</span><br><span class="line">527M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized/subdir0</span><br><span class="line">527M	./current/BP-1995057269-172.17.0.2-1451917824095/current/finalized</span><br><span class="line">4.0K	./current/BP-1995057269-172.17.0.2-1451917824095/current/rbw</span><br><span class="line">527M	./current/BP-1995057269-172.17.0.2-1451917824095/current</span><br><span class="line">528M	./current/BP-1995057269-172.17.0.2-1451917824095</span><br><span class="line">528M	./current</span><br><span class="line">528M	.</span><br></pre></td></tr></table></figure>
+<h1 id="Master-的-NameNode"><a href="#Master-的-NameNode" class="headerlink" title="Master 的 NameNode"></a>Master 的 NameNode</h1><p>相對單純，沒很多目錄，但是有很多看起來像是 index 的東西，內容大多是 binary：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">root@hadoop-master:/opt/hadoop/hdfs/namenode# tree -d</span><br><span class="line">.</span><br><span class="line">`-- current</span><br><span class="line"></span><br><span class="line">1 directory</span><br><span class="line">root@hadoop-master:/opt/hadoop/hdfs/namenode# du -h</span><br><span class="line">6.3M	./current</span><br><span class="line">6.4M	.</span><br><span class="line"></span><br><span class="line">root@hadoop-master:/opt/hadoop/hdfs/namenode/current# ls</span><br><span class="line">VERSION                                        edits_0000000000000037958-0000000000000037959</span><br><span class="line">edits_0000000000000000001-0000000000000037895  edits_0000000000000037960-0000000000000037961</span><br><span class="line">edits_0000000000000037896-0000000000000037897  edits_0000000000000037962-0000000000000037963</span><br><span class="line">edits_0000000000000037898-0000000000000037899  edits_0000000000000037964-0000000000000037965</span><br><span class="line">edits_0000000000000037900-0000000000000037901  edits_0000000000000037966-0000000000000037967</span><br><span class="line">edits_0000000000000037902-0000000000000037903  edits_0000000000000037968-0000000000000037969</span><br><span class="line">edits_0000000000000037904-0000000000000037905  edits_0000000000000037970-0000000000000037971</span><br><span class="line">edits_0000000000000037906-0000000000000037907  edits_0000000000000037972-0000000000000037973</span><br><span class="line">edits_0000000000000037908-0000000000000037909  edits_0000000000000037974-0000000000000037975</span><br><span class="line">edits_0000000000000037910-0000000000000037911  edits_0000000000000037976-0000000000000037977</span><br></pre></td></tr></table></figure>
+<h1 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h1><h2 id="出現-datanode-無法正確啟動"><a href="#出現-datanode-無法正確啟動" class="headerlink" title="出現 datanode 無法正確啟動"></a>出現 datanode 無法正確啟動</h2><ul>
+<li>在 Master: 啟動 DFS <code>start-dfs.sh</code> 時，出現 <code>namenode running as process 4391. Stop it first.</code>，</li>
+<li>去 datanode 看 ps 沒東西在跑，回到 master <code>stop-dfs.sh</code> 時出現 <code>hadoop-datanode1: no datanode to stop</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">root@hadoop-master:/opt/hadoop/2.6.0/etc/hadoop# start-dfs.sh</span><br><span class="line">Starting namenodes on [hadoop-master]</span><br><span class="line">hadoop-master: namenode running as process 4391. Stop it first.</span><br><span class="line">hadoop-datanode1: starting datanode, logging to /opt/hadoop/2.6.0/logs/hadoop-root-datanode-hadoop-datanode1.out</span><br><span class="line">hadoop-datanode2: starting datanode, logging to /opt/hadoop/2.6.0/logs/hadoop-root-datanode-hadoop-datanode2.out</span><br><span class="line">hadoop-datanode3: starting datanode, logging to /opt/hadoop/2.6.0/logs/hadoop-root-datanode-hadoop-datanode3.out</span><br><span class="line">Starting secondary namenodes [0.0.0.0]</span><br><span class="line">0.0.0.0: secondarynamenode running as process 4574. Stop it first.</span><br><span class="line">root@hadoop-master:/opt/hadoop/2.6.0/etc/hadoop# stop-dfs.sh</span><br><span class="line">Stopping namenodes on [hadoop-master]</span><br><span class="line">hadoop-master: stopping namenode</span><br><span class="line">hadoop-datanode1: no datanode to stop</span><br><span class="line">hadoop-datanode2: no datanode to stop</span><br><span class="line">hadoop-datanode3: no datanode to stop</span><br><span class="line">Stopping secondary namenodes [0.0.0.0]</span><br><span class="line">0.0.0.0: stopping secondarynamenode</span><br><span class="line">root@hadoop-master:/opt/hadoop/2.6.0/etc/hadoop#</span><br></pre></td></tr></table></figure>
+<p>解決方式：</p>
+<ul>
+<li>先停掉所有的 hadoop process</li>
+<li>到 master 看看 namenode 指定路徑在哪裡，設定在 <code>/opt/hadoop/2.6.0/etc/hadoop/hdfs-site.xml</code><br>docker run –name=redmine -it –rm –link=mysql-server \<br>–volume=/data/docker/redmine/redmine:/home/redmine/data \<br>sameersbn/redmine:3.2.0-2</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">                &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">                &lt;value&gt;3&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">                &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;</span><br><span class="line">                &lt;value&gt;file:/opt/hadoop/hdfs/namenode&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>把 namenode 路徑內容清乾淨: <code>rm -rf /opt/hadoop/hdfs/namenode</code></li>
+<li>Foramt HDFS: <code>hadoop namenode -format</code></li>
+<li>重啟 HDFS, YARN 應該就可以了。</li>
+</ul>
+<h2 id="namenode-設定"><a href="#namenode-設定" class="headerlink" title="namenode 設定"></a>namenode 設定</h2><ul>
+<li>不管是 master or datanode 都有自己 namenode 的設定路徑，當啟動 <code>start-dfs.sh</code> 會讀取本機的 <code>/opt/hadoop/2.6.0/etc/hadoop/hdfs-site.xml</code> 設定，所以如果 master or datanode 出現的路徑不一致，那就檢查這個設定是否一致。</li>
+</ul>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
+<li><a href="http://rickhw.github.io/2015/12/30/Docker/Docker-Hadoop/">Docker - Hadoop Installation</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2016/01/05/AWS/VPC-Peering/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2015/12/31/DevOps/News_DevOps-Impact/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2016-01-03 19:41:58
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#安裝流程"><span class="toc-article-text">安裝流程</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#啟動並連結-Hadoop-Node"><span class="toc-article-text">啟動並連結 Hadoop Node</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#啟動-Hadoop-Process"><span class="toc-article-text">啟動 Hadoop Process</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#檢查程序是否正確"><span class="toc-article-text">檢查程序是否正確</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#使用-HDFS"><span class="toc-article-text">使用 HDFS</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#放資料上去-HDFS"><span class="toc-article-text">放資料上去 HDFS</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#從-HDFS-拿資料到-local"><span class="toc-article-text">從 HDFS 拿資料到 local</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Data-Node-實體資料結構"><span class="toc-article-text">Data Node 實體資料結構</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Master-的-NameNode"><span class="toc-article-text">Master 的 NameNode</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Troubleshooting"><span class="toc-article-text">Troubleshooting</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#出現-datanode-無法正確啟動"><span class="toc-article-text">出現 datanode 無法正確啟動</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#namenode-設定"><span class="toc-article-text">namenode 設定</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/Container/" style="color: white">Container <span class="badge">9</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Hadoop/" style="color: white">Hadoop <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Docker/" style="color: white">Docker <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Java/" style="color: white">Java <span class="badge">2</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

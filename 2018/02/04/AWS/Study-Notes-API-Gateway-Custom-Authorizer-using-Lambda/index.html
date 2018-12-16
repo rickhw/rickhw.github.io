@@ -1,0 +1,523 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>API Gateway - Custom Authorizer using Lambda | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="在 Overview API Gateway 中提到，Amazon API Gateway 提供了客製化驗證的機制，讓我們可以個別設定驗證的方式，使用者認證 (Authentication) 可以使用 OAuth or SAML；授權 (Authorization) 可以使用 JSON Web To">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="API Gateway - Custom Authorizer using Lambda"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> API Gateway - Custom Authorizer using Lambda</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> API Gateway - Custom Authorizer using Lambda</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>在 <a href="/2018/01/24/AWS/Study-Notes-Overview-API-Gateway/">Overview API Gateway</a> 中提到，<a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html" target="_blank" rel="noopener">Amazon API Gateway</a> 提供了客製化驗證的機制，讓我們可以個別設定驗證的方式，使用者認證 (Authentication) 可以使用 OAuth or SAML；授權 (Authorization) 可以使用 JSON Web Token (JWT) 或者 OAuth provider。</p>
+<p>本文整理如何使用 Lambda 做 Custom Authorizers 的基本用法與流程。</p>
+<a id="more"></a>
+<h1 id="Custom-Authorizers"><a href="#Custom-Authorizers" class="headerlink" title="Custom Authorizers"></a>Custom Authorizers</h1><p>下圖是 <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html" target="_blank" rel="noopener">官方文件</a> 描述客製驗證流程：</p>
+<p><img src="/images/AWS/API-Gateway/custom-auth-workflow.png" alt=""></p>
+<p>圖中描述的關鍵在於中間紅色的 <code>Policy is evaluted</code> 要呈現的，實作上來講，透過上面的 <code>Lambda Auth Function</code> 回傳 <code>IAM Policy</code> 的資料結構，此 Policy 描述能否完成授權。</p>
+<p>所以實際流程大概是這樣：</p>
+<ol>
+<li>客製驗證：整合自行設計的認證、授權，或者既有的系統</li>
+<li>依據驗證的結果回傳對應的 <code>IAM Policy</code>，回傳內容是 JSON 內容的字串</li>
+</ol>
+<p>途中 Lambda 也可以使用 <code>Cognito</code> 作認證。</p>
+<h2 id="Authorizer-Types"><a href="#Authorizer-Types" class="headerlink" title="Authorizer Types"></a>Authorizer Types</h2><p>使用 Lambda 作為 Authorizer 提供兩種授權類型：</p>
+<ol>
+<li><code>TOKEN</code>: 透過 HTTP HEADER 傳送 authorization token，通常配合 OAuth 使用</li>
+<li><code>REQUEST</code>: 透過 request parameters 傳送授權資訊，像是用 headers, query strings, stage variables, or context parameters.</li>
+</ol>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><ol>
+<li>建立 Custom Auth - Lambda Function</li>
+<li>建立 IAM Role 作為 Custom Authorizer 的 Service Role</li>
+<li>設定 Custom Authorizer</li>
+<li>使用 Custom Authorizer</li>
+</ol>
+<h2 id="1-建立-Custom-Auth-Lambda-Function"><a href="#1-建立-Custom-Auth-Lambda-Function" class="headerlink" title="1. 建立 Custom Auth - Lambda Function"></a>1. 建立 Custom Auth - Lambda Function</h2><p>建立一個 Lambda Function，Code 如下。這段 code 是 <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html" target="_blank" rel="noopener">官方文件</a> 中簡化的版本，只有增加 <code>customToken</code> 作為驗證，通過驗證後，會回傳 IAM Policy 的 JSON 資料：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// @see: https://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> customToken = [<span class="string">'abcde'</span>, <span class="string">'wxyz1'</span>]</span><br><span class="line"></span><br><span class="line">exports.handler =  <span class="function"><span class="keyword">function</span>(<span class="params">event, context, callback</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`DEBUG event: <span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(event, <span class="literal">null</span>, <span class="number">2</span>)&#125;</span>`</span>);</span><br><span class="line">    <span class="keyword">if</span> (customToken.indexOf(event.authorizationToken) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        callback(<span class="literal">null</span>, generatePolicy(<span class="string">'user'</span>, <span class="string">'Allow'</span>, event.methodArn));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        callback(<span class="string">"Error: Invalid token"</span>, generatePolicy(<span class="string">'user'</span>, <span class="string">'Deny'</span>, event.methodArn));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Help function to generate an IAM policy</span></span><br><span class="line"><span class="keyword">var</span> generatePolicy = <span class="function"><span class="keyword">function</span>(<span class="params">principalId, effect, resource</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> authResponse = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    authResponse.principalId = principalId;</span><br><span class="line">    <span class="keyword">if</span> (effect &amp;&amp; resource) &#123;</span><br><span class="line">        <span class="keyword">var</span> policyDocument = &#123;&#125;;</span><br><span class="line">        policyDocument.Version = <span class="string">'2012-10-17'</span>;</span><br><span class="line">        policyDocument.Statement = [];</span><br><span class="line">        <span class="keyword">var</span> statementOne = &#123;&#125;;</span><br><span class="line">        statementOne.Action = <span class="string">'execute-api:Invoke'</span>;</span><br><span class="line">        statementOne.Effect = effect;</span><br><span class="line">        statementOne.Resource = resource;</span><br><span class="line">        policyDocument.Statement[<span class="number">0</span>] = statementOne;</span><br><span class="line">        authResponse.policyDocument = policyDocument;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`DEBUG authResponse: <span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(authResponse, <span class="literal">null</span>, <span class="number">2</span>)&#125;</span>`</span>);</span><br><span class="line">    <span class="keyword">return</span> authResponse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 Lambda Console 可以用以下 JSON 測試：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"type"</span>: <span class="string">"TOKEN"</span>,</span><br><span class="line">  <span class="attr">"methodArn"</span>: <span class="string">"arn:aws:execute-api:&#123;REGION&#125;:&#123;AWS_ACCOUNT_ID&#125;:&#123;API_GATEWAY_ID&#125;/null/GET/"</span>,</span><br><span class="line">  <span class="attr">"authorizationToken"</span>: <span class="string">"12345"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>測試結果如果正確，可以在 CloudWatch Logs 看到 DEBUG Log 顯示回傳內容是一段 IAM Policy：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"principalId"</span>: <span class="string">"user"</span>,</span><br><span class="line">    <span class="attr">"policyDocument"</span>: &#123;</span><br><span class="line">        <span class="attr">"Version"</span>: <span class="string">"2012-10-17"</span>,</span><br><span class="line">        <span class="attr">"Statement"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"Action"</span>: <span class="string">"execute-api:Invoke"</span>,</span><br><span class="line">                <span class="attr">"Effect"</span>: <span class="string">"Allow"</span>,</span><br><span class="line">                <span class="attr">"Resource"</span>: <span class="string">"arn:aws:execute-api:&#123;REGION&#125;:&#123;AWS_ACCOUNT_ID&#125;:&#123;API_GATEWAY_ID&#125;/null/GET/"</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>這段 Code 的目的有兩個：</p>
+<ol>
+<li>認證、授權：這段可以自行依照需求客製化，或者串接既有的服務</li>
+<li>回傳授權的 IAM Policy</li>
+</ol>
+<blockquote>
+<p>注意，這個 Lambda 使用的 IAM Role 不同於下一步的 Custom Authorizer Service Role</p>
+</blockquote>
+<h2 id="2-建立-Custom-Authorizer-的-Service-Role"><a href="#2-建立-Custom-Authorizer-的-Service-Role" class="headerlink" title="2. 建立 Custom Authorizer 的 Service Role"></a>2. 建立 Custom Authorizer 的 Service Role</h2><p>這個 IAM Role 是要給 API Gateway 使用的 <code>Service Role</code>，主要是 Runtime 時，要執行 Custom Authorizer 的身份。</p>
+<p>建立 IAM Role 時，選擇以下的 Managed Policy:</p>
+<ul>
+<li><code>AWSLambdaRole</code>: 允許執行 Lambda</li>
+<li><code>AWSLambdaBasicExecutionRole</code>: 主要是允許存取 CloudWatchLogs</li>
+</ul>
+<blockquote>
+<p>注意：官方的 Managed Policy 命名不是很好，第一個一定要選到，否則無法執行</p>
+</blockquote>
+<p>配置 <code>Trust Relationship</code>，主要是新增 <code>apigateway.amazonaws.com</code> 允許 API Gateway 執行此 policy</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"Version"</span>: <span class="string">"2012-10-17"</span>,</span><br><span class="line">  <span class="attr">"Statement"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"Effect"</span>: <span class="string">"Allow"</span>,</span><br><span class="line">      <span class="attr">"Principal"</span>: &#123;</span><br><span class="line">        <span class="attr">"Service"</span>: <span class="string">"lambda.amazonaws.com"</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"Action"</span>: <span class="string">"sts:AssumeRole"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"Sid"</span>: <span class="string">"APIGatewayAuthorizer"</span>,</span><br><span class="line">      <span class="attr">"Effect"</span>: <span class="string">"Allow"</span>,</span><br><span class="line">      <span class="attr">"Principal"</span>: &#123;</span><br><span class="line">        <span class="attr">"Service"</span>: <span class="string">"apigateway.amazonaws.com"</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"Action"</span>: <span class="string">"sts:AssumeRole"</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>建立完成後，複製 ARN，下一個步驟使用。</p>
+<h2 id="3-設定-Custom-Authorizer"><a href="#3-設定-Custom-Authorizer" class="headerlink" title="3. 設定 Custom Authorizer"></a>3. 設定 Custom Authorizer</h2><p>回到 API Gateway，到 API 的 Authorizer ，選擇 <code>Create New Authorizer</code>，填入相關資訊：</p>
+<ul>
+<li>Lambda Function Name: 這裡的名稱叫做 <code>OpsAPI-CAuth-Token</code>, 等一下設定會使用到。</li>
+<li>Lambda Execution Role: 填入上個步驟建立的 ARN</li>
+<li>Lambda Event Payload: 選 Token</li>
+<li>Token Source: 填入 <code>x-cauth-token</code></li>
+<li>Authorization Caching: 關掉，方便測試</li>
+</ul>
+<p>設定如下圖：</p>
+<p><img src="/images/AWS/API-Gateway/CAuth-Token/01_CutomAuth.png" alt=""></p>
+<h2 id="4-使用-Custom-Authorizer"><a href="#4-使用-Custom-Authorizer" class="headerlink" title="4. 使用 Custom Authorizer"></a>4. 使用 Custom Authorizer</h2><p>到 API 設定，選擇要使用的 Method，在 <code>Method Request</code> 裡的 Authorization，選擇剛剛建立的 Custom Authorizer，如下圖：</p>
+<p><img src="/images/AWS/API-Gateway/CAuth-Token/02_Apply_CustomAuth.png" alt=""></p>
+<p>沒問題就部署 API.</p>
+<h2 id="5-測試"><a href="#5-測試" class="headerlink" title="5. 測試"></a>5. 測試</h2><p>用 <code>cURL</code> 送出 HTTP POST</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST \</span><br><span class="line">    -H <span class="string">'Content-Type:application/json'</span> \</span><br><span class="line">    -H <span class="string">'x-cauth-token:12345'</span> \</span><br><span class="line">    --data <span class="string">'&#123; "message": "ok"&#125;'</span> \</span><br><span class="line">    https://&#123;API_ENDPOINT&#125;/&#123;STAGE&#125;/slack</span><br></pre></td></tr></table></figure>
+<p>順利的話，會得到正確的結果。</p>
+<h2 id="注意事項-Troubleshooting"><a href="#注意事項-Troubleshooting" class="headerlink" title="注意事項 (Troubleshooting)"></a>注意事項 (Troubleshooting)</h2><ul>
+<li>Debug 不要開 <code>Authorization Caching</code></li>
+<li>Debug 如果更改 Custom Auth 設定，要重新部署 Rest API，像是開了 Auth Caching，關掉後，要記得重新部署。</li>
+<li>注意 Custom Auth 的 IAM Policy，很容易選錯。</li>
+<li>如果會間歇性的出現 200 / 402，然後收到這樣的 error message: <code>{ &quot;Message&quot;: &quot;User is not authorized to access this resource&quot; }</code>，我的解法是，把 Custom Auth 的 TTL 調成 1s，然後重新部署就可以了。相關參考：<a href="https://forums.aws.amazon.com/thread.jspa?threadID=225934&amp;tstart=0" target="_blank" rel="noopener">Re: API gateway custom autorization </a></li>
+</ul>
+<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>本文整理如何在 API Gateway 使用 Lambda 做簡單的認證流程，屆下來繼續整理如何 <a href="/2018/02/26/AWS/Study-Notes-API-Gateway-Setup-Logging/">Debug API Gateway</a>。</p>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
+<li><a href="/2018/01/24/AWS/Study-Notes-Overview-API-Gateway/">Study Notes - Overview API Gateway</a></li>
+<li><a href="/2018/02/26/AWS/Study-Notes-API-Gateway-Setup-Logging/">API Gateway - Setup Logging</a></li>
+<li><a href="/2018/03/03/AWS/Study-Notes-API-Gateway-Custom-Domain-Names/">API Gateway - Custom Domain Names</a></li>
+<li><a href="/2018/03/16/AWS/Study-Notes-API-Gateway-Integrate-with-Internal-Services/">API Gateway - Integrate with Internal Services</a></li>
+<li><a href="/2018/04/21/AWS/Study-Notes-API-Gateway-as-DynamoDB-Proxy/">Using API Gateway as DynamoDB Proxy</a></li>
+<li><a href="/2018/05/03/AWS/Study-Notes-API-Gateway-Rate-Limit-and-Throttling/">API Gateway - Rate Limit and Throttling</a></li>
+</ul>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<li><a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html" target="_blank" rel="noopener">Amazon API Gateway</a></li>
+<li><a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html" target="_blank" rel="noopener">Use API Gateway Custom Authorizers</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2018/02/06/Architecture/Service-Mesh/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2018/02/03/GCP/Compare-GCP-VPC-Network-with-AWS/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2018-02-04 14:35:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Custom-Authorizers"><span class="toc-article-text">Custom Authorizers</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Authorizer-Types"><span class="toc-article-text">Authorizer Types</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#配置"><span class="toc-article-text">配置</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#1-建立-Custom-Auth-Lambda-Function"><span class="toc-article-text">1. 建立 Custom Auth - Lambda Function</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-建立-Custom-Authorizer-的-Service-Role"><span class="toc-article-text">2. 建立 Custom Authorizer 的 Service Role</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-設定-Custom-Authorizer"><span class="toc-article-text">3. 設定 Custom Authorizer</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#4-使用-Custom-Authorizer"><span class="toc-article-text">4. 使用 Custom Authorizer</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#5-測試"><span class="toc-article-text">5. 測試</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#注意事項-Troubleshooting"><span class="toc-article-text">注意事項 (Troubleshooting)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#結論"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/AWS/" style="color: white">AWS <span class="badge">66</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/API-Gateway/" style="color: white">API Gateway <span class="badge">14</span></a></span> <span class="label label-success"><a href="/tags/Lambda/" style="color: white">Lambda <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Serverless/" style="color: white">Serverless <span class="badge">13</span></a></span> <span class="label label-success"><a href="/tags/Cognito/" style="color: white">Cognito <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/JWT/" style="color: white">JWT <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

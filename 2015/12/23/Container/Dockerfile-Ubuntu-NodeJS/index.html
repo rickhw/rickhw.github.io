@@ -1,0 +1,490 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Dockerfile - 用 Ubuntu 建立 Node.js 環境 | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="在 Ubuntu 14.04 安裝 nvm, node.js 做例子。一般手動安裝如下：
+
+安裝 ubuntu 14.04
+安裝 nvm (node.js 版本管理)
+安裝 node.js
+
+詳細執行步驟如下 (OS X and Linux)：
+1234curl https://raw.github">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Dockerfile - 用 Ubuntu 建立 Node.js 環境"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Dockerfile - 用 Ubuntu 建立 Node.js 環境</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Dockerfile - 用 Ubuntu 建立 Node.js 環境</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>在 Ubuntu 14.04 安裝 nvm, node.js 做例子。一般手動安裝如下：</p>
+<ul>
+<li>安裝 ubuntu 14.04</li>
+<li>安裝 nvm (node.js 版本管理)</li>
+<li>安裝 node.js</li>
+</ul>
+<p>詳細執行步驟如下 (OS X and Linux)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash</span><br><span class="line">source ~/.bashrc</span><br><span class="line">nvm install stable</span><br><span class="line">nvm current</span><br></pre></td></tr></table></figure>
+<p>以下換成 Dockerfile.</p>
+<a id="more"></a>
+<p>差別在於，Base image 比較乾淨，所以有些東西都沒有，像是 <code>curl</code>、基本的開發函式庫，還有就是無法讀取使用者輸入 (stdin)，這些要自己處理。總之有一些細節要處理，先看結論：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"># docker build -t rickhw/ubuntu14-nodejs:latest .</span><br><span class="line">FROM ubuntu:14.04</span><br><span class="line">MAINTAINER Rick Hwang &lt;rick_kyhwang@hotmail.com&gt;</span><br><span class="line"></span><br><span class="line"># see: http://stackoverflow.com/questions/20635472/using-the-run-instruction-in-a-dockerfile-with-source-does-not-work</span><br><span class="line">RUN rm /bin/sh &amp;&amp; ln -s /bin/bash /bin/sh</span><br><span class="line"></span><br><span class="line"># disable stdin to avoid &apos;dpkg-preconfigure: unable to re-open stdin&apos;</span><br><span class="line">RUN echo &apos;debconf debconf/frontend select Noninteractive&apos; | debconf-set-selections</span><br><span class="line"></span><br><span class="line">RUN apt-get update -y</span><br><span class="line">RUN apt-get install build-essential libssl-dev -y</span><br><span class="line">RUN apt-get install curl -y</span><br><span class="line"></span><br><span class="line"># nvm and node version</span><br><span class="line">ENV NVM_VERSION 0.29.0</span><br><span class="line">ENV NVM_DIR /usr/local/nvm</span><br><span class="line">ENV NODE_VERSION 5.3.0</span><br><span class="line"></span><br><span class="line"># install nvm an node</span><br><span class="line">RUN curl https://raw.githubusercontent.com/creationix/nvm/v$NVM_VERSION/install.sh | bash \</span><br><span class="line">    &amp;&amp; source $NVM_DIR/nvm.sh \</span><br><span class="line">    &amp;&amp; nvm install $NODE_VERSION \</span><br><span class="line">    &amp;&amp; nvm alias default $NODE_VERSION \</span><br><span class="line">    &amp;&amp; nvm use default</span><br><span class="line"></span><br><span class="line">ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules</span><br><span class="line">ENV PATH $NVM_DIR/v$NODE_VERSION/bin:$PATH</span><br></pre></td></tr></table></figure>
+<p>把上述內容存檔，命名為 <code>Dockerfile</code>，然後到這個目錄底下，執行 <code>docker build .</code> 就會產生 image。也可以用 <code>-t</code> 增加 tag.</p>
+<h1 id="Build-Dockerfile"><a href="#Build-Dockerfile" class="headerlink" title="Build Dockerfile"></a>Build Dockerfile</h1><p>以下是執行的過程，依照 Dockerfile Command 的個數，就有多少個 Step，我的例子共有 13 個 Step，包含 <code>FROM</code>, <code>MAINTAINER</code>, <code>ENV</code>, <code>RUN</code> … 等. 注意每個 Step 都會產生一個 hashcode，這些 hashcode 都可以透過 <code>docker images</code> 看到。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"> 23:30:07  ubuntu-nodejs    docker build -t rickhw/ubuntu14-nodejs:latest .</span><br><span class="line">Sending build context to Docker daemon  2.56 kB</span><br><span class="line">Step 1 : FROM ubuntu:14.04</span><br><span class="line"> ---&gt; 89d5d8e8bafb</span><br><span class="line">Step 2 : MAINTAINER Rick Hwang &lt;rick_kyhwang@hotmail.com&gt;</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; 480897edf04e</span><br><span class="line">Step 3 : RUN rm /bin/sh &amp;&amp; ln -s /bin/bash /bin/sh</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; 7482b7c34792</span><br><span class="line">Step 4 : RUN <span class="built_in">echo</span> <span class="string">'debconf debconf/frontend select Noninteractive'</span> | debconf-set-selections</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; 9db050c7e840</span><br><span class="line">Step 5 : RUN apt-get update -y</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; 7dd9a2586056</span><br><span class="line">Step 6 : RUN apt-get install build-essential libssl-dev -y</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; c9208b903e41</span><br><span class="line">Step 7 : RUN apt-get install curl -y</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; e3bbe6f03662</span><br><span class="line">Step 8 : ENV NVM_VERSION 0.29.0</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; 3e405fbc54ce</span><br><span class="line">Step 9 : ENV NVM_DIR /usr/<span class="built_in">local</span>/nvm</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; 461225b229f9</span><br><span class="line">Step 10 : ENV NODE_VERSION 5.3.0</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; c9208132d8a7</span><br><span class="line">Step 11 : RUN curl https://raw.githubusercontent.com/creationix/nvm/v<span class="variable">$NVM_VERSION</span>/install.sh | bash     &amp;&amp; <span class="built_in">source</span> <span class="variable">$NVM_DIR</span>/nvm.sh     &amp;&amp; nvm install <span class="variable">$NODE_VERSION</span>     &amp;&amp; nvm <span class="built_in">alias</span> default <span class="variable">$NODE_VERSION</span>     &amp;&amp; nvm use default</span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> 79feda71f4d0</span><br><span class="line">  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</span><br><span class="line">                                 Dload  Upload   Total   Spent    Left  Speed</span><br><span class="line">100  7731  100  7731    0     0  14914      0 --:--:-- --:--:-- --:--:-- 14895</span><br><span class="line">=&gt; Downloading nvm as script to <span class="string">'/usr/local/nvm'</span></span><br><span class="line"></span><br><span class="line">=&gt; Appending <span class="built_in">source</span> string to /root/.bashrc</span><br><span class="line">=&gt; Close and reopen your terminal to start using nvm</span><br><span class="line">Downloading https://nodejs.org/dist/v5.3.0/node-v5.3.0-linux-x64.tar.xz...</span><br><span class="line"><span class="comment">######################################################################## 100.0%</span></span><br><span class="line">WARNING: checksums are currently disabled <span class="keyword">for</span> node.js v4.0 and later</span><br><span class="line">Now using node v5.3.0 (npm v3.3.12)</span><br><span class="line">default -&gt; 5.3.0 (-&gt; v5.3.0)</span><br><span class="line">Now using node v5.3.0 (npm v3.3.12)</span><br><span class="line"> ---&gt; 2aad951ff56a</span><br><span class="line">Removing intermediate container 79feda71f4d0</span><br><span class="line">Step 12 : ENV NODE_PATH <span class="variable">$NVM_DIR</span>/v<span class="variable">$NODE_VERSION</span>/lib/node_modules</span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> 21f0a2a443b5</span><br><span class="line"> ---&gt; 5ca110743299</span><br><span class="line">Removing intermediate container 21f0a2a443b5</span><br><span class="line">Step 13 : ENV PATH <span class="variable">$NVM_DIR</span>/v<span class="variable">$NODE_VERSION</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> abde5e07effd</span><br><span class="line"> ---&gt; e5ad90a806f9</span><br><span class="line">Removing intermediate container abde5e07effd</span><br><span class="line">Successfully built e5ad90a806f9</span><br></pre></td></tr></table></figure>
+<p>成功的話，最後會出現類似 <code>Successfully built e5ad90a806f9</code>，我的例子有 tag，所以再次列出 <code>docker images</code> 則會看到新的 repository：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"> 23:31:36  ubuntu-nodejs    docker images</span><br><span class="line">REPOSITORY                          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE</span><br><span class="line">rickhw/ubuntu14-nodejs              latest              e5ad90a806f9        15 seconds ago      377.2 MB</span><br><span class="line">&lt;none&gt;                              &lt;none&gt;              b29410c4d858        2 minutes ago       340.8 MB</span><br><span class="line">&lt;none&gt;                              &lt;none&gt;              763ceeda2c37        10 minutes ago      340.8 MB</span><br><span class="line">&lt;none&gt;                              &lt;none&gt;              f57772d76061        18 minutes ago      340.8 MB</span><br><span class="line">&lt;none&gt;                              &lt;none&gt;              d1c508a27856        21 minutes ago      340.8 MB</span><br><span class="line">&lt;none&gt;                              &lt;none&gt;              a30b0a9103a5        24 minutes ago      340.8 MB</span><br><span class="line">&lt;none&gt;                              &lt;none&gt;              347d69101009        35 minutes ago      340.8 MB</span><br><span class="line">&lt;none&gt;                              &lt;none&gt;              badce1b5aebf        40 minutes ago      340.8 MB</span><br><span class="line">&lt;none&gt;                              &lt;none&gt;              c7542645bb2e        45 minutes ago      338.1 MB</span><br><span class="line">&lt;none&gt;                              &lt;none&gt;              bee665ec02a8        2 hours ago         190.6 MB</span><br><span class="line">&lt;none&gt;                              &lt;none&gt;              361f75995039        3 hours ago         190.6 MB</span><br><span class="line">&lt;none&gt;                              &lt;none&gt;              d61954780561        3 hours ago         190.6 MB</span><br><span class="line">&lt;none&gt;                              &lt;none&gt;              7517c95798ac        3 hours ago         187.9 MB</span><br><span class="line">ubuntu                              14.04               89d5d8e8bafb        13 days ago         187.9 MB</span><br></pre></td></tr></table></figure>
+<h2 id="Push-to-DockerHub"><a href="#Push-to-DockerHub" class="headerlink" title="Push to DockerHub"></a>Push to DockerHub</h2><p>把產生的 repository 放到 DockerHub，同樣的留意每個 hashcode，就是 <code>docker build</code> 過程的 Step。其中一個 <code>89d5d8e8bafb</code> 則是我的 Docker 的 base image, 也就是 <code>ubuntu:14.04</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">23:31:49  ubuntu-nodejs    docker push rickhw/ubuntu14-nodejs</span><br><span class="line">The push refers to a repository [docker.io/rickhw/ubuntu14-nodejs] (len: 1)</span><br><span class="line">e5ad90a806f9: Pushed</span><br><span class="line">5ca110743299: Pushed</span><br><span class="line">2aad951ff56a: Pushed</span><br><span class="line">c9208132d8a7: Pushed</span><br><span class="line">461225b229f9: Pushed</span><br><span class="line">3e405fbc54ce: Pushed</span><br><span class="line">e3bbe6f03662: Pushed</span><br><span class="line">c9208b903e41: Pushed</span><br><span class="line">7dd9a2586056: Pushed</span><br><span class="line">9db050c7e840: Pushed</span><br><span class="line">7482b7c34792: Pushed</span><br><span class="line">480897edf04e: Pushed</span><br><span class="line">e24428725dd6: Pushed</span><br><span class="line">1796d1c62d0c: Pushed</span><br><span class="line">0bf056161913: Pushed</span><br><span class="line">latest: digest: sha256:8aebc57265ad042ad9e1b2585a31c9dfedc3d9413cf71fcdb1a40a16b04f5a78 size: 27180</span><br><span class="line"> 23:40:20  ubuntu-nodejs  </span><br></pre></td></tr></table></figure>
+<p>這個範例可以到 <code>https://hub.docker.com/r/rickhw/ubuntu14-nodejs/</code> 下載。</p>
+<h1 id="Debug-Dockerfile"><a href="#Debug-Dockerfile" class="headerlink" title="Debug Dockerfile"></a>Debug Dockerfile</h1><ul>
+<li>寫 Dockerfile 之前，先確認每個 command line 執行過程中，有哪一些需要輸入的問答，像是帳號、密碼、安裝確認。像是：<ul>
+<li><code>apt-get</code>, <code>yum</code> 都可以用 <code>-y</code> 忽略確認</li>
+<li>帳號密碼大部份的 tools 都會提供類似 <code>--username</code>, <code>--password</code> 之類的參數</li>
+</ul>
+</li>
+<li>每一行 <code>RUN</code> command，最好都先跑一個 base container，在裡面執行確認過，確認不會有問題</li>
+<li><p><code>RUN</code> 裡面的指令，可以用 <code>&amp;&amp; \</code> 連接起來，像是:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RUN apt-get update -y &amp;&amp; \</span><br><span class="line">    apt-get install curl -y</span><br><span class="line"># 或者</span><br><span class="line">RUN apt-get update -y \</span><br><span class="line">    &amp;&amp; apt-get install curl -y</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>每個 <code>RUN</code> 都是一個 <code>Step</code>, 也都會有一個 <code>hashcode</code>, 有問題時，可以透過 <code>docker run -i -t &lt;hashcode&gt; /bin/bash</code> 檢查。</p>
+</li>
+</ul>
+<h1 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h1><h2 id="Problem-1-跑-apt-get-出現-unable-to-re-open-stdin"><a href="#Problem-1-跑-apt-get-出現-unable-to-re-open-stdin" class="headerlink" title="Problem 1: 跑 apt-get 出現 unable to re-open stdin"></a>Problem 1: 跑 apt-get 出現 unable to re-open stdin</h2><p>Ubuntu 跑 <code>apt-get</code> 出現 <code>dpkg-preconfigure: unable to re-open stdin</code>, 在前面增加以下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RUN echo &apos;debconf debconf/frontend select Noninteractive&apos; | debconf-set-selections</span><br></pre></td></tr></table></figure>
+<p>參考：<a href="http://stackoverflow.com/questions/31595177/docker-build-your-own-image-issue" target="_blank" rel="noopener">Docker: Build your own image issue</a></p>
+<h2 id="Problem-2-無法執行-source-bashrc"><a href="#Problem-2-無法執行-source-bashrc" class="headerlink" title="Problem 2: 無法執行 source ~/.bashrc"></a>Problem 2: 無法執行 <code>source ~/.bashrc</code></h2><p>無法執行 <code>source ~/.bashrc</code> 時，在前面加入以下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RUN rm /bin/sh &amp;&amp; ln -s /bin/bash /bin/sh</span><br></pre></td></tr></table></figure>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<li><a href="http://stackoverflow.com/questions/31595177/docker-build-your-own-image-issue" target="_blank" rel="noopener">Docker: Build your own image issue</a></li>
+<li><a href="http://stackoverflow.com/questions/26220957/how-can-i-inspect-the-file-system-of-a-failed-docker-build" target="_blank" rel="noopener">How can I inspect the file system of a failed <code>docker build</code>?</a></li>
+<li><a href="http://stackoverflow.com/questions/25899912/install-nvm-in-docker" target="_blank" rel="noopener">install nvm in docker</a></li>
+<li><a href="http://stackoverflow.com/questions/20635472/using-the-run-instruction-in-a-dockerfile-with-source-does-not-work" target="_blank" rel="noopener">Using the RUN instruction in a Dockerfile with ‘source’ does not work</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2015/12/23/AWS/EC2-Secondary-NI-on-Ubuntu/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2015/12/22/Linux/Config-Secure-Apache-with-Lets-Encrypt-on-Ubuntu14.04/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2015-12-23 19:41:58
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Build-Dockerfile"><span class="toc-article-text">Build Dockerfile</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Push-to-DockerHub"><span class="toc-article-text">Push to DockerHub</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Debug-Dockerfile"><span class="toc-article-text">Debug Dockerfile</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Troubleshooting"><span class="toc-article-text">Troubleshooting</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Problem-1-跑-apt-get-出現-unable-to-re-open-stdin"><span class="toc-article-text">Problem 1: 跑 apt-get 出現 unable to re-open stdin</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Problem-2-無法執行-source-bashrc"><span class="toc-article-text">Problem 2: 無法執行 source ~/.bashrc</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/Container/" style="color: white">Container <span class="badge">9</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Ubuntu/" style="color: white">Ubuntu <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Docker/" style="color: white">Docker <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Node-js/" style="color: white">Node.js <span class="badge">2</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

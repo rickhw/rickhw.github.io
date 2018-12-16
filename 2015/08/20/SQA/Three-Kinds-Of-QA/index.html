@@ -1,0 +1,552 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>三種 QA (Quality Assurance) | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="QA 的工作內容落差很大，要求的條件落差也很大。有的公司 QA 是獨立部門，有的是掛在 R&amp;amp;D 底下，有的則是掛在 PM 底下。
+
+第一種：獨立的 QA 部門組織上他會與 R&amp;amp;D 平行，直接面對產品長、總經理、CEO，甚至有 CQO, Chief Quality Officer 的層">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="三種 QA (Quality Assurance)"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> 三種 QA (Quality Assurance)</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> 三種 QA (Quality Assurance)</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>QA 的工作內容落差很大，要求的條件落差也很大。有的公司 QA 是獨立部門，有的是掛在 R&amp;D 底下，有的則是掛在 PM 底下。</p>
+<a id="more"></a>
+<h2 id="第一種：獨立的-QA-部門"><a href="#第一種：獨立的-QA-部門" class="headerlink" title="第一種：獨立的 QA 部門"></a>第一種：獨立的 QA 部門</h2><p>組織上他會與 R&amp;D 平行，直接面對產品長、總經理、CEO，甚至有 <a href="http://wiki.mbalib.com/zh-tw/%E9%A6%96%E5%B8%AD%E8%B4%A8%E9%87%8F%E5%AE%98" target="_blank" rel="noopener">CQO, Chief Quality Officer</a> 的層級。</p>
+<p>規模大一點的，除了公司自己產品的 QC 負責 IQC/OQC，另外還會有自己的實驗室、認證中心、制定認證的團隊，甚至是專門執行認證與稽核的業務，更大的就是獨立成一種獲利模式的公司，專門蓋章用，具備權威性，像是 ISO XXXX …</p>
+<p>這種 QA 單位，技術、與領域知識並重，是完整的營運單位。</p>
+<p>缺點：</p>
+<ol>
+<li>容易形成穀倉效應</li>
+</ol>
+<h2 id="第二種：掛在-R-amp-D-底下的-QA"><a href="#第二種：掛在-R-amp-D-底下的-QA" class="headerlink" title="第二種：掛在 R&amp;D 底下的 QA"></a>第二種：掛在 R&amp;D 底下的 QA</h2><p>通常是以技術導向的。</p>
+<p>這類的 QA 要懂技術，會寫 Code，懂得自動化工具。依照不同產品性質，需要條件如下：</p>
+<ul>
+<li>產品本身就是技術性產品，例如網路設備、專業音樂編輯軟體，通常這類的 QA 需要具備一定程度的領域知識與專業能力，知道很多實際的使用情境。</li>
+<li>產品本身是消費性的，例如電商網站、人資系統，大部分 QA 不需要具備專業知識，就可以入門。</li>
+</ul>
+<p>如果要做自動化相關，不管哪一個領域，都要一定程度 QA 才行。</p>
+<p>在這樣單位底下，通常大主管 (R&amp;D Head) 會用技術導向來看 QA 這件事情，而看不到程序問題，我說通常。</p>
+<p>這種單位的用人，習慣性的會問用什麼 automation tools、什麼程式語言，而不是問 QA 在整個開發流程扮演怎樣的角色、<a href="/2018/03/18/SQA/How-To-Report-A-Defect-or-Bug/">怎麼有效回報問題</a>、怎麼溝通、組織與分析問題、<a href="/2017/03/18/SQA/Stages-In-Software-Testing/">測試方法</a>、測試管理 (Test Management) … 。</p>
+<blockquote>
+<ul>
+<li>類似概念整理在： <a href="/2015/10/11/SQA/How-To-Be-An-SQA/">How to be an SQA?</a>、<a href="/2015/01/06/Management/協同合作系統建制與導入-以-Redmine-為例/">協同合作系統建制與導入 - 以 Redmine 為例</a></li>
+</ul>
+</blockquote>
+<p>常見問題：</p>
+<ol>
+<li>QA 放在 R&amp;D 底下，從組織職權來看，很容易變成相對弱勢，換言之，無法發揮把關的功能</li>
+<li>因為不是獨立運作，系統配置，像是 <a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning</a>、<a href="/2018/03/20/DevOps/First-Step-To-CICD/">Deploy</a> 都仰賴 R&amp;D，QA 無法獨立運作</li>
+<li>很容易變成附屬單位</li>
+<li>現象：大部分 Startup 都是這種的，或者第三種。</li>
+<li>通常大主管 (R&amp;D Head) 覺得自己懂品質</li>
+<li>以為品質應該是 <code>立竿見影</code>。。。恩，我覺得吸毒才是立竿見影。有空用系統思維的 Archetype 來說明品質這件事。</li>
+</ol>
+<p>解法：</p>
+<ol>
+<li>導入 <code>持續部署 (Continuous Deployment)</code>，相關概念：<ul>
+<li><a href="/2018/03/20/DevOps/First-Step-To-CICD/">導入 CI/CD 的第一步</a></li>
+</ul>
+</li>
+<li>有持續部署，才有辦法在內部形成溝通循環，減少溝通成本，然後 <code>持續交付 (Delivery)</code> 才有品質</li>
+<li>讓 QA 團隊可以獨立運作，包含學習瞭解系統架構、環境建置、配置管理。相關文章：<ul>
+<li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a></li>
+<li><a href="/2015/02/11/SoftwareEngineering/Version-Control/">Version Control</a></li>
+</ul>
+</li>
+<li><code>不要以為手動測試不重要，手動跟自動是相輔相成，這比例問題，不是 0 / 1 問題，理想是 2:8，能做到 6:4 就很棒了。</code><ul>
+<li>如果一級主管都不知道產品怎麼用，那這產品不會好到哪去。</li>
+<li>主管會怎麼用？手動啊，難道還自動啊 XD</li>
+<li>手動的重要性在於：客戶的真實行為、感受、體驗</li>
+</ul>
+</li>
+<li>基本上溝通要時間，描述問題要時間。講過的東西會忘，寫下來的不會，所以與其花很多時間溝通，不如花時間訓練同仁如何寫文件。參閱：<ul>
+<li><a href="/2018/03/18/SQA/How-To-Report-A-Defect-or-Bug/">如何有效的回報問題</a></li>
+<li><a href="/2017/06/29/Management/Why-Document/">為什麼寫文件？</a></li>
+<li><a href="/2014/12/10/Management/溝通-成本/">溝通 = 成本</a></li>
+</ul>
+</li>
+<li>使用 Issue Tracking 平台，標準化溝通方式。相關文章：<ul>
+<li><a href="2017/08/19/Redmine/Issue-Tracking_in_Redmine/">Issue Tracking in Redmine</a></li>
+<li><a href="/2017/01/21/Redmine/Before-Introduce-To-Redmine/">寫在介紹 Redmine 之前</a></li>
+<li><a href="/2015/01/06/Management/協同合作系統建制與導入-以-Redmine-為例/">協同合作系統建制與導入 - 以 Redmine 為例</a></li>
+</ul>
+</li>
+<li>導入 Test Management，這我都還沒時間寫，不過推薦的就是 Testrail ，或者 VSTS 也有整合，但要另外付費。</li>
+</ol>
+<h2 id="第三種：附屬在-PM-底下"><a href="#第三種：附屬在-PM-底下" class="headerlink" title="第三種：附屬在 PM 底下"></a>第三種：附屬在 PM 底下</h2><p>掛在 PM 底下的 QA，其實應該叫 QC，很多時候是 PM 兼著做，因為 PM 要測了才知道產品長怎樣。</p>
+<p>工作以產品內容的商業邏輯確認為主、專注的不是技術，需要很清楚產品的內容、需求規格、流程等。</p>
+<p>技術性質的工作則會倚賴 R&amp;D 單位。</p>
+<p>常見問題：</p>
+<ol>
+<li>容易以成本考量，QA 專業會直接被忽略</li>
+<li>外行領導內行，忽略職能的專業</li>
+</ol>
+<p>解法：</p>
+<ol>
+<li>職能拆分，聘請專業的 QA 團隊，如果是軟體產品，建議找懂 Agile / Scrum 的人加入</li>
+<li>讓部分 PM 專職做 QA，讓 QA 專職做 PM</li>
+</ol>
+<hr>
+<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>整理職場路上曾經遇過的幾種 QA 團隊、組織、權責的分類，這三種我都遇到了。QA 的定位，跟組織定義、產品方向，很有直接關係，定位不清楚的，不只影響公司的發展，也影響這些人的職涯。</p>
+<p>最後這張圖是我擔任 SQA Manager 時開的 Job Description，重點是紅色框框裡的：</p>
+<p><img src="/images/SQA/SQA_JD_Oplink.png" alt=""></p>
+<p>JD 裡要強調的是，團隊合作的重要性：<code>海賊團裡面每個人都有不同的專業背景，但是有同樣的目標！</code></p>
+<blockquote>
+<p>共同目標很重要、團隊溝通很重要、協作很重要、敏捷很重要，但請不要因此想要消滅、忽略個別的專業、職能，這只會製造更多對立、不信任的問題。</p>
+</blockquote>
+<p>我當時的組織是 QA 在 R&amp;D 裡面，但是我的老闆跟我說：我的位置是跟他一樣的 (協理級)，所以希望我用那樣的高度建立團隊，而當時我也的確用這樣的高度在規劃整個組織。</p>
+<h2 id="補充-2018-05-02"><a href="#補充-2018-05-02" class="headerlink" title="補充 (2018/05/02)"></a>補充 (2018/05/02)</h2><p>這篇是幾年前，朋友問我的問題，過了一段時間，重新整理過，還是很感慨。</p>
+<p>這幾年要殺掉 QA 的聲音到處都是，特別是 DevOps 越來越流行之後，幾乎都把 QA 的聲音蓋掉了，應該沒有人聽過 <code>QAOps</code> 吧？只是常常會聽到說 Automation 之後就不需要 Q 了。。。</p>
+<blockquote>
+<p>從來沒有人敢喊 NoDev, NoPM, NoBoss …</p>
+</blockquote>
+<p>其實常常是會覺得莫名其妙，因為大部分開發語言與環境 (IDE) 跟測試相關的整合，並不是那麼完美，而且寫 Automation 這件事情難度是高的，特別是新創團隊，如果人員素質參差不齊，工具與訓練還不完善，所以為的 Automaion 只是行銷用語：唬爛用的。。。</p>
+<p>另外要再次強調的是：<code>QA 不是只有找問題、Automation 這種表面的東西，QA 更多關注的是程序品質，確保程序能產出有品質的產出物。</code></p>
+<blockquote>
+<ul>
+<li>自動化的想法參閱：<a href="/2017/11/12/DevOps/Gossip-Automation/">自動化帶來的問題</a>、<a href="/2014/05/09/SQA/Problems_In-Software-Autotest/">軟體自動化測試常見的問題</a>、<a href="/2017/08/30/DevOps/Automation-or-Process/">『自動化 XXX』的陷阱</a></li>
+</ul>
+</blockquote>
+<p>DevOps 有三個圈圈 (下圖)，當這三個角色失去平衡的時候，剩下能處理的，只有政治問題了，嚴重的，會有 <a href="https://zh.wikipedia.org/wiki/%E8%90%A8%E7%8F%AD%E6%96%AF-%E5%A5%A5%E5%85%8B%E6%96%AF%E5%88%A9%E6%B3%95%E6%A1%88" target="_blank" rel="noopener">沙賓法案</a> 的問題。</p>
+<p><img src="/images/SQA/DevOps_Dev-QA-Ops.png" alt=""></p>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
+<li><a href="/2015/10/11/SQA/How-To-Be-An-SQA/">How to be an SQA?</a></li>
+<li><a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a></li>
+<li><a href="/2014/05/09/SQA/Problems_In-Software-Autotest/">軟體自動化測試常見的問題</a></li>
+<li><a href="/2017/11/12/DevOps/Gossip-Automation/">自動化帶來的問題</a></li>
+<li><a href="/2017/08/30/DevOps/Automation-or-Process/">『自動化 XXX』的陷阱</a></li>
+<li><a href="/2015/01/06/Management/協同合作系統建制與導入-以-Redmine-為例/">協同合作系統建制與導入 - 以 Redmine 為例</a></li>
+<li><a href="/2018/03/18/SQA/How-To-Report-A-Defect-or-Bug/">如何有效的回報問題</a></li>
+<li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a></li>
+<li><a href="/2018/03/20/DevOps/First-Step-To-CICD/">導入 CI/CD 的第一步</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2015/08/22/Management/Senior-Software-Developer/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2015/05/27/OSX/Keyboard/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2015-08-20 10:35:30
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#第一種：獨立的-QA-部門"><span class="toc-article-text">第一種：獨立的 QA 部門</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#第二種：掛在-R-amp-D-底下的-QA"><span class="toc-article-text">第二種：掛在 R&amp;D 底下的 QA</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#第三種：附屬在-PM-底下"><span class="toc-article-text">第三種：附屬在 PM 底下</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#結論"><span class="toc-article-text">結論</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#補充-2018-05-02"><span class="toc-article-text">補充 (2018/05/02)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/軟體測試/" style="color: white">軟體測試 <span class="badge">9</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/用人之道/" style="color: white">用人之道 <span class="badge">11</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

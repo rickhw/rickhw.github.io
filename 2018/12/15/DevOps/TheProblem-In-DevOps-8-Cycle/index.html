@@ -1,0 +1,555 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>DevOps 8 字環的誤區：左環問題 | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="本文整理 2018/12/07 我寫的一篇論述：DevOps 8 字環的誤區。
+
+
+左環的問題這張 DevOps 很有名的 8 字圖，我不只一次說過這張圖有問題 (因為出處是某些大神)，但很少人可以了解有問題在哪。
+
+先講結論，我認為的問題在於：
+
+Build 的下一個不是 Test
+
+當然我知道這">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="DevOps 8 字環的誤區：左環問題"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> DevOps 8 字環的誤區：左環問題</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> DevOps 8 字環的誤區：左環問題</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>本文整理 2018/12/07 我寫的一篇論述：DevOps 8 字環的誤區。</p>
+<a id="more"></a>
+<hr>
+<h2 id="左環的問題"><a href="#左環的問題" class="headerlink" title="左環的問題"></a>左環的問題</h2><p>這張 DevOps 很有名的 8 字圖，我不只一次說過這張圖有問題 (因為出處是某些大神)，但很少人可以了解有問題在哪。</p>
+<p><img src="/images/DevOps/DevOpsCycle.jpg" alt=""></p>
+<p>先講結論，我認為的問題在於：</p>
+<blockquote>
+<p>Build 的下一個不是 Test</p>
+</blockquote>
+<p>當然我知道這只是圖示，為了方便表示，可能因此 <code>省略</code> 很多細節。但是就是這個省略，透過網路的傳播，以後都真的省略了。</p>
+<h2 id="測試前的準備工作"><a href="#測試前的準備工作" class="headerlink" title="測試前的準備工作"></a>測試前的準備工作</h2><p>在開始說明圖中的誤區之前，整理測試前要知道的事情。</p>
+<p>在我的觀念裡，Deploy (or Installation) 是測試人員的第一個 <code>必備硬技能</code> (軟技能則是：溝通技巧與問題分析能力)。不管是 backend, frontend, desktop application。不包含 Deploy Strategy (Blue/Green, Canary, A/B …) ，這段通常會跟 Dev / Ops 合作，或者整個團隊一起來。</p>
+<blockquote>
+<p>測試或者 QA 該具備的軟硬技能，請參閱： <a href="/2015/10/11/SQA/How-To-Be-An-SQA/">How to be an SQA?</a></p>
+</blockquote>
+<p>以現代服務導向的架構來看，至少會有 Web/App + Backend 三大部分，所以測試前要準備些什麼？我覺得要完成以下必要的條件：</p>
+<ul>
+<li>確認準備測試的 <code>版本編號</code> (SemVer)</li>
+<li>確認可以 Build 出 Artifact 位置<ul>
+<li>Build 的依賴有沒有需要調整或者刪減</li>
+<li>Artifact 存放的位置與資訊</li>
+<li>App Build 的方式</li>
+</ul>
+</li>
+<li>確認環境是否可以重新 Provisioning<ul>
+<li>有沒有新增角色、如何部署</li>
+</ul>
+</li>
+<li>確認 Config 的必要依賴資源、資訊是否完整<ul>
+<li>確認相關服務的 endpoint</li>
+<li>Funciton 有沒有新增參數、第三方依賴</li>
+<li>參數的預設值與邊界值</li>
+</ul>
+</li>
+</ul>
+<p>這些資訊，通常是由 PM / Tech Lead / QA Manager 一起確認，如果有使用第三方資源，甚至要先去採購。最後這些資訊都要被統籌管理，屬於企業資產的一部分。</p>
+<h2 id="認知差異"><a href="#認知差異" class="headerlink" title="認知差異"></a>認知差異</h2><p>關於測試，後來發現一個認知上的差異在於：</p>
+<ol>
+<li>大部分 (&gt; 95%) 的人認為：測試只有測 <code>商業功能</code>，不包含系統 (或稱非功能)</li>
+<li>我認為的測試：不只是測試功能，還包含非功能、系統、效能<ul>
+<li>其中非功有幾件很重要的任務叫做：<a href="/2018/07/08/DevOps/Artifacts-Management/">Artifact</a>、<a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Provisioning</a>、Deployment</li>
+<li>在用 Open Source 的時候 (Redis, Kafka …)，文件裡有很多效能指標、部署策略，這些東西怎麼來的？</li>
+</ul>
+</li>
+<li>測試種類以及目的會隨產品特性以及開發方法有關係，所以必須要搭配 <a href="/2017/03/18/SQA/Stages-In-Software-Testing/">測試執行策略</a> 做選擇以及調整</li>
+</ol>
+<blockquote>
+<p>測試種類、策略介紹參閱：<a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a></p>
+</blockquote>
+<p>回到八字環，我認為的誤區、有問題的第一個點是左環 Dev 裡 <code>Build -&gt; Test</code> 的部分，缺少的補充如下：</p>
+<ol>
+<li>Deploy 之前要有 <a href="/2018/07/08/DevOps/Artifacts-Management/">Artifact</a>、<a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Provisioning</a>、Config</li>
+<li>Build 之後不是 Test，而是 Deploy</li>
+<li>沒有 Deploy 的測試，請問是誰 Deploy？</li>
+<li>這個 Deploy 的人知道測試的目的與策略？</li>
+<li>能獨立 Deploy，就知道 Artifact、Config，然後才有 Testable 可言，才有<a href="/2017/03/18/SQA/Stages-In-Software-Testing/">測試策略</a></li>
+</ol>
+<p>換言之，測試者無法自行部署的應用程式、自行配置 Config，等於無法了解應用程式在系統的狀況，狀況包含系統架構、版本資訊、資料庫 DDL、Init Data、第三方倚賴，無法自行建立測試資料，這種測試，等於沒有測，或者沒有意義。產品上線後，隨著時間越久，這種問題會越來越嚴重，最後 QA 會越來越沒價值，然後上面就會說：請工讀生就好。</p>
+<p>這張 8 字循環，表達的大方向沒有錯，但是卻因此弱化了測試該要有的資訊，間接誤導很多人。</p>
+<h2 id="誤區與問題"><a href="#誤區與問題" class="headerlink" title="誤區與問題"></a>誤區與問題</h2><p>因為觀察到普遍的團隊 (&gt; 90%) 認為，測試只有商業功能需要測試與驗證 (Functional Verification Test)，而非功能性是維運團隊、或者是開發人員的任務。所以在開發過程，很多團隊 (&gt;80%) 的做法是：</p>
+<blockquote>
+<p>測試環境的部屬都是透過 Pipeline (e.g., Jenkins, Gitlab CI) 部署</p>
+</blockquote>
+<p>而 Jenkins 的 Job 是由開發 or 維運團隊負責，換言之測試者完全沒這方面的能力或者主控權。或者部署 DB Schema 權限都在 Dev 手上，最後問題就是 Dev 聲音很大，QA 沒聲音。測試環境的 Baseline 紊亂，或者沒有 Baseline。Baseline 就可以以從無到有建置的標準方法。</p>
+<p>恩，這件事對我來說是不可思議的，而我這樣的想法，對很多人來講是不可思議的。所以導致大部分測試工作 在一般人心裡會覺得取代性很高、沒有價值。</p>
+<h2 id="系統性測試"><a href="#系統性測試" class="headerlink" title="系統性測試"></a>系統性測試</h2><p>很多問題，不管是商業需求的問題、還是系統架構面的問題，都是可以再上線前探索的。聽過很多人會說，很多問題要上線後才能知道，或者模擬。實際的問題在於規劃不清楚，上線後錯誤的資料造成 <code>連鎖效應</code> (SRE CH22) 導致。這段只要 Unit Test、整合測試、系統測試有執行，是有辦法找的。而線上問題，要可以搬回線下驗證，特別是 Priority 不高，但是 Severity 很高的問題，這種情境有沒有？有，很多，特別是產品上線 <code>兩年後</code> 會爆多，簡單講：重要不急的問題。</p>
+<p>測試是產品開發出來後，第一個完整的使用者，特別是這年代所謂的功能是要：Web/APP + Backend 才算功能，IoT 還要加 Devices 共三方。</p>
+<blockquote>
+<p>更多系統測試參閱：<a href="/2018/03/18/SQA/Gossip-System-Testing/">輕鬆聊：系統測試 (SVT) 的三兩事</a></p>
+</blockquote>
+<h2 id="專業之死"><a href="#專業之死" class="headerlink" title="專業之死"></a>專業之死</h2><p>另外這年代強調團隊，弱化個別職能，很多人會說：這就找 Dev 來一起弄就好，QA 幹嘛搞這個。問題就來了，沒 Sense 的 Dev，不會把架構弄好，不會設計 <code>Config</code> or 做 <code>Artifact</code>，做出緊耦合、強依賴的 Pipeline，最後只會讓整個服務卡死在 Dev 手上。而 QA 開的 Defect 不是只有商業功能的問題，還包含 Config 設計不良、架構沒彈性、效能不佳 … 等。Ops 呢？根本不用插手，前面就爛了。</p>
+<h2 id="小節"><a href="#小節" class="headerlink" title="小節"></a>小節</h2><p>莫名其妙就寫了一大堆，重點以下：</p>
+<ol>
+<li>Build 之後不是 Test，而是 Provsioning -&gt; Deploy</li>
+<li>測試種類很多，他們有不同的策略與考量</li>
+<li>線上重要不急的問題，要可以現下驗證以及改善</li>
+<li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">環境建置</a> 是一個工程團隊該有的基本素養</li>
+<li>建置環境的前提是架構要清楚</li>
+<li>QA 開的 Defect 不只有功能的問題，還包含 Config 設計不良、架構沒彈性、效能不佳 … 等。</li>
+</ol>
+<blockquote>
+<p>在地表上，除了太空船，沒有不能測的。</p>
+</blockquote>
+<p>因為看過太多錯誤的認知與觀念，因為某某大神照本宣科，大肆宣揚此圖，加上沒有深度的思考，錯誤的觀念在網路上廣為流傳，一錯再錯。</p>
+<p>用 <a href="/2018/11/14/DevOps/Review-Continuous-Delivery-v2.0/">心得：持續交付 2.0</a> 的探索環來說明，我想強調 <code>部署測試</code> 的重要性。換言之，怎麼部署，不應該再八字環右邊才發現。</p>
+<p>所以這張圖不只左環有問題，右環也有問題：Deploy 前後也不是那樣的。</p>
+<hr>
+<h1 id="相關文章-站內"><a href="#相關文章-站內" class="headerlink" title="相關文章 (站內)"></a>相關文章 (站內)</h1><ul>
+<li><a href="/2017/09/14/SoftwareEngineering/Software-Development-Lifecycle/">Software Development Lifecycle</a></li>
+<li><a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a></li>
+<li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a></li>
+<li><a href="/2018/03/18/SQA/How-To-Report-A-Defect-or-Bug/">如何有效的回報問題 (How to Report Problems Effectively)</a></li>
+<li><a href="/2017/11/12/DevOps/Gossip-Automation/">自動化帶來的問題</a></li>
+<li><a href="/2015/10/11/SQA/How-To-Be-An-SQA/">How to be an SQA?</a></li>
+<li><a href="/2018/07/08/DevOps/Artifacts-Management/">Artifacts Management</a></li>
+<li><a href="/2018/03/18/SQA/Gossip-System-Testing/">輕鬆聊：系統測試 (SVT) 的三兩事</a></li>
+<li><a href="/2015/01/06/Management/協同合作系統建制與導入-以-Redmine-為例/">協同合作系統建制與導入 - 以 Redmine 為例</a></li>
+<li><a href="/2018/11/14/DevOps/Review-Continuous-Delivery-v2.0/">心得：持續交付 2.0</a></li>
+</ul>
+<h2 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h2><ul>
+<li><a href="https://www.slideshare.net/rickhwang/continuous-delivery-opening-102713893" target="_blank" rel="noopener">Continuous Delivery - Opening</a></li>
+<li><a href="http://www.infoq.com/cn/articles/three-current-common-problems-about-continuous-delivery" target="_blank" rel="noopener">持续交付：当前普遍存在的三个问题与解决方案</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Release_engineering" target="_blank" rel="noopener">Release engineering</a></li>
+<li><a href="https://semver.org" target="_blank" rel="noopener">Semantic Versioning</a></li>
+<li><a href="https://medium.com/netflix-techblog/ami-creation-with-aminator-98d627ca37b0" target="_blank" rel="noopener">AMI Creation with Aminator</a></li>
+<li><a href="https://www.books.com.tw/products/0010793756" target="_blank" rel="noopener">專業之死：為何反知識會成為社會主流，我們又該如何應對由此而生的危機？</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2018/12/16/DevOps/Hire-a-Release-Engineer/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2018/12/09/Architecture/Eventually-Consistent-Dynamo-NWR/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2018-12-15 23:43:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#左環的問題"><span class="toc-article-text">左環的問題</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#測試前的準備工作"><span class="toc-article-text">測試前的準備工作</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#認知差異"><span class="toc-article-text">認知差異</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#誤區與問題"><span class="toc-article-text">誤區與問題</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#系統性測試"><span class="toc-article-text">系統性測試</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#專業之死"><span class="toc-article-text">專業之死</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#小節"><span class="toc-article-text">小節</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#相關文章-站內"><span class="toc-article-text">相關文章 (站內)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/DevOps/" style="color: white">DevOps <span class="badge">28</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Continuous-Delivery/" style="color: white">Continuous Delivery <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/Continuous-Integration/" style="color: white">Continuous Integration <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Build/" style="color: white">Build <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Configuration/" style="color: white">Configuration <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Version-Control/" style="color: white">Version Control <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Artifact/" style="color: white">Artifact <span class="badge">4</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

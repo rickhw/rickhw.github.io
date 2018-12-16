@@ -1,0 +1,682 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Study Notes - DynamoDB 學習筆記 | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="DynamoDB 設計理想源自於 Amazon 的論文： Dynamo: Amazon’s Highly Available Key-value Store, 2007，被稱為是 NoSQL 代表之作。
+這篇由 Werner Vogels (AWS CTO) 寫的 Blog: Amazon Dyna">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Study Notes - DynamoDB 學習筆記"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Study Notes - DynamoDB 學習筆記</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Study Notes - DynamoDB 學習筆記</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>DynamoDB 設計理想源自於 Amazon 的論文： <a href="http://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf" target="_blank" rel="noopener">Dynamo: Amazon’s Highly Available Key-value Store, 2007</a>，被稱為是 <a href="http://www.infoq.com/cn/articles/nosql-dynamo" target="_blank" rel="noopener">NoSQL 代表之作</a>。</p>
+<p>這篇由 <a href="https://en.wikipedia.org/wiki/Werner_Vogels" target="_blank" rel="noopener">Werner Vogels</a> (AWS CTO) 寫的 Blog: <a href="http://www.allthingsdistributed.com/2012/01/amazon-dynamodb.html" target="_blank" rel="noopener">Amazon DynamoDB – a Fast and Scalable NoSQL Database Service Designed for Internet Scale Applications</a>，提到了 DynamoDB 背後設計的歷史、包含以前的 SimpleDB，文章提到幾個設計的重點：</p>
+<ul>
+<li>Fast (快)</li>
+<li>Managed (好)</li>
+<li>Scalable (好)</li>
+<li>Durable and Highly Available (好)</li>
+<li>Flexible (好)</li>
+<li>Low cost (便宜)</li>
+</ul>
+<p>簡單說就是：快、好管理、玩不壞、彈性，最重要的是，便宜，這不就是下面這張圖 XDD</p>
+<p><img src="/images/AWS/Speed-Quality-Cost.png" alt=""></p>
+<p>DynamoDB 辦到了！</p>
+<blockquote>
+<p><a href="https://reprints.forrester.com/#/assets/2/374/&#39;RES125643&#39;/reports" target="_blank" rel="noopener">Forrester Wave: Big Data NoSQL, Q3 2016</a>: DynamoDB 完勝其他 Cloud NoSQL.</p>
+</blockquote>
+<p>Anyway，以下整理的是 DynamoDB 的重要概念、背後運作的原理。圖文資料都出自官方文件：<a href="/2016/10/01/AWS-Study-Roadmap/">DynamoDB Developer Guide</a> 。 (有點像在翻譯練習 XD)</p>
+<a id="more"></a>
+<hr>
+<h1 id="核心元件-Core-Components"><a href="#核心元件-Core-Components" class="headerlink" title="核心元件 (Core Components)"></a>核心元件 (Core Components)</h1><p>經常會跟 MongoDB 比較，概念很類似：</p>
+<ul>
+<li>Tables:<ul>
+<li>類似於 RDBMS 的 Table.</li>
+<li>DynamoDB Table 是一個儲存集合單位。</li>
+<li>相當於 MongoDB 的 <code>Collection</code></li>
+</ul>
+</li>
+<li>Items:<ul>
+<li>每個 Table 可以有多個 Items，相當於 RDBMS 的 Rows。</li>
+<li>每個 Items 可包含多個 Attributes</li>
+<li>相當於 MongoDB 的 <code>Document</code></li>
+</ul>
+</li>
+<li>Attributes:<ul>
+<li>每個 Items 由一個或多個 Attributes 組成</li>
+<li>Attribute 的資料型態有</li>
+</ul>
+</li>
+</ul>
+<h2 id="Primary-Key"><a href="#Primary-Key" class="headerlink" title="Primary Key"></a>Primary Key</h2><p>DynamoDB 支援兩種 Primary Keys:</p>
+<ul>
+<li><code>Partition key</code>:<ul>
+<li>又叫 <em>hash attribute</em> ，指定某一個 attribute 當作 primary key (unique key)，稱作 <code>partition key</code>，類似於 RDBMS 的 Unique Key.</li>
+<li>DynamoDB 利用這個值透過內部的 hash function，然後依據 hash 過的值，決定資料要放在哪個實體的儲存體 (Storage)。</li>
+<li>基本上，不會有重複的 hash value，也就是不會有重複的 partition key。</li>
+</ul>
+</li>
+<li><code>Partition key and sort key</code>:<ul>
+<li>使用兩個 attribute 的複合鍵 (composite key): <code>partition key</code> + <code>sort key</code>, 或者稱為 <code>hash key</code> + <code>range key</code></li>
+<li><code>sort key</code> 又叫 <em>range attribute</em></li>
+<li>如果 sort key 存在，那麼 partition key 可以重複</li>
+<li><code>hash key + range key</code> 必須是唯一</li>
+<li>最常用的例子就是 <code>unique key</code> + <code>date range</code> 這樣的組合。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Secondary-Indexes"><a href="#Secondary-Indexes" class="headerlink" title="Secondary Indexes"></a>Secondary Indexes</h2><p>一個 Table 除了 Primary Key，可以有一個或多個 Secondary Indexes，每個 Table 最多各五個 GSI 跟 LSI:</p>
+<ul>
+<li><code>Global Secondary Indexes (GSI):</code> 有自己的 Partition 和 RCU/WCU</li>
+<li><code>Local Secondary Indexes (LSI)</code>: 與 Table 共用 Partition 的 RCU/WCU</li>
+</ul>
+<!--
+> 要注意的是，DynamoDB 不管是 Primary Key or Secondary Indexes，在 Table 建立之後就無法修改。
+-->
+<h2 id="Data-Type"><a href="#Data-Type" class="headerlink" title="Data Type"></a>Data Type</h2><ul>
+<li><code>Scalar Types (純量)</code>: number, string, binary, Boolean, and null.</li>
+<li><code>Document Types</code>: list and map.</li>
+<li><code>Set Types</code>: multiple scalar values, 包含 string set, number set, and binary set.</li>
+</ul>
+<h2 id="Read-Consistency-讀取一致性模型"><a href="#Read-Consistency-讀取一致性模型" class="headerlink" title="Read Consistency (讀取一致性模型)"></a>Read Consistency (讀取一致性模型)</h2><p>DynamoDB 設計在每個 Region AZ 都可以快速的 Replica 資料，通常會在 1s 以內或更少。DynamoDB 支援兩種一致性模型：</p>
+<ul>
+<li><code>Eventually Consistent Reads (最終一致性, ECR)</code>: 每秒可以讀 2 次, 每次 4KB 大小。</li>
+<li><code>Strongly Consistent Reads (強制一致性, SCR)</code>: 每秒可以讀 1 次, 每次 4KB 大小。</li>
+</ul>
+<p>這兩個的差異：ECR 不會反映最近完成的寫入操作結果，而 SCR 則一定會反應最近寫入的結果。</p>
+<p>因為 DynamoDB 本身在 AWS Region 裡都是跨 AZ，每個 Table 都會存在各地三個副本 (Reclica)。</p>
+<p>透過 API 指定用什麼方式，預設是 Eventually Consistent Reads，以下是 Node.js 的範例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> params = &#123;</span><br><span class="line">  TableName: <span class="string">'STRING_VALUE'</span>, <span class="comment">/* required */</span></span><br><span class="line">  ConsistentRead: <span class="literal">true</span> || <span class="literal">false</span>,    <span class="comment">// ECR or SCR</span></span><br><span class="line">&#125;;</span><br><span class="line">dynamodb.getItem(params, <span class="function"><span class="keyword">function</span>(<span class="params">err, data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (err) <span class="built_in">console</span>.log(err, err.stack); <span class="comment">// an error occurred</span></span><br><span class="line">  <span class="keyword">else</span>     <span class="built_in">console</span>.log(data);           <span class="comment">// successful response</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>更多最終一致性模型，參閱 <a href="/2018/12/09/Architecture/Eventually-Consistent-Dynamo-NWR/">Eventually Consistent 與 Dynamo NWR 模型</a>。</p>
+<hr>
+<h1 id="Read-Write-Capacity-Mode"><a href="#Read-Write-Capacity-Mode" class="headerlink" title="Read/Write Capacity Mode"></a>Read/Write Capacity Mode</h1><h2 id="Provisioned-Mode"><a href="#Provisioned-Mode" class="headerlink" title="Provisioned Mode"></a>Provisioned Mode</h2><p>DynamoDB 每個 Table 都有讀寫能力單元 (Capacity Units) 的設定，稱作 <code>Read Capacity Units (RCU)</code>、<code>Write Capacity Units (WCU)</code>.</p>
+<ul>
+<li><code>Read Capacity Units (RCU)</code>: 每次讀取單位為 <code>4K</code><ul>
+<li>Strongly Consistent Reads 每秒讀一次</li>
+<li>Eventually Consistent Reads 每秒讀兩次</li>
+<li>如果讀寫大小超過 4KB，那麼就會需要額外的 RCU</li>
+</ul>
+</li>
+<li><code>Write Capacity Units (WCU)</code>: 每次寫入單位為 1KB，超過大小就會額外消耗 WCU</li>
+<li><code>Secondary Indexes</code> 會另外消耗 Capacity Units，有獨立的 RCU / WCU</li>
+</ul>
+<p>RCU / WCU 這兩個值會影響效能，也會依據需求收費。</p>
+<p>DynamoDB 讀寫的 API:</p>
+<ul>
+<li>Read:<ul>
+<li>GetItem: 一次取回一個 Item</li>
+<li>BatchGetItem: 一次操作最多取回 100 Items</li>
+</ul>
+</li>
+<li>Write:<ul>
+<li>PutItem / UpdateItem / DeleteItem: 單一個 Item 操作</li>
+<li>BatchWriteItem: 一次操作，最多 Put / Delete 25 Items</li>
+</ul>
+</li>
+</ul>
+<p>另外，Provisioned Capacity 可以：</p>
+<ol>
+<li>買 Reserved Capacity。</li>
+<li>Auto Scaling</li>
+</ol>
+<h2 id="On-Demand-Mode"><a href="#On-Demand-Mode" class="headerlink" title="On-Demand Mode"></a>On-Demand Mode</h2><p><a href="/2018/12/02/AWS/News_AWS-reInvent-2018/">AWS re:Invent 2018</a> 年開始支援 <a href="https://aws.amazon.com/blogs/aws/amazon-dynamodb-on-demand-no-capacity-planning-and-pay-per-request-pricing/" target="_blank" rel="noopener">On-Demand Mode</a>，也就是 <code>pay-per-request</code> 的概念。基本的 RCU / WCU 的概念同前段落描述。</p>
+<p>以下情境適合使用 On-Demand Mode：</p>
+<ul>
+<li>新的 Table，但無法知道需要多少 Read / Write Capacity</li>
+<li>有無法預期的請求流量</li>
+<li>成本考量，期望用多少，付多少。 (不養機器的概念)</li>
+</ul>
+<p>不過這種概念就是把使用的狀況，返回給使用者自行決定，換言之，如果沒有了解 RCU / WCU 的基礎概念，沒有良好的設計，屆時會反映在成本上，而不只是方便維運。</p>
+<hr>
+<h1 id="Guidelines-for-Working-with-Tables"><a href="#Guidelines-for-Working-with-Tables" class="headerlink" title="Guidelines for Working with Tables"></a>Guidelines for Working with Tables</h1><!--
+## Design For Uniform Data Access Across Items In Your Tables
+
+設計能夠均勻存取資料的 Table
+-->
+<h2 id="Partition-Behavior-of-Table"><a href="#Partition-Behavior-of-Table" class="headerlink" title="Partition Behavior of Table"></a>Partition Behavior of Table</h2><p>一個 partition 最多提供 3000 RCU / 1000 WCU。建立 Table 時，如果指定 1000 RCU / 500 WCU，那麼需要的 Partition 計算公式如下：</p>
+<pre><code>( RCU / 3,000 ) + ( WCU / 1,000 ) = initialPartitions (rounded up)
+e.g., ( 1,000 / 3,000 ) + ( 500 / 1,000 ) = 0.8333 --&gt; 1
+</code></pre><p>所以一個 partition 可以滿足上述的需求。如果 RCU / WCU = 1000，那麼需要的 partition：</p>
+<pre><code>( 1,000 / 3,000 ) + ( 1,000 / 1,000 ) = 1.333 --&gt; 2
+</code></pre><h2 id="Partition-Split"><a href="#Partition-Split" class="headerlink" title="Partition Split"></a>Partition Split</h2><p>一個 partition 大約可以儲存 10GiB 的資料，</p>
+<p>以下兩個條件會發生 partition split:</p>
+<ul>
+<li>增加 capacity throughput</li>
+<li>需要增加 storage 空間</li>
+</ul>
+<h2 id="Increased-Provisioned-Throughput-Settings"><a href="#Increased-Provisioned-Throughput-Settings" class="headerlink" title="Increased Provisioned Throughput Settings"></a>Increased Provisioned Throughput Settings</h2><p>建立一個 Table ，然後有 5,000 RCU、2,000 WCU，那麼初始的時候就會有 4 個 Partitions，計算公式如下：</p>
+<pre><code>( 5000 / 3,000 ) + ( 2,000 / 1,000 ) = 3.6667 --&gt; 4
+</code></pre><p>4 個 partition 將會被配份使用 1,250 RCU (5000/4)、500 WCU (2000/4)。</p>
+<p>如果使用者把 RCU 調整成 8,000，那麼既有的四個 partition 就無法滿足需求，DynamoDB 會自動加倍 partition，變成 8 partitions。如下圖：</p>
+<p><img src="/images/AWS/DynamoDB/Increased_Provisioned_Throughput_Settings.png" alt="Increased Provisioned Throughput Settings"></p>
+<p>最後再把資料平均分配到新的 partition。而每個 partition 的 RCU / WCU 會變成:</p>
+<ul>
+<li>RCU: 8000 / 8 = 1000</li>
+<li>WCU: 2000 / 8 = 250</li>
+</ul>
+<h2 id="Increased-Storage-Requirements"><a href="#Increased-Storage-Requirements" class="headerlink" title="Increased Storage Requirements"></a>Increased Storage Requirements</h2><p>當資料量超過一個 partition 大小 10GB 的時候，就會自動長出新的。</p>
+<p>上一個例子最後有 8 partitions，如果其中一個超過 10GB</p>
+<p><img src="/images/AWS/DynamoDB/Increased_Storage_Requirements.png" alt="Increased Storage Requirements"></p>
+<h2 id="Use-Burst-Capacity-Sparingly"><a href="#Use-Burst-Capacity-Sparingly" class="headerlink" title="Use Burst Capacity Sparingly"></a>Use Burst Capacity Sparingly</h2><p>因為每個 partition 都有一定的 RCU / WCU，所以也就變成每個 Table 不管使用者要多少，實際上，都會有 buffer，所以如果有瞬間量的需求 (bursts 爆炸)，實際上是可以撐一下的。</p>
+<p>DynamoDB 保留了五分鐘的 burst 給 RCU / WCU。在這段時間的 R/W 動作，可以非常快速地被消化，基本上會比定義的還要快。</p>
+<p>但是不要把 burst 的 RCU / WCU 當成設計的一部份，因為 DynamoDB 會預先使用這些 Capacity 作維護任務。</p>
+<blockquote>
+<p>未來 burst 可能可以讓使用者自行設定。</p>
+</blockquote>
+<h2 id="Cache-Popular-Items"><a href="#Cache-Popular-Items" class="headerlink" title="Cache Popular Items"></a>Cache Popular Items</h2><p>AWS 官方建議，如果有一些資料存取比較頻繁，建議使用 <code>In Memory</code> 的方式，像是 ElasticCache，或者 DAX。</p>
+<!--
+# Query and Scan
+
+* Conditional Writes
+
+The conditional writes are `idempotent`.
+
+* Atomic Counters
+
+DynamoDB supports atomic counters.
+
+* Batch Operations
+-->
+<h2 id="Limitation"><a href="#Limitation" class="headerlink" title="Limitation"></a>Limitation</h2><p>Capacity Unit Sizes 是固定的值，讀 (RCU) 跟寫 (WCU) 都有預設值。而每個 AWS Account / Per Region 也都有一些上限，使用時要注意這些限制。以下資料整理自 <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html" target="_blank" rel="noopener">Limits in DynamoDB</a></p>
+<ul>
+<li><code>Capacity Unit Sizes</code>:<ul>
+<li>RCU: 強一致性 (strongly consistent) 讀取，每秒 4KBytes、最終一致性 (eventually consistent) 則是 8KBytes 每秒.</li>
+<li>WCU: 每秒寫入 1KByte.</li>
+</ul>
+</li>
+<li>Limit by Table and Account, 大部分的 Region 如下：<ul>
+<li>Per table – 40,000 RCU, 40,000 WCU</li>
+<li>Per account – 80,000 RCU, and 80,000 WCU</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>40,000 RCU = 160MBytes, or 320MBytes</p>
+</blockquote>
+<hr>
+<h1 id="Development-with-DynamoDB"><a href="#Development-with-DynamoDB" class="headerlink" title="Development with DynamoDB"></a>Development with DynamoDB</h1><ul>
+<li>DynamoDB 本身都是透過 Web Service 存取，所以沒有 RDBMS <code>Connection</code> 的概念，所以也不會有 <code>Connection Pool</code> 的問題。</li>
+<li>AWS 提供 DynamoDB local 版，需要 jre6 以上，使用方式如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://dynamodb-local.s3-website-us-west-2.amazonaws.com/dynamodb_local_latest.tar.gz</span><br><span class="line">java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb</span><br></pre></td></tr></table></figure>
+<p>相關資料：</p>
+<ul>
+<li><a href="https://aws.amazon.com/blogs/aws/dynamodb-local-for-desktop-development/" target="_blank" rel="noopener">DynamoDB Local for Desktop Development</a></li>
+<li><a href="http://razorsql.com/articles/razorsql_amazon_dynamodb.html" target="_blank" rel="noopener">RazorSQL Database GUI Tool for Amazon DynamoDB</a></li>
+</ul>
+<hr>
+<h2 id="使用時機"><a href="#使用時機" class="headerlink" title="使用時機"></a>使用時機</h2><p>AWS 資料儲存有很多方式，不管是 S3 / RDS / DynamoDB / Glacier / ElasticCache / HDFS …. 在 AWS Whitepaper: <a href="https://media.amazonwebservices.com/AWS_Storage_Options.pdf" target="_blank" rel="noopener">Storage Options in the AWS Cloud</a> 有很詳細的說明。</p>
+<p>不過要快速瞭解的話，下面這張圖 (出自 <a href="https://www.youtube.com/watch?v=-D4v2uK3YCw&amp;t=1847s" target="_blank" rel="noopener">AWS Summit Series 2016 - Big Data Architectural Patterns and Best Practices on AWS</a>) 是不錯的參考：</p>
+<p><img src="/images/AWS/Data-Characteristics_on-AWS.png" alt=""></p>
+<hr>
+<h2 id="推薦閱讀"><a href="#推薦閱讀" class="headerlink" title="推薦閱讀"></a>推薦閱讀</h2><p>底下是推薦閱讀的文章，很多都源自於 AWS CTO <a href="https://en.wikipedia.org/wiki/Werner_Vogels" target="_blank" rel="noopener">Werner Vogels</a> 的 Blog.</p>
+<ul>
+<li><a href="http://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf" target="_blank" rel="noopener">Dynamo: Amazon’s Highly Available Key-value Store</a>: DynamoDB 設計理論基礎，作者包含了現任 AWS CTO - <a href="https://en.wikipedia.org/wiki/Werner_Vogels" target="_blank" rel="noopener">Werner Vogels</a></li>
+<li><a href="http://www.allthingsdistributed.com/2008/12/eventually_consistent.html" target="_blank" rel="noopener">Eventually Consistent - Revisited</a> by <a href="https://en.wikipedia.org/wiki/Werner_Vogels" target="_blank" rel="noopener">Werner Vogels</a>, <a href="http://blog.csdn.net/xiaoqiangxx/article/details/7566654" target="_blank" rel="noopener">中文翻譯</a></li>
+<li><a href="http://www.allthingsdistributed.com/2012/01/amazon-dynamodb.html" target="_blank" rel="noopener">Amazon DynamoDB – a Fast and Scalable NoSQL Database Service Designed for Internet Scale Applications</a>, by <a href="https://en.wikipedia.org/wiki/Werner_Vogels" target="_blank" rel="noopener">Werner Vogels</a></li>
+<li><a href="https://www.allthingsdistributed.com/2018/06/purpose-built-databases-in-aws.html" target="_blank" rel="noopener">A one size fits all database doesn’t fit anyone</a>: 整理了關於 <code>資料庫</code> 的類型，從 Relational, Key-Value, Document, Graph, In-memory, Search … 等，重點在於沒有一種可以滿足全部的。</li>
+</ul>
+<hr>
+<h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><ul>
+<li><a href="/2018/12/09/Architecture/Eventually-Consistent-Dynamo-NWR/">Eventually Consistent 與 Dynamo NWR 模型</a></li>
+<li><a href="/2018/04/21/AWS/Study-Notes-API-Gateway-as-DynamoDB-Proxy/">Using API Gateway as DynamoDB Proxy</a></li>
+<li><a href="/2016/08/20/AWS/AWS-Certified-Developer/">AWS Certified Developer - Associate 準備心得</a> (2016/08/20)</li>
+<li><a href="/2016/10/01/AWS-Study-Roadmap/">AWS Study Roadmap</a></li>
+</ul>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<li><a href="https://blog.clifflu.net/blog/2014/05/dynamodb-%E6%A6%82%E8%BF%B0/" target="_blank" rel="noopener">DynamoDB 概述</a></li>
+<li><a href="https://blog.gslin.org/archives/2015/01/14/5534/amazon-dynamodb-%E7%AD%86%E8%A8%98/" target="_blank" rel="noopener">Amazon DynamoDB 筆記</a></li>
+<li><a href="http://www.infoq.com/cn/articles/aws-dynamodb-dive-in" target="_blank" rel="noopener">DynamoDB 深度體驗</a> (InfoQ 簡中)</li>
+<li><a href="http://www.infoq.com/cn/articles/nosql-dynamo" target="_blank" rel="noopener">解读 NoSQL 技术代表之作 Dynamo</a></li>
+<li><a href="https://cloudonaut.io/serverless-cache-for-dynamodb-with-elasticache/" target="_blank" rel="noopener">Performance boost and cost savings for DynamoDB</a></li>
+<li><a href="https://www.youtube.com/watch?v=BEbiE2UV5Sc" target="_blank" rel="noopener">Deep Dive on Amazon DynamoDB</a> (Youtube, AWS Summit)</li>
+<li><a href="http://www.julianbrowne.com/article/viewer/brewers-cap-theorem" target="_blank" rel="noopener">Brewer’s CAP Theorem</a>, 1999 by <a href="https://en.wikipedia.org/wiki/Eric_Brewer_(scientist" target="_blank" rel="noopener">Eric Brewer</a></li>
+<li><a href="https://reprints.forrester.com/#/assets/2/374/&#39;RES125643&#39;/reports" target="_blank" rel="noopener">Forrester Wave: Big Data NoSQL, Q3 2016</a></li>
+</ul>
+<h2 id="案例文件"><a href="#案例文件" class="headerlink" title="案例文件"></a>案例文件</h2><ul>
+<li><a href="https://techblog.gumgum.com/articles/moving-to-amazon-dynamodb-from-hosted-cassandra" target="_blank" rel="noopener">MOVING TO AMAZON DYNAMODB FROM HOSTED CASSANDRA: A LEAP TOWARDS 60% COST SAVING PER YEAR</a></li>
+</ul>
+<h2 id="AWS-官方文件"><a href="#AWS-官方文件" class="headerlink" title="AWS 官方文件"></a>AWS 官方文件</h2><ul>
+<li><a href="/2016/10/01/AWS-Study-Roadmap/">DynamoDB Developer Guide</a></li>
+<li><a href="http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html" target="_blank" rel="noopener">DynamoDB API Reference</a></li>
+<li><a href="https://aws.amazon.com/dynamodb/faqs/" target="_blank" rel="noopener">DynamoDB FAQ</a></li>
+<li><a href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/BestPractices.html" target="_blank" rel="noopener">DynamoDB Best Practice</a></li>
+<li><a href="https://aws.amazon.com/blogs/database/choosing-the-right-dynamodb-partition-key/" target="_blank" rel="noopener">Choosing the Right DynamoDB Partition Key</a></li>
+<li><a href="https://www.slideshare.net/AmazonWebServices/design-patterns-using-amazon-dynamodb" target="_blank" rel="noopener">Design Patterns using Amazon DynamoDB</a></li>
+<li>2018/11/28: <a href="https://aws.amazon.com/blogs/aws/amazon-dynamodb-on-demand-no-capacity-planning-and-pay-per-request-pricing/" target="_blank" rel="noopener">Amazon DynamoDB On-Demand – No Capacity Planning and Pay-Per-Request Pricing</a></li>
+</ul>
+<h2 id="Youtube"><a href="#Youtube" class="headerlink" title="Youtube"></a>Youtube</h2><ul>
+<li><a href="https://www.youtube.com/watch?v=jzeKPKpucS0" target="_blank" rel="noopener">AWS re:Invent 2017: [REPEAT] Advanced Design Patterns for Amazon DynamoDB (DAT403-R)</a></li>
+</ul>
+<h2 id="更新紀錄"><a href="#更新紀錄" class="headerlink" title="更新紀錄"></a>更新紀錄</h2><ul>
+<li>2018/12/11: 新增 On-Demand 描述</li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2016/08/20/AWS/AWS-Certified-Developer/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2016/08/11/AWS/News_Application-Load-Balancer/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2016-08-17 01:53:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#核心元件-Core-Components"><span class="toc-article-text">核心元件 (Core Components)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Primary-Key"><span class="toc-article-text">Primary Key</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Secondary-Indexes"><span class="toc-article-text">Secondary Indexes</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Data-Type"><span class="toc-article-text">Data Type</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Read-Consistency-讀取一致性模型"><span class="toc-article-text">Read Consistency (讀取一致性模型)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Read-Write-Capacity-Mode"><span class="toc-article-text">Read/Write Capacity Mode</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Provisioned-Mode"><span class="toc-article-text">Provisioned Mode</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#On-Demand-Mode"><span class="toc-article-text">On-Demand Mode</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Guidelines-for-Working-with-Tables"><span class="toc-article-text">Guidelines for Working with Tables</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Partition-Behavior-of-Table"><span class="toc-article-text">Partition Behavior of Table</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Partition-Split"><span class="toc-article-text">Partition Split</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Increased-Provisioned-Throughput-Settings"><span class="toc-article-text">Increased Provisioned Throughput Settings</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Increased-Storage-Requirements"><span class="toc-article-text">Increased Storage Requirements</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Use-Burst-Capacity-Sparingly"><span class="toc-article-text">Use Burst Capacity Sparingly</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Cache-Popular-Items"><span class="toc-article-text">Cache Popular Items</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Limitation"><span class="toc-article-text">Limitation</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Development-with-DynamoDB"><span class="toc-article-text">Development with DynamoDB</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#使用時機"><span class="toc-article-text">使用時機</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#推薦閱讀"><span class="toc-article-text">推薦閱讀</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀-站內"><span class="toc-article-text">延伸閱讀 (站內)</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#案例文件"><span class="toc-article-text">案例文件</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#AWS-官方文件"><span class="toc-article-text">AWS 官方文件</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Youtube"><span class="toc-article-text">Youtube</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#更新紀錄"><span class="toc-article-text">更新紀錄</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/AWS/" style="color: white">AWS <span class="badge">66</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/DynamoDB/" style="color: white">DynamoDB <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Serverless/" style="color: white">Serverless <span class="badge">13</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">10</span></a></span> <span class="label label-success"><a href="/tags/CAP/" style="color: white">CAP <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/BASE/" style="color: white">BASE <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Eventually-Consistent/" style="color: white">Eventually Consistent <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/NoSQL/" style="color: white">NoSQL <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

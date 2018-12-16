@@ -1,0 +1,532 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Mac OS Mavericks 使用筆記 | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="我的黑金塔已經使用快兩個月了，現在除了做音樂還是需要開 Windows 7，還有網路銀行之外，都已經在 Mac OS 上做事了。這過程我把自己的 Mac OS 做了一些調整，還有找了很多工具，這些心得一一記錄在這裡，以備未來敗入 iMac or MBPR 時之需 XDDD
+
+系統熱鍵我是用 Wind">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Mac OS Mavericks 使用筆記"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Mac OS Mavericks 使用筆記</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Mac OS Mavericks 使用筆記</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>我的<a href="http://rickhw.github.io/2013/11/17/Install-MacOS-Mavericks-on-PC/">黑金塔</a>已經使用快兩個月了，現在除了做音樂還是需要開 Windows 7，還有網路銀行之外，都已經在 Mac OS 上做事了。這過程我把自己的 Mac OS 做了一些調整，還有找了很多工具，這些心得一一記錄在這裡，以備未來敗入 iMac or MBPR 時之需 XDDD</p>
+<a id="more"></a>
+<h1 id="系統熱鍵"><a href="#系統熱鍵" class="headerlink" title="系統熱鍵"></a>系統熱鍵</h1><p>我是用 Windows 104 key 鍵盤，原本 Window Key 是對應到 Command<br>我參考了公司的 Macbook Pro 設定，把常用的快速鍵做了對應。</p>
+<h2 id="系統對應"><a href="#系統對應" class="headerlink" title="系統對應"></a>系統對應</h2><ul>
+<li>Copy / Paste: Command + C / Command + V</li>
+<li>Spotlight: Control + F4, 同事說這很好用，其實我很少用，大概跟我的思路習慣有關係。。。。。不夠懶ＸＤ</li>
+<li>Screenshot: <ul>
+<li>Full screen: Command + Shift + 3</li>
+<li>Window: Command + Shift + 4 </li>
+<li>上述兩者，如果增壓 Alt, 那麼就是把圖檔放到 clipboard.</li>
+</ul>
+</li>
+<li>(<strong>常用</strong>) Remove file: Command + Backspace </li>
+<li>(<strong>常用</strong>) 字典: 系統任一 Application 選取一單字, 同時按下 “Commnad + Control + D” 即可查詢單字</li>
+<li>(<strong>常用</strong>) 顯示/隱藏 Dock: Alt + Command + D</li>
+</ul>
+<h2 id="桌面顯示"><a href="#桌面顯示" class="headerlink" title="桌面顯示"></a>桌面顯示</h2><ul>
+<li>Launchpad: F4</li>
+<li>Mission Control: F3</li>
+<li>顯示桌面: F11 (所有視窗都會跑到左右兩邊，顯示桌布)</li>
+<li>顯示 Dashboard: F12</li>
+<li>切換 desktop: Control + 左右方向鍵</li>
+<li>顯示目前應用程式最近開啟的文件: Alt + 下<ul>
+<li>如果目前 Focus 在 Finder, 那就會顯示最近開啟的文件</li>
+</ul>
+</li>
+</ul>
+<h2 id="文字編輯"><a href="#文字編輯" class="headerlink" title="文字編輯"></a>文字編輯</h2><p>在 Windows 上寫 Code 時，我習慣用 Home/End/PageDown/Up/Del 這些搭配 Control/Shift，不管是段落、還是快速在字或者行數中移動，有很高的工作效率，但是在 Mac 上卻無法如此，讓我在工作效率上有很大的折扣。特別是在 Macbook Pro 上是沒有 Home/End/PD/PU 等鍵，這些在 ThinkPad 上都有。</p>
+<p>但是兩個月下來我也慢慢習慣 Mac 的用法了，整理和 Windows / Vi 比較如下：</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th style="text-align:center">Mac OS</th>
+<th style="text-align:right">M$ Windows</th>
+<th style="text-align:right">Vi / Vim</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Jump word</td>
+<td style="text-align:center">Alt + 方向鍵</td>
+<td style="text-align:right">Alt + 方向鍵</td>
+<td style="text-align:right">w / W</td>
+</tr>
+<tr>
+<td>Home of line</td>
+<td style="text-align:center">Command + 左 或者 Control + A</td>
+<td style="text-align:right">Home</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>End of line</td>
+<td style="text-align:center">Command + 右 或者 Control + E</td>
+<td style="text-align:right">End</td>
+<td style="text-align:right">$</td>
+</tr>
+<tr>
+<td>Start of File</td>
+<td style="text-align:center">Control + Home</td>
+<td style="text-align:right">Control + Home</td>
+<td style="text-align:right">gg</td>
+</tr>
+<tr>
+<td>End of File</td>
+<td style="text-align:center">Control + End</td>
+<td style="text-align:right">Control + End</td>
+<td style="text-align:right">G</td>
+</tr>
+</tbody>
+</table>
+<p>以上如果要選取 “段落”、”字”、或者 “全選”，除了 vi，都可以搭配 Shift 使用。其他再慢慢補充。。。。</p>
+<blockquote>
+<p>vi or vim 參考另一篇心得 [Vim-Notes][<a href="http://rickhw.github.io/2015/02/18/Vim-Notes/]">http://rickhw.github.io/2015/02/18/Vim-Notes/]</a></p>
+</blockquote>
+<h1 id="工具篇"><a href="#工具篇" class="headerlink" title="工具篇"></a>工具篇</h1><p>過去很多工具在 Windows 已經有使用習慣的，整理一下目前使用的，大部份都是不用錢的。</p>
+<h2 id="系統工具類"><a href="#系統工具類" class="headerlink" title="系統工具類"></a>系統工具類</h2><ul>
+<li>VNC client on Safari: 在 URL 輸入 vnc://{vnc_server_ip} 就可以使用，這是 Mavericks 之後版本才有的</li>
+<li><a href="http://www.atpurpose.com/atMonitor/" target="_blank" rel="noopener">atMonitor</a>: 在狀態列顯示系統詳細資訊，超好用！不用錢！ </li>
+<li>MPlayerX: 看電影、海賊王就靠它了！</li>
+<li>VLC: 用來研究 streaming / RTSP </li>
+<li>Remote Mouse: 用 iPhone / iPad 當滑鼠</li>
+<li>TeamViewer: 修電腦，好人專用 QQ</li>
+</ul>
+<h2 id="開發工具"><a href="#開發工具" class="headerlink" title="開發工具"></a>開發工具</h2><ul>
+<li><a href="http://www.sequelpro.com/" target="_blank" rel="noopener">Sequel Pro</a>: MySQL Client</li>
+<li>SQLite Database Browser</li>
+<li>svnX</li>
+<li>GitX</li>
+<li><a href="http://www.emtec.com/zoc/" target="_blank" rel="noopener">zoc</a>: ssh client</li>
+</ul>
+<h2 id="影像工具"><a href="#影像工具" class="headerlink" title="影像工具"></a>影像工具</h2><p>自從 PhotoImpact 死了之後，PaintShop Pro 變得很複雜之後，我就很少在玩影像了。現在偶爾會做照片的批次處理而已，所以找了幾個免費的工具玩玩。另外比較需要的是看圖工具，Mac OS Mavericks 內建的 Preview 有些陽春，顯示速度也不快。</p>
+<ul>
+<li><a href="http://firealpaca.com/" target="_blank" rel="noopener">FireAlpaca</a>: 簡易版的 PhotoShop，基本功能都有，免費，夠用了</li>
+<li><a href="https://www.macupdate.com/app/mac/7338/jview" target="_blank" rel="noopener">JView</a>: 看圖工具, Made in Taiwan</li>
+</ul>
+<h1 id="系統設定-調整"><a href="#系統設定-調整" class="headerlink" title="系統設定 / 調整"></a>系統設定 / 調整</h1><p>使用過程中，除了安裝的介紹之外，已經很少做系統參數調整了，寫 Blog 抓圖時才有調整。。。</p>
+<h2 id="截圖沒有陰影"><a href="#截圖沒有陰影" class="headerlink" title="截圖沒有陰影"></a>截圖沒有陰影</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ defaults write com.apple.screencapture <span class="built_in">disable</span>-shadow -bool <span class="literal">true</span></span><br><span class="line">~$ killall SystemUIServer</span><br></pre></td></tr></table></figure>
+<h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><ul>
+<li><a href="http://rickhw.github.io/2013/11/17/Install-MacOS-Mavericks-on-PC/">Install Mac OS Mavericks on PC (蘋果安裝筆記)</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2014/03/20/DevOps/Git-Notes/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2013/11/17/OSX/Install-OSX-Mavericks-on-PC/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2013-12-23 23:53:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#系統熱鍵"><span class="toc-article-text">系統熱鍵</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#系統對應"><span class="toc-article-text">系統對應</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#桌面顯示"><span class="toc-article-text">桌面顯示</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#文字編輯"><span class="toc-article-text">文字編輯</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#工具篇"><span class="toc-article-text">工具篇</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#系統工具類"><span class="toc-article-text">系統工具類</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#開發工具"><span class="toc-article-text">開發工具</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#影像工具"><span class="toc-article-text">影像工具</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#系統設定-調整"><span class="toc-article-text">系統設定 / 調整</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#截圖沒有陰影"><span class="toc-article-text">截圖沒有陰影</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀-站內"><span class="toc-article-text">延伸閱讀 (站內)</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/OS-X/" style="color: white">OS X <span class="badge">3</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

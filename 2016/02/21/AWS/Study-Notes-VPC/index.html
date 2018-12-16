@@ -1,0 +1,578 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Study Notes - Amazon VPC (Virtual Private Cloud) | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="整理學習 VPC 的筆記。包含以下：
+
+基本概念、設定 VPC 過程問題與心得
+常見的應用場景，包含如何規劃適當的網路架構
+常見的問答 (FAQ)
+
+
+
+
+應用場景設計與規劃 Multiple VPCs in Different RegionsAWS VPC 基本上是一個資料中心 (Data Cen">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Study Notes - Amazon VPC (Virtual Private Cloud)"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Study Notes - Amazon VPC (Virtual Private Cloud)</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Study Notes - Amazon VPC (Virtual Private Cloud)</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>整理學習 VPC 的筆記。包含以下：</p>
+<ul>
+<li>基本概念、設定 VPC 過程問題與心得</li>
+<li>常見的應用場景，包含如何規劃適當的網路架構</li>
+<li>常見的問答 (FAQ)</li>
+</ul>
+<a id="more"></a>
+<!--
+# 基本概念與功能
+
+## VPC
+
+* 以 Region 為單位
+
+* [設定 VPC Peering and Private DNS using Route53][6]
+
+
+#
+
+-->
+<hr>
+<h1 id="應用場景"><a href="#應用場景" class="headerlink" title="應用場景"></a>應用場景</h1><h2 id="設計與規劃-Multiple-VPCs-in-Different-Regions"><a href="#設計與規劃-Multiple-VPCs-in-Different-Regions" class="headerlink" title="設計與規劃 Multiple VPCs in Different Regions"></a>設計與規劃 Multiple VPCs in Different Regions</h2><p>AWS VPC 基本上是一個資料中心 (Data Center) 的概念，所以不管是在雲端還是地端，除了傳統硬體要處理的問題，相關規劃的問題是少不了的。我最常規劃的案例官方文件中的 Scenario 3: <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Scenario3.html" target="_blank" rel="noopener">VPC with Public and Private Subnets and Hardware VPN Access</a>, 也就是包含：</p>
+<ol>
+<li>數個 Public Subnets</li>
+<li>數個 Private Subnets</li>
+<li>VPN to own IT infrastructure over an IPSec VPN tunnel</li>
+</ol>
+<p>同時，這個規劃也考慮了 AZ 以及開發時的各種環境需求，像是 Dev / Test / Staging / Production … 等環境。</p>
+<p>多 AWS 帳號、多 AWS Regions 的規劃與設計，完整筆記參閱：<a href="/2017/07/07/AWS/Plan-And-Deisgn-Multiple-VPCs-in-Different-Regions/">Plan and Design Multiple VPCs in Different Regions</a></p>
+<hr>
+<h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><h2 id="如何將兩個-VPC-串接"><a href="#如何將兩個-VPC-串接" class="headerlink" title="如何將兩個 VPC 串接"></a>如何將兩個 VPC 串接</h2><ul>
+<li>使用 AWS Peering，就可以打通兩個 VPC. see <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-peering.html" target="_blank" rel="noopener">VPC Peering</a></li>
+<li><del>可以跨 AWS Account，但是不能跨 Region</del><ul>
+<li>更新: 2018/02 <a href="https://aws.amazon.com/about-aws/whats-new/2018/02/inter-region-vpc-peering-is-now-available-in-nine-additional-aws-regions/" target="_blank" rel="noopener">Inter-Region VPC Peering is Now Available in Nine Additional AWS Regions</a></li>
+<li>詳細設定參考這篇筆記：<a href="/AWS/Inter-Region-VPC-Peering/">Inter-Region VPC Peering</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="如何限制-VPC-Peering-之間的存取控制？"><a href="#如何限制-VPC-Peering-之間的存取控制？" class="headerlink" title="如何限制 VPC Peering 之間的存取控制？"></a>如何限制 VPC Peering 之間的存取控制？</h2><p>可以利用以下這方式管控：</p>
+<ul>
+<li>Route Table: 控制目標要走哪一個 gateway / peering connections</li>
+<li>Network ACLs: 限制進出的 port, 有點像是 iptable, 但是控制的是針對 subnet</li>
+<li>Security Groups: 管理 EC2 或者 EC2-Based 的資源進出。</li>
+</ul>
+<p>流程上參考下圖：</p>
+<p><img src="/images/AWS/VPC/VPC-security-diagram.png" alt=""></p>
+<h2 id="VPC-or-Subnet-的-CIDR-Bloakc-Size-可以調整？"><a href="#VPC-or-Subnet-的-CIDR-Bloakc-Size-可以調整？" class="headerlink" title="VPC or Subnet 的 CIDR Bloakc Size 可以調整？"></a>VPC or Subnet 的 CIDR Bloakc Size 可以調整？</h2><p><del>不可以。VPC 和 Subnet 的 CIDR 建立好之後就無法更動。</del></p>
+<p>更新 2017/08/29: VPC CIDR 可以調整了，詳細參閱 <a href="https://aws.amazon.com/about-aws/whats-new/2017/08/amazon-virtual-private-cloud-vpc-now-allows-customers-to-expand-their-existing-vpcs/" target="_blank" rel="noopener">Amazon Virtual Private Cloud (VPC) now allows customers to expand their existing VPCs</a></p>
+<h2 id="怎麼知道目標會走哪一個-route-table"><a href="#怎麼知道目標會走哪一個-route-table" class="headerlink" title="怎麼知道目標會走哪一個 route table?"></a>怎麼知道目標會走哪一個 route table?</h2><p>看 subnet 設定在哪一個 route table. route table 跟 subnet 關係是一對一，也就是一個 subnet 只允許在一張 route table.</p>
+<h2 id="現有的-EC2-Instance-ENI-可否更換-subnet"><a href="#現有的-EC2-Instance-ENI-可否更換-subnet" class="headerlink" title="現有的 EC2 Instance ENI 可否更換 subnet?"></a>現有的 EC2 Instance ENI 可否更換 subnet?</h2><ul>
+<li>可以更換在同一個 AZ 的 Subnet，不同 AZ 則不可以。</li>
+<li>第一張 Primary NI 不可以 detach.</li>
+</ul>
+<h2 id="AWS-文件常看到-Public-Subnet-amp-Private-Subnet-是什麼意思？"><a href="#AWS-文件常看到-Public-Subnet-amp-Private-Subnet-是什麼意思？" class="headerlink" title="AWS 文件常看到 Public Subnet &amp; Private Subnet 是什麼意思？"></a>AWS 文件常看到 Public Subnet &amp; Private Subnet 是什麼意思？</h2><ul>
+<li>Public Subnet<ul>
+<li>指的是 subnet 掛的 route table, destination 到 Public Network 走 Internet Gateway</li>
+<li>裡面的機器透過 EIP 出去 / 進來。所以 <strong>這個網段的 Instance 都要有 EIP</strong>.</li>
+<li>通常是開放給外面連線的服務或者網路設備，像是 VPN, Proxy, NAT Instance … etc.</li>
+</ul>
+</li>
+<li>Private Subnet:<ul>
+<li>指的是 subnet 掛的 route table, destination 到 Public Network <strong>沒有</strong> 走 Internet Gateway, 而是走 NAT Gateway</li>
+<li>可出去外面，但是外面不可進來，像是走 NAT Gateway 或者是其他 VPN Gateway.</li>
+<li>這個網段不需要有 EIP 就可以出去。</li>
+<li>通常是 DB / Application Server 等內部服務。</li>
+</ul>
+</li>
+</ul>
+<p>參閱： <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html#vpc-subnet-diagram" target="_blank" rel="noopener">Your VPC with Subnets</a></p>
+<h2 id="Network-ACL-和-Security-Group-有什麼不一樣？"><a href="#Network-ACL-和-Security-Group-有什麼不一樣？" class="headerlink" title="Network ACL 和 Security Group 有什麼不一樣？"></a>Network ACL 和 Security Group 有什麼不一樣？</h2><ul>
+<li>Network ACLs:<ul>
+<li>針對 VPC Subnet</li>
+<li>可以控制 Inbound / Outbound</li>
+<li>有 Allow / Deny</li>
+<li>NACL 沒有狀態性 (Stateless)，換言之 In/Out 都要個別設定</li>
+</ul>
+</li>
+<li>Security Group:<ul>
+<li>針對 EC2 Instance / ENI</li>
+<li>可以控制 Inbound / Outbound (同 ACLs)</li>
+<li>只有 Allow, 沒有 Deny</li>
+<li>SG 有狀態性 (Stateful)，換言之只要設定 In/Out 其一即可</li>
+</ul>
+</li>
+</ul>
+<p>詳細比較參閱：</p>
+<ul>
+<li><a href="/2016/07/08/AWS/Security-Groups-And-Network-ACLs/">Security Groups and Network ACLs</a> (站內)</li>
+<li><a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Security.html" target="_blank" rel="noopener">Comparison of Security Groups and Network ACLs</a> (官方文件)</li>
+</ul>
+<h2 id="Private-Subnet-裡的-EC2-突然無法對外連線了？"><a href="#Private-Subnet-裡的-EC2-突然無法對外連線了？" class="headerlink" title="Private Subnet 裡的 EC2 突然無法對外連線了？"></a>Private Subnet 裡的 EC2 突然無法對外連線了？</h2><ol>
+<li>確認 Instance 的 Security Group 設定正確</li>
+<li>確認 Instance 網卡 ENI 的 Security Group 設定正確. 如果有第二張網卡，那也要檢查.</li>
+<li>找到 Instance 的 subnet 掛在哪一張 Route Table，確認 NAT Gateway 也在裡面.</li>
+<li>找到 NAT Gateway 之後，找到他所屬的 Subnet 的 Route Table ，確認 Internet Gateway 在裡面</li>
+</ol>
+<h2 id="Public-Subnet-裡的-EC2-無法對外連線了？"><a href="#Public-Subnet-裡的-EC2-無法對外連線了？" class="headerlink" title="Public Subnet 裡的 EC2 無法對外連線了？"></a>Public Subnet 裡的 EC2 無法對外連線了？</h2><ol>
+<li>確認 Instance 本身有 EIP</li>
+<li>檢查 Security Group, 確認 Outbound 正確</li>
+<li>檢查 Subnet 的 Route Table，確認裡面 destination 有 Internet Gateway</li>
+</ol>
+<h2 id="VPC-NAT-Gateway-是否有單點-SPOF-問題？"><a href="#VPC-NAT-Gateway-是否有單點-SPOF-問題？" class="headerlink" title="VPC NAT Gateway 是否有單點 (SPOF) 問題？"></a>VPC NAT Gateway 是否有單點 (SPOF) 問題？</h2><p>建立 NAT Gateway 時，要選擇 Subnet，就等於表示此 Gateway 在 Subnet 所在的 AZ。如果此 AZ 出問題，Route Table 共用此 Gateway，其他的 AZ 將無法出去。參考：<a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html" target="_blank" rel="noopener">NAT Gateway Basics</a> 以下的描述：</p>
+<pre><code>If you have resources in multiple Availability Zones and they share one NAT gateway, in the event that the NAT gateway’s Availability Zone is down, resources in the other Availability Zones lose Internet access. To create an Availability Zone-independent architecture, create a NAT gateway in each Availability Zone and configure your routing to ensure that resources use the NAT gateway in the same Availability Zone.
+</code></pre><h2 id="Dedicated"><a href="#Dedicated" class="headerlink" title="Dedicated"></a>Dedicated</h2><ul>
+<li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-instance.html" target="_blank" rel="noopener">Dedicated Instances</a></li>
+</ul>
+<hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
+<li><a href="/2017/07/07/AWS/Plan-And-Deisgn-Multiple-VPCs-in-Different-Regions/">Plan and Design Multiple VPCs in Different Regions</a></li>
+<li><a href="/2016/02/20/AWS/Unknown-ENI-Delete-Action-in-CloudTrial/">Unknown ENI Delete Action in CloudTrial</a></li>
+<li><a href="/2016/01/05/AWS/VPC-Peering/">設定 VPC Peering and Private DNS using Route53</a></li>
+<li><a href="/2016/07/08/AWS/Security-Groups-And-Network-ACLs/">Security Groups and Network ACLs</a></li>
+<li><a href="/2016/10/10/AWS/Migrate-to-AWS-NAT-Gateway/">Migrate to AWS NAT Gateway</a></li>
+<li><a href="/2016/10/01/AWS-Study-Roadmap/">AWS Study Roadmap</a></li>
+<li><a href="/2017/06/22/GCP/Study-Notes_VPC-in-GCP/">Study Notes - VPC in GCP</a></li>
+<li><a href="/2018/04/08/GCP/Building-a-VPN-Between-GCP-and-AWS/">Building a VPN Between GCP and AWS</a></li>
+</ul>
+<hr>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<li><a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Security.html" target="_blank" rel="noopener">Security in Your VPC</a></li>
+<li><a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Appendix_NACLs.html" target="_blank" rel="noopener">Recommended Network ACL Rules for Your VPC</a></li>
+<li><a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Scenario3.html" target="_blank" rel="noopener">VPC with Public and Private Subnets and Hardware VPN Access</a></li>
+<li><a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Security.html" target="_blank" rel="noopener">Comparison of Security Groups and Network ACLs</a></li>
+<li><a href="https://aws.amazon.com/vpc/faqs/" target="_blank" rel="noopener">VPC FAQs</a></li>
+<li><a href="http://www.slideshare.net/gsilverm/aws-vpc-in" target="_blank" rel="noopener">Introduction to AWS VPC, Guidelines, and Best Practices</a></li>
+</ul>
+<h1 id="更新紀錄"><a href="#更新紀錄" class="headerlink" title="更新紀錄"></a>更新紀錄</h1><ul>
+<li>2016/02/21: init</li>
+<li>2016/03/30: 新增 Public Subnet 的描述</li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2016/02/24/AWS/SES-SMTP-Credentials/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2016/02/20/Linux/Open-File-Limit/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2016-02-21 13:30:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#應用場景"><span class="toc-article-text">應用場景</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#設計與規劃-Multiple-VPCs-in-Different-Regions"><span class="toc-article-text">設計與規劃 Multiple VPCs in Different Regions</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#FAQ"><span class="toc-article-text">FAQ</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#如何將兩個-VPC-串接"><span class="toc-article-text">如何將兩個 VPC 串接</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#如何限制-VPC-Peering-之間的存取控制？"><span class="toc-article-text">如何限制 VPC Peering 之間的存取控制？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#VPC-or-Subnet-的-CIDR-Bloakc-Size-可以調整？"><span class="toc-article-text">VPC or Subnet 的 CIDR Bloakc Size 可以調整？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#怎麼知道目標會走哪一個-route-table"><span class="toc-article-text">怎麼知道目標會走哪一個 route table?</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#現有的-EC2-Instance-ENI-可否更換-subnet"><span class="toc-article-text">現有的 EC2 Instance ENI 可否更換 subnet?</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#AWS-文件常看到-Public-Subnet-amp-Private-Subnet-是什麼意思？"><span class="toc-article-text">AWS 文件常看到 Public Subnet &amp; Private Subnet 是什麼意思？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Network-ACL-和-Security-Group-有什麼不一樣？"><span class="toc-article-text">Network ACL 和 Security Group 有什麼不一樣？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Private-Subnet-裡的-EC2-突然無法對外連線了？"><span class="toc-article-text">Private Subnet 裡的 EC2 突然無法對外連線了？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Public-Subnet-裡的-EC2-無法對外連線了？"><span class="toc-article-text">Public Subnet 裡的 EC2 無法對外連線了？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#VPC-NAT-Gateway-是否有單點-SPOF-問題？"><span class="toc-article-text">VPC NAT Gateway 是否有單點 (SPOF) 問題？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Dedicated"><span class="toc-article-text">Dedicated</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#更新紀錄"><span class="toc-article-text">更新紀錄</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/AWS/" style="color: white">AWS <span class="badge">66</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Route53/" style="color: white">Route53 <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/VPC/" style="color: white">VPC <span class="badge">20</span></a></span> <span class="label label-success"><a href="/tags/Security-Groups/" style="color: white">Security Groups <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Network-ACLs/" style="color: white">Network ACLs <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Public-Subnet/" style="color: white">Public Subnet <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/VPC-Peering/" style="color: white">VPC Peering <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Private-Subnet/" style="color: white">Private Subnet <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/NAT-Gateway/" style="color: white">NAT Gateway <span class="badge">4</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

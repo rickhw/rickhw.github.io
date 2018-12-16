@@ -1,0 +1,527 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>cURL | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="這篇主要是整理過去經常使用到的範例，同時也是作為教育訓練使用的文件。以下的範例都是在 Linux or Mac OS 執行的。
+大綱
+Basic usage: 基本的用法與常用的參數 (Options)
+HTML form
+Cookie
+HTTP authencation
+RESTful
+Debug">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="cURL"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> cURL</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> cURL</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>這篇主要是整理過去經常使用到的範例，同時也是作為教育訓練使用的文件。以下的範例都是在 Linux or Mac OS 執行的。</p>
+<h1 id="大綱"><a href="#大綱" class="headerlink" title="大綱"></a>大綱</h1><ol>
+<li>Basic usage: 基本的用法與常用的參數 (Options)</li>
+<li>HTML form</li>
+<li>Cookie</li>
+<li>HTTP authencation</li>
+<li>RESTful</li>
+<li>Debugging and Scripting</li>
+</ol>
+<a id="more"></a>
+<hr>
+<h1 id="Basic-usage"><a href="#Basic-usage" class="headerlink" title="Basic usage"></a>Basic usage</h1><p>基本的格式和一般 CLI (Commnad-line interface) 都一樣。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage: curl [options...] &lt;url&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Basic-options"><a href="#Basic-options" class="headerlink" title="Basic options"></a>Basic options</h2><p>參考 <code>man curl</code> 以及 <code>curl --help</code> 內容，摘錄幾個基本參數。</p>
+<ol>
+<li><code>-o, --output FILE</code>: Write output to file instead of stdout</li>
+<li><code>-S, --show-error</code>: Show error. With -s, make curl show errors when they occur</li>
+<li><code>-s, --silent</code>: Silent mode. Don’t output anything</li>
+<li><code>-A, --user-agent STRING</code>: User-Agent to send to server (H)</li>
+<li><code>-v, --verbose</code>: Make the operation more talkative</li>
+<li><code>-V, --version</code>: Show version number and quit</li>
+<li><code>-w, --write-out FORMAT</code>:  What to output after completion</li>
+<li><code>-O/--remote-name</code>: Write output to a file named as the remote file</li>
+</ol>
+<h2 id="Examples-常見例子"><a href="#Examples-常見例子" class="headerlink" title="Examples (常見例子)"></a>Examples (常見例子)</h2><ol>
+<li>GET a http content: <code>curl www.google.com</code></li>
+<li>Download a file: <code>curl -O &lt;url&gt;</code></li>
+<li>Download a file, and specify file name: <code>curl -o &lt;filename&gt; &lt;url&gt;</code></li>
+</ol>
+<p>類似的工具： <code>wget &lt;url&gt;</code></p>
+<h2 id="HTML-form"><a href="#HTML-form" class="headerlink" title="HTML form"></a>HTML form</h2><p>常用的 options:</p>
+<ol>
+<li><code>-d/--data &lt;data&gt;</code>: HTTP POST data (H)</li>
+<li><code>--data-ascii &lt;data&gt;</code>: HTTP POST ASCII data (H)</li>
+<li><code>--data-binary &lt;data&gt;</code>: HTTP POST binary data (H)</li>
+</ol>
+<p>簡單的例子：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PARAMS=<span class="string">"username=rickh&amp;password=passw0rd"</span></span><br><span class="line">URL=http://127.0.0.1/login</span><br><span class="line">curl -d <span class="string">"<span class="variable">$&#123;PARAMS&#125;</span>"</span> <span class="variable">$URL</span></span><br></pre></td></tr></table></figure>
+<h2 id="POST-JSON-Data"><a href="#POST-JSON-Data" class="headerlink" title="POST JSON Data"></a>POST JSON Data</h2><p>下面另一個 POST JSON data 的例子, 注意 <code>-d</code> 引號的格式, 資料內容如果有雙引號, 那麼用單引號描述資料內容, 如果使用雙引號描述 <code>-d</code>, 那麼資料內容的引號需要被 escape, 如下:</p>
+<figure class="highlight bash"><figcaption><span>POST JSON data</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">URL=http://127.0.0.1/login</span><br><span class="line">curl -d <span class="string">'&#123;"enable": 1&#125;'</span> <span class="variable">$&#123;URL&#125;</span></span><br><span class="line">curl -d <span class="string">"&#123;\"enable\": 1&#125;"</span> <span class="variable">$&#123;URL&#125;</span></span><br></pre></td></tr></table></figure>
+<p>如果 JSON 本身是存在另一個檔案, 那麼可以用小老鼠指定檔名, 這在測試 RESTful 時很好用, 如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -d @data.json <span class="variable">$&#123;URL&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>有時候需要模擬瀏覽器的行為, 特別是有 cookie 的網站. 可以利用參數 <code>-c</code> 將存起來檔案, 然後在下一個動作利用 <code>-b</code> 指定 cookie 檔案.</p>
+<ol>
+<li><code>-c, --cookie-jar FILE</code>: Write cookies to this file after operation (H)</li>
+<li><code>-b, --cookie STRING/FILE</code>: String or file to read cookies from (H)</li>
+</ol>
+<p>延續前一個段落的例子：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">URL=http://127.0.0.1/login</span><br><span class="line">curl -c cookies.txt -d <span class="string">'&#123;"enable": 1&#125;'</span> <span class="variable">$&#123;URL&#125;</span></span><br><span class="line">curl -b cookies.txt <span class="variable">$&#123;URL&#125;</span></span><br></pre></td></tr></table></figure>
+<p>以下是一個 cookie 的內容範例:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10.1.100.82 FALSE / FALSE 0 admin:language  zh-cn</span><br></pre></td></tr></table></figure>
+<h2 id="HTTP-authencation"><a href="#HTTP-authencation" class="headerlink" title="HTTP authencation"></a>HTTP authencation</h2><p>幾個常用到的 options:</p>
+<ol>
+<li><code>-u/--user &lt;user[:password]&gt;</code>: Set server user and password</li>
+<li><code>-k/--insecure</code>:  Allow connections to SSL sites without certs (H)</li>
+</ol>
+<figure class="highlight bash"><figcaption><span>HTTP authencation</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ACCOUNT=rickh</span><br><span class="line">PASSWORD=passw0rd</span><br><span class="line">URL=http://192.168.1.1/login</span><br><span class="line">curl --user <span class="string">"<span class="variable">$ACCOUNT</span>:<span class="variable">$PASSWORD</span>"</span> <span class="variable">$&#123;URL&#125;</span></span><br></pre></td></tr></table></figure>
+<p>如果是 HTTPS, 那麼可以帶上 <code>-k</code>, 變成: <code>curl -k --user &quot;$ACCOUNT:$PASSWORD&quot; ${URL}</code></p>
+<h2 id="RESTful-client"><a href="#RESTful-client" class="headerlink" title="RESTful client"></a>RESTful client</h2><p>RESTful 利用 HTTP protocol 特性為基礎，所以只要能夠指定相關參數即可，像是 HTTP Header, HTTP Method, Data, 還有如何存下接收的 Data, 相關參數:</p>
+<ol>
+<li><code>-H/--header &lt;line&gt;</code>: Custom header to pass to server (H)</li>
+<li><code>-X, --request COMMAND</code>: Specify request command to use, GET/POST/PUT/DELETE</li>
+</ol>
+<p>以下是一個指定 Content-Type 和 Accept 為 <code>application/json</code> 的例子，要留意多個 HTTP Header 使用多個 <code>-H</code> 描述：</p>
+<figure class="highlight bash"><figcaption><span>RESTful client: PUT</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">api_url=http://10.1.101.204:8080/api/app/login</span><br><span class="line">api_header=<span class="string">'-H "Accept: application/json" -H "Content-Type: application/json"'</span></span><br><span class="line"></span><br><span class="line">curl <span class="variable">$&#123;api_header&#125;</span> -X PUT --data @login.json <span class="variable">$&#123;api_url&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Debugging-and-Scripting"><a href="#Debugging-and-Scripting" class="headerlink" title="Debugging and Scripting"></a>Debugging and Scripting</h2><p>使用 curl 有時候需要更多細節用來 debug, 但是用在程式裡當作功能使用時, 可能會希望不要有太多額外的訊息, 或者隱藏這些資料. 所以前述的例子, 可以搭配以下的參數作為 debug or script 使用：</p>
+<ol>
+<li><code>-D, --dump-header FILE</code>:  Write the headers to this file</li>
+<li><code>-f, --fail</code>: Fail silently (no output at all) on HTTP errors (H)</li>
+<li><code>-i, --include</code>: Include protocol headers in the output (H/F)</li>
+<li><code>-o, --output FILE</code>: Write output to <strong>file</strong> instead of stdou</li>
+<li><code>-s, --silent</code>:  Silent mode. Don’t output anything</li>
+<li><code>-v, --verbose</code>:  Make the operation more talkative</li>
+<li><code>-w, --write-out FORMAT</code>: What to output after completion</li>
+</ol>
+<h2 id="Curl-in-Javascript"><a href="#Curl-in-Javascript" class="headerlink" title="Curl in Javascript"></a>Curl in Javascript</h2><p><a href="https://code.google.com/p/curlie/" target="_blank" rel="noopener">https://code.google.com/p/curlie/</a></p>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a href="http://blogs.plexibus.com/2009/01/15/rest-esting-with-curl/" target="_blank" rel="noopener">REST-esting with cURL</a></li>
+<li><a href="http://stackoverflow.com/questions/7172784/how-to-post-json-data-with-curl-from-terminal-commandline-to-test-spring-rest" target="_blank" rel="noopener">How to POST JSON data with Curl from Terminal/Commandline to Test Spring REST?</a></li>
+<li><a href="http://www.wxjavascript.net/curl/" target="_blank" rel="noopener">wxJavascript - cURL</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2014/11/26/Management/開會原則/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2014/10/26/Management/Classified-Philosophy/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2014-11-18 18:45:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#大綱"><span class="toc-article-text">大綱</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Basic-usage"><span class="toc-article-text">Basic usage</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Basic-options"><span class="toc-article-text">Basic options</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Examples-常見例子"><span class="toc-article-text">Examples (常見例子)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#HTML-form"><span class="toc-article-text">HTML form</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#POST-JSON-Data"><span class="toc-article-text">POST JSON Data</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Cookie"><span class="toc-article-text">Cookie</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#HTTP-authencation"><span class="toc-article-text">HTTP authencation</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#RESTful-client"><span class="toc-article-text">RESTful client</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Debugging-and-Scripting"><span class="toc-article-text">Debugging and Scripting</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Curl-in-Javascript"><span class="toc-article-text">Curl in Javascript</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/Linux/" style="color: white">Linux <span class="badge">10</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/cURL/" style="color: white">cURL <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/RESTful/" style="color: white">RESTful <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/HTTP/" style="color: white">HTTP <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,569 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>如何有效的回報問題 (How to Report Problems Effectively) | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="整理前一個工作做教育訓練的資料，本來對象是給 SQA (Software QA) Team 的教育訓練，後來發現這個題目，所有人都要會，也就是 如何有效的回報問題。
+所有人 指的是：團隊裡的每一個人。實務上很難，所以要一起討論、學習。以測試角度來看，就是 如何有效的回報 Defect / Bug，底">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="如何有效的回報問題 (How to Report Problems Effectively)"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> 如何有效的回報問題 (How to Report Problems Effectively)</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> 如何有效的回報問題 (How to Report Problems Effectively)</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>整理前一個工作做教育訓練的資料，本來對象是給 <code>SQA (Software QA)</code> Team 的教育訓練，後來發現這個題目，所有人都要會，也就是 <code>如何有效的回報問題</code>。</p>
+<p><code>所有人</code> 指的是：團隊裡的每一個人。實務上很難，所以要一起討論、學習。以測試角度來看，就是 <code>如何有效的回報 Defect / Bug</code>，底下的截圖是以前教育訓練的資料，隨著時間的演進，現在看起來還是有一些參考價值吧？</p>
+<blockquote>
+<p>文中用 <code>Issue</code> 統稱 <code>Defect</code>、<code>Bug</code> 這些 <code>議題</code>。更多參閱 <a href="/2017/08/19/Redmine/Issue-Tracking_in_Redmine/">Issue Tracking in Redmine</a></p>
+</blockquote>
+<a id="more"></a>
+<h1 id="如何描述問題"><a href="#如何描述問題" class="headerlink" title="如何描述問題"></a>如何描述問題</h1><p>如何把問題講清楚，讓處理問題的人、判斷問題的人可以快速明白問題的本質，這是描述問題的目的。描述問題有以下三個重要的原則：</p>
+<ul>
+<li>清楚的症狀 (Symptom)、現象 (appearance)</li>
+<li>可靠的復現步驟：步驟</li>
+<li>可靠的資訊：參考資訊、包含 環境、系統 log、產品規格、story 等。</li>
+</ul>
+<hr>
+<h2 id="如何有效的錯誤報告"><a href="#如何有效的錯誤報告" class="headerlink" title="如何有效的錯誤報告"></a>如何有效的錯誤報告</h2><p>這張圖主要參考自 <a href="https://www.chiark.greenend.org.uk/~sgtatham/" target="_blank" rel="noopener">Simon Tatham</a> 的文章: <a href="https://www.chiark.greenend.org.uk/~sgtatham/bugs.html" target="_blank" rel="noopener">How to Report Bugs Effectively</a></p>
+<p><img src="/images/SQA/Report-Issues/01-How-to-report.png" alt=""></p>
+<p>以測試角度來看，使用 <code>Template</code> 的目的：</p>
+<ul>
+<li>可以有效的重現 (reproduce) <code>現象</code>，確認是不是 <code>問題</code></li>
+<li>可以加速溝通的效率，同時已經有相關的參考資訊</li>
+</ul>
+<p>底下是我過去團隊用的 Template，主要用在 <a href="/2017/03/18/SQA/Stages-In-Software-Testing/">功能性驗證</a>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Precondition -- optional</span></span><br><span class="line">Precondition <span class="keyword">for</span> this issue.</span><br><span class="line"></span><br><span class="line"><span class="comment">## How to reprocedure the problem</span></span><br><span class="line"></span><br><span class="line">1. install APP form AppStore</span><br><span class="line">2. open app with 886929168168/12345678</span><br><span class="line">3. goto video view, and click the active device</span><br><span class="line">4. ..</span><br><span class="line"></span><br><span class="line"><span class="comment">## Expected result</span></span><br><span class="line"></span><br><span class="line">The video should be transferred immediately.</span><br><span class="line"></span><br><span class="line"><span class="comment">## Actual result</span></span><br><span class="line"></span><br><span class="line">The exception occurs.</span><br><span class="line"></span><br><span class="line"><span class="comment">## Log _optional_</span></span><br><span class="line"></span><br><span class="line">put server, app or device <span class="built_in">log</span> to here</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## Environment</span></span><br><span class="line"></span><br><span class="line">* Phone: iPhone5, iOS 7.0.2</span><br><span class="line">* server version: server_2.3.0_b20130116-1200_r23765.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment">## Spec* _optional_</span></span><br><span class="line"></span><br><span class="line">[[Wiki Title Here]]</span><br></pre></td></tr></table></figure>
+<p>這個樣板包含這些項目：</p>
+<ul>
+<li><code>Precondition</code>: 問題的前提條件，例如 iOS 9 以上</li>
+<li><code>How to reprocedure the problem</code>: 如何重現這個問題<ul>
+<li>通常是 <code>有序性 (ordered)</code>，重現步驟如果是無序性的，那 ….</li>
+<li>復現問題的關鍵, QA 程度可以從這裡看得出來，好的 Bug 走一次就可以重現</li>
+<li>很複雜的問題，可以直接錄影，如果有 remote site</li>
+</ul>
+</li>
+<li><code>Expected result</code>: 預期結果<ul>
+<li>資料正確性</li>
+<li>邏輯性</li>
+<li>畫面</li>
+</ul>
+</li>
+<li><code>Actual result</code>:<ul>
+<li>實際測試時的結果</li>
+<li>複雜的問題可配合圖、影音等方式呈現</li>
+</ul>
+</li>
+<li><code>Log (optional)</code>: Server, App or Device 的 Log<ul>
+<li>QA 如果可以看 Log，問題的回報會更精準，更有說服力</li>
+</ul>
+</li>
+<li><code>Environment</code>: 測試的環境，包含測試出來的版本資訊、Build 資訊<ul>
+<li>像是問題發生在哪一個版本，詳細參閱 <a href="/2015/02/11/SoftwareEngineering/Version-Control/">Version Control</a>，如果貴公司的軟體沒有版本，請好好規劃這件事情。</li>
+<li>建議要有時間點，或者 commit code，像是 git hash or svn number.</li>
+</ul>
+</li>
+<li><code>Spec</code>: 商業需求的來源<ul>
+<li>為什麼個現象是 <code>Issue</code> 的依據來源</li>
+</ul>
+</li>
+</ul>
+<p>要特別強調在描述問題的過程：<code>代名詞要注意</code>，<code>主、動、賓</code> 不清楚是中文語言特性，因為習慣省略主詞或者受詞，引此常常造成溝通認知差異的問題。</p>
+<p>另外幾點文中沒有說，但我會強調的，描述清單的 <code>次序性</code>：</p>
+<ul>
+<li>ordered list (有次序性)</li>
+<li>non-order llist (無次序性)</li>
+</ul>
+<p>問題的重現 (re-produce) 通常是 <code>有序性</code> 的，而現象，通常會是 <code>無序性</code> 的。有時候也會反過來，所以 QA 再回報問題的時候，要很清楚知道，問題的次序性是什麼。</p>
+<p>這常寫 <code>Markdown</code> 的人應該會 (要) 很清楚。</p>
+<hr>
+<h2 id="回報問題的案例-Updated-2018-08-04"><a href="#回報問題的案例-Updated-2018-08-04" class="headerlink" title="回報問題的案例 (Updated: 2018/08/04)"></a>回報問題的案例 (Updated: 2018/08/04)</h2><p>這事情發生在 2018/08/04，剛好跟這篇有關係，我就做了個例子。</p>
+<p>我一早就被 iOS (疑似, iPad Only) 的 Bug 吵醒，釐清了一些狀況，錄了這段，按照本文回報問題的方式，整理了以下問題的回報範本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">## Environment</span><br><span class="line"></span><br><span class="line">- iOS 11.4.1</span><br><span class="line">- iPad Air 128Gb.</span><br><span class="line"></span><br><span class="line">## How to reproduce?</span><br><span class="line"></span><br><span class="line">1. connect the power adapter to iPad</span><br><span class="line">2. open Click app, tap Timer, set a countdown in 5s</span><br><span class="line">3. start the countdown</span><br><span class="line">4-1: stop the sound by tab Home button,</span><br><span class="line">4-2: stop the sound by swiping up notification</span><br><span class="line"></span><br><span class="line">## Expected Result</span><br><span class="line"></span><br><span class="line">Sound should be stopped.</span><br><span class="line"></span><br><span class="line">## Acturl Result</span><br><span class="line"></span><br><span class="line">Sound keeps playbacking, unstoppable.</span><br><span class="line"></span><br><span class="line">## Notes</span><br><span class="line">- Remove power adapter to fix the issue.</span><br><span class="line">- No issue on iPhone6</span><br></pre></td></tr></table></figure>
+<p>這段回報的目的就是讓收到 report 的人 (不管是開發、還是 PM)，可以依照步驟把問題的 <code>現象</code> 重現出來，之後才有辦法判斷問題的 <code>嚴重性</code>。</p>
+<p>最後錄了一段畫面，讓溝通可以更直白：</p>
+<iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/o0q2DJPnb1Y?showinfo=0&amp;ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+
+<p>這個問題現象，從我的錄影實驗中可以知道，問題是 <code>Click</code> 跟 <code>充電</code> 似乎有關係，但是一般整合測試怎麼會想到這兩個有關係？這問題就跟 <a href="/2017/12/03/SQA/Regression-Test-Is-Tough/">從 iOS 無限黑屏事件，談軟體測試階段 - 回歸測試 Regression Test</a> 描述的想法一樣，要在開發過程 <code>發現</code> 這個問題，其實是不容易的。</p>
+<blockquote>
+<p>這邊的開發過程指的是 Release 之前。</p>
+</blockquote>
+<hr>
+<h2 id="提問的智慧"><a href="#提問的智慧" class="headerlink" title="提問的智慧"></a>提問的智慧</h2><p>同樣的這張 Slide 主要參考自: <a href="http://www.catb.org/esr/faqs/smart-questions.html" target="_blank" rel="noopener">How To Ask Questions The Smart Way</a>  by <a href="https://en.wikipedia.org/wiki/Eric_S._Raymond" target="_blank" rel="noopener">Eric Steven Raymond</a></p>
+<p><img src="/images/SQA/Report-Issues/02-How-to-Ask.png" alt=""></p>
+<p>先強調的是: <code>標題很重要</code>，<code>Issue</code> 的標題要有相關 <code>關鍵字</code>、<code>現象</code>、<code>嚴重性</code> … 等，掌握這三個原則，一眼就能抓到問題，例如：</p>
+<ul>
+<li>iOS 無法正確讀取商品頁</li>
+<li>Android 點選 Push 後發生 Crash</li>
+<li>Firefox 無法正確顯示 Live Streaming 影像、緩慢</li>
+</ul>
+<p>另外，提問題之前要做的，最好能夠：<code>讀過手冊 / 設計文件、了解產品</code>，避免開出無效的 Issue，浪費彼此的時間。</p>
+<p>我在導入新技術之前，一定會做這樣的功課：把整本手冊讀過 <code>幾次</code>，AWS 的學習基本精神就是這樣。像是：</p>
+<ul>
+<li><a href="/2017/02/04/AWS/Study-Notes-AutoScaling_Basic-Concept/">Auto Scaling</a></li>
+<li><a href="/2018/01/24/AWS/Study-Notes-Overview-API-Gateway/">API Gateway</a></li>
+<li><a href="/2016/08/17/AWS/Study-Notes-DynamoDB/">DynamoDB</a></li>
+<li><a href="/2017/03/02/AWS/Study-Notes-CloudWatch/">CloudWatch</a></li>
+<li><a href="/2017/03/31/AWS/Study-Notes-CloudFormation-Template-Anatomy/">CloudFormation</a></li>
+</ul>
+<p>所以提問題之前，要問問自己，對於產品了解多少，對需求深入多少。</p>
+<hr>
+<h2 id="輕重緩急"><a href="#輕重緩急" class="headerlink" title="輕重緩急"></a>輕重緩急</h2><p>時間管理的兩個軸是：<code>重要性</code>、<code>優先權</code>。當時我用在處理 Defect 的差異，也是兩個象限：<code>優先權</code>、<code>嚴重性</code>。</p>
+<p><img src="/images/SQA/Report-Issues/03-Prioritize-the-Issues.png" alt=""></p>
+<p>這裡有些特例是問題很嚴重，但是優先權很低。</p>
+<p>像是那時候做 IoT 產品常出現的嚴重問題就是 Video Streaming Delay 很嚴重，但因為是走 Mobile Network，所以常常有 case 是使用者在深山裡，網路很慢，造成產品無法使用，但是實務上，急不得，因為急也沒用 XDD</p>
+<h1 id="品質？"><a href="#品質？" class="headerlink" title="品質？"></a>品質？</h1><p><code>如何回報問題</code> 這件事情當作是品質之一，換言之，如果回報問題的程序本身沒有品質，那麼這個產出是沒意義的。</p>
+<blockquote>
+<p>品質不是測試，而是整個開發過程。</p>
+</blockquote>
+<p>釐清問題，本身就是個品質。回報的目的在於：</p>
+<ul>
+<li><code>1) 問題的症狀</code></li>
+<li><code>2) 蒐集復現的路徑</code></li>
+<li><code>3) 蒐集問題的資訊</code></li>
+</ul>
+<p>讓收到回報的人，可以快速確認問題的：</p>
+<ul>
+<li><code>1) root cause (Dev)</code></li>
+<li><code>2) 判斷嚴重性 (PM/PO)</code></li>
+<li><code>3) 優先權 (PM/PO)</code>。</li>
+</ul>
+<p>修復問題後，可以依照此報告，有效率、精準的驗證。</p>
+<h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><ul>
+<li><a href="/2015/10/11/SQA/How-To-Be-An-SQA/">How to be an SQA?</a></li>
+<li><a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a></li>
+<li><a href="/2015/01/06/Management/協同合作系統建制與導入-以-Redmine-為例/">協同合作系統建制與導入 - 以 Redmine 為例</a></li>
+<li><a href="/2015/02/11/SoftwareEngineering/Version-Control/">Version Control</a></li>
+<li><a href="/2017/08/19/Redmine/Issue-Tracking_in_Redmine/">Issue Tracking in Redmine</a></li>
+</ul>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<li><a href="https://www.chiark.greenend.org.uk/~sgtatham/bugs.html" target="_blank" rel="noopener">How to Report Bugs Effectively</a></li>
+<li><a href="http://www.catb.org/esr/faqs/smart-questions.html" target="_blank" rel="noopener">How To Ask Questions The Smart Way</a> (<a href="https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way" target="_blank" rel="noopener">正體中文版</a>) by Eric Steven Raymond</li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2018/03/18/SQA/Gossip-System-Testing/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2018/03/16/AWS/Study-Notes-API-Gateway-Integrate-with-Internal-Services/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2018-03-18 19:33:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#如何描述問題"><span class="toc-article-text">如何描述問題</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#如何有效的錯誤報告"><span class="toc-article-text">如何有效的錯誤報告</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#回報問題的案例-Updated-2018-08-04"><span class="toc-article-text">回報問題的案例 (Updated: 2018/08/04)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#提問的智慧"><span class="toc-article-text">提問的智慧</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#輕重緩急"><span class="toc-article-text">輕重緩急</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#品質？"><span class="toc-article-text">品質？</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀-站內"><span class="toc-article-text">延伸閱讀 (站內)</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/軟體測試/" style="color: white">軟體測試 <span class="badge">9</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Version-Control/" style="color: white">Version Control <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Software-Test/" style="color: white">Software Test <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/SQA/" style="color: white">SQA <span class="badge">2</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

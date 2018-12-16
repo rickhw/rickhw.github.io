@@ -1,0 +1,506 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hello Hexo | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="緣由我一直有寫 blog 的習慣, 包含音樂, 技術, 生活三大類. 音樂類在 blogger 寫了很久了, 也很熟悉 blogger 的功能, 他也滿足我大部分的需求, 包含可以完全自定 HTML/CSS/JS 等. 但是對於資料的完整性, 也就是除了文章, 其他還有圖檔部分, 就不是能夠完整備份">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Hello Hexo"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Hello Hexo</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Hello Hexo</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <h1 id="緣由"><a href="#緣由" class="headerlink" title="緣由"></a>緣由</h1><p>我一直有寫 blog 的習慣, 包含音樂, 技術, 生活三大類. 音樂類在 blogger 寫了很久了, 也很熟悉 blogger 的功能, 他也滿足我大部分的需求, 包含可以完全自定 HTML/CSS/JS 等. 但是對於資料的完整性, 也就是除了文章, 其他還有圖檔部分, 就不是能夠完整備份, 因為它整合了 Picassa. 但我不是很喜歡這樣的整合, 不好備份. 哪天 google 把 blogger 收起來我就哭了 orz…</p>
+<p>Blogger 另外的問題就是 HTML Editor 不好排版, 常常產生 garbag code, 差不多和 word 同樣等級了.</p>
+<p>自重開始使用 markdown 寫文章之後, 就一直在找類似的系統, 本來是用 <a href="http://completet.logdown.com/" target="_blank" rel="noopener">logdown</a>, 不過用了一年, 發現問題都沒有在維護, editor bug 也不少, 功能也無法完全滿足我的需求, 所以就開始想找其他的系統了.</p>
+<p>本來是想試 <a href="http://octopress.org/" target="_blank" rel="noopener">Octopress</a>, 後來同事推薦 <a href="http://Blog.io/" target="_blank" rel="noopener">Hexo</a>, 抱著好奇心的角度試看看, 發現跟以前我曾經用 PHP 把 BBS 文章轉成 web 的概念有點像, 可以整合 github, 所以就決定先用這套了!</p>
+<a id="more"></a>
+<h1 id="必要的需求"><a href="#必要的需求" class="headerlink" title="必要的需求"></a>必要的需求</h1><ul>
+<li>容易備份: 包含資料內容, 圖檔等.</li>
+<li>有 Draft 功能</li>
+<li>修改可以追蹤, 最好類似 source control 概念, 支援 github or bitbucket</li>
+<li>可以調整 Date, 因為我要把其他地方的 migrate 過來。</li>
+<li>支援 Tag, Category (Folder), 容易調整 (雙向)</li>
+<li>支援 markdown</li>
+<li>可以自定 Domain Name (github 可以)</li>
+<li>文章的 Template</li>
+<li>網站外觀的 Template, Layout, CSS, JS 自訂功能</li>
+<li>支援中文 UTF8</li>
+<li>支援手機版</li>
+<li>其他社群支援: FB, Twitter</li>
+</ul>
+<h1 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h1><ol>
+<li>Install <a href="http://nodejs.org/" target="_blank" rel="noopener">Node.js</a>, just download the pkg file and install …</li>
+<li>Install hexo: <code>npm install -g hexo</code></li>
+<li>Create a repository in github, name as <strong><code>your_id</code>.github.io</strong></li>
+<li>Init hexo in local, the instruction is in Mac OS:</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"># init a blog</span><br><span class="line">~$ hexo init &#123;blog_folder&#125;</span><br><span class="line">~$ cd &#123;blog_folder&#125;</span><br><span class="line">~$ npm install</span><br><span class="line">~$ npm install hexo-renderer-ejs --save</span><br><span class="line"></span><br><span class="line"># new a post with title</span><br><span class="line">~$ hexo new &quot;Hello Hexo&quot;</span><br><span class="line"></span><br><span class="line"># edit the post with markdown</span><br><span class="line">~$ vi source/_post/Hello-Hexo.md</span><br><span class="line"></span><br><span class="line"># generate html</span><br><span class="line">~$ hexo generate</span><br><span class="line"></span><br><span class="line"># test in local, browse http://localhost:4000</span><br><span class="line">~$ hexo server</span><br><span class="line"></span><br><span class="line"># version info</span><br><span class="line">~$ hexo --version</span><br><span class="line">hexo: 2.8.3</span><br><span class="line">os: Darwin 14.0.0 darwin x64</span><br><span class="line">http_parser: 1.0</span><br><span class="line">node: 0.10.35</span><br><span class="line">v8: 3.14.5.9</span><br><span class="line">ares: 1.9.0-DEV</span><br><span class="line">uv: 0.10.30</span><br><span class="line">zlib: 1.2.8</span><br><span class="line">modules: 11</span><br><span class="line">openssl: 1.0.1j</span><br></pre></td></tr></table></figure>
+<h1 id="Config-Blog"><a href="#Config-Blog" class="headerlink" title="Config Blog"></a>Config Blog</h1><ul>
+<li><a href="https://help.github.com/articles/generating-ssh-keys/" target="_blank" rel="noopener">Generating SSH keys</a><ul>
+<li>使用 Windows 的話，建議先安裝 <a href="https://msysgit.github.io/" target="_blank" rel="noopener">Git SCM for Windows</a>, 除了 git client, 他也整合了 cygwin 和一些常用的 linux command, 像是 ssh, sftp, ssh-keygen … etc.</li>
+</ul>
+</li>
+<li>Update the blog config: <code>_config.yml</code>, update <code>Site</code>, and <code>Deployment</code> sections:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># Site</span><br><span class="line">title: Complete Think</span><br><span class="line">subtitle: Code, Think, Mangement</span><br><span class="line">description:</span><br><span class="line">author: Rick Hwang</span><br><span class="line">email: rick_kyhwang@hotmail.com</span><br><span class="line"></span><br><span class="line"># Deployment</span><br><span class="line">## Docs: http://Blog.io/docs/deployment.html</span><br><span class="line">deploy:</span><br><span class="line">  type: github</span><br><span class="line">  repository: git@github.com:rickhw/rickhw.github.io.git</span><br></pre></td></tr></table></figure>
+<h1 id="圖檔路徑問題"><a href="#圖檔路徑問題" class="headerlink" title="圖檔路徑問題"></a>圖檔路徑問題</h1><h2 id="使用文章目錄-相對路徑"><a href="#使用文章目錄-相對路徑" class="headerlink" title="使用文章目錄 (相對路徑)"></a>使用文章目錄 (相對路徑)</h2><p>在文章裡使用圖檔有兩種方法，第一個是將 <code>_config.yml</code> 裏的 <code>post_asset_folder</code> 改成 true，這樣透過 <code>hexo new</code> 的文章，會在同一層目錄建立文章資料的目錄，目錄名稱同文章標題。在文章裡的寫法大概如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![圖檔說明](圖檔名稱.jpg)</span><br></pre></td></tr></table></figure>
+<p>不用特別指定圖檔路徑，直接指定檔名即可，然後產生的結果圖檔會放在和文章同一層目錄。這種方法優點就是單一篇文章引用的資料，都會放在一起，但是有兩個問題：</p>
+<p>其一：缺點就是在編輯時，無法使用像是 Mou 這種 WYSWYG 的工具可以看到，只能透過 <code>hexo server</code> 先測試。</p>
+<p>另一個問題，如果圖檔在首頁範圍，圖檔會無法看到。因為首頁索引頁是另外產生的，他並沒有針對圖檔處理路徑的問題，而文章的 header 也沒有對應的參數可以設定圖檔路徑。</p>
+<p>首頁問題，在寫文章的時候，可以技巧性地用段落預覽標籤 <code>&lt;!-- more --&gt;</code> 來避免。但如果文章一開始就要放圖檔，就勢必會看不到。</p>
+<h2 id="使用絕對路徑"><a href="#使用絕對路徑" class="headerlink" title="使用絕對路徑"></a>使用絕對路徑</h2><p>先在根目錄建立圖檔路徑：<code>/source/images</code>，圖檔都放這個目錄，然後文章用以下方式引用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![圖檔說明](/images/圖檔名稱.jpg)</span><br></pre></td></tr></table></figure>
+<p>這樣可以解決單篇文章、首頁索引頁的問題。不過還是無法解決用 Mou 編輯時 Preview 的問題。例子可以看這篇 <a href="/2015/01/15/Blog/Hello-Hexo/">協同合作系統建制與導入 - 以 Redmine 為例</a> 做參考。</p>
+<p>除了可以解決上述問題，絕對路徑還有另一個好處，文章圖檔可以共用。我個人比較喜歡這個方法。</p>
+<p>另外這個方法，設定檔 <code>_config.yml</code> 不需要特別設定。</p>
+<h1 id="其他問題"><a href="#其他問題" class="headerlink" title="其他問題"></a>其他問題</h1><ul>
+<li>hexo 的 generator 不會主動針對文章 header 做檢查 (validator)，文章標題如果格式有問題，沒有在 local review，很容易就出問題。像是 <code>title:</code> 前要是多了一個空格，就會有問題。</li>
+<li><del>上傳的文件似乎沒有 source？我經常在很多台電腦寫文章，或者記錄靈感，看了 <code>.gitignore</code> 也沒有把 source 放進去，所以有點麻煩。。。後來找到方法了，很簡單，寫個 script 自己備份：<a href="http://hugofeng.info/2014/04/17/shell-script-for-hexo-source-folder-backup/" target="_blank" rel="noopener">Shell Script for Hexo source folder backup </a></del><ul>
+<li>後來知道 hexo 的運作方式, public 的資料上傳到 github, 其他則當作 source code, 放到另一個 git repository 即可, 我最後放在 bitbucket.</li>
+</ul>
+</li>
+<li>搜尋功能仰賴 google，需要等 google 來爬過才行</li>
+<li>需要更好的 md editor, Mou 算不錯，但是新版的不夠穩，常常會 hang 住沒反應。</li>
+<li><del>沒有內建一些社群分享功能，要自己加</del> 這都可以自行修改 theme 即可.</li>
+<li><del>沒有回覆功能，當然 hexo 是強調靜態形式，所以這個要求是太超過了點</del> 同上.</li>
+<li>試過手機版沒問題</li>
+<li>效率問題: hexo 在 generate 的效率並不高, 在 windows 每一個 html 要花費 1000ms, 在 mac 上則是 200ms 左右. 雖然不影響功能, 但影響心情 … 想自己用 java 刻一個 = =</li>
+</ul>
+<h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><ul>
+<li><a href="/2015/01/24/Blog/Blog-Tuning/">Hexo Tuning</a></li>
+<li><a href="/2016/01/09/Blog/Migrate-Hexo_2.8-To-3.1/">Migrate Hexo 2.8 to 3.1</a></li>
+<li><a href="/2017/05/27/Blog/Migrate-Hexo_2.8-To-3.3/">Migrate Hexo 2.8 to 3.3</a></li>
+</ul>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://help.github.com/articles/generating-ssh-keys/" target="_blank" rel="noopener">Generating SSH keys</a></li>
+<li><a href="http://xuanwo.org/2014/08/14/Blog-usual-problem/" target="_blank" rel="noopener">Hexo 常见问题解决方案</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2015/01/22/Misc/Embedded-Notes/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2015/01/07/Container/Private-Repository/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2015-01-15 19:55:31
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#緣由"><span class="toc-article-text">緣由</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#必要的需求"><span class="toc-article-text">必要的需求</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Installation"><span class="toc-article-text">Installation</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Config-Blog"><span class="toc-article-text">Config Blog</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#圖檔路徑問題"><span class="toc-article-text">圖檔路徑問題</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#使用文章目錄-相對路徑"><span class="toc-article-text">使用文章目錄 (相對路徑)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#使用絕對路徑"><span class="toc-article-text">使用絕對路徑</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#其他問題"><span class="toc-article-text">其他問題</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀-站內"><span class="toc-article-text">延伸閱讀 (站內)</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Reference"><span class="toc-article-text">Reference</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/Blog/" style="color: white">Blog <span class="badge">4</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/hexo/" style="color: white">hexo <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/github/" style="color: white">github <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/markdown/" style="color: white">markdown <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

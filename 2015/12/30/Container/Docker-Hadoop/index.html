@@ -1,0 +1,502 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Docker - Hadoop Installation | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="練習用 Docker 安裝 Hadoop Single.
+
+先講結論這是我做好的 image, 放在 dockerhub, 使用方式如下：
+12345docker pull rickhw/hadoop:singledocker run -h hadoop-single -p 8088:8088 -p">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Docker - Hadoop Installation"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Docker - Hadoop Installation</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Docker - Hadoop Installation</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>練習用 Docker 安裝 Hadoop Single.</p>
+<a id="more"></a>
+<h1 id="先講結論"><a href="#先講結論" class="headerlink" title="先講結論"></a>先講結論</h1><p>這是我做好的 image, 放在 <a href="https://hub.docker.com/r/rickhw/hadoop/" target="_blank" rel="noopener">dockerhub</a>, 使用方式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker pull rickhw/hadoop:single</span><br><span class="line">docker run -h hadoop-single -p 8088:8088 -p 50070:50070 -it rickhw/hadoop:single /bin/bash</span><br><span class="line">service ssh start</span><br><span class="line">start-dfs.sh</span><br><span class="line">start.yarn.sh</span><br></pre></td></tr></table></figure>
+<p>用瀏覽器開以下位址：</p>
+<ul>
+<li>Hadoop ResourceManager Web: http://{docker-machine-ip}:8088/</li>
+<li>NameNode HDFS Web: http://{docker-machine-ip}:50070/</li>
+</ul>
+<p>可以很快速用 docker 玩 hadoop.</p>
+<h1 id="安裝準備工作"><a href="#安裝準備工作" class="headerlink" title="安裝準備工作"></a>安裝準備工作</h1><p>hadoop 會利用 ssh 做 nopassword 登入， ssh-keygen 則會綁定 hostname。因為預設的 container 跑起來的 hostname 是 hashcode，這樣會變成無法正常使用 ssh login without password，所以跑 docker 起來要先指定 hostname，用以下的方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -h hadoop-single -it -p 8088:8088 -p 50070:50070 rickhw/hadoop:single /bin/bash</span><br></pre></td></tr></table></figure>
+<p>參數 <code>-h</code> 就可以指定 hostname，實際的做法就是更改 <code>/etc/hosts</code>, <code>/etc/hostname</code> 這兩個檔，</p>
+<h1 id="安裝流程"><a href="#安裝流程" class="headerlink" title="安裝流程"></a>安裝流程</h1><ol>
+<li>open-jdk7 on ubuntu 14.04</li>
+<li>ssh</li>
+<li>hadoop 2.6.x</li>
+</ol>
+<p></p>
+<h2 id="open-jdk7-on-ubuntu-14-04"><a href="#open-jdk7-on-ubuntu-14-04" class="headerlink" title="open-jdk7 on ubuntu 14.04"></a>open-jdk7 on ubuntu 14.04</h2><p>抓 <code>ubuntu:14.04</code> 然後進去安裝 <code>apt-get install default-jdk</code>。</p>
+<p>如果你是在 OS X 安裝，那可能會跟我一樣出現這樣的問題：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">update-alternatives: using /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/tnameserv to provide /usr/bin/tnameserv (tnameserv) in auto mode</span><br><span class="line">update-alternatives: using /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/jexec to provide /usr/bin/jexec (jexec) in auto mode</span><br><span class="line">Setting up ca-certificates-java (20140324) ...</span><br></pre></td></tr></table></figure>
+<p>然後就不動了，無法 kill 掉這個 process，最後只能把整個 docker-machine 關掉。後來找到這個討論：<a href="https://github.com/docker/docker/issues/18180" target="_blank" rel="noopener">Docker 1.9.1 hanging at build step “Setting up ca-certificates-java”</a>，目前看起來還無解。最後找台 linux 安裝就沒問題了，然後 pull 到 dockerhub 再抓回來就可以繼續了。</p>
+<p>然後繼續安裝 ssh：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">apt-get install ssh</span><br><span class="line"># 產生 SSH Key</span><br><span class="line">ssh-keygen</span><br><span class="line">cat ~/.ssh/id_rsa.pub &gt; ~/.ssh/authorized_keys</span><br><span class="line">chmod 600 ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+<p>跑 <code>ssh-keygen</code> 前，確認是用 <code>docker run -h</code> 跑起來的，不然每次 hostname 都不一樣，下次就要重做。</p>
+<h2 id="安裝-hadoop-2-6-x"><a href="#安裝-hadoop-2-6-x" class="headerlink" title="安裝 hadoop 2.6.x"></a>安裝 hadoop 2.6.x</h2><p>去 apache hadoop 下載 Hadoop，我習慣放在 <code>/opt</code> 底下，結構如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">root@hadoop-single:/opt# tree -d</span><br><span class="line">.</span><br><span class="line">`-- hadoop</span><br><span class="line">    |-- 2.6.0   # -- 版本</span><br><span class="line">    |   |-- bin</span><br><span class="line">    |   |-- etc</span><br><span class="line">    |   |-- include</span><br><span class="line">    |   |-- lib</span><br><span class="line">    |   |-- libexec</span><br><span class="line">    |   |-- logs</span><br><span class="line">    |   |-- sbin</span><br><span class="line">    |   `-- share</span><br><span class="line">    |</span><br><span class="line">    `-- hdfs    # -- HDFS 目錄</span><br><span class="line">        |-- datanode</span><br><span class="line">        `-- namenode</span><br></pre></td></tr></table></figure>
+<h2 id="設定環境變數"><a href="#設定環境變數" class="headerlink" title="設定環境變數"></a>設定環境變數</h2><p>新增以下環境變數到 <code>~/.bashrc</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64</span><br><span class="line">export HADOOP_HOME=/opt/hadoop/2.6.0</span><br><span class="line">export HADOOP_MAPRED_HOME=$HADOOP_HOME</span><br><span class="line">export HADOOP_COMMON_HOME=$HADOOP_HOME</span><br><span class="line">export YARN_HOME=$HADOOP_HOME</span><br><span class="line">export HADOOP_HDFS_HOME=$HADOOP_HOME</span><br><span class="line">export HADOOP_OPTS=&quot;-Djava.library.path=$HADOOP_HOME/lib&quot;</span><br><span class="line">export JAVA_LIBRARY_PATH=$HADOOP_HOME/lib/native:$JAVA_HOME_LIBRARY_PATH</span><br><span class="line">export PATH=$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH</span><br></pre></td></tr></table></figure>
+<h2 id="設定-hadoop-env-sh"><a href="#設定-hadoop-env-sh" class="headerlink" title="設定 hadoop-env.sh"></a>設定 hadoop-env.sh</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;fs.default.name&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;hdfs://localhost:9000&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="設定-yarn-site-xml"><a href="#設定-yarn-site-xml" class="headerlink" title="設定 yarn-site.xml"></a>設定 yarn-site.xml</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;yarn.nodemanager.aux-services.mapreduce.shuffle.class&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;org.apache.hadoop.mapred.ShuffleHandler&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="設定-mapred-site-xml"><a href="#設定-mapred-site-xml" class="headerlink" title="設定 mapred-site.xml"></a>設定 mapred-site.xml</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">                &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">                &lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="設定-hdfs-site-xml"><a href="#設定-hdfs-site-xml" class="headerlink" title="設定 hdfs-site.xml"></a>設定 hdfs-site.xml</h2><p>設定 HDFS 資料目錄，我指定路徑：</p>
+<ul>
+<li>namenode: <code>/opt/hadoop/hdfs/namenode</code></li>
+<li>datanode: <code>/opt/hadoop/hdfs/datanode</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">                &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">                &lt;value&gt;3&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">                &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;</span><br><span class="line">                &lt;value&gt;file:/opt/hadoop/hdfs/namenode&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">                &lt;name&gt;dfs.namenode.data.dir&lt;/name&gt;</span><br><span class="line">                &lt;value&gt;file:/opt/hadoop/hdfs/datanode&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+<p>都沒問題之後，格式化 hdfs，執行 <code>hadoop namenode -format</code>。此動作會清除目錄底下所有資料。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">root@24a31369029a:/opt/hadoop/2.6.0# hadoop namenode -format</span><br><span class="line">DEPRECATED: Use of this script to execute hdfs command is deprecated.</span><br><span class="line">Instead use the hdfs command for it.</span><br><span class="line"></span><br><span class="line">15/12/28 13:58:22 INFO namenode.NameNode: STARTUP_MSG:</span><br><span class="line">/************************************************************</span><br><span class="line">STARTUP_MSG: Starting NameNode</span><br><span class="line">STARTUP_MSG:   host = 24a31369029a/172.17.0.2</span><br><span class="line">STARTUP_MSG:   args = [-format]</span><br><span class="line">STARTUP_MSG:   version = 2.6.0</span><br><span class="line">STARTUP_MSG:   classpath = /opt/hadoop/2.6.0/etc/hadoop:/opt/hadoop/2.6.0/share/hadoop/common/lib/commons-beanutils-core-1.8.0.jar:/opt/hadoop/2.6.0/share/hadoop/common/lib/asm-3.2.jar:/opt/hadoop/2.6.0/share/hadoop/common/lib/jaxb-impl-2.2.3-1.jar:/opt/hadoop/2.6.0/share/hadoop/common/lib/snappy-java-1.0.4.1.jar:/opt/hadoop/2.6.0/share/hadoop/common/lib/servlet-api-2.5.jar:/opt/hadoop/2.6.0/share/hadoop/common/lib/curator-client-2.6.0.jar:/opt/hadoop/2.6.0/share/hadoop/common/lib/avro-1.7.4.jar:/opt/hadoop/2.6.0/share/hadoop/</span><br><span class="line"></span><br><span class="line">... 略 ...</span><br><span class="line"></span><br><span class="line">STARTUP_MSG:   java = 1.7.0_91</span><br><span class="line">************************************************************/</span><br><span class="line">15/12/28 13:58:22 INFO namenode.NameNode: registered UNIX signal handlers for [TERM, HUP, INT]</span><br><span class="line">15/12/28 13:58:22 INFO namenode.NameNode: createNameNode [-format]</span><br><span class="line">Formatting using clusterid: CID-d2aa9214-d3f6-4e53-a336-3008aabd6e54</span><br><span class="line">15/12/28 13:58:23 INFO namenode.FSNamesystem: No KeyProvider found.</span><br><span class="line">15/12/28 13:58:23 INFO namenode.FSNamesystem: fsLock is fair:true</span><br><span class="line">15/12/28 13:58:24 INFO blockmanagement.DatanodeManager: dfs.block.invalidate.limit=1000</span><br><span class="line">15/12/28 13:58:24 INFO blockmanagement.DatanodeManager: dfs.namenode.datanode.registration.ip-hostname-check=true</span><br><span class="line">15/12/28 13:58:24 INFO blockmanagement.BlockManager: dfs.namenode.startup.delay.block.deletion.sec is set to 000:00:00:00.000</span><br><span class="line">15/12/28 13:58:24 INFO blockmanagement.BlockManager: The block deletion will start around 2015 Dec 28 13:58:24</span><br><span class="line">15/12/28 13:58:24 INFO util.GSet: Computing capacity for map BlocksMap</span><br><span class="line">15/12/28 13:58:24 INFO util.GSet: VM type       = 64-bit</span><br><span class="line">15/12/28 13:58:24 INFO util.GSet: 2.0% max memory 889 MB = 17.8 MB</span><br><span class="line">15/12/28 13:58:24 INFO util.GSet: capacity      = 2^21 = 2097152 entries</span><br><span class="line">15/12/28 13:58:24 INFO blockmanagement.BlockManager: dfs.block.access.token.enable=false</span><br><span class="line">15/12/28 13:58:24 INFO blockmanagement.BlockManager: defaultReplication         = 3</span><br><span class="line">15/12/28 13:58:24 INFO blockmanagement.BlockManager: maxReplication             = 512</span><br><span class="line">15/12/28 13:58:24 INFO blockmanagement.BlockManager: minReplication             = 1</span><br><span class="line">15/12/28 13:58:24 INFO blockmanagement.BlockManager: maxReplicationStreams      = 2</span><br><span class="line">15/12/28 13:58:24 INFO blockmanagement.BlockManager: shouldCheckForEnoughRacks  = false</span><br><span class="line">15/12/28 13:58:24 INFO blockmanagement.BlockManager: replicationRecheckInterval = 3000</span><br><span class="line">15/12/28 13:58:24 INFO blockmanagement.BlockManager: encryptDataTransfer        = false</span><br><span class="line">15/12/28 13:58:24 INFO blockmanagement.BlockManager: maxNumBlocksToLog          = 1000</span><br><span class="line">15/12/28 13:58:24 INFO namenode.FSNamesystem: fsOwner             = root (auth:SIMPLE)</span><br><span class="line">15/12/28 13:58:24 INFO namenode.FSNamesystem: supergroup          = supergroup</span><br><span class="line">15/12/28 13:58:24 INFO namenode.FSNamesystem: isPermissionEnabled = true</span><br><span class="line">15/12/28 13:58:24 INFO namenode.FSNamesystem: HA Enabled: false</span><br><span class="line">15/12/28 13:58:24 INFO namenode.FSNamesystem: Append Enabled: true</span><br><span class="line">15/12/28 13:58:24 INFO util.GSet: Computing capacity for map INodeMap</span><br><span class="line">15/12/28 13:58:24 INFO util.GSet: VM type       = 64-bit</span><br><span class="line">15/12/28 13:58:24 INFO util.GSet: 1.0% max memory 889 MB = 8.9 MB</span><br><span class="line">15/12/28 13:58:24 INFO util.GSet: capacity      = 2^20 = 1048576 entries</span><br><span class="line">15/12/28 13:58:24 INFO namenode.NameNode: Caching file names occuring more than 10 times</span><br><span class="line">15/12/28 13:58:24 INFO util.GSet: Computing capacity for map cachedBlocks</span><br><span class="line">15/12/28 13:58:24 INFO util.GSet: VM type       = 64-bit</span><br><span class="line">15/12/28 13:58:24 INFO util.GSet: 0.25% max memory 889 MB = 2.2 MB</span><br><span class="line">15/12/28 13:58:24 INFO util.GSet: capacity      = 2^18 = 262144 entries</span><br><span class="line">15/12/28 13:58:24 INFO namenode.FSNamesystem: dfs.namenode.safemode.threshold-pct = 0.9990000128746033</span><br><span class="line">15/12/28 13:58:24 INFO namenode.FSNamesystem: dfs.namenode.safemode.min.datanodes = 0</span><br><span class="line">15/12/28 13:58:24 INFO namenode.FSNamesystem: dfs.namenode.safemode.extension     = 30000</span><br><span class="line">15/12/28 13:58:24 INFO namenode.FSNamesystem: Retry cache on namenode is enabled</span><br><span class="line">15/12/28 13:58:24 INFO namenode.FSNamesystem: Retry cache will use 0.03 of total heap and retry cache entry expiry time is 600000 millis</span><br><span class="line">15/12/28 13:58:24 INFO util.GSet: Computing capacity for map NameNodeRetryCache</span><br><span class="line">15/12/28 13:58:24 INFO util.GSet: VM type       = 64-bit</span><br><span class="line">15/12/28 13:58:24 INFO util.GSet: 0.029999999329447746% max memory 889 MB = 273.1 KB</span><br><span class="line">15/12/28 13:58:24 INFO util.GSet: capacity      = 2^15 = 32768 entries</span><br><span class="line">15/12/28 13:58:24 INFO namenode.NNConf: ACLs enabled? false</span><br><span class="line">15/12/28 13:58:24 INFO namenode.NNConf: XAttrs enabled? true</span><br><span class="line">15/12/28 13:58:24 INFO namenode.NNConf: Maximum size of an xattr: 16384</span><br><span class="line">15/12/28 13:58:24 INFO namenode.FSImage: Allocated new BlockPoolId: BP-490580557-172.17.0.2-1451311104182</span><br><span class="line">15/12/28 13:58:24 INFO common.Storage: Storage directory /opt/hadoop/hdfs/namenode has been successfully formatted.</span><br><span class="line">15/12/28 13:58:24 INFO namenode.NNStorageRetentionManager: Going to retain 1 images with txid &gt;= 0</span><br><span class="line">15/12/28 13:58:24 INFO util.ExitUtil: Exiting with status 0</span><br><span class="line">15/12/28 13:58:24 INFO namenode.NameNode: SHUTDOWN_MSG:</span><br><span class="line">/************************************************************</span><br><span class="line">SHUTDOWN_MSG: Shutting down NameNode at 24a31369029a/172.17.0.2</span><br><span class="line">************************************************************/</span><br><span class="line">root@24a31369029a:/opt/hadoop/2.6.0#</span><br></pre></td></tr></table></figure>
+<h2 id="啟動-HDFS-start-dfs-sh"><a href="#啟動-HDFS-start-dfs-sh" class="headerlink" title="啟動 HDFS: start-dfs.sh"></a>啟動 HDFS: <code>start-dfs.sh</code></h2><p>記得要開啟 ssh service: <code>service ssh start</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">root@24a31369029a:~/.ssh# start-dfs.sh</span><br><span class="line">Starting namenodes on [localhost]</span><br><span class="line">localhost: starting namenode, logging to /opt/hadoop/2.6.0/logs/hadoop-root-namenode-24a31369029a.out</span><br><span class="line">localhost: starting datanode, logging to /opt/hadoop/2.6.0/logs/hadoop-root-datanode-24a31369029a.out</span><br><span class="line">Starting secondary namenodes [0.0.0.0]</span><br><span class="line">The authenticity of host &apos;0.0.0.0 (0.0.0.0)&apos; can&apos;t be established.</span><br><span class="line">ECDSA key fingerprint is 90:97:bd:6d:e5:46:79:11:31:86:93:19:a9:97:c0:0c.</span><br><span class="line">Are you sure you want to continue connecting (yes/no)? yes</span><br><span class="line">0.0.0.0: Warning: Permanently added &apos;0.0.0.0&apos; (ECDSA) to the list of known hosts.</span><br><span class="line">0.0.0.0: starting secondarynamenode, logging to /opt/hadoop/2.6.0/logs/hadoop-root-secondarynamenode-24a31369029a.out</span><br><span class="line">root@24a31369029a:~/.ssh#</span><br></pre></td></tr></table></figure>
+<p>因為是 Single Cluster，所以會透過 ssh 連回自己。如果沒有設定 ssh without password，這裡就要敲密碼。</p>
+<h2 id="啟動-YARN"><a href="#啟動-YARN" class="headerlink" title="啟動 YARN"></a>啟動 YARN</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@24a31369029a:~/.ssh# start-yarn.sh</span><br><span class="line">starting yarn daemons</span><br><span class="line">starting resourcemanager, logging to /opt/hadoop/2.6.0/logs/yarn--resourcemanager-24a31369029a.out</span><br><span class="line">localhost: starting nodemanager, logging to /opt/hadoop/2.6.0/logs/yarn-root-nodemanager-24a31369029a.out</span><br><span class="line">root@24a31369029a:~/.ssh#</span><br></pre></td></tr></table></figure>
+<p>查看 resource manager log:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">root@24a31369029a:~/.ssh# cat /opt/hadoop/2.6.0/logs/yarn--resourcemanager-24a31369029a.out</span><br><span class="line">ulimit -a</span><br><span class="line">core file size          (blocks, -c) 0</span><br><span class="line">data seg size           (kbytes, -d) unlimited</span><br><span class="line">scheduling priority             (-e) 0</span><br><span class="line">file size               (blocks, -f) unlimited</span><br><span class="line">pending signals                 (-i) 256745</span><br><span class="line">max locked memory       (kbytes, -l) 64</span><br><span class="line">max memory size         (kbytes, -m) unlimited</span><br><span class="line">open files                      (-n) 524288</span><br><span class="line">pipe size            (512 bytes, -p) 8</span><br><span class="line">POSIX message queues     (bytes, -q) 819200</span><br><span class="line">real-time priority              (-r) 0</span><br><span class="line">stack size              (kbytes, -s) 8192</span><br><span class="line">cpu time               (seconds, -t) unlimited</span><br><span class="line">max user processes              (-u) 524288</span><br><span class="line">virtual memory          (kbytes, -v) unlimited</span><br><span class="line">file locks                      (-x) unlimited</span><br><span class="line">root@24a31369029a:~/.ssh#</span><br></pre></td></tr></table></figure>
+<p>查看 root-nodemanager log:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">root@24a31369029a:~/.ssh# cat /opt/hadoop/2.6.0/logs/yarn-root-nodemanager-24a31369029a.out</span><br><span class="line">ulimit -a</span><br><span class="line">core file size          (blocks, -c) 0</span><br><span class="line">data seg size           (kbytes, -d) unlimited</span><br><span class="line">scheduling priority             (-e) 0</span><br><span class="line">file size               (blocks, -f) unlimited</span><br><span class="line">pending signals                 (-i) 256745</span><br><span class="line">max locked memory       (kbytes, -l) 64</span><br><span class="line">max memory size         (kbytes, -m) unlimited</span><br><span class="line">open files                      (-n) 524288</span><br><span class="line">pipe size            (512 bytes, -p) 8</span><br><span class="line">POSIX message queues     (bytes, -q) 819200</span><br><span class="line">real-time priority              (-r) 0</span><br><span class="line">stack size              (kbytes, -s) 8192</span><br><span class="line">cpu time               (seconds, -t) unlimited</span><br><span class="line">max user processes              (-u) 524288</span><br><span class="line">virtual memory          (kbytes, -v) unlimited</span><br><span class="line">file locks                      (-x) unlimited</span><br></pre></td></tr></table></figure>
+<p>查看 JVM process: Java Virtual Machine Process Status Tools:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@24a31369029a:~/.ssh# jps</span><br><span class="line">1492 NodeManager</span><br><span class="line">2205 Jps</span><br><span class="line">1249 SecondaryNameNode</span><br><span class="line">1099 DataNode</span><br><span class="line">1399 ResourceManager</span><br><span class="line">981 NameNode</span><br><span class="line">root@24a31369029a:~/.ssh#</span><br></pre></td></tr></table></figure>
+<p>打開 browser，透過 docker-machine ip 連以下位址：</p>
+<ul>
+<li>Hadoop ResourceManager Web: http://{docker-machine-ip}:8088/</li>
+<li>NameNode HDFS Web: http://{docker-machine-ip}:50070/</li>
+</ul>
+<p>完成基本的 Hadoop Single Cluster 安裝.</p>
+<h1 id="站內延伸閱讀"><a href="#站內延伸閱讀" class="headerlink" title="站內延伸閱讀"></a>站內延伸閱讀</h1><ul>
+<li><a href="http://rickhw.github.io/2016/01/03/BigData/Hadoop-Cluster-Using-Docker/">Hadoop Cluster Installation using Docker</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2015/12/31/DevOps/News_DevOps-Impact/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2015/12/26/Container/Docker-For-MySQL/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2015-12-30 19:41:58
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#先講結論"><span class="toc-article-text">先講結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#安裝準備工作"><span class="toc-article-text">安裝準備工作</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#安裝流程"><span class="toc-article-text">安裝流程</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#open-jdk7-on-ubuntu-14-04"><span class="toc-article-text">open-jdk7 on ubuntu 14.04</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#安裝-hadoop-2-6-x"><span class="toc-article-text">安裝 hadoop 2.6.x</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#設定環境變數"><span class="toc-article-text">設定環境變數</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#設定-hadoop-env-sh"><span class="toc-article-text">設定 hadoop-env.sh</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#設定-yarn-site-xml"><span class="toc-article-text">設定 yarn-site.xml</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#設定-mapred-site-xml"><span class="toc-article-text">設定 mapred-site.xml</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#設定-hdfs-site-xml"><span class="toc-article-text">設定 hdfs-site.xml</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#啟動-HDFS-start-dfs-sh"><span class="toc-article-text">啟動 HDFS: start-dfs.sh</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#啟動-YARN"><span class="toc-article-text">啟動 YARN</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#站內延伸閱讀"><span class="toc-article-text">站內延伸閱讀</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/Container/" style="color: white">Container <span class="badge">9</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Hadoop/" style="color: white">Hadoop <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Docker/" style="color: white">Docker <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Java/" style="color: white">Java <span class="badge">2</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

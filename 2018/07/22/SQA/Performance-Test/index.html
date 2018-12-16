@@ -1,0 +1,546 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>淺談效能測試 | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="本文整理重新摘分在 Stages in Software Testing 整理的效能測試部分。
+
+
+Scope of Test Stages下面這張圖表達 Stages in Software Testing 的概念：
+
+其中關於 效能測試 包含三大部分，也是本文描述的主軸：Stability, R">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="淺談效能測試"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> 淺談效能測試</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> 淺談效能測試</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>本文整理重新摘分在 <a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a> 整理的效能測試部分。</p>
+<a id="more"></a>
+<hr>
+<h1 id="Scope-of-Test-Stages"><a href="#Scope-of-Test-Stages" class="headerlink" title="Scope of Test Stages"></a>Scope of Test Stages</h1><p>下面這張圖表達 <a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a> 的概念：</p>
+<p><img src="/images/SQA/Stages-Relations_20180722.png" alt=""></p>
+<p>其中關於 <code>效能測試</code> 包含三大部分，也是本文描述的主軸：Stability, Reliability, Capacity</p>
+<hr>
+<h1 id="Performance-Test"><a href="#Performance-Test" class="headerlink" title="Performance Test"></a>Performance Test</h1><p>分成幾種: <code>Stability</code>, <code>Reliability</code>, <code>Capacity</code></p>
+<!-- Stress/Load Test -->
+<p>作 Performance Test 的前提：FVT、Integration Test 要過。</p>
+<blockquote>
+<p>我做 SQA Manager 的時候，本來是要去做 Performance Test，但是發現功能根本就不能用，所以就整個砍掉重來，先把 <code>功能</code> 守住，直到通過率到一定程度之後，才開始 Performance Test。這段故事在 <a href="/2015/01/06/Management/協同合作系統建制與導入-以-Redmine-為例/">協同合作系統建制與導入 - 以 Redmine 為例</a> 有提到一點。</p>
+</blockquote>
+<p>環境建置考量：必須跟 Production 一致，可以利用 Cloud (ex. AWS, GCP) 快速建立完整的 Scale，測完就刪掉。</p>
+<hr>
+<h2 id="效能測試的準備工作"><a href="#效能測試的準備工作" class="headerlink" title="效能測試的準備工作"></a>效能測試的準備工作</h2><p>如果是測試 Web System ，那就要花時間把整個系統建置起來，準備好測試資料，餵到 DB … 等。</p>
+<p>實際上不只是待測要花時間準備，測試的 Client 的準備也是要花不少時間的，例如：</p>
+<ul>
+<li>模擬商業邏輯的資料，像是 Database Schema or 模擬使用者資料的 資料 … (啥鬼XD)</li>
+<li>測試程式的設計，模擬功能的行為。以 Live Stream 就是模擬 IPCam 的資料丟到 Server 然後傳給 App。</li>
+<li>測試程式執行環境的準備，要確認網路 Throughput 是否足夠<ul>
+<li>測試環境能否自動化建置，最好利用像是 AWS CloudFormation 這樣的東西</li>
+<li>平常就要做好 <a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning</a> 的工作。</li>
+<li>用 AWS 的話，確認機器等級的 Network 狀況，透過 VPC Flow Log 蒐集狀況</li>
+<li>確認 Network Tolopology 狀況，基礎網路服務 DNS / NAT 是否能夠乘載。</li>
+</ul>
+</li>
+<li>測試流程 (HTTP Request) 模擬與建制，可以從既有的 Log 分析</li>
+<li>測試過程要蒐集的資料與 Log, 如何觀測 (Observailitiy)？參閱 <a href="/2017/10/07/DevOps/Monitoring-vs-Observability/">Monitoring vs Observability</a></li>
+<li>預期會產生的資料如何分析？</li>
+</ul>
+<blockquote>
+<p>這段 AWS NLB 的介紹中：<a href="https://youtu.be/z0FBGIT1Ub4?t=11m39s" target="_blank" rel="noopener">Deep Dive: New Network Load Balancer</a> 提到效能測試，Client 開了 c4.xlarge * 100</p>
+</blockquote>
+<hr>
+<h2 id="Stability-穩定性"><a href="#Stability-穩定性" class="headerlink" title="Stability (穩定性)"></a>Stability (穩定性)</h2><p>目的：</p>
+<ul>
+<li>一定的資源之下</li>
+<li>長時間，且大量的 Request 之下</li>
+<li>系統維持在穩定狀況，不會有 CPU / Memory 凸波、或者是 Memory Leak、Disk I/O 瞬間的狀況。</li>
+</ul>
+<p>如果應用程式本身具備 GC 機制，當記憶體使用量到一定程度時，則會自動恢復。</p>
+<p>現象：不倒翁</p>
+<hr>
+<h2 id="Reliability-可靠性"><a href="#Reliability-可靠性" class="headerlink" title="Reliability (可靠性)"></a>Reliability (可靠性)</h2><p>目的：</p>
+<ul>
+<li>不論時間與條件的運作，如果系統任一元件或角色 Crash 狀況，恢復之後，所有的資料以及狀態都會恢復正常。</li>
+<li>High Available (高可用性), Fault Tolerance (容錯), Resilience (彈性), Recoverability (可回復性), Loosely Coupled … 都是可靠性的實踐方法</li>
+<li>Nexflix 提出的 <code>Chaos Engineering</code> 也算在這裡</li>
+</ul>
+<blockquote>
+<p>更多參考:</p>
+<ul>
+<li><a href="https://landing.google.com/sre/book/index.html" target="_blank" rel="noopener">Goodle SRE: Site Reliability Engineering</a></li>
+<li><a href="/2017/11/04/DevOps/Study-Notes-SRE-Opening-Ch1/">Study Notes - SRE Opening and Chapter 1</a></li>
+<li><a href="http://principlesofchaos.org/" target="_blank" rel="noopener">Principles of Chaos Engineering</a></li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="Capacity-容量測試"><a href="#Capacity-容量測試" class="headerlink" title="Capacity (容量測試)"></a>Capacity (容量測試)</h2><p>目的：</p>
+<blockquote>
+<p><code>量測 (Measure)</code> 系統可以乘載的數據，單位可以是線上使用者、單位時間內的交易量、單位時間內的流量 … 等，像是 QPS (Query Per Second)、RPS (Request Per Second) …</p>
+</blockquote>
+<p>量測的對象就是整個系統，系統要考量以下：</p>
+<ul>
+<li>一定的硬體資源，包含 Networking, Computing, Memory, Storage .. 等條件，應用程式能夠滿足多少的處理單位。</li>
+<li>放在 AWS 上的網站來說，使用 <code>c4.large</code> 的機器，最大能夠乘載多少的 HTTP Request，這個值稱為 <code>Benchmark</code>.</li>
+<li>有了 <code>Benchmark</code> 可以根據需求推論出系統需要的成本。例如已經知道 <code>c4.xlarge</code> 可以同時乘載 5k/second request,，那麼就可以推論如果有 100k/s request 需要準備多少台 c4.xlarge</li>
+<li>Rate Limit: 服務提供固定的 SLA，像是可以乘載的數量上限，超過時候，告訴 Client 已經滿了。這種設計應用在 <code>搶購 (flash sales)</code> 是必要的。</li>
+</ul>
+<p>Performance 測試除了上述面向，另一個面向就是帶測體是屬於整個 <code>stack</code>，還是 <code>layer</code> or <code>tier</code>。</p>
+<p>例如傳統的 web 有三層： <code>Web -&gt; Application -&gt; DB</code>，每個 layer 都有自己效能的問題，最終的目標是了解整個 stack 的 benchmark，但實際在執行上應該要先 bottom up，也就是先找到每一個 layer 自身的效能，最後才能測出 stack 的效能。</p>
+<p>另一個例子是 realtime stream，像是影音串流的效能，先不考慮使用 p2p 技術，考慮使用 server relay 技術，一班實作就是： <code>data source -&gt; server relay -&gt; client (app or web)</code></p>
+<p>這三個端點都各自有傳輸的延遲時間 <code>latency</code>，每個節點都有運算時間，所以效能就包含兩個議題：</p>
+<ul>
+<li>Latency: 資料傳輸時間，相依於網路，WAN -&gt; Gateway / LAN / NAT / Wi-Fi  … 等節點</li>
+<li>Computing: 每個節點 encode / decode 的運算、protocol (RTSP)、mjpg / h264 … 等</li>
+</ul>
+<p>從 Stack 的效能測試屬於 Top-Down View，大部分都會直接用這種方式開始，特別是沒有很多資源的狀況之下。一開始入門效能測試也都會從這個角度著手的比較多。</p>
+<p>從 Layer 則屬於 Bottom-Up 方法，先找到每個 Layer 的 Capacity，然後再用數學方法模擬出整個系統的樣子，最後用 Infra as Code 的方式建立整套的系統，模擬測試。</p>
+<blockquote>
+<p>這些根系統架構會有直接關係，現代的常見的 Pattern 就是 <a href="/2018/01/24/AWS/Study-Notes-Overview-API-Gateway/">API Gateway</a>、<a href="/2018/02/06/Architecture/Service-Mesh/">Service Mesh</a></p>
+</blockquote>
+<!--
+## Stress / Load Test
+
+RPS?
+
+-->
+<hr>
+<h1 id="外在變因"><a href="#外在變因" class="headerlink" title="外在變因"></a>外在變因</h1><p>效能屬於系統性測試的其中一個環節，其重點在於外在環境的變化，內在系統都能夠穩定的運作，如同底下這些題：</p>
+<p><img src="/images/SQA/Stages-SVT/car1.jpg" alt=""><br><img src="/images/SQA/Stages-SVT/car2.jpg" alt=""><br><img src="/images/SQA/Stages-SVT/car3.jpg" alt=""></p>
+<p>更多參閱： <a href="/2018/03/18/SQA/Gossip-System-Testing/">輕鬆聊：系統測試 (SVT) 的三兩事</a></p>
+<h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><ul>
+<li><a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a></li>
+<li><a href="/2014/05/09/SQA/Problems_In-Software-Autotest/">軟體自動化測試常見的問題</a></li>
+<li><a href="/2015/10/11/SQA/How-To-Be-An-SQA/">How to be an SQA?</a></li>
+<li><a href="/2015/08/20/SQA/Three-Kinds-Of-QA/">三種 QA</a></li>
+<li><a href="/2017/08/30/DevOps/Automation-or-Process/">『自動化 XXX』的陷阱</a></li>
+<li><a href="/2018/03/18/SQA/Gossip-System-Testing/">輕鬆聊：系統測試 (SVT) 的三兩事</a></li>
+<li><a href="/2018/05/12/SQA/Designing-Test-Architecture-and-Framework/">Designing Test Architecture and Framework</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2018/08/03/DevOps/An-Introduction-to-SRE/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2018/07/18/About/20180718-API-Gateway/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2018-07-22 11:08:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Scope-of-Test-Stages"><span class="toc-article-text">Scope of Test Stages</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Performance-Test"><span class="toc-article-text">Performance Test</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#效能測試的準備工作"><span class="toc-article-text">效能測試的準備工作</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Stability-穩定性"><span class="toc-article-text">Stability (穩定性)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Reliability-可靠性"><span class="toc-article-text">Reliability (可靠性)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Capacity-容量測試"><span class="toc-article-text">Capacity (容量測試)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#外在變因"><span class="toc-article-text">外在變因</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀-站內"><span class="toc-article-text">延伸閱讀 (站內)</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/軟體測試/" style="color: white">軟體測試 <span class="badge">9</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Software-Test/" style="color: white">Software Test <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/System-Test/" style="color: white">System Test <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Performance-Test/" style="color: white">Performance Test <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Capacity/" style="color: white">Capacity <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Reliability/" style="color: white">Reliability <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Stability/" style="color: white">Stability <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

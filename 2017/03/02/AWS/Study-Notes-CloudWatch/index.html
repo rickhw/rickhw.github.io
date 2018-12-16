@@ -1,0 +1,728 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Study Notes - CloudWatch 學習筆記 | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="CloudWatch 是開始學習 AWS 之後，除了 EC2, S3 之外，最重要的 Services 之一，重要的功能如下：
+
+CloudWatch Alarms
+CloudWatch Events / Rules
+CloudWatch Logs
+CloudWatch Metric, Filter">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Study Notes - CloudWatch 學習筆記"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Study Notes - CloudWatch 學習筆記</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Study Notes - CloudWatch 學習筆記</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>CloudWatch 是開始學習 AWS 之後，除了 EC2, S3 之外，最重要的 Services 之一，重要的功能如下：</p>
+<ul>
+<li>CloudWatch Alarms</li>
+<li>CloudWatch Events / Rules</li>
+<li>CloudWatch Logs</li>
+<li>CloudWatch Metric, Filter</li>
+<li>CloudWatch Dashboard</li>
+</ul>
+<p>常見的應用場景：</p>
+<ul>
+<li>系統資源的監控</li>
+<li>Dashboard 系統訊息看板 (即時)</li>
+<li>自訂監控指標 (Metric)</li>
+<li>即時 Log 蒐集與儲存</li>
+<li>Log 批次備份 (S3)</li>
+</ul>
+<p>在還沒深度的研究之前，其實我對 CloudWatch 只是一知半解，大概只知道 CloudWatch Alarm + SNS …</p>
+<p>深度 Study 過整個服務之後，發現這真的是不得了的東西，以下整理重要的基本概念。</p>
+<a id="more"></a>
+<hr>
+<h1 id="基礎功能與概念"><a href="#基礎功能與概念" class="headerlink" title="基礎功能與概念"></a>基礎功能與概念</h1><h2 id="CloudWatch-Alarms"><a href="#CloudWatch-Alarms" class="headerlink" title="CloudWatch Alarms"></a>CloudWatch Alarms</h2><p>使用 AWS 剛開始都會用到的，主要目的：</p>
+<ul>
+<li>就針對特定的監控指標</li>
+<li>設定告警的條件</li>
+<li>通知或者說驅動一個事件</li>
+</ul>
+<p>最常見的例子：</p>
+<ul>
+<li>設定監控指標：CPU Utilization</li>
+<li>告警條件：五分鐘之內，持續 2 次，平均值超過 80%</li>
+<li>發動 SNS 事件<ul>
+<li>發 Email 給一個群組</li>
+<li>送簡訊 (SMS) 給 1-n 個人</li>
+<li>執行 1-N 個 Lambda</li>
+</ul>
+</li>
+</ul>
+<p>這是非常經典的例子。</p>
+<p>使用 Alarms 要知道幾個重要的觀念，包含 <code>Namespaces</code>, <code>Metric Name</code>, <code>Statistics</code>, <code>Unit</code>, <code>Period</code> …  後面 Metric 詳細描述。</p>
+<h2 id="CloudWatch-Metrics"><a href="#CloudWatch-Metrics" class="headerlink" title="CloudWatch Metrics"></a>CloudWatch Metrics</h2><p>Metrics 可以說成 <code>監控指標項目</code>， AWS 各個服務預設很多監控指標，可以在 CloudWatch 上看到相關數據，也可以透過 AWS CLI or SDK 取得數據。要取得 CloudWatch 資料，就要先了解 CloudWatch Metrics 的設計與資料結構：</p>
+<ul>
+<li><code>Namespace</code>s: Metrics 的容器 (Container), 就是用來分類 AWS 服務的, 用 slash <code>/</code> 區隔. 像是 <code>AWS/EC2</code>, <code>AWS/DynamoDB</code>. 詳細參閱 <a href="http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/aws-namespaces.html" target="_blank" rel="noopener">AWS Namespaces</a>.</li>
+<li><code>Metrics</code>: 意思是 <code>度量</code>, 是一個時間軸 (time-base) 的資料集合. 像是 ELB 的 <code>HealthyHostCount</code>, <code>RequestCount</code>, <code>SurgeQueueLength</code> 都叫做 Metrics.</li>
+<li><code>Dimensions</code>: 量測的資源對象 (ARN)，是 Key/Value 呈現，像是 <code>Name=InstanceId,Value=${INSTANCE_ID}</code>, <code>Name=LoadBalancerName,Value=${ARN_ID}</code></li>
+<li><code>Statistics</code>: 時間範圍之內的統計方式，包含了：Sum, Minimum, Maximum, and SampleCount.</li>
+</ul>
+<h3 id="透過-AWS-CLI-取得-Metrics"><a href="#透過-AWS-CLI-取得-Metrics" class="headerlink" title="透過 AWS CLI 取得 Metrics"></a>透過 AWS CLI 取得 Metrics</h3><p>有時候需要自行分析 CloudWatch Metric 的數據，或者重新 Aggregation ，例如：</p>
+<pre><code>計算一群機器的平均 CPU Utilization，然後平均之後決定是否驅動事件，像是透過 SNS 通知
+</code></pre><p>以下是用 AWS CLI 透過 crontab 固定取得 metric 的例子。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">AWS_PROFILE=<span class="string">"&lt;&lt;AWS-PROFILE&gt;&gt;"</span></span><br><span class="line">INSTANCE_ID=<span class="string">"&lt;&lt;EC2-INSTNACE-ID&gt;&gt;"</span></span><br><span class="line">AWS_REGION=<span class="string">"ap-northeast-1"</span></span><br><span class="line">OUTPUT_TYPE=<span class="string">"text"</span></span><br><span class="line">period=300</span><br><span class="line"></span><br><span class="line"><span class="comment"># Calculate local time as UTC, there is local time -8 = UTC. my server is local time (UTC+8).</span></span><br><span class="line">start_time=`date +<span class="string">'%Y-%m-%dT%H:%M:00'</span> --date=<span class="string">'-8 hour -10 min'</span>`</span><br><span class="line">end_time=`date +<span class="string">'%Y-%m-%dT%H:%M:00'</span> --date=<span class="string">'-8 hour'</span>`</span><br><span class="line"></span><br><span class="line">aws cloudwatch get-metric-statistics \</span><br><span class="line">    --metric-name CPUUtilization \</span><br><span class="line">    --start-time <span class="variable">$&#123;start_time&#125;</span> \</span><br><span class="line">    --end-time <span class="variable">$&#123;end_time&#125;</span> \</span><br><span class="line">    --period <span class="variable">$&#123;period&#125;</span> \</span><br><span class="line">    --namespace AWS/EC2 \</span><br><span class="line">    --statistics Average \</span><br><span class="line">    --dimensions Name=InstanceId,Value=<span class="variable">$&#123;INSTANCE_ID&#125;</span> \</span><br><span class="line">    --output <span class="variable">$&#123;OUTPUT_TYPE&#125;</span> \</span><br><span class="line">    --region <span class="variable">$&#123;AWS_REGION&#125;</span> \</span><br><span class="line">    --profile <span class="variable">$&#123;AWS_PROFILE&#125;</span></span><br></pre></td></tr></table></figure>
+<p>Return as text</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CPUUtilization</span><br><span class="line">DATAPOINTS	30.24	2016-07-11T06:00:00Z	Percent</span><br><span class="line">DATAPOINTS	34.034	2016-07-11T06:05:00Z	Percent</span><br></pre></td></tr></table></figure>
+<p>Return as json:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"Datapoints"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">"Timestamp"</span>: <span class="string">"2016-07-11T06:00:00Z"</span>,</span><br><span class="line">            <span class="string">"Average"</span>: 30.240000000000002,</span><br><span class="line">            <span class="string">"Unit"</span>: <span class="string">"Percent"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">"Timestamp"</span>: <span class="string">"2016-07-11T06:05:00Z"</span>,</span><br><span class="line">            <span class="string">"Average"</span>: 34.034000000000006,</span><br><span class="line">            <span class="string">"Unit"</span>: <span class="string">"Percent"</span></span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">"Label"</span>: <span class="string">"CPUUtilization"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>這邊要去深入了解每個 <code>Unit</code>, <code>Statistics</code> 以及 <code>Period</code> 等意義是什麼，才能計算出需要的東西。</p>
+<blockquote>
+<p>處理統計資料，通常要過濾很多不必要的資訊，AWS CLI 可以配合 <a href="http://jmespath.org/" target="_blank" rel="noopener">JEMSPath</a> 找到要的欄位，透過 <code>--query</code> 過濾不必要的資訊，詳細參閱 <a href="/2016/08/03/AWS/Ops-as-Code-with-AWSCLI/">Ops as Code with AWS CLI</a> 的例子。</p>
+</blockquote>
+<h3 id="Custom-Metrics"><a href="#Custom-Metrics" class="headerlink" title="Custom Metrics"></a>Custom Metrics</h3><p>有一些資訊 CloudWatch 本身是不提供的，像是 EC2 Instance 的記憶體、磁碟使用空間 (Disk Usage Percent)，或者是自己的 Application Servers 像是 Nginx、Tomcat、IIS、Node.js … 需要監控這些 Servers 的相關數據，像是 Nginx 的記憶體使用例、Connection Request、Tomcat 的 JVM HeapSize … 等。那麼就要自行蒐集相關資料、儲存這些資料。</p>
+<blockquote>
+<p>參考：<a href="http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/mon-scripts.html" target="_blank" rel="noopener">Monitoring Memory and Disk Metrics for Amazon EC2 Linux Instances</a></p>
+</blockquote>
+<p>如果是要從自己的 Log 分析出相關資訊，就要透過 CloudWatch Log + Filter 建立自己的 Metric，同樣的這也是 Custom Metrics。像 Nginx or JVM HeapSize 就可以這樣做。</p>
+<p>使用 Custom Metrics 要注意怎麼設計 <code>Namespaces</code>, <code>Dimensions</code>，例如依照機器角色分 Namespace，依照角色 Metric 分 Dimension，依照商業邏輯把相關的放一起，日後好整理。</p>
+<blockquote>
+<p>Custom Metrics 不能透過 AWS Console or CLI 刪除，只能等它自己慢慢消失 ..</p>
+</blockquote>
+<h3 id="Metric-Math"><a href="#Metric-Math" class="headerlink" title="Metric Math"></a>Metric Math</h3><p>多個 Metric 可以用數學函示即時計算出另一個 Metric。詳細參閱：</p>
+<ul>
+<li><a href="https://aws.amazon.com/blogs/mt/amazon-cloudwatch-metric-math-simplifies-near-real-time-monitoring-of-your-amazon-efs-file-systems-and-more/" target="_blank" rel="noopener">Amazon CloudWatch Metric Math simplifies near real-time monitoring</a></li>
+<li><a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html" target="_blank" rel="noopener">Use Metric Math</a></li>
+</ul>
+<h2 id="CloudWatch-Events-Rules"><a href="#CloudWatch-Events-Rules" class="headerlink" title="CloudWatch Events / Rules"></a>CloudWatch Events / Rules</h2><p>主要用來事件驅動 (Event Driven) 的原點，像是 CloudWatch Alarms 發生時，驅動 Lambda 做一件事情。也可以利用固定的排程 (crontab) 做固定的事情，像是每天固定幾點做什麼事情，或者固定每 10 分鐘做一件事情。這樣事件驅動叫做 <code>CloudWatch Event</code>，觸發的每個規則稱為 <code>CloudWatch Rule</code>。</p>
+<p>這些都可以透過 CLI or SDK 做設定，所以很容易開發。</p>
+<p>事件驅動了來源有很多地方，CloudWatch Rule 基本的就有：</p>
+<ul>
+<li>Schedule: Cron 的方式，或者是固定的時間驅動</li>
+<li><a href="http://docs.aws.amazon.com/AmazonCloudWatch/latest/events/EventTypes.html" target="_blank" rel="noopener">CloudWatch Events</a>: 配合 AWS Service 的 Action，像是:<ul>
+<li>當某些重要的 EC2 狀態變成 <code>stopped</code> or <code>shutting-down</code> 時<ul>
+<li>驅動一個 Lambda，通知 ooxx</li>
+<li>同時 Reboot 自己</li>
+</ul>
+</li>
+<li>有東西放到 S3 就去跑 Lambda …</li>
+<li>支援東西很多，像是 EC2, EC2 SSM, ECS, EMR, Auto Scaling, API Call, CodeDeploy, KMS …  等等</li>
+</ul>
+</li>
+</ul>
+<p>在做系統監控的時候，常常需要知道現在的系統狀況，但是身邊也不見得隨時都會有電腦，因為這樣的需求所以我設計了 <code>CloudWatch Reporter</code>，透過 CloudWatch Event Rule ，定期把資訊丟到 Slack，讓大家隨時可以掌握系統狀況。</p>
+<p>實作很簡單，就是寫一個 Lambda Function 撈 CloudWatch 時間範圍的資料，做簡單計算，組 Slack Payload，丟 Slack。</p>
+<h2 id="CloudWatch-Dashboard"><a href="#CloudWatch-Dashboard" class="headerlink" title="CloudWatch Dashboard"></a>CloudWatch Dashboard</h2><ul>
+<li>自行定義 Dashboard，也就是把很多圖放在同一個畫面，版面配置可以自行調整大小。</li>
+<li>資訊是即時的 (1-2 分鐘的時間差)</li>
+<li>並且自動更新。同時可以設定時間範圍</li>
+<li>支援 Local Time。</li>
+</ul>
+<p>非常實用的功能！</p>
+<p>缺點：</p>
+<ul>
+<li><del>無法程式化，要靠滑鼠拉圖表，所以也不能進版控 (Git)</del> updated: 已經可以，參見 2017/07/05: <a href="https://aws.amazon.com/blogs/aws/new-api-cloudformation-support-for-amazon-cloudwatch-dashboards/" target="_blank" rel="noopener">New – API &amp; CloudFormation Support for Amazon CloudWatch Dashboards</a></li>
+<li><del>不能分享：只能用複製的。</del> updated: 已經可以，參見 2017/07/05: <a href="https://aws.amazon.com/blogs/aws/new-api-cloudformation-support-for-amazon-cloudwatch-dashboards/" target="_blank" rel="noopener">New – API &amp; CloudFormation Support for Amazon CloudWatch Dashboards</a></li>
+<li>圖形支援的還不夠多</li>
+</ul>
+<p>成本：一個 Dashboard 每個月三塊美金。</p>
+<h2 id="CloudWatch-Logs-Insights"><a href="#CloudWatch-Logs-Insights" class="headerlink" title="CloudWatch Logs Insights"></a>CloudWatch Logs Insights</h2><p>2018/11/27 AWS re:Invent 發表。</p>
+<p>— 待整理 —</p>
+<blockquote>
+<p>詳細參閱：<a href="https://aws.amazon.com/blogs/aws/new-amazon-cloudwatch-logs-insights-fast-interactive-log-analytics/" target="_blank" rel="noopener">New – Amazon CloudWatch Logs Insights – Fast, Interactive Log Analytics</a></p>
+</blockquote>
+<h2 id="CloudWatch-Logs"><a href="#CloudWatch-Logs" class="headerlink" title="CloudWatch Logs"></a>CloudWatch Logs</h2><p>CloudWatch 除了自身提供的 Metric / Alarm ，也可以把自己 Application 的 Log 丟上來、儲存，然後設定 Filter 進行分析，變成 Metric，最後用 Alarm + Rule 驅動事件。</p>
+<h3 id="CloudWatch-Agent-and-SSM"><a href="#CloudWatch-Agent-and-SSM" class="headerlink" title="CloudWatch Agent and SSM"></a>CloudWatch Agent and SSM</h3><p>新一代的 Log Ingest Agent，以 golang 重寫，整合 SSM，同時支援 Linux &amp; Windows。</p>
+<p>— 待整理 —</p>
+<blockquote>
+<p>詳細參閱：<a href="https://aws.amazon.com/blogs/aws/new-amazon-cloudwatch-agent-with-aws-systems-manager-integration-unified-metrics-log-collection-for-linux-windows/" target="_blank" rel="noopener">CloudWatch Agent with AWS Systems Manager Integration – Unified Metrics &amp; Log Collection for Linux &amp; Windows</a></p>
+</blockquote>
+<h3 id="awslogs-已經過期"><a href="#awslogs-已經過期" class="headerlink" title="awslogs (已經過期)"></a>awslogs (已經過期)</h3><p>Log 蒐集部分，需要在 EC2 Instance 安裝 agent，底下是快速安裝：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py -O</span><br><span class="line">chmod +x ./awslogs-agent-setup.py</span><br><span class="line">./awslogs-agent-setup.py -n -r ap-northeast-1 -c s3://&lt;bucket-name&gt;/awslogs.conf</span><br></pre></td></tr></table></figure>
+<p>記得先在 s3 放一個 config 檔，或者直接執行安裝檔。</p>
+<p>安裝好 awslogs agent，然後設定 Filename Pattern、Time Format、Log Group、Log Stream … 等，就會自動把 Log 傳到 CloudWatch Log，詳細設定：<a href="http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AgentReference.html" target="_blank" rel="noopener">CloudWatch Logs Agent Reference</a>。</p>
+<p>底下是我蒐集 syslog + nginx 設定例子：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># see: http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AgentReference.html</span></span><br><span class="line">[general]</span><br><span class="line">state_file = /var/awslogs/state/agent-state</span><br><span class="line"></span><br><span class="line">[/var/<span class="built_in">log</span>/syslog]</span><br><span class="line">file = /var/<span class="built_in">log</span>/syslog</span><br><span class="line">log_group_name = /Worker/SysLog</span><br><span class="line">log_stream_name = &#123;instance_id&#125;_&#123;hostname&#125;</span><br><span class="line">datetime_format = %b %d %H:%M:%S</span><br><span class="line"></span><br><span class="line">[/var/<span class="built_in">log</span>/nginx/<span class="built_in">log</span>]</span><br><span class="line">file = /var/<span class="built_in">log</span>/nginx/*.<span class="built_in">log</span></span><br><span class="line">log_group_name = /Worker/Nginx</span><br><span class="line">log_stream_name = AccessLog</span><br><span class="line">datetime_format = %Y-%m-%dT%H:%M:%S%z</span><br><span class="line">time_zone = UTC</span><br></pre></td></tr></table></figure>
+<p>配置 awslogs agent 要注意看 awslogs 自己的 log，確認他的解析是正確的。awslogs 的 log 放在 <code>/var/log/awslogs.log</code></p>
+<p>Windows 則可以透過 Ec2Config 或者 <a href="/2016/10/25/AWS/EC2-Run-Command_SSM/">SSM</a> Windows 自身提供的 Event Logs、Performance Monitoring，或者其他應用程式的 Log ，像是 IIS、 SQLServer 等，傳上去 CloudWatch Log。詳細參閱 <a href="https://aws.amazon.com/blogs/devops/using-cloudwatch-logs-with-amazon-ec2-running-microsoft-windows-server/" target="_blank" rel="noopener">Using CloudWatch Logs with Amazon EC2 Running Microsoft Windows Server</a></p>
+<h3 id="Metric-Filter"><a href="#Metric-Filter" class="headerlink" title="Metric Filter"></a>Metric Filter</h3><p>Metric Filter 是 CloudWatch Log 中重要的功能，透過 Metric Filter 可以定義自己的 Metric，進而變成 Alarm 或者呈現 Dashboard，他有點像是 ELK 的 Logstash 的角色，主要就是把欄位做對應以及過濾。</p>
+<p>底下是我透過 AWS CLI 建立 Metric Filter 處理 Nginx Log 的例子：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">FILTER_NAME=<span class="string">"Connection-Request_Filter"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 過濾 local health check</span></span><br><span class="line">FILER_PATTERN=<span class="string">"[time_iso8601, remote_user, status, body_bytes_sent, http_referer, server_name != 127.0.0.1, upstream_addr, request, request_length, http_user_agent, remote_addr, proxy_protocol_addr, http_x_forwarded_for, proxy_add_x_forwarded_for, request_time, http_host, scheme, msec, connection, connection_requests, connections_active, connections_reading, connections_writing, connections_waiting]"</span></span><br><span class="line"></span><br><span class="line">aws logs put-metric-filter \</span><br><span class="line">  --<span class="built_in">log</span>-group-name <span class="string">"<span class="variable">$&#123;LOG_GROUP_NAME&#125;</span>"</span> \</span><br><span class="line">  --filter-name <span class="string">"<span class="variable">$&#123;FILTER_NAME&#125;</span>"</span> \</span><br><span class="line">  --filter-pattern <span class="string">"<span class="variable">$&#123;FILER_PATTERN&#125;</span>"</span> \</span><br><span class="line">  --metric-transformations metricName=Connection-Active,metricNamespace=Nginx/Connection-Request,metricValue=1,defaultValue=0.0</span><br></pre></td></tr></table></figure>
+<p>如果上傳的 Log 是 JSON，Metric Filter 也支援，他的寫法大概長得像這樣：</p>
+<p>這是查詢 Cloudtrail Event 的 Metric Filter：有人開了 <code>*.8xlarge</code> or <code>*.4xlarge</code> 的機器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; ($.eventName = RunInstances) &amp;&amp; (($.requestParameters.instanceType = *.8xlarge) || ($.requestParameters.instanceType = *.4xlarge)) &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="CloudWatch-相關的服務"><a href="#CloudWatch-相關的服務" class="headerlink" title="CloudWatch 相關的服務"></a>CloudWatch 相關的服務</h2><p>CloudWatch 跟很多東西都有關係，以下整理一些東西：</p>
+<ul>
+<li><code>Cloudtrail</code>：可以把 Cloudtrail event 倒進去 CloudWatch Log ，透過官方提供的 CloudFormation 可以自動建立所有的 Metric Filer / Alarm，可以監控不正常的 AWS Event</li>
+<li><code>Elasticsearch</code>：可以直接 Log 倒入 AWS ES，但我不太喜歡養機器 … 即使 AWS ES 宣稱是 Managed …</li>
+<li><code>Lambda</code>：串接 CloudWatch Rules，最常用的組合，配合 Slack 口味不錯。</li>
+<li><code>SNS</code>：同上</li>
+<li><code>VPC Flow Log</code>：用來分析網路流量，參閱 <a href="/2016/10/10/AWS/Migrate-to-AWS-NAT-Gateway/">Migrate to AWS NAT Gateway</a> 和 <a href="/2016/08/27/AWS/Lambda-Network-Traffic-Test-in-VPC-with-Endpoint/">Lambda Network Traffic Test in VPC w/ or w/o Endpoint</a> 的分享。</li>
+<li>Kineses: 串流 Log</li>
+<li>AutoScaling / SQS / SES / SWF / DynamoDB / RDS … 幾乎都會跟 CloudWatch 有關。</li>
+<li>把 ELB Log 倒入 CloudWatch Log 分析：<ul>
+<li><a href="https://github.com/awslabs/cloudwatch-logs-centralize-logs" target="_blank" rel="noopener">cloudwatch-logs-centralize-logs</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="解決方案與應用"><a href="#解決方案與應用" class="headerlink" title="解決方案與應用"></a>解決方案與應用</h1><h2 id="監控系統"><a href="#監控系統" class="headerlink" title="監控系統"></a>監控系統</h2><p>下圖是我畫的 CloudWatch Services 做系統監控的流程：</p>
+<p><img src="/images/AWS/CloudWatch/CloudWatchLog-Flow.jpg" alt=""></p>
+<p>這個流程會使用到整個 CloudWatch Services，包含 Logs / Alarms / Metric Filers / Custom Metric / Dashboard，最後配合 CloudWatch Rules / SNS / Lambda 做事件驅動，最後通知到 Slack / SMS .. 等。</p>
+<p>值得一提的是，這整串流程是 <code>即時 (Realtime)</code>，如果自己蓋類似的服務，我 Survey 過知名的組合，像是：</p>
+<ul>
+<li>ELK: 使用了兩年，C/P 值不高，費用以及維護成本驚人，雖然後來有系統架構的解法，但是基於成本考量，打算慢慢換掉。</li>
+<li>Telegraf / Collectd + InfluxDB + Grafana: 很容易安裝，效果也不錯，但是 InfluxDB 需要有好的 File System 支撐。<ul>
+<li>Grafana 每個 Metric 只能設定一個 Alert, 而且 Source 如果是 CloudWatch 就不支援 Alert</li>
+<li>Grafana 可以跟 Slack + S3 整合，然後把 Metric 圖檔直接丟到 S3，然後在 Slack 呈現。這是我一直很想要的功能，Datadog 有。</li>
+<li><a href="https://github.com/rickhw/aws-cloudwatch-chart-slack" target="_blank" rel="noopener">aws-cloudwatch-chart-slack</a></li>
+</ul>
+</li>
+<li>Fluentd + Prometheus + Grafana: 理由同上</li>
+</ul>
+<p>這些都要自己養機器，特別是維護 Storage 部分，會有很多額外的 Operations、教育訓練、權限管控、安全性，最重要的是成本高很多，而且效果不見得好，C/P 值不高。</p>
+<p>使用 AWS CloudWatch 整套方案，幾乎可以避免上述我擔心的問題，而且維護 CloudWatch 本身，除了 Dashboard 之外，都可以程式化。唯一要注意的是 <a href="https://aws.amazon.com/cloudwatch/pricing/?nc1=h_ls" target="_blank" rel="noopener">CloudWatch Price</a>，要留意 Log 的使用狀況，以及設定 Expiration。</p>
+<h2 id="CloudWatch-在效能監控與測試的應用"><a href="#CloudWatch-在效能監控與測試的應用" class="headerlink" title="CloudWatch 在效能監控與測試的應用"></a>CloudWatch 在效能監控與測試的應用</h2><p>系統上線後，其實需要蒐集很多資訊，特別是應用層的數據，像是 Nginx, IIS, Tomcat, Node.js, JVM … 等執行的狀況。除了應用層的數據，屬於商務邏輯層的資料也是要蒐集，分析找問題。這些過程都需要有一套好的 Log 機制、分析流程。</p>
+<p>用 Elasticsearch 來說，他自己提供的很多 API 可以拿到系統的數據，包含 Index, JVM … 等詳細資料，而且是 json 格式。如果不考慮採購外部的服務，那麼把這些資料放到 CloudWatch Log 就是個不錯的選擇，可以滿足大部分的需求，過程中可以了解每個參數的意義，要怎麼分析，進而更了解 Elasticsearch 的運作。</p>
+<p>跟去外面直接買 Solution 不一樣的是，買 Solution 就跟看電視一樣，少了思考，只接收別人給你的。自己幹雖然要花一點時間，但是成果是可期的、且紮實的。</p>
+<p>另外可以應用的地方就是系統的效能測試。效能測試過程需要蒐集很多數據，這些數據的蒐集後都要做分析，最後用來計算出各種 benchmark，找出系統的效能瓶頸。同樣的也是需要很強大的 Log 系統來支撐。</p>
+<p>系統監控、測試的第一步要先能 <code>量測 (Measurement)</code>，無法量測是不能知道狀況的。可以量測了之後就是要記錄 (Log)，才能夠過計算找出 benchmark，找到瓶頸。</p>
+<blockquote>
+<p>關於效能測試，參考 <a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a> 一文，有提到關於效能測試的種類與心得。</p>
+</blockquote>
+<h2 id="告警系統"><a href="#告警系統" class="headerlink" title="告警系統"></a>告警系統</h2><p>底下是我利用 CloudWatch + Lambda 設計的告警系統 <code>Alarm System</code>，主要設計概念如下：</p>
+<ul>
+<li>監控通知定義三種：<code>Info</code>、<code>Warning</code>、<code>Urgent</code><ul>
+<li>Info：設計成 Reporter 形式 (Long Polling)，定時把資訊丟到 Slack 的特定 channel，這樣的設計讓系統維運人員可以隨時掌握系統狀況，而且不用帶電腦</li>
+<li>Warning：超過指標的臨界值，就會通報道 Slack 主要負責單位的 channel，並且 <code>@channel</code></li>
+<li>Urgent：同時丟 Slack Channel + 送簡訊給對應的人 (SNS -&gt; SMS)</li>
+</ul>
+</li>
+<li>通報只有一個重點：出問題要能知道問題是啥、然後有人可以去處理</li>
+</ul>
+<p><img src="/images/AWS/CloudWatch/Alarm-System_CloudWatch-Lambda-Slack.png" alt=""></p>
+<p>設計的重點在於：</p>
+<ul>
+<li>什麼樣的 <code>告警等級</code>，用什麼樣的 <code>方式</code>，通知到 <code>什麼人</code>？<ul>
+<li><code>告警</code> 一詞是我當兵時任務用詞，我們主要維護實體通訊線路，確保線路正常，當出現異常時，稱『告警搶修』</li>
+</ul>
+</li>
+<li>等級、方式、人<ul>
+<li><code>等級</code>：不同人看不同等級，不需要全部的人都知道</li>
+<li><code>方式</code>：有即時性以及時效性的問題</li>
+<li><code>人</code>：找到對的人，才能快速把問題排除</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>參加 AWS User Group 有人推薦用 Push …. 我回家路上一值想，為啥我都沒想到這個方法？？因為，我從來不會看 APP 的 Push，因為跟山一樣多，都直接忽略 XDD</p>
+</blockquote>
+<h2 id="系統監控-巨量資料分析"><a href="#系統監控-巨量資料分析" class="headerlink" title="系統監控 + 巨量資料分析"></a>系統監控 + 巨量資料分析</h2><p>系統監控一定要提到的就是階段性：</p>
+<ul>
+<li>資料蒐集 (Ingest) 或者說 資料 (ETL)：萃取 (extract)、轉置 (transform)、載入 (load)，主要是 Log 的蒐集與，轉換成需要分析的格式。<ul>
+<li>經驗上來說，這個過程是最花時間的。很多人往往都沒意會到要先把資料格式弄好，才能分析，然後就傻傻的蒐集一堆 <code>非結構化</code> 的資料，結果無法分析，或者要花更多時間重新結構化。</li>
+<li>Log 的定義非常重要，我以前在做 <a href="/2014/05/09/SQA/Problems_In-Software-Autotest/">自動化測試</a> 的時候，就經常在處理 Log，不管是處理別人的 Log ，還是自己設計 Logger，處理系統 Log 很有感，重點就是：結構化很重要，不要生出一個自己都看不懂，程式無法解析的垃圾出來。</li>
+</ul>
+</li>
+<li>儲存 (Storage)：Log 的資料量非常大，需要有相對應的儲存基礎建設才能放置這些資料，AWS 就是 EBS、S3、EFS 等，或者自己建置 DFS (Distribution File System)，像是微軟的 DFS 或者 GlusterFS ..</li>
+<li>分析 (Analysis)：大量運算，通常會跟 Storage 綁在一起。傳統就是用 RDBMS 做、AWS RedShift / Athena、Google 用 BigQuery (儲存 + 分析)</li>
+<li>呈現 (Visualize)：把分析結果視覺化，市面上常見的事 BI 的產品，像是 Tableau、AWS QuickSight … 等</li>
+</ul>
+<p>從開始做 <a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/">系統維運開始</a> ，<code>Log 分析</code> + <code>系統監控</code> 一直是很大的挑戰，找了很多相關的解決方案，最後都會遇到同樣的問題：</p>
+<ul>
+<li>我們到底分析了些什麼？</li>
+<li>Log 的資料量太巨大，成本很高</li>
+<li>Log 系統本身不夠穩定，或者很難維護</li>
+<li>資料不夠即時，怎麼查詢？</li>
+<li>監控系統自己的監控</li>
+</ul>
+<p>大數據 (Big Data) 到去年以前還很熱，最近有緩下來趨勢，因為整個生態圈過於技術導向，往往忘了數據本身的目的性，到底是要做什麼？</p>
+<p>回到原點，以系統監控來說，要思考幾個重要的東西：</p>
+<ul>
+<li>監控指標是哪些？</li>
+<li>什麼樣的 Solution 適合？</li>
+<li>成本？</li>
+<li>監控系統本身能否自動化建置、配置？本身好不好維護管理？</li>
+<li>資安: 任何系統都要面對安全性問題，在 AWS 上 VPC / Subnet / SG 的基本規劃很重要，對我來講是基本的東西，可是大部分的人只要能通就好。最近經常發生的：<a href="http://www.ithome.com.tw/news/111268" target="_blank" rel="noopener">勒索攻擊大舉鎖定後端系統</a></li>
+</ul>
+<p>抓著這些需求，再去找 Solution ，別一開始就陷入技術的泥淖中。</p>
+<h2 id="CloudWatch-的不足-許願？"><a href="#CloudWatch-的不足-許願？" class="headerlink" title="CloudWatch 的不足 (許願？)"></a>CloudWatch 的不足 (許願？)</h2><ul>
+<li>Metric 無法讓其他服務使用，像我想要有 CloudWatch Alarm 時，把 Metric 弄成圖，丟到 Slack，這樣每次有事情時，就不敲字說明。自幹事沒問題，只是有點懶 XD</li>
+<li>已可以，<del>Dashboard 不能像 Grafana 那樣 <code>configurable</code>，然後分享給社群。都要自幹。</del></li>
+<li>已可以，CloudWatch Log Insight: <del>資料無法 Aggregate ，像是 <code>group by</code> 之後做 <code>order by</code>，算出時間範圍的 Top 10，Kibana 可以做。</del></li>
+<li>可以，透過 Kinesis 即可。<del>~CloudWatch Log 可以 export to S3，但是不能透過 Event Rule 自動排程</del>~</li>
+</ul>
+<hr>
+<h1 id="老問題：自己蓋監控系統-or-被-AWS-綁死？"><a href="#老問題：自己蓋監控系統-or-被-AWS-綁死？" class="headerlink" title="老問題：自己蓋監控系統 or 被 AWS 綁死？"></a>老問題：自己蓋監控系統 or 被 AWS 綁死？</h1><p>CloudWatch 透過 awslogs agnet + CloudWatch Log + Metric Filter + Alarm + Dashboard，就可以建立屬於自己的監控系統。當然也可以去找外面做好的 Solution，像是監控 Elasticsearch 外面有很多 Solutions，可是往往不知其所以然，反正花錢他就是會動了。</p>
+<p>與其如此，不如自己試著：</p>
+<ul>
+<li>定義系統的監控指標：設計一個系統的健康檢查報表，這些數據是自己定義出來的，定義的好壞精準於否，取決於自己對系統了解的深度與廣度。</li>
+<li>設計 Log 格式：好的 Log 格式才容易解析，資訊也才不會掉東掉西</li>
+<li>建置 Log 蒐集的方式：pull (SNMP) or push mode (agent base) 都是常見的方法。</li>
+<li>資料儲存：Log 資料量通常都很大，要怎麼存？批次還是即時？放到 S3 的目錄結構怎麼規劃？記得定義 + 設定 Lifecycle。</li>
+<li>數據分析的方式：怎麼計算？需要多少資源？</li>
+<li>監控指標的呈現：回到第一個點，系統健康檢查報表要呈現什麼？</li>
+<li>監控指標的異常通報 (Alarm)：什麼是異常？怎麼通報？SNS、Slack、EMail、SMS、Push<ul>
+<li>我會定義等級，就像是一般程式的 Log 會有 Info, Debug, Error, Fatal, 更細分的會有 Trace Level，像是 Step In, Step Out .. 等</li>
+</ul>
+</li>
+</ul>
+<p>如果是自己蓋的話，架構的設計要考量 SLA，因為如果掛了，能接受多久的 Downtime？資料遺失？資料怎麼蒐集？用 CloudWatch 有個好處，是全部 Managed Services，不用自己蓋機器，大部分可以自動化。</p>
+<p>缺點就是被 AWS 綁死，兩年前我就是這樣想，所以到現在才研究 CloudWatch … 現在懶得想那些，就綁死吧 XDD</p>
+<h1 id="後話"><a href="#後話" class="headerlink" title="後話"></a>後話</h1><p>其實在做 <code>系統監控</code> 我會一直想到以前在研究 <a href="http://rickmidi.blogspot.com/2011/09/concepts-of-music-technology.html" target="_blank" rel="noopener">數位音樂科技</a>，特別是混音時常用的一些 EQ / Filter … 基本上跟監控系統的 Alarm 概念一模一樣 XD</p>
+<blockquote>
+<p>更多監控的策略想法請參考我在 AWS User Group Taiwan 的分享：<a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></p>
+</blockquote>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
+<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用 - AWS User Group Taiwan</a> (2017/06/21)</li>
+<li><a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/">AWS Certified SysOps Administrator - Associate 準備心得</a></li>
+<li><a href="/2016/08/03/AWS/Ops-as-Code-with-AWSCLI/">Ops as Code with AWS CLI</a></li>
+<li><a href="/2016/10/25/AWS/EC2-Run-Command_SSM/">EC2 Run Command and SSM Agent</a></li>
+<li><a href="/2016/10/10/AWS/Migrate-to-AWS-NAT-Gateway/">Migrate to AWS NAT Gateway</a></li>
+<li><a href="/2016/08/27/AWS/Lambda-Network-Traffic-Test-in-VPC-with-Endpoint/">Lambda Network Traffic Test in VPC w/ or w/o Endpoint</a></li>
+<li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a></li>
+<li><a href="/2016/02/21/AWS/Study-Notes-VPC/">Study Notes - AWS VPC (Virtual Private Cloud)</a></li>
+<li><a href="/2014/05/09/SQA/Problems_In-Software-Autotest/">軟體自動化測試常見的問題</a></li>
+<li><a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a></li>
+<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></li>
+<li><a href="/2016/10/01/AWS-Study-Roadmap/">AWS Study Roadmap</a></li>
+</ul>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a href="http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/WhatIsCloudWatch.html" target="_blank" rel="noopener">Amazon CloudWatch » Developer Guide</a></li>
+<li><a href="https://aws.amazon.com/cloudwatch/faqs/?nc1=h_ls" target="_blank" rel="noopener">Amazon CloudWatch FAQs</a></li>
+<li><a href="http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html" target="_blank" rel="noopener">Amazon CloudWatch Namespaces, Dimensions, and Metrics Reference</a></li>
+<li><a href="http://jayendrapatil.com/cloudwatch-monitoring-supported-aws-services/" target="_blank" rel="noopener">CloudWatch Monitoring Supported AWS Services</a></li>
+<li><a href="http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/mon-scripts.html" target="_blank" rel="noopener">Monitoring Memory and Disk Metrics for Amazon EC2 Linux Instances</a></li>
+<li><a href="https://aws.amazon.com/blogs/devops/using-cloudwatch-logs-with-amazon-ec2-running-microsoft-windows-server/" target="_blank" rel="noopener">Using CloudWatch Logs with Amazon EC2 Running Microsoft Windows Server</a></li>
+<li>2017/07/05: <a href="https://aws.amazon.com/blogs/aws/new-api-cloudformation-support-for-amazon-cloudwatch-dashboards/" target="_blank" rel="noopener">New – API &amp; CloudFormation Support for Amazon CloudWatch Dashboards</a></li>
+<li>2017/12/14: <a href="https://aws.amazon.com/blogs/aws/new-amazon-cloudwatch-agent-with-aws-systems-manager-integration-unified-metrics-log-collection-for-linux-windows/" target="_blank" rel="noopener">New – Amazon CloudWatch Agent with AWS Systems Manager Integration – Unified Metrics &amp; Log Collection for Linux &amp; Windows</a></li>
+<li>2018/04/04: <a href="https://aws.amazon.com/blogs/mt/amazon-cloudwatch-metric-math-simplifies-near-real-time-monitoring-of-your-amazon-efs-file-systems-and-more/" target="_blank" rel="noopener">Amazon CloudWatch Metric Math simplifies near real-time monitoring of your Amazon EFS file systems and more</a></li>
+<li>2018/12/27: <a href="https://aws.amazon.com/blogs/aws/new-amazon-cloudwatch-logs-insights-fast-interactive-log-analytics/" target="_blank" rel="noopener">New – Amazon CloudWatch Logs Insights – Fast, Interactive Log Analytics</a></li>
+</ul>
+<h2 id="更新紀錄"><a href="#更新紀錄" class="headerlink" title="更新紀錄"></a>更新紀錄</h2><ul>
+<li>2018/12/16:<ul>
+<li>調整文章 ToC</li>
+<li>加入 CloudWatch Log Insigh, CloudWatch Agent, Metric Math</li>
+</ul>
+</li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2017/03/05/GCP/Service-Using-Single-IP-In-Global/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2017-03-02 03:30:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#基礎功能與概念"><span class="toc-article-text">基礎功能與概念</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#CloudWatch-Alarms"><span class="toc-article-text">CloudWatch Alarms</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#CloudWatch-Metrics"><span class="toc-article-text">CloudWatch Metrics</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#透過-AWS-CLI-取得-Metrics"><span class="toc-article-text">透過 AWS CLI 取得 Metrics</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Custom-Metrics"><span class="toc-article-text">Custom Metrics</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Metric-Math"><span class="toc-article-text">Metric Math</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#CloudWatch-Events-Rules"><span class="toc-article-text">CloudWatch Events / Rules</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#CloudWatch-Dashboard"><span class="toc-article-text">CloudWatch Dashboard</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#CloudWatch-Logs-Insights"><span class="toc-article-text">CloudWatch Logs Insights</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#CloudWatch-Logs"><span class="toc-article-text">CloudWatch Logs</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#CloudWatch-Agent-and-SSM"><span class="toc-article-text">CloudWatch Agent and SSM</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#awslogs-已經過期"><span class="toc-article-text">awslogs (已經過期)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Metric-Filter"><span class="toc-article-text">Metric Filter</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#CloudWatch-相關的服務"><span class="toc-article-text">CloudWatch 相關的服務</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#解決方案與應用"><span class="toc-article-text">解決方案與應用</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#監控系統"><span class="toc-article-text">監控系統</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#CloudWatch-在效能監控與測試的應用"><span class="toc-article-text">CloudWatch 在效能監控與測試的應用</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#告警系統"><span class="toc-article-text">告警系統</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#系統監控-巨量資料分析"><span class="toc-article-text">系統監控 + 巨量資料分析</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#CloudWatch-的不足-許願？"><span class="toc-article-text">CloudWatch 的不足 (許願？)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#老問題：自己蓋監控系統-or-被-AWS-綁死？"><span class="toc-article-text">老問題：自己蓋監控系統 or 被 AWS 綁死？</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#後話"><span class="toc-article-text">後話</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#更新紀錄"><span class="toc-article-text">更新紀錄</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/AWS/" style="color: white">AWS <span class="badge">66</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/EC2/" style="color: white">EC2 <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/S3/" style="color: white">S3 <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">19</span></a></span> <span class="label label-success"><a href="/tags/CloudTrail/" style="color: white">CloudTrail <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/DevOps/" style="color: white">DevOps <span class="badge">17</span></a></span> <span class="label label-success"><a href="/tags/Lambda/" style="color: white">Lambda <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/System-Operations/" style="color: white">System Operations <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Metrics/" style="color: white">CloudWatch Metrics <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Logs/" style="color: white">CloudWatch Logs <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Slack/" style="color: white">Slack <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Alarms/" style="color: white">CloudWatch Alarms <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Events/" style="color: white">CloudWatch Events <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/SNS/" style="color: white">SNS <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Prometheus/" style="color: white">Prometheus <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Grafana/" style="color: white">Grafana <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/InfluxDB/" style="color: white">InfluxDB <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Telegraf/" style="color: white">Telegraf <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Fluentd/" style="color: white">Fluentd <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Log/" style="color: white">Log <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

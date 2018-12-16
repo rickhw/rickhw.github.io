@@ -1,0 +1,525 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>API Gateway - Setup Logging | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="本文延續 Overview API Gateway 相關筆記，整理在 Amazon API Gateway 中， 如何使用 CloudWatch Logs (以下縮寫 CWL) 找問題、Debugging，設定包含以下：
+
+Enable CloudWatch Logs for API Gateway">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="API Gateway - Setup Logging"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> API Gateway - Setup Logging</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> API Gateway - Setup Logging</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>本文延續 <a href="/2018/01/24/AWS/Study-Notes-Overview-API-Gateway/">Overview API Gateway</a> 相關筆記，整理在 <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html" target="_blank" rel="noopener">Amazon API Gateway</a> 中， 如何使用 <a href="/2017/03/02/AWS/Study-Notes-CloudWatch/">CloudWatch Logs</a> (以下縮寫 CWL) 找問題、Debugging，設定包含以下：</p>
+<ul>
+<li>Enable CloudWatch Logs for API Gateway</li>
+<li>Enable API Logging for Stage</li>
+<li>Custom Access Logging</li>
+</ul>
+<a id="more"></a>
+<h2 id="Enable-CloudWatch-Logs-for-API-Gateway"><a href="#Enable-CloudWatch-Logs-for-API-Gateway" class="headerlink" title="Enable CloudWatch Logs for API Gateway"></a>Enable CloudWatch Logs for API Gateway</h2><p>API Gateway 本身寫入 Log 需要一個 IAM Role，這個 Role 要有寫入 CWL 的權限。</p>
+<blockquote>
+<p>AWS 的 Service 跟 Service 之間要溝通，或者呼叫 API，也是要有權限的。可以想像是 EC2 Role 那樣的概念，API Gateway 要有指定 Role 之後，才能有權限對 CloudWatch 操作。</p>
+</blockquote>
+<p>到 IAM ，建立一個 Role，建立的時候 AWS Service 選擇 API Gateway，use case 選擇 <code>Allows API Gateway to push logs to CloudWatch Logs.</code>，如下圖：</p>
+<p><img src="/images/AWS/API-Gateway/Logging/01-Create-IAM-Role.png" alt=""></p>
+<p>然後命名 Role Name 建立即可，確認以下：</p>
+<ul>
+<li>Role 裡面會有這個 Policy: <code>AmazonAPIGatewayPushToCloudWatchLogs</code></li>
+<li>Trust Relationship 會有 <code>apigateway.amazonaws.com</code></li>
+</ul>
+<p>複製 Role ARN，長得大概像這樣：<code>arn:aws:iam::123456778:role/APIGateway-CWL-Role</code></p>
+<p>回到 API Gateway，左下方的 <code>Settings</code>，把 Role ARN 貼上去儲存後即可。</p>
+<p><img src="/images/AWS/API-Gateway/Logging/02-Settings-CWL.png" alt=""></p>
+<p>到這裡，完成了 API Gateway Log 的權限設定。</p>
+<h2 id="Enable-API-Logging"><a href="#Enable-API-Logging" class="headerlink" title="Enable API Logging"></a>Enable API Logging</h2><p>到任意已經 Deploy 的 API Stage，找到 <code>Logging</code> Tab，到 CloudWatch Settings -&gt; Enable CloudWatch Logs，如下圖：</p>
+<p><img src="/images/AWS/API-Gateway/Logging/Enable-CWL.png" alt=""></p>
+<p>順利 Enable 之後，嘗試送一些 Request 後，到 CWL 會找到像這樣的 Log Group Name: <code>API-Gateway-Execution-Logs_{API_ID}/{Stage}</code>。點進去之後會發現有很多 Log Stream，我猜測是各個 CloudFront Egde 收回來的。</p>
+<p>打開 <code>Last Ingestion Time</code> 欄位，可以找到最近搜集的資料節點，點進去就可以看到 Log 了。</p>
+<p>這裡面記錄每個 Request 到 Handler (Lambda)，然後回去 (Response) 的資訊，這個流程如下圖：</p>
+<p><img src="/images/AWS/API-Gateway/Logging/ReqResFlow.png" alt=""></p>
+<p>這些過程的 Log，對應到 CloudWatch Logs 顯示如下：</p>
+<p><img src="/images/AWS/API-Gateway/Logging/LogFlow.png" alt=""></p>
+<p>從 Log 可以知道這些資訊：</p>
+<ol>
+<li><code>Method Request</code>: 收到的 Request 的相關資訊，像是 Query String、Header</li>
+<li><code>Integration Request</code>: 經過 Integration Request 轉換前後的資料，送給 Endpoint 的 Header</li>
+<li><code>Handler</code>: 實際上處理的 Endpoint 在哪裡，如果是 Lambda，則會顯示使用哪一個版本、處理多久<ul>
+<li>如果是 Lambda，另外還有 Lambda 自己的 Log 可以看。</li>
+</ul>
+</li>
+<li><code>Integration Response</code>: Handler 處理完後，回給 API Gateway 的資料是什麼，透過 Integration Response 轉換前後的資料</li>
+<li><code>Method Response</code>: 最後回傳 Response 的 Header</li>
+</ol>
+<p>如果覺得預設這樣的資訊還不夠，需要更詳細的，那麼可以打開 <code>Custom Access Logging</code>。</p>
+<h2 id="Custom-Access-Logging"><a href="#Custom-Access-Logging" class="headerlink" title="Custom Access Logging"></a>Custom Access Logging</h2><p>在 Stage -&gt; Logging 中打開 <code>Custom Access Logging</code> 則可以客製化 Log 格式與相關細節：</p>
+<ul>
+<li><code>CloudWatch Group</code>: 填入 ARN<ul>
+<li>格式：<code>arn:aws:logs:{AWS_REGION}:{AWS_ACCOUNT_ID}:log-group:{LOG_GROUP_NAME}</code></li>
+<li>例如：<code>arn:aws:logs:us-west-2:1234567980:log-group:/API-Gateway/Loggin/v1</code></li>
+<li>此 Log Group 不需要預先到 CloudWatch Logs 建立</li>
+</ul>
+</li>
+<li><code>Log Format</code>: 底下是我的例子，但是要注意長度是有限制的。底下方便顯示而已。Log 裡有哪些變數可以使用，請參考 <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html#context-variable-reference?cmpid=docs_apigateway_console" target="_blank" rel="noopener">API Gateway Mapping Template Reference</a></li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"apiId"</span>: <span class="string">"$context.apiId"</span>,</span><br><span class="line">    <span class="attr">"stage"</span>: <span class="string">"$context.stage"</span>,</span><br><span class="line">    <span class="attr">"protocol"</span>: <span class="string">"$context.protocol"</span>,</span><br><span class="line">    <span class="attr">"httpMethod"</span>: <span class="string">"$context.httpMethod"</span>,</span><br><span class="line">    <span class="attr">"status"</span>: <span class="string">"$context.status"</span>,</span><br><span class="line">    <span class="attr">"responseLength"</span>: <span class="string">"$context.responseLength"</span>,</span><br><span class="line">    <span class="attr">"request"</span>: &#123;</span><br><span class="line">        <span class="attr">"requestId"</span>: <span class="string">"$context.requestId"</span>,</span><br><span class="line">        <span class="attr">"requestTime"</span>: <span class="string">"$context.requestTime"</span>,</span><br><span class="line">        <span class="attr">"requestTimeEpoch"</span>: <span class="string">"$context.requestTimeEpoch"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"authorizer"</span>: &#123;</span><br><span class="line">        <span class="attr">"principalId"</span>: <span class="string">"$context.authorizer.principalId"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"resource"</span>: &#123;</span><br><span class="line">        <span class="attr">"resourcePath"</span>: <span class="string">"$context.resourcePath"</span>,</span><br><span class="line">        <span class="attr">"resourceId"</span>: <span class="string">"$context.resourceId"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"identity"</span>: &#123;</span><br><span class="line">        <span class="attr">"accountId"</span>: <span class="string">"$context.identity.accountId"</span>,</span><br><span class="line">        <span class="attr">"apiKey"</span>: <span class="string">"$context.identity.apiKey"</span>,</span><br><span class="line">        <span class="attr">"apiKeyId"</span>: <span class="string">"$context.identity.apiKeyId"</span>,</span><br><span class="line">        <span class="attr">"sourceIp"</span>: <span class="string">"$context.identity.sourceIp"</span>,</span><br><span class="line">        <span class="attr">"caller"</span>: <span class="string">"$context.identity.caller"</span>,</span><br><span class="line">        <span class="attr">"user"</span>: <span class="string">"$context.identity.user"</span>,</span><br><span class="line">        <span class="attr">"userAgent"</span>: <span class="string">"$context.identity.userAgent"</span>,</span><br><span class="line">        <span class="attr">"userArn"</span>: <span class="string">"$context.identity.userArn"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"error"</span>: &#123;</span><br><span class="line">        <span class="attr">"message"</span>: <span class="string">"$context.error.message"</span>,</span><br><span class="line">        <span class="attr">"messageString"</span>: <span class="string">"$context.error.messageString"</span>,</span><br><span class="line">        <span class="attr">"responseType"</span>: <span class="string">"$context.error.responseType"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="CloudWatch-Metrics"><a href="#CloudWatch-Metrics" class="headerlink" title="CloudWatch Metrics"></a>CloudWatch Metrics</h2><p>Stage -&gt; Logging -&gt; 打開 <code>Enable Detailed CloudWatch Metrics</code>，則可以看到更多更細的 Metrics：</p>
+<ul>
+<li>By Method</li>
+<li>By Stage</li>
+<li>By API Name</li>
+</ul>
+<p>其中最有用的就是 <code>Method</code>，可以知道使用率，太低的就可以想辦法改進，或者 sunset.</p>
+<h2 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h2><p>API Keys 的 Usage Log (Biz Requirement) 沒有找到詳細地使用資訊，如果需要知道每個 API Keys 的使用狀況，就要另外自己做。現在想到的方法就是透過 CWL 客製化 Metrics.</p>
+<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>API Gateway 的 Log 可以分成幾個部分：</p>
+<ul>
+<li>API 本身的流程的 Log，用來確認 API Gateway 設定是否正常。CloudWatch Log Group Naming: <code>API-Gateway-Execution-Logs_{API_ID}/{Stage}</code></li>
+<li>Handler (Lambda) 自身的 Log，Debug / Trace Handler 自身的邏輯與資訊</li>
+<li>客製化 Log：額外增加的，同樣是 Debug / Trace API Gateway 的</li>
+</ul>
+<p>開發過程當中，很需要知道整個串接的過程到底發生什麼事情， Log 最完整的，所以知道怎麼配置很重要。</p>
+<blockquote>
+<p>寫到一半還 <a href="https://www.cwb.gov.tw/V7/earthquake/Data/quake/EC0226022852069.htm" target="_blank" rel="noopener">地震</a>，規模 5.2 …</p>
+</blockquote>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
+<li><a href="/2018/01/24/AWS/Study-Notes-Overview-API-Gateway/">Study Notes - Overview API Gateway</a></li>
+<li><a href="/2018/02/04/AWS/Study-Notes-API-Gateway-Custom-Authorizer-using-Lambda/">API Gateway - Custom Authorizer using Lambda</a></li>
+<li><a href="/2018/03/03/AWS/Study-Notes-API-Gateway-Custom-Domain-Names/">API Gateway - Custom Domain Names</a></li>
+<li><a href="/2018/04/21/AWS/Study-Notes-API-Gateway-as-DynamoDB-Proxy/">Using API Gateway as DynamoDB Proxy</a></li>
+<li><a href="/2018/05/03/AWS/Study-Notes-API-Gateway-Rate-Limit-and-Throttling/">API Gateway - Rate Limit and Throttling</a></li>
+<li><a href="/2017/03/02/AWS/Study-Notes-CloudWatch/">Study Notes - CloudWatch</a></li>
+</ul>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<li><a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html" target="_blank" rel="noopener">Amazon API Gateway</a></li>
+<li><a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html" target="_blank" rel="noopener">Set up API Logging in API Gateway</a></li>
+<li><a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/monitoring_overview.html" target="_blank" rel="noopener">Trace API Management and Invocation</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2018/03/03/AWS/Study-Notes-API-Gateway-Custom-Domain-Names/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2018/02/24/Linux/File-Descriptor_and_Open-Files/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2018-02-26 02:35:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Enable-CloudWatch-Logs-for-API-Gateway"><span class="toc-article-text">Enable CloudWatch Logs for API Gateway</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Enable-API-Logging"><span class="toc-article-text">Enable API Logging</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Custom-Access-Logging"><span class="toc-article-text">Custom Access Logging</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#CloudWatch-Metrics"><span class="toc-article-text">CloudWatch Metrics</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#不足"><span class="toc-article-text">不足</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#結論"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/AWS/" style="color: white">AWS <span class="badge">66</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/API-Gateway/" style="color: white">API Gateway <span class="badge">14</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">19</span></a></span> <span class="label label-success"><a href="/tags/Lambda/" style="color: white">Lambda <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Logs/" style="color: white">CloudWatch Logs <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Serverless/" style="color: white">Serverless <span class="badge">13</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

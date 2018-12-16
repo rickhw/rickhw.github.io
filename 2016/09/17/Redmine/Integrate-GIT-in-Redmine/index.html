@@ -1,0 +1,547 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Integrate GIT in Redmine | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="整理如何設定 git (github, bitbucket, gitlab) 與 Redmine Issue 整合.
+這個目的是讓 commit 的東西跟 issue 做關聯性，可以讓相關人員知道到底改了些什麼？
+這方法不需要另外安裝 Redmine Plugins, 設定分以下步驟：
+
+Git R">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Integrate GIT in Redmine"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Integrate GIT in Redmine</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Integrate GIT in Redmine</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>整理如何設定 git (github, bitbucket, gitlab) 與 Redmine Issue 整合.</p>
+<p>這個目的是讓 commit 的東西跟 issue 做關聯性，可以讓相關人員知道到底改了些什麼？</p>
+<p>這方法不需要另外安裝 Redmine Plugins, 設定分以下步驟：</p>
+<ul>
+<li>Git Repository 與 Redmine 同步 (系統管理者)</li>
+<li>訊息關鍵字設定 (系統管理者)</li>
+<li>專案設定 (專案負責人)</li>
+</ul>
+<a id="more"></a>
+<h1 id="設定-Git-Repository-與-Redmine-同步"><a href="#設定-Git-Repository-與-Redmine-同步" class="headerlink" title="設定 Git Repository 與 Redmine 同步"></a>設定 Git Repository 與 Redmine 同步</h1><p>因為 Redmine Repository 是讀取本機路徑，所以需要有個機制可以自動把 git 的資料同步到 Redmine 裡。</p>
+<h2 id="Mirror-Repository-to-Local"><a href="#Mirror-Repository-to-Local" class="headerlink" title="Mirror Repository to Local"></a>Mirror Repository to Local</h2><p>先在 Redmine Server 裡建立一個目錄，用來放置 repository 的，像這樣：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/redmine/repos</span><br><span class="line">cd /data/redmine/repos</span><br><span class="line">git clone --mirror git@bitbucket.org:gtcafe/aws-notification.git</span><br></pre></td></tr></table></figure>
+<p>注意事項：</p>
+<ul>
+<li>git clone 記得要加 <code>--mirror</code></li>
+<li>通常會需要放一把 <code>deployment key</code> 到 bitbucket or github.</li>
+<li>放置 repository 的空間要夠大，避免未來不足。建議是獨立的 storage，同時要有備份機制。</li>
+</ul>
+<h2 id="建立同步排程"><a href="#建立同步排程" class="headerlink" title="建立同步排程"></a>建立同步排程</h2><p>每五分鐘自動同步一次，同步的頻率依照需求調整。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">## 每五分鐘同步一次 repos, 依照需求自行增加</span><br><span class="line">*/5 * * * * cd /data/redmine/repos/aws-notification.git &amp;&amp; git fetch --all</span><br></pre></td></tr></table></figure>
+<h1 id="Issue-關鍵字設定"><a href="#Issue-關鍵字設定" class="headerlink" title="Issue 關鍵字設定"></a>Issue 關鍵字設定</h1><p>Git 整合到 Redmine 有個很重要的目的：</p>
+<ol>
+<li>把 Issue 跟 Commit 關聯在一起，可以知道到底改了些什麼</li>
+<li>透過 Commit 的關鍵字，自動調整 Issue 的狀態</li>
+</ol>
+<p>這兩個功能，可以讓開發、測試、PM 等相關人員，可以在 Issue 上完整知道程式與任務的關聯性、進度等。</p>
+<blockquote>
+<p>此部分需要 Redmine Admin 權限</p>
+</blockquote>
+<h2 id="Issue-與關鍵字的關聯"><a href="#Issue-與關鍵字的關聯" class="headerlink" title="Issue 與關鍵字的關聯"></a>Issue 與關鍵字的關聯</h2><p>開發者 commit 到 git 的時候，只要在註解寫入指定的關鍵字，那麼 Redmine 會自動把 Commit 跟 Issue 關聯在一起，像這樣：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~ $ git commit -m &apos;ref #69 init&apos;</span><br><span class="line">~ $ git push -u origin master</span><br></pre></td></tr></table></figure>
+<p>這個 commit 裡出現這樣的 pattern: <code>ref #69</code> 表示這次的 commit 要和 Issue <code>#69</code> 關聯在一起。前字詞 <code>ref</code> 是一定要的，可以自行設定，設定步驟如下：</p>
+<ul>
+<li>到 Administration -&gt; Settings -&gt; Repository</li>
+<li>找到 <code>Referencing and fixing issues in commit messages</code> -&gt; 指定 <code>Referencing keywords</code>，可以多個</li>
+</ul>
+<h2 id="Issue-狀態與關鍵字同步"><a href="#Issue-狀態與關鍵字同步" class="headerlink" title="Issue 狀態與關鍵字同步"></a>Issue 狀態與關鍵字同步</h2><p>除了關鍵字可以跟 Issue 關聯，同時另外針對不同的 Tacker type 和不同的關鍵字匹配後，自動更新狀態和進度。常用的例子像是：</p>
+<ul>
+<li>當完成 <code>Feature</code> 的時候，自動把狀態改成 <code>Completed</code>、進度改成 <code>100% Done</code></li>
+<li>當修正 <code>Bug</code> 的時候，自動把狀態改成 <code>Resolved</code>、進度改成 <code>80% Done</code></li>
+<li>每次的 <code>Repository.fetch_changesets</code> 執行時，就會比對符合關鍵字。這部分請參考『<a href="/2016/09/17/Redmine/Integrate-GIT-in-Redmine/#同步_Commit_異動">同步 Commit 異動</a>』</li>
+</ul>
+<p>我的設定值是這樣：</p>
+<ul>
+<li>關鍵字: <code>done</code>, <code>fixed</code>, <code>ref</code></li>
+<li>關鍵字動作：<ul>
+<li>Tracker: Feature, keyword: done, Status: Completed, Done: 100%</li>
+<li>Tracker: Bug, keyword: fixed, Status: Resolved, Done: 80%</li>
+</ul>
+</li>
+</ul>
+<p>如下圖：</p>
+<p><img src="/images/Redmine/Integrate_Git/Keywords_Settings.png" alt=""></p>
+<h2 id="同步-Commit-異動"><a href="#同步-Commit-異動" class="headerlink" title="同步 Commit 異動"></a>同步 Commit 異動</h2><p>Redmine 是 Web Application，像是 Commit 這種非同步需要透過其他方式驅動，把前述兩個動作要把關聯性連結起來。我用 crontab 每五分鐘執行更新，主要是執行 rails runner:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">## 更新 repository 的異動</span><br><span class="line">*/5 * * * * cd /home/redmine &amp;&amp; ./bin/rails runner &quot;Repository.fetch_changesets&quot; -e production</span><br></pre></td></tr></table></figure>
+<p>註：如果無法正確執行，可能是 crontab 執行時無法取得 rails 需要的環境變數，可以透過 <code>env</code> 取得相關的變數，如果是 ubuntu，可以直接加入 crontab 裡，如下，如果使用 centos 可以寫一個 script 來驅動。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">rvm_bin_path=/usr/local/rvm/bin</span><br><span class="line">GEM_HOME=/usr/local/rvm/gems/ruby-2.0.0-p648</span><br><span class="line">rvm_path=/usr/local/rvm</span><br><span class="line">rvm_prefix=/usr/local</span><br><span class="line">PATH=/usr/local/rvm/gems/ruby-2.0.0-p648/bin:/usr/local/rvm/gems/ruby-2.0.0-p648@global/bin:/usr/local/rvm/rubies/ruby-2.0.0-p648/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/rvm/bin</span><br><span class="line">rvm_loaded_flag=1</span><br><span class="line">GEM_PATH=/usr/local/rvm/gems/ruby-2.0.0-p648:/usr/local/rvm/gems/ruby-2.0.0-p648@global</span><br><span class="line">RUBY_VERSION=ruby-2.0.0-p648</span><br><span class="line">rvm_user_install_flag=0</span><br><span class="line">*/5 * * * * cd /opt/redmine; ./bin/rails runner &quot;Repository.fetch_changesets&quot; -e production</span><br></pre></td></tr></table></figure>
+<h1 id="設定專案裡的-Repository"><a href="#設定專案裡的-Repository" class="headerlink" title="設定專案裡的 Repository"></a>設定專案裡的 Repository</h1><h2 id="建立-Issue"><a href="#建立-Issue" class="headerlink" title="建立 Issue"></a>建立 Issue</h2><p>先到 Project 新增一個 Issue 作為 commit 的參考點，這個例子會產生 Issue Number: <code>#69</code></p>
+<p><img src="/images/Redmine/Integrate_Git/New_Feature.png" alt=""></p>
+<h2 id="第一次-commit"><a href="#第一次-commit" class="headerlink" title="第一次 commit"></a>第一次 commit</h2><p>初始化 git repository, commit 時記得在註解用關鍵字 <code>ref #69</code>, 表示這次 commit 要跟 <code>#69</code> 綁住關聯</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~ $ git commit -m &apos;ref #69 init&apos;</span><br><span class="line">~ $ git push -u origin master</span><br></pre></td></tr></table></figure>
+<h2 id="設定專案-Repositories"><a href="#設定專案-Repositories" class="headerlink" title="設定專案 Repositories"></a>設定專案 Repositories</h2><p>Redmine 是 Project-Based ，所以每個專案都可以有多個 Repositories。以下設定需要 Project Admin 權限。</p>
+<ol>
+<li>Project -&gt; Settings -&gt; <code>Modules</code> Tab -&gt; Check <code>Repository</code></li>
+<li>Project -&gt; Settings -&gt; <code>Repository</code> Tab -&gt; <code>New Repository</code>, 新增以下資訊<ul>
+<li>Identifier: 識別關鍵字。每個專案可以有多個 Repos，如果要在 Issue 裡關聯 Commit，多個 Repos 的時候，就要指定識別字。預設可以不用給，但是第二個就要設定。</li>
+<li>Path to repository: Repos 的路徑，只能指定本機路徑。</li>
+</ul>
+</li>
+</ol>
+<p><img src="/images/Redmine/Integrate_Git/New_Repos_in_Project.png" alt=""></p>
+<p>到 Project -&gt; Repository, 應該可以看到剛剛 commit 的 issue:</p>
+<p><img src="/images/Redmine/Integrate_Git/Repository_in_Project.png" alt=""></p>
+<p>剛剛 commit 已經被關聯到 issue, 點選 <code>#69</code> ，Issue 會出現以下：</p>
+<p><img src="/images/Redmine/Integrate_Git/Commit_Related_Issue.png" alt=""></p>
+<h2 id="Status-Change-for-Feature-Bug"><a href="#Status-Change-for-Feature-Bug" class="headerlink" title="Status Change for Feature / Bug"></a>Status Change for Feature / Bug</h2><ol>
+<li>建立另一個 Issue with Feature</li>
+<li>修改 Code, commit with comment: <code>git commit -m &#39;done #70&#39;</code></li>
+<li>Feature #70 的狀態自動改為 <code>Completed</code>, Done <code>100%</code></li>
+</ol>
+<p>如下圖：</p>
+<p><img src="/images/Redmine/Integrate_Git/Commit_Related_Feature-Status.png" alt=""></p>
+<p>下圖則是針對 Bug:</p>
+<ul>
+<li>同樣的先改 Code, 然後 Commit with: <code>git commit -m &#39;fixed #71&#39;</code></li>
+</ul>
+<ol start="3">
+<li>Bug #71 的狀態自動改為 <code>Resolved</code>, Done <code>80%</code></li>
+</ol>
+<p><img src="/images/Redmine/Integrate_Git/Commit_Related_Bug-Status.png" alt=""></p>
+<h1 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h1><h2 id="Commit-沒有關連到-Issue"><a href="#Commit-沒有關連到-Issue" class="headerlink" title="Commit 沒有關連到 Issue?"></a>Commit 沒有關連到 Issue?</h2><ol>
+<li>檢查 Project -&gt; Repository: 是否已經 fetch，本文的設定是每五分鐘同步一次，參考：<a href="/2016/09/17/Redmine/Integrate-GIT-in-Redmine/#建立同步排程">建立同步排程</a></li>
+<li>Commit keyword 和 Issue 關聯式透過：<a href="/2016/09/17/Redmine/Integrate-GIT-in-Redmine/#同步_Commit_異動">同步 Commit 異動</a> 驅動，可以手動驅動或者等待排成執行</li>
+</ol>
+<h1 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h1><p>以前在 IBM 用的是 <a href="https://en.wikipedia.org/wiki/IBM_Configuration_Management_Version_Control_(CMVC)" target="_blank" rel="noopener">CMVC</a>，他的設計就是 Issue Management + SCM ，所以我一直習慣 commit 要綁 Issue，如果 Issue 無法跟 SCM 綁在一起，就會覺得很奇怪。所以後來到另一個工作導入 Redmine (詳細參閱『<a href="/2015/01/06/Management/協同合作系統建制與導入-以-Redmine-為例/">協同合作系統建制與導入 - 以 Redmine 為例</a>) 時，發現他可以做類似的事情，所以就跟以前同事一起搞定，不過那時候整合的是 SVN。</p>
+<p>一直覺得做軟體開發，這是必要的。對團隊整體的協同合作、技術能力提升，很有幫助。這件事情隨著時間的拉長，會逐漸提升他的價值與重要性。</p>
+<h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><ul>
+<li><a href="/2015/01/06/Management/協同合作系統建制與導入-以-Redmine-為例/">協同合作系統建制與導入 - 以 Redmine 為例</a></li>
+<li><a href="/2015/02/26/DevOps/Git-Setup-and-Migrate-SVN/">Setup Git Server, and Migrate SVN</a></li>
+</ul>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<li><a href="https://bitbucket.org/steveqx/redmine_bitbucket" target="_blank" rel="noopener">Redmine Bitbucket plugin</a></li>
+<li><a href="http://qiita.com/SYABU555/items/2fd6cc8c6f686757323d" target="_blank" rel="noopener">AWS上のRedmineでBitBucketのリポジトリを設定する</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2016/09/20/AWS/News_CloudFormation_Support_YAML/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2016/08/27/AWS/Lambda-Network-Traffic-Test-in-VPC-with-Endpoint/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2016-09-17 08:45:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#設定-Git-Repository-與-Redmine-同步"><span class="toc-article-text">設定 Git Repository 與 Redmine 同步</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Mirror-Repository-to-Local"><span class="toc-article-text">Mirror Repository to Local</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#建立同步排程"><span class="toc-article-text">建立同步排程</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Issue-關鍵字設定"><span class="toc-article-text">Issue 關鍵字設定</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Issue-與關鍵字的關聯"><span class="toc-article-text">Issue 與關鍵字的關聯</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Issue-狀態與關鍵字同步"><span class="toc-article-text">Issue 狀態與關鍵字同步</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#同步-Commit-異動"><span class="toc-article-text">同步 Commit 異動</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#設定專案裡的-Repository"><span class="toc-article-text">設定專案裡的 Repository</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#建立-Issue"><span class="toc-article-text">建立 Issue</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#第一次-commit"><span class="toc-article-text">第一次 commit</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#設定專案-Repositories"><span class="toc-article-text">設定專案 Repositories</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Status-Change-for-Feature-Bug"><span class="toc-article-text">Status Change for Feature / Bug</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Troubleshooting"><span class="toc-article-text">Troubleshooting</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Commit-沒有關連到-Issue"><span class="toc-article-text">Commit 沒有關連到 Issue?</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#後記"><span class="toc-article-text">後記</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀-站內"><span class="toc-article-text">延伸閱讀 (站內)</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/Redmine/" style="color: white">Redmine <span class="badge">4</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Git/" style="color: white">Git <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Redmine/" style="color: white">Redmine <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/SCM/" style="color: white">SCM <span class="badge">2</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

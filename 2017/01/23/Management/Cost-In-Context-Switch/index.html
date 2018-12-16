@@ -1,0 +1,562 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Cost in Context Switch | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="Context Switch 中文翻譯成環境切換，wikipedia 的解釋：
+
+是一個儲存和重建 CPU 的狀態 (內文)，因此令多個進程 (process) 可以分享單一 CPU 資源的計算過程。
+
+把它放在人身上，就是一心多用。Context Switch 的成本很大，五顆球同時丟給一個人，最">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Cost in Context Switch"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Cost in Context Switch</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Cost in Context Switch</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p><code>Context Switch</code> 中文翻譯成環境切換，<a href="https://zh.wikipedia.org/zh-tw/%E4%B8%8A%E4%B8%8B%E6%96%87%E4%BA%A4%E6%8F%9B" target="_blank" rel="noopener">wikipedia</a> 的解釋：</p>
+<blockquote>
+<p>是一個儲存和重建 CPU 的狀態 (內文)，因此令多個進程 (process) 可以分享單一 CPU 資源的計算過程。</p>
+</blockquote>
+<p>把它放在人身上，就是一心多用。Context Switch 的成本很大，五顆球同時丟給一個人，最後可能只接著一顆，也可能一顆都接不住。所以創造能「專注」的環境很重要，不管是在工作環境，還是個人的學習。</p>
+<blockquote>
+<p>『五顆球同時丟給一個人』這段是出自 “Steve Jobs 自傳” 某一章，不過我找不到原始段落了，有找到的人麻煩跟我說，感激不盡！</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="神馳-Flow"><a href="#神馳-Flow" class="headerlink" title="神馳 (Flow)"></a>神馳 (Flow)</h2><p>在企業裡，主管應該要營造讓大家能夠專心工作的環境，減少不必要的中斷。不管是內在環境的因素，像是噪音、講電話，或者是外在的變因，像是不必要的會議、與 IM。</p>
+<p>有人認爲這是太過保護工程師，但我覺得，工程師就應該讓他們專注在工程技術上的事情，而不是要他們又要寫程式，又要整天在充滿不必要的會議中工作。</p>
+<blockquote>
+<p>技術是研發團隊的根本，專注才會有 <code>扎實</code> 的產能，才能培養出優秀的工程師，累積扎實的技術根本。</p>
+</blockquote>
+<p>很多工程師、創作者、藝術工作者 (像音樂家、樂手、小說家) 都習慣在夜間工作，最主要是因為夜間容易進入 <code>神馳</code> 狀態，而這段時間神馳的思緒被中斷的機會少，思緒不間斷的產能是相當大、且扎實的。</p>
+<p><code>神馳 (Flow Status)</code> 一詞出自 <a href="http://www.books.com.tw/products/0010659524" target="_blank" rel="noopener">Peopleware： 腦力密集產業的人才管理之道</a> ，摘錄如下：</p>
+<blockquote>
+<p>第 10 章 腦力時間與身體時間</p>
+<p>當一心一意埋首工作時，人會進入一種理想狀態，心理學家稱之為神馳（flow）。神馳是一種有如冥想、深深沉醉其中的狀態，人在這種狀態下會產生一股陶醉感，而且時間是在不知不覺中流逝：「我埋首工作，一抬頭，已過了三個小時。」不會有累的感覺，工作似乎是順其自然地往前進展。</p>
+</blockquote>
+<p>我以前不管是寫程式還是做音樂，很容易就進入這樣的狀態，常常是日夜顛倒的，甚至一醒來，馬上就可以接續昨晚睡前的思緒，打開電腦繼續寫程式，或者繼續編曲。可能因為那時候年輕，體力好，思緒也單純 (頭腦簡單？)。即使工作時寫程式被中斷，像是有人來問一些問題，那時候還可以一邊說明，一邊持續想程式的內容，然後很快的能切回去狀態，繼續思考。</p>
+<p>現在年紀稍長，工作的角色改變，每天隨時都在被中斷，往往被中斷之後，要花很多時間重新把破碎的思緒連接起來，就像以前 Windows 做磁碟重組 (defragment) 一樣，讓人相當疲倦。</p>
+<h2 id="干擾的來源"><a href="#干擾的來源" class="headerlink" title="干擾的來源"></a>干擾的來源</h2><p>工作的干擾很多，歸納如下：</p>
+<ul>
+<li>辦公室的噪音：帶耳機、聽音樂、協調 work from home, 更多參閱 <a href="http://www.bbc.com/ukchina/trad/vert-cap-38811523?ocid=socialflow_facebook" target="_blank" rel="noopener">開放式辦公室有哪些壞處？
+</a></li>
+<li>太多會議：跟主管溝通看看，盡量減少不必要的會議。<ul>
+<li>很多沒意義的會也是很多公司共有的通病</li>
+<li>我認為一個禮拜只要超過三次會，就是過多了。</li>
+<li>別忘了，開會是要事前準備、事後溝通的 – 參閱：<a href="/2014/11/26/Management/開會原則/">開會的原則</a></li>
+<li>企業裡 <a href="/2014/12/10/Management/%E6%BA%9D%E9%80%9A-%E6%88%90%E6%9C%AC/">溝通成本</a> 是非常驚人的</li>
+</ul>
+</li>
+<li>IM / 電話：Slack, Telegram, Facebook, Line … 關掉不要開</li>
+<li>不好的開發工具：設定一些 hot key / shortcut、減少視窗切換，或者盡量用 vim 這樣的工具。</li>
+<li>混合的程式架構，又是前端、又是後端、又是維運：跟老闆溝通，想辦法專業分工</li>
+<li>不佳的工作流程 (<a href="http://stackoverflow.com/questions/25098066/what-is-callback-hell-and-how-and-why-rx-solves-it" target="_blank" rel="noopener">callback hell</a>)：一大堆跟主管請示的流程，或者跟其他人確認的流程，造成沒意義的 overhead。這些事情最好是要充分授權，或者用 <code>Code</code> 解決。</li>
+</ul>
+<p>干擾的來源和企業文化有關係，分工越細的，越不會有這樣的問題。當然分工越細，代表著能看到的面相就相對狹隘。</p>
+<p>如果是在家裡的干擾，那就 … 很難處理了 …</p>
+<!--
+## 從分散式系統架構看 (空間) 與時間的關係
+
+分散式系統的目的在於用空間換時間，取得更大的承載容量。但是分散式系統帶來的就是系統跟系統之間的溝通成本，也就是 Latency
+
+當一個系統程序被中斷，產生 I/O、Interrupt 的時候，因為等待關係所
+
+-->
+<h2 id="如何進入『神馳』？"><a href="#如何進入『神馳』？" class="headerlink" title="如何進入『神馳』？"></a>如何進入『神馳』？</h2><p>以前我在做音樂或者練琴時，有自己的一套方法，像是：</p>
+<ul>
+<li>喝咖啡：一定要吃早餐，而且不能吃太多。然後要先喝定量的水，在固定的時間喝咖啡，通常會是在十點。</li>
+<li>小睡片刻：通常是下班後，晚上繼續上課 or 練琴的時候</li>
+<li>做體操、靜坐：通常是我要寫文章之前的準備</li>
+<li>喝一小杯高粱 - 冬天：暖身後比較好練琴</li>
+</ul>
+<p>下了班，通常是很疲倦的，要讓生理狀況能夠進入另一個狀態，真的不是很容易，一些心得、方法都描述在：</p>
+<ul>
+<li><a href="http://rickmidi.blogspot.com/2014/04/blog-post.html" target="_blank" rel="noopener">如何安排練習 - 以上班族為例</a></li>
+<li><a href="http://rickmidi.blogspot.com/2015/11/blog-post_28.html" target="_blank" rel="noopener">吉他練習的實踐原則：專心、彈好、彈滿</a></li>
+</ul>
+<p>如果是週末，就會十點半吃早午餐、喝咖啡，然後從十一點一口氣專注到下午五點，通常不管是練琴、錄音、還是唸書，都很有進度。如果有連續幾天假 (三天以上)，通常第一天我就開始醞釀了，準備日夜顛倒。</p>
+<p>練琴、做音樂每一次的 <code>神馳</code> 的單位時間是以 <code>4-6 小時</code> 為單位；寫程式比較短，依照過去工作的經驗，實際寫程式通常只有 <code>1-2 小時</code>，因為通常搞懂需求、想好設計時間更久；寫文章通常是 <code>2-3h</code> 為一個單位。</p>
+<p>如果是在辦公室裡，目前我還沒想到比較好的方法，最常用的方法有：</p>
+<ul>
+<li>躲起來，像是躲在會議室裡，記得反鎖 or booking 一整天</li>
+<li>去附近的咖啡廳</li>
+<li>跟老闆說 work from home</li>
+<li>甚至就乾脆請假在家工作 (很爛的招式 … 囧rz)</li>
+</ul>
+<p>最近想出一些方式，就是把會被中斷的事情，用固定時間處理，雖然這需要一些內部的協調，但應該是可行的方法。</p>
+<p>最後一招就是：換工作 or 自行創業 XDD</p>
+<h2 id="Cost-in-Context-Switch"><a href="#Cost-in-Context-Switch" class="headerlink" title="Cost in Context Switch"></a>Cost in Context Switch</h2><p>Steve Jobs 信任 A Player 原則，也就是找最好的人才，用最頂尖的工程師。他覺得 B 級的人才，只會帶入 B- 、甚至更差的人。他用 A Player 同時也願意提供給予高額的薪資，</p>
+<p>以下摘錄自：<a href="http://whiteappleer.tw/2012/07/08/the-lost-steve-jobs-tapes" target="_blank" rel="noopener">THE PAYOFF OF A GREAT EMPLOYEE （June 1995） 一個好員工的薪水</a></p>
+<blockquote>
+<p>In most businesses, the difference between average and good is at best 2 to 1, right? Like, if you go to New York and you get the best cab driver in the city, you might get there 30% faster than with an average taxicab driver. A 2 to 1 gain would be pretty big.</p>
+<p>The difference between the best worker on computer hard-ware and the average may be 2 to 1, if you’re lucky. With automobiles, maybe 2 to 1. But in software, it’s at least 25 to 1. The difference between the average programmer and a great one is at least that.</p>
+<p>The secret of my success is that we have gone to exceptional lengths to hire the best people in the world. And when you’re in a field where the dynamic range is 25 to 1, boy, does it pay off.”</p>
+<p>在大多數的商業中，一般與最好的差別最多就是二比一，對吧？例如你到了紐約，你找到了市內最棒的計程車司機，你大概可以比雇用一般的司機快上30%到達目的地。以二比一來說，收益還蠻大的。</p>
+<p>而電腦硬體方面的工作人員，平均差大概是二比一，如果幸運的話。在汽車產業，也許是二比一。不過在軟體方面，最少也有二十五比一。一般的程式設計師與很棒的程式設計師相比，至少也有差那麼多。</p>
+<p>我成功的秘訣，在於我們走了極長的路，來聘用世界上最棒的人材。而當你處在一個差距高低有二十五比一的領域，嘿，這還不划算嗎？</p>
+</blockquote>
+<p>如果你跟 Steve Jobs 是一樣，只用最好最優秀的人才，那麼你的成本就更加重要。你的員工都是有極大產能的人，所以讓他們能夠專注在技術就更加重要的。</p>
+<blockquote>
+<p>時間在哪，成就就在哪。</p>
+</blockquote>
+<p>管理階層的責任在於建立每個人之間的連結，同時也讓每個人都很強健。就像是一個系統每個元件本身是扎實且穩健的，主管就是連接元件的推手。</p>
+<h2 id="相關資訊"><a href="#相關資訊" class="headerlink" title="相關資訊"></a>相關資訊</h2><ul>
+<li><a href="https://vimeo.com/88757179" target="_blank" rel="noopener">Multitasking is Evil</a></li>
+<li><a href="https://ruddyblog.wordpress.com/2014/09/21/%E9%81%8B%E7%94%A8%E5%80%8B%E4%BA%BA%E7%9C%8B%E6%9D%BF%E5%81%9A%E6%99%82%E9%96%93%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">運用個人看板做時間管理</a></li>
+</ul>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
+<li><a href="/2014/11/26/Management/開會原則/">開會的原則</a></li>
+<li><a href="/2014/12/10/Management/%E6%BA%9D%E9%80%9A-%E6%88%90%E6%9C%AC/">溝通成本</a></li>
+<li><a href="/2014/05/09/Management/%E5%80%8B%E4%BA%BA%E5%B7%A5%E4%BD%9C%E7%AE%A1%E7%90%86/">個人工作管理</a></li>
+<li><a href="http://rickmidi.blogspot.com/2015/11/blog-post_28.html" target="_blank" rel="noopener">吉他練習的實踐原則：專心、彈好、彈滿</a></li>
+<li><a href="http://rickmidi.blogspot.com/2014/04/blog-post.html" target="_blank" rel="noopener">如何安排練習 - 以上班族為例</a></li>
+</ul>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<li><a href="https://leanpub.com/the-lost-ten-years-of-taiwan-software-industry" target="_blank" rel="noopener">台灣軟體的失落十年</a></li>
+<li><a href="http://whiteappleer.tw/2012/07/08/the-lost-steve-jobs-tapes" target="_blank" rel="noopener">Steve Jobs ── 失落的錄音帶。</a></li>
+<li><a href="http://www.books.com.tw/products/0010387385" target="_blank" rel="noopener">Peopleware： 腦力密集產業的人才管理之道</a></li>
+<li><a href="http://tw.careerer.info/2016/12/16/4-real-life-ways-people-shut-down-interruptions-for-good/" target="_blank" rel="noopener">讓你不被打擾、提高效率的四個實用方式！</a></li>
+<li><a href="http://www.playpcesor.com/2014/11/productive.html" target="_blank" rel="noopener">時間千萬不要擠！真正幫你保持高生產力的三大法則</a></li>
+<li><a href="http://www.ithome.com.tw/node/46542" target="_blank" rel="noopener">無所不在的 Context Switch</a></li>
+<li><a href="http://blog.planism.com/archives/2009/02/10/2041/%E4%BD%A0%E9%80%B2%E5%85%A5-flow-status-%E7%A5%9E%E9%A6%B3%E7%8B%80%E6%85%8B-%E4%BA%86%E5%97%8E%EF%BC%9F" target="_blank" rel="noopener">你進入 Flow Status (神馳狀態) 了嗎？</a></li>
+<li>書：<a href="https://www.youtube.com/watch?v=FlTvBKH9fZo&amp;list=PL0DdA9WDoW7RtTi2XsrWxpZK9B99V17Tr" target="_blank" rel="noopener">深度工作</a></li>
+</ul>
+<h2 id="開放式空間？"><a href="#開放式空間？" class="headerlink" title="開放式空間？"></a>開放式空間？</h2><ul>
+<li><a href="https://www.msn.com/zh-tw/news/living/%E5%93%88%E4%BD%9B%E7%A0%94%E7%A9%B6%E9%96%8B%E6%94%BE%E6%80%A7%E8%BE%A6%E5%85%AC%E5%AE%A4-%E5%85%B6%E5%AF%A6%E5%BE%88%E7%B3%9F%E7%B3%95/ar-BBLGHsF?li=BBqiNIb" target="_blank" rel="noopener">哈佛研究：開放性辦公室 其實很糟糕</a></li>
+<li><a href="http://www.bbc.com/ukchina/trad/vert-cap-38811523?ocid=socialflow_facebook" target="_blank" rel="noopener">開放式辦公室有哪些壞處？</a></li>
+<li><a href="https://buzzorange.com/2017/05/03/open-office-is-not-as-good-as-you-think/" target="_blank" rel="noopener">為什麼連 Facebook 都提倡的開放式辦公室，現在卻讓人這麼討厭？</a></li>
+<li><a href="https://technews.tw/2018/04/01/foster-partners-designs-chair-that-facilitates-focus-work-in-public-spaces" target="_blank" rel="noopener">設計蘋果總部的建築公司做了一張圓形椅子，讓你在開放空間也能專注工作</a></li>
+</ul>
+<h2 id="相關書籍"><a href="#相關書籍" class="headerlink" title="相關書籍"></a>相關書籍</h2><ul>
+<li><a href="http://www.books.com.tw/products/0010752714" target="_blank" rel="noopener">刻意練習</a>, <a href="https://www.youtube.com/watch?v=RqEZmYRvWPA&amp;list=PL0DdA9WDoW7RtTi2XsrWxpZK9B99V17Tr&amp;index=80" target="_blank" rel="noopener">每天聽本書：刻意練習</a></li>
+<li><a href="https://www.youtube.com/watch?v=FlTvBKH9fZo&amp;list=PL0DdA9WDoW7RtTi2XsrWxpZK9B99V17Tr" target="_blank" rel="noopener">每天听本书 2018：《深度工作》</a></li>
+<li><a href="https://www.books.com.tw/products/CN11423710" target="_blank" rel="noopener">絕非天賦</a>, <a href="https://www.youtube.com/watch?v=GOXOAXR0STk&amp;list=PL0DdA9WDoW7RtTi2XsrWxpZK9B99V17Tr&amp;index=74" target="_blank" rel="noopener">每天聽本書：絕非天賦</a></li>
+<li><a href="https://www.books.com.tw/products/CN10139769" target="_blank" rel="noopener">注意力曲線︰打敗分心與焦慮</a>, <a href="https://www.youtube.com/watch?v=QnN0FQNJsm0&amp;index=96&amp;list=PL0DdA9WDoW7RtTi2XsrWxpZK9B99V17Tr" target="_blank" rel="noopener">注意力曲線</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2017/01/26/AWS/Support_IPv6-GA-in-All-Regions/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2017/01/21/Redmine/Before-Introduce-To-Redmine/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2017-01-23 03:21:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#神馳-Flow"><span class="toc-article-text">神馳 (Flow)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#干擾的來源"><span class="toc-article-text">干擾的來源</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#如何進入『神馳』？"><span class="toc-article-text">如何進入『神馳』？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Cost-in-Context-Switch"><span class="toc-article-text">Cost in Context Switch</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#相關資訊"><span class="toc-article-text">相關資訊</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#開放式空間？"><span class="toc-article-text">開放式空間？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#相關書籍"><span class="toc-article-text">相關書籍</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/經營管理/" style="color: white">經營管理 <span class="badge">33</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/時間管理/" style="color: white">時間管理 <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

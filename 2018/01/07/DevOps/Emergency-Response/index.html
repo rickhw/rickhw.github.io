@@ -1,0 +1,526 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>緊急應變 (Emergency Response) | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="SRE: Site Reliability Engineering 有幾個章節，討論關於警急事件的處理、管理、檢討、事件追蹤 … 這些章節討論事件處理的週期，也就是事件的前、中、後要做什麼。書中也從不同專業背景學習類似的想法，像是電影 薩利機長：哈德遜奇蹟 就是很好的例子。
+
+事件處理的生命週期SR">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="緊急應變 (Emergency Response)"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> 緊急應變 (Emergency Response)</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> 緊急應變 (Emergency Response)</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p><a href="https://landing.google.com/sre/book.html" target="_blank" rel="noopener">SRE: Site Reliability Engineering</a> 有幾個章節，討論關於警急事件的處理、管理、檢討、事件追蹤 … 這些章節討論事件處理的週期，也就是事件的前、中、後要做什麼。書中也從不同專業背景學習類似的想法，像是電影 <a href="https://zh.wikipedia.org/wiki/%E8%96%A9%E5%88%A9%E6%A9%9F%E9%95%B7%EF%BC%9A%E5%93%88%E5%BE%B7%E9%81%9C%E5%A5%87%E8%B9%9F" target="_blank" rel="noopener">薩利機長：哈德遜奇蹟</a> 就是很好的例子。</p>
+<a id="more"></a>
+<h2 id="事件處理的生命週期"><a href="#事件處理的生命週期" class="headerlink" title="事件處理的生命週期"></a>事件處理的生命週期</h2><p>SRE <a href="https://landing.google.com/sre/book/chapters/part3.html" target="_blank" rel="noopener">Part 3 - Practices</a> 開始探討事件處理整個生命週期，整理如下：</p>
+<ul>
+<li><a href="https://landing.google.com/sre/book/chapters/being-on-call.html" target="_blank" rel="noopener">CH11 Being On-Call</a>: 從事件發動之前，如何平衡 On-call 的工作</li>
+<li><a href="https://www.slideshare.net/rickhwang/sre-ch12-effective-troubleshooting-83573925" target="_blank" rel="noopener">CH12 Effective Troubleshooting</a>: 討論如何有效地故障排除技巧</li>
+<li><a href="https://www.slideshare.net/rickhwang/sre-ch13-emergency-response" target="_blank" rel="noopener">CH13 Emergency Response</a>: 整理了緊急事件處理的方法</li>
+<li><a href="https://www.slideshare.net/rickhwang/sre-ch13-emergency-response" target="_blank" rel="noopener">CH14 Managing Incidents</a>: 討論事件管理的方法，事件當下的角色、協作、作業方法、交接程序 … 等</li>
+<li><a href="https://landing.google.com/sre/book/chapters/postmortem-culture.html" target="_blank" rel="noopener">CH15 Postmortem Culture: Learning from Failure</a>: 如何從錯誤中學習的文化，教育訓練</li>
+<li><a href="https://landing.google.com/sre/book/chapters/accelerating-sre-on-call.html" target="_blank" rel="noopener">CH28 Accelerating SREs to On-Call and Beyond</a>: 如何培養 SRE 加入 On-Call</li>
+<li><a href="https://landing.google.com/sre/book/chapters/lessons-learned.html" target="_blank" rel="noopener">CH33 Lessons Learned from Other Industries</a>: 從不同專業背景學習</li>
+</ul>
+<p>這些就是我說的事件處理的週期，也就是<code>前</code>、<code>中</code>、<code>後</code>。其實不只是在軟體工程方面，各種領域也會有類似的事件處理，像是電影 <a href="https://zh.wikipedia.org/wiki/%E8%96%A9%E5%88%A9%E6%A9%9F%E9%95%B7%EF%BC%9A%E5%93%88%E5%BE%B7%E9%81%9C%E5%A5%87%E8%B9%9F" target="_blank" rel="noopener">薩利機長：哈德遜奇蹟</a> 就是很好的例子。</p>
+<h2 id="電影：薩利機長：哈德遜奇蹟"><a href="#電影：薩利機長：哈德遜奇蹟" class="headerlink" title="電影：薩利機長：哈德遜奇蹟"></a>電影：薩利機長：哈德遜奇蹟</h2><p>電影 <a href="https://zh.wikipedia.org/wiki/%E8%96%A9%E5%88%A9%E6%A9%9F%E9%95%B7%EF%BC%9A%E5%93%88%E5%BE%B7%E9%81%9C%E5%A5%87%E8%B9%9F" target="_blank" rel="noopener">薩利機長：哈德遜奇蹟</a> 改變自 2009 年一月真實的事件: <a href="https://zh.wikipedia.org/wiki/%E5%85%A8%E7%BE%8E%E8%88%AA%E7%A9%BA1549%E8%99%9F%E7%8F%AD%E6%A9%9F%E4%BA%8B%E6%95%85" target="_blank" rel="noopener">全美航空1549號班機事故</a>。講述了 Sally 機長在一次飛行中，遇到鳥擊事件，A320 兩具引擎同時失效，最後順利迫降在哈德遜河，拯救了全部 155 人的故事。</p>
+<blockquote>
+<p>2017/12/18 SRE 讀書會討論了 CH12 的內容，導讀的朋友分享了 <a href="https://zh.wikipedia.org/wiki/%E8%96%A9%E5%88%A9%E6%A9%9F%E9%95%B7%EF%BC%9A%E5%93%88%E5%BE%B7%E9%81%9C%E5%A5%87%E8%B9%9F" target="_blank" rel="noopener">薩利機長：哈德遜奇蹟</a> 的故事，12/30 早上 HBO 就重播了。</p>
+</blockquote>
+<p>事後的飛安調查中，國家傳輸委員會 (NTSB) 拿當時的飛行參數、用電腦模擬降落在附近機場，結果可以順利降落在機場。以此作為 Sally 誤判的依據。</p>
+<p>底下是 Youtube 找到電影中第一次機長、副機長 (Jeff) 跟 NTSB 的人對話的過程：</p>
+<iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/dAbenxlSqkg?showinfo=0&amp;ecver=1" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+
+
+<p>Sally 要求改用人模擬駕駛，結果負責模擬的駕駛 <code>練習 17 次</code>，才做到完美降落。</p>
+<p>不管是電腦模擬、還是模擬駕駛員在當下，都不需要考慮機上有 155 人，同時他們已經充分知道整個事情的狀況、模擬的情境，而機長 Sally 在事故發生當下，飛機失去動力、低空飛行、機上有 155 個人，只有 208 秒的反應時間。底下台詞，是電影中在聽證會上 Sally 說的事故前提：</p>
+<blockquote>
+<p>這些駕駛的反應根本不像真人  不像首次遇到突發狀況的真人<br>他們顯然事先就完全清楚轉向和航向<br>他們不用花時間進行檢查 沒有啟動輔助動力系統<br>沒有人警告我們<br>沒人說 “你們將在有史以來 最機飛行高度 雙發動機失效”<br>“但別緊張，只要左轉朝向瓜迪雅飛去，就好像去那裡買牛奶一樣”<br>這是在 2800 呎高空失去雙引擎 緊接著立刻水面迫降 機上載著 155 人<br>從來沒有人，接受過這樣的警急訓練<br>沒有人</p>
+</blockquote>
+<p>真實的狀況，是不會知道這些前提的。</p>
+<p><a href="/2017/12/02/DevOps/Spirit-In-SysOps/">系統維運的精神</a> 一文也整理了類似的想法，引用的例子是當時復興航空在台北市基隆河墜機的例子。</p>
+<h2 id="高手對招，臨敵之際"><a href="#高手對招，臨敵之際" class="headerlink" title="高手對招，臨敵之際"></a>高手對招，臨敵之際</h2><p>年少的楊過在華山頂巔，遇到兩位當世奇人：九指神丐洪七公，還有倒練九陰真經，神智不清的義父歐陽鋒，其中有一段描述洪七公指導楊過演繹打狗棍法，歐陽鋒看過招式後一一拆解的過程。這是紙上談兵的演繹，真實狀況，是沒有時間慢慢思考的。</p>
+<p>以下摘自 <code>神雕俠侶 第十一回　百計避敵</code>：</p>
+<blockquote>
+<p>兩人一股勁兒的相逼，楊過無奈，只得走到洪七公身旁。洪七公叫他取過樹枝，將打狗棒法中一招「棒打雙犬」細細說給了他聽。楊過一學即會，當即照式演出。</p>
+<p>歐陽鋒見棒招神奇，果然厲害，一時難以化解，想了良久，將一式杖法說給楊過聽了。楊過依言演出。洪七公微微一笑，讚了聲：「好！」又說了一招棒法。</p>
+<p>兩人如此大費唇舌的比武，比到傍晚，也不過拆了十來招，楊過卻已累得滿身大汗。次晨又比，直過了三天，三十六路棒法方始說完。棒法雖只三十六路，其中精微變化卻是奧妙無窮，越到後來，歐陽鋒思索的時刻越長，但他所回擊的招數，可也儘是攻守兼備、威力凌厲的佳作，洪七公看了也不禁歎服。</p>
+<p>到這日傍晚，洪七公將第三十六路棒法「天下無狗」的第六變說了，這是打狗棒法最後一招最後一變的絕招，這一招仗將出來，四面八方是棒，勁力所至，便有幾十條惡犬也一齊打死了，所謂「天下無狗」便是此義，棒法之精妙，已臻武學中的絕詣。歐陽鋒自是難有對策。當晚他翻來覆去，折騰了一夜。</p>
+<p>次晨楊過尚未起身，歐陽鋒忽然大叫：「有了，有了。孩兒，你便以這杖法破他。」叫聲又是興奮，又是緊迫。楊過聽他呼聲有異，向他瞧去，不禁大吃一驚，原來歐陽鋒雖然年老，但因內功精湛，鬚髮也只略現灰白，這晚用心過度，一夜之間竟然鬚眉盡白，似乎忽然老了十多歲。</p>
+<p>「義父雖然了得，終究是遜於洪老前輩一籌。那打狗棒法使出之時，義父苦思半晌方能拆解，若是當真對敵，那容他有細細凝思琢磨的餘裕？」</p>
+</blockquote>
+<p>歐陽鋒能找出打狗棍法的破解之法固然厲害，但卻也是苦思一夜之後，真正臨敵的時候，能思考的時間是不多的。</p>
+<p>當下直接的決定，反映出平時的訓練以及經驗。</p>
+<h2 id="舞台上的事故：樂團現場的緊急事故"><a href="#舞台上的事故：樂團現場的緊急事故" class="headerlink" title="舞台上的事故：樂團現場的緊急事故"></a>舞台上的事故：樂團現場的緊急事故</h2><p>樂手舞台上表演，音樂正在進行中，對樂手來講緊急事故是什麼？我在 “<a href="http://rickmidi.blogspot.com/2015/01/blog-post.html" target="_blank" rel="noopener">簡單、複雜</a>“ 一文描述很多類似的狀況，摘錄其中一段：</p>
+<blockquote>
+<p>到表演現場的問題會更多，像是：到了現場發現忘了帶 pick 或者譜、吉他弦斷了而且沒有備用的、場地下過雨、沒有棚子（風很大、或者正在下雨）、現場沒有舞台監聽、沒有吉他音箱必須 Line-In、麥克風不夠、舞台太大或太小、另一個吉他手或鍵盤手臨時不來、或者來的吉他手是代班的、聽眾只有三個人，兩個是員工、另一個是路過停下來的、老闆喝醉了要你上去打鼓（你明明是吉他手）、現場沒有鼓、臨時說要改成 unplugged ……. 最慘的是，錢領不到，還要自己想辦法付車馬費。</p>
+</blockquote>
+<p>這些現象其實都還沒真的上舞台，這些都是很常發生在上台前就會有的。表演進行中，很常發生的，像是吉他手斷弦、KB 電源被踢到、麥科風沒聲音、鼓皮被打破、沒有人在聽 (這很常見) …. 台下坐的可能是某個知名的製作人 …</p>
+<p>2012/08/26 兩廳院戶外音樂會來了一個重量級的融合爵士樂團： <a href="http://pan5410.pixnet.net/blog/post/28980187-%E6%97%A5%E6%9C%ACfusion-%E5%A4%A7%E5%9C%98-t-square" target="_blank" rel="noopener">T-Square</a> - 我最喜歡的融合爵士樂團，令人興奮的夜晚！聽了十幾年，第二次有機會親自聽他們的 Live。。。</p>
+<p>不能免俗的，一定要來幾首經典曲，而 <a href="https://www.youtube.com/watch?v=iffqQ_OhcRE" target="_blank" rel="noopener">Truth</a> 是其中一首最有名的經典曲。當時正在演奏這首經典過程中，發生了一段插曲，歌曲 <code>02:27 - 02:56</code> 進到第二次 Bridge 段落時，負責主旋律的 <a href="(http://rickmidi.blogspot.com/2006/12/breath-controller.html">EWI</a> 故障，原本負責和弦部分的吉他手 <a href="https://en.wikipedia.org/wiki/Masahiro_Andoh" target="_blank" rel="noopener">安藤正容</a> 主動接下 Lead 角色，讓音樂繼續進行，工作人員也馬上換上新的 EWI！</p>
+<blockquote>
+<ul>
+<li>EWI: Electric Wind Instrument, 電子吹管樂器。更多參見我的介紹文 <a href="http://rickmidi.blogspot.com/2006/12/breath-controller.html" target="_blank" rel="noopener">Breath Controller 吹管控制器</a></li>
+</ul>
+</blockquote>
+<iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/Ta7Pqyxn9YY?showinfo=0&amp;ecver=1" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+
+
+<p>另外一個例子是著名的藍調吉他手 <a href="https://zh.wikipedia.org/wiki/%E5%8F%B2%E8%92%82%E7%BB%B4%C2%B7%E9%9B%B7%C2%B7%E6%B2%83%E6%81%A9" target="_blank" rel="noopener">Stevie Ray Vaughan, SRV</a> 1989 年 Austin 的演出，Solo 到一半第一弦斷了，SRV 完全臨危不亂的繼續彈奏，而工作人員也不閒著，馬上準備好備用琴，在下一段空擋時，Stevie 回頭示意可以換琴了，技師馬上幫 Stevie 換上新的吉他，讓表演繼續，以下就是當時精彩的錄影：</p>
+<iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/JIFdMbhCa94?showinfo=0&amp;ecver=1" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+
+
+<p>音樂是時間藝術，歌曲進行中，每一個音符的彈奏，都反映樂手自身的<a href="http://rickmidi.blogspot.com/2009/08/blog-post_16.html" target="_blank" rel="noopener">基本功</a>、舞台上每一個呼吸，都是<a href="http://rickmidi.blogspot.com/2008/12/blog-post.html" target="_blank" rel="noopener">樂團</a>的默契與功力。</p>
+<h2 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h2><p>臨敵之際，危難之時，往往都是分秒必爭，不管是面對系統、災難、武功、演出，這些都仰賴於平日扎實的基礎知識訓練，與危機意識的養成。</p>
+<p>警急事件的演練與機制是一個先進國家會有的機制，地震很多的日本是最好的例子，而人民也反映出該有的訓練與危機意識。</p>
+<p>企業應該都是要以永續經營為基本，<a href="/2017/12/02/DevOps/Spirit-In-SysOps/">系統維運的精神</a> 的想法就是以永續為前提。</p>
+<h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><ul>
+<li><a href="/2017/11/04/DevOps/Study-Notes-SRE-Opening-Ch1/">Study Notes - SRE Opening and Chapter 1</a></li>
+<li><a href="/2017/11/27/DevOps/What-is-Ops/">What is Ops?</a></li>
+<li><a href="/2017/11/14/DevOps/Go-Live/">Go Live</a></li>
+<li><a href="/2017/12/02/DevOps/Spirit-In-SysOps/">系統維運的精神</a></li>
+<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></li>
+</ul>
+<h1 id="SRE-Site-Reliability-Engineering"><a href="#SRE-Site-Reliability-Engineering" class="headerlink" title="SRE: Site Reliability Engineering"></a><a href="https://landing.google.com/sre/book.html" target="_blank" rel="noopener">SRE: Site Reliability Engineering</a></h1><ul>
+<li><a href="https://landing.google.com/sre/book/chapters/part3.html" target="_blank" rel="noopener">Part 3 - Practices</a></li>
+<li><a href="https://landing.google.com/sre/book/chapters/being-on-call.html" target="_blank" rel="noopener">CH11 Being On-Call</a></li>
+<li><a href="https://www.slideshare.net/rickhwang/sre-ch12-effective-troubleshooting-83573925" target="_blank" rel="noopener">CH12 Effective Troubleshooting</a></li>
+<li><a href="https://www.slideshare.net/rickhwang/sre-ch13-emergency-response" target="_blank" rel="noopener">CH13 Emergency Response</a></li>
+<li><a href="https://www.slideshare.net/rickhwang/sre-ch13-emergency-response" target="_blank" rel="noopener">CH14 Managing Incidents</a></li>
+<li><a href="https://landing.google.com/sre/book/chapters/postmortem-culture.html" target="_blank" rel="noopener">CH15 Postmortem Culture: Learning from Failure</a></li>
+<li><a href="https://landing.google.com/sre/book/chapters/lessons-learned.html" target="_blank" rel="noopener">CH33 Lessons Learned from Other Industries</a></li>
+</ul>
+<h1 id="電影-“薩利機長：哈德遜奇蹟“-相關資料"><a href="#電影-“薩利機長：哈德遜奇蹟“-相關資料" class="headerlink" title="電影 “薩利機長：哈德遜奇蹟“ 相關資料"></a>電影 “<a href="https://zh.wikipedia.org/wiki/%E8%96%A9%E5%88%A9%E6%A9%9F%E9%95%B7%EF%BC%9A%E5%93%88%E5%BE%B7%E9%81%9C%E5%A5%87%E8%B9%9F" target="_blank" rel="noopener">薩利機長：哈德遜奇蹟</a>“ 相關資料</h1><ul>
+<li>電影：<a href="https://zh.wikipedia.org/wiki/%E8%96%A9%E5%88%A9%E6%A9%9F%E9%95%B7%EF%BC%9A%E5%93%88%E5%BE%B7%E9%81%9C%E5%A5%87%E8%B9%9F" target="_blank" rel="noopener">薩利機長：哈德遜奇蹟</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E5%85%A8%E7%BE%8E%E8%88%AA%E7%A9%BA1549%E8%99%9F%E7%8F%AD%E6%A9%9F%E4%BA%8B%E6%95%85" target="_blank" rel="noopener">全美航空1549號班機事故</a></li>
+<li>電影：<a href="https://www.youtube.com/watch?v=dAbenxlSqkg" target="_blank" rel="noopener">Sally 與 NTSB 對話</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2018/01/22/Misc/Slack-as-RSS-Reader/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2017/12/29/About/About-This-Blog/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2018-01-07 12:43:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#事件處理的生命週期"><span class="toc-article-text">事件處理的生命週期</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#電影：薩利機長：哈德遜奇蹟"><span class="toc-article-text">電影：薩利機長：哈德遜奇蹟</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#高手對招，臨敵之際"><span class="toc-article-text">高手對招，臨敵之際</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#舞台上的事故：樂團現場的緊急事故"><span class="toc-article-text">舞台上的事故：樂團現場的緊急事故</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#結論"><span class="toc-article-text">結論</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀-站內"><span class="toc-article-text">延伸閱讀 (站內)</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#SRE-Site-Reliability-Engineering"><span class="toc-article-text">SRE: Site Reliability Engineering</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#電影-“薩利機長：哈德遜奇蹟“-相關資料"><span class="toc-article-text">電影 “薩利機長：哈德遜奇蹟“ 相關資料</span></a>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/DevOps/" style="color: white">DevOps <span class="badge">28</span></a></span> <span class="label label-info"><a href="/categories/DevOps/SRE/" style="color: white">SRE <span class="badge">18</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Ops/" style="color: white">Ops <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/Monitoring/" style="color: white">Monitoring <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/Emergency-Response/" style="color: white">Emergency Response <span class="badge">4</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

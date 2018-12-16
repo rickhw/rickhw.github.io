@@ -1,0 +1,532 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>需要專職的 Release Engineer？ | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="本文整理 SRE 讀書會 Round 2 的討論與筆記。問題是：
+
+團隊 Release 的角色是否應該專職？(不管是叫 DevOps Engineer or Release Engineer)
+
+那天 (2018/09/13) 討論的章節是 第7章 提交階段，我在回程公車上寫下這段 筆記，重新整理">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="需要專職的 Release Engineer？"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> 需要專職的 Release Engineer？</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> 需要專職的 Release Engineer？</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>本文整理 SRE 讀書會 Round 2 的討論與筆記。問題是：</p>
+<blockquote>
+<p>團隊 Release 的角色是否應該專職？<br>(不管是叫 DevOps Engineer or Release Engineer)</p>
+</blockquote>
+<p>那天 (2018/09/13) 討論的章節是 <code>第7章 提交階段</code>，我在回程公車上寫下這段 <a href="https://www.facebook.com/rick.kyhwang/posts/10209921505113654" target="_blank" rel="noopener">筆記</a>，重新整理成文章，也補充一些想法。</p>
+<p>我從以下幾個面向分析：</p>
+<ul>
+<li>企業階段</li>
+<li>架構與組織</li>
+<li>產品特性</li>
+</ul>
+<a id="more"></a>
+<hr>
+<h2 id="企業階段"><a href="#企業階段" class="headerlink" title="企業階段"></a>企業階段</h2><p>這問題討論到最後一定分成兩種：</p>
+<ul>
+<li><code>不該專職</code>：團隊成員輪著做，不應該專職 (偏向 Agile 的概念)</li>
+<li><code>應該專職</code>：技術 know how 很深，應該專人專職 (偏向傳統、大型組織)</li>
+</ul>
+<p>我想想都對、也都不對，因為這兩個都沒有提到 <code>前提條件與背景</code>，這樣的討論不會有結論。整理前提與背景的組合如下：</p>
+<ol>
+<li>SOP 未確立之前：工具、流程、架構還在混沌狀態<ul>
+<li>一定是專人專職，因為狀況很複雜，流程一直在變，必須用技術來駕馭、控制整個過程。</li>
+<li>這個人對整理狀況有一定掌握度，有一定的技術能力</li>
+<li>通常是新創事業，要即戰力，每個人都是各個領域的專家、高手</li>
+<li>萬事起頭難，需要有經驗的人開始</li>
+</ul>
+</li>
+<li>SOP 很清楚：工具、流程、架構都清楚了<ul>
+<li>誰來點都可以，反正要做的就是那些 A,B,C,….</li>
+<li>只要能夠透過標準化的流程，透過一段時間訓練就可以上手的。</li>
+<li>這表示已經經過時間考驗的結果，經過 (1 焠鍊後的結果。</li>
+</ul>
+</li>
+</ol>
+<p>所以表示 2) 要先有 1) 的結果與歷練，才有辦法在不影響任務的前提下 <code>輪著做</code>。</p>
+<blockquote>
+<p>再說一次：不影響任務的前提！如果會影響任務，那這件事情會造成的現象稱為：<code>壓力</code></p>
+</blockquote>
+<hr>
+<h2 id="架構與組織"><a href="#架構與組織" class="headerlink" title="架構與組織"></a>架構與組織</h2><p>用架構與組織當作兩個維度，結果都是清楚與不清楚。</p>
+<ul>
+<li><code>架構</code>：指的是系統架構的清晰度，包含邊界、依賴性、耦合度等面向。</li>
+<li><code>組織</code>：組織的拆分，人員的專業、團隊的職責，簡單說就是 <a href="/2018/06/13/Management/Role-And-Responsibility/">R&amp;R</a></li>
+</ul>
+<p>這兩個面向，用清楚與不清楚分，所以有四種排列組合：</p>
+<ol>
+<li>架構不清楚、組織不清楚：找技術高手和顧問來幫忙。</li>
+<li>架構不清楚、組織清楚：找技術高手來幫忙。</li>
+<li>架構清楚、組織不清楚：找顧問來協助</li>
+<li>架構清楚、組織清楚：直接往下一個階段走，讓團隊自行發揮</li>
+</ol>
+<p>組織結構與架構無法清楚的時候，造成的問題是：內部空轉以及溝通成本。</p>
+<hr>
+<h2 id="產品特性"><a href="#產品特性" class="headerlink" title="產品特性"></a>產品特性</h2><p>除了 SOP，另外要提的是產品特性的 <code>範圍</code>：</p>
+<ol>
+<li>小範圍：互聯網的軟體，Startup 的核心團隊，或者 Microservice 的 2pizza team，這種一定是大家都要能相互 cover</li>
+<li>大範圍：大型產品（作業系統、火箭、汽車），組織很龐大的 team，例如 M$ 的 Windows Team or Nasa 火箭發射… 這種的團隊一定是專職專人</li>
+</ol>
+<p>現在的 CI/CD 工具鍊複雜度以及觀念，甚至是架構，跟十年前比起來其實差不多。但是擴散的面積已經跟以前不一樣，以前可能只有部分人有辦法看到全貌，現在是大家都可以看到全貌。</p>
+<p>但是問題就在於：</p>
+<blockquote>
+<p>看到全貌 != #可以駕馭全貌</p>
+</blockquote>
+<p>這是兩回事。</p>
+<ul>
+<li><code>駕馭</code>：需要一定的技術能力、專業與經驗</li>
+<li><code>了解全貌</code>：需要組織能力、視野、判斷力、決策力，甚至是策略與戰略</li>
+</ul>
+<h2 id="問題的維度"><a href="#問題的維度" class="headerlink" title="問題的維度"></a>問題的維度</h2><p>我觀察到問題的維度有以下：</p>
+<ul>
+<li>(A) <code>看到全貌</code>：能否看見全貌，分成系統架構、組織架構</li>
+<li>(B) <code>駕馭技術</code>：技術成熟度，包含 CI/CD 工具駕馭、容器化等</li>
+</ul>
+<p>這兩個變因的四種排列組合：</p>
+<ol>
+<li><code>00</code>: 看不到全貌，也無法駕馭技術。放低身段，快點找專家顧問來幫忙。</li>
+<li><code>10</code>: 能看到全貌，卻無法駕馭技術，那就像在玩遙控車：要趕快找高手進來，我們要玩真的。</li>
+<li><code>01</code>: 看不到全貌，可以駕馭技術，跟酒駕沒兩樣，狂踩煞車，卻不知為何而戰。快點找 DevOps 顧問或架構師幫忙。</li>
+<li><code>11</code>: 能看到全貌、能駕馭技術。剩下的問題是：如何讓團隊成員都可以做這件事情。</li>
+</ol>
+<h2 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h2><p>回到開頭的是否需要專職的 DevOps Engineer or Release Engineer？<br>你現在有答案了？</p>
+<hr>
+<h1 id="相關文章-站內"><a href="#相關文章-站內" class="headerlink" title="相關文章 (站內)"></a>相關文章 (站內)</h1><ul>
+<li><a href="/2018/03/20/DevOps/First-Step-To-CICD/">導入 CI/CD 的第一步</a></li>
+<li><a href="/2018/04/01/DevOps/How-To-Make-CICD-Quality/">怎樣的 CI/CD 才夠 Quality?</a></li>
+<li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a></li>
+<li><a href="/2017/12/21/DevOps/What-is-Automation/">What is Automation?</a></li>
+<li><a href="/2018/06/13/Management/Role-And-Responsibility/">Role And Responsibility</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+		
+          <li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+        
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2018/12/15/DevOps/TheProblem-In-DevOps-8-Cycle/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2018-12-16 12:43:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#企業階段"><span class="toc-article-text">企業階段</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#架構與組織"><span class="toc-article-text">架構與組織</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#產品特性"><span class="toc-article-text">產品特性</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#問題的維度"><span class="toc-article-text">問題的維度</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#結論"><span class="toc-article-text">結論</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#相關文章-站內"><span class="toc-article-text">相關文章 (站內)</span></a>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/DevOps/" style="color: white">DevOps <span class="badge">28</span></a></span> <span class="label label-info"><a href="/categories/DevOps/SRE/" style="color: white">SRE <span class="badge">18</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Continuous-Delivery/" style="color: white">Continuous Delivery <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/SRE/" style="color: white">SRE <span class="badge">24</span></a></span> <span class="label label-success"><a href="/tags/Continuous-Integration/" style="color: white">Continuous Integration <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Build/" style="color: white">Build <span class="badge">5</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

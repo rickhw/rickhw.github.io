@@ -1,0 +1,586 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>API Gateway - Custom Domain Names | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="API Gateway 是直接面對使用者的，所以除了 API 本身的描述，面對 Client 的 Endpoint / URL Path 的規劃也很重要，相對應的就會帶出 DNS、SSL、CDN … 等議題，而這些問題，通常上線後都才會注意到。但實際上規劃的不好，不只門面不好看，同時也會造成開發、測">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="API Gateway - Custom Domain Names"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> API Gateway - Custom Domain Names</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> API Gateway - Custom Domain Names</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>API Gateway 是直接面對使用者的，所以除了 API 本身的描述，面對 Client 的 Endpoint / URL Path 的規劃也很重要，相對應的就會帶出 DNS、SSL、CDN … 等議題，而這些問題，通常上線後都才會注意到。但實際上規劃的不好，不只門面不好看，同時也會造成開發、測試、管理、溝通 … 等成本。</p>
+<p>本文整理如何使用 <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html" target="_blank" rel="noopener">Amazon API Gateway</a> 和 AWS 的 Certificate Manager (ACM)、Route53 設定 Custom Domain Name，還有更重要的是規劃完整的 Service 與 Endpoint 要注意的事情。</p>
+<a id="more"></a>
+<h1 id="Configure-the-Custom-Domain-Names"><a href="#Configure-the-Custom-Domain-Names" class="headerlink" title="Configure the Custom Domain Names"></a>Configure the Custom Domain Names</h1><p>這個功能是 <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html" target="_blank" rel="noopener">Amazon API Gateway</a> 後來提供的，早期是要自己把 SSL Public / Private Cert、Chain 放進去，根 ELB 一樣。設定步驟有以下：</p>
+<ol>
+<li>申請 SSL Certificate - ACM</li>
+<li>建立 Custom Domain Names - API Gateway</li>
+<li>設定 DNS - Route53</li>
+</ol>
+<h2 id="Setup-SSL-Certificate-using-ACM"><a href="#Setup-SSL-Certificate-using-ACM" class="headerlink" title="Setup SSL Certificate using ACM"></a>Setup SSL Certificate using ACM</h2><p>切換 Region 到 <code>US East (N. Virginia)</code> 申請適當的名稱，像是是 <code>api.abc.com</code>、或者 <code>*.api.abc.com</code> 。</p>
+<blockquote>
+<p>注意：一定要到 <code>us-east-1</code> 申請，等一下的 Custom Domain Name 才可以使用。</p>
+</blockquote>
+<h2 id="Configure-Custom-Domain-Names-in-API-Gateway"><a href="#Configure-Custom-Domain-Names-in-API-Gateway" class="headerlink" title="Configure Custom Domain Names in API Gateway"></a>Configure Custom Domain Names in API Gateway</h2><p>到 API Gateway -&gt; Custom Domain Names，新增一筆資料。</p>
+<blockquote>
+<p>注意： <code>Domain Name</code> 不能跟其他 region 重複，如果在其他 region 或者 CloudFront 已經有關聯，就會無法建立。</p>
+</blockquote>
+<p>建立的過程，會設定以下：</p>
+<ol>
+<li>Domain Name</li>
+<li>指定 SSL Certificate, 確認已經在 <code>us-east-1</code> 完成</li>
+<li>指定 <code>Base Path Mappings</code>， 可以關聯到不同的 API，規劃後述。</li>
+</ol>
+<p>完成配置後，因為會同步建立 CloudFront，所以會花一點時間建立 (約 30 分)，最後產生 CloudFront 的 DNS，先複製這個名稱。</p>
+<p>好了之後，就可以到 Route53 設定 DNS。</p>
+<h2 id="Base-Path-Mappings"><a href="#Base-Path-Mappings" class="headerlink" title="Base Path Mappings"></a>Base Path Mappings</h2><p><code>Base Path Mappings</code> 跟 API 的 和 Domain Name 的對應有關係，同時也牽涉到未來如何給予客戶的位置有關係。後面將我的規劃當例子說明。</p>
+<h1 id="Planning"><a href="#Planning" class="headerlink" title="Planning"></a>Planning</h1><p>基本的 Domain Name 設定跟 API Gateway 綁定並不難，比較重要的還是怎麼 <code>規劃</code>，規劃得不好，很容易造成溝通成本，還有未來管理的問題。</p>
+<h2 id="Domain-Names-與環境的規則"><a href="#Domain-Names-與環境的規則" class="headerlink" title="Domain Names 與環境的規則"></a>Domain Names 與環境的規則</h2><p>規劃 Domain Name 用以不同的用途，需要考量 <code>Product Line</code> 的概念、環境 … 等，底下以環境為優先考量：</p>
+<ul>
+<li>Production: 正式環境<ul>
+<li><code>api.abc.com</code>: 主要 API Domain Name，通常是核心產品</li>
+<li><code>abc.com</code>: 主要入口 Index</li>
+</ul>
+</li>
+<li>Sandbox: 給客戶試用的，以 <code>sandbox.abc.com</code> 為根節點，也是內部確認問題的環境。<ul>
+<li><code>api.sandbox.abc.com</code>: 主要 Domain Name for Production</li>
+</ul>
+</li>
+<li>Beta: 內部的測試環境，上線前的確認版<ul>
+<li><code>api.beta.abc.com</code></li>
+</ul>
+</li>
+</ul>
+<p>如果有不同產品線，或者事業部，那就要另外規劃不同的 Domain Name，類似這樣規劃：</p>
+<ul>
+<li>Product Line1<ul>
+<li>Index: <code>https://{product1}.abc.com</code></li>
+<li>API: <code>https://api.{product1}.abc.com</code></li>
+</ul>
+</li>
+<li>Product Line2<ul>
+<li>Index: <code>https://{product2}.abc.com</code></li>
+<li>API: <code>https://api.{product2}.abc.com</code></li>
+</ul>
+</li>
+</ul>
+<p>或者買另一個 Domain Name，取新的名字，像是 kkbox / kktv / kkticket …，他們就是買不同的名稱，同屬一個集團。</p>
+<ul>
+<li>BU1<ul>
+<li>Index: <code>https://{BU1}.com</code></li>
+<li>API: <code>https://api.{BU1}.com</code></li>
+</ul>
+</li>
+<li>BU2<ul>
+<li>Index: <code>https://{BU2}.com</code></li>
+<li>API: <code>https://api.{BU2}.com</code></li>
+</ul>
+</li>
+</ul>
+<p>底下舉例另一個產品的代號叫 <code>Mixo</code>，以此作為 Domain Name。他由很多 <code>服務</code> or <code>Microservices</code> 組成，那麼名稱規則是這樣：<code>api.mixo.abc.com/{ServiceName}</code>，如下：</p>
+<ul>
+<li>Production：<ul>
+<li>Index: <code>https://mixo.abc.com</code></li>
+<li>API: <code>https://api.mixo.abc.com</code></li>
+</ul>
+</li>
+<li>Sandbox：<ul>
+<li>Index ：<code>https://sandbox.mixo.abc.com</code></li>
+<li>API: <code>https://api.sandbox.mixo.abc.com</code></li>
+</ul>
+</li>
+<li>Beta：<ul>
+<li>Index ：<code>https://beta.mixo.abc.com</code></li>
+<li>API: <code>https://api.beta.mixo.abc.com</code></li>
+</ul>
+</li>
+<li>Lab{N}：測試環境<ul>
+<li>Index ：<code>https://lab{N}.mixo.abc.com</code></li>
+<li>API: <code>https://api.lab{N}.mixo.abc.com</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><code>Mixo</code> 名稱源自於 調式音階的 <code>調五 Mixolydian</code> 的前置詞，詳細參閱我的音樂 Blog 介紹： <a href="http://rickmidi.blogspot.com/2007/10/blog-post_02.html" target="_blank" rel="noopener">調式概念</a>。實務上 <code>代號</code> 只是內部使用，不適合當作對外的名稱。</p>
+</blockquote>
+<h2 id="服務-Services-or-Micorservices-的規劃"><a href="#服務-Services-or-Micorservices-的規劃" class="headerlink" title="服務 (Services or Micorservices) 的規劃"></a>服務 (Services or Micorservices) 的規劃</h2><p>一個產品底下可能會切很多服務，以下是電子商務常見的服務類型：</p>
+<ul>
+<li><code>Mixo-Pay</code>: 付款</li>
+<li><code>Mixo-Category</code>: 商品頁</li>
+<li><code>Mixo-Member</code>: 會員</li>
+<li><code>Mixo-Order</code>: 訂單</li>
+</ul>
+<p>上述名稱，會對應到 API Gateway 的每一個 API，如下圖：</p>
+<p><img src="/images/AWS/API-Gateway/CustomDomains/mixo-apis.png" alt=""></p>
+<p>然後透過 Custom Domain 的 Mapping，規劃如下：</p>
+<p>Production 環境的規劃：</p>
+<ul>
+<li><code>https://api.abc.com/pay</code>: 付款</li>
+<li><code>https://api.abc.com/category</code>: 商品頁</li>
+<li><code>https://api.abc.com/member</code>: 會員</li>
+<li><code>https://api.abc.com/order</code>: 訂單</li>
+</ul>
+<p>下圖是 <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html" target="_blank" rel="noopener">Amazon API Gateway</a> 的設定方式：</p>
+<p><img src="/images/AWS/API-Gateway/CustomDomains/api.abc.com.png" alt=""></p>
+<p>Beta 環境的規劃，對應到 API 的 <code>beta</code> Stage</p>
+<ul>
+<li><code>https://api.beta.abc.com/pay</code>: 付款</li>
+<li><code>https://api.beta.abc.com/category</code>: 商品頁</li>
+<li><code>https://api.beta.abc.com/member</code>: 會員</li>
+<li><code>https://api.beta.abc.com/order</code>: 訂單</li>
+</ul>
+<p>下圖是 <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html" target="_blank" rel="noopener">Amazon API Gateway</a> 的設定方式：</p>
+<p><img src="/images/AWS/API-Gateway/CustomDomains/beta.api.abc.com.png" alt=""></p>
+<p>這樣的規劃，好處在於 Domain Name 都是同一個，然後每個 Service 都使用同樣的規範，理解之後，可以減少很多溝通成本。</p>
+<p>規劃的邏輯就是：不同的環境使用不同的 Domain Name，然後對應不同的 <code>Stage</code> 作為匹配。</p>
+<p>這些規劃，跟 <code>Microservices</code> 的導入也有關係，沒規劃好，整個開發流程，包含環境、溝通、路徑，一定會是一團亂。影響的將會是很恐怖的溝通成本與部屬紊亂。</p>
+<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>本文紀錄 Custom Domain Name 在 <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html" target="_blank" rel="noopener">Amazon API Gateway</a> 的設定方式，還有在實際的產品如何規劃與使用，跟一開始介紹以 Domain 的概念不一樣，主要是因為取決於產品、與公司的組織有關係。</p>
+<p>另外 URL Path 的規劃，可以參考 AWS 自身服務的規劃，像是 API Gateway 就不是放在 Domain Name 上，他的位址規則大概是這樣：</p>
+<ul>
+<li>https://{AWS_REGION}.console.aws.amazon.com/{ServiceName}</li>
+<li><a href="https://us-west-1.console.aws.amazon.com/api-gateway" target="_blank" rel="noopener">https://us-west-1.console.aws.amazon.com/api-gateway</a></li>
+</ul>
+<p>所以不難想像， AWS 新服務 (e.g., EKS) 出現時，也是透過 API Gateway 擋在前面，然後以此延伸。</p>
+<p>規劃的同時，參考別人怎麼做，從模仿中學習。</p>
+<p>接下來要介紹的是如何跟 VPC 內部既有的服務整合與串接。</p>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
+<li><a href="/2018/01/24/AWS/Study-Notes-Overview-API-Gateway/">Study Notes - Overview API Gateway</a></li>
+<li><a href="/2018/02/04/AWS/Study-Notes-API-Gateway-Custom-Authorizer-using-Lambda/">API Gateway - Custom Authorizers using Lambda</a></li>
+<li><a href="/2018/02/26/AWS/Study-Notes-API-Gateway-Setup-Logging/">API Gateway - Setup Logging</a></li>
+<li><a href="/2018/03/16/AWS/Study-Notes-API-Gateway-Integrate-with-Internal-Services/">API Gateway - Integrate with Internal Services</a></li>
+<li><a href="/2018/04/21/AWS/Study-Notes-API-Gateway-as-DynamoDB-Proxy/">Using API Gateway as DynamoDB Proxy</a></li>
+<li><a href="/2018/05/03/AWS/Study-Notes-API-Gateway-Rate-Limit-and-Throttling/">API Gateway - Rate Limit and Throttling</a></li>
+</ul>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<li><a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html" target="_blank" rel="noopener">Amazon API Gateway</a></li>
+<li><a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html" target="_blank" rel="noopener">Use API Gateway Custom Authorizers</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2018/03/11/DevOps/Conclusion-SRE/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2018/02/26/AWS/Study-Notes-API-Gateway-Setup-Logging/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2018-03-03 14:35:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Configure-the-Custom-Domain-Names"><span class="toc-article-text">Configure the Custom Domain Names</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Setup-SSL-Certificate-using-ACM"><span class="toc-article-text">Setup SSL Certificate using ACM</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Configure-Custom-Domain-Names-in-API-Gateway"><span class="toc-article-text">Configure Custom Domain Names in API Gateway</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Base-Path-Mappings"><span class="toc-article-text">Base Path Mappings</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Planning"><span class="toc-article-text">Planning</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Domain-Names-與環境的規則"><span class="toc-article-text">Domain Names 與環境的規則</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#服務-Services-or-Micorservices-的規劃"><span class="toc-article-text">服務 (Services or Micorservices) 的規劃</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#結論"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/AWS/" style="color: white">AWS <span class="badge">66</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/API-Gateway/" style="color: white">API Gateway <span class="badge">14</span></a></span> <span class="label label-success"><a href="/tags/Route53/" style="color: white">Route53 <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/ACM/" style="color: white">ACM <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/CloudFront/" style="color: white">CloudFront <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/SSL/" style="color: white">SSL <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Microservices/" style="color: white">Microservices <span class="badge">11</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

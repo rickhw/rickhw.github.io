@@ -1,0 +1,500 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo Tuning | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="我試著調整 Hexo 的一些細節，包含了解 Themes 結構、修改 CSS、加入 Facebook 的功能、RSS、了解 Plugin 的概念等等。把這些過程心得，都記錄在這裡。調整部分大概如下：
+
+寫文章的小技巧
+Theme 目錄結構、CSS 微調
+好用的 plugins
+輔助工具
+
+
+寫文章的">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Hexo Tuning"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Hexo Tuning</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Hexo Tuning</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>我試著調整 Hexo 的一些細節，包含了解 Themes 結構、修改 CSS、加入 Facebook 的功能、RSS、了解 Plugin 的概念等等。把這些過程心得，都記錄在這裡。調整部分大概如下：</p>
+<ul>
+<li>寫文章的小技巧</li>
+<li>Theme 目錄結構、CSS 微調</li>
+<li>好用的 plugins</li>
+<li>輔助工具</li>
+</ul>
+<a id="more"></a>
+<h1 id="寫文章的小技巧"><a href="#寫文章的小技巧" class="headerlink" title="寫文章的小技巧"></a>寫文章的小技巧</h1><h2 id="toc"><a href="#toc" class="headerlink" title="toc"></a>toc</h2><p>toc 是 Table of Content 的縮寫，就是文章的目錄結構，可以讓讀者很快掌握文章結構，寫的人在寫文章過程，可以確認自己的思路是有組織的。</p>
+<p>打開 toc 很簡單，只要在 <code>.md</code> 的 header 加入 <code>toc: true</code> 就可以了。</p>
+<p>另外我也重新整理了原本 theme 的版面，讓他可以直接顯示在文章右邊的 sidebar，讀者可以很清楚的了解文章結構。</p>
+<h2 id="異地編輯"><a href="#異地編輯" class="headerlink" title="異地編輯"></a>異地編輯</h2><p>hexo 產生出的資料會放在 github 讓大家瀏覽，但是如果在不同電腦也要寫的時候，就無法寫。所以必須要把 hexo 的原始資料 commit 到 git，然後在另一台電腦 clone 下來。</p>
+<p>不過我遇到一個問題就是，即使在另一台電腦將 source clone 下來之後，寫完文章卻無法透過 <code>hexo generate</code> 正常的產生 html。後來發現，原來對應的 hexo plugin 也要裝好才行。</p>
+<p>所以在 hexo blog 根目錄的 <code>node_modules</code> 確認裝了哪一些 plugins，以下是我的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rick@iWish:17:21:44 node_modules$ ls</span><br><span class="line">hexo-generator-sitemap</span><br><span class="line">hexo-renderer-ejs</span><br><span class="line">hexo-renderer-stylus</span><br><span class="line">hexo-generator-feed</span><br><span class="line">hexo-renderer-marked</span><br></pre></td></tr></table></figure>
+<p>在另一台電腦確認也有裝這些 plugins，那麼應該就可以正常產生 html 了。</p>
+<blockquote>
+<p>寫個 scripts 放到 git，到其他電腦就可以很快安裝了。</p>
+</blockquote>
+<h2 id="Editing-and-debugging"><a href="#Editing-and-debugging" class="headerlink" title="Editing and debugging"></a>Editing and debugging</h2><p>hexo 可以在本地開啟 node.js 來測試，就是 <code>hexo server</code>。除了測試之外，其實也是可以直接 debug 的。</p>
+<p>我現在都是直接開著 server ，然後開始寫文章，除了用 <a href="http://macdown.uranusjr.com/" target="_blank" rel="noopener">MacDown</a> 這種 editor 寫，同時也可以在 browser 直接 preview。</p>
+<p>另外如果在編輯過程中，改了 <code>_config.yml</code>，那麼是需要重啟 hexo server 的。</p>
+<h1 id="Themes-CSS-調整"><a href="#Themes-CSS-調整" class="headerlink" title="Themes / CSS 調整"></a>Themes / CSS 調整</h1><h2 id="目錄結構"><a href="#目錄結構" class="headerlink" title="目錄結構"></a>目錄結構</h2><p>整個 theme 的目錄結構跟 hexo 原始結構差不多，也是以 <code>_config.yml</code> 做主要設定檔。我是拿 <a href="http://github.com/wzpan/Blog-theme-freemind/" target="_blank" rel="noopener">Freemind</a> 做基礎，然後做基本配置的調整。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ theme</span><br><span class="line">   |-- _config.yml</span><br><span class="line">   |-- languages/ 語言翻譯檔</span><br><span class="line">   |-- layout/ 主要面板 template 都在這裡, 檔案都是 .ejs</span><br><span class="line">   |   |-- _partial/</span><br><span class="line">   |   |   |-- post/</span><br><span class="line">   |   |-- _widget/ 小組件，像是 categories, tagcloud 等</span><br><span class="line">   |-- LICENSE</span><br><span class="line">   |-- README.md</span><br><span class="line">   |-- source</span><br><span class="line">   |   |-- css/</span><br><span class="line">   |   |-- fancybox/</span><br><span class="line">   |   |-- fonts/ 一些 icon, freemind 使用 Font-Awesome</span><br><span class="line">   |   |-- img/</span><br><span class="line">   |   |-- js/</span><br></pre></td></tr></table></figure>
+<ul>
+<li>_config.yml: 主要的 theme 設定檔，裡面有頁面配置的基本資訊，另外還有 sidebar 的連結設定.</li>
+</ul>
+<p>其實我在調整過程發現 layout 目錄結構 / 分類有點亂，code 也寫的不是很乾淨，所以之後應該會整個重新整理。整頓好了之後再放到 github 上。</p>
+<h2 id="ejs-template"><a href="#ejs-template" class="headerlink" title="ejs template"></a>ejs template</h2><p>ejs (<a href="https://www.npmjs.com/package/ejs" target="_blank" rel="noopener">Embedded Javascript Templates</a>) 是 Node.js 的 html template engine，直接使用 Node.js 的 expression tag，語法大概就像 JSP 的 EL 那樣。</p>
+<p>基本的用法就是抓 hexo blog 設定檔  <code>_config.yml</code> 的值使用，例如我在系統定義了 <code>profile_title</code>，所以在 ejs 就是 <code>&lt;%= config.profile_title %&gt;</code>；如果變數是定義在 theme 裡面的 <code>_config.yml</code>，像是我定義了變數：<code>facebook_app_id</code>，那就是 <code>&lt;%= theme.facebook_app_id %&gt;</code></p>
+<p>其他一些流程控制、function、includes 等用法，(<a href="https://www.npmjs.com/package/ejs" target="_blank" rel="noopener">Embedded Javascript Templates</a>) 的說明很清楚，或者直接看也不難懂。</p>
+<h2 id="Font-Awesome"><a href="#Font-Awesome" class="headerlink" title="Font-Awesome"></a>Font-Awesome</h2><p>一些可以點綴的圖示，使用的是 <a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank" rel="noopener">Font-Awesome</a>。不難使用，只要套 CSS 即可，像這樣 <code>&lt;i class=&quot;fa fa-info-circle&quot;&gt;&lt;/i&gt;</code> 就可以產生：<i class="fa fa-info-circle"></i>。到官方有一堆可以用，不過記得確認根目錄的 /fonts/ 裡面有沒有對應的資料。</p>
+<h2 id="Bootstrap"><a href="#Bootstrap" class="headerlink" title="Bootstrap"></a>Bootstrap</h2><p>我套用了一些 bootstrap class，讓整個 blog 有別於原本的生冷，讓他有一點溫度，但也不想太輕浮。</p>
+<h2 id="其他調整"><a href="#其他調整" class="headerlink" title="其他調整"></a>其他調整</h2><ul>
+<li>在首頁加入 Jumbotron (大看板)</li>
+<li>調整文章 header css，包含首頁跟單篇的都重新定義</li>
+<li>加入 facebook like 按鈕, comment 功能</li>
+<li>調整時間格式: YYYY/MM/dd mm:HH</li>
+<li>調整單篇文章右邊的 tagcloud, categories 顯示方式</li>
+<li>在文章瀏覽頁面，把右邊 sidebar 的 toc 打開，搬到最上面</li>
+</ul>
+<h1 id="好用的-Hexo-Plugins"><a href="#好用的-Hexo-Plugins" class="headerlink" title="好用的 Hexo Plugins"></a>好用的 Hexo Plugins</h1><ul>
+<li>hexo-generator-feed: 可以產生 RSS，提供給其他網站讀取。我個人的 <a href="http://gtcafe.com" target="_blank" rel="noopener">入口網站</a> 就是用 RSS 做的。</li>
+<li>hexo-generator-sitemap: 產生網站地圖</li>
+</ul>
+<p>安裝 <code>npm install hexo-generator-feed --save</code></p>
+<p>然後在 <code>_config.yml</code> 加入以下兩個 sections 設定，最後去 theme 加入對應的 link 即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># Plugins</span><br><span class="line">plugins:</span><br><span class="line">  - hexo-generator-feed</span><br><span class="line">  - hexo-generator-sitemap</span><br><span class="line"># RSS hexo-generator-feed</span><br><span class="line">feed:</span><br><span class="line">  type: atom</span><br><span class="line">  path: atom.xml</span><br><span class="line">  limit: 20</span><br></pre></td></tr></table></figure>
+<h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><ul>
+<li><a href="/2015/01/15/Blog/Hello-Hexo/">Hello Hexo</a></li>
+<li><a href="/2016/01/09/Blog/Migrate-Hexo_2.8-To-3.1/">Migrate Hexo 2.8 to 3.1</a></li>
+<li><a href="/2017/05/27/Blog/Migrate-Hexo_2.8-To-3.3/">Migrate Hexo 2.8 to 3.3</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2015/02/11/SoftwareEngineering/Version-Control/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2015/01/22/Misc/Embedded-Notes/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2015-01-24 00:16:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#寫文章的小技巧"><span class="toc-article-text">寫文章的小技巧</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#toc"><span class="toc-article-text">toc</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#異地編輯"><span class="toc-article-text">異地編輯</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Editing-and-debugging"><span class="toc-article-text">Editing and debugging</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Themes-CSS-調整"><span class="toc-article-text">Themes / CSS 調整</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#目錄結構"><span class="toc-article-text">目錄結構</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#ejs-template"><span class="toc-article-text">ejs template</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Font-Awesome"><span class="toc-article-text">Font-Awesome</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Bootstrap"><span class="toc-article-text">Bootstrap</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#其他調整"><span class="toc-article-text">其他調整</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#好用的-Hexo-Plugins"><span class="toc-article-text">好用的 Hexo Plugins</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀-站內"><span class="toc-article-text">延伸閱讀 (站內)</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/Blog/" style="color: white">Blog <span class="badge">4</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/hexo/" style="color: white">hexo <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/bootstrap/" style="color: white">bootstrap <span class="badge">2</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

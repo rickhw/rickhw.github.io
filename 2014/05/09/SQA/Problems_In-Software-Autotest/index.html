@@ -1,0 +1,639 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>軟體自動化測試常見的問題 | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="我 po 在 ptt Soft_Job 版的分享, 做一些重新整理, 原文在這裡.
+
+註：這篇是我 2014 年寫的，文中描述的實際發生時間約是 2009 年 (快十年前 orz)，補充一些資訊在最後面。
+
+
+本文 (2014/05/08)以下保持原文的描述與格式。
+自動化測試的目的
+減少人力成本,">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="軟體自動化測試常見的問題"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> 軟體自動化測試常見的問題</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> 軟體自動化測試常見的問題</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>我 po 在 ptt Soft_Job 版的分享, 做一些重新整理, 原文在<a href="http://www.ptt.cc/bbs/Soft_Job/M.1399479677.A.60D.html" target="_blank" rel="noopener">這裡</a>.</p>
+<blockquote>
+<p>註：這篇是我 2014 年寫的，文中描述的實際發生時間約是 2009 年 (快十年前 orz)，補充一些資訊在最後面。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="本文-2014-05-08"><a href="#本文-2014-05-08" class="headerlink" title="本文 (2014/05/08)"></a>本文 (2014/05/08)</h1><p>以下保持原文的描述與格式。</p>
+<h2 id="自動化測試的目的"><a href="#自動化測試的目的" class="headerlink" title="自動化測試的目的"></a>自動化測試的目的</h2><ul>
+<li>減少人力成本, 資源有效利用</li>
+<li>找出潛在性問題, 提早發現 side effect, 維持產品品質穩定</li>
+<li>找出效能問題</li>
+<li>執行回歸測試, 特別是維護階段, 或者客製化 (Custom Build) 的維護</li>
+<li>規劃的好, 有所謂認證的價值, 公信力.</li>
+</ul>
+<h2 id="實際遇到的問題-血淋淋"><a href="#實際遇到的問題-血淋淋" class="headerlink" title="實際遇到的問題 (血淋淋)"></a>實際遇到的問題 (血淋淋)</h2><p>不過大部分, 做到後來都不知道在幹嘛 …. 很多案子, 我看到的問題經常是:</p>
+<ul>
+<li>通常找不到什麼問題, 因為整個自動化程式都是問題</li>
+<li>自動化測試不是用來找測試的, 是用來維護的</li>
+<li>Bug 都是自動化程式自己的問題, 沒有業績, 只有黑箱</li>
+<li>為了自動而自動</li>
+<li>沒有規劃, 所以不同的 QA/Tester 會用不同方式寫, C/Python/Perl/Java/Shell … 大亂鬥, 接手的很過癮 …</li>
+<li>Test case 相依性太高, case 1 跑完後, case 2 就不能跑了, 因為環境爛掉了, 偏偏後面還有 2000 個要跑, 結果你已經下班了, 明天早上要給報告. 發現時已經是隔天進辦公室的時候了.</li>
+<li>Test script 本身沒有 quality. 所以那 2000 個不知道怎麼來的.</li>
+<li>幾個 cycle/stage 之後, 自動化測試能跑就不錯了</li>
+<li>通常寫 autotest 的人, 不知道啥叫做 source control ….</li>
+<li>自動化測試好不容易可以跑了, 結果忘了換 build, 發現時已經是隔天早上.</li>
+<li>Developer 通常不想因為需要配合自動化, 而幫 QA/Tester 在 Code 加東西/開洞, 因為自己的東西都做不完了, 搞不好幫到最後變成自己的 orz ..</li>
+<li>Developer 有時間/願意配合了, 不過找到可以開洞的 third-party lib 又是一個大問題, 因為已經不能動 or 版本太舊了 (沒人維護了)</li>
+<li>QA/Tester 通常也沒啥 Coding skill, 也不知道怎麼跟 Developer 提出需求. 而且 PM 也不知道那是做啥的, 所以 QA 就是找一些工具 (ex: selenium), 錄一錄, 然後只能跑幾次 … 或者常常不知道為啥突然不能動了.</li>
+<li>GUI automation 看看就好, 不管是 Web/Window App/Mobile, 因為那些重點都在 <strong>自動</strong>, 但不是在 <strong>測試流程</strong>, 也不是在找問題, 製造的問題不少</li>
+<li>大部份的 test tools 都只是用來安裝用的</li>
+<li>自動化程式通常換一個環境就毀了</li>
+<li>沒有完整的報表/Log, 無法缺陷分析, 更別提和 Issue tracking system, or test management system 整合</li>
+<li>自動化測試工具本身的品質堪慮 … .(ex: RFT, 我不知道現在有沒好一點)</li>
+<li>自動化測試不只是 test script 而已, 還包含自動部署, flow control/timer, rework/rerun mechanism, schedule and job contorl, status, report interface 不過九成能動就不錯了, 剩下的都不知道是啥鬼.</li>
+<li>自動化測試仰賴 PM/Develoer 推動 CI 相關流程, 同時把產品界面定義清楚. 產品界面就是 product name, version, revision, build type …. etc. 一個還好, 當同時有十幾個時候, 就不好玩了.</li>
+<li>大部分自動化 ‘程式’ 不會當作正式的 ‘程式’, 所以九成九都是垃圾 code …, 放到 source control 會被排擠.</li>
+<li>…. 不想列了 …… orz.</li>
+</ul>
+<p>會出現 garbage code 有很多原因:</p>
+<ul>
+<li>歷史因素: 交接很多次了, 有時候為了滿足上面的要求, “暫時” 改幾行. 這個 “暫時” 是怎麼一回事? 不要問, 很恐怖.</li>
+<li>不知道 test framework life cycle: 把 code 裡的 init value當 config 用, 所以也是 “暫時” …</li>
+<li>把 “暫時” 的 commit 了 …</li>
+<li>為了某個特別的目的, 改掉整個流程 … (通常改的人不會知道影響有多大) 因為他自己可以跑就好, 這也是一種 “暫時” …</li>
+<li>有在用 framework 寫產品的常會遇到, 某些時候一些寫法就是不正確, 但是大部份的 developer 不會去改 framework 的 source code, 因為他知道應該是自己使用錯誤, 或者對於 life cycle 不了解. 不過接 auto test 很多時候會直接跑去改 framework 的 code … 然後 … You know ….</li>
+</ul>
+<blockquote>
+<p>2018/05/05: 補充</p>
+<p>這段文字保留原文有很大的原因：因為十年來發現歷史不斷再重演，很多老闆真的很天真，不知道 <code>自動化</code> 的前提該要什麼，為了自動而自動。所以如果你是管理階層、有經驗的資深工程師，建議想想這些，因為出來混，是要還的。希望這些建議與經驗，可以讓大家少走一點冤枉路。</p>
+<p>相關文章：</p>
+<ul>
+<li>2017/11/12: <a href="/2017/11/12/DevOps/Gossip-Automation/">自動化帶來的問題</a></li>
+<li>2017/08/30: <a href="/2017/08/30/DevOps/Automation-or-Process/">『自動化 XXX』的陷阱</a></li>
+<li>2018/03/20: <a href="/2018/03/20/DevOps/First-Step-To-CICD/">導入 CI/CD 的第一步</a></li>
+</ul>
+</blockquote>
+<h2 id="自動化測試流程上的的建議"><a href="#自動化測試流程上的的建議" class="headerlink" title="自動化測試流程上的的建議"></a>自動化測試流程上的的建議</h2><p>我想說的是, 要做軟體自動化, 從頭就要跟 developer 同步進行, 最好是 pair programming + TDD, developer 提供對應的 config, component key, 然後能夠有不同的 build type (debug, release) …</p>
+<ul>
+<li>config 是未來自動部署時才有辦法設定在不同的環境;</li>
+<li>component key 指的是自動化工具要取得 UI object 的識別, html 就是 id, iOS 是 label, andorid … 我不想說了. 不然自動化程式裡就是一堆 n 度空間的 array  …. 然後 developer 隨便調一個 UI, 自動化程式從此自動消失.</li>
+<li>PM 把 version role 定義好, CI 那邊才好串. 阿不然今天 1.3.e-3425, 明天變成 0.1.ab0c-1 … (不要懷疑, 我真的看過)<ul>
+<li>see <a href="/2015/02/11/SoftwareEngineering/Version-Control/">Version Control</a></li>
+</ul>
+</li>
+<li>debug 可以讓程式或者 QA/Tester 調整一些參數, 增加測試的廣度與深度</li>
+<li>developer 在 code 寫的 log = input of autotest, 所以不要亂寫一些沒用的東西, 很難趴</li>
+</ul>
+<blockquote>
+<p>測試仰賴流程標準化 (SOP), 來亂的很難有品質, 相關參見：</p>
+<ul>
+<li><a href="/2015/01/06/Management/協同合作系統建制與導入-以-Redmine-為例/">協同合作系統建制與導入 - 以 Redmine 為例</a></li>
+<li><a href="/2017/09/14/SoftwareEngineering/Software-Development-Lifecycle/">Software Development Lifecycle</a></li>
+</ul>
+</blockquote>
+<h2 id="自動化測試導入"><a href="#自動化測試導入" class="headerlink" title="自動化測試導入"></a>自動化測試導入</h2><p>兩個時間點:</p>
+<ul>
+<li>新的案子, 剛開始. 最好是 prototype 出來的時間</li>
+<li>案子已經在維護了, 不會有新的需求進來, 但是會修 bug, 最重要是這個案子賺錢.</li>
+</ul>
+<p>進行中的案子不要導入自動化, 除非時間很多.</p>
+<h2 id="開發自動化工具-or-Framework-的重點"><a href="#開發自動化工具-or-Framework-的重點" class="headerlink" title="開發自動化工具 or Framework 的重點"></a>開發自動化工具 or Framework 的重點</h2><p>市面上有很多工具, 不過很多都太過強調 ‘錄’ 一些東西, 特別是 GUI 的, 錄 Web/錄手機/Window App … 錄下來的 Code 都不能看 … 我覺得那只是行銷手法.</p>
+<p>以下是我覺得 survey 或者自行開發一套自動化工具時的重點:</p>
+<ul>
+<li>Config / Data-driven</li>
+<li>分類的功能</li>
+<li>很有彈性的 Runner</li>
+<li>Report</li>
+<li>Log 分析 / Pattern</li>
+<li>圖形分析</li>
+<li>Timing control</li>
+<li>測試流程與文件產出器</li>
+<li>找物件的 libraries 有完整的封裝 (GUI automation 常出現的問題)</li>
+<li>資源利用 / 分散式執行 (趕流行)</li>
+<li>提供 libraries 讓 QA/Tester 也可以參與寫 script / debug</li>
+<li>提供詳細的 debug 流程方法</li>
+<li>和 Issue Tracking System / Test Management 整合</li>
+<li>lib 擴充性和文件產生工具</li>
+<li>工具自己要有品質 (某大公司的 RFT …. )</li>
+</ul>
+<blockquote>
+<p>關於實作 Test Architecture and Framework 的一些想法，整理在 <a href="/2018/05/12/SQA/Designing-Test-Architecture-and-Framework/">Designing Test Architecture and Framework</a> 。</p>
+</blockquote>
+<h2 id="測試角色的定義"><a href="#測試角色的定義" class="headerlink" title="測試角色的定義"></a>測試角色的定義</h2><ul>
+<li>SDET (Software Developer Engineer in Test)<ul>
+<li>做過 developer 最好.</li>
+<li>寫自動化測試 Framework 或者研究老闆指定的工具</li>
+<li>寫 plugin (像是針對 JMeter 寫 plugin)</li>
+<li>維護/針對新功能提供 Libraries</li>
+<li>Document / Sample Code</li>
+</ul>
+</li>
+<li>QA:<ul>
+<li>寫 test spec</li>
+<li>利用自動化測試框架寫 test script / debug</li>
+<li>執行寫好的 test script, 跑 overnight</li>
+<li>回報/驗證爸個</li>
+</ul>
+</li>
+<li>Tester: 手動執行<ul>
+<li>根據 QA 寫的 test spec 跑測試</li>
+<li>回報/驗證爸個</li>
+</ul>
+</li>
+</ul>
+<h2 id="自動化測試在專案裡的執行注意事項"><a href="#自動化測試在專案裡的執行注意事項" class="headerlink" title="自動化測試在專案裡的執行注意事項"></a>自動化測試在專案裡的執行注意事項</h2><ul>
+<li>寫 test script 本身也是一件 Coding 的工作, 一樣要 design, coding, unit test, code review, source control .. 要 Q (誰來 Q?)</li>
+<li>十個 test script 可以一個人執行, 不用 config 一樣可以正常上下班; 2000 個 test script, 怎麼執行? config? 維護? report? (400M 的 log 怎麼分析啊啊阿啊啊啊啊) … 這 2000 個要跑 20 次 (因為有 20 個客戶 QQ) …<ul>
+<li>其中一個客戶要求每個 case 再跑時, 同時要跑 db access, 增加 concurrent; 另一個客戶說, 某一些 case 參數要調成 0800956956 … 去把 2000 test script 叫出來重寫嗎? 然後要 concurrent 咧 … 連 DB … 對了, 20 客戶有不同的 build, 要記得換 build. 然後下一個 phase 就剩下 20 個可以跑, 因為改爛了 … 然後你就跑了. 所以 config 的設計與彈性, 比你想像的還重要. 鮮少 autotest tool 會加強這塊的.</li>
+</ul>
+</li>
+<li>test script 的內容重點在測試流程, 不是一堆找物件的 function … 那些東西應該是 lib 要寫好, SDET 要搞定的<ul>
+<li>test script 重點是: <strong>流程 驗證 記錄</strong></li>
+</ul>
+</li>
+<li>寫 test script 之前, 要充分了解 requirement / spec, 不過大部分 requirement / spec 都不充分 XDD</li>
+<li>自動化可以和手動測試同步進行最好.</li>
+<li>以前嚴重的 bug 要盡可能的放到 bucket, 有機會就自動化.</li>
+<li>如果有 TDD, 那麼就把自動化測試考慮進去吧 ~~</li>
+<li>如果是自行開發 test framework, 最好用 framework test self. 保證 framework 本身以及 libaries 都是 qualify.<ul>
+<li>文件 文件 文件</li>
+<li>z &gt; b</li>
+</ul>
+</li>
+</ul>
+<p>寫的有點怨念, 大概沒回到原 po 的問題 XDD</p>
+<p>BTW: 有興趣去看看一本書叫做 <code>How google tests software</code>, 作者也有一些怨念 XD</p>
+<h2 id="補充"><a href="#補充" class="headerlink" title="補充"></a>補充</h2><p>回復一些版友的問題:</p>
+<p>推 Wolfken:重點在自動化測試要有多年coding經驗，一些沒多少經驗的 05/08 01:06<br>→ Wolfken:tester寫出來的當然問題百出，最好還有developer一起下來 05/08 01:07<br>→ Wolfken:幫忙弄架構跟寫一部分的code 05/08 01:07</p>
+<blockquote>
+<p>基本上 “自動化程式” 也是程式, 除了要有 Coding 能力,<br>更重要有 “分析能力”, 因為往往 developer 產出的東西,<br>複雜度會比原本 requirement / spec 更複雜,<br>我的經驗, 做自動化程式最好就是 developer,<br>或者要 train developer 測試的基礎概念.</p>
+</blockquote>
+<p>→ umum29:現在開發的架構也越來越傾向測試優先阿 如TDD 05/08 11:54</p>
+<blockquote>
+<p> 也不見得, DHH 說 TDD 已死 …<br> see: <a href="http://www.ithome.com.tw/news/87245" target="_blank" rel="noopener">http://www.ithome.com.tw/news/87245</a><br> TDD 表示: over my dead body</p>
+<p> 經驗告訴我, TDD 可以讓大家 (Developer/QA/PM) 思考,<br> 產品的樣子應該是什麼, 但這不表示會抹煞工程師的創造力.</p>
+</blockquote>
+<hr>
+<h1 id="後記-Updated-2018-05-02"><a href="#後記-Updated-2018-05-02" class="headerlink" title="後記 (Updated: 2018/05/02)"></a>後記 (Updated: 2018/05/02)</h1><p>這篇是我 2014 年寫的，文中描述的實際發生時間約是 2009-2011 年 (快十年前 orz) ….</p>
+<p>隨著技術的快速發展，新的東西不斷出來，各式各樣的測試工具與平台如雨後春筍，相關的理論、學派、書也都在討論測試、討論持續整合、持續交付。後來我其實已經很少在看技術面的東西，今天跟測試 Team 同事聊了之後，發現實際的問題沒改變，也就是就是：十年前跟現在都是面對同樣的問題，問題就是：</p>
+<blockquote>
+<ul>
+<li>讀了很多人推的書，但是上面寫的東西不是高大上、就是太理想、或者太空泛</li>
+<li>不然就是沒人沒資源沒時間</li>
+<li>自動化的技術跟現場需求對不上、跟不上</li>
+<li>自動化程式本身的問題很多，最後手動最快</li>
+</ul>
+</blockquote>
+<p>自動化測試這件事情，因為他『自動』的特性，和我後來做監控、部署 …. 本質性都有很高程度的類似，所以我可以有個參考基礎，然後延伸改變。。。</p>
+<p>恩，突然覺得，十年前我有機會作文中描述的事情，還滿酷 XDD~~~ 因為能做這件事的公司，不太多。</p>
+<h2 id="補充-updated-2018-05-05"><a href="#補充-updated-2018-05-05" class="headerlink" title="補充 (updated: 2018/05/05)"></a>補充 (updated: 2018/05/05)</h2><p>底下這張圖來自 <a href="https://medium.freecodecamp.org/coding-explained-in-25-profound-comics-8847ea03819c" target="_blank" rel="noopener">Coding Explained in 25 Profound Comics #21: When you want to automate everything</a>，大概就是在說我想表達的意思：</p>
+<p><img src="/images/DevOps/Automation/AboutAutomation.png" alt="When you want to automate everything"></p>
+<h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><ul>
+<li>SQA 相關<ul>
+<li><a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a></li>
+<li><a href="/2015/10/11/SQA/How-To-Be-An-SQA/">How to be an SQA?</a></li>
+<li><a href="/2015/08/20/SQA/Three-Kinds-Of-QA/">三種 QA</a></li>
+</ul>
+</li>
+<li>軟體開發流程相關<ul>
+<li><a href="/2015/01/06/Management/協同合作系統建制與導入-以-Redmine-為例/">協同合作系統建制與導入 - 以 Redmine 為例</a></li>
+<li><a href="/2015/02/11/SoftwareEngineering/Version-Control/">Version Control</a></li>
+<li><a href="/2017/09/14/SoftwareEngineering/Software-Development-Lifecycle/">Software Development Lifecycle</a></li>
+</ul>
+</li>
+<li>自動化經驗談<ul>
+<li><a href="/2017/08/30/DevOps/Automation-or-Process/">『自動化 XXX』的陷阱</a></li>
+<li><a href="/2017/11/12/DevOps/Gossip-Automation/">自動化帶來的問題</a></li>
+<li><a href="/2015/02/14/Software-Engineering/Talk-About-Parser/">Talk about compiler and parser</a>: 以前寫自動化測試 Framework 自己土炮寫過 DSL.</li>
+<li><a href="/2018/05/12/SQA/Designing-Test-Architecture-and-Framework/">Designing Test Architecture and Framework</a>: 設計自動化測試架構與 Framework 經驗談</li>
+<li><a href="/2018/03/20/DevOps/First-Step-To-CICD/">導入 CI/CD 的第一步</a></li>
+</ul>
+</li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2014/07/08/Management/專案管理雜技/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2014/05/09/Management/個人工作管理/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2014-05-09 19:33:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#本文-2014-05-08"><span class="toc-article-text">本文 (2014/05/08)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#自動化測試的目的"><span class="toc-article-text">自動化測試的目的</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#實際遇到的問題-血淋淋"><span class="toc-article-text">實際遇到的問題 (血淋淋)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#自動化測試流程上的的建議"><span class="toc-article-text">自動化測試流程上的的建議</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#自動化測試導入"><span class="toc-article-text">自動化測試導入</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#開發自動化工具-or-Framework-的重點"><span class="toc-article-text">開發自動化工具 or Framework 的重點</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#測試角色的定義"><span class="toc-article-text">測試角色的定義</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#自動化測試在專案裡的執行注意事項"><span class="toc-article-text">自動化測試在專案裡的執行注意事項</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#補充"><span class="toc-article-text">補充</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#後記-Updated-2018-05-02"><span class="toc-article-text">後記 (Updated: 2018/05/02)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#補充-updated-2018-05-05"><span class="toc-article-text">補充 (updated: 2018/05/05)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀-站內"><span class="toc-article-text">延伸閱讀 (站內)</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/軟體測試/" style="color: white">軟體測試 <span class="badge">9</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Automation/" style="color: white">Automation <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/Software-Test/" style="color: white">Software Test <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/System-Design/" style="color: white">System Design <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/TDD/" style="color: white">TDD <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

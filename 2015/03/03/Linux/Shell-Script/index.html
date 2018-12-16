@@ -1,0 +1,522 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Shell Script | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="記錄一些 Unix/Linux 常用的 shell and script 概念.
+
+login and non-login shell登入 shell 分兩種狀態，分別是 login shell 和 non-login shell.
+
+login shell: 需要打 id/pwd 的
+login ">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Shell Script"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Shell Script</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Shell Script</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>記錄一些 Unix/Linux 常用的 shell and script 概念.</p>
+<a id="more"></a>
+<h2 id="login-and-non-login-shell"><a href="#login-and-non-login-shell" class="headerlink" title="login and non-login shell"></a>login and non-login shell</h2><p>登入 shell 分兩種狀態，分別是 <code>login shell</code> 和 <code>non-login shell</code>.</p>
+<ol>
+<li><code>login shell</code>: 需要打 id/pwd 的<ul>
+<li>login shell 會依序讀取:<ol>
+<li><code>/etc/profile</code></li>
+<li><code>~/.bash_profile</code></li>
+<li><code>~/.bash_login</code></li>
+<li><code>~/.profile</code></li>
+</ol>
+</li>
+<li>後面三個是使用者的設定, 只要找到其中一個, 其他的就不會讀.</li>
+</ul>
+</li>
+<li><code>non-login shell</code>: 已經在 X-Window 裡了, 不需要登入動作, 或者像是執行 cron job.<ul>
+<li>依序讀取: <code>/etc/bashrc</code> -&gt; <code>~/.bashrc</code></li>
+</ul>
+</li>
+<li><code>source /etc/profile</code>: 用來重新載入這些設定, 而不需要重新開 shell, 像是跑 cron job, 需要用到完整的訊息, 我就會這樣寫, 以下是每天自動開關 AWS Instance 的例子:</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Boot/Shutdown AWS Instance</span><br><span class="line">40 7 * * 1-5 source /etc/profile; /opt/aws/ec2-api-tools/1.7.1.0/bin/ec2-start-instances -O xxx -W yyy --region ap-northeast-1 i-xyz</span><br><span class="line">45 7 * * 1-5 source /etc/profile; /opt/aws/ec2-api-tools/1.7.1.0/bin/ec2-start-instances -O xxx -W yyy --region ap-northeast-1 i-xyz</span><br><span class="line">30 19 * * 1-5  source /etc/profile; /opt/aws/ec2-api-tools/1.7.1.0/bin/ec2-stop-instances -O xxx -W yyy --region ap-northeast-1 i-xyz</span><br><span class="line"></span><br><span class="line"># Backup database</span><br><span class="line">0 0 * * * source /etc/profile; /root/bin/backup_db.sh</span><br><span class="line">0 1 * * 1-5 find /home/backup/mysql -mtime +90 -delete</span><br></pre></td></tr></table></figure>
+<h2 id="使用-crontab-的注意事項"><a href="#使用-crontab-的注意事項" class="headerlink" title="使用 crontab 的注意事項"></a>使用 crontab 的注意事項</h2><p>ubuntu 裡，可以直接在 crontab 裡直接附加環境變數，像是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">APP_HOME=/usr/local/bin/app1</span><br><span class="line">40 7 * * 1-5 /path/script.sh</span><br></pre></td></tr></table></figure>
+<p>這樣 script.sh 就可以直接使用。</p>
+<p>但是在 centos 裡的無法這樣使用，所以一班會把環境變數在 script 裡宣告。</p>
+<p>crontab 的 debug 最常遇到的問題就是手動跑 script 沒問題，進入 crontab 跑問題就一堆，而且通常都不知道原因在哪。</p>
+<p>debug 的方法很簡單，寫一個 script 如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">date &gt;&gt; /tmp/test.sh</span><br><span class="line">env &gt;&gt; /tmp/test.sh</span><br><span class="line">whoami &gt;&gt; /tmp/test.sh</span><br><span class="line">pwd &gt;&gt; /tmp/test.sh</span><br></pre></td></tr></table></figure>
+<p>確認這裡的東西是正常的，如預期的。問題通常都在這裡。</p>
+<h2 id="stdin-stdout-stderr"><a href="#stdin-stdout-stderr" class="headerlink" title="stdin / stdout / stderr"></a>stdin / stdout / stderr</h2><ul>
+<li>stdin: 代碼 <code>0</code> 或者用 <code>&lt;</code> or <code>&lt;&lt;</code></li>
+<li>stdout: 代碼 <code>1</code>, 或者用 <code>&gt;</code> or <code>&gt;&gt;</code></li>
+<li>stderr: 代碼 <code>2</code>, 或者用 <code>2&gt;</code> or <code>2&gt;&gt;</code><ul>
+<li>只顯示 stdout, 將 stderr 的訊息丟掉: <code>commd 2&gt; /dev/null</code></li>
+</ul>
+</li>
+<li>將 stdout / stderr 資料都寫入同一個檔案, 兩種寫法:<ol>
+<li><code>cmd &gt; log 2&gt;&amp;1</code>, ex: <code>find /Users/ -name &gt; /tmp/log 2&gt;&amp;1</code></li>
+<li><code>cmd &amp;&gt; log</code>, ex: <code>find /Users/ -name &amp;&gt; /tmp/log</code></li>
+</ol>
+</li>
+</ul>
+<hr>
+<h2 id="Environment-Variables"><a href="#Environment-Variables" class="headerlink" title="Environment Variables"></a>Environment Variables</h2><p>一些隱含的環境變數，經常在 shell script 使用, 打 <code>set</code> or <code>env</code> 可以看到一堆. <code>env</code>: 只會列出環境變數, <code>set</code> 除了環境變數, function 也會列出來.</p>
+<ul>
+<li><code>$$</code>: 顯示目前的 PID (Process ID)</li>
+<li><code>cd -</code>: 上一個執行的路徑, 等於 <code>cd $OLDPWD</code></li>
+<li><code>cd ~</code>: 表示 <code>cd $HOME</code></li>
+</ul>
+<h2 id="return-code"><a href="#return-code" class="headerlink" title="return code"></a>return code</h2><ul>
+<li><code>$?</code>: 上一個 command 的 return code,<ul>
+<li><code>rc = 0</code>: 沒有 exception or error</li>
+<li><code>rc &gt; 0</code>: 執行結果問題, 參考 <code>man command</code> 的說明</li>
+</ul>
+</li>
+</ul>
+<p>Return code 可以搭配 <code>&amp;&amp;</code>, <code>||</code> 使用, 也就是連續執行 command 後, 會依據 rc 結果判斷是否繼續執行.</p>
+<ul>
+<li><code>cmd1 &amp;&amp; cmd2</code>: cmd1 結果 (rc) 為 0, 才繼續執行 cmd2</li>
+<li><code>cmd1 || cmd2</code>: cmd1 結果為 0, cmd2 不會繼續執行</li>
+<li><code>cmd1; cmd2</code>: 依序執行 cmd, 不管結果如何</li>
+</ul>
+<h2 id="history"><a href="#history" class="headerlink" title="history"></a>history</h2><p>unix base 大多支援 cli 的 history, 善用它可以解省很多敲字，增加工作效率。</p>
+<ul>
+<li><code>history</code>: 顯示歷史指令, 每個指令前面都會有序號，可以透過 <code>!{N}</code> 直接執行</li>
+<li><code>control + r</code>: 用關鍵字搜尋歷史</li>
+<li>可以設定 history 顯示的格式，在 <code>~/.bashrc</code> 加入以下，就會顯示日期和時間</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># format of history</span></span><br><span class="line"><span class="built_in">export</span> HISTTIMEFORMAT=<span class="string">'%F %T '</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<li><a href="http://linux.vbird.org/linux_basic/0320bash.php" target="_blank" rel="noopener">認識與學習 BASH</a></li>
+<li><a href="http://linux.vbird.org/linux_basic/0340bashshell-scripts.php" target="_blank" rel="noopener">學習 Shell Scripts</a></li>
+</ul>
+<h1 id="Updated"><a href="#Updated" class="headerlink" title="Updated"></a>Updated</h1><ul>
+<li>2017/05/27: Add history, crontab</li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2015/03/18/Management/為將之道/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2015/02/26/DevOps/Git-Setup-and-Migrate-SVN/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2015-03-03 15:37:03
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#login-and-non-login-shell"><span class="toc-article-text">login and non-login shell</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#使用-crontab-的注意事項"><span class="toc-article-text">使用 crontab 的注意事項</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#stdin-stdout-stderr"><span class="toc-article-text">stdin / stdout / stderr</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Environment-Variables"><span class="toc-article-text">Environment Variables</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#return-code"><span class="toc-article-text">return code</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#history"><span class="toc-article-text">history</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Updated"><span class="toc-article-text">Updated</span></a>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/Linux/" style="color: white">Linux <span class="badge">10</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Linux/" style="color: white">Linux <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/bash/" style="color: white">bash <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/crontab/" style="color: white">crontab <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

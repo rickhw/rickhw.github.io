@@ -1,0 +1,602 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>File Descriptor and Open File | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="春節前一週個週末，因為一個服務系統異常，讓我又重新 review 關於 File Descriptor (以下簡稱 FD) 的概念。上次整理 已經是兩年前的，再重新讀了相關資料，整理以下部分：
+
+FD 基本概念
+設定層級，以及各個層級的詳細設定方法和關係
+FD 應用場景與問題
+
+
+
+File Des">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="File Descriptor and Open File"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> File Descriptor and Open File</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> File Descriptor and Open File</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>春節前一週個週末，因為一個服務系統異常，讓我又重新 review 關於 <code>File Descriptor</code> (以下簡稱 FD) 的概念。<a href="/2016/02/20/Linux/Open-File-Limit/">上次整理</a> 已經是兩年前的，再重新讀了相關資料，整理以下部分：</p>
+<ul>
+<li>FD 基本概念</li>
+<li>設定層級，以及各個層級的詳細設定方法和關係</li>
+<li>FD 應用場景與問題</li>
+</ul>
+<a id="more"></a>
+<hr>
+<h1 id="File-Descriptor"><a href="#File-Descriptor" class="headerlink" title="File Descriptor"></a>File Descriptor</h1><p>依照 <a href="https://en.wikipedia.org/wiki/File_descriptor" target="_blank" rel="noopener">wiki</a> 的描述，<code>File Descriptor</code> 是 Unix-like OS 裡的抽象處理標記 (indicator, handle)，一般用來處理檔案或者輸入輸出 (input / output) 的資源，像是 <code>pipe</code> 或者 <code>network socket</code>。</p>
+<p>FD 源自於 <a href="https://en.wikipedia.org/wiki/POSIX" target="_blank" rel="noopener">POSIX</a>, 他是非負數的 <code>integer</code>, 通常是 C 語言的 <code>int</code> type. 每一個 Unix process 預期有三個 POSIX FD:</p>
+<ol>
+<li><code>stdin</code>: value 0</li>
+<li><code>stdout</code>: value 1</li>
+<li><code>stderr</code>: value 2</li>
+</ol>
+<p>在 terminal 每一個指令在執行的時候，都會產生 process 以及對應的 <code>PID</code>。這些 process 執行的時候，他們相關的資料，在 Linux 會存放在 <code>/proc/PID/</code> 底下。</p>
+<p>底下是取的 PID 相關資訊的方法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 取的當前的 PID</span></span><br><span class="line">~$ <span class="built_in">echo</span> $$</span><br><span class="line">25737</span><br><span class="line"></span><br><span class="line"><span class="comment">## find process runtime variables.</span></span><br><span class="line">~$ ls /proc/25737</span><br><span class="line">attr/       coredump_filter  gid_map     mem         oom_adj        <span class="built_in">sched</span>      statm</span><br><span class="line">autogroup   cpuset           io          mountinfo   oom_score      schedstat  status</span><br><span class="line">auxv        cwd@             latency     mounts      oom_score_adj  sessionid  syscall</span><br><span class="line">cgroup      environ          limits      mountstats  pagemap        setgroups  task/</span><br><span class="line">clear_refs  exe@             loginuid    net/        personality    smaps      timers</span><br><span class="line">cmdline     fd/              map_files/  ns/         projid_map     stack      uid_map</span><br><span class="line">comm        fdinfo/          maps        numa_maps   root@          <span class="built_in">stat</span>       wchan</span><br><span class="line"></span><br><span class="line"><span class="comment"># ls FD</span></span><br><span class="line">~$ ls /proc/25737/fd</span><br><span class="line">0  1  2  255</span><br><span class="line"></span><br><span class="line"><span class="comment"># find limit of process</span></span><br><span class="line">~$ cat /proc/25737/limits</span><br><span class="line">Limit                     Soft Limit           Hard Limit           Units</span><br><span class="line">Max cpu time              unlimited            unlimited            seconds</span><br><span class="line">Max file size             unlimited            unlimited            bytes</span><br><span class="line">Max data size             unlimited            unlimited            bytes</span><br><span class="line">Max stack size            8388608              unlimited            bytes</span><br><span class="line">Max core file size        0                    unlimited            bytes</span><br><span class="line">Max resident <span class="built_in">set</span>          unlimited            unlimited            bytes</span><br><span class="line">Max processes             7862                 7862                 processes</span><br><span class="line">Max open files            1024                 4096                 files</span><br><span class="line">Max locked memory         65536                65536                bytes</span><br><span class="line">Max address space         unlimited            unlimited            bytes</span><br><span class="line">Max file locks            unlimited            unlimited            locks</span><br><span class="line">Max pending signals       7862                 7862                 signals</span><br><span class="line">Max msgqueue size         819200               819200               bytes</span><br><span class="line">Max nice priority         0                    0</span><br><span class="line">Max realtime priority     0                    0</span><br><span class="line">Max realtime timeout      unlimited            unlimited            us</span><br></pre></td></tr></table></figure>
+<p>透過 <code>/proc/PID</code> 裡的資訊，可以知道很多 process 的資訊，通常找問題，或者資源不足時，可以先從這裡下手。</p>
+<hr>
+<h1 id="FD-的設定層級範圍"><a href="#FD-的設定層級範圍" class="headerlink" title="FD 的設定層級範圍"></a>FD 的設定層級範圍</h1><p>分成 <code>Shell Session</code>、<code>User Level</code>、<code>System Level</code> 三個層級：</p>
+<ul>
+<li><code>Shell Session</code>: 調整當前的 FD 數，指令為 <code>ulimit</code><ul>
+<li>一班使用者只能減小不能變大</li>
+<li>root 則不受限制</li>
+</ul>
+</li>
+<li><code>User Level</code>: 指定特定使用者的預設值，設定檔在 <code>/etc/security/limits.conf</code></li>
+<li><code>System Level</code>: 系統開機時 <code>OpenFiles</code> 的設定值<ul>
+<li>這是軟設定，可以隨時調整、或者小於 User Level / Shell Session</li>
+<li>設定值存在 <code>/proc/sys/fs/file-max</code></li>
+</ul>
+</li>
+</ul>
+<p>底下分別說明三個的差異。</p>
+<hr>
+<h2 id="Shell-Session-ulimit"><a href="#Shell-Session-ulimit" class="headerlink" title="Shell Session: ulimit"></a>Shell Session: <code>ulimit</code></h2><p><a href="https://ss64.com/bash/ulimit.html" target="_blank" rel="noopener">ulimit</a> 是使用者登入時 shell session 的 limit，可以查詢或者修改當前的 session 的各種 limit，包含 open file descriptors, amount of cpu time, number of processes, … 等一堆。manual 的第一句描述如下：</p>
+<blockquote>
+<p>ulimit provides control over the resources available to the shell and to processes started by it, on systems that allow such control.</p>
+</blockquote>
+<p>注意，不是限制單一 <code>process</code> 的數量，而是一個 shell 或者特定 user 的身份。</p>
+<p>針對 <code>OpenFiles</code> 常用的參數就是 Soft and Hard limit, 底下顯示 open file 的狀況：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 顯示最大 `Hard Limit`</span></span><br><span class="line"><span class="built_in">ulimit</span> -Hn</span><br><span class="line"></span><br><span class="line"><span class="comment"># 顯示最大 `Soft Limit`</span></span><br><span class="line"><span class="built_in">ulimit</span> -Sn</span><br></pre></td></tr></table></figure>
+<p>臨時調整 open file limit:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ulimit</span> -n 10000</span><br></pre></td></tr></table></figure>
+<p>但是這個設定，離開 Shell Session 就無效了。</p>
+<p>底下做了一個實驗，流程大概是：</p>
+<ol>
+<li>取得現在 bash 的 <code>PID</code>，不更改 Number of Open Files (NOF)</li>
+<li>fork 第二層 bash process，更改 NOF</li>
+<li>fork 第三層 bash process，確認 NOF</li>
+<li>離開第三層，確認 NOF</li>
+<li>離開第二層，確認 NOF</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 取的當前 PID</span></span><br><span class="line">~$ <span class="built_in">echo</span> $$</span><br><span class="line">26941</span><br><span class="line"></span><br><span class="line"><span class="comment">## 顯示當前 NOF</span></span><br><span class="line">~$ <span class="built_in">ulimit</span> -n</span><br><span class="line">1024</span><br><span class="line"></span><br><span class="line"><span class="comment">## fork child bash</span></span><br><span class="line">~$ bash</span><br><span class="line"></span><br><span class="line"><span class="comment">## 顯示 NOF</span></span><br><span class="line">~$ <span class="built_in">ulimit</span> -n</span><br><span class="line">1024</span><br><span class="line"></span><br><span class="line"><span class="comment">## 更改 open file limit</span></span><br><span class="line">~$ <span class="built_in">ulimit</span> -n 2048</span><br><span class="line"></span><br><span class="line"><span class="comment">## 確認</span></span><br><span class="line">~$ <span class="built_in">ulimit</span> -n</span><br><span class="line">2048</span><br><span class="line"></span><br><span class="line"><span class="comment">## 再 fork child bash</span></span><br><span class="line">~$ bash</span><br><span class="line"></span><br><span class="line"><span class="comment">## 顯示 NOF</span></span><br><span class="line">~$ <span class="built_in">ulimit</span> -n</span><br><span class="line">2048</span><br><span class="line"></span><br><span class="line"><span class="comment">## 顯示當前 process tree</span></span><br><span class="line">~$ ps f -g26941</span><br><span class="line">  PID TTY      STAT   TIME COMMAND</span><br><span class="line">26941 pts/1    Ss     0:00 -bash</span><br><span class="line">27211 pts/1    S      0:00  \_ bash</span><br><span class="line">27489 pts/1    S      0:00      \_ bash</span><br><span class="line">27786 pts/1    R+     0:00          \_ ps f -g26941</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 離開第三層 bash</span></span><br><span class="line">~$ <span class="built_in">exit</span></span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 第二層的 NOF</span></span><br><span class="line">~$ <span class="built_in">ulimit</span> -n</span><br><span class="line">2048</span><br><span class="line"></span><br><span class="line"><span class="comment">## 顯示當前 process tree</span></span><br><span class="line">~$ ps f -g26941</span><br><span class="line">  PID TTY      STAT   TIME COMMAND</span><br><span class="line">26941 pts/1    Ss     0:00 -bash</span><br><span class="line">27211 pts/1    S      0:00  \_ bash</span><br><span class="line">27787 pts/1    R+     0:00      \_ ps f -g26941</span><br><span class="line"></span><br><span class="line"><span class="comment">## 離開第二層 bash，回到第一層</span></span><br><span class="line">~$ <span class="built_in">exit</span></span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 顯示 NOF</span></span><br><span class="line">~$ <span class="built_in">ulimit</span> -n</span><br><span class="line">1024</span><br></pre></td></tr></table></figure>
+<p>這個實驗得到幾個結論：</p>
+<ul>
+<li>ulimit 的設定是 session 的，離開就會失效</li>
+<li>forked process 會使用 ulimit 的設定，取代 <code>limits.conf</code> 的值</li>
+</ul>
+<hr>
+<h2 id="User-Level-limits-conf"><a href="#User-Level-limits-conf" class="headerlink" title="User Level: limits.conf"></a>User Level: <code>limits.conf</code></h2><p>這是 PAM (Pluggable Authentication Modules) 的設定，主要可以針對使用者、群組，然後設定不同資源的限制。底下是 <code>man limits.conf</code> 的描述：</p>
+<blockquote>
+<p>The <code>pam_limits.so</code> module applies ulimit limits, nice priority and number of simultaneous login sessions limit to user login sessions. This description of the configuration file syntax applies to the <code>/etc/security/limits.conf</code> file and <code>*.conf</code> files in the <code>/etc/security/limits.d</code> directory.</p>
+</blockquote>
+<p><code>limits.conf</code> 的設定位置： <code>/etc/security/limits.conf</code>，內容主要有底下四個欄位：</p>
+<blockquote>
+<p>[domain]  [type]  [item]  [value]</p>
+</blockquote>
+<ul>
+<li>domain: a username, group, wildcard</li>
+<li>type:<ul>
+<li><code>hard</code>: for enforcing hard resource limits. These limits are set by the superuser and enforced by the Kernel. The user cannot raise his requirement of system resources above such values.</li>
+<li><code>soft</code>: for enforcing soft resource limits. These limits are ones that the user can move up or down within the permitted range by any pre-existing hard limits. The values specified with this token can be thought of as default values, for normal system usage.</li>
+<li><code>-</code>: for enforcing both soft and hard resource limits together.</li>
+</ul>
+</li>
+<li>item:<ul>
+<li><code>nofile</code>: number of file</li>
+<li><code>nproc</code>: number of processes</li>
+<li><code>fsize</code>: maximum filesize (KB)</li>
+<li>很多 … 略</li>
+</ul>
+</li>
+<li>value: -1, unlimited or infinity<ul>
+<li>預設是 <code>1024</code></li>
+</ul>
+</li>
+</ul>
+<p>修改完 <code>/etc/security/limits.conf</code>，不用重開機，只要重新登入就會生效。</p>
+<p>使用者登入時，如果 <code>limits.conf</code> 有設定，則使用，沒有設定，就是預設 1024。需要臨時調整則使用 <code>ulimit -n [num]</code></p>
+<hr>
+<h2 id="System-Level-file-max"><a href="#System-Level-file-max" class="headerlink" title="System Level: file-max"></a>System Level: <code>file-max</code></h2><p><code>man proc</code> 找到 <code>file-max</code> 的說明如下：</p>
+<blockquote>
+<p>This file defines a system-wide limit on the number of open files for all processes. System calls that fail when encountering this limit fail with the error <code>ENFILE</code>.  (See also <code>setrlimit(2)</code>, which can be used by a process to set  the per-process limit, <code>RLIMIT_NOFILE</code>, on the number of files it may open.)  If you get lots of error messages in the kernel log about running out of file handles (look for “VFS: file-max limit <number> reached”), try increasing this value:</number></p>
+<pre><code>echo 100000 &gt; /proc/sys/fs/file-max
+</code></pre><p>The kernel constant <code>NR_OPEN</code> imposes an upper limit on the value that may be placed in file-max.<br>Privileged processes (CAP_SYS_ADMIN) can override the file-max limit.</p>
+</blockquote>
+<p>目前系統最大的 FD 值，這個值在開機的時候會被設定。</p>
+<ul>
+<li>預設值為 <code>8192</code></li>
+<li>如果記憶體的十分之一大於預設值，那就不會是 8192，會是記憶體的十分之一大小。<ul>
+<li>例如 c4.xlarge 記憶體為 7.5GiB，所以 file-max 為 760264</li>
+<li>詳細計算的 source code 參閱：<a href="https://serverfault.com/questions/716578/default-value-of-proc-sys-fs-file-max" target="_blank" rel="noopener">Default value of /proc/sys/fs/file-max</a> 說明</li>
+</ul>
+</li>
+<li>需要臨時調整大小，可以直接 <code>echo 100000 &gt; /proc/sys/fs/file-max</code>，會馬上生效。</li>
+<li>查詢 <code>file-max</code> 的方法：<ol>
+<li><code>cat /proc/sys/fs/file-max</code></li>
+<li><code>sysctl fs.file-max</code></li>
+</ol>
+</li>
+</ul>
+<p>除了直接改 <code>/proc/sys/fs/file-max</code>，也可以修改 <code>/etc/sysctl.conf</code>，如下：</p>
+<figure class="highlight bash"><figcaption><span>/etc/sysctl.conf</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fs.file-max = 100000</span><br></pre></td></tr></table></figure>
+<p>然後下 <code>sysctl -p</code> 就會馬上生效，或者：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -w fs.file-max=100000</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="查詢某個-Process-的-FD-Limit"><a href="#查詢某個-Process-的-FD-Limit" class="headerlink" title="查詢某個 Process 的 FD Limit"></a>查詢某個 Process 的 FD Limit</h2><p>直接查詢 <code>/proc/[PID]/limits</code> 就可以知道，設定是否正確被 process 吃到，如下 <code>Max open files</code> 的值就是修改後的：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">~$ cat /proc/26643/limits</span><br><span class="line"></span><br><span class="line">Limit                     Soft Limit           Hard Limit           Units</span><br><span class="line">Max cpu time              unlimited            unlimited            seconds</span><br><span class="line">Max file size             unlimited            unlimited            bytes</span><br><span class="line">Max data size             unlimited            unlimited            bytes</span><br><span class="line">Max stack size            8388608              unlimited            bytes</span><br><span class="line">Max core file size        0                    unlimited            bytes</span><br><span class="line">Max resident <span class="built_in">set</span>          unlimited            unlimited            bytes</span><br><span class="line">Max processes             65535                65535                processes</span><br><span class="line">Max open files            65535                65535                files</span><br><span class="line">Max locked memory         65536                65536                bytes</span><br><span class="line">Max address space         unlimited            unlimited            bytes</span><br><span class="line">Max file locks            unlimited            unlimited            locks</span><br><span class="line">Max pending signals       15741                15741                signals</span><br><span class="line">Max msgqueue size         819200               819200               bytes</span><br><span class="line">Max nice priority         0                    0</span><br><span class="line">Max realtime priority     0                    0</span><br><span class="line">Max realtime timeout      unlimited            unlimited            us</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="相關應用與問題"><a href="#相關應用與問題" class="headerlink" title="相關應用與問題"></a>相關應用與問題</h1><ul>
+<li>limits.conf 的值可以大於 file-max?<ul>
+<li>可以, 因為 file-max 只是建議值</li>
+</ul>
+</li>
+<li>FD 跟什麼應用有關係？<ul>
+<li>TCP Connection, Log</li>
+</ul>
+</li>
+<li>Hard Limit 的上限是多少？跟硬體資源有關係？</li>
+<li>同上，Soft Limit 上限？</li>
+<li>Windows 有 File Descriptor 或者 limit 這種概念？<ul>
+<li>也有，概念不太一樣，參閱 <a href="https://serverfault.com/questions/249477/windows-server-2008-r2-max-open-files-limit" target="_blank" rel="noopener">Windows Server 2008 R2 max open files limit</a></li>
+</ul>
+</li>
+<li><code>file-max</code> 改很小系統會怎樣？</li>
+</ul>
+<h2 id="相關工具"><a href="#相關工具" class="headerlink" title="相關工具"></a>相關工具</h2><ul>
+<li>ulimit</li>
+<li>lsof: list open file</li>
+<li>sysctl: system control</li>
+<li><a href="https://en.wikipedia.org/wiki/Fuser_(Unix)" target="_blank" rel="noopener">fuser</a></li>
+<li>netstat</li>
+</ul>
+<hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
+<li><a href="/2016/02/20/Linux/Open-File-Limit/">Open File Limit</a></li>
+<li><a href="/2015/03/03/Linux/Shell-Script/">Shell Script</a></li>
+</ul>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li>Wiki: <a href="https://en.wikipedia.org/wiki/File_descriptor" target="_blank" rel="noopener">File Descriptor</a></li>
+<li><a href="https://serverfault.com/questions/716578/default-value-of-proc-sys-fs-file-max" target="_blank" rel="noopener">Default value of /proc/sys/fs/file-max</a></li>
+<li><a href="http://blog.51cto.com/wushank/1617874" target="_blank" rel="noopener">linux最大文件句柄数量之（file-max ulimit -n limit.conf）</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2018/02/26/AWS/Study-Notes-API-Gateway-Setup-Logging/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2018/02/21/AWS/Inter-Region-VPC-Peering/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2018-02-24 03:08:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#File-Descriptor"><span class="toc-article-text">File Descriptor</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#FD-的設定層級範圍"><span class="toc-article-text">FD 的設定層級範圍</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Shell-Session-ulimit"><span class="toc-article-text">Shell Session: ulimit</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#User-Level-limits-conf"><span class="toc-article-text">User Level: limits.conf</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#System-Level-file-max"><span class="toc-article-text">System Level: file-max</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#查詢某個-Process-的-FD-Limit"><span class="toc-article-text">查詢某個 Process 的 FD Limit</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#相關應用與問題"><span class="toc-article-text">相關應用與問題</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#相關工具"><span class="toc-article-text">相關工具</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/Linux/" style="color: white">Linux <span class="badge">10</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/File-Descriptor/" style="color: white">File Descriptor <span class="badge">2</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

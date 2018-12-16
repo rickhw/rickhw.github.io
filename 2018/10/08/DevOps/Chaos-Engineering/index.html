@@ -1,0 +1,579 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Chaos Engineering (混沌工程) | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="整理一些關於 Chaos Engineering 的資料。
+
+
+
+
+經典好文底下整理一些我個人讀過的文章、演講，並摘錄一些重點。
+
+Intro to Chaos Engineering
+
+By Tammy, she is
+
+Principal Site Reliability Engineer at">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Chaos Engineering (混沌工程)"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Chaos Engineering (混沌工程)</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Chaos Engineering (混沌工程)</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>整理一些關於 Chaos Engineering 的資料。</p>
+<a id="more"></a>
+<!--
+# 前言
+
+- 當代架構和基礎設施通常是變動的、短暫的、不可預測的（聽起來根本是來亂的 XD)。
+- 災難還原 (DR) 通常執行要很久、很貴（而且本身就是個災難）
+- 每個 IT Team 都要做 Chaos Engineering，但是層次可能不一樣，有的專注在 OS / Networking Level，有的專注在應用層 (App)
+- Chaos Engineering 是一個可以探索和管理未知問題的方法，進而提升系統的韌性
+- 要玩 Chaos Engineering 請先做好監控、決定哪些服務是最重要的。。。否則混屯工程會變混亂工程。。。
+-->
+<!--
+# 混沌
+
+Chaos 中文意思是 `混沌`、`混亂`
+
+-->
+<hr>
+<h1 id="經典好文"><a href="#經典好文" class="headerlink" title="經典好文"></a>經典好文</h1><p>底下整理一些我個人讀過的文章、演講，並摘錄一些重點。</p>
+<hr>
+<h3 id="Intro-to-Chaos-Engineering"><a href="#Intro-to-Chaos-Engineering" class="headerlink" title="Intro to Chaos Engineering"></a><a href="https://www.youtube.com/watch?v=qHykK5pFRW4" target="_blank" rel="noopener">Intro to Chaos Engineering</a></h3><iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/qHykK5pFRW4?showinfo=0&amp;ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+<p>By Tammy, she is</p>
+<ul>
+<li>Principal Site Reliability Engineer at #remlin</li>
+<li>former <code>Senior SRE Manager</code> at Dropbox</li>
+<li>and co-founder of <code>GirlGeekAcademy</code></li>
+</ul>
+<p>Published: 2018/02/06</p>
+<hr>
+<h3 id="Chaos-Engineering-Compaines-People-Tools-amp-Practices"><a href="#Chaos-Engineering-Compaines-People-Tools-amp-Practices" class="headerlink" title="Chaos Engineering: Compaines, People, Tools &amp; Practices"></a><a href="https://coggle.it/diagram/5a229c7860c0c20001ae6caf/t/chaos-engineering-companies%2C-people%2C-tools-practices/1960e86c369b09c4deac3227885bb073ae258e637b1b9e57be274125ac6e57b2" target="_blank" rel="noopener">Chaos Engineering: Compaines, People, Tools &amp; Practices</a></h3><p>一張很大的 mindmap (如下圖) 呈現 Chaos Engineering 相關的公司、推廣的人、工具、實踐原則 … 等資訊</p>
+<p><img src="/images/ChaosEngineering/CHAOS_ENGINEERING_Companies_People_Tools__Practices_20181008.png" alt=""></p>
+<hr>
+<h3 id="Awesome-Chaos-Engineering"><a href="#Awesome-Chaos-Engineering" class="headerlink" title="Awesome Chaos Engineering"></a><a href="https://github.com/dastergon/awesome-chaos-engineering" target="_blank" rel="noopener">Awesome Chaos Engineering</a></h3><p>如標題，我只能用 Awesome 來形容！這個 github 上整理了大部分 Chaos Engineering 的經典資料，包含文化面、書本、教育、工具、論文、Blog、新聞、研討會 … 等，幾乎想得到的，都可以在這裡找到。如果想要深入了解 Chaos Engineering 到底是什麼，把這裡的文章爬過就得到了！</p>
+<hr>
+<h3 id="混沌工程实践经验：如何让系统在生产环境中稳定可靠"><a href="#混沌工程实践经验：如何让系统在生产环境中稳定可靠" class="headerlink" title="混沌工程实践经验：如何让系统在生产环境中稳定可靠"></a><a href="http://www.infoq.com/cn/articles/chaos-engineering-in-production" target="_blank" rel="noopener">混沌工程实践经验：如何让系统在生产环境中稳定可靠</a></h3><p>這篇文章整理提到在正式環境中面對的挑戰以及問題，特別像是 Netflix 這種公司。底下是自 Netflix 2013 QCon 很經典的圖：</p>
+<p><img src="/images/ChaosEngineering/2013QCon-Nexflix.png" alt=""></p>
+<p>我很喜歡文章中的這兩句話，常常拿來提醒自己：</p>
+<ul>
+<li>不是你選擇那一刻，是那一刻選擇你，而你唯一能選擇的就是作好準備。 (You don’t choose the moment, the moment chooses you.)</li>
+<li>混屯工程不是製造問題，是揭露問題。 (You only choose how prepared you are when it does.)</li>
+</ul>
+<p>Chaos 談的很多是 <code>連鎖性</code> 問題，這點在 SRE CH22 有類似的介紹，也可以說是我在談<a href="/2018/03/18/SQA/Gossip-System-Testing/">系統測試</a> 的概念。</p>
+<ul>
+<li>原文：<a href="https://blog.codecentric.de/en/2018/07/chaos-engineering/" target="_blank" rel="noopener">Chaos Engineering – withstanding turbulent conditions in production</a> - 2018/07/05</li>
+</ul>
+<hr>
+<h3 id="Chaos-Engineering的历史、原则以及实践"><a href="#Chaos-Engineering的历史、原则以及实践" class="headerlink" title="Chaos Engineering的历史、原则以及实践"></a><a href="http://www.infoq.com/cn/articles/chaos-engineering-the-history-principles-and-practice" target="_blank" rel="noopener">Chaos Engineering的历史、原则以及实践</a></h3><p>這篇整理了很多 Chaos Engineering 相關的資料，入門必讀。底下摘錄一些重點：</p>
+<ul>
+<li>混沌工程最先出现在互联网巨头公司中，这些公司拥有大规模的分布式系统，因为这些系统太过复杂，他们需要一些新的手段来测试它们。</li>
+<li>为什么要有目的地搞破坏？就像打疫苗可以预防疾病一样，我们可以通过混沌工程来提升系统的免疫能力。我们向系统注入故障（比如延迟、CPU故障、网络黑洞），找出系统潜在的弱点。</li>
+<li>这些试验增强了我们应对故障的能力，就像防火演习一样。通过有目的地搞破坏，可以识别出未知的问题。</li>
+<li>Peter Deutsch提出的分布式系统八大谬论概括了程序员新手可能对分布式系统做出的错误假设：<ul>
+<li>网络是可靠的、延迟是零、带宽是无限的、网络是安全的</li>
+<li>拓扑结构不会变、存在管理员这样的角色、传输成本是零、网络是同质的</li>
+</ul>
+</li>
+<li>混沌工程執行次序：已知、未知的排列組合<br><img src="/images/ChaosEngineering/Execute-ChaosEng.png" alt=""></li>
+</ul>
+<p>Published: 2018/04/08</p>
+<hr>
+<h3 id="Chaos-Engineering-for-the-Business"><a href="#Chaos-Engineering-for-the-Business" class="headerlink" title="Chaos Engineering for the Business"></a><a href="https://medium.com/russmiles/chaos-engineering-for-the-business-17b723f26361" target="_blank" rel="noopener">Chaos Engineering for the Business</a></h3><p>這篇整理曾商業角度來看道 Chaos Engineering 這個很技術性、很工程性的任務，他整理六個點，其中第四點是工程師一定要知道的。</p>
+<p>底下摘錄重點：</p>
+<ul>
+<li>Tip №1: Don’t be afraid to drop the term</li>
+<li>Tip №2: It’s about Confidence, not Breaking Things</li>
+<li>Tip №3: Put Blast Radius and Learning Front and Centre</li>
+<li>Tip №4: Not just about Infrastructure, or even just the Technical<br><img src="/images/ChaosEngineering/Chaos-with-layers.png" alt=""></li>
+<li>Tip №5: It doesn’t have to be a big, up-front investment</li>
+<li>Tip №6: Know the benefits, know the limitations; don’t over-promise!</li>
+</ul>
+<hr>
+<h2 id="相關詞彙"><a href="#相關詞彙" class="headerlink" title="相關詞彙"></a>相關詞彙</h2><p>Chaos Engineering 的詞彙很多，底下是我在文章中常看到的，僅供參考：</p>
+<ul>
+<li>理論<ul>
+<li><a href="https://zh.wikipedia.org/wiki/%E6%B7%B7%E6%B2%8C%E7%90%86%E8%AE%BA" target="_blank" rel="noopener">Chaos theory, 混沌理論</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E4%B8%89%E4%BD%93%E9%97%AE%E9%A2%98" target="_blank" rel="noopener">三體問題</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E9%87%8F%E5%AD%90%E5%8A%9B%E5%AD%B8" target="_blank" rel="noopener">量子力學</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E8%9D%B4%E8%9D%B6%E6%95%88%E5%BA%94" target="_blank" rel="noopener">蝴蝶效應</a></li>
+<li>Antifragile (反脆弱): Chaos 的目的是什麼？反脆弱應該是其一。</li>
+<li><a href="https://zh.wikipedia.org/wiki/%E9%BB%91%E5%A4%A9%E9%B5%9D%E6%95%88%E6%87%89_(%E6%9B%B8%E7%B1%8D)" target="_blank" rel="noopener">黑天鵝效應 (black swan)</a>：在一群白天鵝中出現一隻黑天鵝(black swan)，被解讀為「最不可能發生但總是發生的事」。<ul>
+<li>所謂黑天鵝，是指看似極不可能發生的事件，它具三大特性：<code>不可預測性</code>、<code>衝擊力強大</code>、以及，<code>一旦發生之後，我們會編造出某種解釋，使它看起來不如實際上那麼隨機，而且更易於預測</code>。</li>
+<li>Google的驚人成就就是一個黑天鵝事件；九一一也是。</li>
+<li>為什麼要等到事情發生之後，我們才認得出黑天鵝現象呢？部分的答案是，在應該注意普遍現象時，人們長久以來卻習慣注意特定事件。我們習慣注意已經知道的事情，卻一而再再而三忽略我們所不知道的事情。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>工程方法<ul>
+<li>Chaos Monkey: Netflix 發明的搗亂方法</li>
+<li>SRE: Chaos Engineering 跟 SRE 有密不可分的關係</li>
+<li>Distributed Systems (分散式系統): 之所以會有這樣的需求，肇因於分散式系統這麼複雜的東西被大量實踐。</li>
+<li>Microservices: 微服務是分散式系統的實踐方法之一。也是現代最流行的架構，想當然耳，他一定要面對 Chaos Engineering.</li>
+<li>Disaster Recovery (災難還原)</li>
+<li>GameDay: 大家來找碴的一天</li>
+<li>resilience (韌性): 不倒翁</li>
+<li>elasticity (彈性): 我進來啦 我又出去啦</li>
+</ul>
+</li>
+</ul>
+<!--
+認同意外存在的可能性，並且利用他。
+
+-->
+<hr>
+<h2 id="其他資訊"><a href="#其他資訊" class="headerlink" title="其他資訊"></a>其他資訊</h2><p>相關資訊很多，底下是我看過的。如果你不知道從哪開始，那就從 <a href="https://github.com/dastergon/awesome-chaos-engineering" target="_blank" rel="noopener">Awesome Chaos Engineering</a> 開始，這裡整理的算是最完整的。</p>
+<ul>
+<li><a href="https://github.com/Netflix/chaosmonkey" target="_blank" rel="noopener">Netflix 在 github 的 Chaos Monkey</a></li>
+<li><a href="https://github.com/chaoseng/wg-chaoseng" target="_blank" rel="noopener">Chaos Engineering Working Group</a>: Chaos 加入 CNCF 討論群</li>
+<li><a href="https://www.infoq.com/presentations/chaos-engineering-resilient-systems" target="_blank" rel="noopener">Chaos Engineering: Why the World Needs More Resilient Systems</a></li>
+<li><a href="https://www.slideshare.net/hornsby/chaos-engineering-why-breaking-things-should-be-practised-93761039" target="_blank" rel="noopener">Chaos Engineering: Why Breaking Things Should Be Practised</a></li>
+<li><a href="https://www.youtube.com/watch?v=qHykK5pFRW4" target="_blank" rel="noopener">Intro to Chaos Engineering</a></li>
+<li><a href="http://www.infoq.com/cn/articles/chaos-engineering-the-history-principles-and-practice" target="_blank" rel="noopener">Chaos Engineering 的历史、原则以及实践</a></li>
+<li><a href="https://www.slideshare.net/hornsby/chaos-engineering-why-breaking-things-should-be-practised-93761039" target="_blank" rel="noopener">Chaos Engineering: Why Breaking Things Should Be Practised</a></li>
+<li><a href="https://cloudacademy.com/blog/what-is-chaos-engineering-failure-becomes-reliability/?utm_source=facebook&amp;utm_medium=social&amp;utm_campaign=blog_tyler" target="_blank" rel="noopener">What is Chaos Engineering? Failure Becomes Reliability</a></li>
+<li><a href="https://thenewstack.io/how-chaos-engineering-can-drive-kubernetes-reliability/" target="_blank" rel="noopener">How Chaos Engineering Can Drive Kubernetes Reliability</a></li>
+<li><a href="https://github.com/dastergon/awesome-chaos-engineering" target="_blank" rel="noopener">Awesome Chaos Engineering</a>: A curated list of awesome Chaos Engineering resources.</li>
+<li><a href="https://www.youtube.com/watch?v=rgfww8tLM0A" target="_blank" rel="noopener">AWS re:Invent 2017 - Nora Jones Describes Why We Need More Chaos - Chaos Engineering, That Is</a></li>
+<li><a href="https://www.infoq.com/presentations/netflix-chaos-microservices" target="_blank" rel="noopener">Mastering Chaos - A Netflix Guide to Microservices</a></li>
+<li><a href="https://github.com/resilience4j/resilience4j" target="_blank" rel="noopener">Resilience4j</a></li>
+<li>書<ul>
+<li><a href="http://www.oreilly.com/webops-perf/free/chaos-engineering.csp" target="_blank" rel="noopener">Chaos Engineering - Building Confidence in System Behavior through Experiments</a></li>
+</ul>
+</li>
+</ul>
+<!--
+## 相關議題
+
+* [【键客行】如何应对不可知的未来](https://www.youtube.com/watch?v=LQGJZNok8SE) - 《黑天鹅》《反脆弱》《随机漫步的傻瓜》
+-->
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2018/11/14/DevOps/Review-Continuous-Delivery-v2.0/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2018/10/07/Management/Hiring-Step5-Offer/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2018-10-08 18:53:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#經典好文"><span class="toc-article-text">經典好文</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Intro-to-Chaos-Engineering"><span class="toc-article-text">Intro to Chaos Engineering</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Chaos-Engineering-Compaines-People-Tools-amp-Practices"><span class="toc-article-text">Chaos Engineering: Compaines, People, Tools &amp; Practices</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Awesome-Chaos-Engineering"><span class="toc-article-text">Awesome Chaos Engineering</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#混沌工程实践经验：如何让系统在生产环境中稳定可靠"><span class="toc-article-text">混沌工程实践经验：如何让系统在生产环境中稳定可靠</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Chaos-Engineering的历史、原则以及实践"><span class="toc-article-text">Chaos Engineering的历史、原则以及实践</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Chaos-Engineering-for-the-Business"><span class="toc-article-text">Chaos Engineering for the Business</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#相關詞彙"><span class="toc-article-text">相關詞彙</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#其他資訊"><span class="toc-article-text">其他資訊</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/DevOps/" style="color: white">DevOps <span class="badge">28</span></a></span> <span class="label label-info"><a href="/categories/DevOps/SRE/" style="color: white">SRE <span class="badge">18</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/SRE/" style="color: white">SRE <span class="badge">24</span></a></span> <span class="label label-success"><a href="/tags/Antifragile/" style="color: white">Antifragile <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Chaos-Engineering/" style="color: white">Chaos Engineering <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Resilience/" style="color: white">Resilience <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Disaster-Recovery/" style="color: white">Disaster Recovery <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

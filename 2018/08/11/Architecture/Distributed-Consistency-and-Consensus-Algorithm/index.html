@@ -1,0 +1,588 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>分散式一致性與共識演算法 | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="最近研讀 分散式系統 時，遇到兩個常出現的議題：
+
+分散式一致性問題 (Distributed Consistency Problems)
+共識演算法 (Consensus Algorithm)
+
+整理最近瀏覽的資料。
+
+
+核心議題：分散式一致性問題 (Distributed Consistency">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="分散式一致性與共識演算法"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> 分散式一致性與共識演算法</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> 分散式一致性與共識演算法</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>最近研讀 <a href="/2018/06/18/Architecture/Gossip-in-Distributed-Systems/">分散式系統</a> 時，遇到兩個常出現的議題：</p>
+<ol>
+<li>分散式一致性問題 (Distributed Consistency Problems)</li>
+<li>共識演算法 (Consensus Algorithm)</li>
+</ol>
+<p>整理最近瀏覽的資料。</p>
+<a id="more"></a>
+<hr>
+<h1 id="核心議題：分散式一致性問題-Distributed-Consistency-Problems"><a href="#核心議題：分散式一致性問題-Distributed-Consistency-Problems" class="headerlink" title="核心議題：分散式一致性問題 (Distributed Consistency Problems)"></a>核心議題：分散式一致性問題 (Distributed Consistency Problems)</h1><p>分散式系統中，只要是資料，就一定會跟 <code>一致性 (consistency)</code> 的問題有關係。</p>
+<h2 id="相關議題、名詞-待整理"><a href="#相關議題、名詞-待整理" class="headerlink" title="相關議題、名詞 (待整理)"></a>相關議題、名詞 (待整理)</h2><ul>
+<li>CAP</li>
+<li>BASE: Basically Available、Soft state、Eventual consistency</li>
+<li>ACID: Atomic, Consistency, Isolation, Durable</li>
+<li>Two-phase Commit (2PC): 二階段提交協議，這是種 distributed algorithm</li>
+<li><a href="https://en.wikipedia.org/wiki/Three-phase_commit_protocol" target="_blank" rel="noopener">Three-phase Commit (3PC)</a>: 三階段提交協議，distributed algorithm</li>
+<li>Partition、Sharding (分區、分片)</li>
+<li>Replication (副本)</li>
+</ul>
+<!--
+## BASE
+
+* Basically Available
+* Soft state
+* Eventual consistency
+
+BigTable, Cassandra, SimpleDB
+
+## ACID
+
+* Atomic
+* Consistency
+* Isolation
+* Durable
+
+
+## Two-phase Commit
+
+Two-phase Commit (以下簡稱 2PC)
+
+-->
+<h2 id="拜占庭將軍問題"><a href="#拜占庭將軍問題" class="headerlink" title="拜占庭將軍問題"></a>拜占庭將軍問題</h2><p><a href="https://zh.wikipedia.org/wiki/%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%B0%86%E5%86%9B%E9%97%AE%E9%A2%98" target="_blank" rel="noopener">拜占庭將軍問題</a> 是由 Leslie Lamport 在他最有名的論文中提出來的：<a href="https://web.archive.org/web/20170205142845/http://lamport.azurewebsites.net/pubs/byz.pdf" target="_blank" rel="noopener">The Byzantine Generals Problem</a>。</p>
+<blockquote>
+<p>Leslie Lamport 是美國計算機科學家，2013 年獲得圖靈獎，他也是著名排版系統 LaTeX 的開發者。</p>
+</blockquote>
+<p>主要描述在分散式系統中，不同的節點透過網路交換資料，達成共識，然後按照此共識進行策略行動。但有時候系統中的節點，可能因為傳送過程中的錯誤，造成全員資訊不一致，導致協作策略得到不一樣的結論，最後破壞了系統的一致性。拜占庭將軍問題被認為是容錯性問題中最難的問題類型之一。</p>
+<p>拜占庭將軍問題大概如下：</p>
+<blockquote>
+<p>在中世紀，拜占庭帝國的幾位將軍帶兵共同為攻一座城市。他們必須一起進攻，或者一起撤退，否則就是災難性後果。但是每個將軍四散在各處，無法一起討論，只能透過通訊方式投票，描述自己是進攻、還是撤退。所有將軍收到其他將軍的投票後，再決定自己是進攻、還是撤退。</p>
+<p>假設所有將軍都不會叛變，那就依照投票結果就好。但問題是，將軍中可能有叛徒。九個將軍投票，四個人進攻、四個人投撤退，一個人選擇背叛，分別告訴告訴四個人進攻、四個人撤退，結果就是同時四個進攻、四個撤退。</p>
+</blockquote>
+<p><code>拜占庭容錯演算法 (PBFT)</code> 是 1999 年 由 Miguel Castro 和 Barbara Liskov 提出的，實現只要叛徒不超過三分之一，忠誠的將軍們就能達成一致結果。</p>
+<!--
+拜占庭將軍問題導出以下幾個分散式系統的核心理論：
+
+* CAP
+*
+-->
+<p>相關技術：</p>
+<ul>
+<li>拜占庭容錯架構：FTMP、MMFCS、SIFT</li>
+<li>拜占庭容錯演算法：PBFT</li>
+<li>拜占庭容錯通訊 (BFT)：Q/U, HQ, …</li>
+</ul>
+<hr>
+<h1 id="核心議題：共識演算法-Consensus-Algorithm"><a href="#核心議題：共識演算法-Consensus-Algorithm" class="headerlink" title="核心議題：共識演算法 (Consensus Algorithm)"></a>核心議題：共識演算法 (Consensus Algorithm)</h1><p>共識演算法是分散式系統中重要的通訊機制，像是 Service Discovery 的實作都會基於這樣的核心理論，同時他也是現今流行的區塊鏈技術的基礎。</p>
+<h2 id="Paxos-演算法"><a href="#Paxos-演算法" class="headerlink" title="Paxos 演算法"></a>Paxos 演算法</h2><p>同樣的是由 Leslie Lamport 提出來的 <a href="https://zh.wikipedia.org/zh-tw/Paxos%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">Paxos 演算法</a>，主要目的是基於消息傳遞且具有高度容錯特性的一致性演算法。Google 在分散式所服務 (Chubby lock) 使用 Paxos 演算法。Chubby lock 這個架構應用在 Bigtable 展品中。</p>
+<h2 id="Raft-演算法"><a href="#Raft-演算法" class="headerlink" title="Raft 演算法"></a>Raft 演算法</h2><p>Stanford 大學的教授 Diego Ongaro and John Ousterhout 發表一篇論文：<a href="https://ramcloud.stanford.edu/wiki/download/attachments/11370504/raft.pdf" target="_blank" rel="noopener">In Search of an Understandable Consensus Algorithm</a>，演算法的方法和 Paxos 效能與功能一樣，但是卻是更容易實踐的演算法。他的核心概念：</p>
+<blockquote>
+<p>如果在分散式系統中多個數據庫的初始狀態一致，只要之後進行的操作順序一致，就能保證之後的執行結果一致。</p>
+</blockquote>
+<p>從動畫中了解 <a href="http://thesecretlivesofdata.com/raft/" target="_blank" rel="noopener">Raft 演算法</a></p>
+<!-- FLP Impossibility Result -->
+<h2 id="共識演算法"><a href="#共識演算法" class="headerlink" title="共識演算法"></a>共識演算法</h2><p>底下整理自 <a href="https://hackernoon.com/consensuspedia-an-encyclopedia-of-29-consensus-algorithms-e9c4b4b7d08f?gi=b1de083eb98e" target="_blank" rel="noopener">ConsensusPedia: An Encyclopedia of 30 Consensus Algorithms</a> (<a href="https://itw01.com/QF8Z7EI.html" target="_blank" rel="noopener">中文</a>)，如果對區塊鏈有興趣，這些看是很有關係的。</p>
+<ul>
+<li>工作量證明 (PoW，Proof of Work): 比特幣, 跟 PBFT 相比，有一半的容錯率，換句話說，有 50% 以上的叛徒才行，或者破壞一半以上的網路才行。缺點是需要很大的電力成本。</li>
+<li>權益證明 (PoS，Proof of Stake): 以太幣, 相比於 PoW 節約了大量的資源，但他會造成富者越富，窮者越窮，然後用戶會流失，新用戶也不願意加入。</li>
+<li>延遲工作量證明 (dPoW，Delayed Proof-of-Work)</li>
+<li>授權 PoS (DPoS，Delegated Proof-of-Stake): 維基鏈（WICC）</li>
+<li>權威證明 (PoA，Proof-of-Authority)</li>
+<li>權重證明 (PoWeight，Proof-of-Weight)</li>
+<li>聲譽證明 (PoR，Proof of Reputation)</li>
+<li>所用時間證明 (PoET，Proof of Elapsed Time)</li>
+<li>容量證明 (PoC，Proof of Capacity)，也稱為空間證明 (PoSpace，Proof of Space)</li>
+<li>歷史證明 (PoHistory，Proof of History)</li>
+<li>權益流通證明 (PoSV，Proof of Stake Velocity)</li>
+<li>重要性證明 (PoImportance，Proof of Importance)</li>
+<li>身份證明 (PoI，Proof of Identity)</li>
+<li>活動證明 (PoActivity，Proof Of Activity)</li>
+<li>時間證明 (PoTime，Proof of Time)</li>
+<li>存在證明 (PoExistence，Proof of Existence)</li>
+<li>Ouroboros</li>
+<li>可收回證明 (PoR，Proof of Retrievability)</li>
+<li>拜占庭容錯 (Byzantine Fault Tolerance)</li>
+<li>授權拜占庭容錯演算法 (dBFT，Delegated Byzantine Fault Tolerance)</li>
+<li>RAFT</li>
+<li>恆星共識 (Stellar Consensus)</li>
+<li>置信度證明 (PoB，Proof of Believability)</li>
+<li>有向無環圖 (DAG，Directed Acyclic Graphs)<ul>
+<li>Tangle (IOTA)</li>
+<li>Hashgraph</li>
+<li>Holochain</li>
+<li>Block-Lattice (Nano)</li>
+<li>SPECTRE</li>
+<li>ByteBall</li>
+</ul>
+</li>
+</ul>
+<h2 id="共識演算法的應用"><a href="#共識演算法的應用" class="headerlink" title="共識演算法的應用"></a>共識演算法的應用</h2><ul>
+<li>Service Discovery: <a href="https://blog.containership.io/etcd" target="_blank" rel="noopener">etcd</a>, <a href="https://www.consul.io/docs/internals/consensus.html" target="_blank" rel="noopener">Consul</a>, ZooKeeper, Google Chubby Lock</li>
+<li><a href="https://speakerdeck.com/elastic/consensus-and-replication-in-elasticsearch?slide=9" target="_blank" rel="noopener">Consensus and Replication in Elasticsearch</a></li>
+<li>區塊鏈<ul>
+<li>比特幣: PoW (Proof of Work)</li>
+<li>以太幣: PoS (Proof of Stake)</li>
+<li>維基鏈（WICC）: DPoS (Delegated Proof of Stake)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="結論：生活中訊息的一致性問題"><a href="#結論：生活中訊息的一致性問題" class="headerlink" title="結論：生活中訊息的一致性問題"></a>結論：生活中訊息的一致性問題</h1><p>古代戰爭時，四處的資訊，除了用快馬，透過驛站交接傳遞，烽火台是更快的方式。透過視覺傳遞，快速的讓各地的烽火台、決策者，知道該怎麼決策，這可以說是一致性問題最古早的方式之一了。烽火台的例子是集中式的訊息一致性問題，拜占庭問題則是反過來，他是分散式一致性問題。</p>
+<!--
+# 延伸閱讀 (站內)
+-->
+<hr>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<li><a href="https://www.pixpo.net/technology/0INvY0aG.html" target="_blank" rel="noopener">左耳朵耗子：分散式系統架構經典資料</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing" target="_blank" rel="noopener">Fallacies of distributed computing</a></li>
+</ul>
+<h2 id="論文"><a href="#論文" class="headerlink" title="論文"></a>論文</h2><ul>
+<li><a href="https://users.ece.cmu.edu/~adrian/731-sp04/readings/GL-cap.pdf" target="_blank" rel="noopener">Brewer’s Conjecture and the Feasibility of Consistent, Available, Partition-Tolerant Web Services</a></li>
+<li><a href="https://blog.csdn.net/changtao381/article/details/7480333" target="_blank" rel="noopener">CAP Confusion: Problems with Partition Tolerance</a></li>
+<li><a href="https://ramcloud.stanford.edu/wiki/download/attachments/11370504/raft.pdf" target="_blank" rel="noopener">In Search of an Understandable Consensus Algorithm</a></li>
+<li><a href="https://web.archive.org/web/20170205142845/http://lamport.azurewebsites.net/pubs/byz.pdf" target="_blank" rel="noopener">The Byzantine Generals Problem</a></li>
+<li>SRE Chapter 23: <a href="https://landing.google.com/sre/book/chapters/managing-critical-state.html" target="_blank" rel="noopener">Managing Critical State: Distributed Consensus for Reliability</a></li>
+<li><a href="https://pdfs.semanticscholar.org/245f/63a7d9f8bedde80557047eab9940d28c4026.pdf" target="_blank" rel="noopener">Distributed programming in Argus</a> by Dr. Barbara Liskov (Turing Award)</li>
+</ul>
+<h2 id="演算法"><a href="#演算法" class="headerlink" title="演算法"></a>演算法</h2><ul>
+<li><a href="https://hackernoon.com/consensuspedia-an-encyclopedia-of-29-consensus-algorithms-e9c4b4b7d08f?gi=b1de083eb98e" target="_blank" rel="noopener">ConsensusPedia: An Encyclopedia of 30 Consensus Algorithms</a></li>
+<li><a href="https://www.samsonhoi.com/570/blockchain-pbft" target="_blank" rel="noopener">區塊鏈 Blockchain – 共識機制之實用拜占庭容錯 PBFT</a></li>
+<li><a href="https://www.samsonhoi.com/583/blockchain-raft" target="_blank" rel="noopener">區塊鏈 Blockchain – 共識機制之 Raft</a></li>
+<li><a href="https://raft.github.io/" target="_blank" rel="noopener">The Raft Consensus Algorithm</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2018/08/20/Management/Overview-Hiring/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2018/08/11/Architecture/CAP-Theorem/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2018-08-11 22:30:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#核心議題：分散式一致性問題-Distributed-Consistency-Problems"><span class="toc-article-text">核心議題：分散式一致性問題 (Distributed Consistency Problems)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#相關議題、名詞-待整理"><span class="toc-article-text">相關議題、名詞 (待整理)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#拜占庭將軍問題"><span class="toc-article-text">拜占庭將軍問題</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#核心議題：共識演算法-Consensus-Algorithm"><span class="toc-article-text">核心議題：共識演算法 (Consensus Algorithm)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Paxos-演算法"><span class="toc-article-text">Paxos 演算法</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Raft-演算法"><span class="toc-article-text">Raft 演算法</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#共識演算法"><span class="toc-article-text">共識演算法</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#共識演算法的應用"><span class="toc-article-text">共識演算法的應用</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#結論：生活中訊息的一致性問題"><span class="toc-article-text">結論：生活中訊息的一致性問題</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#論文"><span class="toc-article-text">論文</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#演算法"><span class="toc-article-text">演算法</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/Architecture/" style="color: white">Architecture <span class="badge">11</span></a></span> <span class="label label-info"><a href="/categories/Architecture/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">7</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Service-Discovery/" style="color: white">Service Discovery <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">10</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Consensus/" style="color: white">Distributed Consensus <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Consensus-Algorithm/" style="color: white">Consensus Algorithm <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/CAP/" style="color: white">CAP <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/ACID/" style="color: white">ACID <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/BASE/" style="color: white">BASE <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Raft/" style="color: white">Raft <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Paxos/" style="color: white">Paxos <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Blockchain/" style="color: white">Blockchain <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Algorithm/" style="color: white">Algorithm <span class="badge">4</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

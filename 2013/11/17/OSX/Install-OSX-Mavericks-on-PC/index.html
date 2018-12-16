@@ -1,0 +1,535 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Install Mac OS Mavericks on PC (蘋果安裝筆記) | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="M$ Windows 用了 n 年，一直很討厭的就是，不管再怎麼 powerful 的硬體條件，只要經過幾次的 hotfix / service pack 更新後，系統就會越來越慢。同時系統也會因為安裝工具越多，然後變得越來越混亂。這點在 Unix Like 的環境，相對起來就穩定很多。 
+會想開始">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Install Mac OS Mavericks on PC (蘋果安裝筆記)"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Install Mac OS Mavericks on PC (蘋果安裝筆記)</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Install Mac OS Mavericks on PC (蘋果安裝筆記)</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>M$ Windows 用了 n 年，一直很討厭的就是，不管再怎麼 powerful 的硬體條件，只要經過幾次的 hotfix / service pack 更新後，系統就會越來越慢。同時系統也會因為安裝工具越多，然後變得越來越混亂。這點在 Unix Like 的環境，相對起來就穩定很多。 </p>
+<p>會想開始玩 Mac OS 就是因為它本身就是 Unix base OS，對於程式開發者而言，是很親切的環境，加上友善且人性化的界面，對與影音的成熟支援，系統高度的穩定，所以開始動了使用黑金塔的念頭。 </p>
+<p>探索安裝 Mac OS on PC 過程中斷斷續續幾次，歷經利用 VMWare 安裝 Mac OS 10.5、10.6、到 10.8.5 (Mountain Lion)，直到最近 10.9 才有比較穩定的流程以及方式。10.9 從實際安裝好到現在已經使用了快要一個月，系統的穩定度和效能，著實讓人興奮。</p>
+<a id="more"></a>
+<h1 id="準備"><a href="#準備" class="headerlink" title="準備"></a>準備</h1><ol>
+<li>一台 Mac OS, 用來建立 USB 開機</li>
+<li>8G 以上的 USB 隨身碟</li>
+<li>下載 Maverick</li>
+<li>下載 UniBeast、<a href="http://www.tonymacx86.com/395-multibeast-6-0-update.html" target="_blank" rel="noopener">MultiBeast 6.0</a></li>
+<li>清楚自己的硬體資訊，包含顯示卡型號、晶片組等。</li>
+</ol>
+<h2 id="硬體資訊"><a href="#硬體資訊" class="headerlink" title="硬體資訊"></a>硬體資訊</h2><p>以下是我自己的電腦的硬體資訊，大概是 2011/12 自己去光華商場組的。</p>
+<ol>
+<li>GeForce 9800 GT 512MB</li>
+<li>Mainboard: <a href="http://www.gigabyte.tw/products/product-page.aspx?pid=3449" target="_blank" rel="noopener">GigaByte X58A-UD3R</a></li>
+<li>CPU: Intel Core i7-950 3.2GHz</li>
+<li>RAM: Kingston DDR3 24G (4x6)</li>
+<li>HD: WD 80GB (WD800JD 22LSA0)、 Toshiba 2TB</li>
+</ol>
+<h2 id="製作-Mavericks-開機-USB"><a href="#製作-Mavericks-開機-USB" class="headerlink" title="製作 Mavericks 開機 USB"></a>製作 Mavericks 開機 USB</h2><p><strong>這部分</strong> 主要步驟以 “<a href="http://www.tonymacx86.com/374-unibeast-install-os-x-mavericks-any-supported-intel-based-pc.html" target="_blank" rel="noopener">UniBeast: Install OS X Mavericks on Any Supported Intel-based PC</a>“ 為參考。  </p>
+<blockquote>
+<p>因為我沒有 Mac PC，所以是在 Windows7 裡的 VMWare 安裝 iATKOS ML2。iATKOS 是將 Mac OS 重新 Wrapper 的安裝檔，提供給 PC 使用者安裝，詳細 安裝 iATKOS ML2 可參考 <a href="http://www.macbreaker.com/2013/01/install-mountain-lion-iatkos-ml2-hackintosh.html" target="_blank" rel="noopener">How to install OS X Mountain Lion on your PC with iAtkos</a></p>
+</blockquote>
+<ol>
+<li>使用 Disk Utility 將 USB Storage 格式化成 Mac OS Extended，並選擇 “Master Boot Record”</li>
+<li>將 Mavericks 複製到 USB Storage</li>
+<li>用 UniBeast 將 USB 指定成 “Mac App Store Mavericks - 10.9” </li>
+</ol>
+<h2 id="設定系統-BIOS"><a href="#設定系統-BIOS" class="headerlink" title="設定系統 BIOS"></a>設定系統 BIOS</h2><ol>
+<li>重新開機，進入主機板 BIOS設定 UEFI</li>
+<li>將硬碟從 IDE or SATA 改成 AHCI</li>
+<li>將 HPET 改成 64-bit</li>
+</ol>
+<h1 id="安裝-Mavericks"><a href="#安裝-Mavericks" class="headerlink" title="安裝 Mavericks"></a>安裝 Mavericks</h1><ol>
+<li>使用 USB-HDD 開機</li>
+<li>因為我的環境無法正確顯示畫面，現象就是開機會 LCD 進入省電狀態，但是聽得到 Mac OS 開始安裝的歡迎音樂，按鍵盤也聽得到提示聲，但就是沒畫面。 </li>
+<li>重新用 USB-HDD 開機，在 Chimera 開機畫面，輸入以下開機參數: <code>-v PCIRootUID=1 GraphicsEnabler=Yes</code>，相關參數說明參閱 <a href="http://www.tonymacx86.com/basics/104536-troubleshooting-issuing-boot-flags.html" target="_blank" rel="noopener">Boots Flags</a></li>
+<li>接下來就是使用 Disk Utility 將硬碟 Format，開始安裝</li>
+<li>安裝完成後，使用 USB-HDD 開機，輸入同樣的 Boot Flags</li>
+</ol>
+<h2 id="安裝-MultiBeast"><a href="#安裝-MultiBeast" class="headerlink" title="安裝 MultiBeast"></a>安裝 MultiBeast</h2><p>MultiBeast 可以調整系統的參數、萬用驅動程式、開機參數、製作開機磁區，設定成功之後就可以直接用硬碟開機，不需要透過 USB-HDD 了。以下是我的設定：</p>
+<p><img src="/images/OSX/MultiBeast6.0_settings_20131117.png" alt=""></p>
+<p>如果無法從硬碟開機，出現 <code>boot0: GPT test error</code> 等關鍵字，那可能是因為 HD 容量超過 2T 導致，那請參考 “<a href="http://www.tonymacx86.com/25-boot0-error-official-guide.html" target="_blank" rel="noopener">boot0 Error</a>“ 的解決方式，我用 Solution 1 就 ok 了。</p>
+<h2 id="系統設定"><a href="#系統設定" class="headerlink" title="系統設定"></a>系統設定</h2><ol>
+<li>中文字形：因為我覺得中文字型太肥，看起不習慣，所以<a href="http://www.jarviskuo.com/iapple/apple-mac/mac-os-premium/Palfd3265=zh_TW" target="_blank" rel="noopener">調整中文字型設定</a>。</li>
+<li>快速建設定 for Windows Keyboard：<ul>
+<li>注音輸入法：改成 Control (Command) + Space</li>
+<li>原本 Spotlight：改成 Alt + F4</li>
+<li>LaunchPad -&gt; F4</li>
+</ul>
+</li>
+<li><a href="http://www.jarviskuo.com/iapple/apple-mac/mac-os-premium/Palfd1110=zh_TW" target="_blank" rel="noopener">修改 Mac OS 螢幕快照設定</a></li>
+<li>Home/End/Page Down/Up：原本 Mac 設定是 <ul>
+<li>Home：Command + A</li>
+<li>End：Command + E</li>
+<li>參考 “<a href="http://mwholt.blogspot.tw/2012/09/fix-home-and-end-keys-on-mac-os-x.html" target="_blank" rel="noopener">Fix the Home and End keys on Mac OS X</a>“ 將鍵盤的 Home / End 打開，如下：</li>
+</ul>
+</li>
+</ol>
+<p><img src="/images/OSX/KeyMapping.png" alt=""></p>
+<h1 id="常用的工具"><a href="#常用的工具" class="headerlink" title="常用的工具"></a>常用的工具</h1><p>從 M$ Windows 換到 Mac OS，有很多東西要從新熟悉、習慣，以下是我的安裝記錄：</p>
+<ol>
+<li>KLite -&gt; MPlayerX，看 rmvb、mp4、wmv</li>
+<li>PCMan -&gt; Welly 上 ptt</li>
+<li>Notepad -&gt; Sublime Text 2</li>
+<li>記憶體管理: MemoryKeeper</li>
+<li>MoneyAssistant -&gt; MoneyWiz (Support Cloud Sync between Mac/iPhone/iPad)</li>
+<li>Guitar Pro -&gt; Tuxguitar</li>
+</ol>
+<p>測試過後，能正常運作，下圖是安裝完成後：  </p>
+<p><img src="/images/OSX/MacOSX_Installation.png" alt=""></p>
+<h2 id="音樂製作工具"><a href="#音樂製作工具" class="headerlink" title="音樂製作工具"></a>音樂製作工具</h2><p>因為過去都在 Windows 做音樂，以下是一些工具的對應：  </p>
+<ol>
+<li>錄音編曲：Nuendo / Cubase -&gt; Logic Pro X </li>
+<li>吉他製譜：Guitar Pro -&gt; tuxguitar (free)</li>
+<li>練琴工具：Winamp -&gt; 因為我需要用快速鍵反覆一個段落， Winamp 按左右可以正負五秒移動，還要再找。</li>
+<li>iReal B 是 Mac/iPhone 才有的，我準備用它來取代教學譜 / 練團譜製作。過去我是用 Excel 打的。</li>
+<li>硬體設備的驅動程式：我的 Keyboard - MOTIF XS8 驅動沒問題、錄音界面 MOTU UltraLite Mk3 也沒問題，這些我其實都不擔心，因為 Mac OS 這部分本來就比 Windows 專注。</li>
+</ol>
+<h2 id="Benchmark"><a href="#Benchmark" class="headerlink" title="Benchmark"></a>Benchmark</h2><p>使用 <a href="http://www.primatelabs.com/" target="_blank" rel="noopener">Geekbench 3</a> 跑效能測試，CPU 32-bit 架構的分數 <a href="http://browser.primatelabs.com/geekbench3/213123" target="_blank" rel="noopener">7760</a> 分，大約是 2011 年中 iMac 27’ 的分數；64-bit 架構 9022 分，也差不多是 2011 Macbook Pro 15’ 。  </p>
+<blockquote>
+<p>12/02: 用公司的 MacBook Pro 15’ (2011) 年跑出來的分出大概也是 9050 左右。</p>
+</blockquote>
+<p>更多請參考：<a href="http://browser.primatelabs.com/mac-benchmarks" target="_blank" rel="noopener">Mac Benchmarks</a>  </p>
+<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>我的 PC 大概是 2011 年底自己組的，當時是參考 <a href="http://maq.tw/" target="_blank" rel="noopener">MAQ</a> 的某一個規格的，就是想省錢然後玩黑金塔，過程中曾裝過 iATKOS L2 / ML2，在實體的機器裝過，在 VMWare 裝過。後來雖然都成功了，但是跑起來都很多問題，不然就是很不順。一直到最近這次又突然繼續本著實驗的精神，終於算是成功了。  </p>
+<p>搭著 Mac OS Mavericks 不用錢的順風車，在我的 PC 上很順利的安裝成功，而且相關參數反覆調整嘗試也成功了。目前以往在 Windows 7 的工作，大部份都可以在 Mac 上完成。目前已知還有以下無法在現在環境執行：  </p>
+<ul>
+<li>BT client: 不管是 Transmission or uTorrent 都會死當，所以現在我用 Raspberry Pi 當動物機</li>
+<li>Logic Pro X： <del>只要啟動專案就會 Crash，目前原因尚不知道。GradgeBand 則可以正常和我的錄音界面工作。</del>  12/02:  後來都不會了，所以我已經開始用 Logic Pro X 了 XDDD</li>
+<li>網路銀行 (玉山) 讀卡機無法正確驅動</li>
+<li>Office: 我在 Windows 是使用 Office 2003，word 用 Pages or Office for Mac 打開整個排版大亂，所以暫時還要研究一下。。。不然就裝 VMWare 用了。</li>
+<li>Sleep：按下去之後就醒不來了。。。</li>
+</ul>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ol>
+<li><a href="http://www.tonymacx86.com/basics/104536-troubleshooting-issuing-boot-flags.html" target="_blank" rel="noopener">Tonymacx86</a>: Mac OS on PC 論壇</li>
+<li><a href="http://www.tonymacx86.com/374-unibeast-install-os-x-mavericks-any-supported-intel-based-pc.html" target="_blank" rel="noopener">UniBeast: Install OS X Mavericks on Any Supported Intel-based PC</a></li>
+<li><a href="http://www.tonymacx86.com/basics/104536-troubleshooting-issuing-boot-flags.html" target="_blank" rel="noopener">Boots flag</a></li>
+<li><a href="http://www.macbreaker.com/2013/01/install-mountain-lion-iatkos-ml2-hackintosh.html" target="_blank" rel="noopener">How to install OS X Mountain Lion on your PC with iAtkos</a></li>
+<li><a href="http://support.microsoft.com/kb/970299" target="_blank" rel="noopener">Keyboard mappings using a PC keyboard on a Macintosh</a></li>
+<li><a href="http://mwholt.blogspot.tw/2012/09/fix-home-and-end-keys-on-mac-os-x.html" target="_blank" rel="noopener">Fix the Home and End keys on Mac OS X</a></li>
+<li><a href="http://www.tonymacx86.com/389-multibeast-5-5-update.html" target="_blank" rel="noopener">MultiBeast 5.5</a></li>
+<li><a href="http://www.jarviskuo.com/iapple/apple-mac/mac-os-premium/Palfd1110=zh_TW" target="_blank" rel="noopener">修改 Mac OS 螢幕快照設定</a></li>
+<li><a href="http://www.macbreaker.com/2012/02/hackintosh-boot0-error.html" target="_blank" rel="noopener">How to fix the boot0 error for your Hackintosh</a></li>
+<li><a href="http://www.tonymacx86.com/25-boot0-error-official-guide.html" target="_blank" rel="noopener">boot0 Error</a></li>
+</ol>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2013/12/23/OSX/Mavericks-Notes/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+          <li class="next disabled"><a>Next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2013-11-17 13:49:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#準備"><span class="toc-article-text">準備</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#硬體資訊"><span class="toc-article-text">硬體資訊</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#製作-Mavericks-開機-USB"><span class="toc-article-text">製作 Mavericks 開機 USB</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#設定系統-BIOS"><span class="toc-article-text">設定系統 BIOS</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#安裝-Mavericks"><span class="toc-article-text">安裝 Mavericks</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#安裝-MultiBeast"><span class="toc-article-text">安裝 MultiBeast</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#系統設定"><span class="toc-article-text">系統設定</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#常用的工具"><span class="toc-article-text">常用的工具</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#音樂製作工具"><span class="toc-article-text">音樂製作工具</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Benchmark"><span class="toc-article-text">Benchmark</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#結論"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/OS-X/" style="color: white">OS X <span class="badge">3</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

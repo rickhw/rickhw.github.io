@@ -1,0 +1,610 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Designing Test Architecture and Framework | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="Stages in Software Testing 提到過去因為需要自動化 Regression Test，然後設計、開發 Test Framework / Architecture 的經驗。最近也有人在問我怎麼做這件事情，重新整理一下這段經歷的分享，補充了一些資料。
+
+
+Designing Te">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Designing Test Architecture and Framework"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Designing Test Architecture and Framework</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Designing Test Architecture and Framework</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p><a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a> 提到過去因為需要自動化 Regression Test，然後設計、開發 Test Framework / Architecture 的經驗。最近也有人在問我怎麼做這件事情，重新整理一下這段經歷的分享，補充了一些資料。</p>
+<a id="more"></a>
+<hr>
+<h1 id="Designing-Test-Architecture-and-Framework"><a href="#Designing-Test-Architecture-and-Framework" class="headerlink" title="Designing Test Architecture and Framework"></a>Designing Test Architecture and Framework</h1><p>單一的自動化測試難度不高，但是如果大量且要能夠團隊合作的 Test Architecture / Framework 複雜度就很高，我當時設計的 Test Framework 考慮以下面向：</p>
+<h2 id="角色-Roles"><a href="#角色-Roles" class="headerlink" title="角色 (Roles)"></a>角色 (Roles)</h2><p>定義 SQA 團隊裡有哪一些角色：</p>
+<ul>
+<li><code>Tester</code>：負責手動釐清、驗證問題，確認問題的程序</li>
+<li><code>Automation Developer</code>:<ul>
+<li>寫 Test Case 的人，負責這個 Test Case 本身的設計、開發、與測試</li>
+<li>也可以是 QA / QE</li>
+</ul>
+</li>
+<li><code>Automation Runner</code>: 跑大量 Test Case 的人<ol>
+<li>架構部署與環境維護</li>
+<li>測試環境準備、資源分配、準備 Config</li>
+<li>負責每天跑大量的測試，通常是晚上跑，稱為 <code>overnight</code></li>
+<li>負責調整 overnight 所需要的配置與資源。</li>
+<li>Review 報表</li>
+</ol>
+</li>
+<li><code>SDET</code>: 開發、維護 Test Framework and Test Libraries 的人<ul>
+<li>架構設計與開發</li>
+<li>Framework 開發與測試</li>
+<li>共用 Library 開發</li>
+<li>報表產生器</li>
+<li>資源管理</li>
+<li>環境建置</li>
+</ul>
+</li>
+</ul>
+<p>實務上，因為資源的限制或者現場的狀況， Tester / QA / QE 可能是同一個人，Runner / SDET 是同一個人。</p>
+<h2 id="測試架構-SDET"><a href="#測試架構-SDET" class="headerlink" title="測試架構 - SDET"></a>測試架構 - SDET</h2><p>底下這張圖是當時在自己家裡的白板手繪的概念圖，現在看起來有些東西表達詞不達意，但是概念是可行的 XD</p>
+<p><img src="/images/SQA/Test-Arch/Test-Arch.JPG" alt=""></p>
+<p>圖中概念說明：</p>
+<ul>
+<li><code>Box</code>：待測產品，那時候測的是 Firewall 產品的 Firmware</li>
+<li><code>LabPC</code>：執行測試程式的機器</li>
+<li><code>Backend</code>: 產品本身需要跟很多 Backend 整合才能用，像是 DB2、MQ、WAS (Websphere Application Server)</li>
+<li><code>SMGR</code>: 負責管理、分配測試資源的節點</li>
+</ul>
+<h2 id="測試程式的開發與測試-Automation-Developer"><a href="#測試程式的開發與測試-Automation-Developer" class="headerlink" title="測試程式的開發與測試 - Automation Developer"></a>測試程式的開發與測試 - Automation Developer</h2><ul>
+<li>單一 Test case 的開發流程與流程控制: tester 寫 test case 如何在自己的環境開發與測試</li>
+<li>Test Suite 的管理與結構: 如何跑整個 test suites，test suites 本身的設定檔</li>
+<li>如何 Debug 自己開發出來的測試程式？然後如何整合到每天要跑的環境？</li>
+<li>模擬程式的設計：有些測試程式需要製造一些特殊條件，像是 disk 滿了、CPU 80%、memory 沒了之類的 …<ul>
+<li>我設計由 Framework 提供這些功能，tester 只要透過參數就可以達到想要的功能即可。</li>
+</ul>
+</li>
+</ul>
+<h2 id="部署與環境-Automation-Runner"><a href="#部署與環境-Automation-Runner" class="headerlink" title="部署與環境 - Automation Runner"></a>部署與環境 - Automation Runner</h2><p>每次跑大量測試之前，都要先 Allocate 對應資源，確認環境是否乾淨。</p>
+<ul>
+<li>環境建置準備:<ul>
+<li>把環境弄到最乾淨，以 AWS 來說就是起一個乾淨的 Instance</li>
+<li>用 Container 相關技術，像是 Docker-Compose、K8s …</li>
+</ul>
+</li>
+<li>測試資料準備：<ul>
+<li>每個 test case 都會有個別的測試資料，用來製造測試情境</li>
+<li>測試資料的分類</li>
+</ul>
+</li>
+<li>待測程式的部署或者安裝：<ul>
+<li>這些東西統稱 <code>artifacts</code>, 建議包含以下資訊：Version Number, Change ID (hash code, serial no), BuildID (通常是時間, 像是 YYYYmmDD-HHMM), branch … 詳細參閱 <a href="/2015/02/11/SoftwareEngineering/Version-Control/">Version Control</a></li>
+<li>從 build machine or S3 抓下最新的 build，安裝好後，把 test case 需要用的設定檔設定好</li>
+</ul>
+</li>
+</ul>
+<h2 id="每天晚上跑大量的測試-Automation-Runner"><a href="#每天晚上跑大量的測試-Automation-Runner" class="headerlink" title="每天晚上跑大量的測試 - Automation Runner"></a>每天晚上跑大量的測試 - Automation Runner</h2><p>測試程式一多，就需要管理、跑的時候要有彈性，所以 Test Runner 的設計有以下要考慮：</p>
+<ul>
+<li>跑單一 testcase, 跟跑數個 suites 的設定檔, 然後可以個別指定設定檔, 或者 overwrite 每個 testcase 的設定檔</li>
+<li>測試排程控制 (分散式)：<ul>
+<li>如何同時跑多個 test case?</li>
+<li>排隊或者平行？</li>
+<li>test case runtime 在哪一台機器跑？</li>
+<li>如果 test case 跑太久怎麼辦？這裡我設計了 <code>duration</code> 機制，也就是 tester 必須指定每個 test case 最長的執行時間，超過 test runner 就會把 thread 砍掉，並且執行 cleanup，把環境還原，把測試標記失敗。</li>
+</ul>
+</li>
+<li>額外的測試條件 Callback: 跑大量 test suite 時，可以同時跑其他的東西製造測試情境</li>
+<li>測試結果的 Log 與報表<ul>
+<li>Log 分成給 tester 看得、Framework Library Design 看的，還有 Framework Developer 看得。</li>
+<li>每個 testcase 都有 owner, 報表每天會自動寄給 owner</li>
+</ul>
+</li>
+<li>Rerun 機制<ul>
+<li>每次跑大量的 test suites 產生報表的同時，會同時產生另一個 runner 的設定檔，只要 reviewer 看過覺得需要重跑，按下 rerun 就可以自動化重跑</li>
+</ul>
+</li>
+<li>資源監視與管理<ul>
+<li>待側機器的資源狀況，主要有 CPU / Memory / Disk 狀況</li>
+<li>哪一些資源現在已經被使用，可能是人、也可能是被機器要走了</li>
+</ul>
+</li>
+</ul>
+<h2 id="Test-“Test-Framework”-SDET"><a href="#Test-“Test-Framework”-SDET" class="headerlink" title="Test “Test Framework” - SDET"></a>Test “Test Framework” - SDET</h2><p>整個 Test Framework 自己的 Unit Test 以及 Libraries 都是透過自己測自己的方式實作，也就是自己的 Libraries 也會產生測試報表，每次加功能之前，都會用自己測自己 (當時我還不知道那叫 TDD)。</p>
+<p>這樣的想法是以前學 Java 時，聽學校老師說 Java Compiler 用什麼寫？當然是用 Java 寫囉！當時還不懂，後來就懂了。</p>
+<h2 id="Dynamic-Config-SDET"><a href="#Dynamic-Config-SDET" class="headerlink" title="Dynamic Config - SDET"></a>Dynamic Config - SDET</h2><p>為了讓測試流程更有彈性，所以參考物件導向的概念，設計了類似繼承、Annotiation 概念的配置檔，這也是整個 Framework 的核心架構，相關設計隨筆參考：<a href="/2015/02/14/SoftwareEngineering/Talk-About-Parser/">Talk about compiler and parser</a></p>
+<hr>
+<h1 id="老人談當年勇"><a href="#老人談當年勇" class="headerlink" title="老人談當年勇"></a>老人談當年勇</h1><p>下面是以前我設計 Test Framework for Regression 時規劃的流程與設計 (System Level Design)，摘錄一些當時簡報的圖檔與心得。</p>
+<p>這一整套 Test Framework 是設計給一個團隊使用，裡面包含了協作、資源系統、報告、教育訓練、完整的文件手冊、範例程式碼、設計文件 … 等，當時一直想把他商品化，可惜並沒有機會。 (老了，要開始提當年勇了 XD)</p>
+<h2 id="Workflow-Architecture"><a href="#Workflow-Architecture" class="headerlink" title="Workflow / Architecture"></a>Workflow / Architecture</h2><p>這張圖是大的測試流程圖，包含準備、自動更新 Firmware、Sequence / Parallel 的 Test Case 執行程序、以及 Log and Report。</p>
+<p><img src="/images/SQA/Regression/Test-Flow.png" alt=""></p>
+<p>說明如下：</p>
+<ul>
+<li>橘色：準備工作，確認待測項目與資源是否足夠。這裡有一段演算法是要先計算待測 Suites 總共需要哪一些資源，然後跟 Resource Management 詢問現在有多少資源，能否執行。</li>
+<li>藍色：待測目標，可以想像成部署概念，也就是測試都會自動重新部署帶測版本，這也就是 <a href="/2018/03/20/DevOps/First-Step-To-CICD/">導入 CI/CD 的第一步</a> 提到的概念。</li>
+<li>紅色：各個不同的 Compoments 的測試案例集合 (Test Suites)，執行方式有循序 (Sequence) 或者平行 (Parallel)</li>
+<li>綠色：執行結果產生報表，包含每個測試的執行資訊、負責人、Log，Rerun 的方式等。</li>
+</ul>
+<h2 id="Test-Case-Management"><a href="#Test-Case-Management" class="headerlink" title="Test Case Management"></a>Test Case Management</h2><p>Test Cases / Test Suites 的目錄結構設計，參考 Java package 概念。而且 Suites 和 Test case 的設定檔具有繼承、annotation、branch 概念。branch 概念就是說屬於特定版本的設定，可以建立新的 設定檔，附加版本號碼，Framework 只要找到這樣的檔案，就會自動 overwrite 相關設定。</p>
+<p><img src="/images/SQA/Regression/Test-Cases-Management.png" alt="Test Case 的目錄結構設計，參考 Java package 概念。"></p>
+<blockquote>
+<ul>
+<li>類似 Branch 的概念，在 Ansible 裡也有。</li>
+<li>這裡我實作了一個簡單的 parser，parse 每個 testcase 設定檔的相關需求，包含繼承、annotation、branch 等概念，實作內容包含基本的 syntax check、abstract structure tree (AST) 等，如果 syntax error 會吐出 error code, 同時指出哪一行錯誤。最後在 runtime 變成一個 data model 給 test runner 使用。在 <a href="/2015/02/14/SoftwareEngineering/Talk-About-Parser/">Talk about compiler and parser</a> 有簡單的描述。</li>
+</ul>
+</blockquote>
+<h2 id="Test-Case-標準程序"><a href="#Test-Case-標準程序" class="headerlink" title="Test Case 標準程序"></a>Test Case 標準程序</h2><p>每一個 Test Case 都有這樣的標準程序，分成五個：</p>
+<ol>
+<li><code>Pre-Procedure</code>: 由 Framework 控制，通常是環境檢查，像是檢查 Config 合法性、 HTTP / Storage Server 等共用資源</li>
+<li><code>Setup</code>: 測試準備工作，通常是初始化資料，由 Tester 自行設計</li>
+<li><code>Test</code>: 主要的測試程序在這裡</li>
+<li><code>Cleanup</code>: 清理測試資料與環境，由 Tester 自行設計</li>
+<li><code>Post-Procedure</code>: 由 Framework 控制，自動處理後續不必要的程序，或者是從待測目標下載所有 Log / backtrace。</li>
+</ol>
+<p>從上述中提及分成 Framework Level 和 User Level：</p>
+<ul>
+<li>Framework Level 根產品的特殊性有關係，產品相關的共用程序都封裝在 Framework 層，這層由 SDET 負責</li>
+<li>User Level 則是給 SQA 開發 Test Case 使用。</li>
+</ul>
+<p><img src="/images/SQA/Regression/Test-Case-Procedure.png" alt="程序的設計，有 Framework Level 和 User Level"></p>
+<p>中間有一些 function，像是 Raise CPU, Memory Up，是由 Framework 控制。Tester 在開發 Test Case 時，只要透過開關開啟就可以了。</p>
+<h2 id="執行報表"><a href="#執行報表" class="headerlink" title="執行報表"></a>執行報表</h2><p>這是執行後給 Testcase owner 的測試報告，列出 owner 每個 test case 的執行結果與 Log.</p>
+<p><img src="/images/SQA/Regression/ER_Report.png" alt=""></p>
+<p>這個報表內容主要是給負責 Testcase 的人，包含跑在哪一個環境、測試的 <code>版本資訊</code>、相關的 Testsuites / Testcases 、每個測試執行的時間、跑在哪、成功率、Log … 等。</p>
+<h2 id="資源管理-Admin-Console"><a href="#資源管理-Admin-Console" class="headerlink" title="資源管理 (Admin Console)"></a>資源管理 (Admin Console)</h2><p>這個 Framework 是分散式架構，所有很多機器要管 (大概兩櫃) 的機器要管理，測試時必須要去配製這些資源。這張圖是測試資源的管理，Framework 會依據資源狀況，自動分配 Job。用 <a href="https://www.zkoss.org/" target="_blank" rel="noopener">ZK</a> 實作的。</p>
+<p><img src="/images/SQA/Regression/FP004.png" alt="待測機器管理"><br><img src="/images/SQA/Regression/FP003.png" alt="Backend Servers 管理"></p>
+<p>這個 Console 呈現這些資訊：</p>
+<ul>
+<li>每台機器是誰在使用：團隊很多人，所以避免資源競爭。</li>
+<li>待測資源資訊：包含 FW 版本、CPU、Memory、IP … 等</li>
+<li>執行測試 Node 資訊：包含 FW 版本、CPU、Memory、IP、OS … 等</li>
+<li>Build: 每天自動從米國 Mirror 回來的 <a href="/2018/07/08/DevOps/Artifacts-Management/">Artifacts</a></li>
+</ul>
+<blockquote>
+<p>我在 <a href="/2014/05/09/SQA/Problems_In-Software-Autotest/">軟體自動化測試常見的問題</a> 中問題到的描述，就是這段實作過程的經歷。</p>
+</blockquote>
+<h2 id="實作技術"><a href="#實作技術" class="headerlink" title="實作技術"></a>實作技術</h2><p>整套系統大概使用以下技術實作：</p>
+<ul>
+<li>Server: RedHat (RHEL), Ubuntu, Windows Server 2003</li>
+<li>Programming Language: Java, Python (jython), Bash,</li>
+<li>Auto Test Infrastructure: <a href="http://staf.sourceforge.net/" target="_blank" rel="noopener">STAF</a>, <a href="http://staf.sourceforge.net/getstax.php" target="_blank" rel="noopener">STAX</a></li>
+<li>ZK: Web Framework</li>
+<li>Database: MySQL</li>
+</ul>
+<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>這段設計，算是我個人成長最多的時間，也是思考最多的架構設計的，即使已經十年了，還是記憶深刻。</p>
+<h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><ul>
+<li><a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a></li>
+<li><a href="/2017/03/11/Management/Requirements-Management/">需求管理 (Requirement Management)</a></li>
+<li><a href="/2014/05/09/SQA/Problems_In-Software-Autotest/">軟體自動化測試常見的問題</a></li>
+<li><a href="/2015/10/11/SQA/How-To-Be-An-SQA/">How to be an SQA?</a></li>
+<li><a href="/2015/08/20/SQA/Three-Kinds-Of-QA/">三種 QA</a></li>
+<li><a href="/2015/01/06/Management/協同合作系統建制與導入-以-Redmine-為例/">協同合作系統建制與導入 - 以 Redmine 為例</a></li>
+<li><a href="/2015/02/11/SoftwareEngineering/Version-Control/">Version Control</a></li>
+<li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a></li>
+<li><a href="/2017/09/14/SoftwareEngineering/Software-Development-Lifecycle/">Software Development Lifecycle</a></li>
+<li><a href="/2017/12/03/SQA/Regression-Test-Is-Tough/">從 iOS 無限黑屏事件，淺談軟體測試階段 - 回歸測試 Regression Test</a></li>
+<li><a href="/2018/07/08/DevOps/Artifacts-Management/">Artifacts Management</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2018/05/03/AWS/Study-Notes-API-Gateway-Rate-Limit-and-Throttling/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2018-05-12 11:08:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Designing-Test-Architecture-and-Framework"><span class="toc-article-text">Designing Test Architecture and Framework</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#角色-Roles"><span class="toc-article-text">角色 (Roles)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#測試架構-SDET"><span class="toc-article-text">測試架構 - SDET</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#測試程式的開發與測試-Automation-Developer"><span class="toc-article-text">測試程式的開發與測試 - Automation Developer</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#部署與環境-Automation-Runner"><span class="toc-article-text">部署與環境 - Automation Runner</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#每天晚上跑大量的測試-Automation-Runner"><span class="toc-article-text">每天晚上跑大量的測試 - Automation Runner</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Test-“Test-Framework”-SDET"><span class="toc-article-text">Test “Test Framework” - SDET</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Dynamic-Config-SDET"><span class="toc-article-text">Dynamic Config - SDET</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#老人談當年勇"><span class="toc-article-text">老人談當年勇</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Workflow-Architecture"><span class="toc-article-text">Workflow / Architecture</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Test-Case-Management"><span class="toc-article-text">Test Case Management</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Test-Case-標準程序"><span class="toc-article-text">Test Case 標準程序</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#執行報表"><span class="toc-article-text">執行報表</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#資源管理-Admin-Console"><span class="toc-article-text">資源管理 (Admin Console)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#實作技術"><span class="toc-article-text">實作技術</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#結論"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀-站內"><span class="toc-article-text">延伸閱讀 (站內)</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/軟體測試/" style="color: white">軟體測試 <span class="badge">9</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">10</span></a></span> <span class="label label-success"><a href="/tags/Software-Test/" style="color: white">Software Test <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/Regression-Test/" style="color: white">Regression Test <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Test-Architecture/" style="color: white">Test Architecture <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

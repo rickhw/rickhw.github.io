@@ -1,0 +1,627 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>心得：持續交付 2.0 | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="今年 (2018) 三月，我在公司內完成長達半年的 SRE (Site Reliability Engieering) 讀書會，快結束時就在盤算下一本候選書，希望激盪團隊更多想法。那時候首選就是當代軟體工程的經典之作：持續交付 (Continuous Delivery)。
+在讀書會開始不久，有次跟朋">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="心得：持續交付 2.0"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> 心得：持續交付 2.0</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> 心得：持續交付 2.0</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>今年 (2018) 三月，我在公司內完成長達半年的 <a href="/2018/08/03/DevOps/An-Introduction-to-SRE/">SRE (Site Reliability Engieering)</a> 讀書會，快結束時就在盤算下一本候選書，希望激盪團隊更多想法。那時候首選就是當代軟體工程的經典之作：<code>持續交付 (Continuous Delivery)</code>。</p>
+<p>在讀書會開始不久，有次跟朋友聊到持續部署想法，當時我提到因為時空背景的關係，這幾年各種新的概念與技術快速發展，特別是雲端架構應用、微服務與分散式架構的實踐概念，彷彿不斷的在提醒大家，<code>持續部署</code> 應該有不同的想法與實踐。同時 DevOps 與敏捷開發 (Agile Development) 概念鋪天蓋地的出現，大家意識到 <code>霧卡世界（VUCA)</code> 正在驅動整個軟體產業，除了持續部署，持續交付商業價值將面對更大的挑戰！</p>
+<blockquote>
+<p>戰爭之前，不管做了多少參謀作業，戰爭第一聲槍響的時候，所有計畫都會隨之改變。</p>
+<p>– 美國名將 <code>麥克阿瑟</code></p>
+</blockquote>
+<p>雖然世界變化之快，常常讓人迷失，但變化越快，越要靜下心思考。正當我在思考，是否將這些資訊做通盤整理，彙整成更有意義的文字時，十一月七日早上，是立冬之日，Ruddy 老師在我桌上放了一本書，作者是人稱喬幫主的喬梁老師大作，書名：<code>持續交付 2.0</code>。當時的我心裡想：『嗯，我想要的，應該都在這裡面了。』</p>
+<p><img src="/images/DevOps/CDv20/20181107-CDv20.jpg" alt=""></p>
+<a id="more"></a>
+<hr>
+<h1 id="心得與摘要"><a href="#心得與摘要" class="headerlink" title="心得與摘要"></a>心得與摘要</h1><p>喬老師的這本大作看起來不厚，但是內容非常扎實。我只摘錄幾個有共鳴的章節，做心得與摘要。</p>
+<h2 id="持續交付-2-0"><a href="#持續交付-2-0" class="headerlink" title="持續交付 2.0"></a>持續交付 2.0</h2><p>這本書集合了現代軟體開發方法與協作管理之大成，書本一開始整理了軟體工程發展的模式，從瀑布開發、敏捷開發、DevOps 運動，然後整理 Jez Humble、Devid Farley 的經典之作 <code>持續交付 1.0</code> (底下簡稱 <code>CDv1.0</code>) 與 <code>持續交付 2.0</code> (底下簡稱 <code>CDv2.0</code>) 的差異，其中特別解釋了 <code>價值探索環</code>，也就是經典的 <code>８字環</code> 探討兩個層面：</p>
+<ul>
+<li><code>探索環</code>：八字環左邊的圈，包含了 提問、錨定、共創、精練</li>
+<li><code>驗證環</code>：八字環右邊的圈，包含了 建構、運行、監測、決策</li>
+</ul>
+<p>CDv2.0 延續了 CDv1.0 概念，同時也加入了很多面對 VUCA 的思維，我簡單用程式碼來表示如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 配置管理、持續整合、測試策略、部署流水線</span></span><br><span class="line"><span class="comment"> * 部署與發佈、基礎設施與環境、依賴管理、版本控管</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CDv10</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 可持續地、快速發布軟體服務</span></span><br><span class="line">    <span class="keyword">boolean</span> rapidDeploy = <span class="keyword">true</span>;</span><br><span class="line">    <span class="comment">// 最小化可行產品</span></span><br><span class="line">    <span class="keyword">boolean</span> enableMVP = <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CDv20</span> <span class="keyword">extends</span> <span class="title">CDv10</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 四個核心原則</span></span><br><span class="line">    <span class="keyword">boolean</span> 減持少做 = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">boolean</span> 持續分解問題 = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">boolean</span> 快速反饋 = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">boolean</span> 持續改進並衡量 = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    var teams = &#123; <span class="string">"業務"</span>, <span class="string">"產品"</span>, <span class="string">"開發"</span>, <span class="string">"測試"</span>, <span class="string">"維運"</span> &#125;;</span><br><span class="line"></span><br><span class="line">    constructor(bizGoal) &#123;</span><br><span class="line">        eventLoop(bizGoal)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 基礎設施</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">infra</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="comment">// 軟體架構</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">architecture</span><span class="params">(<span class="keyword">default</span>=microservices)</span> </span>&#123;&#125;</span><br><span class="line">    <span class="comment">// 組織機制</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">organize</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>CDv2.0 除了交付軟體技術面的課題，更強調了交付價值的概念，用我個人在教吉他時，經常遇到的問題做小結：</p>
+<blockquote>
+<p>學樂器有兩個層次：<a href="http://rickmidi.blogspot.com/2008/09/blog-post.html" target="_blank" rel="noopener">怎麼彈、彈什麼？</a>。<code>怎麼彈</code> 是演奏技術問題，包含演奏技巧、和弦、音階、節奏等基本功，是理性思維；<code>彈什麼</code> 是情感表達問題，如何表達出音樂性，包含音樂層次、敘事張力、文化風格、抽象概念等，屬於感性呈現。</p>
+<p>持續部署是 <code>怎麼交付</code>，屬於工程問題、執行面問題；持續交付則是 <code>交付什麼</code>，屬於商業價值、企業文化層次。</p>
+</blockquote>
+<hr>
+<h2 id="軟體系統架構"><a href="#軟體系統架構" class="headerlink" title="軟體系統架構"></a>軟體系統架構</h2><p>第五章的標題：<code>持續交付的軟件系統架構</code>，這標題正好是我在公司內部推廣的概念：看見系統架構的全貌，包含開發，測試、正式環境的架構與考量。</p>
+<blockquote>
+<p>專案之初，首重看見全貌；持續交付首要看見架構全貌。</p>
+</blockquote>
+<p>軟體服務經常因為隨著時間的前進，系統架構會做改變與調整，漸漸的，很少人能夠清楚地掌握全貌。這間接造成後續維運的風險增加、成本不可控、測試階段可測性大減，同時無法全面掌控架構，也讓持續部署寸步難行，最終導致的就是無法快速的持續交付，不管是交付到新的測試環境、還是新的業務需求，影響的將是整個企業的發展與生存機會。</p>
+<p>我在 DevOpsDays Taipei 2018 分享了 <a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">緊急事件處理的探討</a>，其中也提及如何溝通系統架構的方法，如何定義架構與團隊之間的關係。另一篇文章：<a href="/2018/03/20/DevOps/First-Step-To-CICD/">導入 CI/CD 的第一步</a>，也特別強調架構的重要性。過往帶領測試團隊時，持續部署到測試環境是每天必做的，能做的不只是功能環境的驗證，也包含非功能的驗證。強調持續部署與交付到測試環境的重要性，能夠快速部署，代表著部署流水線有著順暢的定義，系統架構有清楚的關係定義。所以在持續部署階段，掌握系統架構更是基本功。</p>
+<p>基本功不代表簡單、容易，實際上代表的是重要，要越早做越好的。不管是微服務架構、微核架構還是單體架構，實際上都跟 <code>物件導向</code> 與 <code>設計模式</code> 有著巧合的關聯性。我在探討架構規範時，就針對 <code>服務定義</code>、<code>服務依賴</code>、<code>角色可視性</code>、<code>基礎架構</code> 做了清楚的定義，最後架構都會跟組織有著直接關係，也就是 <code>康威定律 (Conway&#39;s Law)</code> ：描述了組織溝通的方式與對象。</p>
+<p>如何調整架構，讓持續部署與交付能夠更快，更清楚，這也是現代團隊都要面對的問題，因為他間接會影響整個組織溝通的效率與成本。特別是現代架構走向 <code>分散式系統</code> 已經是一種必然的趨勢。</p>
+<hr>
+<h2 id="交付流水線"><a href="#交付流水線" class="headerlink" title="交付流水線"></a>交付流水線</h2><p>流水線 (Pipeline) 承接軟體開發過程中每次的交棒，其中包含了整個開發團隊從功能開發、產品功能測試 (Product Functional Test)、維運功能測試 (Ops Functional Test)、使用者接受測試 (UAT)，整串的流程中，技術面包含很多面向，像是：</p>
+<ul>
+<li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">環境建置 (Provisioning)</a><ul>
+<li>基礎建置：Infra as Code</li>
+<li>開發環境：開發人員本地端的環境，現代通常是以容器 (Container) 加上容器編排器 (Container Orchestration)</li>
+<li>功能驗證環境：資源最小化、功能完整性最高、成本最低。麻雀雖小五臟俱全，容器也是首選技術。</li>
+<li>維運功能驗證環境：一般稱非功能性環境，以前我稱為 SVT、RT、PT … 詳細參見：<a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a></li>
+</ul>
+</li>
+<li>持續整合 (CI)：<ul>
+<li>單元測試 (Unit Test)</li>
+<li><a href="/2018/07/08/DevOps/Artifacts-Management/">產出物管理 (Artifact Managemenet)</a>：Build, Packing, Dockerfile, Version Control… 等.</li>
+<li>程式品質碼驗證</li>
+</ul>
+</li>
+<li>持續部署 (CD)：依據使用者角色（Tester or SRE) 的需求，選擇待部署的版本、配置、環境，執行部署</li>
+</ul>
+<p>簡單羅列一些概念，這些在喬老師的 CDv2.0 也都有類似的整理與想法。</p>
+<p>除了 CI/CD 相關的關鍵技術，團隊協作的紀律與共識也是重要的。其中特別是環境與配置管理部分，這關係到整個團隊協作的流暢度與溝通品質。所以整個持續交付的流水線至關重要。</p>
+<blockquote>
+<p>部署流水線掌握了軟體開發團隊的節奏，就像音樂一樣，音符在穩定的節拍與律動上，詮釋著樂章上每個精彩的音符與呼吸。</p>
+</blockquote>
+<p>如果說整個開發團隊本身也是一種維運 (Ops)，那麼部署流水線就是軟體開發團隊的維運！他的節奏順暢與否，關係著交付價值的速度與品質。</p>
+<!--
+## 產出物 (Artifact)
+
+從開始使用軟體的第一天開始，到後來開始寫程式，如何把寫好的東西交給別人，一直是一件重要的任務。
+
+交付的形式很多種，古早的交付 Ship CD (燒錄到光碟片)、交付韌體 (firmware) 到工廠燒錄量產、交付後端服務的部署 (deployment)、前端的 apk / ipa / webpack ... 等方法，交付流水線的過程 `產出物 (Artifact)` 一直是扮演著重要的樞紐。從傳統的壓縮檔，到現在交付的管理 maven, npm, nuget, docker image ... 不管是怎樣的技術與方法，其實在開發過程中就要這樣交給流水線後面的團隊執行任務。
+
+產出物讓後續的持續交付流水線可以獨立運作，不需要重新編譯、打包原始碼，而是專注在如何部署到環境、系統架構如何調整成符合的任務需求、如何調整配置 (Config)。
+
+
+
+
+在交付流水線中，開發團隊交給一下一個團隊就是測試，下一個則是維運，下一個層次則是多個商業需求。
+
+交付就是移植，能夠持續交付的形式與速度，間接的影響後續的測試，不管是手動還是自動。
+
+交付給測試、正式環境，除了這兩種常見的交付，另外就是交付商業價值，也就是商業要橫向擴展的時候，交付的正式環境可能不會只有一個，而是會有多個環境。
+-->
+<!--
+
+## 測試是持續交付的第一戰場
+
+## 監控與回饋
+
+
+## DevOps
+-->
+<!--
+## 摘要 持續交付 2.0
+
+* Part 1
+  * 持續交付 2.0
+  * 探索價值環
+  * 快速驗證環
+  * 持續交付 2.0 的組織文化
+* Part 2
+  * 持續交付的軟體系統架構
+  * 業務需求協作管理
+  * 部署流水線原則與工具設計
+  * 利於集成的分支策略
+* Part 3
+  * 持續集成（持續整合）
+  * 自動化測試策略與方法
+  * 軟件配置管理
+  * 低風險發佈
+* Part 4
+  * 監測與決策
+  * 大型互聯網團隊的 FT 化
+  * 小團隊的逆襲之旅
+  * 研發推動的 DevOps
+-->
+<hr>
+<h2 id="持續交付的團隊"><a href="#持續交付的團隊" class="headerlink" title="持續交付的團隊"></a>持續交付的團隊</h2><p>在計算機程式語言裡，底下這段程式碼：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = a + b;</span><br></pre></td></tr></table></figure>
+<p>加號 (+) 稱為運算子 (Operator)，意思是把 a, b 這兩個符號的內容，用加法做運算。而等號 (=) 則是指定 (assigement) 運算，將 a + b 的結果指定給 x.</p>
+<p>軟體開發過程，加號與等號類似於內部的 Operating，也就是維運，這個讓團隊之間協作的維運方法，可以稱為持續交付。</p>
+<p>通常講 <code>開發團隊</code> 可能的組成有：產品 (PM)、開發 (Dev)、測試 (Test)、維運 (Ops)。依照這樣單位的組成，交付的形式有底下幾種：</p>
+<ul>
+<li>產品、開發、測試三個單位的交付：產品開發團隊 (不含維運)</li>
+<li>開發、測試、維運的持續交付：開發團隊的 Dev, QA, and Ops，也就是 <a href="https://en.wikipedia.org/wiki/DevOps" target="_blank" rel="noopener">Wikipedia</a> 說明的交集。</li>
+</ul>
+<p>同樣用程式碼來呈現上述的 <code>價值</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> value1 = 產品() + 開發() + 測試();</span><br><span class="line"><span class="keyword">int</span> value2 = 開發() + 測試() + 維運();</span><br></pre></td></tr></table></figure>
+<p>但這兩個 values 真的有價值？我覺得這是狹義的開發團隊，把鏡頭稍微 Zoom Out 一點點，看到整個企業，重新定義 <code>產品開發團隊</code>：</p>
+<ul>
+<li>產品開發團隊 (Dev)：產品 ＋ 開發 ＋ 測試</li>
+<li>企業營運團隊 (Ops)：行銷 ＋ 業務 ＋ 維運 ＋ IT ＋ 人資 ＋ 財務 ＋ 法務 ….</li>
+</ul>
+<blockquote>
+<p>整個企業團隊的持續交付 = 產品開發團隊（Dev) + 企業營運團隊 (Ops)</p>
+</blockquote>
+<p>Ops 回饋到 Dev，然後 Ops 會變成開發，Dev 會變成營運，透過回饋機制，由品質建立數量，由數量產生速度，產生倍數的價值。</p>
+<hr>
+<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>從上一個世紀阿波羅登陸月球計畫開始之後，MIT 教授 <a href="https://zh.wikipedia.org/zh-tw/%E7%8E%9B%E6%A0%BC%E4%B8%BD%E7%89%B9%C2%B7%E6%B1%89%E5%AF%86%E5%B0%94%E9%A1%BF" target="_blank" rel="noopener">Margaret Hamilton</a> 開始推廣 <code>軟體工程</code> 一詞開始，『交付』在軟體開發團隊裡不是什麼新觀念，到了廿一世紀的今天，隨著行動應用、物聯網的發展，到大數據與機器學習，原本大週期性的交付、不穩定且斷斷續續的交付，因為敏捷開發與 DevOps 的登入，人們才認知到軟體服務因該是有節奏的交付。持續交付 1.0 告訴大家工程方法，影響了廿一世紀的軟體工程；持續交付 2.0 繼承了上一個版本，不只談工程，也談文化，更是眾家之大成。</p>
+<p><code>持續面對改變</code> 是敏捷開發的基本精神與原則，<code>交付價值</code> 則是面對霧卡世界必須思考的。隨著時間的右移，技術不斷推成出新，能夠生存的企業唯一不變的法則是：</p>
+<blockquote>
+<p>用 <code>持續</code> 且穩定的技術與團隊 (節奏)，<code>交付</code> 有商業價值的軟體與服務 (音符)。</p>
+</blockquote>
+<p>天下武功、唯快不破，但是唯有嚴謹的系統架構，有紀律與規矩，才能面對外在瞬息萬變的世界。持續交付 2.0 是本適合企業高管、經理人、團隊一起閱讀討論，也將是下一個軟體工程的經典高牆。</p>
+<p>… 2018/11/11, 寫於雙十一 台北 松山</p>
+<!--
+
+優秀的樂手必要的兩個途徑，持續練習、正確的練習。
+優秀的軟體團隊必要的途徑，持續部署、以業務為目標。
+
+
+十一月七日，台灣雙十一活動也開跑了。
+
+
+### 關鍵字
+
+* CI, Continuous Delivery
+* DevOps, Agile
+* Architecture, Distributed System, Microservices
+* Infra as Code (IaC)
+* Containerization
+* Conway's Law
+* Pipeline, Artifacts
+* SRE
+
+-->
+<h2 id="相關書籍"><a href="#相關書籍" class="headerlink" title="相關書籍"></a>相關書籍</h2><ul>
+<li>Continuous Delivery - Jez Humble, David Farley</li>
+<li>Building Microservices - Sam Newman</li>
+<li><a href="https://landing.google.com/sre/books/" target="_blank" rel="noopener">Site Reliability Engineering</a></li>
+<li>Effective DevOp - Jennifer Davis, Ryn Daniels</li>
+<li>第五項修練：學習型組織的藝術與實務 - 彼得·聖吉（Peter M. Senge</li>
+<li>Google軟體測試之道：進行 Google 級的軟體測試</li>
+<li>Design Patterns - GoF</li>
+<li>Designing Distributed Systems - Burns, Brendan</li>
+</ul>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
+<li><a href="/2017/09/14/SoftwareEngineering/Software-Development-Lifecycle/">Software Development Lifecycle</a></li>
+<li><a href="/2018/03/20/DevOps/First-Step-To-CICD/">導入 CI/CD 的第一步</a></li>
+<li><a href="/2018/04/01/DevOps/How-To-Make-CICD-Quality/">怎樣的 CI/CD 才夠 Quality?</a></li>
+<li><a href="/2018/07/08/DevOps/Artifacts-Management/">Artifacts Management</a></li>
+<li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a></li>
+<li><a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a></li>
+<li><a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">演講：從緊急事件 談 SRE 應變能力的培養</a></li>
+<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">演講：Ops as Code using Serverless</a></li>
+<li><a href="/2018/08/03/DevOps/An-Introduction-to-SRE/">推薦：Site Reliability Engineering</a></li>
+<li><a href="/2018/12/15/DevOps/TheProblem-In-DevOps-8-Cycle/">DevOps 8 字環的誤區：左環問題</a></li>
+</ul>
+<!--
+
+## 參考資料
+
+* [雙 11 打趴台灣電商平台！PChome、蝦皮、momo 全掛，帶來哪些商業啟示？][e1]
+
+[e1]: https://buzzorange.com/techorange/2018/11/12/double-11-in-taiwan/
+https://www.continuousdelivery20.com/
+-->
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2018/11/18/AWS/Products-Naming-for-AWS/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2018/10/08/DevOps/Chaos-Engineering/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2018-11-14 22:30:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#心得與摘要"><span class="toc-article-text">心得與摘要</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#持續交付-2-0"><span class="toc-article-text">持續交付 2.0</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#軟體系統架構"><span class="toc-article-text">軟體系統架構</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#交付流水線"><span class="toc-article-text">交付流水線</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#持續交付的團隊"><span class="toc-article-text">持續交付的團隊</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#結論"><span class="toc-article-text">結論</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#相關書籍"><span class="toc-article-text">相關書籍</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/DevOps/" style="color: white">DevOps <span class="badge">28</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Microservices/" style="color: white">Microservices <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/Continuous-Delivery/" style="color: white">Continuous Delivery <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/Continuous-Deployment/" style="color: white">Continuous Deployment <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Consensus/" style="color: white">Distributed Consensus <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Conway-s-Law/" style="color: white">Conway's Law <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/SRE/" style="color: white">SRE <span class="badge">24</span></a></span> <span class="label label-success"><a href="/tags/Continuous-Integration/" style="color: white">Continuous Integration <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Configuration/" style="color: white">Configuration <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Version-Control/" style="color: white">Version Control <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Artifact-Management/" style="color: white">Artifact Management <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

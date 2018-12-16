@@ -1,0 +1,516 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>What is Ops？ | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="現在啥鬼都要跟 Ops 扯上關係？或者要消滅 Ops 變成 NoOps，用人工智慧 智障 來取代叫做 AIOps，到底啥是 Ops?
+
+What is Ops?我畫了一張圖。。。這是我遇到的 Ops …….. 分成 公司治理 x 產品維運 x (角色 x 任務），圖中的顏色 角色 跟 任務 都有對應">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="What is Ops？"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>1</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> What is Ops？</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> What is Ops？</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>現在啥鬼都要跟 <code>Ops</code> 扯上關係？或者要消滅 Ops 變成 <code>NoOps</code>，用人工智慧 <del>智障</del> 來取代叫做 <code>AIOps</code>，到底啥是 <code>Ops</code>?</p>
+<a id="more"></a>
+<h1 id="What-is-Ops"><a href="#What-is-Ops" class="headerlink" title="What is Ops?"></a>What is Ops?</h1><p>我畫了一張圖。。。這是我遇到的 <code>Ops</code> …….. 分成 <code>公司治理</code> x <code>產品維運</code> x (<code>角色</code> x <code>任務</code>），圖中的顏色 <code>角色</code> 跟 <code>任務</code> 都有對應關係。</p>
+<blockquote>
+<p>然後沒做過的，不要跑來跟我說要 <code>NoOps</code>, <code>AIOps</code> … 我會覺得你是來亂的。。。</p>
+</blockquote>
+<p><img src="/images/DevOps/What-is-Ops_20180325.png" alt=""></p>
+<blockquote>
+<p>完整版參閱：<a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></p>
+</blockquote>
+<p>What is Ops? 對我來講：</p>
+<ol>
+<li><code>Ops is Live</code>，就是 <a href="http://www.books.com.tw/products/0010590054" target="_blank" rel="noopener">現場</a>，就是 <a href="/2017/11/14/DevOps/Go-Live/">Live</a>，沒辦法面對現場的東西就是來亂的</li>
+<li><code>Ops is Lifecyle</code>，Ops 可以翻成 <a href="/2017/12/02/DevOps/Spirit-In-SysOps/">維運</a>，基本 <a href="/2017/12/02/DevOps/Spirit-In-SysOps/">維運的精神</a> 就是：<code>要有頭有尾</code>，實務上經常都是 <code>虎頭蛇尾</code>、<code>射後不理 (太文雅的詞很多人看不懂)</code> 。</li>
+<li><code>Ops is Truth</code>，是本質性的問題，是真實的回饋。</li>
+<li>開發是 0-1, 維運 1-99. 幾乎所有的軟體工程 / 方法論 / 流程都在討論怎麼 <code>製造孩子</code>，但是都不討論如何 <code>教育孩子</code></li>
+</ol>
+<p><code>Ops</code> 跟不同對象討論，會有不一樣的想法。</p>
+<ul>
+<li>跟工程師談到 <code>Ops</code> 腦袋裡想的通常是 <code>SysOps</code> or <code>DevOps</code>，前者偏向系統維運，通常會是 Infra / System 等問題、後者則是開發維運，通常會是 CI / CD 的技術問題，這些都是工程問題。</li>
+<li>實務上還有公司經營管理的 <code>IT/MIS Ops</code>，在一般企業屬於成本單位 (300 個人的公司只有一個 MIS 是很常見的)，但實際上是很重要的，因為資安問題都跟這有關係。</li>
+<li>面對產品商業上的 <code>BizOps</code> 也是 Ops 的一種，只是他偏向客戶端、使用者端，面對的通常是處理業務、客戶溝通問題。</li>
+</ul>
+<blockquote>
+<ul>
+<li><code>Ops</code> 實際上會回到『本質性』的問題，更多參閱：<a href="/2017/11/26/Thinking-in-Essence/">思考本質、實踐、想像力、教育</a></li>
+<li>這篇文章也講到類似的想法： <a href="http://www.jianshu.com/p/645bb1283a77" target="_blank" rel="noopener">关于 DevOps ，咱们聊的可能不是一回事</a><br>2018/06/15: 重新整理 <a href="/2018/06/14/DevOps/Recap-What-is-Ops/">Recap What is Ops?</a></li>
+</ul>
+</blockquote>
+<h2 id="什麼是『維運』？"><a href="#什麼是『維運』？" class="headerlink" title="什麼是『維運』？"></a>什麼是『維運』？</h2><p>什麼是維運？在中國習慣稱為『運維』。</p>
+<p>在 <a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/">AWS Certified SysOps Administrator 準備心得</a> 有整理我的想法，我把這兩個字拆成兩個面向：</p>
+<ul>
+<li><code>運 (Operation)</code>：<code>生命週期、制度流程</code>，像是制度、流程、方法、資源管理、預算、決策 … 等</li>
+<li><code>維 (Maintain)</code>：<code>目的導向</code>，像是監控、異常分析、緊急事件處理、資安、系統升級、備份還原、DNS / SSL、帳號權限管理、Key 管理、Log 分析、網路架構、處理儲存問題、資源管理</li>
+</ul>
+<blockquote>
+<p>有些 Job Description 會縮寫成 <code>O &amp; M</code></p>
+</blockquote>
+<p>前者屬於 <code>管理面向</code>，後者是 <code>技術導向</code>。</p>
+<p>技術層次的問題，需要 <code>工程單位 (Engineering)</code> 介入處理，用工程、科學方法解決；制度問題依賴的是人、協作、等。</p>
+<h2 id="以下是練肖話"><a href="#以下是練肖話" class="headerlink" title="以下是練肖話"></a>以下是練肖話</h2><p>啥鬼都要跟 <code>Ops</code> 有關係比較潮, 所以跟同事練肖話後就弄出一堆 <code>opses</code> ~~~</p>
+<ul>
+<li>IT Ops</li>
+<li>Sys Ops</li>
+<li>Dev Ops</li>
+<li>Dev Sec Ops</li>
+<li>Data Ops</li>
+<li>Biz Ops</li>
+<li>No Ops: Not Only Ops</li>
+<li>AI Ops</li>
+<li>Slack Ops</li>
+<li>Git Ops</li>
+<li>Design Ops</li>
+<li>Google Ops &lt;— 超強!</li>
+<li>M$ Ops &lt;— 超 ……</li>
+<li>DesignOps</li>
+<li>Mouth Ops 出一張嘴</li>
+<li>Rick Ops … 這啥鬼 XDD</li>
+<li>Oops …. 出事了</li>
+</ul>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
+<li><a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/">AWS Certified SysOps Administrator - Associate 準備心得</a></li>
+<li><a href="/2018/06/14/DevOps/Recap-What-is-Ops/">Recap What is Ops?</a></li>
+<li><a href="/2017/12/21/DevOps/What-is-Automation/">What is Automation?</a></li>
+<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></li>
+<li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a></li>
+<li><a href="/2017/12/02/DevOps/Spirit-In-SysOps/">系統維運的精神</a></li>
+<li><a href="/2018/01/07/DevOps/Emergency-Response/">警急事件 (Emergency Response)</a></li>
+<li><a href="/2017/09/14/SoftwareEngineering/Software-Development-Lifecycle/">Software Development Lifecycle</a></li>
+<li><a href="/2017/11/26/Thinking-in-Essence/">思考本質、實踐、想像力、教育</a></li>
+<li><a href="/2017/11/14/DevOps/Go-Live/">Go Live</a></li>
+</ul>
+<h1 id="相關"><a href="#相關" class="headerlink" title="相關"></a>相關</h1><ul>
+<li><a href="http://www.jianshu.com/p/645bb1283a77" target="_blank" rel="noopener">关于 DevOps ，咱们聊的可能不是一回事</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2017/11/29/AWS/News_AWS-reInvent-2017/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2017/11/26/Thinking-in-Essence/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2017-11-27 19:41:58
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#What-is-Ops"><span class="toc-article-text">What is Ops?</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#什麼是『維運』？"><span class="toc-article-text">什麼是『維運』？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#以下是練肖話"><span class="toc-article-text">以下是練肖話</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#相關"><span class="toc-article-text">相關</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/DevOps/" style="color: white">DevOps <span class="badge">28</span></a></span> <span class="label label-info"><a href="/categories/DevOps/SRE/" style="color: white">SRE <span class="badge">18</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/DevOps/" style="color: white">DevOps <span class="badge">17</span></a></span> <span class="label label-success"><a href="/tags/System-Operations/" style="color: white">System Operations <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Ops/" style="color: white">Ops <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/Automation/" style="color: white">Automation <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/What-is/" style="color: white">What is <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/AI/" style="color: white">AI <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>
