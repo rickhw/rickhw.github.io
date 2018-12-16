@@ -1,0 +1,503 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>DNS (Domain Name Service) | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="主要是 DNS 概念筆記。
+
+
+DNS 概念整理基本的 DNS Record 屬性
+A: IPv4 位址, e.g. 192.168.1.1
+AAAA: IPv6 位址, e.g. 2001:0db8:85a3:0:0:8a2e:0370:7334
+CNAME: 全名 Canonical Name,">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="DNS (Domain Name Service)"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> DNS (Domain Name Service)</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> DNS (Domain Name Service)</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>主要是 DNS 概念筆記。</p>
+<a id="more"></a>
+<hr>
+<h1 id="DNS-概念整理"><a href="#DNS-概念整理" class="headerlink" title="DNS 概念整理"></a>DNS 概念整理</h1><h2 id="基本的-DNS-Record-屬性"><a href="#基本的-DNS-Record-屬性" class="headerlink" title="基本的 DNS Record 屬性"></a>基本的 DNS Record 屬性</h2><ul>
+<li>A: IPv4 位址, e.g. <code>192.168.1.1</code></li>
+<li>AAAA: IPv6 位址, e.g. <code>2001:0db8:85a3:0:0:8a2e:0370:7334</code></li>
+<li><a href="https://en.wikipedia.org/wiki/CNAME_record" target="_blank" rel="noopener">CNAME</a>: 全名 <em>Canonical Name</em>, 也可叫 <code>domain name aliases</code>. 就是 A Record 指定名稱的另一個別名。CNAME 不可以指向 IP 或者 MX record.</li>
+<li><a href="https://en.wikipedia.org/wiki/MX_record" target="_blank" rel="noopener">MX</a>: 全名是 <code>Mail Exchange</code>, 指向郵件主機的位址, 位址必須是 A or AAAA record, 不可以是 CNAME. 網域 mail rely 的位址, 一般就是 SMTP.</li>
+<li>NS: 指向 DNS Server 位址. 格式與網域名稱相同，是用來設定網域名稱的名稱服務主機。NS 與 SOA 是 Hosted Zone 基本 Record。Route 53 自動產生四筆 NS Record，把上層 NS 指向這四台。</li>
+<li>PTR: IP 與 NS 的反解</li>
+<li>SOA: 全名叫 <code>start of authority</code>, 提供基本的網域名稱資訊，有七個欄位:<ul>
+<li>第一欄：主要的 name server 名稱，像是 <code>dns.example.com</code></li>
+<li>第二個欄位：管理者資訊, 因為不可以使用 <code>@</code>, 所以大多都會用 <code>.</code> 取代。很容易誤解的欄位。</li>
+<li>剩下的五個欄位以十進制數字表示，分別序列編號、更新時間、重試時間、有效時間與 TTL。</li>
+</ul>
+</li>
+<li>SPF: 全名 <code>Sender Policy Framework (SPF)</code>, 不過 AWS Route53 文件建議使用 <code>TXT</code> 取代此 record.<ul>
+<li>深入的格式與介紹參考 <a href="http://www.openspf.org/SPF_Record_Syntax" target="_blank" rel="noopener">Sender Policy Framework</a></li>
+<li><a href="http://blog.xuite.net/tolarku/blog/233356505-DNS+%E8%A8%AD%E5%AE%9A+spf+%E8%A8%98%E9%8C%84+-+Sender+Policy+Framework" target="_blank" rel="noopener">DNS 設定 spf 記錄 - Sender Policy Framework</a></li>
+</ul>
+</li>
+<li>SRV: 以四個以空白隔開的值。前三個十進制數字表示優先權、權重與通訊埠。第四個值為網域名稱。</li>
+<li>TXT: 用來放至描述、說明等訊息。但是後來被拿來當作設定檔使用，像是前面提到的 SPF 格式、DKIM …等</li>
+</ul>
+<p>參考文件：</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/List_of_DNS_record_types" target="_blank" rel="noopener">List of DNS record types</a></li>
+<li><a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/ResourceRecordTypes.html" target="_blank" rel="noopener">Supported DNS Resource Record Types</a></li>
+</ul>
+<h2 id="DNS-相關名詞"><a href="#DNS-相關名詞" class="headerlink" title="DNS 相關名詞"></a>DNS 相關名詞</h2><ul>
+<li>Zone Apex / Root Domain / Naked Domain: 網域名稱的根節點. 像是 <a href="http://www.google.com" target="_blank" rel="noopener">www.google.com</a> 的 root domain 就是 google.com</li>
+<li>TLD: Top level domain, 就是第一層的名稱，像是 <code>.com</code>, <code>.org</code>, <code>.gov</code>, <code>.edu</code>, <code>.net</code> … 等</li>
+<li>TTL: Time to live</li>
+<li>Delegation: 網域代理, 有些網站翻譯成 “授權”. 就是子網域名 (sub domain)稱交由另一台機器管理.</li>
+<li><a href="https://en.wikipedia.org/wiki/DomainKeys_Identified_Mail" target="_blank" rel="noopener">DKIM</a>: DomainKeys Identified Mail</li>
+</ul>
+<h2 id="DNS-相關工具"><a href="#DNS-相關工具" class="headerlink" title="DNS 相關工具"></a>DNS 相關工具</h2><h3 id="nslookup"><a href="#nslookup" class="headerlink" title="nslookup"></a>nslookup</h3><ul>
+<li>一般 NS/IP 查詢: <code>nslookup www.google.com</code></li>
+<li>查詢 record by type: <code>set type=${type}</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">~$ nslookup</span><br><span class="line">&gt; set type=mx</span><br><span class="line">&gt; gmail.com</span><br><span class="line">Server:		8.8.8.8</span><br><span class="line">Address:	8.8.8.8#53</span><br><span class="line">Non-authoritative answer:</span><br><span class="line">gmail.com	mail exchanger = 5 gmail-smtp-in.l.google.com.</span><br><span class="line">gmail.com	mail exchanger = 10 alt1.gmail-smtp-in.l.google.com.</span><br><span class="line">gmail.com	mail exchanger = 40 alt4.gmail-smtp-in.l.google.com.</span><br><span class="line">gmail.com	mail exchanger = 30 alt3.gmail-smtp-in.l.google.com.</span><br><span class="line">gmail.com	mail exchanger = 20 alt2.gmail-smtp-in.l.google.com.</span><br><span class="line"></span><br><span class="line">&gt; set type=soa</span><br><span class="line">&gt; google.com</span><br><span class="line">Server:		8.8.8.8</span><br><span class="line">Address:	8.8.8.8#53</span><br><span class="line"></span><br><span class="line">Non-authoritative answer:</span><br><span class="line">google.com</span><br><span class="line">	origin = ns1.google.com</span><br><span class="line">	mail addr = dns-admin.google.com</span><br><span class="line">	serial = 117708571</span><br><span class="line">	refresh = 900</span><br><span class="line">	retry = 900</span><br><span class="line">	expire = 1800</span><br><span class="line">	minimum = 60</span><br></pre></td></tr></table></figure>
+<p>使用 debug mode: <code>set d2</code>, 可以清楚地看到 DNS 查詢每一個 SendRequest / Response packet 的內容。</p>
+<p>可以用來找尋未知 Record TTL, 通常是要做 DNS 切換時需要.</p>
+<p>以下例子是使用 windows 的版本，分別會查詢 <code>ipv4</code>, <code>ipv6</code> 的資訊。如果網域中有字尾 domain, 那麼就會先查字尾 domain 的 DNS.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\rickhwang&gt;nslookup</span><br><span class="line">Default Server:  dc1.gtcafe.corp</span><br><span class="line">Address:  10.1.0.5</span><br><span class="line"></span><br><span class="line">&gt; set d2</span><br><span class="line">&gt; www.google.com</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">SendRequest(), len 32</span><br><span class="line">    HEADER:</span><br><span class="line">        opcode = QUERY, id = 12, rcode = NOERROR</span><br><span class="line">        header flags:  query, want recursion</span><br><span class="line">        questions = 1,  answers = 0,  authority records = 0,  additional = 0</span><br><span class="line"></span><br><span class="line">    QUESTIONS:</span><br><span class="line">        www.google.com, type = A, class = IN</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">------------</span><br><span class="line">Got answer (48 bytes):</span><br><span class="line">    HEADER:</span><br><span class="line">        opcode = QUERY, id = 12, rcode = NOERROR</span><br><span class="line">        header flags:  response, want recursion, recursion avail.</span><br><span class="line">        questions = 1,  answers = 1,  authority records = 0,  additional = 0</span><br><span class="line"></span><br><span class="line">    QUESTIONS:</span><br><span class="line">        www.google.com, type = A, class = IN</span><br><span class="line">    ANSWERS:</span><br><span class="line">    -&gt;  www.google.com</span><br><span class="line">        type = A, class = IN, dlen = 4</span><br><span class="line">        internet address = 216.58.200.196</span><br><span class="line">        ttl = 70 (1 min 10 secs)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">Non-authoritative answer:</span><br><span class="line">------------</span><br><span class="line">SendRequest(), len 32</span><br><span class="line">    HEADER:</span><br><span class="line">        opcode = QUERY, id = 13, rcode = NOERROR</span><br><span class="line">        header flags:  query, want recursion</span><br><span class="line">        questions = 1,  answers = 0,  authority records = 0,  additional = 0</span><br><span class="line"></span><br><span class="line">    QUESTIONS:</span><br><span class="line">        www.google.com, type = AAAA, class = IN</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">------------</span><br><span class="line">Got answer (60 bytes):</span><br><span class="line">    HEADER:</span><br><span class="line">        opcode = QUERY, id = 13, rcode = NOERROR</span><br><span class="line">        header flags:  response, want recursion, recursion avail.</span><br><span class="line">        questions = 1,  answers = 1,  authority records = 0,  additional = 0</span><br><span class="line"></span><br><span class="line">    QUESTIONS:</span><br><span class="line">        www.google.com, type = AAAA, class = IN</span><br><span class="line">    ANSWERS:</span><br><span class="line">    -&gt;  www.google.com</span><br><span class="line">        type = AAAA, class = IN, dlen = 16</span><br><span class="line">        AAAA IPv6 address = 2404:6800:4004:800::2004</span><br><span class="line">        ttl = 174 (2 mins 54 secs)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">Name:    www.google.com</span><br><span class="line">Addresses:  2404:6800:4004:800::2004</span><br><span class="line">          216.58.200.196</span><br></pre></td></tr></table></figure>
+<pre><code>不曉得為什麼，unix 版的 debug 資訊都沒有 format 過，只是把 function stack 印出來，不管是 OS X or Linux 都是如此.
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">~$ nslookup</span><br><span class="line">&gt; set d2</span><br><span class="line">&gt; www.google.com</span><br><span class="line">addlookup()</span><br><span class="line">make_empty_lookup()</span><br><span class="line">looking up www.google.com</span><br><span class="line">start_lookup()</span><br><span class="line">setup_lookup(0x7f91e9821208)</span><br><span class="line">resetting lookup counter.</span><br><span class="line">cloning server list</span><br><span class="line">clone_server_list()</span><br><span class="line">make_server(10.11.1.5)</span><br><span class="line">make_server(8.8.8.8)</span><br><span class="line">using root origin</span><br><span class="line">recursive query</span><br><span class="line">add_question()</span><br><span class="line">starting to render the message</span><br><span class="line">done rendering</span><br><span class="line">create query 0x10d7fade8 linked to lookup 0x7f91e9821208</span><br><span class="line">create query 0x10d800008 linked to lookup 0x7f91e9821208</span><br><span class="line">do_lookup()</span><br><span class="line">send_udp(0x10d7fade8)</span><br><span class="line">bringup_timer()</span><br><span class="line">have local timeout of 1</span><br><span class="line">working on lookup 0x7f91e9821208, query 0x10d7fade8</span><br><span class="line">sockcount=1</span><br><span class="line">recving with lookup=0x7f91e9821208, query=0x10d7fade8, sock=0x10d801000</span><br><span class="line">recvcount=1</span><br><span class="line">sending a request</span><br><span class="line">lock_lookup /Library/Caches/com.apple.xbs/Sources/bind9/bind9-45.101/bind9/bin/dig/dighost.c:2332</span><br><span class="line">success</span><br><span class="line">send_done()</span><br><span class="line">sendcount=0</span><br><span class="line">check_if_done()</span><br><span class="line">list empty</span><br><span class="line">unlock_lookup /Library/Caches/com.apple.xbs/Sources/bind9/bind9-45.101/bind9/bin/dig/dighost.c:2361</span><br><span class="line">recv_done()</span><br><span class="line">lock_lookup /Library/Caches/com.apple.xbs/Sources/bind9/bind9-45.101/bind9/bin/dig/dighost.c:3057</span><br><span class="line">success</span><br><span class="line">recvcount=0</span><br><span class="line">lookup=0x7f91e9821208, query=0x10d7fade8</span><br><span class="line">before parse starts</span><br><span class="line">after parse</span><br><span class="line">printmessage()</span><br><span class="line">Server:		10.11.1.5</span><br><span class="line">Address:	10.11.1.5#53</span><br><span class="line"></span><br><span class="line">Non-authoritative answer:</span><br><span class="line">printsection()</span><br><span class="line">Name:	www.google.com</span><br><span class="line">Address: 216.58.197.164</span><br><span class="line">still pending.</span><br><span class="line">cancel_lookup()</span><br><span class="line">check_if_done()</span><br><span class="line">list empty</span><br><span class="line">clear_query(0x10d800008)</span><br><span class="line">clear_query(0x10d7fade8)</span><br><span class="line">sockcount=0</span><br><span class="line">check_next_lookup(0x7f91e9821208)</span><br><span class="line">try_clear_lookup(0x7f91e9821208)</span><br><span class="line">destroy</span><br><span class="line">freeing server 0x7f91e9804608 belonging to 0x7f91e9821208</span><br><span class="line">freeing server 0x7f91e9822808 belonging to 0x7f91e9821208</span><br><span class="line">start_lookup()</span><br><span class="line">check_if_done()</span><br><span class="line">list empty</span><br><span class="line">shutting down</span><br><span class="line">dighost_shutdown()</span><br><span class="line">unlock_lookup /Library/Caches/com.apple.xbs/Sources/bind9/bind9-45.101/bind9/bin/dig/dighost.c:3534</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="dig"><a href="#dig" class="headerlink" title="dig"></a>dig</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># look up by type</span><br><span class="line">~ $dig gmail.com -t mx</span><br><span class="line"></span><br><span class="line">; &lt;&lt;&gt;&gt; DiG 9.8.3-P1 &lt;&lt;&gt;&gt; gmail.com -t mx</span><br><span class="line">;; global options: +cmd</span><br><span class="line">;; Got answer:</span><br><span class="line">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 61679</span><br><span class="line">;; flags: qr rd ra; QUERY: 1, ANSWER: 5, AUTHORITY: 0, ADDITIONAL: 0</span><br><span class="line"></span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;gmail.com.			IN	MX</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">gmail.com.		3599	IN	MX	5 gmail-smtp-in.l.google.com.</span><br><span class="line">gmail.com.		3599	IN	MX	40 alt4.gmail-smtp-in.l.google.com.</span><br><span class="line">gmail.com.		3599	IN	MX	30 alt3.gmail-smtp-in.l.google.com.</span><br><span class="line">gmail.com.		3599	IN	MX	20 alt2.gmail-smtp-in.l.google.com.</span><br><span class="line">gmail.com.		3599	IN	MX	10 alt1.gmail-smtp-in.l.google.com.</span><br><span class="line"></span><br><span class="line">;; Query time: 23 msec</span><br><span class="line">;; SERVER: 8.8.8.8#53(8.8.8.8)</span><br><span class="line">;; WHEN: Mon Mar 21 22:22:40 2016</span><br><span class="line">;; MSG SIZE  rcvd: 150</span><br></pre></td></tr></table></figure>
+<h3 id="其他工具"><a href="#其他工具" class="headerlink" title="其他工具"></a>其他工具</h3><ul>
+<li>whois: 查詢 DNS 註冊資訊</li>
+<li>tracert (windows)</li>
+<li>tractroute (unix)</li>
+</ul>
+<hr>
+<h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><ul>
+<li><a href="/2016/03/02/AWS/Study-Notes-ELB/">Study Notes - AWS ELB (Elastic Load Balance)</a></li>
+<li><a href="/2016/10/01/AWS-Study-Roadmap/">AWS Study Roadmap</a></li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2016/03/14/AWS/Study-Notes-Route53/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2016/03/02/AWS/Study-Notes-ELB/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2016-03-14 21:53:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#DNS-概念整理"><span class="toc-article-text">DNS 概念整理</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#基本的-DNS-Record-屬性"><span class="toc-article-text">基本的 DNS Record 屬性</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#DNS-相關名詞"><span class="toc-article-text">DNS 相關名詞</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#DNS-相關工具"><span class="toc-article-text">DNS 相關工具</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#nslookup"><span class="toc-article-text">nslookup</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#dig"><span class="toc-article-text">dig</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#其他工具"><span class="toc-article-text">其他工具</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀-站內"><span class="toc-article-text">延伸閱讀 (站內)</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/Computer-Science/" style="color: white">Computer Science <span class="badge">2</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/DNS/" style="color: white">DNS <span class="badge">2</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>
