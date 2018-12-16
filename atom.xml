@@ -192,9 +192,9 @@
     
       <category term="Microservices" scheme="http://rickhw.github.io/tags/Microservices/"/>
     
-      <category term="Distributed Systems" scheme="http://rickhw.github.io/tags/Distributed-Systems/"/>
-    
       <category term="SRE" scheme="http://rickhw.github.io/tags/SRE/"/>
+    
+      <category term="Distributed Systems" scheme="http://rickhw.github.io/tags/Distributed-Systems/"/>
     
       <category term="Nginx" scheme="http://rickhw.github.io/tags/Nginx/"/>
     
@@ -268,11 +268,11 @@
     
       <category term="Continuous Deployment" scheme="http://rickhw.github.io/tags/Continuous-Deployment/"/>
     
+      <category term="SRE" scheme="http://rickhw.github.io/tags/SRE/"/>
+    
       <category term="Distributed Consensus" scheme="http://rickhw.github.io/tags/Distributed-Consensus/"/>
     
       <category term="Conway&#39;s Law" scheme="http://rickhw.github.io/tags/Conway-s-Law/"/>
-    
-      <category term="SRE" scheme="http://rickhw.github.io/tags/SRE/"/>
     
       <category term="Continuous Integration" scheme="http://rickhw.github.io/tags/Continuous-Integration/"/>
     
