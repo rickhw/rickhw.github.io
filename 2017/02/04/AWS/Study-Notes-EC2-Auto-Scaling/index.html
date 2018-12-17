@@ -419,14 +419,17 @@ Source: [Controlling Which Instances Auto Scaling Terminates During Scale In][r1
 <p>如果執行中的程序 (Process)，直接被中斷，不影響邏輯或者狀態，那麼就無所謂。如果執行中的程序被中斷，會影響商業邏輯，那麼就要透過 Lifecycle 機制，通知應用程式執行完之後不要在繼續執行了，這個過程稱為  <code>Graceful Shutdown</code>。類似的例子是 ELB 的 Connection Draining (連線排水) 其實就是 Graceful Shutdown 在 Load Balancer 的實作。</p>
 <p>ASG 上的 Graceful Shutdown 實作通常會搭配 Lifecycle Hooks 執行，詳細介紹參見：<a href="/2017/05/12/AWS/Study-Notes-EC2-Auto-Scaling-Lifecycle-and-Hooks/">EC2 Auto Scaling Lifecycle and Hooks</a>。</p>
 <hr>
-<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>ASG 東西真的滿多的，而且有點複雜，所以要導入新產品，技術上要做很多 Lab 以及評估，以下是建議要留意的：</p>
+<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>AWS 的服務這幾年是爆炸性的成長，新的服務從架構以及應用上來看，其實就是用核心服務重新包裝的產品。也因此核心服務的功能也是越來越強大，所以學習 AWS 的時候，掌握核心服務的功能、設計原理、應用場景、常見問題是非常重要的。EC2 Auto Scaling 是 AWS 非常核心的關鍵服務，它的功能很多，而且有點複雜，但是從這些功能的設計，不難發現是為了維運而設計，如同 Well-Architected 所描述，維運優先！</p>
+<p>不管是學習，或者是要導入新產品，技術上要做很多 Lab 以及評估，以下是建議要留意的：</p>
 <ul>
-<li>機器自動化：<a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning</a>, <a href="/2018/07/08/DevOps/Artifacts-Management/">Artifacts Management</a></li>
+<li><a href="/2018/07/08/DevOps/Artifacts-Management/">Artifacts Management</a></li>
+<li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning</a></li>
 <li>部署策略</li>
 <li>維運策略</li>
 <li>監控策略</li>
 </ul>
-<p><code>策略</code> 是種選擇，但是在選擇之前，要知道有哪些。了解了這個概念與考慮，下一篇整理的是 <a href="/2017/05/12/AWS/Study-Notes-EC2-Auto-Scaling-Lifecycle-and-Hooks/">EC2 Auto Scaling Lifecycle and Hooks</a></p>
+<p><code>策略</code> 是種選擇，但是在選擇之前，要知道有哪些。</p>
+<p>了解了這個概念與考慮，下一篇整理的是 <a href="/2017/05/12/AWS/Study-Notes-EC2-Auto-Scaling-Lifecycle-and-Hooks/">EC2 Auto Scaling Lifecycle and Hooks</a></p>
 <hr>
 <h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
 <li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a></li>
