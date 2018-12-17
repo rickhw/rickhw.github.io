@@ -214,7 +214,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 
 		    <p>這是個我心裡埋藏已久的問號： <code>Service Using Single IP in Global</code> … 怎麼可能 @@?</p>
 <p>但是看到 GCP 的文件說 “<a href="https://cloud.google.com/load-balancing/" target="_blank" rel="noopener">Global Load Balancing with Single Anycast IP</a>“, 他是 Google ，所以我相信了 ….</p>
-<p>心裡會這麼疑惑是因為很久以前在研究 <a href="/2016/05/25/AWS/How-Elastic-Load-Balancing-Implement/">ELB 原理</a> 時，就一直在猜背後應該是靠 ASG + EC2 組出來的，然後每個 EC2 都有 EIP，所以 IP 不會是固定 …. bala bala  … 認知上，實體的 Load Balancing 通常會是一台，但是通常也很貴。軟體的 LB 通常就是用 AutoScaling 實作，而且很難跨地區。 ….</p>
+<p>心裡會這麼疑惑是因為很久以前在研究 <a href="/2016/05/25/AWS/How-Elastic-Load-Balancing-Implement/">ELB 原理</a> 時，就一直在猜背後應該是靠 ASG + EC2 組出來的，然後每個 EC2 都有 EIP，所以 IP 不會是固定 …. bala bala  … 認知上，實體的 Load Balancing 通常會是一台，但是通常也很貴。軟體的 LB 通常就是用 Auto Scaling 實作，而且很難跨地區。 ….</p>
 <a id="more"></a>
 <p>不久前聽同事提到 Google Cloud Platform (GCP) 的 Load Balancing 只有一個 IP，當時心裡想：『怎麼可能？』</p>
 <p>去年年初，幫忙辦公室與 AWS 之間 VPN 串接，還有跟同事一起研究 Site to Site VPN (VPC to VPC)，過程中遇到 Static / Dynamic Route 的問題，中間出現了一個網路的名詞：BGP，當時有查過，但其實沒很懂，反正 VPN 是通了 XDD</p>

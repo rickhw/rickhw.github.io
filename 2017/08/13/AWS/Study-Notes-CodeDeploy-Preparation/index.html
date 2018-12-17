@@ -220,7 +220,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li>容易使用</li>
 <li>支援常見的部屬方法，像是 Blue/Green、Canary、A/B Test、Rolling</li>
 <li>支援 Rollback</li>
-<li>支援 <a href="/2017/02/04/AWS/Study-Notes-AutoScaling_Basic-Concept/">Auto Scaling Group</a></li>
+<li>支援 <a href="/2017/02/04/AWS/Study-Notes-EC2-Auto-Scaling/">Auto Scaling Group</a></li>
 </ul>
 <h2 id="1-2-角色"><a href="#1-2-角色" class="headerlink" title="1-2. 角色"></a>1-2. 角色</h2><p>使用 CodeDeploy 有四個主要的角色：</p>
 <ul>
@@ -271,13 +271,13 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </ol>
 <h2 id="1-4-CodeDeploy-的使用情境"><a href="#1-4-CodeDeploy-的使用情境" class="headerlink" title="1-4. CodeDeploy 的使用情境"></a>1-4. CodeDeploy 的使用情境</h2><p>CodeDeploy 可以使用很多情境，除了常見的應用程部署，還有其他可以應用，整理以下：</p>
 <ul>
-<li>使用動態的機器配置，像是 <a href="/2017/02/04/AWS/Study-Notes-AutoScaling_Basic-Concept/">Auto Scaling Group</a> 這種動態資源</li>
+<li>使用動態的機器配置，像是 <a href="/2017/02/04/AWS/Study-Notes-EC2-Auto-Scaling/">Auto Scaling Group</a> 這種動態資源</li>
 <li>On-Prem 的資源部署</li>
 <li>監控程式部署，像是部署 <a href="/2017/03/02/AWS/Study-Notes-CloudWatch/">CloudWatch Log Driver (awslogs)</a></li>
 <li>部署 Docker</li>
 </ul>
 <h2 id="1-5-相關服務"><a href="#1-5-相關服務" class="headerlink" title="1-5. 相關服務"></a>1-5. 相關服務</h2><ul>
-<li><a href="/2017/02/04/AWS/Study-Notes-AutoScaling_Basic-Concept/">Auto Scaling Group</a>: CodeDeploy 的實作可能是透過 <a href="/2017/05/12/AWS/Study-Notes-AutoScaling-Lifecycle-And-Introduce/">ASG Lifecyele Hook</a> ，我透過 <code>aws autoscaling describe-lifecycle-hooks</code> 看到端倪。</li>
+<li><a href="/2017/02/04/AWS/Study-Notes-EC2-Auto-Scaling/">Auto Scaling Group</a>: CodeDeploy 的實作可能是透過 <a href="/2017/05/12/AWS/Study-Notes-EC2-Auto-Scaling-Lifecycle-and-Hooks/">ASG Lifecyele Hook</a> ，我透過 <code>aws Auto Scaling describe-lifecycle-hooks</code> 看到端倪。</li>
 <li>S3: CodeDeploy 依賴 S3 ，所以要把 CI build 好的 artifact 放上去，建議要規範 artifact naming，同時放一個 <code>LATEST</code> 用來取得最新的資源。</li>
 <li><a href="/2016/10/25/AWS/EC2-Run-Command_SSM/">EC2 Systems Manager - SSM</a>: AWS 提供給 System Operator 使用的管理工具，主要是維護 EC2 上的 System Patch、或者管理工具，像是監控程式、Log 處理程序等。因為是類似於 Remote Proedure 的概念，所以 CodeDeploy 的流程理論上可以透過 SSM 實踐。</li>
 </ul>
@@ -293,7 +293,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </ul>
 <p>關係如下圖：</p>
 <p><img src="/images/AWS/CodeDeploy/Roles_Permissions.png" alt=""></p>
-<h3 id="CodeDeploy-Service-Role"><a href="#CodeDeploy-Service-Role" class="headerlink" title="CodeDeploy Service Role"></a>CodeDeploy Service Role</h3><p>這是個角色用來授權給 CodeDeploy Service 可以執行的動作，像是 AutoScaling 等。建立一個 IAM Role 叫 <code>CodeDeploy_ServiceRole</code>，Attach <code>AWSCodeDeployRole</code> Policy，如下圖：</p>
+<h3 id="CodeDeploy-Service-Role"><a href="#CodeDeploy-Service-Role" class="headerlink" title="CodeDeploy Service Role"></a>CodeDeploy Service Role</h3><p>這是個角色用來授權給 CodeDeploy Service 可以執行的動作，像是 Auto Scaling 等。建立一個 IAM Role 叫 <code>CodeDeploy_ServiceRole</code>，Attach <code>AWSCodeDeployRole</code> Policy，如下圖：</p>
 <p><img src="/images/AWS/CodeDeploy/CodeDeployServiceRole.png" alt=""></p>
 <p>這個 Service Role 預設允許每個 region 都可以使用 CodeDeploy，如果要個別允許，可以到 Trust Relationship 個別設定 <code>Principal</code>，詳細設定參考文件： <a href="http://docs.aws.amazon.com/codedeploy/latest/userguide/getting-started-create-service-role.html" target="_blank" rel="noopener">Create a Service Role for AWS CodeDeploy</a>。</p>
 <h3 id="CodeDeploy-Target-Role"><a href="#CodeDeploy-Target-Role" class="headerlink" title="CodeDeploy Target Role"></a>CodeDeploy Target Role</h3><p>部署的目標機器，通常這些 EC2 只需要存取 S3 Objects，所以只需要開啟 <code>s3:Get*</code> 即可。</p>
@@ -305,8 +305,8 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <p>這段流程可以綁定在 AMI 的建置流程，然後掛到 ASG.</p>
 <h1 id="Next-…"><a href="#Next-…" class="headerlink" title="Next …"></a>Next …</h1><p>基本的配置完成後，接下來介紹實際的使用案例。</p>
 <h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
-<li><a href="/2017/02/04/AWS/Study-Notes-AutoScaling_Basic-Concept/">Study Notes - Basic Concept of Auto Scaling</a></li>
-<li><a href="/2017/05/12/AWS/Study-Notes-AutoScaling-Lifecycle-And-Introduce/">Study Notes - AutoScaling Lifecycle and Introduce</a></li>
+<li><a href="/2017/02/04/AWS/Study-Notes-EC2-Auto-Scaling/">Study Notes - EC2 Auto Scaling Group</a></li>
+<li><a href="/2017/05/12/AWS/Study-Notes-EC2-Auto-Scaling-Lifecycle-and-Hooks/">Study Notes - EC2 Auto Scaling Lifecycle and Hooks</a></li>
 <li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a></li>
 <li><a href="/2016/10/25/AWS/EC2-Run-Command_SSM/">EC2 Run Command and SSM Agent</a></li>
 <li><a href="/2015/02/11/SoftwareEngineering/Version-Control/">Version Control</a></li>
@@ -421,7 +421,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Auto-Scaling-Group/" style="color: white">Auto Scaling Group <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/DevOps/" style="color: white">DevOps <span class="badge">17</span></a></span> <span class="label label-success"><a href="/tags/CodeDeploy/" style="color: white">CodeDeploy <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Continuous-Delivery/" style="color: white">Continuous Delivery <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/Continuous-Deployment/" style="color: white">Continuous Deployment <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/SSM/" style="color: white">SSM <span class="badge">2</span></a></span>
+  <span class="label label-success"><a href="/tags/EC2-Auto-Scaling/" style="color: white">EC2 Auto Scaling <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/DevOps/" style="color: white">DevOps <span class="badge">17</span></a></span> <span class="label label-success"><a href="/tags/CodeDeploy/" style="color: white">CodeDeploy <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Continuous-Delivery/" style="color: white">Continuous Delivery <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/Continuous-Deployment/" style="color: white">Continuous Deployment <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/SSM/" style="color: white">SSM <span class="badge">2</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>

@@ -231,8 +231,8 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li>Google 關鍵字 “<a href="https://www.google.com.tw/search?q=aws+provisioning&amp;oq=aws+provisioning&amp;aqs=chrome..69i57j69i60j0l4.2944j0j7&amp;sourceid=chrome&amp;ie=UTF-8" target="_blank" rel="noopener">AWS provisioning</a>“: 可以找到很多相關的東西，不過 ….</li>
 </ul>
 <p>看完之後應該很多人跟我一樣，還是搞不懂到底啥是 <code>Provisioning</code>？</p>
-<p>剛好最近在規劃 microservice 整個的開發流程的 pipeline，就是包含開發、測試、部署、監控、維運 … 等，後面幾個就是現在 DevOps 很常提到的部分，也會對應到一堆工具鍊。不過其實我發現，上述的階段，都少了一個很重要的東西：就是 <code>把機器建好、把相關服務之間的關係配置好，像是 ELB / AutoScaling / AMI / Route53 / VPC ... 等要準備好。</code></p>
-<p>除了 microservice 之外，我也在幫公司弄災難還原計畫，也是規劃一堆事，要 RTO / RPO、哪一些服務要先 ready、要估多少預算、要跟哪一些 Team co-work .. 但是真的要執行前，除了基本的 infrastructure (Network / AD) 要弄好之外，就是 <code>把機器建好、相關服務之間的關係配置好，像是 ELB / AutoScaling / AMI / Route53 / VPC ... 等要準備好。</code></p>
+<p>剛好最近在規劃 microservice 整個的開發流程的 pipeline，就是包含開發、測試、部署、監控、維運 … 等，後面幾個就是現在 DevOps 很常提到的部分，也會對應到一堆工具鍊。不過其實我發現，上述的階段，都少了一個很重要的東西：就是 <code>把機器建好、把相關服務之間的關係配置好，像是 ELB / Auto Scaling / AMI / Route53 / VPC ... 等要準備好。</code></p>
+<p>除了 microservice 之外，我也在幫公司弄災難還原計畫，也是規劃一堆事，要 RTO / RPO、哪一些服務要先 ready、要估多少預算、要跟哪一些 Team co-work .. 但是真的要執行前，除了基本的 infrastructure (Network / AD) 要弄好之外，就是 <code>把機器建好、相關服務之間的關係配置好，像是 ELB / Auto Scaling / AMI / Route53 / VPC ... 等要準備好。</code></p>
 <ul>
 <li>Q1: 為什麼會花時間在建立資源上？</li>
 </ul>
@@ -250,7 +250,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <blockquote>
 <p>容器化要考量以下兩個前提：</p>
 <ul>
-<li>如果 Production 還是會跑在 EC2 / VM 上，要考慮 infrastructure，包含 VPC / Subnet / Security Group / IAM Role 等相關安全性 Policy，這些不能上了線才來想。如果要使用 <a href="/2017/02/04/AWS/Study-Notes-AutoScaling_Basic-Concept/">Auto Scaling</a></li>
+<li>如果 Production 還是會跑在 EC2 / VM 上，要考慮 infrastructure，包含 VPC / Subnet / Security Group / IAM Role 等相關安全性 Policy，這些不能上了線才來想。如果要使用 <a href="/2017/02/04/AWS/Study-Notes-EC2-Auto-Scaling/">Auto Scaling</a></li>
 <li>除非上線規劃就是要容器化，那就同時想好如何部署、動態資源發現、監控、還原 … 等</li>
 </ul>
 </blockquote>
@@ -343,7 +343,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li>適合部署應用程式，也可以做 Provisioning</li>
 <li>module 命名有點亂，使用上有些雷， debug 要花一點時間</li>
 <li>沒有考慮實際應用的場景，像是 security group 只能建立，無法更新。</li>
-<li>功能不完整，像是 AutoScaling 不支援 Scaling Policy，看來需要自幹 ….</li>
+<li>功能不完整，像是 Auto Scaling 不支援 Scaling Policy，看來需要自幹 ….</li>
 </ul>
 </li>
 <li>CloudFormation:<ul>
@@ -432,7 +432,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
         <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
 
 		
-		   <li class="next"><a href="/2017/02/04/AWS/Study-Notes-AutoScaling_Basic-Concept/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+		   <li class="next"><a href="/2017/02/04/AWS/Study-Notes-EC2-Auto-Scaling/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
         
 	
 </ul>

@@ -1,0 +1,686 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Study Notes - EC2 Auto Scaling | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="整理 AWS 很重要的核心功能之一：EC2 Auto Scaling 筆記，這篇整理核心功能以及名詞。
+
+AWS 另一個類似發表於 2018/01/16 的服務叫做 AWS Auto Scaling 則是超集 (Superset) 整合服務，可以管理 EC2 Auto Scaling Groups、">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Study Notes - EC2 Auto Scaling"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+									
+										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>33</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Study Notes - EC2 Auto Scaling</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Study Notes - EC2 Auto Scaling</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>整理 AWS 很重要的核心功能之一：<a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html" target="_blank" rel="noopener">EC2 Auto Scaling</a> 筆記，這篇整理核心功能以及名詞。</p>
+<blockquote>
+<p>AWS 另一個類似發表於 2018/01/16 的服務叫做 <a href="https://docs.aws.amazon.com/autoscaling/plans/userguide/what-is-aws-auto-scaling.html" target="_blank" rel="noopener">AWS Auto Scaling</a> 則是超集 (Superset) 整合服務，可以管理 EC2 Auto Scaling Groups、EC2 Spot Fleet Requests、ECS、DynamoDB、Auroa … 等服務。本文介紹的只是其中一個子集。</p>
+</blockquote>
+<a id="more"></a>
+<hr>
+<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><h2 id="效益"><a href="#效益" class="headerlink" title="效益"></a>效益</h2><ul>
+<li>根據流量提供可用的容量，省去人工監控、排程</li>
+<li>更好的容錯 (fault tolerance) 機制</li>
+<li>更好的高可用度 (High Available) 機制</li>
+<li>節省成本:<ul>
+<li>依據 Scaling Policy 自動增減機器，達到成本最佳化</li>
+<li>可以搭配 <code>Spot Instance</code> 使用，更省！</li>
+</ul>
+</li>
+<li>搭配 container 更省成本！不過也相對更複雜</li>
+</ul>
+<h2 id="使用的條件"><a href="#使用的條件" class="headerlink" title="使用的條件"></a>使用的條件</h2><p>使用 EC2 Auto Scaling 要有一些前提條件，建議要依據系統架構、應用程式特性規劃，技術面簡單整理如下：</p>
+<ul>
+<li>規劃 <a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning</a> 策略，主要是 VM Level 建置方法與工具</li>
+<li>規劃 <a href="/2018/07/08/DevOps/Artifacts-Management/">Artifacts Management</a> 策略，主要是管理流程與方法</li>
+<li>準備 AMI (<a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html" target="_blank" rel="noopener">Amazon Machine Images</a>)<ul>
+<li>此 AMI 為 Golden Image</li>
+<li>依據 <code>部署策略</code> 搭配 <code>userdata</code> 配置需要的環境，像是安裝中介軟體 (Middleware)，像是 nginx、tomcat，還有待部署應用程式、監控工具 … 等。</li>
+</ul>
+</li>
+<li>EC2 Instance 裡面的 Application 的設計必須是 <code>stateless</code><ul>
+<li>應用程式的 <code>狀態</code>，像是 Session、Cookie 等，要透過其他儲存媒介儲存，像是 ElasticCache、RDS、S3、EFS …</li>
+<li>Instance 可以隨時被砍掉</li>
+</ul>
+</li>
+<li><code>Immutable</code>：透過 AMI 建立的 Instance 開機就要可以上線。<ul>
+<li>換言之，機器隨時可以被砍掉，是 <code>cattle, Not pets</code>.</li>
+</ul>
+</li>
+<li>可以預載維運管理工具，像是：<ul>
+<li>部署工具：<a href="/2017/08/13/AWS/Study-Notes-CodeDeploy-Preparation/">CodeDeploy</a></li>
+<li>維運工具：<a href="/2016/10/25/AWS/EC2-Run-Command_SSM/">SSM Agent</a></li>
+<li>Log 蒐集：<a href="/2017/03/02/AWS/Study-Notes-CloudWatch/">CloudWatch Agent</a>、Kinesis Agent …</li>
+<li>Docker Agent: Sidecar Pattern for Logger, Config, <a href="/2018/02/06/Architecture/Service-Mesh/">Service Mesh</a></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>更多相關說明參見：</p>
+<ul>
+<li><a href="/2017/07/12/AWS/Study-Notes-EC2-Auto-Scaling-Adaptation/">Study Notes - EC2 Auto Scaling 的導入與應用</a></li>
+<li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a></li>
+</ul>
+</blockquote>
+<hr>
+<h1 id="核心概念與名詞"><a href="#核心概念與名詞" class="headerlink" title="核心概念與名詞"></a>核心概念與名詞</h1><h2 id="EC2-Auto-Scaling-Group"><a href="#EC2-Auto-Scaling-Group" class="headerlink" title="EC2 Auto Scaling Group"></a>EC2 Auto Scaling Group</h2><p>全名為 EC2 Auto Scaling Group (以下簡寫成 ASG)，依據擴展策略 (Scaling Policies) 控制 EC2 增加 (Scale Out) 或者是減少 (Scale In)。</p>
+<h2 id="Launch-Configurations"><a href="#Launch-Configurations" class="headerlink" title="Launch Configurations"></a>Launch Configurations</h2><p>以下簡稱 LC。</p>
+<p>ASG 用來執行擴展 (Scale In/Out) 時，用來指定建立 EC2 Instance 的相關資訊，像是 Instance Type、AMI Id、KeyPair、Security Group、User Data、Spot Instance … 等資訊。</p>
+<p>他有點像是在建立 EC2 的時候需要的相關資訊，但是不包含 Subnet、EBS 等。</p>
+<h2 id="Launch-Template"><a href="#Launch-Template" class="headerlink" title="Launch Template"></a>Launch Template</h2><p>2018/01/19 發佈的新功能：<a href="https://aws.amazon.com/blogs/aws/recent-ec2-goodies-launch-templates-and-spread-placement/" target="_blank" rel="noopener">Launch Templates</a> (以下簡稱 LT)，與 LC 有點類似，不過可以客製化 EC2 更多細節資訊，包含 EC2 AMI 相關資訊、Network Interface、Stroage 配置、Tags、Advanced Detail …</p>
+<p>這些設定可以變成類似於 Config 的概念，同時也包含了版本控制，下次要建立 EC2 Instance 的時候，可以直接使用此 Template。</p>
+<p>使用 LT 要注意其限制：</p>
+<ul>
+<li>每個 Region 5000 LT</li>
+<li>每個 LT 有 10,000 個版本</li>
+<li>要確認每次指定的參數都是對的，例如選擇 Placement Group 的同時，必須自行選擇支援的 Instance Type</li>
+<li>LT Version 不支援 Tag 功能</li>
+<li>LT Version Number 不能自己指定</li>
+</ul>
+<blockquote>
+<p>詳細參閱：<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html" target="_blank" rel="noopener">Launching an Instance from a Launch Template</a></p>
+</blockquote>
+<h2 id="Health-Check-Type"><a href="#Health-Check-Type" class="headerlink" title="Health Check Type"></a>Health Check Type</h2><p>怎樣的狀況 EC2 Instance 會被 ASG 判斷成 health or unhealty？ASG 支援三種類型：EC2、ELB、Custom。</p>
+<p>如果選擇 EC2，只要是以下兩種之一，就會被判斷成 unhealthy：</p>
+<ul>
+<li><code>instance status</code> 是 <code>running</code> 以外的狀況</li>
+<li><code>system status</code> 是 <code>impaired</code></li>
+</ul>
+<p>這兩個是 EC2 的 <code>Status Check</code>，用來判斷 EC2 是否正常啟動的依據之一</p>
+<blockquote>
+<ul>
+<li>EC2 的 Instance Status 和 System Status 參閱筆記 <a href="/2016/07/09/AWS/EC2-Instance-Lifecycle-And-Troubleshooting/">EC2 Instance Lifecycle and Troubleshooting</a> 的整理與說明。</li>
+</ul>
+</blockquote>
+<p>如果 Health Type 是 ELB，那麼就會根據 CLB 或者 ALB Target Group 的狀態決定。當 ELB 狀態是 OutOfService 的時候，ASG 呈現 unhealthy 狀態。如果 Connection Draining 有開啟，那麼 ASG 會 in-flight 請求，或者等到 timeout。</p>
+<p>Health Type 可以自行定義，使用上目前只能透過 AWS CLI 設定，直接指定某一台機器的狀態為 <code>Unhealthy</code>，而這個狀態就由使用者自行設計，只是最後是透過 CLI 設定，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">aws autoscaling <span class="built_in">set</span>-instance-health \</span><br><span class="line">    --instance-id i-123abc45d \</span><br><span class="line">    --health-status Unhealthy</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>相關文件：</p>
+<ul>
+<li>EC2: <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/healthcheck.html" target="_blank" rel="noopener">Health Checks for Auto Scaling Instances</a></li>
+<li>CLB: <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-add-elb-healthcheck.html" target="_blank" rel="noopener">Using Elastic Load Balancing Health Checks with Auto Scaling</a></li>
+<li>ALB: <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/target-group-health-checks.html" target="_blank" rel="noopener">Health Checks for Your Target Groups</a></li>
+</ul>
+</blockquote>
+<h2 id="Scaling-Cooldowns"><a href="#Scaling-Cooldowns" class="headerlink" title="Scaling Cooldowns"></a>Scaling Cooldowns</h2><p><a href="http://docs.aws.amazon.com/autoscaling/latest/userguide/Cooldown.html" target="_blank" rel="noopener">Scaling Cooldowns</a> 的目的是 Scale Policies 被觸發的時候，不管是 Scale Out or In (這些活動稱為 Scaling Activities)，ASG 會有一段時間暫時忽略符合 Scaling Policies 的狀況，避免 Scaling Activities 被重複觸發。</p>
+<p>最常見的情境：</p>
+<ul>
+<li>ASG 裡的機器跑起來，到狀態為 health 要 5 分鐘 (300 秒)</li>
+<li>如果 ASG 裡的機器 CPU 達到 Scale Out 的條件，這時候 ASG 依照 Scaling Policies 的設定增加一台新機器<ul>
+<li>但是這台機器跑起來要花五分鐘</li>
+<li>這五分鐘之內 CloudWatch Alarm 發現 CPU 的狀況超過設定，還是符合 Scaling Policies 的，那麼 ASG 要繼續增加一台機器嗎？</li>
+</ul>
+</li>
+<li>檢查 Cooldowns 的時間判斷是否要重複觸發，或者忽略此觸發動作。</li>
+</ul>
+<p>相關要注意的課題：</p>
+<ul>
+<li>Default Cooldowns</li>
+<li>Scaling-Specific Cooldowns</li>
+<li>Cooldowns and Multiple Instances</li>
+<li>Cooldowns and Lifecycle Hooks</li>
+<li>Cooldowns and Spot Instances</li>
+</ul>
+<h2 id="Health-Check-Grace-Period"><a href="#Health-Check-Grace-Period" class="headerlink" title="Health Check Grace Period"></a>Health Check Grace Period</h2><p>ASG 等待 EC2 Instance 一段時間之後，才開始做 Health Check，這段等待時間叫 <a href="http://docs.aws.amazon.com/autoscaling/latest/userguide/healthcheck.html" target="_blank" rel="noopener">Grace Period</a>，單位是秒。</p>
+<p>因為 EC2 Instance 從 AMI 建立要一點時間，通常會落在 3-5 分鐘，如果有使用 <code>userdata</code> 跑額外的東西，像是安裝應用程式、最新版本的程式、監控程式等，則會更久。</p>
+<p>要注意的是：</p>
+<ul>
+<li>Health Check Type 如果是 ELB，那麼 ELB 又有另一段 Check 的時間</li>
+<li>Grace Period 跟 Scaling Cooldowns 是不一樣的</li>
+</ul>
+<h2 id="Lifecycle-Hooks"><a href="#Lifecycle-Hooks" class="headerlink" title="Lifecycle Hooks"></a>Lifecycle Hooks</h2><p>ASG 支援 <a href="http://docs.aws.amazon.com/autoscaling/latest/userguide/lifecycle-hooks.html" target="_blank" rel="noopener">Lifecycle Hooks</a>，可以在特定的狀態執行客製的動作。</p>
+<p>也可以透過 SNS 方式觸發 Lambda 執行特定動作，目前支援 launch, terminate, fail to launch, fail to terminate 四個動作。</p>
+<p>完整筆記參閱：<a href="/2017/05/12/AWS/Study-Notes-EC2-Auto-Scaling-Lifecycle-and-Hooks/">Study Notes - EC2 Auto Scaling Lifecycle and Hooks</a></p>
+<h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><ul>
+<li><a href="http://docs.aws.amazon.com/autoscaling/latest/userguide/as-suspend-resume-processes.html" target="_blank" rel="noopener">Suspended Processes</a>: 主要是用來 Debug Config，像是啟動機器的時候先不要加入 ELB、或者 Scale In 時，先不要 Terminate Instance … 等。</li>
+<li>Instance Protection: Scale Out 時，增加的機器自動變成 Protection 狀態，不會被刪除。</li>
+<li>Enabled Metrics: 啟動 ASG 的 CloudWatch Metrics</li>
+</ul>
+<hr>
+<h1 id="Scaling-Policies"><a href="#Scaling-Policies" class="headerlink" title="Scaling Policies"></a>Scaling Policies</h1><p><code>Scaling Policies</code> 中文稱為 <code>擴展策略</code>，依據不同的情境、架構，會有不同的選擇。ASG 有三種 Scaling Policies:</p>
+<ul>
+<li>Manual Scaling (手動) –&gt; 人工 or 自己來</li>
+<li>Scheduled Scaling (排程) –&gt; 半自動</li>
+<li>Dynamic Scaling (動態) –&gt; 全自動</li>
+</ul>
+<p>技術上，ASG 透過控制這三個參數來達成擴展:</p>
+<ul>
+<li>Disired Capacity: 期望值</li>
+<li>MinSize: 最小值</li>
+<li>MaxSize: 最大值</li>
+</ul>
+<p>這三個值的關係： Min &lt;= Disired &lt;= Max</p>
+<p>底下一一整理三個 Scaling Policies 的特性以及要注意的地方。</p>
+<h2 id="Manual-Scaling"><a href="#Manual-Scaling" class="headerlink" title="Manual Scaling"></a>Manual Scaling</h2><p>手動增減機器，也就是透過調整 <code>Disired Capacity</code> 參數增減機器。通常一開始玩 ASG 建議先從這裡開始。</p>
+<p>要注意：</p>
+<ol>
+<li>手動調整 Desired Capcity 時，如果有開啟 Dynamic Scaling</li>
+<li>Disired 不可以超過 MinSize or MaxSize</li>
+</ol>
+<h2 id="Scheduled-Scaling"><a href="#Scheduled-Scaling" class="headerlink" title="Scheduled Scaling"></a>Scheduled Scaling</h2><p>透過排程，調整 Disired、Min、Max 的數值。</p>
+<p>第一次上線的服務，建議先從 Scheduled Scaling 開始，而且最好是在上班時間執行，有問題時，可以馬上處理。</p>
+<blockquote>
+<p>要注意：排程時區是 UTC</p>
+</blockquote>
+<h2 id="Dynamic-Scaling"><a href="#Dynamic-Scaling" class="headerlink" title="Dynamic Scaling"></a>Dynamic Scaling</h2><p>動態擴展，也是 ASG 最理想的策略。主要透過 <code>控制變因</code> 與 <code>臨界值</code> 的設定，然後 <code>執行動作</code> 進而達到改變 Disired Capacity 的設定。</p>
+<ul>
+<li>控制變因像是 EC2 的 <code>CPU Utilization</code></li>
+<li>臨界值：超過 80%</li>
+<li>執行動作：Scale In or Out</li>
+</ul>
+<p>自 ASG 大部分的 Scale In/Out 的條件，主要搭配 CloudWatch Metric + Alarm ，然後調整 Disired Capacity，也就是增減 Instance。ASG 預設的 Dynamic Scaling Policy 有兩種：</p>
+<ul>
+<li><code>Target tracking scaling</code>: 可以依據某一個指標的數字，自動跟著 Scaling</li>
+<li><code>Simple Policy</code>: 根據 CloudWatch Alarm 狀況，執行一個動作</li>
+<li><code>Step Policy</code>: 根據 CloudWatch Alarm 狀況的範圍，細分條件，執行不一樣的動作。像是 CPU 在 70-85 增加一台、超過 85 增加兩台</li>
+</ul>
+<p>調整機器數量的方式，除了用 <code>數量</code> 調整，也可以使用 <code>百分比</code> 方式。</p>
+<blockquote>
+<ul>
+<li>更多參閱：<a href="http://docs.aws.amazon.com/autoscaling/latest/userguide/as-scale-based-on-demand.html" target="_blank" rel="noopener">Dynamic Scaling for Amazon EC2 Auto Scaling</a></li>
+</ul>
+</blockquote>
+<hr>
+<h1 id="Termination-Policies"><a href="#Termination-Policies" class="headerlink" title="Termination Policies"></a>Termination Policies</h1><p>當 ASG 達到條件，把調整機器數從多變少的時候 (稱為 Scale In 或 Remove Instance)，這時候 ASG 需要選擇刪除哪一台 EC2，這些選擇策略稱為：<code>Termination Policies</code>，同樣的依照不同情境、架構也會有不同選擇。一共有三種：</p>
+<ul>
+<li>Default Termination Policy</li>
+<li>Customizing the Termination Policy</li>
+<li>Instance Protection</li>
+</ul>
+<!--
+Default Termination Policy 如下圖：
+![](/images/AWS/ASG/Default-Termination-Policy.png)
+Source: [Controlling Which Instances Auto Scaling Terminates During Scale In][r10]
+-->
+<h2 id="Default-Termination-Policy"><a href="#Default-Termination-Policy" class="headerlink" title="Default Termination Policy"></a>Default Termination Policy</h2><p>Default Termination Policy 挑選刪除 Instance 的條件次序：</p>
+<ol>
+<li>據機器在 AZ 的數量 -&gt; 選擇機器多的 AZ，然後挑一台砍掉</li>
+<li>如果在 AZ 裡有多台 unprotected instances，先找機器多的 AZs<br>a. 根據選擇 Instance Type 的策略，可能是 Spot or On-Demand<br>b. 如果有多台機器，則找到其中 LC or LT 最舊的機器，然後砍掉<br>c. 如果是使用 LC 跑起來的 ASG，找到最舊的 LC 砍掉。</li>
+<li>那一台機器快到下個 Billing 的時間</li>
+<li>如果有多台 unprotected instances 都快到下一個 billing hour，那就隨機挑一台坎。</li>
+</ol>
+<h2 id="Customizing-the-Termination-Policy"><a href="#Customizing-the-Termination-Policy" class="headerlink" title="Customizing the Termination Policy"></a>Customizing the Termination Policy</h2><p>除了 Default Termination Policy，使用者也可以使用 Customizing the Termination Policy，目前支援以下幾種：</p>
+<ul>
+<li>OldestInstance: 刪除最舊的 Instance 。通常用在更換 AMI / LC 的時候，可以透過增加一倍的機器，等機器都好了，再恢復期望值，如此就的機器就會全部刪除了。有點像是 Blue-Green Deployment 時的狀況。</li>
+<li>NewestInstance: 跟上一個相反，刪除最新的 Instance。通常用在測試新版本的 AMI / LC，可以想像適用 Canary Deployment 的方式。</li>
+<li>OldestLaunchConfiguration: 刪除最舊的 LC 所建立的機器。</li>
+<li>ClosestToNextInstanceHour: 刪除最接近下次收費的機器。</li>
+<li>Default: 預設，就是前面的流程圖。</li>
+</ul>
+<p>Termination Policy 可以有多個。</p>
+<h2 id="Instance-Protection"><a href="#Instance-Protection" class="headerlink" title="Instance Protection"></a>Instance Protection</h2><p>Instance Protection 用來保護特定的 EC2 Instance，可以使用在新開機的 Instance 或者是已經在執行中的 Instance。在 Production 維運時，這是非常重要的功能，可以避免 Downtime。使用此功能要注意以下：</p>
+<ul>
+<li>如果把機器從 ASG Detach 後，重新 Attach 回 ASG，就會失去 Protection。</li>
+<li>如果手動到 EC2 Console 把機器砍了，是不被 ASG 可以控管的。要個別保護 EC2 ，則可以使用 Termination Protection。</li>
+<li>Spot Instance Interruption 會直接砍了機器。</li>
+</ul>
+<h2 id="Termination-要注意的地方"><a href="#Termination-要注意的地方" class="headerlink" title="Termination 要注意的地方"></a>Termination 要注意的地方</h2><p>通常要砍掉機器，要注意的是應用程式是否有 <code>Graceful Shutdown</code>。</p>
+<p>如果執行中的程序 (Process)，直接被中斷，不影響邏輯或者狀態，那麼就無所謂。如果執行中的程序被中斷，會影響商業邏輯，那麼就要透過 Lifecycle 機制，通知應用程式執行完之後不要在繼續執行了，這個過程稱為  <code>Graceful Shutdown</code>。類似的例子是 ELB 的 Connection Draining (連線排水) 其實就是 Graceful Shutdown 在 Load Balancer 的實作。</p>
+<p>ASG 上的 Graceful Shutdown 實作通常會搭配 Lifecycle Hooks 執行，詳細介紹參見：<a href="/2017/05/12/AWS/Study-Notes-EC2-Auto-Scaling-Lifecycle-and-Hooks/">EC2 Auto Scaling Lifecycle and Hooks</a>。</p>
+<hr>
+<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>ASG 東西真的滿多的，而且有點複雜，所以要導入新產品，技術上要做很多 Lab 以及評估，以下是建議要留意的：</p>
+<ul>
+<li>機器自動化：<a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning</a>, <a href="/2018/07/08/DevOps/Artifacts-Management/">Artifacts Management</a></li>
+<li>部署策略</li>
+<li>維運策略</li>
+<li>監控策略</li>
+</ul>
+<p><code>策略</code> 是種選擇，但是在選擇之前，要知道有哪些。了解了這個概念與考慮，下一篇整理的是 <a href="/2017/05/12/AWS/Study-Notes-EC2-Auto-Scaling-Lifecycle-and-Hooks/">EC2 Auto Scaling Lifecycle and Hooks</a></p>
+<hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
+<li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a></li>
+<li><a href="/2017/05/12/AWS/Study-Notes-EC2-Auto-Scaling-Lifecycle-and-Hooks/">Study Notes - EC2 Auto Scaling Lifecycle and Hooks</a></li>
+<li><a href="/2017/07/12/AWS/Study-Notes-EC2-Auto-Scaling-Adaptation/">Study Notes - EC2 Auto Scaling 的導入與應用</a></li>
+<li><a href="/2016/07/09/AWS/EC2-Instance-Lifecycle-And-Troubleshooting/">EC2 Instance Lifecycle and Troubleshooting</a></li>
+<li><a href="/2018/07/08/DevOps/Artifacts-Management/">Artifacts Management</a></li>
+<li><a href="/2016/10/25/AWS/EC2-Run-Command_SSM/">EC2 Run Command and SSM Agent</a></li>
+<li><a href="/2017/03/02/AWS/Study-Notes-CloudWatch/">Study Notes - CloudWatch</a></li>
+<li><a href="/2017/08/13/AWS/Study-Notes-CodeDeploy-Preparation/">Study Notes - CodeDeploy Preparation</a></li>
+</ul>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html" target="_blank" rel="noopener">Amazon EC2 Auto Scaling</a></li>
+<li><a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/healthcheck.html" target="_blank" rel="noopener">Health Checks for Auto Scaling Instances</a></li>
+<li><a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-add-elb-healthcheck.html" target="_blank" rel="noopener">Using Elastic Load Balancing Health Checks with Auto Scaling</a></li>
+<li><a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/target-group-health-checks.html" target="_blank" rel="noopener">Health Checks for Your Target Groups</a></li>
+<li><a href="http://docs.aws.amazon.com/autoscaling/latest/userguide/as-scale-based-on-demand.html" target="_blank" rel="noopener">Dynamic Scaling for Amazon EC2 Auto Scaling</a></li>
+<li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html" target="_blank" rel="noopener">Launching an Instance from a Launch Template</a></li>
+<li><a href="https://docs.aws.amazon.com/autoscaling/plans/userguide/what-is-aws-auto-scaling.html" target="_blank" rel="noopener">AWS Auto Scaling</a></li>
+<li>2018/01/16: <a href="https://aws.amazon.com/blogs/aws/aws-auto-scaling-unified-scaling-for-your-cloud-applications/" target="_blank" rel="noopener">New AWS Auto Scaling – Unified Scaling For Your Cloud Applications</a></li>
+<li>2018/01/19: <a href="https://aws.amazon.com/blogs/aws/recent-ec2-goodies-launch-templates-and-spread-placement/" target="_blank" rel="noopener">Recent EC2 Goodies – Launch Templates and Spread Placement</a></li>
+</ul>
+<h2 id="更新紀錄"><a href="#更新紀錄" class="headerlink" title="更新紀錄"></a>更新紀錄</h2><ul>
+<li>2017/02/04: 初版</li>
+<li>2018/12/12: 重構<ul>
+<li>標題改名：Basic Concept of Auto Scaling -&gt; EC2 Auto Scaling</li>
+<li>重構整體結構與內容 (40%)</li>
+</ul>
+</li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2017/01/26/AWS/Support_IPv6-GA-in-All-Regions/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2017-02-04 23:30:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#基本概念"><span class="toc-article-text">基本概念</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#效益"><span class="toc-article-text">效益</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#使用的條件"><span class="toc-article-text">使用的條件</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#核心概念與名詞"><span class="toc-article-text">核心概念與名詞</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#EC2-Auto-Scaling-Group"><span class="toc-article-text">EC2 Auto Scaling Group</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Launch-Configurations"><span class="toc-article-text">Launch Configurations</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Launch-Template"><span class="toc-article-text">Launch Template</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Health-Check-Type"><span class="toc-article-text">Health Check Type</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Scaling-Cooldowns"><span class="toc-article-text">Scaling Cooldowns</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Health-Check-Grace-Period"><span class="toc-article-text">Health Check Grace Period</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Lifecycle-Hooks"><span class="toc-article-text">Lifecycle Hooks</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Others"><span class="toc-article-text">Others</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Scaling-Policies"><span class="toc-article-text">Scaling Policies</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Manual-Scaling"><span class="toc-article-text">Manual Scaling</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Scheduled-Scaling"><span class="toc-article-text">Scheduled Scaling</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Dynamic-Scaling"><span class="toc-article-text">Dynamic Scaling</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Termination-Policies"><span class="toc-article-text">Termination Policies</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Default-Termination-Policy"><span class="toc-article-text">Default Termination Policy</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Customizing-the-Termination-Policy"><span class="toc-article-text">Customizing the Termination Policy</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Instance-Protection"><span class="toc-article-text">Instance Protection</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Termination-要注意的地方"><span class="toc-article-text">Termination 要注意的地方</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#結論"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#更新紀錄"><span class="toc-article-text">更新紀錄</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/AWS/" style="color: white">AWS <span class="badge">66</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/EC2/" style="color: white">EC2 <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/ELB/" style="color: white">ELB <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">19</span></a></span> <span class="label label-success"><a href="/tags/EC2-Auto-Scaling/" style="color: white">EC2 Auto Scaling <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/Provisioning/" style="color: white">Provisioning <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/AMI/" style="color: white">AMI <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/CodeDeploy/" style="color: white">CodeDeploy <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/SQS/" style="color: white">SQS <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Launch-Configurations/" style="color: white">Launch Configurations <span class="badge">2</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>
