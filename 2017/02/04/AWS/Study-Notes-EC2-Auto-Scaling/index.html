@@ -339,12 +339,13 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </ul>
 <hr>
 <h1 id="Scaling-Policies"><a href="#Scaling-Policies" class="headerlink" title="Scaling Policies"></a>Scaling Policies</h1><p><code>Scaling Policies</code> 中文稱為 <code>擴展策略</code>，依據不同的情境、架構，會有不同的選擇。ASG 有四種 Scaling Policies:</p>
-<ul>
+<ol>
 <li>Manual Scaling (手動) –&gt; 人工 or 自己來</li>
 <li>Scheduled Scaling (排程) –&gt; 半自動</li>
 <li>Dynamic Scaling (動態) –&gt; 全自動</li>
 <li>Predictive Scaling (預測) –&gt; AIOps</li>
-</ul>
+</ol>
+<p>不難看出，從第一到第四，就是手動到完全自動。但是不表示使用上可以一步登天，或者全自動就是最好，而是要依照應用程式的特性、架構考量、維運考量、部署考量等特性，找到最 <code>適合的策略</code>。</p>
 <p>技術上，ASG 透過控制這三個參數來達成擴展:</p>
 <ul>
 <li>Disired Capacity: 期望值</li>
@@ -352,7 +353,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li>MaxSize: 最大值</li>
 </ul>
 <p>這三個值的關係： Min &lt;= Disired &lt;= Max</p>
-<p>底下一一整理三個 Scaling Policies 的特性以及要注意的地方。</p>
+<p>底下一一整理這些 Scaling Policies 的特性以及要注意的地方。</p>
 <h2 id="Manual-Scaling"><a href="#Manual-Scaling" class="headerlink" title="Manual Scaling"></a>Manual Scaling</h2><p>手動增減機器，也就是透過調整 <code>Disired Capacity</code> 參數增減機器。通常一開始玩 ASG 建議先從這裡開始。</p>
 <p>要注意：</p>
 <ol>
@@ -429,7 +430,7 @@ Source: [Controlling Which Instances Auto Scaling Terminates During Scale In][r1
 <p>EC2 Auto Scaling 是 AWS 非常核心的關鍵服務，它的功能隨著時間越來越多，也越來越複雜，應用場景也越來越全面。從這些功能的設計，不難發現是為了維運、成本、可靠性、安全而設計，如同 Well-Architected 所描述，特別是維運是優先。</p>
 <p>雖然，這年代的新創事業以 Serverless 當道、Container / K8s 正在潮，大家都很會兜 Solution，組東組西，但往往真正上線維運後，挑戰才真的開始，問題才慢慢浮現。</p>
 <p>不管傳統也好，新創也罷，VM or Container，只要 EC2 還有在出新的 Family 的一天，Auto Scaling 也會一直是很重要的服務。</p>
-<p>不管是學習，或者是要導入新產品，技術上要做很多 Lab 以及評估，以下是建議要留意的：</p>
+<p>不管是學習，或者是要導入新產品，技術上要做很多 Lab 以及評估，以下是建議要考量以及準備的：</p>
 <ul>
 <li><a href="/2018/07/08/DevOps/Artifacts-Management/">Artifacts Management</a></li>
 <li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning</a></li>
@@ -577,7 +578,7 @@ Source: [Controlling Which Instances Auto Scaling Terminates During Scale In][r1
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/EC2/" style="color: white">EC2 <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/ELB/" style="color: white">ELB <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">19</span></a></span> <span class="label label-success"><a href="/tags/EC2-Auto-Scaling/" style="color: white">EC2 Auto Scaling <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/Provisioning/" style="color: white">Provisioning <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/AMI/" style="color: white">AMI <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/CodeDeploy/" style="color: white">CodeDeploy <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/SQS/" style="color: white">SQS <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Launch-Configurations/" style="color: white">Launch Configurations <span class="badge">2</span></a></span>
+  <span class="label label-success"><a href="/tags/EC2/" style="color: white">EC2 <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/ELB/" style="color: white">ELB <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">19</span></a></span> <span class="label label-success"><a href="/tags/EC2-Auto-Scaling/" style="color: white">EC2 Auto Scaling <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/Provisioning/" style="color: white">Provisioning <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/AMI/" style="color: white">AMI <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/CodeDeploy/" style="color: white">CodeDeploy <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Launch-Configurations/" style="color: white">Launch Configurations <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/SQS/" style="color: white">SQS <span class="badge">2</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
