@@ -8,7 +8,8 @@
   
   <meta name="description" content="繼續整理 CloudFormation Stack 的筆記。主要包含 Stack 工作流程、Stack Status、Update Stack。
 
-CloudFormation StacksStack 是根據 Template 的邏輯資源 (Logical Resources) 描述，所建立出來的實">
+
+CloudFormation StacksStack 是根據 Template 的邏輯資源 (Logical Resources) 描述，所建立出來的">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -102,7 +103,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-										<li><a href="/categories/AWS/">AWS <sup>66</sup></a></li>
+										<li><a href="/categories/AWS/">AWS <sup>67</sup></a></li>
 									
 										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
 									
@@ -214,16 +215,17 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 
 		    <p>繼續整理 CloudFormation Stack 的筆記。主要包含 Stack 工作流程、Stack Status、Update Stack。</p>
 <a id="more"></a>
+<hr>
 <h1 id="CloudFormation-Stacks"><a href="#CloudFormation-Stacks" class="headerlink" title="CloudFormation Stacks"></a>CloudFormation Stacks</h1><p><code>Stack</code> 是根據 Template 的邏輯資源 (Logical Resources) 描述，所建立出來的實體資源 (Physical Resources)。</p>
 <blockquote>
 <p>用 OOP 來講，Template 就是一推 Class 的集合，然後 Stack 就是 new 出來的 Instances 集合，可以 new 各式各樣的需求，像是開發環境、測試環境、效能測試環境、正式環境等。</p>
 </blockquote>
 <p>Stack 的增刪查改 (CRUD) 都可以在 AWS Console 建立，也可以透過 CLI 建立，以下是 CLI 的例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">aws cloudformation create-stack \</span><br><span class="line">  --stack-name myteststack \</span><br><span class="line">  --template-body file:///mytemplate.json \</span><br><span class="line">  --parameters ParameterKey=Parm1,ParameterValue=test1 ParameterKey=Parm2,ParameterValue=test2</span><br><span class="line">&#123;</span><br><span class="line">  &quot;StackId&quot; : &quot;arn:aws:cloudformation:us-west-2:123456789012:stack/myteststack/330b0120-1771-11e4-af37-50ba1b98bea6&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">aws cloudformation create-stack \</span><br><span class="line">  --stack-name myteststack \</span><br><span class="line">  --template-body file:///mytemplate.json \</span><br><span class="line">  --parameters ParameterKey=Parm1,ParameterValue=test1 ParameterKey=Parm2,ParameterValue=test2</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"StackId"</span> : <span class="string">"arn:aws:cloudformation:us-west-2:123456789012:stack/myteststack/330b0120-1771-11e4-af37-50ba1b98bea6"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>找出狀態是 <code>CREATE_COMPLETE</code> 的 Stacks</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">aws cloudformation list-stacks \</span><br><span class="line">  --stack-status-filter CREATE_COMPLETE</span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;StackId&quot;: &quot;arn:aws:cloudformation:us-east-1:123456789012:stack/myteststack/</span><br><span class="line">644df8e0-0dff-11e3-8e2f-5088487c4896&quot;,</span><br><span class="line">        &quot;TemplateDescription&quot;: &quot;AWS CloudFormation Sample Template S3_Bucket: Sample template showing how to create a publicly accessible S3 bucket. **WARNING** This template creates an</span><br><span class="line">S3 bucket. You will be billed for the AWS resources used if you create a stack from this template.&quot;,</span><br><span class="line">        &quot;StackStatusReason&quot;: null,</span><br><span class="line">        &quot;CreationTime&quot;: &quot;2013-08-26T03:27:10.190Z&quot;,</span><br><span class="line">        &quot;StackName&quot;: &quot;myteststack&quot;,</span><br><span class="line">        &quot;StackStatus&quot;: &quot;CREATE_COMPLETE&quot;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">aws cloudformation list-stacks \</span><br><span class="line">  --stack-status-filter CREATE_COMPLETE</span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"StackId"</span>: <span class="string">"arn:aws:cloudformation:us-east-1:123456789012:stack/myteststack/</span></span><br><span class="line"><span class="string">644df8e0-0dff-11e3-8e2f-5088487c4896"</span>,</span><br><span class="line">        <span class="string">"TemplateDescription"</span>: <span class="string">"AWS CloudFormation Sample Template S3_Bucket: Sample template showing how to create a publicly accessible S3 bucket. **WARNING** This template creates an</span></span><br><span class="line"><span class="string">S3 bucket. You will be billed for the AWS resources used if you create a stack from this template."</span>,</span><br><span class="line">        <span class="string">"StackStatusReason"</span>: null,</span><br><span class="line">        <span class="string">"CreationTime"</span>: <span class="string">"2013-08-26T03:27:10.190Z"</span>,</span><br><span class="line">        <span class="string">"StackName"</span>: <span class="string">"myteststack"</span>,</span><br><span class="line">        <span class="string">"StackStatus"</span>: <span class="string">"CREATE_COMPLETE"</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 <p>以下是其他描述 Stack 相關資訊的 CLI：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># Stack 的狀態</span><br><span class="line">aws cloudformation describe-stacks --stack-name myteststack</span><br><span class="line"># Stack 的 events (歷史)：</span><br><span class="line">aws cloudformation describe-stack-events --stack-name myteststack</span><br><span class="line"># Stack 資源的列表</span><br><span class="line">aws cloudformation list-stack-resources --stack-name myteststack</span><br><span class="line">aws cloudformation get-template --stack-name myteststack</span><br><span class="line"># 驗證 Template</span><br><span class="line">aws cloudformation validate-template --template-url &lt;s3_url&gt;</span><br><span class="line">aws cloudformation validate-template --template-body &lt;local_path&gt;</span><br><span class="line"># 刪除 Stack</span><br><span class="line">aws cloudformation delete-stack --stack-name myteststack</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Stack 的狀態</span></span><br><span class="line">aws cloudformation describe-stacks --stack-name myteststack</span><br><span class="line"><span class="comment"># Stack 的 events (歷史)：</span></span><br><span class="line">aws cloudformation describe-stack-events --stack-name myteststack</span><br><span class="line"><span class="comment"># Stack 資源的列表</span></span><br><span class="line">aws cloudformation list-stack-resources --stack-name myteststack</span><br><span class="line">aws cloudformation get-template --stack-name myteststack</span><br><span class="line"><span class="comment"># 驗證 Template</span></span><br><span class="line">aws cloudformation validate-template --template-url &lt;s3_url&gt;</span><br><span class="line">aws cloudformation validate-template --template-body &lt;local_path&gt;</span><br><span class="line"><span class="comment"># 刪除 Stack</span></span><br><span class="line">aws cloudformation delete-stack --stack-name myteststack</span><br></pre></td></tr></table></figure>
 <h2 id="建立-Stack-的工作流程"><a href="#建立-Stack-的工作流程" class="headerlink" title="建立 Stack 的工作流程"></a>建立 Stack 的工作流程</h2><p>建立 Stack 需要先準備好 Template，可以使用官方提供的 <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-sample-templates.html" target="_blank" rel="noopener">Sample Templates</a>，或者自行建立，工作流程如下圖 (取自<a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-whatis-howdoesitwork.html" target="_blank" rel="noopener">官方文件</a>)：</p>
 <p><img src="/images/AWS/CloudFormation/update-stack-diagram.png" alt=""></p>
 <h2 id="Stack-Status-Codes"><a href="#Stack-Status-Codes" class="headerlink" title="Stack Status Codes"></a>Stack Status Codes</h2><p>CloudFormation Stack 的增刪查改會有以下 <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-describing-stacks.html" target="_blank" rel="noopener">Status Codes</a>:</p>
@@ -257,14 +259,26 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </ul>
 </li>
 </ul>
-<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
-<li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a></li>
+<hr>
+<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>Stack 是 CloudFomration 執行 Template 的產出物，用物件導向來思考：<code>Template = Class</code>，<code>Stack = Instance</code>。有了 Template、Stack，了解了生命週期，接下來整理的開發 Template 過程中，<a href="/2017/05/14/AWS/Study-Notes-CloudFormation-Debugging/">如何有效的 Debug Template 的經驗分享</a>。</p>
+<hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="系列文章"><a href="#系列文章" class="headerlink" title="系列文章"></a>系列文章</h2><ul>
+<li><a href="/2017/03/30/AWS/Study-Notes-CloudFormation/">Study Notes - CloudFormation</a></li>
 <li><a href="/2017/03/31/AWS/Study-Notes-CloudFormation-Template-Anatomy/">Study Notes - CloudFormation Template Anatomy</a></li>
 <li><a href="/2017/04/01/AWS/Study-Notes-CloudFormation-Resource-Types-And-Attributes/">Study Notes - CloudFormation Resource Types and Attributes</a></li>
+<li><a href="/2017/04/09/AWS/Study-Notes-CloudFormation-Stack/">Study Notes - CloudFormation Stack</a></li>
 <li><a href="/2017/05/14/AWS/Study-Notes-CloudFormation-Debugging/">Study Notes - CloudFormation Debugging</a></li>
 </ul>
-<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<h2 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h2><ul>
+<li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a></li>
+<li><a href="/2016/10/01/AWS-Study-Roadmap/">AWS Study Roadmap</a></li>
+</ul>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
 <li><a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacks.html" target="_blank" rel="noopener">CloudFormation - Working with Stacks</a></li>
+</ul>
+<h2 id="更新紀錄"><a href="#更新紀錄" class="headerlink" title="更新紀錄"></a>更新紀錄</h2><ul>
+<li>2017/03/31: 初版</li>
+<li>2018/12/22: 調整排版</li>
 </ul>
 
 
@@ -342,7 +356,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#CloudFormation-Stacks"><span class="toc-article-text">CloudFormation Stacks</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#建立-Stack-的工作流程"><span class="toc-article-text">建立 Stack 的工作流程</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Stack-Status-Codes"><span class="toc-article-text">Stack Status Codes</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Stack-Update-StackSet"><span class="toc-article-text">Stack Update: StackSet</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#CloudFormation-Stacks"><span class="toc-article-text">CloudFormation Stacks</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#建立-Stack-的工作流程"><span class="toc-article-text">建立 Stack 的工作流程</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Stack-Status-Codes"><span class="toc-article-text">Stack Status Codes</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Stack-Update-StackSet"><span class="toc-article-text">Stack Update: StackSet</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#結論"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#系列文章"><span class="toc-article-text">系列文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#延伸閱讀-站內"><span class="toc-article-text">延伸閱讀 (站內)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#更新紀錄"><span class="toc-article-text">更新紀錄</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -356,7 +370,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
     <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
       <div>
   <!--<li>-->
-    <span class="label label-info"><a href="/categories/AWS/" style="color: white">AWS <span class="badge">66</span></a></span>
+    <span class="label label-info"><a href="/categories/AWS/" style="color: white">AWS <span class="badge">67</span></a></span>
   <!--</li>-->
 </div>
     <!--</ul>-->
@@ -372,7 +386,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/CloudFormation/" style="color: white">CloudFormation <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/DevOps/" style="color: white">DevOps <span class="badge">17</span></a></span> <span class="label label-success"><a href="/tags/Infra-as-Code/" style="color: white">Infra as Code <span class="badge">4</span></a></span>
+  <span class="label label-success"><a href="/tags/CloudFormation/" style="color: white">CloudFormation <span class="badge">10</span></a></span> <span class="label label-success"><a href="/tags/DevOps/" style="color: white">DevOps <span class="badge">18</span></a></span> <span class="label label-success"><a href="/tags/Infra-as-Code/" style="color: white">Infra as Code <span class="badge">5</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
