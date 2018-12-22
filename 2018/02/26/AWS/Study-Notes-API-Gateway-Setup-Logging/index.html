@@ -281,15 +281,23 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <blockquote>
 <p>寫到一半還 <a href="https://www.cwb.gov.tw/V7/earthquake/Data/quake/EC0226022852069.htm" target="_blank" rel="noopener">地震</a>，規模 5.2 …</p>
 </blockquote>
-<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
+<hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="系列文章"><a href="#系列文章" class="headerlink" title="系列文章"></a>系列文章</h2><ul>
 <li><a href="/2018/01/24/AWS/Study-Notes-Overview-API-Gateway/">Study Notes - Overview API Gateway</a></li>
-<li><a href="/2018/02/04/AWS/Study-Notes-API-Gateway-Custom-Authorizer-using-Lambda/">API Gateway - Custom Authorizer using Lambda</a></li>
+<li><a href="/2018/01/24/AWS/Study-Notes-Amazon-API-Gateway/">Study Notes - Amazon API Gateway</a></li>
+<li><a href="/2018/02/04/AWS/Study-Notes-API-Gateway-Custom-Authorizer-using-Lambda/">API Gateway - Custom Authorizers using Lambda</a></li>
+<li><a href="/2018/02/26/AWS/Study-Notes-API-Gateway-Setup-Logging/">API Gateway - Setup Logging</a></li>
 <li><a href="/2018/03/03/AWS/Study-Notes-API-Gateway-Custom-Domain-Names/">API Gateway - Custom Domain Names</a></li>
+<li><a href="/2018/03/16/AWS/Study-Notes-API-Gateway-Integrate-with-Internal-Services/">API Gateway - Integrate with Internal Services</a></li>
 <li><a href="/2018/04/21/AWS/Study-Notes-API-Gateway-as-DynamoDB-Proxy/">Using API Gateway as DynamoDB Proxy</a></li>
 <li><a href="/2018/05/03/AWS/Study-Notes-API-Gateway-Rate-Limit-and-Throttling/">API Gateway - Rate Limit and Throttling</a></li>
+<li><a href="/2018/06/15/AWS/Study-Notes-API-Gateway-Private-Endpoint/">API Gateway Private Endpoint</a></li>
+<li>2018/06/28: AWS Summit - <a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
+</ul>
+<h2 id="站內延伸"><a href="#站內延伸" class="headerlink" title="站內延伸"></a>站內延伸</h2><ul>
 <li><a href="/2017/03/02/AWS/Study-Notes-CloudWatch/">Study Notes - CloudWatch</a></li>
 </ul>
-<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
 <li><a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html" target="_blank" rel="noopener">Amazon API Gateway</a></li>
 <li><a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html" target="_blank" rel="noopener">Set up API Logging in API Gateway</a></li>
 <li><a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/monitoring_overview.html" target="_blank" rel="noopener">Trace API Management and Invocation</a></li>
@@ -370,7 +378,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Enable-CloudWatch-Logs-for-API-Gateway"><span class="toc-article-text">Enable CloudWatch Logs for API Gateway</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Enable-API-Logging"><span class="toc-article-text">Enable API Logging</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Custom-Access-Logging"><span class="toc-article-text">Custom Access Logging</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#CloudWatch-Metrics"><span class="toc-article-text">CloudWatch Metrics</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#不足"><span class="toc-article-text">不足</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#結論"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Enable-CloudWatch-Logs-for-API-Gateway"><span class="toc-article-text">Enable CloudWatch Logs for API Gateway</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Enable-API-Logging"><span class="toc-article-text">Enable API Logging</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Custom-Access-Logging"><span class="toc-article-text">Custom Access Logging</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#CloudWatch-Metrics"><span class="toc-article-text">CloudWatch Metrics</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#不足"><span class="toc-article-text">不足</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#結論"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#系列文章"><span class="toc-article-text">系列文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#站內延伸"><span class="toc-article-text">站內延伸</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li></ol>
 		</div>
 	
 	</div>
