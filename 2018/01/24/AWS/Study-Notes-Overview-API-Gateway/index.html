@@ -3,21 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Study Notes - Overview API Gateway | Complete Think</title>
+  <title>Overview API Gateway | Complete Think</title>
   <meta name="author" content="Rick Hwang">
   
-  <meta name="description" content="最近在研究 API Gateway 相關需求，同時也在評估 Solutions，整理一些想法。
-另外陸續整理 Amazon API Gateway 的心得筆記。
+  <meta name="description" content="本文整理 API Gateway 的基礎概念與想法，主要整理架構設計、技術規格、應用場景等探討。關於 AWS 的產品請參考 Amazon API Gateway 的整理。
 
-API Gateway 系列文章：
 
-Study Notes - Overview API Gateway
-API Gateway - ">
+Overview API GatewayAPI Gateway 在 商務應用 與 分散式系統 有不同的應用與場景需求，但是他">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Study Notes - Overview API Gateway"/>
+  <meta property="og:title" content="Overview API Gateway"/>
   <meta property="og:site_name" content="Complete Think"/>
 
   
@@ -106,13 +103,13 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-										<li><a href="/categories/AWS/">AWS <sup>67</sup></a></li>
+										<li><a href="/categories/AWS/">AWS <sup>68</sup></a></li>
 									
 										<li><a href="/categories/AWS/AWS-Certified/">AWS Certified <sup>6</sup></a></li>
 									
 										<li><a href="/categories/About/">About <sup>11</sup></a></li>
 									
-										<li><a href="/categories/Architecture/">Architecture <sup>11</sup></a></li>
+										<li><a href="/categories/Architecture/">Architecture <sup>10</sup></a></li>
 									
 										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
 									
@@ -181,13 +178,13 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		<!-- @rick, header of article -->
 		<!-- original
 		<div class="page-header">
-			<h1> Study Notes - Overview API Gateway</h1>
+			<h1> Overview API Gateway</h1>
 		</div>
 		-->
 
 		<div class="panel article_title">
 			<div class="panel-heading">
-    		<h1> Study Notes - Overview API Gateway</h1>
+    		<h1> Overview API Gateway</h1>
   		</div>
 		</div>
 
@@ -216,12 +213,185 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 
 			<hr />
 
-		    <p>最近在研究 API Gateway 相關需求，同時也在評估 Solutions，整理一些想法。</p>
-<p>另外陸續整理 <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html" target="_blank" rel="noopener">Amazon API Gateway</a> 的心得筆記。</p>
+		    <p>本文整理 API Gateway 的基礎概念與想法，主要整理架構設計、技術規格、應用場景等探討。關於 AWS 的產品請參考 <a href="/2018/01/24/AWS/Study-Notes-Amazon-API-Gateway/">Amazon API Gateway</a> 的整理。</p>
+<a id="more"></a>
+<hr>
+<h1 id="Overview-API-Gateway"><a href="#Overview-API-Gateway" class="headerlink" title="Overview API Gateway"></a>Overview API Gateway</h1><p>API Gateway 在 <code>商務應用</code> 與 <code>分散式系統</code> 有不同的應用與場景需求，但是他們都具備類似的技術架構與特性。</p>
+<!--
+## 應用場景
+
+API 服務上線一段後，真實世界會遇到以下問題：
+
+* 現在網路上每天都有 DDoS
+* 一堆書在教人寫爬蟲，到處亂試
+* 來自世界各地有心的 Hacker
+* 有些開發者不小心寫錯程式了，亂打 API
+* 不是很聰明的開發者，固定大量打 API，然後他還自己實作 retry
+
+上述問題，大部分 Developer 通常只能在應用層做來源 IP 過濾，有一點網路概念的就會用 CIDR 寫。
+
+這可行，但是怪怪的，以整體架構面來看，這應該是 Infra 來處理比較適合。
+
+API Gateway 具備 Networking Device 特性 (AWS 分類也放在 Networking)，他暴露在 WAN 就有 Endpoint，觀念：任何暴露在 WAN 的 Endpoint 都必須考慮存取可控性 (Access Control) 的問題。
+
+這就跟以為使用 VPC (SDN)，然後就以為不需要知道 CIDR / Route Table / Firewall 一樣。
+
+舉例來說， `忘記密碼` 是大部份網站都有的功能，
+
+另外補上了 04/02 Amazon API Gateway Announce 的新功能：Resource Policy，目的就是要解決預防特定來源的 IP。
+-->
+<h2 id="使用情境"><a href="#使用情境" class="headerlink" title="使用情境"></a>使用情境</h2><p>API Gateway 其實可以使用的情境很多，簡單整理如下：</p>
+<ul>
+<li>改用認證機制，像是 JWT、OAuth2</li>
+<li>重新規劃 API 介面，例如原本叫做 <code>POST /GetMember/{id}</code> 想改成 <code>GET /member/{id}</code></li>
+<li>封裝舊的服務<ul>
+<li>增強安全性</li>
+<li>原本使用 XML 做資料交換，透過 transformation 之後，改成用 JSON</li>
+<li>增加對每個 token 的追蹤、認證機制</li>
+</ul>
+</li>
+<li>跨網域的需求 (CORS)</li>
+<li>重新處理錯誤資訊</li>
+<li>解構單體，邁向微服務化</li>
+</ul>
+<h2 id="架構的可視性"><a href="#架構的可視性" class="headerlink" title="架構的可視性"></a>架構的可視性</h2><p>規劃上，首要考量的是整體系統架構的 <code>可視性 (Visibility)</code> 開始。想像是未來 API Gateway 要公開 (Public)、還是私有 (Private)，還是限定特殊來源 (Protected)？</p>
+<p>以應用場景來看，整理以下：</p>
+<ul>
+<li><code>商務應用</code>: 從架構來看通常是對外服務的接口，但還是有例外。<ul>
+<li>Public: 面對 Business User，通常是開放到廣域網路，像是 Mobile APP 的 API、Web API … 等</li>
+<li>Public to Protected: 面對 3rd party 的串接，像是 FB / Google SSO 的 callback、或者第三放應用程式串接的 callback.</li>
+<li>Private: 這種通常是透過特殊的網路架構，像是 MPLS、Federation 等方式。</li>
+</ul>
+</li>
+<li><code>分散式系統</code> (像是 <code>Microservices</code>): 使用的情境是 服務跟服務 之間的溝通，架構上的可視性組合:<ul>
+<li>Private to Private: 都在內部，內部網路之間的服務相互溝通</li>
+<li>Private to Public: 內部跟外部對串，內部跟外部對串，像是跨雲：AWS to GCP、On-Prem to AWS …</li>
+<li>Public to Public: 都在外部，直接走 Public Network</li>
+</ul>
+</li>
+</ul>
+<p><code>分散式系統</code> 談的是架構性的問題，重點在於服務跟服務之間怎麼達到 <code>可靠性</code> 的議題，討論的是如何 <code>Decoupling (解偶)</code> 服務跟服務之間的同步模式 (Synchronous)，他部分特性類似於 <code>API Gateway</code>，但這角色現在稱為 <code>Service Mesh</code>。</p>
 <blockquote>
-<p>API Gateway 系列文章：</p>
+<p>Decoupling Solution 有兩種方法：</p>
+<ul>
+<li>Synchronous: 常用的方法是透過 Load Balancing, Reverse Proxy, or API Gateway … 等實作技術，形成 <code>Push Mode</code></li>
+<li>Asynchronous: 常用的是透過 Queue，形成 <code>Pull Mode</code></li>
+</ul>
+<p>內部服務之間的通訊，技術面對的問題與 API Gateway 類似，但是實作面試有一些差異的，參閱 <a href="/2018/02/06/Architecture/Service-Mesh/">Service Mesh</a> 的整理</p>
+</blockquote>
+<p><code>商務應用</code> 著重的是靈活度議題，如何透過 API Gateway 靈活調度背後的系統，滿足 <code>商業需求</code> 的改變與 <code>系統架構</code> 的異動。不管是商業需求還是系統架構，放到 <code>現場 (Production, Go Live)</code> 就是要能面對廣域網路，連帶的就要面對安全、效能、容錯、擴展、開發、維運 … 等議題了。</p>
+<h2 id="Design-Pattern-Facade"><a href="#Design-Pattern-Facade" class="headerlink" title="Design Pattern - Facade"></a>Design Pattern - Facade</h2><p>API Gateway 相當於 Design Pattern 的 <a href="https://en.wikipedia.org/wiki/Facade_pattern" target="_blank" rel="noopener">Facade pattern</a>。想像把一些東西，經過重新包裝後，然後只提供需要的接口可以存取、使用。</p>
+<!--
+在設計分散式系統 (Distributed Systems) 裡面，類似的設計模式稱為 `Ambassador Pattern (大使模式)`，更多參閱 [ENVOY](https://www.getambassador.io/about/why-ambassador)，或者 CH03 Ambassador Pattern - [Designing Distributed Systems](https://azure.microsoft.com/mediahandler/files/resourcefiles/baf44271-3870-454f-868c-23d48e7672cb/Designing_Distributed_Systems.pdf) by Brendan Burns (K8s Architect)
+-->
+<h2 id="Key-Features"><a href="#Key-Features" class="headerlink" title="Key Features"></a>Key Features</h2><p>整理 API Gateway 各個面向應該具備的特性，分成 <code>核心需求</code>、<code>架構 (網路、資安、基礎)</code>、<code>開發測試</code>、<code>維運</code>：</p>
+<ul>
+<li>核心需求<ul>
+<li><code>Single Entry Point</code>: 單一入口節點</li>
+<li><code>Auth</code>: 認證 (Authentication) 與授權 (Authorization)<ul>
+<li>認證: 通常可以負責認證部分，可以透過簡單的 API Token, Query String, Header … 認證，也可以透過 AD / LDAP。</li>
+<li>授權: 通常交給後端應用層處理。可以整合 OAuth, OpenID, SAML, JWT … 等各式各樣</li>
+</ul>
+</li>
+<li><code>URL Route</code>: 配置 URL Path 與 HTTP Method 的 Routing</li>
+<li><code>Traffic Control / Flow Control</code>: Rate Limit, Proxy, Response Limit, TTL<ul>
+<li><code>Rate Limit</code> 透過 <a href="https://en.wikipedia.org/wiki/Token_bucket" target="_blank" rel="noopener">Token bucket algorithm</a> 實作。</li>
+<li>相關介紹參閱： <a href="/2018/05/03/AWS/Study-Notes-API-Gateway-Rate-Limit-and-Throttling/">Rate Limit and Throttling</a></li>
+</ul>
+</li>
+<li><code>Transformation</code>: 資料格式轉換，例如收到的是 JSON，轉換成 XML 給後端吃。</li>
+</ul>
+</li>
+<li>Architecture: Network / Infra / Security<ul>
+<li><code>Security</code>: ACL, SSL, CORS, WAF, Token Management</li>
+<li><code>Reliability</code>: 容錯、HA、LoadBalancing</li>
+<li><code>Scalability</code>: 自動擴展</li>
+<li><code>Performance</code>: Cache (CDN), Network Throughput</li>
+</ul>
+</li>
+<li>Development and Test<ul>
+<li><code>Standard</code>: 整合 API 標準開發工具，像是 Swagger</li>
+<li><code>Portal</code>: for User (Sandbox), Developer, Operation</li>
+<li><code>Integration</code>: 可以容易整合各種後端的服務接點, 像是 Reverse Proxy</li>
+<li><code>Deployment Management</code>: 部署方法，包含 B/G、Canary、A/B … etc</li>
+<li><code>Client SDK</code>: 支援 iOS / Android / JavaScript … 等常見的 Client App</li>
+</ul>
+</li>
+<li>Operation<ul>
+<li><code>Deployment Management</code>: 同上</li>
+<li><code>API Keys Management</code>: Life cycle, Usage Planning, Quotas, Expiration</li>
+<li><code>Logging, Monitoring, Alert</code></li>
+<li><code>Documentation</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="相關-Solutions"><a href="#相關-Solutions" class="headerlink" title="相關 Solutions"></a>相關 Solutions</h2><p>底下是常見的 Solution，分兩大類：Managed Services、Self Hosting。原則上，我會先以 Managed Service 優先考量，理由如下：</p>
+<ul>
+<li>跟選擇 <a href="/2017/03/02/AWS/Study-Notes-CloudWatch/">Amazon CloudWatch</a> 一樣：不想養機器，減少 Operation 成本。</li>
+<li>跟 Infra 整合比較好的優先</li>
+<li>Leverage Cloud SLA</li>
+</ul>
+<p>但是再怎麼美好，還是要有備案，所以另外要考量的是，未來如果要自己 Hosting 的必要選項：Kong 是第一選擇，因為他是 Openresty base，也是我比較熟悉的。整理 PoC 的次序如下：</p>
 <ol>
+<li><a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html" target="_blank" rel="noopener">Amazon API Gateway</a></li>
+<li><a href="https://getkong.org/" target="_blank" rel="noopener">Kong</a> - Openresty (<a href="https://www.nginx.com/solutions/api-gateway/" target="_blank" rel="noopener">Nginx</a> + lua) base<ul>
+<li><a href="https://github.com/Kong/kong" target="_blank" rel="noopener">https://github.com/Kong/kong</a></li>
+</ul>
+</li>
+<li>Google: <a href="https://cloud.google.com/endpoints/" target="_blank" rel="noopener">CLOUD ENDPOINTS</a></li>
+<li><a href="https://tyk.io/features/" target="_blank" rel="noopener">Tyk</a> - Golang base</li>
+<li><a href="https://www.getambassador.io/about/why-ambassador" target="_blank" rel="noopener">ENVOY</a></li>
+<li>Azure: <a href="https://azure.microsoft.com/zh-tw/services/api-management/" target="_blank" rel="noopener">API Management</a></li>
+<li>Akamai: <a href="https://www.akamai.com/uk/en/products/web-performance/api-gateway.jsp" target="_blank" rel="noopener">API Gateway</a></li>
+</ol>
+<h2 id="替代方案"><a href="#替代方案" class="headerlink" title="替代方案"></a>替代方案</h2><p>API Gateway 可以用類似的技術取代，像是 Reverse Proxy、Load Balancing 等方法。</p>
+<p>實務上的實作 Nginx, Canddy, HAProxy 都是不錯的選擇。</p>
+<!--
+## Comparision
+
+* [Amazon API Gateway vs. Kong vs. Tyk Cloud](https://stackshare.io/stackups/amazon-api-gateway-vs-kong-vs-tyk-cloud)
+* [API Gateways: Kong vs. Tyk](http://www.4-traders.com/BANCO-BILBAO-VIZCAYA-ARGE-69719/news/API-Gateways-Kong-vs-Tyk-25590337/)
+* [Google Trend](https://trends.google.com.tw/trends/explore?date=today%205-y&q=AWS%20API%20Gateway,Cloud%20Endpoint)
+
+-->
+<!--
+TODO: Single Entry Point 即可
+## Endpoint Planning
+
+API Gateway 的 Endpoint 會給客戶使用，換言之，很容易覆水難收。如果 Business 是屬於多用戶的型態，也就是 API 會同時給很多人使用，通常 Migration 都會遇到一個問題：客戶不見得願意改，或者客戶沒能力改、無法改，所以規劃 Endpoint 時要考量這些可能的問題。
+
+規劃架構之前，要考慮實際的 `Endpoint` 應該怎麼配置與識別，考量的面向如下：
+
+* DNS Planing
+* Service Naming
+* Environment: dev, testing, sandbox, prod
+
+以 Domain `rick.com` 做例子，Endpoint Naming 與規劃考慮如下：
+
+* `api.rick.com`: 代表都是透過 API Gateway
+* `{ServiceName}.api.rick.com`: 某一個服務的 API Endpoint
+* `{ServiceName}.api.{Env}.rick.com`: 某一個環境的 API Endpoint
+  * `{ServiceName}.api.sandbox.rick.com`: 代表 `開放` 給客戶測試用的 API Endpoint
+  * `{ServiceName}.api.lab[1-N].rick.com`: 代表某個 `內部` 測試環境的 API Endpoint
+
+現在 Hybrid Cloud 很常見，所以一定會遇到 Visibility 的問題。如果要強調 `Visibility`，方便內外部溝通，也可以直接把關鍵字考慮進去，像是：
+
+* `{ServiceName}.api.{Env}.internal.rick.com`: 某個內部服務的 API Endpoint
+  * `{ServiceName}.api.lab[1-N].internal.rick.com`: 某個內部 `lab1` 環境的 API Endpoint
+
+
+另外也可以用 URL Path 規劃 `Visibility`，大家有共識就可以。
+
+> 這裡的舉例，可能並不是最適當的例子，詳細的規劃請參考 [API Gateway - Custom Domain Names][r4]
+-->
+<hr>
+<h1 id="Using-an-API-Gateway"><a href="#Using-an-API-Gateway" class="headerlink" title="Using an API Gateway"></a>Using an API Gateway</h1><p>底下簡報是研讀 <a href="https://www.nginx.com/resources/library/designing-deploying-microservices/" target="_blank" rel="noopener">Designing and Deploying Microservices</a> 這本電子書的整理，書本是由 Nginx 提供，作者則是 <a href="https://microservices.io/" target="_blank" rel="noopener">microservices.io</a> 的 Chris Richardson。同樣也是談論 API Gateway，看看不同角度的談法。</p>
+<p><iframe src="//www.slideshare.net/slideshow/embed_code/key/dQh5czDoEGGea1" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/rickhwang/study-notes-using-an-api-gateway" title="Study Notes - Using an API Gateway" target="_blank">Study Notes - Using an API Gateway</a> </strong> from <strong><a href="https://www.slideshare.net/rickhwang" target="_blank">Rick Hwang</a></strong> </div></p>
+<hr>
+<h1 id="系列文章"><a href="#系列文章" class="headerlink" title="系列文章"></a>系列文章</h1><p>一路上斷斷續續整理的一些實際應用與功能的學習筆記。</p>
+<ul>
 <li><a href="/2018/01/24/AWS/Study-Notes-Overview-API-Gateway/">Study Notes - Overview API Gateway</a></li>
+<li><a href="/2018/01/24/AWS/Study-Notes-Amazon-API-Gateway/">Study Notes - Amazon API Gateway</a></li>
 <li><a href="/2018/02/04/AWS/Study-Notes-API-Gateway-Custom-Authorizer-using-Lambda/">API Gateway - Custom Authorizers using Lambda</a></li>
 <li><a href="/2018/02/26/AWS/Study-Notes-API-Gateway-Setup-Logging/">API Gateway - Setup Logging</a></li>
 <li><a href="/2018/03/03/AWS/Study-Notes-API-Gateway-Custom-Domain-Names/">API Gateway - Custom Domain Names</a></li>
@@ -229,304 +399,49 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li><a href="/2018/04/21/AWS/Study-Notes-API-Gateway-as-DynamoDB-Proxy/">Using API Gateway as DynamoDB Proxy</a></li>
 <li><a href="/2018/05/03/AWS/Study-Notes-API-Gateway-Rate-Limit-and-Throttling/">API Gateway - Rate Limit and Throttling</a></li>
 <li><a href="/2018/06/15/AWS/Study-Notes-API-Gateway-Private-Endpoint/">API Gateway Private Endpoint</a></li>
-</ol>
-<p>2018/06/28: AWS Summit - <a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></p>
-</blockquote>
-<a id="more"></a>
-<blockquote>
-<p>2018/11/24: <a href="/2018/11/24/Architecture/API-Gateway/">Overview API Gateway</a> 概念，解構成獨立文章，整理主要概念，本文保留 Amazon API Gateway 的介紹。</p>
-</blockquote>
-<hr>
-<h1 id="Amazon-API-Gateway"><a href="#Amazon-API-Gateway" class="headerlink" title="Amazon API Gateway"></a>Amazon API Gateway</h1><p><a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html" target="_blank" rel="noopener">Amazon API Gateway</a> 從 <a href="/2018/11/24/Architecture/API-Gateway/">Overview</a> 的 <code>應用場景</code> 提到的可視性與 Key Features 來看，可以滿足大部分。以下先整理結論：基本功能、不足的地方。</p>
-<blockquote>
-<p>因為 <code>API Gateway</code> 是泛用名詞，市面上流行的實作很多，像是 Kong、Apiee、Tyk … 等。我的文章中提及 AWS 的 API Gateway 我會使用官方名稱：<code>Amazon API Gateway</code> 稱呼，避免名詞誤解。</p>
-</blockquote>
-<!--
-* 功能
-* 摘要架構
-* 認證與授權
-* 開發與測試
-* 整合與應用
-  * Serverless and Microservice
-  * VPC Links
-  * Customized Authorizer
-  * AWS Services
-  * Key Management
-* Limit
--->
-<!--
-## 名詞
-
-Amazon API Gateway 有以下名詞，用來描述這個服務：
-
-* `API Gateway`: 整合服務名稱，包含建立、部署、管理 RESTful API. 同時可以 Expose backed HTTP endpoints, Lambda function, 或者其他 AWS services.
-* `Rest API`: 原文寫 `API Gateway API`，我覺得有點 confusing，用 `Rest API` 可能更適合。主要是一堆 resource 和 methods 的集合。
-* `API endpoints`: 部署的節點，分成底下兩種：
-  * `Edge-optimized API endpoint`: 用 CloudFront 擋在前面，適合全球的部署需求。
-  * `Regional API endpoint`: 沒有用 CloudFront 擋在前面，
-
--->
-<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><p><a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html" target="_blank" rel="noopener">Amazon API Gateway</a> 是 AWS Managed Service，功能非常多、且完整，底下整理各個面向的功能：</p>
-<ul>
-<li>彈性的整合 AWS 很多服務，像是：<ul>
-<li>Serverless: 最常見的是整合 Lambda</li>
-<li>內部串接：透過 VPC Links -&gt; NLB -&gt; EC2，可以整合 VPC 內部 EC2 的服務</li>
-<li>外部串接：當作 HTTP Proxy ，可以轉導到外部</li>
-<li>只要是 API 形式的都可以串接，AWS Services 都有 Endpoint，換言之，都可以很輕易的串接</li>
-</ul>
-</li>
-<li>API 定義 / 開發 / 測試<ul>
-<li>支援資料結構轉換 (Transformation)，像是把 JSON 轉換成 XML，詳細使用案例 Q8 描述。</li>
-<li>支援資料模型定義，例如 HTTP 500 的 return data model</li>
-<li>支援類似 wildcard 的 resource 定義，寫法像這樣: <code>{resourceName+}</code></li>
-<li>可以產生 Client SDK，支援各大語言</li>
-<li>支援 Stage 概念，提供不同環境需求，像是測試、正式 …</li>
-<li>支援 Export / Import swagger 格式</li>
-<li>支援文件管理</li>
-</ul>
-</li>
-<li>安全與認證：<ul>
-<li>支援客製化認證機制，可以透過 Lambda 或者直接使用 Cognito.<ul>
-<li>分成 token, request 兩種認證方式</li>
-<li>有 Cache / TTL 機制。</li>
-</ul>
-</li>
-<li>支援客製化 DNS + ACM (SSL) + CloudFront 整合，但是注意 ACM 要在 us-east-1 申請</li>
-<li>支援 CORS (cross-origin resource sharing)</li>
-<li>支援 IAM 認證</li>
-<li>支援 URL Query String, Header, Body Validation</li>
-<li>支援 Resource Policy，可以透過 IAM 控管 IP 來源</li>
-</ul>
-</li>
-<li>Infra / Network<ul>
-<li>整合 CloudFront (CDN)，但是無法設定 CloudFront 參數</li>
-<li>支援 Edge or Regional CDN</li>
-<li>可以透過 VPC Links 存取 VPC 內部服務，實作是透過 NLB -&gt; Target Group -&gt; EC2</li>
-<li>支援 Resource Policy，可以透過 IAM Policy 控管權限、安全 (e.g., 限制特定 SourceIp)</li>
-</ul>
-</li>
-<li>Operation<ul>
-<li>Usage Plan<ul>
-<li>每個 Usage Plan 都可以綁定多個 API Stage，各別定義 Rate Limit, Burst, Quota</li>
-<li>多把 API Key 整合與管理, 有簡單的使用統計 (真的很簡單)</li>
-<li>支援大量 API Key Import</li>
-</ul>
-</li>
-<li>整合 CloudWatch Logs 與自訂 Log 格式</li>
-<li>支援 Cache (另外計費)</li>
-<li>支援 Canary Deployment</li>
-<li>有簡單的 Dashboard</li>
-</ul>
-</li>
-</ul>
-<h2 id="一些想到的問題"><a href="#一些想到的問題" class="headerlink" title="一些想到的問題"></a>一些想到的問題</h2><p>整理一些我想到、遇到的問題，有一些可以在 <a href="https://aws.amazon.com/api-gateway/faqs/?nc1=h_ls" target="_blank" rel="noopener">Amazon API Gateway FAQ</a> 找到。</p>
-<p>Q1: 內部服務對串，可以用 Amazon API Gateway？</p>
-<blockquote>
-<ul>
-<li>Updated: <a href="/2018/06/15/AWS/Study-Notes-API-Gateway-Private-Endpoint/">API Gateway Private Endpoint</a> 在 2018/06/15 Release.</li>
-<li><del>可以，但不適合。因為 Amazon API Gateway 還不支援 VPC 內部，流量會走出 WAN。所以想要 Decoupling Service 只能先透過 ELB 了。</del>內部服務對串跟 <code>Service Mesh</code> 有關係，可以參閱：<a href="https://buoyant.io/2017/04/25/whats-a-service-mesh-and-why-do-i-need-one/" target="_blank" rel="noopener">What’s a service mesh? And why do I need one?</a> ，或者我整理的 <a href="/2018/02/06/Architecture/Service-Mesh/">Service Mesh</a></li>
-</ul>
-</blockquote>
-<p>Q2: API Gateway 支援防火牆？</p>
-<blockquote>
-<ol>
-<li>網路層目前沒有，只能夠過應用層管控，像是 <code>API Key</code>、<code>Authorizer</code>、<code>IAM Policy</code></li>
-<li>另外可以使用 <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-resource-policies.html" target="_blank" rel="noopener">Resource Policies</a>，透過 IAM Policy 管控 SourceIp。 <a href="https://aws.amazon.com/about-aws/whats-new/2018/04/amazon-api-gateway-supports-resource-policies/" target="_blank" rel="noopener">2018/04/02 Announce</a></li>
-</ol>
-</blockquote>
-<p>Q3: Usage Plan 上限只有 300 不夠怎麼辦？</p>
-<blockquote>
-<p>這是 Soft limit，發 ticket 調整。</p>
-</blockquote>
-<p>Q4: 可以整合 WAF？</p>
-<blockquote>
-<p>建立 Regional Rest API，然後在前面放一個 CloudFront 就可以使用 WAF, see: <a href="https://www.codeengine.com/articles/process-form-aws-api-gateway-lambda/" target="_blank" rel="noopener">placing Cloudfront in front of API Gateway</a></p>
-</blockquote>
-<p>Q5: 部署如果發現有問題，可以 Rollback?</p>
-<blockquote>
-<p>可以，Stage 中的 Deployment 都有 History.</p>
-</blockquote>
-<p>Q6: 如果請求數目超過 Rate Limit 會怎樣？</p>
-<blockquote>
-<p>會收到 HTTP 429 的回應。詳細參閱 <a href="/2018/05/03/AWS/Study-Notes-API-Gateway-Rate-Limit-and-Throttling/">Rate Limit and Throttling</a> 的說明。</p>
-</blockquote>
-<p>Q7: 為什麼要有 Throttling, Rate Limit？</p>
-<blockquote>
-<ul>
-<li>確保後端服務一定的服務品質與可靠性，避免異常發生連鎖反應。相關參考 <a href="https://www.slideshare.net/rickhwang/sre-ch27-reliable-product-launches-at-scale" target="_blank" rel="noopener">SRE CH27 - Reliable Product Launches at Scale</a>、<a href="https://landing.google.com/sre/book/chapters/addressing-cascading-failures.html" target="_blank" rel="noopener">CH22: 處理連鎖故障 (Addressing Cascading Failures)</a></li>
-<li>AWS SDK 有實作 <code>Error Retries and Exponential Backoff</code> 機制，像是 <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.Errors.html#Programming.Errors.BatchOperations" target="_blank" rel="noopener">DynamoDB Client</a></li>
-<li>更多深入原理參閱： <a href="/2018/05/03/AWS/Study-Notes-API-Gateway-Rate-Limit-and-Throttling/">Rate Limit and Throttling</a></li>
-</ul>
-</blockquote>
-<p>Q8: 整合到 Amazon API Gateway 之後，可不可以處理既有 API Service 的 Response 資料結構？例如原本回傳的是 XML，想改成 JSON？</p>
-<blockquote>
-<p>可以，進出 (Request / Response) 都可以。例如原本後端服務只能處理 XML，但是希望讓客戶使用 JSON。可以透過 Integration Request / Integration Response 的 <code>Body Mapping Template</code> 重新處理資料結構，把 JSON 轉換成 XML，Client 使用 JSON，後端服務同樣處理 XML。<code>Body Mapping Template</code> 裡夠過 <a href="http://velocity.apache.org/engine/devel/vtl-reference.html" target="_blank" rel="noopener">Apache Velocity Template Language (VTL)</a> 重新 Format 資料結構。</p>
-</blockquote>
-<p>Q9: 什麼情境需要使用 API Gateway?</p>
-<blockquote>
-<p>我遇到的和想到以下：</p>
-<ol>
-<li>既有的 API，沒有資安保護機制，像是 Rate Limit 的機制，被爬蟲機器人打的嫑嫑的 ….</li>
-<li>新舊服務轉換過程中，需要有權限管控，例如，只允許某一把 Key 只能存取特定 Rest API</li>
-<li>既有 API 資料結構要做轉換，如 Q8 提到的案例</li>
-<li>需要知道 API 的使用狀況</li>
-</ol>
-</blockquote>
-<p>Q10: 團隊裡怎麼導入 API Gateway?</p>
-<blockquote>
-<p>我的方法：</p>
-<ol>
-<li>先找一些 Side Project，像是整合 Slack 通知，整合 Mobile APP 測試的通知，確認自己能夠掌握 API Gateway</li>
-<li>扎實的掌握 API Gateway 相關的技術與實踐方法，同時找人分享，把好東西傳出去</li>
-<li>Q9 的問題早晚會遇到的，具體使用 API Gateway 解決問題。</li>
-</ol>
-</blockquote>
-<p>Q11: 可以知道每個 api-key or 每個 Rest API 的使用狀況？</p>
-<blockquote>
-<ul>
-<li>api-key 要透過 CloudWatch Log 分析，然後產生對應的 Metric。可以做到，但是要花一點功，請參考 <a href="/2017/03/02/AWS/Study-Notes-CloudWatch/">Study Notes - CloudWatch</a> 的說明</li>
-<li>每個 Rest API 同樣可以在 CloudWatch Metric 查看使用狀況，同時也可知道每個 stage 的分佈</li>
-</ul>
-</blockquote>
-<p>Q12: 可以管控每個 Rest API 的 Rate Limit?</p>
-<blockquote>
-<p>可以，在 stage，可以個別展開 Rest API，然後配置各個 Rate Limit, Throttle 的數字。但是不能超過 Per Region 的上限，預設為 10,000，詳細參閱： <a href="/2018/05/03/AWS/Study-Notes-API-Gateway-Rate-Limit-and-Throttling/">Rate Limit and Throttling</a></p>
-</blockquote>
-<h2 id="相關-AWS-Services"><a href="#相關-AWS-Services" class="headerlink" title="相關 AWS Services"></a>相關 AWS Services</h2><p>Amazon API Gateway 要有其他 AWS Services 基本概念，我分成必要性、選擇性和整合性三大類：</p>
-<ul>
-<li>必要：使用 API Gateway 一定會遇到<ul>
-<li><a href="/tags/IAM/">IAM</a> ：配置權限</li>
-<li><a href="/tags/CloudWatch/">CloudWatch</a> ：除錯使用</li>
-</ul>
-</li>
-<li>選擇性：<ul>
-<li><a href="/tags/Lambda/">Lambda</a> ：使用率最高，但不是必要的</li>
-<li><a href="/tags/CloudFront/">CloudFront</a></li>
-<li><a href="/tags/ACM/">ACM</a></li>
-<li>Cognito</li>
-<li><a href="/tags/NLB/">NLB</a></li>
-<li><a href="/tags/VPC/">VPC</a>: PrivateLink</li>
-<li><a href="/tags/Route53/">Route53</a></li>
-</ul>
-</li>
-<li>整合性：<ul>
-<li>他可以串接 AWS 大部分的 Services</li>
-<li>當作 Proxy 使用</li>
-</ul>
-</li>
-</ul>
-<h2 id="學習筆記"><a href="#學習筆記" class="headerlink" title="學習筆記"></a>學習筆記</h2><p>接下來陸續整理 Amazon API Gateway 實際上應用的筆記，以下是目前想到的課題：</p>
-<ul>
-<li>架構 Architectural<ul>
-<li><a href="/2018/03/16/AWS/Study-Notes-API-Gateway-Integrate-with-Internal-Services/">串接 VPC 內部服務 - VPC Link</a></li>
-<li><a href="/2018/03/03/AWS/Study-Notes-API-Gateway-Custom-Domain-Names/">如何為 API Gateway 設定 DNS 與 SSL</a>：含規劃 Microservices 的 API Endpoint</li>
-<li>與 CloudFront / WAF 整合</li>
-<li><a href="/2018/05/03/AWS/Study-Notes-API-Gateway-Rate-Limit-and-Throttling/">Rate Limit and Throttling</a></li>
-<li><a href="/2018/06/15/AWS/Study-Notes-API-Gateway-Private-Endpoint/">API Gateway Private Endpoint</a></li>
-</ul>
-</li>
-<li>開發 Development<ul>
-<li><a href="/2018/02/04/AWS/Study-Notes-API-Gateway-Custom-Authorizer-using-Lambda/">Custom Authorizers using Lambda</a> - Token Type</li>
-<li><a href="/2018/02/26/AWS/Study-Notes-API-Gateway-Setup-Logging/">如何利用 CloudWatch Logs 做 API Gateway Request 的 Debug</a></li>
-<li>如何客製化錯誤訊息 (JSON Model)</li>
-<li>二進位資料處理</li>
-</ul>
-</li>
-<li>維運與管理 Operational<ul>
-<li>部署流程 - Canary</li>
-<li>開發流程: Swagger, Lambda, CI/CD …</li>
-<li>監控</li>
-<li>效能議題</li>
-<li>如何管理 Usage Plan 與 API Key</li>
-<li>Resource Policy - 透過 Policy 管理權限，或者限制特定來源 (SourceIp)</li>
-</ul>
-</li>
-<li>文件管理與發佈流程</li>
-<li>整合應用<ul>
-<li><a href="/2018/04/21/AWS/Study-Notes-API-Gateway-as-DynamoDB-Proxy/">Using API Gateway as DynamoDB Proxy</a></li>
-<li>API Gateway as S3 Proxy</li>
-<li>API Gateway as Kinesis Proxy</li>
-<li>整合 Legacy API</li>
-</ul>
-</li>
-</ul>
-<p>東西有點多，有空就陸續整理。</p>
-<h2 id="不足與潛在需求-許願池"><a href="#不足與潛在需求-許願池" class="headerlink" title="不足與潛在需求 (許願池)"></a>不足與潛在需求 (許願池)</h2><p>等下整理在 Study 過程中，發現的問題。</p>
-<ul>
-<li>Infra / Security / Network<ul>
-<li>目前沒有純的 Internal API Gateway，所以內部服務對串要自己蓋。</li>
-<li><del>沒有辦法整合 WAF，但是有變通方式，例如在 API Gateway 前面再放一個 CloudFront, see: <a href="https://www.codeengine.com/articles/process-form-aws-api-gateway-lambda/" target="_blank" rel="noopener">placing Cloudfront in front of API Gateway</a></del> 用 Regional Rest API 即可</li>
-<li>(Regional Rest API + CloudFront) 可以達到 Custom Domain Names + CloudFront 的效果，但是彈性不佳，期望可以設定 CloudFront in API Gateway</li>
-<li>Updated 2018/11/19: <a href="https://aws.amazon.com/blogs/compute/amazon-api-gateway-adds-support-for-aws-waf/" target="_blank" rel="noopener">Amazon API Gateway adds support for AWS WAF</a></li>
-</ul>
-</li>
-<li>Functions<ul>
-<li>API Key 的使用率管理功能太陽春，只能顯示一天的用量。現在要透過 CloudWatch Logs 自己幹。</li>
-<li>API Key 不支援 Expiration 功能</li>
-<li>AWS CLI Import swagger 不能指定 Rest API id，會建一個新的，但是 Console 可以</li>
-<li>Integration timeout: 29s 是 hard limit …</li>
-<li>Payload Size: 10 MB 是 hard limit …</li>
-</ul>
-</li>
-<li>Operation<ul>
-<li>Health Check</li>
-</ul>
-</li>
-<li>Skill Stack<ul>
-<li>使用 Amazon API Gateway 最好連同相關 AWS Services 也要略知一二，像是 VPC、NLB、Lambda、CloudWatch …</li>
-</ul>
-</li>
-</ul>
-<!--
-## AWS Blog 相關文章
-
-* [Using Amazon API Gateway with microservices deployed on Amazon ECS][41]
-
-[41]: https://aws.amazon.com/blogs/compute/using-amazon-api-gateway-with-microservices-deployed-on-amazon-ecs/
--->
-<h2 id="老問題：被綁死還是自幹？"><a href="#老問題：被綁死還是自幹？" class="headerlink" title="老問題：被綁死還是自幹？"></a>老問題：被綁死還是自幹？</h2><p>這個問題我在 Survey Monitoring System 的時候糾結了快兩年，最後在 <a href="/2017/03/02/AWS/Study-Notes-CloudWatch/">Study Notes - CloudWatch</a> 找到答案。而 Cloud Native 的時代來臨，與其擔心被綁死，倒不如好好的 <code>面對它、學習它、駕馭它、活用它</code>，如果真的要換，概念應該都是通用的，要跳也很快。</p>
-<blockquote>
-<p>這跟以前在買吉他效果器是一樣的問題，與其去質疑設備本身好不好，倒不如質疑自己能否 <code>面對它、學習它、駕馭它、活用它</code>。後來設備的採購我都是先 Ｋ 完手冊之後，把裡面不懂的東西都搞懂了之後，才真的去採購。底下是當時的心得：</p>
-<ul>
-<li><a href="http://rickmidi.blogspot.com/2011/05/blog-post.html" target="_blank" rel="noopener">如何選擇適合的數位設備 - 以吉他綜合效果器為例</a></li>
-<li><a href="http://rickmidi.blogspot.com/2008/11/blog-post.html" target="_blank" rel="noopener">前級、後級、單體</a></li>
-<li><a href="http://rickmidi.blogspot.com/2006/11/new-gear-digitech-gnx4-guitar.html" target="_blank" rel="noopener">New Gear - DigiTech GNX4 Guitar Workstation</a></li>
-</ul>
-<p>當然，不練琴，手指頭、腦袋跟不上，再好的設備，都只是很貴的裝飾品。</p>
-</blockquote>
-<h2 id="挑戰"><a href="#挑戰" class="headerlink" title="挑戰"></a>挑戰</h2><p>Amazon API Gateway 看起來很完整，功能強大，但是導入新技術總是會面臨一些問題：</p>
-<ul>
-<li>團隊<ul>
-<li>如何讓上層知道 API Gateway 是啥？如何說服團隊學習使用它？</li>
-<li>如何讓非技術背景的人了解他的用意</li>
-<li>如何教育訓練團隊</li>
-<li>開發流程</li>
-</ul>
-</li>
-<li>技術面<ul>
-<li>使用 API Gateway 的人，最好也懂 AWS 相關技術，特別是 CloudWatch、CloudFront、Lambda、IAM …</li>
-<li>Amazon API Gateway 的 Console 不是很好用</li>
-<li>Amazon API Gateway 除錯不易，一定要熟悉 CloudWatch Logs</li>
-<li>部署流程不佳：需要透過 CloudFormation 才容易，可是會 CloudFormation 的人屈指可數</li>
-<li>效能問題如何追蹤？</li>
-<li>部署流程、測試方法</li>
-<li>如何把這東西，放到既有的架構、系統，而不會造成額外的問題？</li>
-</ul>
-</li>
+<li>2018/06/28: AWS Summit - <a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
 </ul>
 <hr>
-<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
-<li><a href="/2018/11/24/Architecture/API-Gateway/">API Gateway</a></li>
-<li>2018/06/28 AWS Summit：<a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
-<li><a href="/2016/03/21/AWS/Whitepaper-Architecting-for-the-Cloud-AWS-Best-Practices/">Whitepaper - Architecting for the Cloud (AWS Best Practices)</a></li>
-<li><a href="/2017/07/07/AWS/Plan-And-Deisgn-Multiple-VPCs-in-Different-Regions/">Plan and Design Multiple VPCs in Different Regions</a></li>
-<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a>, <a href="/2017/03/02/AWS/Study-Notes-CloudWatch/">Study Notes - CloudWatch</a></li>
+<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>我習慣 <code>從使用中學習</code>，簡言之，我在用什麼軟體、或者服務，我開發的東西就會出現他們的影子。</p>
+<p>舉例來說：不管在開發什麼應用程式，當代後端服務經常會串接 3rd API，例如 Google Map APIs，用這些 API 時，通常都會有一組 access key and secret key，除了基本的 authentication / authorization 之外，很重要的就是 traffic control，大家開發應用程式過程中應該遇過的：API 單位時間的使用限制，像是每天的使用上限、每個月的額度，更甚者，會限制一秒只能 Invoke 幾次。</p>
+<p>反過來，當你在開發 API 時給別人用的時候，特別是這個 API 是暴露在 Internet，那上線之後，就要考慮這些問題：</p>
+<ul>
+<li>要怎麼保護 API？</li>
+<li>保護機制應該放在哪裡？</li>
+<li>怎麼實作 api key 跟限流的關係？</li>
+<li>怎麼統計 api key 的使用狀況？</li>
+<li>…</li>
+</ul>
+<p>類似概念也可以參考： <a href="https://www.slideshare.net/rickhwang/sre-ch27-reliable-product-launches-at-scale" target="_blank" rel="noopener">SRE CH27 - Reliable Product Launches at Scale</a>、<a href="https://landing.google.com/sre/book/chapters/addressing-cascading-failures.html" target="_blank" rel="noopener">CH22: 處理連鎖故障 (Addressing Cascading Failures)</a></p>
+<p>從使用別人的服務，學習如何讓自己的服務變強壯，我從 API Gateway 中學習如何讓公司的服務更穩健。</p>
+<h2 id="後記補充"><a href="#後記補充" class="headerlink" title="後記補充"></a>後記補充</h2><p>有朋友不了為什麼我會把 <code>架構可視性 (Visibility)</code> 擺在第一個，因為要強調的是：</p>
+<blockquote>
+<ol>
+<li>架構一開始的考量就是能上 Production，上 Production 意味著，要能夠清楚現況架構是什麼？使用角色有哪些？從哪裡發動？安全性的控管？怎麼監控？怎麼維運？ …. 等。</li>
+<li>知道 Production 架構怎麼一回事之後，往回推：測試環境、開發環境怎麼配置？怎麼規劃</li>
+</ol>
+</blockquote>
+<p>我的思維是 <code>Ops First, Then Dev</code>，導入新技術的時候，先思考如何放到 Production、如何 Ops。這些都想清楚了，才不會開發的很過癮，但是無法上線，很難測試、有安全問題、開發過程的協作很痛苦。特別是很多的 Ops 的事情，一開始沒想到，就再也沒機會改進了。</p>
+<blockquote>
+<p>Updated: <a href="/2018/06/15/AWS/Study-Notes-API-Gateway-Private-Endpoint/">API Gateway Private Endpoint</a> 在 2018/06/15 Release.</p>
+</blockquote>
+<hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="站內延伸"><a href="#站內延伸" class="headerlink" title="站內延伸"></a>站內延伸</h2><ul>
+<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
+<li><a href="/2017/03/02/AWS/Study-Notes-CloudWatch/">Study Notes - CloudWatch</a></li>
 <li><a href="/2018/02/06/Architecture/Service-Mesh/">Service Mesh</a></li>
-<li><a href="/2016/10/01/AWS-Study-Roadmap/">AWS Study Roadmap</a></li>
-<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
 </ul>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
-<li><a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html" target="_blank" rel="noopener">Amazon API Gateway</a></li>
+<li><a href="http://microservices.io/patterns/apigateway.html" target="_blank" rel="noopener">Pattern: API Gateway / Backend for Front-End</a></li>
+<li><a href="http://dockone.io/article/482" target="_blank" rel="noopener">微服务实战（二）：使用 API Gateway</a></li>
+<li><a href="https://www.nginx.com/blog/building-microservices-using-an-api-gateway/" target="_blank" rel="noopener">Building Microservices: Using an API Gateway</a> - Nginx</li>
+<li><a href="https://medium.com/@pablo.iorio/synchronous-and-asynchronous-aws-decoupling-solutions-1bbe74697db9" target="_blank" rel="noopener">Synchronous and Asynchronous AWS Decoupling Solutions</a></li>
+<li><a href="https://www.getambassador.io/about/why-ambassador" target="_blank" rel="noopener">Ambassador</a></li>
+</ul>
+<h2 id="Service-Mesh"><a href="#Service-Mesh" class="headerlink" title="Service Mesh"></a>Service Mesh</h2><ul>
+<li><a href="https://medium.com/microservices-in-practice/service-mesh-vs-api-gateway-a6d814b9bf56" target="_blank" rel="noopener">Service Mesh vs API Gateway</a></li>
+<li><a href="https://buoyant.io/2017/04/25/whats-a-service-mesh-and-why-do-i-need-one/" target="_blank" rel="noopener">What’s a service mesh? And why do I need one?</a></li>
+<li><a href="https://www.infoq.com/presentations/istio-service-mesh" target="_blank" rel="noopener">Istio - Weaving the Service Mesh</a></li>
 </ul>
 <!--
 * [Reactive Programming in the Netflix API with RxJava][22]
@@ -535,6 +450,14 @@ Amazon API Gateway 有以下名詞，用來描述這個服務：
 * [Building Microservices](http://shop.oreilly.com/product/0636920033158.do)
 
 -->
+<h2 id="Site-Reliability-Engineering-相關章節"><a href="#Site-Reliability-Engineering-相關章節" class="headerlink" title="Site Reliability Engineering 相關章節"></a>Site Reliability Engineering 相關章節</h2><ul>
+<li><a href="https://landing.google.com/sre/book/chapters/handling-overload.html" target="_blank" rel="noopener">CH21: 處理系統超載 (Handling Overload)</a></li>
+<li><a href="https://landing.google.com/sre/book/chapters/addressing-cascading-failures.html" target="_blank" rel="noopener">CH22: 處理連鎖故障 (Addressing Cascading Failures)</a></li>
+<li><a href="https://www.slideshare.net/rickhwang/sre-ch27-reliable-product-launches-at-scale" target="_blank" rel="noopener">CH27: Reliable Product Launches at Scale</a></li>
+</ul>
+<h2 id="更新紀錄"><a href="#更新紀錄" class="headerlink" title="更新紀錄"></a>更新紀錄</h2><ul>
+<li>2018/11/24: 解構 <a href="/2018/01/24/AWS/Study-Notes-Amazon-API-Gateway/">Amazon API Gateway</a> 的介紹，Overview API Gateway 部分解構成獨立文章，增加 <code>Designing and Deploying Microservices</code> 的一篇學習筆記。</li>
+</ul>
 
 
 		    <hr />
@@ -556,7 +479,7 @@ Amazon API Gateway 有以下名詞，用來描述這個服務：
 <ul class="pagination">
 	 
 				
-    	<li class="prev"><a href="/2018/02/03/GCP/Compare-GCP-VPC-Network-with-AWS/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+    	<li class="prev"><a href="/2018/01/24/AWS/Study-Notes-Amazon-API-Gateway/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
   		
 
         <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
@@ -611,7 +534,7 @@ Amazon API Gateway 有以下名詞，用來描述這個服務：
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Amazon-API-Gateway"><span class="toc-article-text">Amazon API Gateway</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#功能"><span class="toc-article-text">功能</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#一些想到的問題"><span class="toc-article-text">一些想到的問題</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#相關-AWS-Services"><span class="toc-article-text">相關 AWS Services</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#學習筆記"><span class="toc-article-text">學習筆記</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#不足與潛在需求-許願池"><span class="toc-article-text">不足與潛在需求 (許願池)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#老問題：被綁死還是自幹？"><span class="toc-article-text">老問題：被綁死還是自幹？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#挑戰"><span class="toc-article-text">挑戰</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Overview-API-Gateway"><span class="toc-article-text">Overview API Gateway</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#使用情境"><span class="toc-article-text">使用情境</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#架構的可視性"><span class="toc-article-text">架構的可視性</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Design-Pattern-Facade"><span class="toc-article-text">Design Pattern - Facade</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Key-Features"><span class="toc-article-text">Key Features</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#相關-Solutions"><span class="toc-article-text">相關 Solutions</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#替代方案"><span class="toc-article-text">替代方案</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Using-an-API-Gateway"><span class="toc-article-text">Using an API Gateway</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#系列文章"><span class="toc-article-text">系列文章</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#結論"><span class="toc-article-text">結論</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#後記補充"><span class="toc-article-text">後記補充</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#站內延伸"><span class="toc-article-text">站內延伸</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Service-Mesh"><span class="toc-article-text">Service Mesh</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Site-Reliability-Engineering-相關章節"><span class="toc-article-text">Site Reliability Engineering 相關章節</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#更新紀錄"><span class="toc-article-text">更新紀錄</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -625,7 +548,7 @@ Amazon API Gateway 有以下名詞，用來描述這個服務：
     <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
       <div>
   <!--<li>-->
-    <span class="label label-info"><a href="/categories/AWS/" style="color: white">AWS <span class="badge">67</span></a></span>
+    <span class="label label-info"><a href="/categories/AWS/" style="color: white">AWS <span class="badge">68</span></a></span>
   <!--</li>-->
 </div>
     <!--</ul>-->
@@ -641,7 +564,7 @@ Amazon API Gateway 有以下名詞，用來描述這個服務：
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/API-Gateway/" style="color: white">API Gateway <span class="badge">14</span></a></span> <span class="label label-success"><a href="/tags/VPC/" style="color: white">VPC <span class="badge">20</span></a></span> <span class="label label-success"><a href="/tags/ELB/" style="color: white">ELB <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">19</span></a></span> <span class="label label-success"><a href="/tags/Lambda/" style="color: white">Lambda <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Serverless/" style="color: white">Serverless <span class="badge">13</span></a></span> <span class="label label-success"><a href="/tags/Network-Load-Balancing/" style="color: white">Network Load Balancing <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/CloudFront/" style="color: white">CloudFront <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/CDN/" style="color: white">CDN <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Nginx/" style="color: white">Nginx <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Openresty/" style="color: white">Openresty <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Cloud-Endpoint/" style="color: white">Cloud Endpoint <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Service-Mesh/" style="color: white">Service Mesh <span class="badge">5</span></a></span>
+  <span class="label label-success"><a href="/tags/API-Gateway/" style="color: white">API Gateway <span class="badge">14</span></a></span> <span class="label label-success"><a href="/tags/Serverless/" style="color: white">Serverless <span class="badge">13</span></a></span> <span class="label label-success"><a href="/tags/Microservices/" style="color: white">Microservices <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/SRE/" style="color: white">SRE <span class="badge">24</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">10</span></a></span> <span class="label label-success"><a href="/tags/Nginx/" style="color: white">Nginx <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Openresty/" style="color: white">Openresty <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Service-Mesh/" style="color: white">Service Mesh <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Sidecar/" style="color: white">Sidecar <span class="badge">1</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
