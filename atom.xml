@@ -507,13 +507,13 @@
   </entry>
   
   <entry>
-    <title>聊聊人力招募 (Hiring) - 目錄</title>
+    <title>聊聊人力招募 (Hiring)</title>
     <link href="http://rickhw.github.io/2018/08/20/Management/Overview-Hiring/"/>
     <id>http://rickhw.github.io/2018/08/20/Management/Overview-Hiring/</id>
     <published>2018-08-19T19:21:00.000Z</published>
-    <updated>2018-12-22T13:28:06.564Z</updated>
+    <updated>2018-12-22T13:31:32.180Z</updated>
     
-    <content type="html"><![CDATA[<p>今年有很多時間都放在如何作 <code>人力招聘 (Hiring)</code>，這系列文是整個過程中的心得、想法、遇到的問題。文章是從管理者、用人主管 角度出發，談到如何從需要資源開始、如何向上溝通、與人力資源協作、面試名單從哪裡來、如何面試、如何談薪資、報到之後如何確認符合需求 … 等。</p><a id="more"></a><hr><h1 id="關於招募系列文"><a href="#關於招募系列文" class="headerlink" title="關於招募系列文"></a>關於招募系列文</h1><p>招募是個難題，整個工作跟業務有些像，從零開始：確認目標、需求、找名單、打電話、面對人、設計流程、思考如何評斷、設計技能驗證方法、談薪資、面對市場的比較、對上溝通、跟 HR 協作、任用確認、OnBoard Training、確認符合 … 是個痛苦的漫漫長路。</p><p>整理這些文章，不是要炫耀做得很有心得、或做得很好，而是這件事情不容易，挫折滿滿、充滿角力、血淋淋，因為如此，更需要好好的沈澱，好好的討論如何把它做好。</p><p>招募工讀生是招募、招募工程師是招募、招募架構師是招募，不管怎樣的角色，都應該好好面對它，把他做好，這是對工作負責，敬業的表現。</p><blockquote><p>招募只是管理工作之一，從整個員工在職的生命週期來看，頭到尾、起到訖，有招募 (hiring)，就有解雇(fire)、資遣 (lay-off)、離職 (quit) ，起訖之中的在職時間，就是訓練、考核、升等、轉任 … 等，這些都是管理者必經與面對的過程。這系列招募文是管理工作的其中一塊拼圖。</p></blockquote><p>這系列文章，將從管理者、用人主管的角度，整理整個招募過程需要面對的人事物，從頭到尾的心得筆記 (血淋淋)。如果想要做管理、想做主管、想建立團隊，這是個必經的過程，這些心得或許可以參考看看。</p><h2 id="角色"><a href="#角色" class="headerlink" title="角色"></a>角色</h2><p>招募工作通常會有以下角色：</p><ul><li>甲方<ul><li>應試者、Candidate、勞方</li></ul></li><li>乙方<ul><li>用人主管、面試官、資方</li><li>人力資源、HR</li><li>用人主管的主管</li></ul></li><li>第三方<ul><li>獵頭 (Head Hunter)</li><li>社群</li></ul></li></ul><h2 id="招募系列文章"><a href="#招募系列文章" class="headerlink" title="招募系列文章"></a>招募系列文章</h2><p>我把整個招募流程分成以下部分：</p><ul><li><a href="/2018/08/28/Management/Hiring-Step0-Initial/">零、準備篇：確認需求、條件、定位、市場狀況</a></li><li><a href="/2018/08/30/Management/Hiring-Step1-Find-the-Candidates/">一、萬事起頭難：面試名單從哪來？</a>：撈單、詢問意願、電訪</li><li><a href="/2018/09/18/Management/Hiring-Step2-Interview-Skills/">二、見面談：招募第一關 面試</a>：面試流程、評核</li><li><a href="/2018/09/22/Management/Hiring-Step3-Interview-Values-Attitude/">三、深度對話：價值觀</a>：為什麼二面？</li><li><a href="/2018/09/27/Management/Hiring-Step4-Salary/">四、客觀談論：薪資</a>：薪資談論的考量點</li><li><a href="/2018/10/07/Management/Hiring-Step5-Offer/">五、最後確認：報到時程</a></li><li><a href="/2018/10/26/Management/Hiring-Step6-Onboard/">六、到職後：訓練、目標、評核</a></li></ul><p>這些過程，所要篩選、經歷的，很像是一個拓展市場的業務要經歷的過程，人數從多到少，逐漸篩選，是個倒三角形的形狀。</p><h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul><li><a href="/2015/08/22/Management/Senior-Software-Developer/">Senior Software Developer</a></li><li><a href="/2018/06/13/Management/Role-And-Responsibility/">Role And Responsibility</a></li></ul>]]></content>
+    <content type="html"><![CDATA[<p>今年有很多時間都放在如何作 <code>人力招聘 (Hiring)</code>，這系列文是整個過程中的心得、想法、遇到的問題。文章是從管理者、用人主管 角度出發，談到如何從需要資源開始、如何向上溝通、與人力資源協作、面試名單從哪裡來、如何面試、如何談薪資、報到之後如何確認符合需求 … 等。</p><a id="more"></a><hr><h1 id="關於招募系列文"><a href="#關於招募系列文" class="headerlink" title="關於招募系列文"></a>關於招募系列文</h1><p>招募是個難題，整個工作跟業務有些像，從零開始：確認目標、需求、找名單、打電話、面對人、設計流程、思考如何評斷、設計技能驗證方法、談薪資、面對市場的比較、對上溝通、跟 HR 協作、任用確認、OnBoard Training、確認符合 … 是個痛苦的漫漫長路。</p><p>整理這些文章，不是要炫耀做得很有心得、或做得很好，而是這件事情不容易，挫折滿滿、充滿角力、血淋淋，因為如此，更需要好好的沈澱，好好的討論如何把它做好。</p><p>招募工讀生是招募、招募工程師是招募、招募架構師是招募，不管怎樣的角色，都應該好好面對它，把他做好，這是對工作負責，敬業的表現。</p><p>這系列文章，將從管理者、用人主管的角度，整理整個招募過程需要面對的人事物，從頭到尾的心得筆記 (血淋淋)。如果想要做管理、想做主管、想建立團隊，這是個必經的過程，這些心得或許可以參考看看。</p><h2 id="相關的角色"><a href="#相關的角色" class="headerlink" title="相關的角色"></a>相關的角色</h2><p>招募工作通常會有以下角色：</p><ul><li>甲方<ul><li>應試者、Candidate、勞方</li></ul></li><li>乙方<ul><li>用人主管、面試官、資方</li><li>人力資源、HR</li><li>用人主管的主管</li></ul></li><li>第三方<ul><li>獵頭 (Head Hunter)</li><li>社群</li></ul></li></ul><h2 id="招募系列文章"><a href="#招募系列文章" class="headerlink" title="招募系列文章"></a>招募系列文章</h2><p>我把整個招募流程分成以下部分：</p><ul><li><a href="/2018/08/28/Management/Hiring-Step0-Initial/">零、準備篇：確認需求、條件、定位、市場狀況</a></li><li><a href="/2018/08/30/Management/Hiring-Step1-Find-the-Candidates/">一、萬事起頭難：面試名單從哪來？</a>：撈單、詢問意願、電訪</li><li><a href="/2018/09/18/Management/Hiring-Step2-Interview-Skills/">二、見面談：招募第一關 面試</a>：面試流程、評核</li><li><a href="/2018/09/22/Management/Hiring-Step3-Interview-Values-Attitude/">三、深度對話：價值觀</a>：為什麼二面？</li><li><a href="/2018/09/27/Management/Hiring-Step4-Salary/">四、客觀談論：薪資</a>：薪資談論的考量點</li><li><a href="/2018/10/07/Management/Hiring-Step5-Offer/">五、最後確認：報到時程</a></li><li><a href="/2018/10/26/Management/Hiring-Step6-Onboard/">六、到職後：訓練、目標、評核</a></li></ul><p>這些過程，所要篩選、經歷的，很像是一個拓展市場的業務要經歷的過程，人數從多到少，逐漸篩選，是個倒三角形的形狀。</p><h2 id="管理工作"><a href="#管理工作" class="headerlink" title="管理工作"></a>管理工作</h2><p>招募只是管理工作之一，從整個員工在職的生命週期來看，頭到尾、起到訖，有以下：</p><ul><li>用人：包含招募 (hiring)，就有解雇(fire)、資遣 (lay-off)、離職 (quit)</li><li>在職期間：起訖之中的在職時間，包含以下：<ul><li>訓練</li><li>任務管理</li><li>考核</li><li>升等</li><li>轉任 … 等，</li></ul></li></ul><p>這些都是管理者必經與面對的過程，這系列招募文是管理工作的其中一塊拼圖。</p><p>我老闆以前說過，做管理者，沒有這些經歷，是不完整的。幾年下來，漸漸了解老闆當時的苦心。</p><h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul><li><a href="/2015/08/22/Management/Senior-Software-Developer/">Senior Software Developer</a></li><li><a href="/2018/06/13/Management/Role-And-Responsibility/">Role And Responsibility</a></li></ul>]]></content>
     
     <summary type="html">
     
@@ -527,46 +527,6 @@
       <category term="用人之道" scheme="http://rickhw.github.io/tags/%E7%94%A8%E4%BA%BA%E4%B9%8B%E9%81%93/"/>
     
       <category term="Hiring" scheme="http://rickhw.github.io/tags/Hiring/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CAP Theorem</title>
-    <link href="http://rickhw.github.io/2018/08/11/Architecture/CAP-Theorem/"/>
-    <id>http://rickhw.github.io/2018/08/11/Architecture/CAP-Theorem/</id>
-    <published>2018-08-11T14:30:00.000Z</published>
-    <updated>2018-12-09T05:31:54.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>整理 CAP 理論的筆記。</p><a id="more"></a><h2 id="CAP-Theorem"><a href="#CAP-Theorem" class="headerlink" title="CAP Theorem"></a><a href="https://en.wikipedia.org/wiki/CAP_theorem" target="_blank" rel="noopener">CAP Theorem</a></h2><p>由 加州柏克萊分校教授 <a href="https://en.wikipedia.org/wiki/Eric_Brewer_(scientist)" target="_blank" rel="noopener">Eric Brewer</a> 在 1999 年的論文中發表：<a href="https://users.ece.cmu.edu/~adrian/731-sp04/readings/GL-cap.pdf" target="_blank" rel="noopener">Brewer’s Conjecture and the Feasibility of Consistent, Available, Partition-Tolerant Web Services</a>。論文中第一次提到 CAP 三者的關係，描述如下：</p><ul><li><code>一致性 (Consistency)</code>：每次讀取有兩個結果，一種是取得最近寫入的資料，另一種則是得到錯誤</li><li><code>可用性 (Availability)</code>：每次請求都能獲得一個 (非錯誤)回應，但不保證返回的是最新寫入的資料</li><li><code>分區容忍 (Partition tolerance)</code>：任意數量的訊息被節點間的網路丟失 (或延遲)，系統仍繼續運行。</li></ul><p>論文的結論是：分散式系統裡，CAP 三者無法同時被滿足，只能擇其二。下圖則是 w3resource 在其文件中描述 NoSQL 時提到的 CAP 的關係，與其他實作的概念：</p><p><img src="/images/Architecture/cap-theoram-image.png" alt=""><br>Source: <a href="https://www.w3resource.com/mongodb/nosql.php" target="_blank" rel="noopener">https://www.w3resource.com/mongodb/nosql.php</a></p><p>CAP 常見的排列組合：</p><ul><li>CA (consistency + availability)<ul><li>RDBMS</li><li>2PC (2 Phase Commit, 二階段提交)</li></ul></li><li>CP (consistency + partition tolerance)<ul><li>Paxos 演算法</li></ul></li><li>AP (availability + partition tolerance)<ul><li>關注的是 <code>可用性</code> 與 <code>分區容錯</code></li><li>[Dynamo][ct5]</li></ul></li></ul><p>Google I/O 2009 <a href="https://www.youtube.com/watch?v=srOgpXECblk" target="_blank" rel="noopener">Transactions Across Datacenters</a> 整理一了張很有意思的結論，如下圖：</p><p><img src="/images/Architecture/Distributed-Systems/GoogleIO2009_CAP_Practice.png" alt=""></p><hr><h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><ul><li><a href="/2018/06/18/Architecture/Gossip-in-Distributed-Systems/">聊聊分散式系統</a></li><li><a href="/2018/08/11/Architecture/Distributed-Consistency-and-Consensus-Algorithm/">分散式一致性問題與共識演算法</a></li><li><a href="/2018/06/18/Architecture/Distributed-Message-Systems/">Distributed Message Systems</a></li></ul><h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul><li><a href="https://www.pixpo.net/technology/0INvY0aG.html" target="_blank" rel="noopener">左耳朵耗子：分散式系統架構經典資料</a></li><li><a href="https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing" target="_blank" rel="noopener">Fallacies of distributed computing</a></li><li><a href="https://www.youtube.com/watch?v=srOgpXECblk" target="_blank" rel="noopener">Google I/O 2009 - Transactions Across Datacenters</a></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;整理 CAP 理論的筆記。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Architecture" scheme="http://rickhw.github.io/categories/Architecture/"/>
-    
-      <category term="Distributed Systems" scheme="http://rickhw.github.io/categories/Architecture/Distributed-Systems/"/>
-    
-    
-      <category term="Distributed Systems" scheme="http://rickhw.github.io/tags/Distributed-Systems/"/>
-    
-      <category term="Distributed Consensus" scheme="http://rickhw.github.io/tags/Distributed-Consensus/"/>
-    
-      <category term="Consensus Algorithm" scheme="http://rickhw.github.io/tags/Consensus-Algorithm/"/>
-    
-      <category term="CAP" scheme="http://rickhw.github.io/tags/CAP/"/>
-    
-      <category term="ACID" scheme="http://rickhw.github.io/tags/ACID/"/>
-    
-      <category term="BASE" scheme="http://rickhw.github.io/tags/BASE/"/>
-    
-      <category term="Raft" scheme="http://rickhw.github.io/tags/Raft/"/>
-    
-      <category term="Paxos" scheme="http://rickhw.github.io/tags/Paxos/"/>
-    
-      <category term="Blockchain" scheme="http://rickhw.github.io/tags/Blockchain/"/>
     
   </entry>
   
@@ -616,6 +576,46 @@
       <category term="Blockchain" scheme="http://rickhw.github.io/tags/Blockchain/"/>
     
       <category term="Algorithm" scheme="http://rickhw.github.io/tags/Algorithm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CAP Theorem</title>
+    <link href="http://rickhw.github.io/2018/08/11/Architecture/CAP-Theorem/"/>
+    <id>http://rickhw.github.io/2018/08/11/Architecture/CAP-Theorem/</id>
+    <published>2018-08-11T14:30:00.000Z</published>
+    <updated>2018-12-09T05:31:54.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>整理 CAP 理論的筆記。</p><a id="more"></a><h2 id="CAP-Theorem"><a href="#CAP-Theorem" class="headerlink" title="CAP Theorem"></a><a href="https://en.wikipedia.org/wiki/CAP_theorem" target="_blank" rel="noopener">CAP Theorem</a></h2><p>由 加州柏克萊分校教授 <a href="https://en.wikipedia.org/wiki/Eric_Brewer_(scientist)" target="_blank" rel="noopener">Eric Brewer</a> 在 1999 年的論文中發表：<a href="https://users.ece.cmu.edu/~adrian/731-sp04/readings/GL-cap.pdf" target="_blank" rel="noopener">Brewer’s Conjecture and the Feasibility of Consistent, Available, Partition-Tolerant Web Services</a>。論文中第一次提到 CAP 三者的關係，描述如下：</p><ul><li><code>一致性 (Consistency)</code>：每次讀取有兩個結果，一種是取得最近寫入的資料，另一種則是得到錯誤</li><li><code>可用性 (Availability)</code>：每次請求都能獲得一個 (非錯誤)回應，但不保證返回的是最新寫入的資料</li><li><code>分區容忍 (Partition tolerance)</code>：任意數量的訊息被節點間的網路丟失 (或延遲)，系統仍繼續運行。</li></ul><p>論文的結論是：分散式系統裡，CAP 三者無法同時被滿足，只能擇其二。下圖則是 w3resource 在其文件中描述 NoSQL 時提到的 CAP 的關係，與其他實作的概念：</p><p><img src="/images/Architecture/cap-theoram-image.png" alt=""><br>Source: <a href="https://www.w3resource.com/mongodb/nosql.php" target="_blank" rel="noopener">https://www.w3resource.com/mongodb/nosql.php</a></p><p>CAP 常見的排列組合：</p><ul><li>CA (consistency + availability)<ul><li>RDBMS</li><li>2PC (2 Phase Commit, 二階段提交)</li></ul></li><li>CP (consistency + partition tolerance)<ul><li>Paxos 演算法</li></ul></li><li>AP (availability + partition tolerance)<ul><li>關注的是 <code>可用性</code> 與 <code>分區容錯</code></li><li>[Dynamo][ct5]</li></ul></li></ul><p>Google I/O 2009 <a href="https://www.youtube.com/watch?v=srOgpXECblk" target="_blank" rel="noopener">Transactions Across Datacenters</a> 整理一了張很有意思的結論，如下圖：</p><p><img src="/images/Architecture/Distributed-Systems/GoogleIO2009_CAP_Practice.png" alt=""></p><hr><h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><ul><li><a href="/2018/06/18/Architecture/Gossip-in-Distributed-Systems/">聊聊分散式系統</a></li><li><a href="/2018/08/11/Architecture/Distributed-Consistency-and-Consensus-Algorithm/">分散式一致性問題與共識演算法</a></li><li><a href="/2018/06/18/Architecture/Distributed-Message-Systems/">Distributed Message Systems</a></li></ul><h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul><li><a href="https://www.pixpo.net/technology/0INvY0aG.html" target="_blank" rel="noopener">左耳朵耗子：分散式系統架構經典資料</a></li><li><a href="https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing" target="_blank" rel="noopener">Fallacies of distributed computing</a></li><li><a href="https://www.youtube.com/watch?v=srOgpXECblk" target="_blank" rel="noopener">Google I/O 2009 - Transactions Across Datacenters</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;整理 CAP 理論的筆記。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Architecture" scheme="http://rickhw.github.io/categories/Architecture/"/>
+    
+      <category term="Distributed Systems" scheme="http://rickhw.github.io/categories/Architecture/Distributed-Systems/"/>
+    
+    
+      <category term="Distributed Systems" scheme="http://rickhw.github.io/tags/Distributed-Systems/"/>
+    
+      <category term="Distributed Consensus" scheme="http://rickhw.github.io/tags/Distributed-Consensus/"/>
+    
+      <category term="Consensus Algorithm" scheme="http://rickhw.github.io/tags/Consensus-Algorithm/"/>
+    
+      <category term="CAP" scheme="http://rickhw.github.io/tags/CAP/"/>
+    
+      <category term="ACID" scheme="http://rickhw.github.io/tags/ACID/"/>
+    
+      <category term="BASE" scheme="http://rickhw.github.io/tags/BASE/"/>
+    
+      <category term="Raft" scheme="http://rickhw.github.io/tags/Raft/"/>
+    
+      <category term="Paxos" scheme="http://rickhw.github.io/tags/Paxos/"/>
+    
+      <category term="Blockchain" scheme="http://rickhw.github.io/tags/Blockchain/"/>
     
   </entry>
   
