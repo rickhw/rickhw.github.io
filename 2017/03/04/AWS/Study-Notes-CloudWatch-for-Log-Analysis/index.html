@@ -1,0 +1,491 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>CloudWatch for Log Analysis | Complete Think</title>
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="整理如何利用 CloudWatch 做 Log 分析。
+
+系統監控 + 巨量資料分析系統監控一定要提到的就是階段性：
+
+資料蒐集 (Ingest) 或者說 資料 (ETL)：萃取 (extract)、轉置 (transform)、載入 (load)，主要是 Log 的蒐集與，轉換成需要分析的格式。
+">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="CloudWatch for Log Analysis"/>
+  <meta property="og:site_name" content="Complete Think"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-71839551-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1554905741423841',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+		  			<li><a href="/archives" title="All the articles."><i class="fa fa-archive"></i>Archives</a></li>
+		  		
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>73</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>11</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>2</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>10</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>4</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>18</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Thinking/">Thinking <sup>1</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>34</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+			
+				<li><a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+			
+				<li><a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-coffee"></i>喝咖啡 聊音樂</a></li>
+			
+				<li><a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"> <i class="fa fa-user"></i>About</a></li>
+			
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> CloudWatch for Log Analysis</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> CloudWatch for Log Analysis</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+	
+
+		<!-- content -->
+		<div class="mypage">
+
+			<!-- Facebook in front of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+			<hr />
+
+		    <p>整理如何利用 CloudWatch 做 Log 分析。</p>
+<a id="more"></a>
+<h2 id="系統監控-巨量資料分析"><a href="#系統監控-巨量資料分析" class="headerlink" title="系統監控 + 巨量資料分析"></a>系統監控 + 巨量資料分析</h2><p>系統監控一定要提到的就是階段性：</p>
+<ul>
+<li>資料蒐集 (Ingest) 或者說 資料 (ETL)：萃取 (extract)、轉置 (transform)、載入 (load)，主要是 Log 的蒐集與，轉換成需要分析的格式。<ul>
+<li>經驗上來說，這個過程是最花時間的。很多人往往都沒意會到要先把資料格式弄好，才能分析，然後就傻傻的蒐集一堆 <code>非結構化</code> 的資料，結果無法分析，或者要花更多時間重新結構化。</li>
+<li>Log 的定義非常重要，我以前在做 [自動化測試][8] 的時候，就經常在處理 Log，不管是處理別人的 Log ，還是自己設計 Logger，處理系統 Log 很有感，重點就是：結構化很重要，不要生出一個自己都看不懂，程式無法解析的垃圾出來。</li>
+</ul>
+</li>
+<li>儲存 (Storage)：Log 的資料量非常大，需要有相對應的儲存基礎建設才能放置這些資料，AWS 就是 EBS、S3、EFS 等，或者自己建置 DFS (Distribution File System)，像是微軟的 DFS 或者 GlusterFS ..</li>
+<li>分析 (Analysis)：大量運算，通常會跟 Storage 綁在一起。傳統就是用 RDBMS 做、AWS RedShift / Athena、Google 用 BigQuery (儲存 + 分析)</li>
+<li>呈現 (Visualize)：把分析結果視覺化，市面上常見的事 BI 的產品，像是 Tableau、AWS QuickSight … 等</li>
+</ul>
+<p>從開始做 [系統維運開始][4] ，<code>Log 分析</code> + <code>系統監控</code> 一直是很大的挑戰，找了很多相關的解決方案，最後都會遇到同樣的問題：</p>
+<ul>
+<li>我們到底分析了些什麼？</li>
+<li>Log 的資料量太巨大，成本很高</li>
+<li>Log 系統本身不夠穩定，或者很難維護</li>
+<li>資料不夠即時，怎麼查詢？</li>
+<li>監控系統自己的監控</li>
+</ul>
+<p>大數據 (Big Data) 到去年以前還很熱，最近有緩下來趨勢，因為整個生態圈過於技術導向，往往忘了數據本身的目的性，到底是要做什麼？</p>
+<p>回到原點，以系統監控來說，要思考幾個重要的東西：</p>
+<ul>
+<li>監控指標是哪些？</li>
+<li>什麼樣的 Solution 適合？</li>
+<li>成本？</li>
+<li>監控系統本身能否自動化建置、配置？本身好不好維護管理？</li>
+<li>資安: 任何系統都要面對安全性問題，在 AWS 上 VPC / Subnet / SG 的基本規劃很重要，對我來講是基本的東西，可是大部分的人只要能通就好。最近經常發生的：<a href="http://www.ithome.com.tw/news/111268" target="_blank" rel="noopener">勒索攻擊大舉鎖定後端系統</a></li>
+</ul>
+<p>抓著這些需求，再去找 Solution ，別一開始就陷入技術的泥淖中。</p>
+<hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="系列文章"><a href="#系列文章" class="headerlink" title="系列文章"></a>系列文章</h2><ul>
+<li><a href="/2017/03/02/AWS/Study-Notes-CloudWatch/">Study Notes - CloudWatch</a></li>
+<li><a href="/2017/03/02/AWS/Study-Notes-CloudWatch-Core-Functions/">Study Notes - CloudWatch Core Functions</a></li>
+<li><a href="/2017/03/06/AWS/Study-Notes-CloudWatch-FAQ/">Study Notes - CloudWatch FAQ</a></li>
+<li><a href="/2017/03/03/AWS/Study-Notes-CloudWatch-for-Monitoring-and-Alarm/">CloudWatch for Monitoring and Alarm Systems</a></li>
+<li><a href="/2017/03/04/AWS/Study-Notes-CloudWatch-for-Log-Analysis/">CloudWatch for Log Analysis</a></li>
+<li><a href="/2017/03/05/AWS/Study-Notes-CloudWatch-for-Pofrmance-Testing/">CloudWatch for Performance Testing</a></li>
+<li>2017/06/21: <a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用 - AWS User Group Taiwan</a></li>
+</ul>
+<h2 id="站內延伸"><a href="#站內延伸" class="headerlink" title="站內延伸"></a>站內延伸</h2><ul>
+<li><a href="/2016/08/27/AWS/Lambda-Network-Traffic-Test-in-VPC-with-Endpoint/">Lambda Network Traffic Test in VPC w/ or w/o Endpoint</a></li>
+<li><a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a></li>
+<li><a href="/2016/10/01/AWS-Study-Roadmap/">AWS Study Roadmap</a></li>
+</ul>
+<h2 id="更新紀錄"><a href="#更新紀錄" class="headerlink" title="更新紀錄"></a>更新紀錄</h2><ul>
+<li>2018/12/25: 從 <a href="/2017/03/02/AWS/Study-Notes-CloudWatch/">Study Notes - CloudWatch</a> 解構</li>
+</ul>
+
+
+		    <hr />
+			<!-- Facebook in bend of page -->
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+		</div>
+
+
+		<div>
+		  	<center>
+				
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2017/03/05/AWS/Study-Notes-CloudWatch-for-Pofrmance-Testing/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2017/03/03/AWS/Study-Notes-CloudWatch-for-Monitoring-and-Alarm/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+	    	</center>
+		</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+
+
+</section>
+
+
+
+
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+
+	
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2017/03/04 03:30:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#系統監控-巨量資料分析"><span class="toc-article-text">系統監控 + 巨量資料分析</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#系列文章"><span class="toc-article-text">系列文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#站內延伸"><span class="toc-article-text">站內延伸</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#更新紀錄"><span class="toc-article-text">更新紀錄</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/AWS/" style="color: white">AWS <span class="badge">73</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/EC2/" style="color: white">EC2 <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/S3/" style="color: white">S3 <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">24</span></a></span> <span class="label label-success"><a href="/tags/DevOps/" style="color: white">DevOps <span class="badge">22</span></a></span> <span class="label label-success"><a href="/tags/Lambda/" style="color: white">Lambda <span class="badge">13</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Metrics/" style="color: white">CloudWatch Metrics <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Logs/" style="color: white">CloudWatch Logs <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Alarms/" style="color: white">CloudWatch Alarms <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Events/" style="color: white">CloudWatch Events <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/SNS/" style="color: white">SNS <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Slack/" style="color: white">Slack <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Log/" style="color: white">Log <span class="badge">5</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+			<h4>About</h4>
+			<!-- v4 -->
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<!-- v3 -->
+			<!--
+			<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			-->
+
+			<!-- v2 -->
+			<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+			<!-- v1 -->
+			<!--
+			<li>Software Developer</li>
+			<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+			<li><a href="/categories/DevOps/">Operation Manager</a></li>
+			<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+			<li>
+				<ol>
+					<li>Management</li>
+					<li>Cloud / Distributed Systems</li>
+					<li>DevOps / SRE / </li>
+				</ol>
+			</li>
+			-->
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+	
+	
+
+</div><!-- row -->
+
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2018 Rick Hwang
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-coffee"></i> <a href="http://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="http://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+    <i class="fa fa-user"></i> <a href="https://rickhw.github.io/2017/12/29/About/About-This-Blog/" title="About me." target="_blank"]);">About</a><br />
+  
+  -->
+
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

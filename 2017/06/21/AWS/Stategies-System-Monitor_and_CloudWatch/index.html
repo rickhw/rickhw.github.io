@@ -6,10 +6,10 @@
   <title>演講：淺談系統監控與 CloudWatch 的應用 | Complete Think</title>
   <meta name="author" content="Rick Hwang">
   
-  <meta name="description" content="今天 (06/21) 有機會到 AWS User Group Taiwan 分享心得。主題：淺談系統監控與 CloudWatch 的應用。
+  <meta name="description" content="今天 (2017/06/21) 有機會到 AWS User Group Taiwan 分享心得。主題：淺談系統監控與 CloudWatch 的應用。
 
-題目主軸的構思是從這篇： Study Notes - CloudWatch 開始，但這篇前半段純粹是讀書筆記，把讀過的東西整理過，後半段則是心得。
-單純講技術">
+
+主軸題目主軸的構思是從這篇： Study Notes - CloudWatch 開始，但這篇前半段純粹是讀書筆記，把讀過的東西整理過，後半段則是心">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -103,7 +103,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-										<li><a href="/categories/AWS/">AWS <sup>68</sup></a></li>
+										<li><a href="/categories/AWS/">AWS <sup>73</sup></a></li>
 									
 										<li><a href="/categories/About/">About <sup>11</sup></a></li>
 									
@@ -211,9 +211,10 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 
 			<hr />
 
-		    <p>今天 (06/21) 有機會到 <a href="https://www.facebook.com/groups/awsugtw/" target="_blank" rel="noopener">AWS User Group Taiwan</a> 分享心得。主題：<a href="https://www.facebook.com/events/317681635334054/?acontext=%7B%22ref%22%3A%223%22%2C%22ref_newsfeed_story_type%22%3A%22regular%22%2C%22feed_story_type%22%3A%22117%22%2C%22action_history%22%3A%22null%22%7D" target="_blank" rel="noopener">淺談系統監控與 CloudWatch 的應用</a>。</p>
+		    <p>今天 (2017/06/21) 有機會到 <a href="https://www.facebook.com/groups/awsugtw/" target="_blank" rel="noopener">AWS User Group Taiwan</a> 分享心得。主題：<a href="https://www.facebook.com/events/317681635334054/?acontext=%7B%22ref%22%3A%223%22%2C%22ref_newsfeed_story_type%22%3A%22regular%22%2C%22feed_story_type%22%3A%22117%22%2C%22action_history%22%3A%22null%22%7D" target="_blank" rel="noopener">淺談系統監控與 CloudWatch 的應用</a>。</p>
 <a id="more"></a>
-<p>題目主軸的構思是從這篇： <a href="/2017/03/02/AWS/Study-Notes-CloudWatch/">Study Notes - CloudWatch</a> 開始，但這篇前半段純粹是讀書筆記，把讀過的東西整理過，後半段則是心得。</p>
+<hr>
+<h1 id="主軸"><a href="#主軸" class="headerlink" title="主軸"></a>主軸</h1><p>題目主軸的構思是從這篇： <a href="/2017/03/02/AWS/Study-Notes-CloudWatch/">Study Notes - CloudWatch</a> 開始，但這篇前半段純粹是讀書筆記，把讀過的東西整理過，後半段則是心得。</p>
 <p>單純講技術沒有靈魂，直接切入經驗的心得又似乎沒頭沒尾，所以又從這篇： <a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/">AWS Certified SysOps Administrator - Associate 準備心得</a> 整理一些累積已久的想法。刪減整理後，用自問自答的方式，做出主要的架構，然後再用 CloudWatch 和 Lambda 穿插。</p>
 <blockquote>
 <p>只講樂理，不找歌曲當例子，很無感；只教歌曲，不講樂理，學生會一直問。。。所以技術和故事都要講 XD</p>
@@ -231,9 +232,9 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <p>其實技術含量不高 (約 AWS Level 200)，大多是想法、經驗、純分享 XDD</p>
 <p>以下是當天的 Slide 與活動照片。</p>
 <p><iframe src="//www.slideshare.net/slideshow/embed_code/key/78fBNeeqSzuQoh" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/rickhwang/aws-cloudwatch-77145060" title="淺談系統監控與 AWS CloudWatch 的應用" target="_blank">淺談系統監控與 AWS CloudWatch 的應用</a> </strong> from <strong><a target="_blank" href="https://www.slideshare.net/rickhwang">Rick Hwang</a></strong> </div></p>
-<h3 id="投影片重點"><a href="#投影片重點" class="headerlink" title="投影片重點"></a>投影片重點</h3><p>底下摘錄一些重點 Slide 給需要的朋友快速瀏覽：</p>
+<h2 id="投影片-Recap"><a href="#投影片-Recap" class="headerlink" title="投影片 Recap"></a>投影片 Recap</h2><p>底下摘錄一些重點 Slide 給需要的朋友快速瀏覽：</p>
 <p><img src="/images/AWS/awsug-20170621/Monitoring-CW-01.png" alt=""><br><img src="/images/AWS/awsug-20170621/Monitoring-CW-02.png" alt=""><br><img src="/images/AWS/awsug-20170621/Monitoring-CW-03.png" alt=""><br><img src="/images/AWS/awsug-20170621/Monitoring-CW-04.png" alt=""><br><img src="/images/AWS/awsug-20170621/Monitoring-CW-05.png" alt=""><br><img src="/images/AWS/awsug-20170621/Monitoring-CW-06.png" alt=""><br><img src="/images/AWS/awsug-20170621/Monitoring-CW-07.png" alt=""><br><img src="/images/AWS/awsug-20170621/Monitoring-CW-08.png" alt=""></p>
-<h3 id="活動照片"><a href="#活動照片" class="headerlink" title="活動照片"></a>活動照片</h3><p><img src="/images/AWS/awsug-20170621/IMG_1637.JPG" alt=""><br><img src="/images/AWS/awsug-20170621/IMG_1646.JPG" alt=""></p>
+<h2 id="活動照片"><a href="#活動照片" class="headerlink" title="活動照片"></a>活動照片</h2><p><img src="/images/AWS/awsug-20170621/IMG_1637.JPG" alt=""><br><img src="/images/AWS/awsug-20170621/IMG_1646.JPG" alt=""></p>
 <p>最後感謝 <a href="https://www.facebook.com/groups/awsugtw/" target="_blank" rel="noopener">AWS User Group Taiwan</a> 以及 <a href="https://www.facebook.com/sebastian.hsu" target="_blank" rel="noopener">Sebastian Hsu</a> 的熱情邀請，讓我有機會分享心得跟想法，也謝謝來參加的朋友。</p>
 <p>後記：</p>
 <p>我在 Slide 最後的許願實踐了，AWS 07/05 發表了新功能： <a href="https://aws.amazon.com/blogs/aws/new-api-cloudformation-support-for-amazon-cloudwatch-dashboards/" target="_blank" rel="noopener">New – API &amp; CloudFormation Support for Amazon CloudWatch Dashboards</a>。雖然有點晚，但還是實踐了，表示 CloudWatch 還是有在持續改進的！希望其他的許願也會慢慢實現 XD</p>
@@ -242,8 +243,16 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li><a href="/2017/12/22/DevOps/What-is-Monitoring/">What is Monitoring</a>: 深度分析 <code>監</code>、<code>控</code> 的差異</li>
 <li><a href="/2017/10/07/DevOps/Monitoring-vs-Observability/">Monitoring vs Observability</a> : 聊聊這兩者的差異與任務別，包含 AWS CloudWatch 的應用實務。</li>
 </ul>
-<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
+<h2 id="CloudWatch-系列文章"><a href="#CloudWatch-系列文章" class="headerlink" title="CloudWatch 系列文章"></a>CloudWatch 系列文章</h2><ul>
 <li><a href="/2017/03/02/AWS/Study-Notes-CloudWatch/">Study Notes - CloudWatch</a></li>
+<li><a href="/2017/03/02/AWS/Study-Notes-CloudWatch-Core-Functions/">Study Notes - CloudWatch Core Functions</a></li>
+<li><a href="/2017/03/06/AWS/Study-Notes-CloudWatch-FAQ/">Study Notes - CloudWatch FAQ</a></li>
+<li><a href="/2017/03/03/AWS/Study-Notes-CloudWatch-for-Monitoring-and-Alarm/">CloudWatch for Monitoring and Alarm Systems</a></li>
+<li><a href="/2017/03/04/AWS/Study-Notes-CloudWatch-for-Log-Analysis/">CloudWatch for Log Analysis</a></li>
+<li><a href="/2017/03/05/AWS/Study-Notes-CloudWatch-for-Pofrmance-Testing/">CloudWatch for Performance Testing</a></li>
+<li>2017/06/21: <a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用 - AWS User Group Taiwan</a></li>
+</ul>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
 <li><a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/">AWS Certified SysOps Administrator - Associate 準備心得</a></li>
 <li><a href="/2017/10/07/DevOps/Monitoring-vs-Observability/">Monitoring vs Observability</a></li>
 <li><a href="/2017/03/18/SQA/Stages-In-Software-Testing/#System-Verification-Test-SVT">Stages in Software Testing</a></li>
@@ -330,7 +339,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#投影片重點"><span class="toc-article-text">投影片重點</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#活動照片"><span class="toc-article-text">活動照片</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#補充"><span class="toc-article-text">補充</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#相關資料"><span class="toc-article-text">相關資料</span></a>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#主軸"><span class="toc-article-text">主軸</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#投影片-Recap"><span class="toc-article-text">投影片 Recap</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#活動照片"><span class="toc-article-text">活動照片</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#補充"><span class="toc-article-text">補充</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#CloudWatch-系列文章"><span class="toc-article-text">CloudWatch 系列文章</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#相關資料"><span class="toc-article-text">相關資料</span></a></li></ol>
 		</div>
 	
 	</div>
@@ -344,7 +353,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
     <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
       <div>
   <!--<li>-->
-    <span class="label label-info"><a href="/categories/AWS/" style="color: white">AWS <span class="badge">68</span></a></span>
+    <span class="label label-info"><a href="/categories/AWS/" style="color: white">AWS <span class="badge">73</span></a></span>
   <!--</li>-->
 </div>
     <!--</ul>-->
@@ -360,7 +369,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/IAM/" style="color: white">IAM <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">19</span></a></span> <span class="label label-success"><a href="/tags/Lambda/" style="color: white">Lambda <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Metrics/" style="color: white">CloudWatch Metrics <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Logs/" style="color: white">CloudWatch Logs <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Serverless/" style="color: white">Serverless <span class="badge">13</span></a></span> <span class="label label-success"><a href="/tags/Conference/" style="color: white">Conference <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Ops/" style="color: white">Ops <span class="badge">15</span></a></span>
+  <span class="label label-success"><a href="/tags/IAM/" style="color: white">IAM <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">24</span></a></span> <span class="label label-success"><a href="/tags/Lambda/" style="color: white">Lambda <span class="badge">13</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Metrics/" style="color: white">CloudWatch Metrics <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Logs/" style="color: white">CloudWatch Logs <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/Serverless/" style="color: white">Serverless <span class="badge">13</span></a></span> <span class="label label-success"><a href="/tags/Conference/" style="color: white">Conference <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Ops/" style="color: white">Ops <span class="badge">15</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
