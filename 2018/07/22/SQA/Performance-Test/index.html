@@ -9,9 +9,11 @@
   <meta name="description" content="本文整理重新摘分在 Stages in Software Testing 整理的效能測試部分。
 
 
-Scope of Test Stages下面這張圖表達 Stages in Software Testing 的概念：
+效能是什麼？開始說明之前，先整理一段說明來描述效能：
 
-其中關於 效能測試 包含三大部分，也是本文描述的主軸：Stability, R">
+beanchmark
+硬體設備可以乘載的環境變因，例如 Mac Mini 可以工作的環境條件：
+攝氏 10 ~ 35 度，相對濕度 5 ~ 90">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -216,6 +218,17 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		    <p>本文整理重新摘分在 <a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a> 整理的效能測試部分。</p>
 <a id="more"></a>
 <hr>
+<h1 id="效能是什麼？"><a href="#效能是什麼？" class="headerlink" title="效能是什麼？"></a>效能是什麼？</h1><p>開始說明之前，先整理一段說明來描述效能：</p>
+<ul>
+<li>beanchmark</li>
+<li>硬體設備可以乘載的環境變因，例如 Mac Mini 可以工作的環境條件：<ul>
+<li>攝氏 10 ~ 35 度，相對濕度 5 ~ 90%</li>
+<li>工作電壓：100 ~ 240V AC</li>
+<li>頻率：50Hz ~ 60Hz</li>
+</ul>
+</li>
+</ul>
+<hr>
 <h1 id="Scope-of-Test-Stages"><a href="#Scope-of-Test-Stages" class="headerlink" title="Scope of Test Stages"></a>Scope of Test Stages</h1><p>下面這張圖表達 <a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a> 的概念：</p>
 <p><img src="/images/SQA/Stages-Relations_20180722.png" alt=""></p>
 <p>其中關於 <code>效能測試</code> 包含三大部分，也是本文描述的主軸：Stability, Reliability, Capacity</p>
@@ -391,7 +404,7 @@ RPS?
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Scope-of-Test-Stages"><span class="toc-article-text">Scope of Test Stages</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Performance-Test"><span class="toc-article-text">Performance Test</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#效能測試的準備工作"><span class="toc-article-text">效能測試的準備工作</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Stability-穩定性"><span class="toc-article-text">Stability (穩定性)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Reliability-可靠性"><span class="toc-article-text">Reliability (可靠性)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Capacity-容量測試"><span class="toc-article-text">Capacity (容量測試)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#外在變因"><span class="toc-article-text">外在變因</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀-站內"><span class="toc-article-text">延伸閱讀 (站內)</span></a></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#效能是什麼？"><span class="toc-article-text">效能是什麼？</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Scope-of-Test-Stages"><span class="toc-article-text">Scope of Test Stages</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Performance-Test"><span class="toc-article-text">Performance Test</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#效能測試的準備工作"><span class="toc-article-text">效能測試的準備工作</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Stability-穩定性"><span class="toc-article-text">Stability (穩定性)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Reliability-可靠性"><span class="toc-article-text">Reliability (可靠性)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Capacity-容量測試"><span class="toc-article-text">Capacity (容量測試)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#外在變因"><span class="toc-article-text">外在變因</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀-站內"><span class="toc-article-text">延伸閱讀 (站內)</span></a></li></ol>
 		</div>
 	
 	</div>

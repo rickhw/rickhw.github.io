@@ -10,7 +10,7 @@
 
 
 Log 處理的核心概念我參考了 Big Data 的處理流水線 (Pipeline)，如下圖：
-出處：[AWS">
+出處：AWS ">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -216,7 +216,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <a id="more"></a>
 <hr>
 <h1 id="Log-處理的核心概念"><a href="#Log-處理的核心概念" class="headerlink" title="Log 處理的核心概念"></a>Log 處理的核心概念</h1><p>我參考了 Big Data 的處理流水線 (Pipeline)，如下圖：</p>
-<p><img src="/images/AWS/CloudWatch/Big-Data-Process.png" alt=""><br>出處：[AWS Summit 2016: Big Data Architectural Patterns and Best Practices][r2]</p>
+<p><img src="/images/AWS/CloudWatch/Big-Data-Process.png" alt=""><br>出處：<a href="https://www.slideshare.net/AmazonWebServices/aws-reinvent-2016-big-data-architectural-patterns-and-best-practices-on-aws-bdm201" target="_blank" rel="noopener">AWS Summit 2016: Big Data Architectural Patterns and Best Practices</a>, P9</p>
 <p>以此為概念將 Log Process，分成四個階段：</p>
 <ol>
 <li><code>蒐集 Ingest</code>: 從資料產生端，蒐集 Log 資料。</li>
@@ -227,23 +227,32 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <p>整理出對應到 CloudWatch 的應用，如下圖：</p>
 <p><img src="/images/AWS/CloudWatch/Log-Process-using-CloudWatch.png" alt=""></p>
 <ol>
-<li><code>蒐集 Ingest</code>: CloudWatch Agent</li>
-<li><code>儲存 Store</code>: CloudWatch Logs</li>
-<li><code>處理 Process / Analyze</code>: CloudWatch Filter, CloudWatch Logs Insights</li>
-<li><code>呈現 Visualize / Action</code>: CloudWatch Metric, CloudWatch Dashboard, CloudWatch Alarms</li>
-</ol>
-<p>底下分別說明 CloudWatch 的名詞簡單說明：</p>
-<ul>
-<li>CloudWatch：縮寫成 CW</li>
-<li><code>Ingest</code> CloudWatch Agent：安裝在 EC2 或者以 Sidecar 形式包成 Docker，負責蒐集 Log 的 Agent</li>
-<li><code>Store</code> CloudWatch Logs：存放 Log 資料的服務，屬於 Storage Service，縮寫成 CWL</li>
-<li><code>Process</code> CloudWatch Filter：分析 CWL 的功能，但只能下簡單的 Filter 條件，複雜的使用 Insight</li>
-<li><code>Process</code> CloudWatch Logs Insight：分析存放在 CWL 的功能，可以下類似 SQL 的查詢，功能類似 Athena。</li>
-<li><code>Visualize</code> CloudWatch Metric：透過 Filter 或 Insight 產生的 Metric，屬於 Time-Series 圖形。</li>
-<li><code>Visualize</code> CloudWatch Dashboard：Metric 的集合呈現，一般當作視覺化監視看板使用。</li>
-<li><code>Action</code> CloudWatch Alarms：告警服務：</li>
-<li>CloudWatch Events / Rules：類似 Cron 的服務，依據條件執行 Schedule Tasks.</li>
+<li><code>蒐集 Ingest</code>: <ul>
+<li><code>CloudWatch Agent</code>：安裝在 EC2 或者以 <code>Sidecar</code> 形式包成 Docker，負責蒐集 Log 的 </li>
+<li><code>awslogs</code>：舊版的 Log Agent，效能比較不佳</li>
+<li>OSS: Fluentd、Logstash、Beats</li>
 </ul>
+</li>
+<li><code>儲存 Store</code>: CloudWatch Logs<ul>
+<li>CloudWatch Logs：存放 Log 資料的服務，屬於 Storage Service，縮寫成 CWL</li>
+<li>OSS: Elasticsearch、InfluxDB、Prometheus</li>
+</ul>
+</li>
+<li><code>處理 Process / Analyze</code>:<ul>
+<li><code>CloudWatch Filter</code>：分析 CWL 的功能，但只能下簡單的 Filter 條件，複雜的使用 </li>
+<li><code>CloudWatch Logs Insight</code>：分析存放在 CWL 的功能，可以下類似 SQL 的查詢，功能類似 </li>
+<li>OSS: Elasticsearch、InfluxDB、Prometheus</li>
+</ul>
+</li>
+<li><code>呈現 Visualize / Action</code>: <ul>
+<li><code>CloudWatch Metric</code>：透過 Filter 或 Insight 產生的 Metric，屬於 Time-Series </li>
+<li><code>CloudWatch Dashboard</code>：Metric 的集合呈現，一般當作視覺化監視看板使用。</li>
+<li><code>CloudWatch Alarms</code>：事件驅動的 Event Source，通常會透過 SNS 串接 Lambda 執行實際行為。</li>
+<li><code>CloudWatch Events / Rules</code>：類似 Cron 的服務，依據條件執行 Schedule Tasks，也是一種 Event Source。</li>
+<li>OSS: Kibana、Grafana</li>
+</ul>
+</li>
+</ol>
 <hr>
 <h1 id="系列文章"><a href="#系列文章" class="headerlink" title="系列文章"></a>系列文章</h1><p>底下是常見的應用場景：</p>
 <ul>
@@ -257,17 +266,14 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <ul>
 <li><a href="/2017/03/02/AWS/Study-Notes-CloudWatch/">Study Notes - CloudWatch</a></li>
 <li><a href="/2017/03/02/AWS/Study-Notes-CloudWatch-Core-Functions/">Study Notes - CloudWatch Core Functions</a></li>
-<li><a href="/2017/03/03/AWS/Study-Notes-CloudWatch-for-Monitoring-and-Alarm/">Study Notes - CloudWatch for Monitoring and Alarm Systems</a></li>
-<li><a href="/2017/03/04/AWS/Study-Notes-CloudWatch-for-Log-Analysis/">Study Notes - CloudWatch for Log Analysis</a></li>
-<li><a href="/2017/03/05/AWS/Study-Notes-CloudWatch-for-Pofrmance-Testing/">Study Notes - CloudWatch for Performance Testing</a></li>
 <li><a href="/2017/03/06/AWS/Study-Notes-CloudWatch-FAQ/">Study Notes - CloudWatch FAQ</a></li>
+<li><a href="/2017/03/03/AWS/Study-Notes-CloudWatch-for-Monitoring-and-Alarm/">Solution - CloudWatch for Monitoring and Alarm Systems</a></li>
+<li><a href="/2017/03/04/AWS/Study-Notes-CloudWatch-for-Log-Analysis/">Solution - CloudWatch for Log Analysis</a></li>
+<li><a href="/2017/03/05/AWS/Study-Notes-CloudWatch-for-Pofrmance-Testing/">Solution - CloudWatch for Performance Testing</a></li>
 <li>2017/06/21: <a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用 - AWS User Group Taiwan</a></li>
 </ul>
 <hr>
 <h1 id="後話"><a href="#後話" class="headerlink" title="後話"></a>後話</h1><p>其實在做 <code>系統監控</code> 我會一直想到以前在研究 <a href="http://rickmidi.blogspot.com/2011/09/concepts-of-music-technology.html" target="_blank" rel="noopener">數位音樂科技</a>，特別是混音時常用的一些 EQ / Filter … 基本上跟監控系統的 Alarm 概念一模一樣 XD</p>
-<blockquote>
-<p>更多監控的策略想法請參考我在 AWS User Group Taiwan 的分享：<a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></p>
-</blockquote>
 <hr>
 <h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="站內延伸"><a href="#站內延伸" class="headerlink" title="站內延伸"></a>站內延伸</h2><ul>
 <li><a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/">AWS Certified SysOps Administrator - Associate 準備心得</a></li>
@@ -309,13 +315,13 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <ul class="pagination">
 	 
 				
-    	<li class="prev"><a href="/2017/03/02/AWS/Study-Notes-CloudWatch-Core-Functions/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+    	<li class="prev"><a href="/2017/03/03/AWS/Study-Notes-CloudWatch-for-Monitoring-and-Alarm/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
   		
 
         <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
 
 		
-		   <li class="next"><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+		   <li class="next"><a href="/2017/03/02/AWS/Study-Notes-CloudWatch-Core-Functions/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
         
 	
 </ul>
@@ -394,7 +400,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/EC2/" style="color: white">EC2 <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/S3/" style="color: white">S3 <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">24</span></a></span> <span class="label label-success"><a href="/tags/CloudTrail/" style="color: white">CloudTrail <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/DevOps/" style="color: white">DevOps <span class="badge">22</span></a></span> <span class="label label-success"><a href="/tags/Lambda/" style="color: white">Lambda <span class="badge">13</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Metrics/" style="color: white">CloudWatch Metrics <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Logs/" style="color: white">CloudWatch Logs <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Alarms/" style="color: white">CloudWatch Alarms <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Events/" style="color: white">CloudWatch Events <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/SNS/" style="color: white">SNS <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Slack/" style="color: white">Slack <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Log/" style="color: white">Log <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Athena/" style="color: white">Athena <span class="badge">3</span></a></span>
+  <span class="label label-success"><a href="/tags/EC2/" style="color: white">EC2 <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">24</span></a></span> <span class="label label-success"><a href="/tags/Lambda/" style="color: white">Lambda <span class="badge">13</span></a></span> <span class="label label-success"><a href="/tags/S3/" style="color: white">S3 <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Metrics/" style="color: white">CloudWatch Metrics <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Logs/" style="color: white">CloudWatch Logs <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/DevOps/" style="color: white">DevOps <span class="badge">22</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Alarms/" style="color: white">CloudWatch Alarms <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Events/" style="color: white">CloudWatch Events <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/SNS/" style="color: white">SNS <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Slack/" style="color: white">Slack <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CloudTrail/" style="color: white">CloudTrail <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Log/" style="color: white">Log <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Athena/" style="color: white">Athena <span class="badge">3</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
