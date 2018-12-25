@@ -132,11 +132,11 @@
       <category term="Distributed Systems" scheme="http://rickhw.github.io/categories/Architecture/Distributed-Systems/"/>
     
     
+      <category term="DynamoDB" scheme="http://rickhw.github.io/tags/DynamoDB/"/>
+    
       <category term="CAP" scheme="http://rickhw.github.io/tags/CAP/"/>
     
       <category term="NWR" scheme="http://rickhw.github.io/tags/NWR/"/>
-    
-      <category term="DynamoDB" scheme="http://rickhw.github.io/tags/DynamoDB/"/>
     
       <category term="Vector Clock" scheme="http://rickhw.github.io/tags/Vector-Clock/"/>
     
@@ -213,11 +213,11 @@
       <category term="AWS" scheme="http://rickhw.github.io/categories/AWS/"/>
     
     
+      <category term="AWS CLI" scheme="http://rickhw.github.io/tags/AWS-CLI/"/>
+    
       <category term="Security Groups" scheme="http://rickhw.github.io/tags/Security-Groups/"/>
     
       <category term="Operations" scheme="http://rickhw.github.io/tags/Operations/"/>
-    
-      <category term="AWS CLI" scheme="http://rickhw.github.io/tags/AWS-CLI/"/>
     
       <category term="Ops as Code" scheme="http://rickhw.github.io/tags/Ops-as-Code/"/>
     
