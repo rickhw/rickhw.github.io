@@ -219,9 +219,9 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <p><img src="/images/AWS/CloudWatch/Big-Data-Process.png" alt=""><br>出處：<a href="https://www.slideshare.net/AmazonWebServices/aws-reinvent-2016-big-data-architectural-patterns-and-best-practices-on-aws-bdm201" target="_blank" rel="noopener">AWS Summit 2016: Big Data Architectural Patterns and Best Practices</a>, P9</p>
 <p>以此為概念將 Log Process，分成四個階段：</p>
 <ol>
-<li><code>蒐集 Ingest</code>: 從資料產生端，蒐集 Log 資料。</li>
+<li><code>蒐集 Ingest</code>: 從資料產生端，蒐集 Log 資料，有時候會包含 <code>ETL (Extra-Transform-Load)</code></li>
 <li><code>儲存 Store</code>: 將 Log 儲存到儲存體，常見的 OSS 像是 Elasticsearch、InfluxDB、Prometheus …</li>
-<li><code>處理 Process / Analyze</code>: 將資料分析成有意義的資訊，例如 API Top 10、HTTP 5XX、Latency …</li>
+<li><code>處理 Process / Analyze</code>: 將資料分析成有意義的資訊，例如 API Top 10、HTTP 5XX、Latency … ETL 有時候會放這裡。</li>
 <li><code>呈現 Visualize / Action</code>: 將分析的資訊，以視覺畫呈現，或者轉換成行動，也就是自動化的發動點。</li>
 </ol>
 <p>整理出對應到 CloudWatch 的應用，如下圖：</p>
@@ -230,6 +230,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li><code>蒐集 Ingest</code>:<ul>
 <li><code>CloudWatch Agent</code>：安裝在 EC2 或者以 <code>Sidecar</code> 形式包成 Docker，負責蒐集 Log 的</li>
 <li><code>awslogs</code>：舊版的 Log Agent，效能比較不佳</li>
+<li>ETL Solutions: AWS Glue、Xplant</li>
 <li>OSS: Fluentd、Logstash、Beats</li>
 </ul>
 </li>
