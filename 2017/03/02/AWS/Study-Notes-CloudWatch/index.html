@@ -219,7 +219,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <p><img src="/images/AWS/CloudWatch/Big-Data-Process.png" alt=""><br>出處：<a href="https://www.slideshare.net/AmazonWebServices/aws-reinvent-2016-big-data-architectural-patterns-and-best-practices-on-aws-bdm201" target="_blank" rel="noopener">AWS Summit 2016: Big Data Architectural Patterns and Best Practices</a>, P9</p>
 <p>以此為概念將 Log Process，分成四個階段：</p>
 <ol>
-<li><code>蒐集 Ingest</code>: 從資料產生端，蒐集 Log 資料，有時候會包含 <code>ETL (Extra-Transform-Load)</code></li>
+<li><code>蒐集 Ingest</code>: 從資料產生端，蒐集 Log 資料，有時候會包含 <code>ETL (Extra-Transform-Load)</code>、<code>DLP (Data Leak Prevention, 資料外洩防護)</code></li>
 <li><code>儲存 Store</code>: 將 Log 儲存到儲存體，常見的 OSS 像是 Elasticsearch、InfluxDB、Prometheus …</li>
 <li><code>處理 Process / Analyze</code>: 將資料分析成有意義的資訊，例如 API Top 10、HTTP 5XX、Latency … ETL 有時候會放這裡。</li>
 <li><code>呈現 Visualize / Action</code>: 將分析的資訊，以視覺畫呈現，或者轉換成行動，也就是自動化的發動點。</li>
@@ -318,13 +318,13 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <ul class="pagination">
 	 
 				
-    	<li class="prev"><a href="/2017/03/02/AWS/Study-Notes-CloudWatch-Core-Functions/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+    	<li class="prev"><a href="/2017/03/03/AWS/Study-Notes-CloudWatch-for-Monitoring-and-Alarm/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
   		
 
         <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
 
 		
-		   <li class="next"><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+		   <li class="next"><a href="/2017/03/02/AWS/Study-Notes-CloudWatch-Core-Functions/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
         
 	
 </ul>
@@ -403,7 +403,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/EC2/" style="color: white">EC2 <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/S3/" style="color: white">S3 <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">24</span></a></span> <span class="label label-success"><a href="/tags/CloudTrail/" style="color: white">CloudTrail <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/DevOps/" style="color: white">DevOps <span class="badge">22</span></a></span> <span class="label label-success"><a href="/tags/Lambda/" style="color: white">Lambda <span class="badge">13</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Metrics/" style="color: white">CloudWatch Metrics <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Logs/" style="color: white">CloudWatch Logs <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Alarms/" style="color: white">CloudWatch Alarms <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Events/" style="color: white">CloudWatch Events <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/SNS/" style="color: white">SNS <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Slack/" style="color: white">Slack <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Log/" style="color: white">Log <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Athena/" style="color: white">Athena <span class="badge">3</span></a></span>
+  <span class="label label-success"><a href="/tags/EC2/" style="color: white">EC2 <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/S3/" style="color: white">S3 <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">24</span></a></span> <span class="label label-success"><a href="/tags/CloudTrail/" style="color: white">CloudTrail <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/DevOps/" style="color: white">DevOps <span class="badge">22</span></a></span> <span class="label label-success"><a href="/tags/Lambda/" style="color: white">Lambda <span class="badge">13</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Metrics/" style="color: white">CloudWatch Metrics <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Logs/" style="color: white">CloudWatch Logs <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Alarms/" style="color: white">CloudWatch Alarms <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Events/" style="color: white">CloudWatch Events <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/SNS/" style="color: white">SNS <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Slack/" style="color: white">Slack <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Log/" style="color: white">Log <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Athena/" style="color: white">Athena <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/ETL/" style="color: white">ETL <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/DLP/" style="color: white">DLP <span class="badge">1</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
