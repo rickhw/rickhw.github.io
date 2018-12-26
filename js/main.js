@@ -11,7 +11,7 @@ $(document).ready(function() {
         }
     });
     $("#gotop").click(function(){ //当点击标签的时候,使用animate在200毫秒的时间内,滚到顶部
-        $("html,body").animate({scrollTop:"0px"},200);
+        $("html,body").animate({scrollTop:"0px"}, 200);
     });
 	$(".navbar").mouseenter(function(){
 		$(".navbar").fadeTo(100, 1);
@@ -23,7 +23,7 @@ $(document).ready(function() {
 		}
 	});
     //added by @rick 20170624. to add icon for external links.
-    $('a[rel=external]').filter(function() {
+    $('a[rel=noopener]').filter(function() {
         return this.hostname && this.hostname !== location.hostname;
     }).after(' <i class="fa fa-external-link"></i></span>'); //.addClass("test");
 
