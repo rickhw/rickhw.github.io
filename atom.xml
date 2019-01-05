@@ -45,9 +45,9 @@
     <link href="http://rickhw.github.io/2018/12/16/DevOps/Hire-a-Release-Engineer/"/>
     <id>http://rickhw.github.io/2018/12/16/DevOps/Hire-a-Release-Engineer/</id>
     <published>2018-12-16T04:43:00.000Z</published>
-    <updated>2018-12-16T03:23:36.608Z</updated>
+    <updated>2019-01-05T12:28:42.658Z</updated>
     
-    <content type="html"><![CDATA[<p>本文整理 SRE 讀書會 Round 2 的討論與筆記。問題是：</p><blockquote><p>團隊 Release 的角色是否應該專職？<br>(不管是叫 DevOps Engineer or Release Engineer)</p></blockquote><p>那天 (2018/09/13) 討論的章節是 <code>第7章 提交階段</code>，我在回程公車上寫下這段 <a href="https://www.facebook.com/rick.kyhwang/posts/10209921505113654" target="_blank" rel="noopener">筆記</a>，重新整理成文章，也補充一些想法。</p><p>我從以下幾個面向分析：</p><ul><li>企業階段</li><li>架構與組織</li><li>產品特性</li></ul><a id="more"></a><hr><h2 id="企業階段"><a href="#企業階段" class="headerlink" title="企業階段"></a>企業階段</h2><p>這問題討論到最後一定分成兩種：</p><ul><li><code>不該專職</code>：團隊成員輪著做，不應該專職 (偏向 Agile 的概念)</li><li><code>應該專職</code>：技術 know how 很深，應該專人專職 (偏向傳統、大型組織)</li></ul><p>我想想都對、也都不對，因為這兩個都沒有提到 <code>前提條件與背景</code>，這樣的討論不會有結論。整理前提與背景的組合如下：</p><ol><li>SOP 未確立之前：工具、流程、架構還在混沌狀態<ul><li>一定是專人專職，因為狀況很複雜，流程一直在變，必須用技術來駕馭、控制整個過程。</li><li>這個人對整理狀況有一定掌握度，有一定的技術能力</li><li>通常是新創事業，要即戰力，每個人都是各個領域的專家、高手</li><li>萬事起頭難，需要有經驗的人開始</li></ul></li><li>SOP 很清楚：工具、流程、架構都清楚了<ul><li>誰來點都可以，反正要做的就是那些 A,B,C,….</li><li>只要能夠透過標準化的流程，透過一段時間訓練就可以上手的。</li><li>這表示已經經過時間考驗的結果，經過 (1 焠鍊後的結果。</li></ul></li></ol><p>所以表示 2) 要先有 1) 的結果與歷練，才有辦法在不影響任務的前提下 <code>輪著做</code>。</p><blockquote><p>再說一次：不影響任務的前提！如果會影響任務，那這件事情會造成的現象稱為：<code>壓力</code></p></blockquote><hr><h2 id="架構與組織"><a href="#架構與組織" class="headerlink" title="架構與組織"></a>架構與組織</h2><p>用架構與組織當作兩個維度，結果都是清楚與不清楚。</p><ul><li><code>架構</code>：指的是系統架構的清晰度，包含邊界、依賴性、耦合度等面向。</li><li><code>組織</code>：組織的拆分，人員的專業、團隊的職責，簡單說就是 <a href="/2018/06/13/Management/Role-And-Responsibility/">R&amp;R</a></li></ul><p>這兩個面向，用清楚與不清楚分，所以有四種排列組合：</p><ol><li>架構不清楚、組織不清楚：找技術高手和顧問來幫忙。</li><li>架構不清楚、組織清楚：找技術高手來幫忙。</li><li>架構清楚、組織不清楚：找顧問來協助</li><li>架構清楚、組織清楚：直接往下一個階段走，讓團隊自行發揮</li></ol><p>組織結構與架構無法清楚的時候，造成的問題是：內部空轉以及溝通成本。</p><hr><h2 id="產品特性"><a href="#產品特性" class="headerlink" title="產品特性"></a>產品特性</h2><p>除了 SOP，另外要提的是產品特性的 <code>範圍</code>：</p><ol><li>小範圍：互聯網的軟體，Startup 的核心團隊，或者 Microservice 的 2pizza team，這種一定是大家都要能相互 cover</li><li>大範圍：大型產品（作業系統、火箭、汽車），組織很龐大的 team，例如 M$ 的 Windows Team or Nasa 火箭發射… 這種的團隊一定是專職專人</li></ol><p>現在的 CI/CD 工具鍊複雜度以及觀念，甚至是架構，跟十年前比起來其實差不多。但是擴散的面積已經跟以前不一樣，以前可能只有部分人有辦法看到全貌，現在是大家都可以看到全貌。</p><p>但是問題就在於：</p><blockquote><p>看到全貌 != #可以駕馭全貌</p></blockquote><p>這是兩回事。</p><ul><li><code>駕馭</code>：需要一定的技術能力、專業與經驗</li><li><code>了解全貌</code>：需要組織能力、視野、判斷力、決策力，甚至是策略與戰略</li></ul><h2 id="問題的維度"><a href="#問題的維度" class="headerlink" title="問題的維度"></a>問題的維度</h2><p>我觀察到問題的維度有以下：</p><ul><li>(A) <code>看到全貌</code>：能否看見全貌，分成系統架構、組織架構</li><li>(B) <code>駕馭技術</code>：技術成熟度，包含 CI/CD 工具駕馭、容器化等</li></ul><p>這兩個變因的四種排列組合：</p><ol><li><code>00</code>: 看不到全貌，也無法駕馭技術。放低身段，快點找專家顧問來幫忙。</li><li><code>10</code>: 能看到全貌，卻無法駕馭技術，那就像在玩遙控車：要趕快找高手進來，我們要玩真的。</li><li><code>01</code>: 看不到全貌，可以駕馭技術，跟酒駕沒兩樣，狂踩煞車，卻不知為何而戰。快點找 DevOps 顧問或架構師幫忙。</li><li><code>11</code>: 能看到全貌、能駕馭技術。剩下的問題是：如何讓團隊成員都可以做這件事情。</li></ol><h2 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h2><p>回到開頭的是否需要專職的 DevOps Engineer or Release Engineer？<br>你現在有答案了？</p><hr><h1 id="相關文章-站內"><a href="#相關文章-站內" class="headerlink" title="相關文章 (站內)"></a>相關文章 (站內)</h1><ul><li><a href="/2018/03/20/DevOps/First-Step-To-CICD/">導入 CI/CD 的第一步</a></li><li><a href="/2018/04/01/DevOps/How-To-Make-CICD-Quality/">怎樣的 CI/CD 才夠 Quality?</a></li><li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a></li><li><a href="/2017/12/21/DevOps/What-is-Automation/">What is Automation?</a></li><li><a href="/2018/06/13/Management/Role-And-Responsibility/">Role And Responsibility</a></li></ul>]]></content>
+    <content type="html"><![CDATA[<p>本文整理 SRE 讀書會 Round 2 的討論與筆記。問題是：</p><blockquote><p>團隊 Release 的角色是否應該專職？<br>(不管是叫 DevOps Engineer or Release Engineer)</p></blockquote><p>那天 (2018/09/13) 討論的章節是 <code>第7章 提交階段</code>，我在回程公車上寫下這段 <a href="https://www.facebook.com/rick.kyhwang/posts/10209921505113654" target="_blank" rel="noopener">筆記</a>，重新整理成文章，也補充一些想法。</p><p>我從以下幾個面向分析：</p><ul><li>企業階段</li><li>架構與組織</li><li>產品特性</li></ul><a id="more"></a><hr><h2 id="企業階段"><a href="#企業階段" class="headerlink" title="企業階段"></a>企業階段</h2><p>這問題討論到最後一定分成兩種：</p><ul><li><code>不該專職</code>：團隊成員輪著做，不應該專職 (偏向 Agile 的概念)</li><li><code>應該專職</code>：技術 know how 很深，應該專人專職 (偏向傳統、大型組織)</li></ul><p>我想想都對、也都不對，因為這兩個都沒有提到 <code>前提條件與背景</code>，這樣的討論不會有結論。整理前提與背景的組合如下：</p><ol><li>SOP 未確立之前：工具、流程、架構還在混沌狀態<ul><li>一定是專人專職，因為狀況很複雜，流程一直在變，必須用技術來駕馭、控制整個過程。</li><li>這個人對整理狀況有一定掌握度，有一定的技術能力</li><li>通常是新創事業，要即戰力，每個人都是各個領域的專家、高手</li><li>萬事起頭難，需要有經驗的人開始</li></ul></li><li>SOP 很清楚：工具、流程、架構都清楚了<ul><li>誰來點都可以，反正要做的就是那些 A,B,C,….</li><li>只要能夠透過標準化的流程，透過一段時間訓練就可以上手的。</li><li>這表示已經經過時間考驗的結果，經過 (1 焠鍊後的結果。</li></ul></li></ol><p>所以表示 2) 要先有 1) 的結果與歷練，才有辦法在不影響任務的前提下 <code>輪著做</code>。</p><blockquote><p>再說一次：不影響任務的前提！如果會影響任務，那這件事情會造成的現象稱為：<code>壓力</code></p></blockquote><hr><h2 id="架構與組織"><a href="#架構與組織" class="headerlink" title="架構與組織"></a>架構與組織</h2><p>用架構與組織當作兩個維度，結果都是清楚與不清楚。</p><ul><li><code>架構</code>：指的是系統架構的清晰度，包含邊界、依賴性、耦合度等面向。</li><li><code>組織</code>：組織的拆分，人員的專業、團隊的職責，簡單說就是 <a href="/2018/06/13/Management/Role-And-Responsibility/">R&amp;R</a></li></ul><p>這兩個面向，用清楚與不清楚分，所以有四種排列組合：</p><ol><li>架構不清楚、組織不清楚：找技術高手和顧問來幫忙。</li><li>架構不清楚、組織清楚：找技術高手來幫忙。</li><li>架構清楚、組織不清楚：找顧問來協助</li><li>架構清楚、組織清楚：直接往下一個階段走，讓團隊自行發揮</li></ol><p>組織結構與架構無法清楚的時候，造成的問題是：內部空轉以及溝通成本。</p><hr><h2 id="產品特性"><a href="#產品特性" class="headerlink" title="產品特性"></a>產品特性</h2><p>除了 SOP，另外要提的是產品特性的 <code>範圍</code>：</p><ol><li>小範圍：互聯網的軟體，Startup 的核心團隊，或者 Microservice 的 2pizza team，這種一定是大家都要能相互 cover</li><li>大範圍：大型產品（作業系統、火箭、汽車），組織很龐大的 team，例如 M$ 的 Windows Team or NASA 火箭發射… 這種的團隊一定是專職專人</li></ol><p>現在的 CI/CD 工具鍊複雜度以及觀念，甚至是架構，跟十年前比起來其實差不多。但是擴散的面積、應用技術已經跟以前不一樣，以前可能只有部分人有辦法看到全貌，現在是大家都可以看到全貌。</p><p>但是問題就在於：</p><blockquote><p><code>看到全貌</code> != <code>可以駕馭全貌</code></p></blockquote><p>這是兩回事。</p><ul><li><code>駕馭</code>：需要一定的技術能力、專業與經驗</li><li><code>了解全貌</code>：需要組織能力、視野、判斷力、決策力，甚至是策略與戰略</li></ul><h2 id="問題的維度"><a href="#問題的維度" class="headerlink" title="問題的維度"></a>問題的維度</h2><p>我觀察到問題的維度有以下：</p><ul><li>(A) <code>看到全貌</code>：能否看見全貌，分成系統架構、組織架構</li><li>(B) <code>駕馭技術</code>：技術成熟度，包含 CI/CD 工具駕馭、容器化等</li></ul><p>這兩個變因的四種排列組合：</p><ol><li><code>00</code>: 看不到全貌，也無法駕馭技術。放低身段，快點找專家顧問來幫忙。</li><li><code>10</code>: 能看到全貌，卻無法駕馭技術，那就像在玩遙控車：要趕快找高手進來，我們要玩真的。</li><li><code>01</code>: 看不到全貌，可以駕馭技術，跟酒駕沒兩樣，狂踩煞車，卻不知為何而戰。快點找 DevOps 顧問或架構師幫忙。</li><li><code>11</code>: 能看到全貌、能駕馭技術。剩下的問題是：如何讓團隊成員都可以做這件事情。</li></ol><h2 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h2><p>回到開頭的是否需要專職的 DevOps Engineer or Release Engineer？你現在有答案了？</p><hr><h1 id="相關文章-站內"><a href="#相關文章-站內" class="headerlink" title="相關文章 (站內)"></a>相關文章 (站內)</h1><ul><li><a href="/2018/03/20/DevOps/First-Step-To-CICD/">導入 CI/CD 的第一步</a></li><li><a href="/2018/04/01/DevOps/How-To-Make-CICD-Quality/">怎樣的 CI/CD 才夠 Quality?</a></li><li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a></li><li><a href="/2017/12/21/DevOps/What-is-Automation/">What is Automation?</a></li><li><a href="/2018/06/13/Management/Role-And-Responsibility/">Role And Responsibility</a></li></ul>]]></content>
     
     <summary type="html">
     
@@ -555,6 +555,46 @@
   </entry>
   
   <entry>
+    <title>CAP Theorem</title>
+    <link href="http://rickhw.github.io/2018/08/11/Architecture/CAP-Theorem/"/>
+    <id>http://rickhw.github.io/2018/08/11/Architecture/CAP-Theorem/</id>
+    <published>2018-08-11T14:30:00.000Z</published>
+    <updated>2018-12-09T05:31:54.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>整理 CAP 理論的筆記。</p><a id="more"></a><h2 id="CAP-Theorem"><a href="#CAP-Theorem" class="headerlink" title="CAP Theorem"></a><a href="https://en.wikipedia.org/wiki/CAP_theorem" target="_blank" rel="noopener">CAP Theorem</a></h2><p>由 加州柏克萊分校教授 <a href="https://en.wikipedia.org/wiki/Eric_Brewer_(scientist)" target="_blank" rel="noopener">Eric Brewer</a> 在 1999 年的論文中發表：<a href="https://users.ece.cmu.edu/~adrian/731-sp04/readings/GL-cap.pdf" target="_blank" rel="noopener">Brewer’s Conjecture and the Feasibility of Consistent, Available, Partition-Tolerant Web Services</a>。論文中第一次提到 CAP 三者的關係，描述如下：</p><ul><li><code>一致性 (Consistency)</code>：每次讀取有兩個結果，一種是取得最近寫入的資料，另一種則是得到錯誤</li><li><code>可用性 (Availability)</code>：每次請求都能獲得一個 (非錯誤)回應，但不保證返回的是最新寫入的資料</li><li><code>分區容忍 (Partition tolerance)</code>：任意數量的訊息被節點間的網路丟失 (或延遲)，系統仍繼續運行。</li></ul><p>論文的結論是：分散式系統裡，CAP 三者無法同時被滿足，只能擇其二。下圖則是 w3resource 在其文件中描述 NoSQL 時提到的 CAP 的關係，與其他實作的概念：</p><p><img src="/images/Architecture/cap-theoram-image.png" alt=""><br>Source: <a href="https://www.w3resource.com/mongodb/nosql.php" target="_blank" rel="noopener">https://www.w3resource.com/mongodb/nosql.php</a></p><p>CAP 常見的排列組合：</p><ul><li>CA (consistency + availability)<ul><li>RDBMS</li><li>2PC (2 Phase Commit, 二階段提交)</li></ul></li><li>CP (consistency + partition tolerance)<ul><li>Paxos 演算法</li></ul></li><li>AP (availability + partition tolerance)<ul><li>關注的是 <code>可用性</code> 與 <code>分區容錯</code></li><li>[Dynamo][ct5]</li></ul></li></ul><p>Google I/O 2009 <a href="https://www.youtube.com/watch?v=srOgpXECblk" target="_blank" rel="noopener">Transactions Across Datacenters</a> 整理一了張很有意思的結論，如下圖：</p><p><img src="/images/Architecture/Distributed-Systems/GoogleIO2009_CAP_Practice.png" alt=""></p><hr><h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><ul><li><a href="/2018/06/18/Architecture/Gossip-in-Distributed-Systems/">聊聊分散式系統</a></li><li><a href="/2018/08/11/Architecture/Distributed-Consistency-and-Consensus-Algorithm/">分散式一致性問題與共識演算法</a></li><li><a href="/2018/06/18/Architecture/Distributed-Message-Systems/">Distributed Message Systems</a></li></ul><h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul><li><a href="https://www.pixpo.net/technology/0INvY0aG.html" target="_blank" rel="noopener">左耳朵耗子：分散式系統架構經典資料</a></li><li><a href="https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing" target="_blank" rel="noopener">Fallacies of distributed computing</a></li><li><a href="https://www.youtube.com/watch?v=srOgpXECblk" target="_blank" rel="noopener">Google I/O 2009 - Transactions Across Datacenters</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;整理 CAP 理論的筆記。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Architecture" scheme="http://rickhw.github.io/categories/Architecture/"/>
+    
+      <category term="Distributed Systems" scheme="http://rickhw.github.io/categories/Architecture/Distributed-Systems/"/>
+    
+    
+      <category term="Distributed Systems" scheme="http://rickhw.github.io/tags/Distributed-Systems/"/>
+    
+      <category term="Distributed Consensus" scheme="http://rickhw.github.io/tags/Distributed-Consensus/"/>
+    
+      <category term="Consensus Algorithm" scheme="http://rickhw.github.io/tags/Consensus-Algorithm/"/>
+    
+      <category term="CAP" scheme="http://rickhw.github.io/tags/CAP/"/>
+    
+      <category term="ACID" scheme="http://rickhw.github.io/tags/ACID/"/>
+    
+      <category term="BASE" scheme="http://rickhw.github.io/tags/BASE/"/>
+    
+      <category term="Raft" scheme="http://rickhw.github.io/tags/Raft/"/>
+    
+      <category term="Paxos" scheme="http://rickhw.github.io/tags/Paxos/"/>
+    
+      <category term="Blockchain" scheme="http://rickhw.github.io/tags/Blockchain/"/>
+    
+  </entry>
+  
+  <entry>
     <title>分散式一致性與共識演算法</title>
     <link href="http://rickhw.github.io/2018/08/11/Architecture/Distributed-Consistency-and-Consensus-Algorithm/"/>
     <id>http://rickhw.github.io/2018/08/11/Architecture/Distributed-Consistency-and-Consensus-Algorithm/</id>
@@ -600,46 +640,6 @@
       <category term="Blockchain" scheme="http://rickhw.github.io/tags/Blockchain/"/>
     
       <category term="Algorithm" scheme="http://rickhw.github.io/tags/Algorithm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CAP Theorem</title>
-    <link href="http://rickhw.github.io/2018/08/11/Architecture/CAP-Theorem/"/>
-    <id>http://rickhw.github.io/2018/08/11/Architecture/CAP-Theorem/</id>
-    <published>2018-08-11T14:30:00.000Z</published>
-    <updated>2018-12-09T05:31:54.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>整理 CAP 理論的筆記。</p><a id="more"></a><h2 id="CAP-Theorem"><a href="#CAP-Theorem" class="headerlink" title="CAP Theorem"></a><a href="https://en.wikipedia.org/wiki/CAP_theorem" target="_blank" rel="noopener">CAP Theorem</a></h2><p>由 加州柏克萊分校教授 <a href="https://en.wikipedia.org/wiki/Eric_Brewer_(scientist)" target="_blank" rel="noopener">Eric Brewer</a> 在 1999 年的論文中發表：<a href="https://users.ece.cmu.edu/~adrian/731-sp04/readings/GL-cap.pdf" target="_blank" rel="noopener">Brewer’s Conjecture and the Feasibility of Consistent, Available, Partition-Tolerant Web Services</a>。論文中第一次提到 CAP 三者的關係，描述如下：</p><ul><li><code>一致性 (Consistency)</code>：每次讀取有兩個結果，一種是取得最近寫入的資料，另一種則是得到錯誤</li><li><code>可用性 (Availability)</code>：每次請求都能獲得一個 (非錯誤)回應，但不保證返回的是最新寫入的資料</li><li><code>分區容忍 (Partition tolerance)</code>：任意數量的訊息被節點間的網路丟失 (或延遲)，系統仍繼續運行。</li></ul><p>論文的結論是：分散式系統裡，CAP 三者無法同時被滿足，只能擇其二。下圖則是 w3resource 在其文件中描述 NoSQL 時提到的 CAP 的關係，與其他實作的概念：</p><p><img src="/images/Architecture/cap-theoram-image.png" alt=""><br>Source: <a href="https://www.w3resource.com/mongodb/nosql.php" target="_blank" rel="noopener">https://www.w3resource.com/mongodb/nosql.php</a></p><p>CAP 常見的排列組合：</p><ul><li>CA (consistency + availability)<ul><li>RDBMS</li><li>2PC (2 Phase Commit, 二階段提交)</li></ul></li><li>CP (consistency + partition tolerance)<ul><li>Paxos 演算法</li></ul></li><li>AP (availability + partition tolerance)<ul><li>關注的是 <code>可用性</code> 與 <code>分區容錯</code></li><li>[Dynamo][ct5]</li></ul></li></ul><p>Google I/O 2009 <a href="https://www.youtube.com/watch?v=srOgpXECblk" target="_blank" rel="noopener">Transactions Across Datacenters</a> 整理一了張很有意思的結論，如下圖：</p><p><img src="/images/Architecture/Distributed-Systems/GoogleIO2009_CAP_Practice.png" alt=""></p><hr><h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><ul><li><a href="/2018/06/18/Architecture/Gossip-in-Distributed-Systems/">聊聊分散式系統</a></li><li><a href="/2018/08/11/Architecture/Distributed-Consistency-and-Consensus-Algorithm/">分散式一致性問題與共識演算法</a></li><li><a href="/2018/06/18/Architecture/Distributed-Message-Systems/">Distributed Message Systems</a></li></ul><h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul><li><a href="https://www.pixpo.net/technology/0INvY0aG.html" target="_blank" rel="noopener">左耳朵耗子：分散式系統架構經典資料</a></li><li><a href="https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing" target="_blank" rel="noopener">Fallacies of distributed computing</a></li><li><a href="https://www.youtube.com/watch?v=srOgpXECblk" target="_blank" rel="noopener">Google I/O 2009 - Transactions Across Datacenters</a></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;整理 CAP 理論的筆記。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Architecture" scheme="http://rickhw.github.io/categories/Architecture/"/>
-    
-      <category term="Distributed Systems" scheme="http://rickhw.github.io/categories/Architecture/Distributed-Systems/"/>
-    
-    
-      <category term="Distributed Systems" scheme="http://rickhw.github.io/tags/Distributed-Systems/"/>
-    
-      <category term="Distributed Consensus" scheme="http://rickhw.github.io/tags/Distributed-Consensus/"/>
-    
-      <category term="Consensus Algorithm" scheme="http://rickhw.github.io/tags/Consensus-Algorithm/"/>
-    
-      <category term="CAP" scheme="http://rickhw.github.io/tags/CAP/"/>
-    
-      <category term="ACID" scheme="http://rickhw.github.io/tags/ACID/"/>
-    
-      <category term="BASE" scheme="http://rickhw.github.io/tags/BASE/"/>
-    
-      <category term="Raft" scheme="http://rickhw.github.io/tags/Raft/"/>
-    
-      <category term="Paxos" scheme="http://rickhw.github.io/tags/Paxos/"/>
-    
-      <category term="Blockchain" scheme="http://rickhw.github.io/tags/Blockchain/"/>
     
   </entry>
   
