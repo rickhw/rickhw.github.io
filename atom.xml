@@ -70,9 +70,9 @@
       <category term="SRE" scheme="http://rickhw.github.io/categories/DevOps/SRE/"/>
     
     
-      <category term="SRE" scheme="http://rickhw.github.io/tags/SRE/"/>
-    
       <category term="Continuous Delivery" scheme="http://rickhw.github.io/tags/Continuous-Delivery/"/>
+    
+      <category term="SRE" scheme="http://rickhw.github.io/tags/SRE/"/>
     
       <category term="Continuous Integration" scheme="http://rickhw.github.io/tags/Continuous-Integration/"/>
     
@@ -248,13 +248,13 @@
       <category term="DevOps" scheme="http://rickhw.github.io/categories/DevOps/"/>
     
     
-      <category term="SRE" scheme="http://rickhw.github.io/tags/SRE/"/>
-    
       <category term="Microservices" scheme="http://rickhw.github.io/tags/Microservices/"/>
     
       <category term="Continuous Delivery" scheme="http://rickhw.github.io/tags/Continuous-Delivery/"/>
     
       <category term="Continuous Deployment" scheme="http://rickhw.github.io/tags/Continuous-Deployment/"/>
+    
+      <category term="SRE" scheme="http://rickhw.github.io/tags/SRE/"/>
     
       <category term="Distributed Consensus" scheme="http://rickhw.github.io/tags/Distributed-Consensus/"/>
     
