@@ -8,9 +8,9 @@
   
   <meta name="description" content="本文整理 SRE 讀書會 Round 2 的討論與筆記。問題是：
 
-團隊 Release 的角色是否應該專職？(不管是叫 DevOps Engineer or Release Engineer)
+團隊 Release 的角色是否應該專職？ (不管是叫 DevOps Engineer, Release Engineer, or SRE)
 
-那天 (2018/09/13) 討論的章節是 第7章 提交階段，我在回程公車上寫下這段 筆記，重新整理">
+那天 (2018/09/13) 討論的章節是 第7章 提交階段，我在回程公車上寫下這段 ">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -214,7 +214,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 
 		    <p>本文整理 SRE 讀書會 Round 2 的討論與筆記。問題是：</p>
 <blockquote>
-<p>團隊 Release 的角色是否應該專職？<br>(不管是叫 DevOps Engineer or Release Engineer)</p>
+<p>團隊 Release 的角色是否應該專職？ (不管是叫 DevOps Engineer, Release Engineer, or SRE)</p>
 </blockquote>
 <p>那天 (2018/09/13) 討論的章節是 <code>第7章 提交階段</code>，我在回程公車上寫下這段 <a href="https://www.facebook.com/rick.kyhwang/posts/10209921505113654" target="_blank" rel="noopener">筆記</a>，重新整理成文章，也補充一些想法。</p>
 <p>我從以下幾個面向分析：</p>
@@ -224,6 +224,11 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li>產品特性</li>
 </ul>
 <a id="more"></a>
+<hr>
+<h2 id="Release-負責怎樣的工作？"><a href="#Release-負責怎樣的工作？" class="headerlink" title="Release 負責怎樣的工作？"></a>Release 負責怎樣的工作？</h2><p>把開發好的產出物 (<a href="/2018/07/08/DevOps/Artifacts-Management/">Artifact</a>)，這東西已經經過內部 (In-House) 測試、驗證過，準備放到 (Deploy) 正式環境 (Production)，這個過程稱為：<code>Release</code></p>
+<blockquote>
+<p>註：Production 只是 Release 的其中一個對象，有些環境需要有 Sandbox，例如給客戶測試用的 API Sandbox，有時候需要 Canary Deployment，同樣都是 Release 的。Release 對象至少有 Sandbox、Staging、Canary、Production 四種。另外我把 Deploy 的過程稱為 <code>Go Live</code>，Live 包含 Release 前後的環境，包含 Functional / Non-Functional / Staging / Production 等環境。</p>
+</blockquote>
 <hr>
 <h2 id="企業階段"><a href="#企業階段" class="headerlink" title="企業階段"></a>企業階段</h2><p>這問題討論到最後一定分成兩種：</p>
 <ul>
@@ -300,6 +305,8 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li><a href="/2018/04/01/DevOps/How-To-Make-CICD-Quality/">怎樣的 CI/CD 才夠 Quality?</a></li>
 <li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a></li>
 <li><a href="/2017/12/21/DevOps/What-is-Automation/">What is Automation?</a></li>
+<li><a href="/2017/11/14/DevOps/Go-Live/">Go Live</a></li>
+<li><a href="/2018/07/08/DevOps/Artifacts-Management/">Artifact Management</a></li>
 <li><a href="/2018/06/13/Management/Role-And-Responsibility/">Role And Responsibility</a></li>
 </ul>
 
@@ -378,7 +385,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#企業階段"><span class="toc-article-text">企業階段</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#架構與組織"><span class="toc-article-text">架構與組織</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#產品特性"><span class="toc-article-text">產品特性</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#問題的維度"><span class="toc-article-text">問題的維度</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#結論"><span class="toc-article-text">結論</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#相關文章-站內"><span class="toc-article-text">相關文章 (站內)</span></a>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Release-負責怎樣的工作？"><span class="toc-article-text">Release 負責怎樣的工作？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#企業階段"><span class="toc-article-text">企業階段</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#架構與組織"><span class="toc-article-text">架構與組織</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#產品特性"><span class="toc-article-text">產品特性</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#問題的維度"><span class="toc-article-text">問題的維度</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#結論"><span class="toc-article-text">結論</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#相關文章-站內"><span class="toc-article-text">相關文章 (站內)</span></a>
 		</div>
 	
 	</div>
