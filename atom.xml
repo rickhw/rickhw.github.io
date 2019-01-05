@@ -555,46 +555,6 @@
   </entry>
   
   <entry>
-    <title>CAP Theorem</title>
-    <link href="http://rickhw.github.io/2018/08/11/Architecture/CAP-Theorem/"/>
-    <id>http://rickhw.github.io/2018/08/11/Architecture/CAP-Theorem/</id>
-    <published>2018-08-11T14:30:00.000Z</published>
-    <updated>2018-12-09T05:31:54.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>整理 CAP 理論的筆記。</p><a id="more"></a><h2 id="CAP-Theorem"><a href="#CAP-Theorem" class="headerlink" title="CAP Theorem"></a><a href="https://en.wikipedia.org/wiki/CAP_theorem" target="_blank" rel="noopener">CAP Theorem</a></h2><p>由 加州柏克萊分校教授 <a href="https://en.wikipedia.org/wiki/Eric_Brewer_(scientist)" target="_blank" rel="noopener">Eric Brewer</a> 在 1999 年的論文中發表：<a href="https://users.ece.cmu.edu/~adrian/731-sp04/readings/GL-cap.pdf" target="_blank" rel="noopener">Brewer’s Conjecture and the Feasibility of Consistent, Available, Partition-Tolerant Web Services</a>。論文中第一次提到 CAP 三者的關係，描述如下：</p><ul><li><code>一致性 (Consistency)</code>：每次讀取有兩個結果，一種是取得最近寫入的資料，另一種則是得到錯誤</li><li><code>可用性 (Availability)</code>：每次請求都能獲得一個 (非錯誤)回應，但不保證返回的是最新寫入的資料</li><li><code>分區容忍 (Partition tolerance)</code>：任意數量的訊息被節點間的網路丟失 (或延遲)，系統仍繼續運行。</li></ul><p>論文的結論是：分散式系統裡，CAP 三者無法同時被滿足，只能擇其二。下圖則是 w3resource 在其文件中描述 NoSQL 時提到的 CAP 的關係，與其他實作的概念：</p><p><img src="/images/Architecture/cap-theoram-image.png" alt=""><br>Source: <a href="https://www.w3resource.com/mongodb/nosql.php" target="_blank" rel="noopener">https://www.w3resource.com/mongodb/nosql.php</a></p><p>CAP 常見的排列組合：</p><ul><li>CA (consistency + availability)<ul><li>RDBMS</li><li>2PC (2 Phase Commit, 二階段提交)</li></ul></li><li>CP (consistency + partition tolerance)<ul><li>Paxos 演算法</li></ul></li><li>AP (availability + partition tolerance)<ul><li>關注的是 <code>可用性</code> 與 <code>分區容錯</code></li><li>[Dynamo][ct5]</li></ul></li></ul><p>Google I/O 2009 <a href="https://www.youtube.com/watch?v=srOgpXECblk" target="_blank" rel="noopener">Transactions Across Datacenters</a> 整理一了張很有意思的結論，如下圖：</p><p><img src="/images/Architecture/Distributed-Systems/GoogleIO2009_CAP_Practice.png" alt=""></p><hr><h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><ul><li><a href="/2018/06/18/Architecture/Gossip-in-Distributed-Systems/">聊聊分散式系統</a></li><li><a href="/2018/08/11/Architecture/Distributed-Consistency-and-Consensus-Algorithm/">分散式一致性問題與共識演算法</a></li><li><a href="/2018/06/18/Architecture/Distributed-Message-Systems/">Distributed Message Systems</a></li></ul><h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul><li><a href="https://www.pixpo.net/technology/0INvY0aG.html" target="_blank" rel="noopener">左耳朵耗子：分散式系統架構經典資料</a></li><li><a href="https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing" target="_blank" rel="noopener">Fallacies of distributed computing</a></li><li><a href="https://www.youtube.com/watch?v=srOgpXECblk" target="_blank" rel="noopener">Google I/O 2009 - Transactions Across Datacenters</a></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;整理 CAP 理論的筆記。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Architecture" scheme="http://rickhw.github.io/categories/Architecture/"/>
-    
-      <category term="Distributed Systems" scheme="http://rickhw.github.io/categories/Architecture/Distributed-Systems/"/>
-    
-    
-      <category term="Distributed Systems" scheme="http://rickhw.github.io/tags/Distributed-Systems/"/>
-    
-      <category term="Distributed Consensus" scheme="http://rickhw.github.io/tags/Distributed-Consensus/"/>
-    
-      <category term="Consensus Algorithm" scheme="http://rickhw.github.io/tags/Consensus-Algorithm/"/>
-    
-      <category term="CAP" scheme="http://rickhw.github.io/tags/CAP/"/>
-    
-      <category term="ACID" scheme="http://rickhw.github.io/tags/ACID/"/>
-    
-      <category term="BASE" scheme="http://rickhw.github.io/tags/BASE/"/>
-    
-      <category term="Raft" scheme="http://rickhw.github.io/tags/Raft/"/>
-    
-      <category term="Paxos" scheme="http://rickhw.github.io/tags/Paxos/"/>
-    
-      <category term="Blockchain" scheme="http://rickhw.github.io/tags/Blockchain/"/>
-    
-  </entry>
-  
-  <entry>
     <title>分散式一致性與共識演算法</title>
     <link href="http://rickhw.github.io/2018/08/11/Architecture/Distributed-Consistency-and-Consensus-Algorithm/"/>
     <id>http://rickhw.github.io/2018/08/11/Architecture/Distributed-Consistency-and-Consensus-Algorithm/</id>
@@ -625,9 +585,9 @@
     
       <category term="Distributed Consensus" scheme="http://rickhw.github.io/tags/Distributed-Consensus/"/>
     
-      <category term="Consensus Algorithm" scheme="http://rickhw.github.io/tags/Consensus-Algorithm/"/>
-    
       <category term="CAP" scheme="http://rickhw.github.io/tags/CAP/"/>
+    
+      <category term="Consensus Algorithm" scheme="http://rickhw.github.io/tags/Consensus-Algorithm/"/>
     
       <category term="ACID" scheme="http://rickhw.github.io/tags/ACID/"/>
     
@@ -640,6 +600,46 @@
       <category term="Blockchain" scheme="http://rickhw.github.io/tags/Blockchain/"/>
     
       <category term="Algorithm" scheme="http://rickhw.github.io/tags/Algorithm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CAP Theorem</title>
+    <link href="http://rickhw.github.io/2018/08/11/Architecture/CAP-Theorem/"/>
+    <id>http://rickhw.github.io/2018/08/11/Architecture/CAP-Theorem/</id>
+    <published>2018-08-11T14:30:00.000Z</published>
+    <updated>2018-12-09T05:31:54.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>整理 CAP 理論的筆記。</p><a id="more"></a><h2 id="CAP-Theorem"><a href="#CAP-Theorem" class="headerlink" title="CAP Theorem"></a><a href="https://en.wikipedia.org/wiki/CAP_theorem" target="_blank" rel="noopener">CAP Theorem</a></h2><p>由 加州柏克萊分校教授 <a href="https://en.wikipedia.org/wiki/Eric_Brewer_(scientist)" target="_blank" rel="noopener">Eric Brewer</a> 在 1999 年的論文中發表：<a href="https://users.ece.cmu.edu/~adrian/731-sp04/readings/GL-cap.pdf" target="_blank" rel="noopener">Brewer’s Conjecture and the Feasibility of Consistent, Available, Partition-Tolerant Web Services</a>。論文中第一次提到 CAP 三者的關係，描述如下：</p><ul><li><code>一致性 (Consistency)</code>：每次讀取有兩個結果，一種是取得最近寫入的資料，另一種則是得到錯誤</li><li><code>可用性 (Availability)</code>：每次請求都能獲得一個 (非錯誤)回應，但不保證返回的是最新寫入的資料</li><li><code>分區容忍 (Partition tolerance)</code>：任意數量的訊息被節點間的網路丟失 (或延遲)，系統仍繼續運行。</li></ul><p>論文的結論是：分散式系統裡，CAP 三者無法同時被滿足，只能擇其二。下圖則是 w3resource 在其文件中描述 NoSQL 時提到的 CAP 的關係，與其他實作的概念：</p><p><img src="/images/Architecture/cap-theoram-image.png" alt=""><br>Source: <a href="https://www.w3resource.com/mongodb/nosql.php" target="_blank" rel="noopener">https://www.w3resource.com/mongodb/nosql.php</a></p><p>CAP 常見的排列組合：</p><ul><li>CA (consistency + availability)<ul><li>RDBMS</li><li>2PC (2 Phase Commit, 二階段提交)</li></ul></li><li>CP (consistency + partition tolerance)<ul><li>Paxos 演算法</li></ul></li><li>AP (availability + partition tolerance)<ul><li>關注的是 <code>可用性</code> 與 <code>分區容錯</code></li><li>[Dynamo][ct5]</li></ul></li></ul><p>Google I/O 2009 <a href="https://www.youtube.com/watch?v=srOgpXECblk" target="_blank" rel="noopener">Transactions Across Datacenters</a> 整理一了張很有意思的結論，如下圖：</p><p><img src="/images/Architecture/Distributed-Systems/GoogleIO2009_CAP_Practice.png" alt=""></p><hr><h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><ul><li><a href="/2018/06/18/Architecture/Gossip-in-Distributed-Systems/">聊聊分散式系統</a></li><li><a href="/2018/08/11/Architecture/Distributed-Consistency-and-Consensus-Algorithm/">分散式一致性問題與共識演算法</a></li><li><a href="/2018/06/18/Architecture/Distributed-Message-Systems/">Distributed Message Systems</a></li></ul><h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul><li><a href="https://www.pixpo.net/technology/0INvY0aG.html" target="_blank" rel="noopener">左耳朵耗子：分散式系統架構經典資料</a></li><li><a href="https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing" target="_blank" rel="noopener">Fallacies of distributed computing</a></li><li><a href="https://www.youtube.com/watch?v=srOgpXECblk" target="_blank" rel="noopener">Google I/O 2009 - Transactions Across Datacenters</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;整理 CAP 理論的筆記。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Architecture" scheme="http://rickhw.github.io/categories/Architecture/"/>
+    
+      <category term="Distributed Systems" scheme="http://rickhw.github.io/categories/Architecture/Distributed-Systems/"/>
+    
+    
+      <category term="Distributed Systems" scheme="http://rickhw.github.io/tags/Distributed-Systems/"/>
+    
+      <category term="Distributed Consensus" scheme="http://rickhw.github.io/tags/Distributed-Consensus/"/>
+    
+      <category term="CAP" scheme="http://rickhw.github.io/tags/CAP/"/>
+    
+      <category term="Consensus Algorithm" scheme="http://rickhw.github.io/tags/Consensus-Algorithm/"/>
+    
+      <category term="ACID" scheme="http://rickhw.github.io/tags/ACID/"/>
+    
+      <category term="BASE" scheme="http://rickhw.github.io/tags/BASE/"/>
+    
+      <category term="Raft" scheme="http://rickhw.github.io/tags/Raft/"/>
+    
+      <category term="Paxos" scheme="http://rickhw.github.io/tags/Paxos/"/>
+    
+      <category term="Blockchain" scheme="http://rickhw.github.io/tags/Blockchain/"/>
     
   </entry>
   

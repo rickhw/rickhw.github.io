@@ -139,7 +139,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 									
 										<li><a href="/categories/經營管理/">經營管理 <sup>34</sup></a></li>
 									
-										<li><a href="/categories/軟體測試/">軟體測試 <sup>9</sup></a></li>
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>8</sup></a></li>
 									
 						</ul>
 					</li>
@@ -219,6 +219,67 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <p>本文整理的資訊，大概只是 <code>目錄</code>、<code>基本章法</code>，有空再把內容展開，整理出完整的分享。</p>
 </blockquote>
 <a id="more"></a>
+<hr>
+<!--
+## 用詞定義
+
+* `Confirm (確認)`: 確認可用，結果是 0 or 1、true or false
+* `Verification (驗證)`:
+  * 驗證基於一定的前提，設定明確目標，能達到多少數值。
+  * 包含 `正確性 (Correctness)` 以及 `完整性 (Integrity)`
+
+
+# 測試的階段
+
+每個測試階段都包含底下部分：
+
+* 階段目的與前提
+
+
+# 軟體測試系列文章
+
+* 測試管理
+  * [測試執行策略][ste01]
+* Part 1: 準備
+  * [1-1. 環境建置與確認][ste-p1c01]：包含基礎網路、作業系統、中介軟體 (Middleware)、內部依賴等確認。
+  * [1-2. 建置與產出物確認][ste-p1c02]：確認可以建置、打包，產出的 Artifact 正確，是否包含非法資料在裡面，例如帳號密碼。
+  * [1-3. 部署與配置確認][ste-p1c03]：包含可部署性、配置檔的驗證 (Configuration)
+* Part 2: 商務驗證
+  * [2-1. 功能性驗證][ste-p2c01]
+  * [2-2. 整合功能驗證][ste-p2c02]
+  * [2-3. 回歸測試][ste-p2c03]
+  * [2-4. 輔助驗證測試][ste-p2c04]：選擇性，像是語系檔 (i18n)、翻譯調整
+* Part 3: 系統驗證
+  * [3-1. 資料合併驗證][ste-p3c01]
+  * [3-2. 部署策略確認][ste-p3c02]
+  * [3-3. 效能測試一：容量、穩定、壓力][ste-p3c03]
+  * [3-4. 效能測試二：可靠性、容錯][ste-p3c04]
+  * [3-5. 效能測試三：彈性、容錯、降級][ste-p3c05]
+* Part 4: 探索
+  * [4-1. 使用者接受測試, User Acceptance Test (UAT)][ste-p4c01]
+  * [4-2. 線上田野測試, Field (A/B、Canary)][ste-p4c02]
+
+
+[ste01]: /2017/03/18/SQA/Test-Execution-Stretagies/
+
+[ste-p1c01]: /2018/12/29/SQA/STE_P1-C01-Provisioning-Confirm/
+[ste-p1c02]: /2018/12/29/SQA/STE_P1-C02_Build-and-Artificat-Confirm/
+[ste-p1c03]: /2018/12/29/SQA/STE_P1-C03-Delivery-and-Config-Confirm/
+
+[ste-p2c01]: /2018/12/30/SQA/STE_P2-C01-Functional-Test/
+[ste-p2c02]: /2018/12/30/SQA/STE_P2-C02-Integration-Test/
+[ste-p2c03]: /2018/12/30/SQA/STE_P2-C03_Regression-Test/
+[ste-p2c04]: /2018/12/30/SQA/STE_P2-C04_Patch/
+
+[ste-p3c01]: /2019/01/01/SQA/STE_P3-C01_Migration-Confirm/
+[ste-p3c02]: /2019/01/01/SQA/STE_P3-C02-Deployment-Confirm/
+[ste-p3c03]: /2019/01/01/SQA/STE_P3-C03-Performance-Confirm/
+[ste-p3c04]: /2019/01/01/SQA/STE_P3-C04-Performance-Confirm/
+[ste-p3c05]: /2019/01/01/SQA/STE_P3-C05-Performance-Confirm/
+
+[ste-p4c01]: /2019/01/02/SQA/STE-P4-C01-User-Acceptance-Confirm/
+[ste-p4c02]: /2019/01/02/SQA/STE-P4-C02-Field-Test/
+-->
 <hr>
 <h1 id="名詞定義"><a href="#名詞定義" class="headerlink" title="名詞定義"></a>名詞定義</h1><p>先整理名詞定義：</p>
 <ul>
@@ -320,7 +381,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li>Smoke Test / Monkey Test</li>
 <li>Installation Test / Deployment Test</li>
 <li>Pipeline Test (CI / CD)</li>
-<li>Configuration Test (Config 是是要測試的)</li>
+<li>Configuration Test (Config 是要測試的)</li>
 <li>Chaos Engineering</li>
 </ul>
 </li>
@@ -425,7 +486,6 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <blockquote>
 <p>相關概念參閱： <a href="/2017/08/13/AWS/Study-Notes-CodeDeploy-Preparation/">Study Notes - CodeDeploy Preparation</a> 第一段說明。</p>
 </blockquote>
-<hr>
 <h1 id="Resource-Provisioning-and-Test"><a href="#Resource-Provisioning-and-Test" class="headerlink" title="Resource Provisioning and Test"></a>Resource Provisioning and Test</h1><p>前述很多 Stages，不管哪一個都需要在正確的測試環境執行，換言之，錯誤的環境，會造成嚴重的資源浪費與狀況誤判。</p>
 <p><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning</a> 是測試的第一件重要事情，也是 <code>DevOps</code> 的第一件要事。實踐方法很多，可以使用 Container 技術，也可以用 <code>Infra as Code</code> 的方法。</p>
 <p>建立測試環境還有一個很重要的目的，經常 review 現在整個系統的 Interface。系統之間的 Component 透過什麼方式串接？有多少 Endpoint？使用了哪一些第三方的 API Endpoint？Key？SSO？如果要建立一套新的系統需要先準備哪一些東西？那些東西好準備嗎？有 test 模式？像是信用卡測試帳號。</p>
@@ -575,7 +635,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
     <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
       <div>
   <!--<li>-->
-    <span class="label label-info"><a href="/categories/軟體測試/" style="color: white">軟體測試 <span class="badge">9</span></a></span>
+    <span class="label label-info"><a href="/categories/軟體測試/" style="color: white">軟體測試 <span class="badge">8</span></a></span>
   <!--</li>-->
 </div>
     <!--</ul>-->
@@ -591,7 +651,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/API-Gateway/" style="color: white">API Gateway <span class="badge">14</span></a></span> <span class="label label-success"><a href="/tags/Microservices/" style="color: white">Microservices <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/SRE/" style="color: white">SRE <span class="badge">24</span></a></span> <span class="label label-success"><a href="/tags/Version-Control/" style="color: white">Version Control <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Software-Test/" style="color: white">Software Test <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/System-Test/" style="color: white">System Test <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Performance-Test/" style="color: white">Performance Test <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Regression-Test/" style="color: white">Regression Test <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Service-Mesh/" style="color: white">Service Mesh <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Unit-Test/" style="color: white">Unit Test <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Functional-Test/" style="color: white">Functional Test <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Integration-Test/" style="color: white">Integration Test <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/User-Acceptance-Test/" style="color: white">User Acceptance Test <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Test-Strategy/" style="color: white">Test Strategy <span class="badge">1</span></a></span>
+  <span class="label label-success"><a href="/tags/Version-Control/" style="color: white">Version Control <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Software-Test/" style="color: white">Software Test <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Regression-Test/" style="color: white">Regression Test <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Unit-Test/" style="color: white">Unit Test <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Functional-Test/" style="color: white">Functional Test <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/System-Test/" style="color: white">System Test <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Integration-Test/" style="color: white">Integration Test <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Performance-Test/" style="color: white">Performance Test <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/User-Acceptance-Test/" style="color: white">User Acceptance Test <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Test-Strategy/" style="color: white">Test Strategy <span class="badge">1</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -669,7 +729,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 
 <div class="container-narrow">
     <footer> <p>
-  &copy; 2018 Rick Hwang
+  &copy; 2019 Rick Hwang
   
       with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
 </p> </footer>
