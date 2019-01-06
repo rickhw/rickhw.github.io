@@ -8,7 +8,8 @@
   
   <meta name="description" content="最近我開始用 Go Live 取代 Production 這個詞。
 
-因為 “Go Live” 不代表只有 “Production”, 也包含任意的環境，可以是實驗用環境 (Lab)、功能性測試 (Functional)、系統性測試 (System)、整合性測試 (Integration)、開放給外">
+
+定義因為 Go Live 不代表只有 “Production”, 也包含任意的環境，也就是內部使用的環境 (In-House)。可以是實驗用環境 (Lab)、功能性測試 (Functional)、系統性測試 (System)、整">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -212,11 +213,20 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 
 		    <p>最近我開始用 <code>Go Live</code> 取代 <code>Production</code> 這個詞。</p>
 <a id="more"></a>
-<p>因為 “Go Live” 不代表只有 “Production”, 也包含任意的環境，可以是實驗用環境 (Lab)、功能性測試 (Functional)、系統性測試 (System)、整合性測試 (Integration)、開放給外面使用的 Field / Sandbox ….</p>
+<hr>
+<h1 id="定義"><a href="#定義" class="headerlink" title="定義"></a>定義</h1><p>因為 <code>Go Live</code> 不代表只有 “Production”, 也包含任意的環境，也就是內部使用的環境 (In-House)。可以是實驗用環境 (Lab)、功能性測試 (Functional)、系統性測試 (System)、整合性測試 (Integration)、開放給外面使用的 Field / Sandbox ….</p>
 <blockquote>
-<p>See: <a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a></p>
+<p>各種測試階段參閱：<a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a></p>
 </blockquote>
+<p><code>Go Production</code> 指的是對外的環境，像是：Staging、Canary、Sandbox、Production</p>
 <p>只關注 “Production” 的狀況，很容易忽略其他地方，<code>能動就好</code> 是很多公司都有的問題，特別是測試環境。但如果環境本身是有問題的，或者無法重視這些問題，我不相信 Production 會有多好。大問題都是從小問題產生。</p>
+<p>不管是 In-House 還是 Go Production，都要面對底下的問題：</p>
+<ul>
+<li><a href="/2018/07/08/DevOps/Artifacts-Management/">Artifact Management</a></li>
+<li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Provisioning</a>: 建置環境</li>
+<li>Config Management: 配置管理</li>
+<li>Deployment: 部署策略, 不管是 Direct Overwrite、Staging、Canary、B/G、A/B …</li>
+</ul>
 <h2 id="Live-Music"><a href="#Live-Music" class="headerlink" title="Live Music!"></a>Live Music!</h2><p><code>Live</code> 對樂手來講就是 <a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">現場</a>，<code>現場</code> 不管是兩萬人的大場子、還是只有一個聽眾 + 3 個員工的小 Pub、還是在安靜到連血液流動聲都聽得到的錄音室，都是現場，面對的態度應該都是一樣，但是做法會有差異。</p>
 <p>越大的場子，干擾因素越多，意外狀況越多，不管是天氣、團員、燈光、音響設備、樂手的問題、售票的問題。。。</p>
 <p>小的場子干擾就不多？站上舞台發現台下只有三個人，一個人是聽眾，一個人是服務生，另一個是老闆。。。團員有五個人。。。這干擾壓力也很大。。。</p>
@@ -260,6 +270,8 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li><a href="/2015/10/11/SQA/How-To-Be-An-SQA/">How to be an SQA?</a></li>
 <li><a href="/2018/01/07/DevOps/Emergency-Response/">Emergency Response</a></li>
 <li><a href="/2018/05/12/SQA/Designing-Test-Architecture-and-Framework/">Designing Test Architecture and Framework</a></li>
+<li><a href="/2017/11/14/DevOps/Go-Live/">Go Live</a></li>
+<li><a href="/2018/07/08/DevOps/Artifacts-Management/">Artifact Management</a></li>
 </ul>
 <h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
 <li><a href="http://rickmidi.blogspot.com/2015/01/blog-post.html" target="_blank" rel="noopener">簡單、複雜</a></li>
@@ -340,7 +352,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Live-Music"><span class="toc-article-text">Live Music!</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Back-to-the-Code"><span class="toc-article-text">Back to the Code</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#定義"><span class="toc-article-text">定義</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Live-Music"><span class="toc-article-text">Live Music!</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Back-to-the-Code"><span class="toc-article-text">Back to the Code</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li></ol>
 		</div>
 	
 	</div>

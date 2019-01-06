@@ -230,13 +230,16 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <a id="more"></a>
 <hr>
 <h2 id="Release-負責怎樣的工作？"><a href="#Release-負責怎樣的工作？" class="headerlink" title="Release 負責怎樣的工作？"></a>Release 負責怎樣的工作？</h2><p>把開發好的產出物 (<a href="/2018/07/08/DevOps/Artifacts-Management/">Artifact</a>)，這東西已經經過內部 (In-House) 測試、驗證過，準備放到 (Deploy) 正式環境 (Production)，這個過程稱為：<code>Release</code></p>
-<p>註：Production 只是 Release 的其中一個對象，有些產品需要有 Sandbox，例如給客戶測試用的 API Sandbox，有時候需要 Canary Deployment，同樣都是 Release 的。Release 對象至少有 Sandbox、Staging、Canary、Production 四種。另外我把 Deploy 的過程稱為 <code>Go Live</code>，Live 包含 Release 前後的環境，包含 Functional / Non-Functional / Staging / Production 等環境。</p>
-<p>所以整理 Go Live 分成以下：</p>
+<p>Production 只是 Release 的其中一個對象，有些產品需要有 Sandbox，例如給客戶測試用的 API Sandbox，有時候需要 Canary Deployment，同樣都是 Release 的。Release 對象可能有 Sandbox、Staging、Canary、Production 四種。</p>
+<p>另外我把 Deploy 的過程稱為 <code>Go Live</code>，Live 包含 Release 前、後的所有環境，包含 Functional / Non-Functional / Staging / Production 等環境。整理 Go Live 的範圍與分類如下：</p>
 <ul>
-<li><code>In-House</code>: 內部的測試環境，包含功能測試、效能測試、資安</li>
+<li><code>In-House</code>: 內部的測試環境，包含功能、整合、效能、資安 … 各種測試階段參閱：[Stages in Software Testing][2]</li>
 <li><code>Go Production</code>: 對外的環境都是 Producion Ready 的。像是：Staging、Canary、Sandbox、Production</li>
 </ul>
 <p>這邊特別強調的是，測試環境也是一種 Go Live，也就是包含交付的概念，而交付的第一要務是面對如何建置環境 (Provisioning)、配置 (Config)、部署 (Deployment) 等。在測試環境就必須確立這些東西，Go Production 隨時間前進，業務增長，才能穩定的長大、長壯、長強。</p>
+<blockquote>
+<p>更多參閱： <a href="/2017/11/14/DevOps/Go-Live/">Go Live</a> 的說明。</p>
+</blockquote>
 <hr>
 <h2 id="企業階段"><a href="#企業階段" class="headerlink" title="企業階段"></a>企業階段</h2><p>不同的企業階段，針對職務、或角色有不同定義與需求，整理前提與背景的組合如下：</p>
 <ol>
@@ -312,6 +315,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li><a href="/2017/11/14/DevOps/Go-Live/">Go Live</a></li>
 <li><a href="/2018/07/08/DevOps/Artifacts-Management/">Artifact Management</a></li>
 <li><a href="/2018/06/13/Management/Role-And-Responsibility/">Role And Responsibility</a></li>
+<li><a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a></li>
 </ul>
 
 
@@ -419,7 +423,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Provisioning/" style="color: white">Provisioning <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/Continuous-Delivery/" style="color: white">Continuous Delivery <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/SRE/" style="color: white">SRE <span class="badge">23</span></a></span> <span class="label label-success"><a href="/tags/Continuous-Integration/" style="color: white">Continuous Integration <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Build/" style="color: white">Build <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Artifact-Management/" style="color: white">Artifact Management <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Configuration/" style="color: white">Configuration <span class="badge">6</span></a></span>
+  <span class="label label-success"><a href="/tags/Provisioning/" style="color: white">Provisioning <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/Continuous-Delivery/" style="color: white">Continuous Delivery <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/SRE/" style="color: white">SRE <span class="badge">23</span></a></span> <span class="label label-success"><a href="/tags/Continuous-Integration/" style="color: white">Continuous Integration <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Build/" style="color: white">Build <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Configuration/" style="color: white">Configuration <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Artifact-Management/" style="color: white">Artifact Management <span class="badge">2</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
