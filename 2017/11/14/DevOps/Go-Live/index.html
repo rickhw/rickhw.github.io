@@ -220,17 +220,30 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </blockquote>
 <p><code>Go Production</code> 指的是對外的環境，像是：Staging、Canary、Sandbox、Production</p>
 <p>只關注 “Production” 的狀況，很容易忽略其他地方，<code>能動就好</code> 是很多公司都有的問題，特別是測試環境。但如果環境本身是有問題的，或者無法重視這些問題，我不相信 Production 會有多好。大問題都是從小問題產生。</p>
-<p>不管是 In-House 還是 Go Production，都要面對底下的問題：</p>
-<ul>
+<p>不管是 In-House 還是 Go Production，都要面對底下四個問題：</p>
+<ol>
 <li><a href="/2018/07/08/DevOps/Artifacts-Management/">Artifact Management</a></li>
-<li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Provisioning</a>: 建置環境</li>
+<li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Provisioning</a>: 建置環境，分成 Infra-Level、VM-Level</li>
 <li>Config Management: 配置管理</li>
 <li>Deployment: 部署策略, 不管是 Direct Overwrite、Staging、Canary、B/G、A/B …</li>
+</ol>
+<p>單一台機器 (VM-Level) 來看，如下圖：</p>
+<p><img src="/images/DevOps/Software-Go-Live_20190106.png" alt=""></p>
+<p>如果是一個架構，那麼 Provisioning 就要包含架構的部分，分成兩個層級：</p>
+<ul>
+<li>Infra-Level: 包含整個網路架構、相關依賴的服務，在 AWS 上來講：<ul>
+<li>Network-Level: VPC</li>
+<li>Service-Level: ElastiCache、ELB、DynamoDB、S3、CloudFront …</li>
+</ul>
+</li>
+<li>VM-Level: 主要就是 EC2 裡面的東西，包含中介軟體 (Middleware)、應用程式自己</li>
 </ul>
 <h2 id="Live-Music"><a href="#Live-Music" class="headerlink" title="Live Music!"></a>Live Music!</h2><p><code>Live</code> 對樂手來講就是 <a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">現場</a>，<code>現場</code> 不管是兩萬人的大場子、還是只有一個聽眾 + 3 個員工的小 Pub、還是在安靜到連血液流動聲都聽得到的錄音室，都是現場，面對的態度應該都是一樣，但是做法會有差異。</p>
-<p>越大的場子，干擾因素越多，意外狀況越多，不管是天氣、團員、燈光、音響設備、樂手的問題、售票的問題。。。</p>
-<p>小的場子干擾就不多？站上舞台發現台下只有三個人，一個人是聽眾，一個人是服務生，另一個是老闆。。。團員有五個人。。。這干擾壓力也很大。。。</p>
-<p>錄音室，安靜到不像話，沒有干擾？製作人、錄音師、弦的味道、耳機、椅子的高度、空氣的流動聲。。。錄了兩百次還錄不好 …..</p>
+<ul>
+<li><code>大場子</code>：越大的場子，干擾因素越多，意外狀況越多，不管是天氣、團員、燈光、音響設備、樂手的問題、售票的問題。。。</li>
+<li><code>小場子</code>：干擾就不多？站上舞台發現台下只有三個人，一個人是聽眾，一個人是服務生，另一個是老闆。。。團員有五個人。。。這干擾壓力也很大。。。</li>
+<li><code>錄音室</code>：安靜到不像話，沒有干擾？製作人、錄音師、弦的味道、耳機、椅子的高度、空氣的流動聲。。。錄了兩百次還錄不好 …..</li>
+</ul>
 <p>樂手面對不同的環境，就可以有不同作法，像是：</p>
 <ul>
 <li>大場子當然火力全開，舞台百個三十個音箱陣列 (Stack)，吉他擺個十把當裝飾，各種金屬裝飾都往身上帶。。。</li>
