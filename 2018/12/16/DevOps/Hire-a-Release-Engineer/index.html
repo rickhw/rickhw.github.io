@@ -217,7 +217,12 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <p>團隊 Release 的角色是否應該專職？ (不管是叫 DevOps Engineer, Release Engineer, or SRE)</p>
 </blockquote>
 <p>那天 (2018/09/13) 討論的章節是 <code>第7章 提交階段</code>，我在回程公車上寫下這段 <a href="https://www.facebook.com/rick.kyhwang/posts/10209921505113654" target="_blank" rel="noopener">筆記</a>，重新整理成文章，也補充一些想法。</p>
-<p>我從以下幾個面向分析：</p>
+<p>這問題討論到最後一定分成兩種：</p>
+<ul>
+<li><code>不該專職</code>：團隊成員輪著做，不應該專職 (偏向 Agile 的概念)</li>
+<li><code>應該專職</code>：技術 know how 很深，應該專人專職 (偏向傳統、大型組織)</li>
+</ul>
+<p>我想想都對、也都不對，因為這兩個都沒有提到 <code>前提條件與背景</code>，這樣的討論不會有結論。我從以下幾個面向分析：</p>
 <ul>
 <li>企業階段</li>
 <li>架構與組織</li>
@@ -226,25 +231,23 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <a id="more"></a>
 <hr>
 <h2 id="Release-負責怎樣的工作？"><a href="#Release-負責怎樣的工作？" class="headerlink" title="Release 負責怎樣的工作？"></a>Release 負責怎樣的工作？</h2><p>把開發好的產出物 (<a href="/2018/07/08/DevOps/Artifacts-Management/">Artifact</a>)，這東西已經經過內部 (In-House) 測試、驗證過，準備放到 (Deploy) 正式環境 (Production)，這個過程稱為：<code>Release</code></p>
-<blockquote>
 <p>註：Production 只是 Release 的其中一個對象，有些產品需要有 Sandbox，例如給客戶測試用的 API Sandbox，有時候需要 Canary Deployment，同樣都是 Release 的。Release 對象至少有 Sandbox、Staging、Canary、Production 四種。另外我把 Deploy 的過程稱為 <code>Go Live</code>，Live 包含 Release 前後的環境，包含 Functional / Non-Functional / Staging / Production 等環境。</p>
-</blockquote>
-<hr>
-<h2 id="企業階段"><a href="#企業階段" class="headerlink" title="企業階段"></a>企業階段</h2><p>這問題討論到最後一定分成兩種：</p>
+<p>所以整理 Go Live 分成以下：</p>
 <ul>
-<li><code>不該專職</code>：團隊成員輪著做，不應該專職 (偏向 Agile 的概念)</li>
-<li><code>應該專職</code>：技術 know how 很深，應該專人專職 (偏向傳統、大型組織)</li>
+<li><code>In-House</code>: 內部的測試環境，包含功能測試、效能測試、資安</li>
+<li><code>Go Production</code>: 對外的環境都是 Producion Ready 的。像是：Staging、Canary、Sandbox、Production</li>
 </ul>
-<p>我想想都對、也都不對，因為這兩個都沒有提到 <code>前提條件與背景</code>，這樣的討論不會有結論。整理前提與背景的組合如下：</p>
+<hr>
+<h2 id="企業階段"><a href="#企業階段" class="headerlink" title="企業階段"></a>企業階段</h2><p>不同的企業階段，針對職務、或角色有不同定義與需求，整理前提與背景的組合如下：</p>
 <ol>
-<li>SOP 未確立之前：工具、流程、架構還在混沌狀態<ul>
+<li><code>SOP 未確立之前</code>：工具、流程、架構還在混沌狀態，也就是 deployment pipeline 還在探索、確認中<ul>
 <li>一定是專人專職，因為狀況很複雜，流程一直在變，必須用技術來駕馭、控制整個過程。</li>
 <li>這個人對整理狀況有一定掌握度，有一定的技術能力</li>
 <li>通常是新創事業，要即戰力，每個人都是各個領域的專家、高手</li>
 <li>萬事起頭難，需要有經驗的人開始</li>
 </ul>
 </li>
-<li>SOP 很清楚：工具、流程、架構都清楚了<ul>
+<li><code>SOP 很清楚</code>：工具、流程、架構都清楚了，deployment pipeline 已經很清楚。<ul>
 <li>誰來點都可以，反正要做的就是那些 A,B,C,….</li>
 <li>只要能夠透過標準化的流程，透過一段時間訓練就可以上手的。</li>
 <li>這表示已經經過時間考驗的結果，經過 (1 焠鍊後的結果。</li>
@@ -260,7 +263,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <h2 id="架構與組織"><a href="#架構與組織" class="headerlink" title="架構與組織"></a>架構與組織</h2><p>用架構與組織當作兩個維度，結果都是清楚與不清楚。</p>
 <ul>
 <li><code>架構</code>：指的是系統架構的清晰度，包含邊界、依賴性、耦合度等面向。</li>
-<li><code>組織</code>：組織的拆分，人員的專業、團隊的職責，簡單說就是 <a href="/2018/06/13/Management/Role-And-Responsibility/">R&amp;R</a></li>
+<li><code>組織</code>：組織的拆分，人員的專業、團隊的職責，簡單說就是 <a href="/2018/06/13/Management/Role-And-Responsibility/">R&amp;R</a> (Role and Responsiblity)</li>
 </ul>
 <p>這兩個面向，用清楚與不清楚分，所以有四種排列組合：</p>
 <ol>
@@ -273,8 +276,8 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <hr>
 <h2 id="產品特性"><a href="#產品特性" class="headerlink" title="產品特性"></a>產品特性</h2><p>除了 SOP，另外要提的是產品特性的 <code>範圍</code>：</p>
 <ol>
-<li>小範圍：互聯網的軟體，Startup 的核心團隊，或者 Microservice 的 2pizza team，這種一定是大家都要能相互 cover</li>
-<li>大範圍：大型產品（作業系統、火箭、汽車），組織很龐大的 team，例如 M$ 的 Windows Team or NASA 火箭發射… 這種的團隊一定是專職專人</li>
+<li><code>小範圍</code>：互聯網的軟體，Startup 的核心團隊，或者 Microservice 的 2pizza team，這種一定是大家都要能相互 cover</li>
+<li><code>大範圍</code>：大型產品（作業系統、火箭、汽車），組織很龐大的 team，例如 M$ 的 Windows Team or NASA 火箭發射… 這種的團隊一定是專職專人</li>
 </ol>
 <p>現在的 CI/CD 工具鍊複雜度以及觀念，甚至是架構，跟十年前比起來其實差不多。但是擴散的面積、應用技術已經跟以前不一樣，以前可能只有部分人有辦法看到全貌，現在是大家都可以看到全貌。</p>
 <p>但是問題就在於：</p>
