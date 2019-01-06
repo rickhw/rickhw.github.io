@@ -230,13 +230,15 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <a id="more"></a>
 <hr>
 <h2 id="Release-負責怎樣的工作？"><a href="#Release-負責怎樣的工作？" class="headerlink" title="Release 負責怎樣的工作？"></a>Release 負責怎樣的工作？</h2><p>把開發好的產出物 (<a href="/2018/07/08/DevOps/Artifacts-Management/">Artifact</a>)，這東西已經經過內部 (In-House) 測試、驗證過，準備放到 (Deploy) 正式環境 (Production)，這個過程稱為：<code>Release</code></p>
-<p>Production 只是 Release 的其中一個對象，有些產品需要有 Sandbox，例如給客戶測試用的 API Sandbox，有時候需要 Canary Deployment，同樣都是 Release 的。Release 對象可能有 Sandbox、Staging、Canary、Production 四種。</p>
+<p>Production 只是 Release 的其中一個對象，有些產品需要有 Sandbox，例如給客戶測試用的 API Sandbox，有時候需要 Canary Deployment，同樣都是 Release 的。Release 對象可能有 Sandbox、Staging、Canary、Production 四種。這個過程除了叫做 Release，也稱為 <code>Go Production</code>。</p>
+<p>Release Engineer 負責的應該是 Go Production。</p>
 <p>另外我把 Deploy 的過程稱為 <code>Go Live</code>，Live 包含 Release 前、後的所有環境，包含 Functional / Non-Functional / Staging / Production 等環境。整理 Go Live 的範圍與分類如下：</p>
 <ul>
 <li><code>In-House</code>: 內部的測試環境，包含功能、整合、效能、資安 … 各種測試階段參閱：[Stages in Software Testing][2]</li>
 <li><code>Go Production</code>: 對外的環境都是 Producion Ready 的。像是：Staging、Canary、Sandbox、Production</li>
 </ul>
 <p>這邊特別強調的是，測試環境也是一種 Go Live，也就是包含交付的概念，而交付的第一要務是面對如何建置環境 (Provisioning)、配置 (Config)、部署 (Deployment) 等。在測試環境就必須確立這些東西，Go Production 隨時間前進，業務增長，才能穩定的長大、長壯、長強。</p>
+<p>In-House 的建置必須由 QA/SDET 等角色自行完成，但是開發 Team 必須提供完整的架構圖，準備好 Artifact。</p>
 <blockquote>
 <p>更多參閱： <a href="/2017/11/14/DevOps/Go-Live/">Go Live</a> 的說明。</p>
 </blockquote>
