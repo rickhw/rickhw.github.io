@@ -229,19 +229,39 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </ul>
 <a id="more"></a>
 <hr>
-<h2 id="Release-負責怎樣的工作？"><a href="#Release-負責怎樣的工作？" class="headerlink" title="Release 負責怎樣的工作？"></a>Release 負責怎樣的工作？</h2><p>把開發好的產出物 (<a href="/2018/07/08/DevOps/Artifacts-Management/">Artifact</a>)，這東西已經經過內部 (In-House) 測試、驗證過，準備放到 (Deploy) 正式環境 (Production)，這個過程稱為：<code>Release</code></p>
-<p>Production 只是 Release 的其中一個對象，有些產品需要有 Sandbox，例如給客戶測試用的 API Sandbox，有時候需要 Canary Deployment，同樣都是 Release 的。Release 對象可能有 Sandbox、Staging、Canary、Production 四種。這個過程除了叫做 Release，也稱為 <code>Go Production</code>。</p>
-<p>Release Engineer 負責的應該是 Go Production。</p>
-<p>另外我把 Deploy 的過程稱為 <code>Go Live</code>，Live 包含 Release 前、後的所有環境，包含 Functional / Non-Functional / Production 等環境。整理 Go Live 的範圍與分類如下：</p>
+<h2 id="Release-負責怎樣的工作？"><a href="#Release-負責怎樣的工作？" class="headerlink" title="Release 負責怎樣的工作？"></a>Release 負責怎樣的工作？</h2><h3 id="Go-Live"><a href="#Go-Live" class="headerlink" title="Go Live"></a>Go Live</h3><p>我把 Deploy 的過程稱為 <code>Go Live</code>，Live 包含 Release 前、後的所有環境，包含 Functional / Non-Functional / Production 等環境。Go Live 的範圍與分類如下：</p>
 <ul>
 <li><code>In-House</code>: 內部的測試環境，包含功能、整合、效能、資安 … 各種測試階段參閱：<a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a></li>
 <li><code>Go Production</code>: 對外的環境都是 Producion Ready 的。像是：Staging、Canary、Sandbox、Production</li>
 </ul>
-<p>這邊特別強調的是，測試環境也是一種 Go Live，也就是包含交付的概念，而交付的第一要務是面對如何建置環境 (Provisioning)、配置 (Config)、部署 (Deployment) 等。在測試環境就必須確立這些東西，Go Production 隨時間前進，業務增長，才能穩定的長大、長壯、長強。</p>
-<p>In-House 的建置必須由 QA/SDET 等角色自行完成，但是開發 Team 必須提供完整的架構圖，準備好 Artifact。</p>
+<p>這邊特別強調的是，測試環境也是一種 Go Live，也就是包含交付的概念，而交付的第一要務，要面對以下四個：</p>
+<ol>
+<li><code>產出物管理 (Artifact Management)</code></li>
+<li><code>建置環境 (Provisioning)</code></li>
+<li><code>配置管理 (Config)</code></li>
+<li><code>部署策略 (Deployment)</code></li>
+</ol>
+<p>這四個階段的任務，必須在測試階段就必須確立這些東西，Go Production 隨時間前進，業務增長，才能穩定的長大、長壯、長強。</p>
 <blockquote>
 <p>更多參閱： <a href="/2017/11/14/DevOps/Go-Live/">Go Live</a> 的說明。</p>
 </blockquote>
+<h3 id="Go-Production"><a href="#Go-Production" class="headerlink" title="Go Production"></a>Go Production</h3><p>把開發好的產出物 (<a href="/2018/07/08/DevOps/Artifacts-Management/">Artifact</a>)，這東西已經經過內部 (In-House) 測試、驗證過，準備放到 (Deploy) 正式環境 (Production)，這個過程稱為：<code>Release</code> 或 <code>Go Production</code>。</p>
+<p>Production 只是 Release 的其中一個對象，有些產品需要有 Sandbox，例如給客戶測試用的 API Sandbox，有時候需要 Canary Deployment，同樣都是 Release 的。Release 對象可能有：</p>
+<ol>
+<li>Sandbox</li>
+<li>Staging</li>
+<li>Canary</li>
+<li>Production</li>
+</ol>
+<p>這四種，最常見的就是 Staging 和 Production。而 Go Production 是 Release Engineer 的工作範圍。</p>
+<h3 id="In-House"><a href="#In-House" class="headerlink" title="In-House"></a>In-House</h3><p>In-House 的建置必須由 QA/SDET 等角色自行完成，但是開發 Team 必須提供以下：</p>
+<ol>
+<li>完整架構圖</li>
+<li>Artifact</li>
+<li>配置檔說明</li>
+</ol>
+<p>部署策略則在測試過程中，由 Dev / QA / Ops 三方協作討論出最佳策略。</p>
+<p>關於 In-House 測試階段、目的、策略，參閱：<a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a></p>
 <hr>
 <h2 id="企業階段"><a href="#企業階段" class="headerlink" title="企業階段"></a>企業階段</h2><p>不同的企業階段，針對職務、或角色有不同定義與需求，整理前提與背景的組合如下：</p>
 <ol>
@@ -396,7 +416,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Release-負責怎樣的工作？"><span class="toc-article-text">Release 負責怎樣的工作？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#企業階段"><span class="toc-article-text">企業階段</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#架構與組織"><span class="toc-article-text">架構與組織</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#產品特性"><span class="toc-article-text">產品特性</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#問題的維度"><span class="toc-article-text">問題的維度</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#結論"><span class="toc-article-text">結論</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#相關文章-站內"><span class="toc-article-text">相關文章 (站內)</span></a>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Release-負責怎樣的工作？"><span class="toc-article-text">Release 負責怎樣的工作？</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Go-Live"><span class="toc-article-text">Go Live</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Go-Production"><span class="toc-article-text">Go Production</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#In-House"><span class="toc-article-text">In-House</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#企業階段"><span class="toc-article-text">企業階段</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#架構與組織"><span class="toc-article-text">架構與組織</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#產品特性"><span class="toc-article-text">產品特性</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#問題的維度"><span class="toc-article-text">問題的維度</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#結論"><span class="toc-article-text">結論</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#相關文章-站內"><span class="toc-article-text">相關文章 (站內)</span></a>
 		</div>
 	
 	</div>
