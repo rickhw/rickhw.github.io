@@ -84,9 +84,9 @@
     
       <category term="Build" scheme="http://rickhw.github.io/tags/Build/"/>
     
-      <category term="Artifact Management" scheme="http://rickhw.github.io/tags/Artifact-Management/"/>
-    
       <category term="Configuration" scheme="http://rickhw.github.io/tags/Configuration/"/>
+    
+      <category term="Artifact Management" scheme="http://rickhw.github.io/tags/Artifact-Management/"/>
     
   </entry>
   
@@ -272,11 +272,11 @@
     
       <category term="Continuous Integration" scheme="http://rickhw.github.io/tags/Continuous-Integration/"/>
     
-      <category term="Artifact Management" scheme="http://rickhw.github.io/tags/Artifact-Management/"/>
-    
       <category term="Configuration" scheme="http://rickhw.github.io/tags/Configuration/"/>
     
       <category term="Version Control" scheme="http://rickhw.github.io/tags/Version-Control/"/>
+    
+      <category term="Artifact Management" scheme="http://rickhw.github.io/tags/Artifact-Management/"/>
     
   </entry>
   
@@ -595,9 +595,9 @@
     
       <category term="Distributed Consensus" scheme="http://rickhw.github.io/tags/Distributed-Consensus/"/>
     
-      <category term="Consensus Algorithm" scheme="http://rickhw.github.io/tags/Consensus-Algorithm/"/>
-    
       <category term="CAP" scheme="http://rickhw.github.io/tags/CAP/"/>
+    
+      <category term="Consensus Algorithm" scheme="http://rickhw.github.io/tags/Consensus-Algorithm/"/>
     
       <category term="ACID" scheme="http://rickhw.github.io/tags/ACID/"/>
     
@@ -637,9 +637,9 @@
     
       <category term="Distributed Consensus" scheme="http://rickhw.github.io/tags/Distributed-Consensus/"/>
     
-      <category term="Consensus Algorithm" scheme="http://rickhw.github.io/tags/Consensus-Algorithm/"/>
-    
       <category term="CAP" scheme="http://rickhw.github.io/tags/CAP/"/>
+    
+      <category term="Consensus Algorithm" scheme="http://rickhw.github.io/tags/Consensus-Algorithm/"/>
     
       <category term="ACID" scheme="http://rickhw.github.io/tags/ACID/"/>
     
