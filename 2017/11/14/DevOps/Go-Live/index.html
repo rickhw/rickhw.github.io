@@ -9,7 +9,11 @@
   <meta name="description" content="最近我開始用 Go Live 取代 Production 這個詞。
 
 
-定義因為 Go Live 不代表只有 Production，也包含任意的環境，也就是內部使用的環境: In-House。可以是實驗用環境 (Lab)、功能性測試 (Functional)、系統性測試 (System)、整合性測試">
+定義Go Live 不代表只有 Production，也包含內部使用的環境：In-House。
+
+Go Production：指的是對外的環境
+像是：Staging、Canary、Sandbox、Production
+開放給外面">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -117,7 +121,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 									
 										<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 									
-										<li><a href="/categories/DevOps/">DevOps <sup>28</sup></a></li>
+										<li><a href="/categories/DevOps/">DevOps <sup>29</sup></a></li>
 									
 										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>7</sup></a></li>
 									
@@ -214,19 +218,25 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		    <p>最近我開始用 <code>Go Live</code> 取代 <code>Production</code> 這個詞。</p>
 <a id="more"></a>
 <hr>
-<h1 id="定義"><a href="#定義" class="headerlink" title="定義"></a>定義</h1><p>因為 <code>Go Live</code> 不代表只有 <code>Production</code>，也包含任意的環境，也就是內部使用的環境: <code>In-House</code>。可以是實驗用環境 (Lab)、功能性測試 (Functional)、系統性測試 (System)、整合性測試 (Integration)、開放給外面使用的 Field / Sandbox ….</p>
-<blockquote>
-<p>各種測試階段參閱：<a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a></p>
-</blockquote>
+<h1 id="定義"><a href="#定義" class="headerlink" title="定義"></a>定義</h1><p><code>Go Live</code> 不代表只有 <code>Production</code>，也包含內部使用的環境：<code>In-House</code>。</p>
 <ul>
-<li><code>Go Production</code>：指的是對外的環境，像是：Staging、Canary、Sandbox、Production<ul>
+<li><code>Go Production</code>：指的是對外的環境<ul>
+<li>像是：Staging、Canary、Sandbox、Production</li>
+<li>開放給外面試用的 Field / Sandbox ….</li>
 <li>Production 另一個維度：DR Site (災難還原)</li>
-<li>多資料中心的 Production</li>
+<li>多資料中心的 Production，例如業務範圍屬於東南亞，Production 實際上有三個 Data Center 服務同一個區。</li>
 </ul>
 </li>
-<li><code>In-House</code>：指的是內部開發過程中的各種用途，像是最基本的功能測試、整合測試、效能測試、探索測試、部署測試，甚至是新產品給業務試用的 Sandbox …</li>
+<li><code>In-House</code>：指的是內部開發過程中的各種用途，<ul>
+<li>測試用：包含功能性測試 (Functional)、系統性測試 (System)、整合性測試 (Integration) … 等。依照測試目的性而建置環境，詳細參閱：<a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a></li>
+<li>可以是實驗用環境 (Lab)：架構師、新創服務團隊做實驗用</li>
 </ul>
-<p>只關注 “Production” 的狀況，很容易忽略其他地方，<code>能動就好</code> 是很多公司都有的問題，特別是測試環境。但如果環境本身是有問題的，或者無法重視這些問題，我不相信 Production 會有多好。大問題都是從小問題產生。</p>
+</li>
+</ul>
+<p>只關注 Production 很容易忽略其他地方，<code>能動就好</code> 是很多公司都有的問題，特別是測試環境。測試環境的可部屬性、可測性決定未來 Production 配置的靈活與敏捷性。而 Proudction 的問題，必須要能夠在 In-House 能夠重現，如果只能線上修，風險就會很難控制，特別是有些效能屬於 <code>嚴重、但不緊急</code> 的。</p>
+<blockquote>
+<p>!!! 大問題都是從小問題累積的 !!!</p>
+</blockquote>
 <p>不管是 In-House 還是 Go Production，都要面對底下四個問題：</p>
 <ol>
 <li><a href="/2018/07/08/DevOps/Artifacts-Management/">Artifact Management</a></li>
@@ -397,7 +407,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
     <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
       <div>
   <!--<li>-->
-    <span class="label label-info"><a href="/categories/DevOps/" style="color: white">DevOps <span class="badge">28</span></a></span>
+    <span class="label label-info"><a href="/categories/DevOps/" style="color: white">DevOps <span class="badge">29</span></a></span>
   <!--</li>-->
 </div>
     <!--</ul>-->
@@ -413,7 +423,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Provisioning/" style="color: white">Provisioning <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/Automation/" style="color: white">Automation <span class="badge">12</span></a></span>
+  <span class="label label-success"><a href="/tags/Provisioning/" style="color: white">Provisioning <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/Automation/" style="color: white">Automation <span class="badge">13</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
