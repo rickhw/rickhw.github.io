@@ -119,11 +119,11 @@
     
       <category term="SRE" scheme="http://rickhw.github.io/tags/SRE/"/>
     
+      <category term="Artifact Management" scheme="http://rickhw.github.io/tags/Artifact-Management/"/>
+    
       <category term="Continuous Integration" scheme="http://rickhw.github.io/tags/Continuous-Integration/"/>
     
       <category term="Build" scheme="http://rickhw.github.io/tags/Build/"/>
-    
-      <category term="Artifact Management" scheme="http://rickhw.github.io/tags/Artifact-Management/"/>
     
       <category term="Configuration" scheme="http://rickhw.github.io/tags/Configuration/"/>
     
@@ -309,9 +309,9 @@
     
       <category term="Conway&#39;s Law" scheme="http://rickhw.github.io/tags/Conway-s-Law/"/>
     
-      <category term="Continuous Integration" scheme="http://rickhw.github.io/tags/Continuous-Integration/"/>
-    
       <category term="Artifact Management" scheme="http://rickhw.github.io/tags/Artifact-Management/"/>
+    
+      <category term="Continuous Integration" scheme="http://rickhw.github.io/tags/Continuous-Integration/"/>
     
       <category term="Configuration" scheme="http://rickhw.github.io/tags/Configuration/"/>
     
