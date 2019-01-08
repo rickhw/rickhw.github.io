@@ -9,7 +9,7 @@
   <meta name="description" content="最近我開始用 Go Live 取代 Production 這個詞。
 
 
-定義因為 Go Live 不代表只有 “Production”, 也包含任意的環境，也就是內部使用的環境 (In-House)。可以是實驗用環境 (Lab)、功能性測試 (Functional)、系統性測試 (System)、整">
+定義因為 Go Live 不代表只有 Production，也包含任意的環境，也就是內部使用的環境: In-House。可以是實驗用環境 (Lab)、功能性測試 (Functional)、系統性測試 (System)、整合性測試">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -214,29 +214,43 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		    <p>最近我開始用 <code>Go Live</code> 取代 <code>Production</code> 這個詞。</p>
 <a id="more"></a>
 <hr>
-<h1 id="定義"><a href="#定義" class="headerlink" title="定義"></a>定義</h1><p>因為 <code>Go Live</code> 不代表只有 “Production”, 也包含任意的環境，也就是內部使用的環境 (In-House)。可以是實驗用環境 (Lab)、功能性測試 (Functional)、系統性測試 (System)、整合性測試 (Integration)、開放給外面使用的 Field / Sandbox ….</p>
+<h1 id="定義"><a href="#定義" class="headerlink" title="定義"></a>定義</h1><p>因為 <code>Go Live</code> 不代表只有 <code>Production</code>，也包含任意的環境，也就是內部使用的環境: <code>In-House</code>。可以是實驗用環境 (Lab)、功能性測試 (Functional)、系統性測試 (System)、整合性測試 (Integration)、開放給外面使用的 Field / Sandbox ….</p>
 <blockquote>
 <p>各種測試階段參閱：<a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a></p>
 </blockquote>
-<p><code>Go Production</code> 指的是對外的環境，像是：Staging、Canary、Sandbox、Production</p>
+<ul>
+<li><code>Go Production</code>：指的是對外的環境，像是：Staging、Canary、Sandbox、Production<ul>
+<li>Production 另一個維度：DR Site (災難還原)</li>
+<li>多資料中心的 Production</li>
+</ul>
+</li>
+<li><code>In-House</code>：指的是內部開發過程中的各種用途，像是最基本的功能測試、整合測試、效能測試、探索測試、部署測試，甚至是新產品給業務試用的 Sandbox …</li>
+</ul>
 <p>只關注 “Production” 的狀況，很容易忽略其他地方，<code>能動就好</code> 是很多公司都有的問題，特別是測試環境。但如果環境本身是有問題的，或者無法重視這些問題，我不相信 Production 會有多好。大問題都是從小問題產生。</p>
 <p>不管是 In-House 還是 Go Production，都要面對底下四個問題：</p>
 <ol>
 <li><a href="/2018/07/08/DevOps/Artifacts-Management/">Artifact Management</a></li>
-<li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Provisioning</a>: 建置環境，分成 Infra-Level、VM-Level</li>
+<li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning</a>: 建置環境，分成 Infra-Level、VM-Level</li>
 <li>Config Management: 配置管理</li>
-<li>Deployment: 部署策略, 不管是 Direct Overwrite、Staging、Canary、B/G、A/B …</li>
+<li>Deployment: 部署策略, 不管是 Direct Overwrite、Staging、Canary、B/G、A/B …<ul>
+<li>前提是：1), 2), 3) 要具備</li>
+<li>跨區部署，多資料中心的 Production</li>
+</ul>
+</li>
 </ol>
-<p>單一台機器 (VM-Level) 來看，如下圖：</p>
+<h2 id="Resource-Provisioning"><a href="#Resource-Provisioning" class="headerlink" title="Resource Provisioning"></a>Resource Provisioning</h2><p>Provision 可大可小，單一台機器 (VM-Level) 來看，如下圖：</p>
 <p><img src="/images/DevOps/Software-Go-Live_20190106.png" alt=""></p>
 <p>如果是一個架構，那麼 Provisioning 就要包含架構的部分，分成兩個層級：</p>
 <ul>
-<li>Infra-Level: 包含整個網路架構、相關依賴的服務，在 AWS 上來講：<ul>
+<li><code>Infra-Level</code>: 包含整個網路架構、相關依賴的服務，在 AWS 上來講：<ul>
 <li>Network-Level: VPC</li>
 <li>Service-Level: ElastiCache、ELB、DynamoDB、S3、CloudFront …</li>
 </ul>
 </li>
-<li>VM-Level: 主要就是 EC2 裡面的東西，包含中介軟體 (Middleware)、應用程式自己</li>
+<li><code>VM-Level</code>: 主要就是 EC2 裡面的東西，包含中介軟體 (Middleware)、應用程式自己<ul>
+<li>如果有用 Container，這就算是了。</li>
+</ul>
+</li>
 </ul>
 <h2 id="Live-Music"><a href="#Live-Music" class="headerlink" title="Live Music!"></a>Live Music!</h2><p><code>Live</code> 對樂手來講就是 <a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">現場</a>，<code>現場</code> 不管是兩萬人的大場子、還是只有一個聽眾 + 3 個員工的小 Pub、還是在安靜到連血液流動聲都聽得到的錄音室，都是現場，面對的態度應該都是一樣，但是做法會有差異。</p>
 <ul>
@@ -272,21 +286,22 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li>生意來了吃不起<ul>
 <li>沒那個屁股</li>
 <li>用再好的 Cloud 都是白搭</li>
+<li>因為環境根本建不起來</li>
 </ul>
 </li>
-<li><code>DevOps</code> 只是一種神話</li>
+<li><code>DevOps</code> 只是一種神話、鬼話、幹話</li>
 </ul>
 <blockquote>
 <p>有人會問說，我們沒做你說的這些東西，Production 都跑得好好的，也賺很多錢啊！問題不會發生在這 <code>一個 Production</code>，但是一定會發生在下一個 Production。如果你覺得沒差，那這個環境一定不是你負責建置的。信不信，你下次搬家時，就會發現家裡很多東西不知道怎麼搬。</p>
 </blockquote>
 <p>我就是很龜毛。。。妥協要學習，但這是原則，這就是軟體工程要知道的。</p>
+<hr>
 <h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
 <li><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a></li>
 <li><a href="/2017/03/18/SQA/Stages-In-Software-Testing/">Stages in Software Testing</a></li>
 <li><a href="/2015/10/11/SQA/How-To-Be-An-SQA/">How to be an SQA?</a></li>
 <li><a href="/2018/01/07/DevOps/Emergency-Response/">Emergency Response</a></li>
 <li><a href="/2018/05/12/SQA/Designing-Test-Architecture-and-Framework/">Designing Test Architecture and Framework</a></li>
-<li><a href="/2017/11/14/DevOps/Go-Live/">Go Live</a></li>
 <li><a href="/2018/07/08/DevOps/Artifacts-Management/">Artifact Management</a></li>
 </ul>
 <h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
@@ -368,7 +383,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#定義"><span class="toc-article-text">定義</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Live-Music"><span class="toc-article-text">Live Music!</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Back-to-the-Code"><span class="toc-article-text">Back to the Code</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#定義"><span class="toc-article-text">定義</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Resource-Provisioning"><span class="toc-article-text">Resource Provisioning</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Live-Music"><span class="toc-article-text">Live Music!</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Back-to-the-Code"><span class="toc-article-text">Back to the Code</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li></ol>
 		</div>
 	
 	</div>
