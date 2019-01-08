@@ -123,9 +123,9 @@
     
       <category term="Build" scheme="http://rickhw.github.io/tags/Build/"/>
     
-      <category term="Configuration" scheme="http://rickhw.github.io/tags/Configuration/"/>
-    
       <category term="Artifact Management" scheme="http://rickhw.github.io/tags/Artifact-Management/"/>
+    
+      <category term="Configuration" scheme="http://rickhw.github.io/tags/Configuration/"/>
     
   </entry>
   
@@ -311,11 +311,11 @@
     
       <category term="Continuous Integration" scheme="http://rickhw.github.io/tags/Continuous-Integration/"/>
     
+      <category term="Artifact Management" scheme="http://rickhw.github.io/tags/Artifact-Management/"/>
+    
       <category term="Configuration" scheme="http://rickhw.github.io/tags/Configuration/"/>
     
       <category term="Version Control" scheme="http://rickhw.github.io/tags/Version-Control/"/>
-    
-      <category term="Artifact Management" scheme="http://rickhw.github.io/tags/Artifact-Management/"/>
     
   </entry>
   
