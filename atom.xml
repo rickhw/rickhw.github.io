@@ -179,9 +179,9 @@
     
       <category term="Configuration" scheme="http://rickhw.github.io/tags/Configuration/"/>
     
-      <category term="Artifact" scheme="http://rickhw.github.io/tags/Artifact/"/>
-    
       <category term="Version Control" scheme="http://rickhw.github.io/tags/Version-Control/"/>
+    
+      <category term="Artifact" scheme="http://rickhw.github.io/tags/Artifact/"/>
     
   </entry>
   
@@ -365,9 +365,9 @@
     
       <category term="SRE" scheme="http://rickhw.github.io/tags/SRE/"/>
     
-      <category term="Chaos Engineering" scheme="http://rickhw.github.io/tags/Chaos-Engineering/"/>
-    
       <category term="Antifragile" scheme="http://rickhw.github.io/tags/Antifragile/"/>
+    
+      <category term="Chaos Engineering" scheme="http://rickhw.github.io/tags/Chaos-Engineering/"/>
     
       <category term="Resilience" scheme="http://rickhw.github.io/tags/Resilience/"/>
     
