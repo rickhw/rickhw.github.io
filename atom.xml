@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://rickhw.github.io/"/>
-  <updated>2019-01-12T07:00:07.999Z</updated>
+  <updated>2019-01-12T08:03:37.928Z</updated>
   <id>http://rickhw.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>天賦與努力</title>
+    <link href="http://rickhw.github.io/2019/01/12/About/Talent-And-Effort/"/>
+    <id>http://rickhw.github.io/2019/01/12/About/Talent-And-Effort/</id>
+    <published>2019-01-12T13:42:30.000Z</published>
+    <updated>2019-01-12T08:03:37.928Z</updated>
+    
+    <content type="html"><![CDATA[<p>整理關於 <code>天賦</code> 與 <code>努力</code>，一些普遍人錯誤的認知，原文是我 2018/07/07 寫在 facebook 的 <a href="https://www.facebook.com/rick.kyhwang/posts/10209553058102709" target="_blank" rel="noopener">草稿</a>。</p><a id="more"></a><hr><h1 id="常見的錯誤觀念"><a href="#常見的錯誤觀念" class="headerlink" title="常見的錯誤觀念"></a>常見的錯誤觀念</h1><h2 id="誤解一：『絕對音感』很厲害"><a href="#誤解一：『絕對音感』很厲害" class="headerlink" title="誤解一：『絕對音感』很厲害"></a>誤解一：『絕對音感』很厲害</h2><p>我的結論，不是這樣的。</p><blockquote><p>(會寫字 or 字寫很漂亮) != 會寫小說。</p></blockquote><p>這是兩回事，我的論述有底下四篇：</p><ul><li><a href="http://rickmidi.blogspot.com/2010/10/blog-post.html" target="_blank" rel="noopener">再談『首調、固定唱名』與『相對、絕對音感』</a></li><li><a href="http://rickmidi.blogspot.com/2009/04/blog-post.html" target="_blank" rel="noopener">相對、絕對音感</a></li><li><a href="http://rickmidi.blogspot.com/2008/11/blog-post_25.html" target="_blank" rel="noopener">固定唱名？還是首調唱名？</a></li><li><a href="http://rickmidi.blogspot.com/2008/08/blog-post.html" target="_blank" rel="noopener">關於半音階的唱名</a></li></ul><p>台大音樂研究所副教授 - 蔡振家 在他的論文：<a href="http://readopac2.ncl.edu.tw/nclJournal/search/detail.jsp?sysId=0005710264&amp;dtdId=000040&amp;search_type=detail&amp;la=ch" target="_blank" rel="noopener">絕對音感的認知心理學研究</a> 也提到這樣的概念，以下摘錄ㄧ些段落：</p><blockquote><p>研究顯示，有許多自閉症患者在沒有接受音樂訓練的情形下發展出絕對音感（Miller1999），然而他們卻未必精通音樂。一位自閉症患者就坦言，她天生擁有絕對音感，但音樂卻無法激起她情感上的反應。無獨有偶的，新葛羅夫（New Grove）音樂辭典的「絕對音感」條目中也提到，絕對音感有可能讓人在聽音樂時分心，減低聆賞的樂趣；有些具絕對音感者會抱怨：「我在音樂中聽到的不是旋律，而是聽到一串音名流過」</p></blockquote><p>這段說明了『音感』跟『音樂能力』的關聯性，底下是另一段關於音樂思考的部分：</p><blockquote><p>大致上來說，在亞洲接受音樂基礎訓練的學生，聽音樂時多半能夠用絕對音感把每個音一一聽出來，不過，歐洲的老師卻未必喜歡這樣的聽音方式，於是追問：「不要老是告訴我和絃裡面總共有哪些音，我是在問你『這是什麼和絃？』」</p></blockquote><p>基礎訓練中，必須訓練學習者變成具備某種能力，而這些能力往往是機械性的，但是機械性的東西，往往沒有人性，而音樂是人性的。蔡教授底下這段論文中，寫的更直白了：</p><blockquote><p>從機械論的觀點來看，相對音感其實是比絕對音感更高階、更複雜的處理。我們很容易製造出一部能夠顯示絕對音高的機器（如市售的調音器），但若要寫個程式讓電腦能在聽到音樂之後顯示每個音的首調唱名，卻變得十分困難，因為要教電腦判斷旋律中的哪一個音是首調的Do，似乎沒有想像中那麼容易。</p></blockquote><p>這段論述的實踐，我真的想寫過一篇文章來說明其複雜性：<a href="http://rickmidi.blogspot.com/2014/09/blog-post_27.html" target="_blank" rel="noopener">概述『和聲分析』演算法</a></p><p>所以，『絕對音感』是種硬技能，但不代表對音樂的理解力、創作力。</p><h2 id="誤解二：那些在台上的成功人士，是『天才』、或者有『天賦』"><a href="#誤解二：那些在台上的成功人士，是『天才』、或者有『天賦』" class="headerlink" title="誤解二：那些在台上的成功人士，是『天才』、或者有『天賦』"></a>誤解二：那些在台上的成功人士，是『天才』、或者有『天賦』</h2><p><code>刻意練習</code> 這本書第八章談如何解釋『天賦』這種事，談的概念跟 <code>誤解一</code> 聊的概念差不多。只是舉例音樂家 #帕格尼尼 的例子說明，在音樂圈這算是老梗了。我的第一個直覺就是：</p><blockquote><p>時間在哪，成就就在哪。</p></blockquote><p>英國有吉他之神美譽的音樂家、歌手、藍調吉他手 <a href="https://zh.wikipedia.org/wiki/%E5%9F%83%E9%87%8C%E5%85%8B%C2%B7%E5%85%8B%E8%8E%B1%E6%99%AE%E9%A1%BF" target="_blank" rel="noopener">Eric Clapton</a> 年輕時整天只練吉他，他練吉他的方式就是帶食物、吉他，整天在浴室裡練琴，之後加上他的遭遇，造就他在音樂上卓越的成就與地位。美國著名吉他手 <a href="https://zh.wikipedia.org/wiki/%E4%BF%9D%E7%BD%97%C2%B7%E5%90%89%E5%B0%94%E4%BC%AF%E7%89%B9" target="_blank" rel="noopener">Paul Gilbert</a> (Mr. Big，以演奏技巧、創意卓越著名) 早期練琴時，室友早上出門聽到他在練同一個句子，下午回來他還是在練同一個句子，只是速度變更快了，他很專注的在一個點。</p><blockquote><p>時間在哪，成就就在哪。</p></blockquote><p>以下這段我很常用，在我底下的文章出現過，出現的比率極高：</p><ul><li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li><li><a href="http://rickmidi.blogspot.com/2016/02/blog-post.html" target="_blank" rel="noopener">過年，想找的就只是回憶而已：那些年練過的流行歌曲</a></li><li><a href="/2016/08/20/AWS/AWS-Certified-Developer/">AWS Certified Developer - Associate 準備心得 </a></li><li><a href="/2018/02/15/AWS/AWS-Certified-SAA001-Update/">AWS SAA-001 Update (Feb, 2018)</a></li></ul><blockquote><p>關於『努力』與『天賦』，我很喜歡日劇 <code>王牌大律師二 EP7</code> 裡的一段對白，那是一個漫畫家老師傅和徒弟在法庭上的對話：</p><p>老師傅：「才能這種東西，本來就是該靠自己挖掘創造的！我也不是什麼天才，我只是比任何人都拼命工作，一步一腳印走過來了。等我回頭一看，背後沒有一個身影，那幫懶惰的人在山腳念叨著『誰叫那傢伙是天才』，開什麼玩笑，我最討厭悠哉悠哉地長大的慢性子！比我有時間、有精力、情感豐富的人，為什麼比我懶惰？那就給我啊，要把這些東西都浪費掉的話，就通通都給我，我還有很多很多想創造的東西，給我啊！但是，穗積」導演語調一轉，說：「你要是那麼想讓我道歉，我就道歉，想要錢，我就給你錢。」</p></blockquote><hr><h1 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h1><p>所以如果你有辦法看到這裡的這句話，大概就會知道我的想法：</p><ol><li>我不相信速成這件事情，我只相信專注的力量</li><li>大部分的人都有基本的天賦，但是真正的成功是努力來的</li><li>就機率來講，天才真的有，但真的不多。而且我們生活中遇到的都是努力過，累積上來的『才』。</li><li>有些『才』是外在環境逼出來的，像已故歌手 <a href="https://zh.wikipedia.org/zh-tw/%E5%AE%8B%E5%B2%B3%E5%BA%AD" target="_blank" rel="noopener">宋岳庭</a></li><li>C/P 值背後的成本誰來付？能量不滅定律，總有人要承擔這些成本。所以我不相信 C/P 值這件事情。</li></ol><h2 id="2019-01-12-補充"><a href="#2019-01-12-補充" class="headerlink" title="2019/01/12 補充"></a>2019/01/12 補充</h2><p>整理這篇是因為很多老闆或者 HR 都喜歡有 Talent (天賦)、聰明的人，但過去的時間下來發現，天賦是可遇不可求，與其找有天賦的人，不如找願意努力、且態度願意配合的人。</p><hr><h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="站內延伸"><a href="#站內延伸" class="headerlink" title="站內延伸"></a>站內延伸</h2><ul><li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li><li><a href="/2016/08/20/AWS/AWS-Certified-Developer/">AWS Certified Developer - Associate 準備心得 </a></li><li><a href="/2018/02/15/AWS/AWS-Certified-SAA001-Update/">AWS SAA-001 Update (Feb, 2018)</a></li><li><a href="/2018/08/20/Management/Overview-Hiring/">聊聊人力招募</a></li></ul><h2 id="喝咖啡聊音樂"><a href="#喝咖啡聊音樂" class="headerlink" title="喝咖啡聊音樂"></a>喝咖啡聊音樂</h2><ul><li><a href="http://rickmidi.blogspot.com/2010/10/blog-post.html" target="_blank" rel="noopener">再談『首調、固定唱名』與『相對、絕對音感』</a></li><li><a href="http://rickmidi.blogspot.com/2009/04/blog-post.html" target="_blank" rel="noopener">相對、絕對音感</a></li><li><a href="http://rickmidi.blogspot.com/2008/11/blog-post_25.html" target="_blank" rel="noopener">固定唱名？還是首調唱名？</a></li><li><a href="http://rickmidi.blogspot.com/2008/08/blog-post.html" target="_blank" rel="noopener">關於半音階的唱名</a></li><li><a href="http://rickmidi.blogspot.com/2014/09/blog-post_27.html" target="_blank" rel="noopener">概述『和聲分析』演算法</a></li><li><a href="http://rickmidi.blogspot.com/2016/02/blog-post.html" target="_blank" rel="noopener">過年，想找的就只是回憶而已：那些年練過的流行歌曲</a></li></ul><h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul><li><a href="http://readopac2.ncl.edu.tw/nclJournal/search/detail.jsp?sysId=0005710264&amp;dtdId=000040&amp;search_type=detail&amp;la=ch" target="_blank" rel="noopener">絕對音感的認知心理學研究</a>, 台大音樂研究所副教授 - 蔡振家</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;整理關於 &lt;code&gt;天賦&lt;/code&gt; 與 &lt;code&gt;努力&lt;/code&gt;，一些普遍人錯誤的認知，原文是我 2018/07/07 寫在 facebook 的 &lt;a href=&quot;https://www.facebook.com/rick.kyhwang/posts/10209553058102709&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;草稿&lt;/a&gt;。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="About" scheme="http://rickhw.github.io/categories/About/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>2018 的思考隨記：上半年</title>
@@ -603,30 +623,6 @@
       <category term="Hiring" scheme="http://rickhw.github.io/tags/Hiring/"/>
     
       <category term="Job Description" scheme="http://rickhw.github.io/tags/Job-Description/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聊聊人力招募</title>
-    <link href="http://rickhw.github.io/2018/08/20/Management/Overview-Hiring/"/>
-    <id>http://rickhw.github.io/2018/08/20/Management/Overview-Hiring/</id>
-    <published>2018-08-19T19:21:00.000Z</published>
-    <updated>2019-01-06T03:21:10.029Z</updated>
-    
-    <content type="html"><![CDATA[<p>今年有很多時間都放在如何作 <code>人力招聘 (Hiring)</code>，這系列文是整個過程中的心得、想法、遇到的問題。文章是從管理者、用人主管 角度出發，談到如何從需要資源開始、如何向上溝通、與人力資源協作、面試名單從哪裡來、如何面試、如何談薪資、報到之後如何確認符合需求 … 等。</p><a id="more"></a><hr><h1 id="關於招募系列文"><a href="#關於招募系列文" class="headerlink" title="關於招募系列文"></a>關於招募系列文</h1><p>招募是個難題，整個工作跟業務有些像，從零開始：確認目標、需求、找名單、打電話、面對人、設計流程、思考如何評斷、設計技能驗證方法、談薪資、面對市場的比較、對上溝通、跟 HR 協作、任用確認、OnBoard Training、確認符合 … 是個痛苦且漫長的路。</p><p>整理這些文章，不是要炫耀做得很有心得、或做得很好，而是這件事情不容易，挫折滿滿、充滿政治角力、人性的血淋淋，因為如此，更需要好好的沈澱，好好的討論如何把它做好，創造雙贏（Win Win）</p><p>招募工讀生是招募、招募工程師是招募、招募架構師是招募、招募業務是招募、招募 VP 是招募，不管怎樣的角色，都應該好好面對它，把他做好，這是對工作負責，敬業的表現。</p><p>這系列文章，將從管理者、用人主管的角度，整理整個招募過程需要面對的人事物，從頭到尾的心得筆記 (血淋淋)。如果想要做管理、想做主管、想建立團隊，這是個必經的過程，這些心得或許可以參考看看。</p><h2 id="相關的角色"><a href="#相關的角色" class="headerlink" title="相關的角色"></a>相關的角色</h2><p>招募工作通常會有以下角色：</p><ul><li>甲方<ul><li>應試者、Candidate、勞方</li></ul></li><li>乙方<ul><li>用人主管、面試官、資方</li><li>人力資源、HR</li><li>用人主管的主管</li></ul></li><li>第三方<ul><li>獵頭 (Head Hunter)</li><li>社群</li><li>競業、同業</li></ul></li></ul><h2 id="招募系列文章"><a href="#招募系列文章" class="headerlink" title="招募系列文章"></a>招募系列文章</h2><p>我把整個招募流程分成以下部分：</p><ul><li><a href="/2018/08/28/Management/Hiring-Step0-Initial/">零、準備篇：確認需求、條件、定位、市場狀況</a></li><li><a href="/2018/08/30/Management/Hiring-Step1-Find-the-Candidates/">一、萬事起頭難：面試名單從哪來？</a>：撈單、詢問意願、電訪</li><li><a href="/2018/09/18/Management/Hiring-Step2-Interview-Skills/">二、見面談：招募第一關 面試</a>：面試流程、評核</li><li><a href="/2018/09/22/Management/Hiring-Step3-Interview-Values-Attitude/">三、深度對話：價值觀</a>：為什麼二面？</li><li><a href="/2018/09/27/Management/Hiring-Step4-Salary/">四、客觀談論：薪資</a>：談薪資的考量點</li><li><a href="/2018/10/07/Management/Hiring-Step5-Offer/">五、最後確認：報到時程</a></li><li><a href="/2018/12/22/Management/Hiring-Step6-Onboard/">六、到職後：訓練、目標、評核</a></li></ul><p>這些過程，所要篩選、經歷的，很像是一個拓展市場的業務要經歷的過程，人數從多到少，逐漸篩選，是個倒三角形的形狀。這過程的概念與過程，與 <a href="https://www.google.com/search?biw=1152&amp;bih=614&amp;tbm=isch&amp;sa=1&amp;ei=W7UhXPztFYah8QWO3JPgCw&amp;q=aarrr&amp;oq=aarrr&amp;gs_l=img.3...0.0..78918...0.0..0.0.0.......1......gws-wiz-img.9ydD-Wa14KE" target="_blank" rel="noopener">AARRR</a> 模型很像，如下圖：</p><ul><li>Acquisition（獲得新使用者）</li><li>Activation（成為有效用戶）</li><li>Retention（用戶留存、回訪</li><li>Revenue（用戶付費）</li><li>Referral（用戶推薦）</li></ul><h2 id="人事管理-People-Management"><a href="#人事管理-People-Management" class="headerlink" title="人事管理 (People Management)"></a>人事管理 (People Management)</h2><p>從 2012 年開始帶團隊開始，就一直在做招募工作，一直以來都有自己一套心法與程序。招募只是管理工作之一，從整個員工在職的生命週期來看，頭到尾、起到訖，有以下：</p><ul><li>用人：包含招募 (hiring)，就有解雇(fire)、資遣 (lay-off)、離職 (quit)</li><li>在職期間：起訖之中的在職時間，包含以下：<ul><li>訓練</li><li>任務管理</li><li>考核</li><li>升等</li><li>轉任 … 等，</li></ul></li></ul><p>用時間軸來看，如下圖：</p><p><img src="/images/Management/Hiring/Employee-Lifecycle_v1.1-20181226.png" alt=""></p><p>本系列文章描述的是紅色匡中的 <code>Recruit</code> 部分。</p><p>這些都是管理者必經與面對的過程，這系列招募文是管理工作的其中一塊拼圖。</p><h2 id="Hiring-or-Recruiting"><a href="#Hiring-or-Recruiting" class="headerlink" title="Hiring or Recruiting?"></a>Hiring or Recruiting?</h2><p>招募英文用詞有兩個：Hiring、Recruiting，中文翻譯都是招聘、招募，精準翻譯是：Hiring 是雇用、Recruiting 是招聘、招募。</p><p>兩者的差異在 <a href="https://www.quora.com/What-is-the-difference-between-hiring-and-recruiting" target="_blank" rel="noopener">Quora.com</a> 找到這樣的答案：</p><p>Recruiting Process:</p><blockquote><p>The recruitment phase of the hiring process takes place when the company tries to reach a pool of candidates through job postings, job referrals, advertisements, college campus recruitment, etc. Candidates who respond to these measures then come in for interviews.</p></blockquote><p>Hiring Process</p><blockquote><p>Hiring, on the other hand, is the part of the recruitment process that involves making a decision on the most suited candidate and offering the position to them at a fee.</p></blockquote><p>Recruiting 是還沒開始招聘程序，但是先站在市場的角度，協助目標（淺在招募對象）釐清工作職務、工作參考、建立企業形象廣告 … 等，主要是 HR 的工作。Hiring 則是已經進入職務需求確認，由用人主管確認是否符合需求的過程，簡言之，本系列文的就是了。</p><blockquote><p>動詞：hire 可以和 employ 互用。</p></blockquote><hr><h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul><li><a href="/2015/08/22/Management/Senior-Software-Developer/">Senior Software Developer</a></li><li><a href="/2018/06/13/Management/Role-And-Responsibility/">Role And Responsibility</a></li></ul><h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul><li><a href="https://www.quora.com/What-is-the-difference-between-hiring-and-recruiting" target="_blank" rel="noopener">What is the difference between “hiring” and “recruiting”?</a></li></ul><h2 id="異動紀錄"><a href="#異動紀錄" class="headerlink" title="異動紀錄"></a>異動紀錄</h2><ul><li>2019/01/06: 增加 Hiring or Recruiting 的說明。</li><li>2018/08/20: 初稿</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;今年有很多時間都放在如何作 &lt;code&gt;人力招聘 (Hiring)&lt;/code&gt;，這系列文是整個過程中的心得、想法、遇到的問題。文章是從管理者、用人主管 角度出發，談到如何從需要資源開始、如何向上溝通、與人力資源協作、面試名單從哪裡來、如何面試、如何談薪資、報到之後如何確認符合需求 … 等。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="經營管理" scheme="http://rickhw.github.io/categories/%E7%B6%93%E7%87%9F%E7%AE%A1%E7%90%86/"/>
-    
-    
-      <category term="用人之道" scheme="http://rickhw.github.io/tags/%E7%94%A8%E4%BA%BA%E4%B9%8B%E9%81%93/"/>
-    
-      <category term="Hiring" scheme="http://rickhw.github.io/tags/Hiring/"/>
     
   </entry>
   
