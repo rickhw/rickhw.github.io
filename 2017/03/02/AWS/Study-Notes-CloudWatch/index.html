@@ -226,12 +226,15 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </ol>
 <p>整理出對應到 CloudWatch 的應用，如下圖：</p>
 <p><img src="/images/AWS/CloudWatch/Log-Process-using-CloudWatch.png" alt=""></p>
+<p>底下則是 Data Process Pipeline 常見的 Solutions / Tools: </p>
 <ol>
-<li><code>蒐集 Ingest</code>:<ul>
+<li><code>蒐集 Ingest</code>: <ul>
 <li><code>CloudWatch Agent</code>：安裝在 EC2 或者以 <code>Sidecar</code> 形式包成 Docker，負責蒐集 Log 的</li>
+<li><a href="https://github.com/awslabs/kinesis-agent-windows" target="_blank" rel="noopener">Kinesis Agent</a> for Kinesis Stream, Kinesis Firehose, CloudWatch Logs</li>
 <li><code>awslogs</code>：舊版的 Log Agent，效能比較不佳</li>
 <li>ETL Solutions: AWS Glue、Xplant</li>
 <li>OSS: Fluentd、Logstash、Beats</li>
+<li>架構通常會以 Sidecar 形式寄生在 主應用程式旁邊。</li>
 </ul>
 </li>
 <li><code>儲存 Store</code>: CloudWatch Logs<ul>
@@ -242,7 +245,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li><code>處理 Process / Analyze</code>:<ul>
 <li><code>CloudWatch Filter</code>：分析 CWL 的功能，但只能下簡單的 Filter 條件，複雜的使用</li>
 <li><code>CloudWatch Logs Insight</code>：分析存放在 CWL 的功能，可以下類似 SQL 的查詢，功能類似</li>
-<li>OSS: Elasticsearch、InfluxDB、Prometheus</li>
+<li>OSS: Elasticsearch、InfluxDB、Prometheus、Hadoop/Spark Ecosystem.</li>
 </ul>
 </li>
 <li><code>呈現 Visualize / Action</code>:<ul>
@@ -287,6 +290,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </ul>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
 <li><a href="http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/WhatIsCloudWatch.html" target="_blank" rel="noopener">Amazon CloudWatch » Developer Guide</a></li>
+<li><a href="https://aws.amazon.com/blogs/opensource/amazon-kinesis-agent-microsoft-windows/" target="_blank" rel="noopener">Build More Reliable and Secure Windows Services Using Amazon Kinesis Agent for Microsoft Windows</a></li>
 </ul>
 <h2 id="更新紀錄"><a href="#更新紀錄" class="headerlink" title="更新紀錄"></a>更新紀錄</h2><ul>
 <li>2018/12/25: 重構文章，解構成六篇。</li>
@@ -318,13 +322,13 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <ul class="pagination">
 	 
 				
-    	<li class="prev"><a href="/2017/03/03/AWS/Study-Notes-CloudWatch-for-Monitoring-and-Alarm/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+    	<li class="prev"><a href="/2017/03/02/AWS/Study-Notes-CloudWatch-Core-Functions/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
   		
 
         <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
 
 		
-		   <li class="next"><a href="/2017/03/02/AWS/Study-Notes-CloudWatch-Core-Functions/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+		   <li class="next"><a href="/2017/02/11/AWS/Resource-Provisioning-and-DevOps/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
         
 	
 </ul>

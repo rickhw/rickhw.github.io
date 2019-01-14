@@ -252,11 +252,11 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li><a href="/2018/05/27/DevOps/Emergency-Response-on-Stage/">跨領域的緊急應變 - SRV 斷弦事件</a>：音樂舞台表演看異常事件的處理</li>
 </ul>
 <p>如果你的時間有限、如果你不是技術背景，那麼推薦閱讀這些章節！會讓你有醍醐灌頂的感覺！</p>
-<h2 id="三、工程實踐"><a href="#三、工程實踐" class="headerlink" title="三、工程實踐"></a>三、工程實踐</h2><p>SRE 很強調用 <code>計算機科學</code>、<code>軟體工程</code> 實踐維運工作。書裡 Part 3 具體實踐有一半的章節都在談論這些屬於硬技能的工程實踐，包含了以下：</p>
+<h2 id="三、工程實踐"><a href="#三、工程實踐" class="headerlink" title="三、工程實踐"></a>三、工程實踐</h2><p>SRE 很強調用 <code>計算機科學</code>、<code>軟體工程</code> 實踐維運工作。書裡 Part 3 具體實踐有一半的章節都在談論這些屬於硬技能的工程實踐，特別是 <code>分散式系統 (Distributed Systems)</code>，包含了以下：</p>
 <ul>
 <li>前端伺服器的負載平衡、資料中心內部的附載平衡</li>
 <li>處理系統超載 (QPS, Rate Limit)、處理連鎖反應</li>
-<li>分散式系統：分散式一致化提高可靠性、分散式排成任務、資料處理管線、資料讀寫一致性 (<a href="https://en.wikipedia.org/wiki/CAP_theorem" target="_blank" rel="noopener">CAP theorem</a>)、<a href="/2018/08/11/Architecture/Distributed-Consistency-and-Consensus-Algorithm/">分散式共識</a></li>
+<li>分散式系統：分散式一致化提高可靠性、分散式排程任務、資料處理管線、資料讀寫一致性 (<a href="https://en.wikipedia.org/wiki/CAP_theorem" target="_blank" rel="noopener">CAP theorem</a>)、<a href="/2018/08/11/Architecture/Distributed-Consistency-and-Consensus-Algorithm/">分散式共識</a></li>
 <li>可靠的進行大規模發行 (Launch Coordination Engineers, LCE)</li>
 </ul>
 <p>其中對於 <code>負載平衡 (Load Balancer)</code> 有很多技術、原理的著墨，特別是在 <a href="/2018/06/18/Architecture/Gossip-in-Distributed-Systems/">分散式架構</a> 盛行的年代，很多人不會注意到 <a href="https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing" target="_blank" rel="noopener">分散式系統謬論</a>、<a href="/2018/05/03/AWS/Study-Notes-API-Gateway-Rate-Limit-and-Throttling/">Rate Limit and Throttling</a>、<a href="/2018/08/11/Architecture/Distributed-Consistency-and-Consensus-Algorithm/">分散式共識</a>、<a href="/2018/06/18/Architecture/Distributed-Message-Systems/">Message Bus</a> … 等核心問題。</p>
@@ -302,7 +302,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </blockquote>
 <p>Q2: SRE 要會啥技能？</p>
 <blockquote>
-<p>SRE 也是軟體工程師，他除了需要具備傳統系統工程師 (System Engineer) 的技能之外，同時要具備 <code>軟體開發</code> 的能力。至少會一種 script、一種 compiling language 是基本的，了解基礎的 <code>計算機科學</code> 知識，像是 OS、Algorithm、Data Structure、Computer Architecture、Networking … 都是必要的基礎專業。</p>
+<p>SRE 也是軟體工程師，他除了需要具備傳統系統工程師 (System Engineer) 的技能之外，同時要具備 <code>軟體開發</code> 的能力、分散式系統知識。至少會一種 script、一種 compiling language 是基本的，了解基礎的 <code>計算機科學</code> 知識，像是 OS、Algorithm、Data Structure、Computer Architecture、Networking … 都是必要的基礎專業。</p>
 </blockquote>
 <p>Q3: SRE 跟傳統的 MIS、機房 OP 有什麼差異？</p>
 <blockquote>
@@ -333,7 +333,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </blockquote>
 <p>Q8: 哪裡有 SRE 相關資源以及討論？</p>
 <blockquote>
-<p>Facebook 社群 <a href="https://www.facebook.com/groups/DevOpsTaiwan/" target="_blank" rel="noopener">DevOps Taiwan</a>、<a href="https://www.facebook.com/groups/sre.taiwan/" target="_blank" rel="noopener">Site Reliability Engineering Taiwan</a> 有很多讀書會的資料，目前也正在整理 SRE 讀書會的珍貴資料，敬請期待。</p>
+<p>Facebook 社群 <a href="https://www.facebook.com/groups/DevOpsTaiwan/" target="_blank" rel="noopener">DevOps Taiwan</a>、<a href="https://www.facebook.com/groups/sre.taiwan/" target="_blank" rel="noopener">Site Reliability Engineering Taiwan</a> 有很多讀書會的資料： <a href="https://cross-community.github.io/sre/books/index.html" target="_blank" rel="noopener">SRE 讀書會筆記</a></p>
 </blockquote>
 <hr>
 <h1 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h1><p>知道 SRE 這個又新又潮的詞，是在 2016 年的 <a href="https://www.ithome.com.tw/news/105366" target="_blank" rel="noopener">媒體報導</a> 文章開始，那時候我已經負責系統維運工作一段時間，每天面臨各式各樣系統管理、與維運的任務，處理各式各樣系統異常、寫了 n 篇異常報告，要監控、值班、要管理團隊、要學習 Cloud 相關知識，在這些日常維運的過程，同時因為 <code>DevOps</code> 一詞在社群鋪天蓋地的湧現，各種研討會、新技術如荒洪般的衝向我。這樣的衝擊、經歷，讓我不斷的在思考底下這些問題：</p>
@@ -387,6 +387,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li><a href="https://yq.aliyun.com/articles/582942?utm_content=m_49385" target="_blank" rel="noopener">孙宇聪：来自 Google 的 DevOps 理念及实践</a></li>
 <li><a href="https://www.ithome.com.tw/news/105366" target="_blank" rel="noopener">Google 儲存 SRE 團隊負責人第一手經驗大公開</a> - iTHome</li>
 <li><a href="https://note.drx.tw/2018/07/devops-journey-devops-engineer-sre-jobs.html" target="_blank" rel="noopener">DevOps Engineer、SRE 徵才求職雜談</a> - 凍仁的筆記</li>
+<li><a href="https://cross-community.github.io/sre/books/index.html" target="_blank" rel="noopener">SRE 讀書會筆記</a></li>
 </ul>
 <h2 id="Google-官方資料"><a href="#Google-官方資料" class="headerlink" title="Google 官方資料"></a>Google 官方資料</h2><ul>
 <li><a href="https://www.youtube.com/watch?v=uTEL8Ff1Zvk" target="_blank" rel="noopener">What’s the Difference Between DevOps and SRE?</a></li>
@@ -504,7 +505,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/SRE/" style="color: white">SRE <span class="badge">23</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Consensus/" style="color: white">Distributed Consensus <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Chaos-Engineering/" style="color: white">Chaos Engineering <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/DevOpsDays/" style="color: white">DevOpsDays <span class="badge">1</span></a></span>
+  <span class="label label-success"><a href="/tags/SRE/" style="color: white">SRE <span class="badge">23</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Consensus/" style="color: white">Distributed Consensus <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Chaos-Engineering/" style="color: white">Chaos Engineering <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/DevOpsDays/" style="color: white">DevOpsDays <span class="badge">1</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>

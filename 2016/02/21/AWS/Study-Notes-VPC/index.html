@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Study Notes - Amazon VPC (Virtual Private Cloud) | Complete Think</title>
+  <title>Study Notes - Virtual Private Cloud (VPC) | Complete Think</title>
   <meta name="author" content="Rick Hwang">
   
   <meta name="description" content="整理學習 VPC 的筆記。包含以下：
@@ -15,12 +15,16 @@
 
 
 
-應用場景設計與規劃 Multiple VPCs in Different RegionsAWS VPC 基本上是一個資料中心 (Data Cen">
+
+基本概念與功能分別描述 VPC 核心元件，包含：
+
+Subnet、Route Table
+Internet Gateway、NAT Gatew">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Study Notes - Amazon VPC (Virtual Private Cloud)"/>
+  <meta property="og:title" content="Study Notes - Virtual Private Cloud (VPC)"/>
   <meta property="og:site_name" content="Complete Think"/>
 
   
@@ -182,13 +186,13 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		<!-- @rick, header of article -->
 		<!-- original
 		<div class="page-header">
-			<h1> Study Notes - Amazon VPC (Virtual Private Cloud)</h1>
+			<h1> Study Notes - Virtual Private Cloud (VPC)</h1>
 		</div>
 		-->
 
 		<div class="panel article_title">
 			<div class="panel-heading">
-    		<h1> Study Notes - Amazon VPC (Virtual Private Cloud)</h1>
+    		<h1> Study Notes - Virtual Private Cloud (VPC)</h1>
   		</div>
 		</div>
 
@@ -224,21 +228,97 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li>常見的問答 (FAQ)</li>
 </ul>
 <a id="more"></a>
-<!--
-# 基本概念與功能
-
-## VPC
-
-* 以 Region 為單位
-
-* [設定 VPC Peering and Private DNS using Route53][6]
-
-
-#
-
--->
 <hr>
-<h1 id="應用場景"><a href="#應用場景" class="headerlink" title="應用場景"></a>應用場景</h1><h2 id="設計與規劃-Multiple-VPCs-in-Different-Regions"><a href="#設計與規劃-Multiple-VPCs-in-Different-Regions" class="headerlink" title="設計與規劃 Multiple VPCs in Different Regions"></a>設計與規劃 Multiple VPCs in Different Regions</h2><p>AWS VPC 基本上是一個資料中心 (Data Center) 的概念，所以不管是在雲端還是地端，除了傳統硬體要處理的問題，相關規劃的問題是少不了的。我最常規劃的案例官方文件中的 Scenario 3: <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Scenario3.html" target="_blank" rel="noopener">VPC with Public and Private Subnets and Hardware VPN Access</a>, 也就是包含：</p>
+<p><img src="/images/AWS/VPC/VPC-Training-01.png" alt=""></p>
+<hr>
+<h1 id="基本概念與功能"><a href="#基本概念與功能" class="headerlink" title="基本概念與功能"></a>基本概念與功能</h1><p>分別描述 VPC 核心元件，包含：</p>
+<ul>
+<li>Subnet、Route Table</li>
+<li>Internet Gateway、NAT Gateway、Egress-Only Internet Gateways</li>
+<li>Network ACLs、Security Group</li>
+<li>Elastic IPs (EIP)</li>
+<li>VPC Peering、Inter-Region VPC Peering</li>
+<li>VPC Endpoint、VPC Endpoint Service</li>
+<li>Elastic Network Interfaces (ENI)</li>
+<li>DHCP Options Sets</li>
+<li>DNS</li>
+<li>ClassicLink</li>
+</ul>
+<p>相關概念名詞：</p>
+<ul>
+<li>AWS Account</li>
+<li>Region</li>
+<li>Available Zone - AZ</li>
+<li>On-Prem</li>
+</ul>
+<h2 id="VPC"><a href="#VPC" class="headerlink" title="VPC"></a>VPC</h2><ul>
+<li>虛擬資料中心 (Data Center): VPC 與 VPC 預設彼此是獨立的，無法互通的</li>
+<li>SDN: Software-Defined Network</li>
+<li>以 Region 為單位</li>
+<li><a href="/2016/01/05/AWS/Study-Notes-VPC-Peering/">設定 VPC Peering and Private DNS using Route53</a></li>
+<li>VPC 支援 IPv4, IPv6，VPC CIDR 要符合 RFC1918</li>
+</ul>
+<h2 id="Subnets"><a href="#Subnets" class="headerlink" title="Subnets"></a>Subnets</h2><p>每個 VPC 可以有規劃數個子網域 (Subnet)，注意事項如下：</p>
+<ul>
+<li>每個 Subnet 可以指定在不同的 AZ<ul>
+<li>VPC 裡面的 Subnet 之間預設是互通的</li>
+<li>無法修改 AZ, CIDR 大小</li>
+<li>Subnet 依照路由 (Route Table) 屬性，分成 Public / Private Subnet 兩種</li>
+<li>Subnet 透過 Network ACL 控管</li>
+</ul>
+</li>
+<li>Subnet 規劃<ul>
+<li>Subnet CIDR Space &lt;= VPC CIDR Space</li>
+<li>每個部門都可以有自己的網段 (Subnet)</li>
+<li>每一種 Service Role (DB, Web, Storage, Cache …) 都有自己的 Subnet</li>
+</ul>
+</li>
+</ul>
+<h3 id="Public-Subnet-and-Private-Subnet"><a href="#Public-Subnet-and-Private-Subnet" class="headerlink" title="Public Subnet and Private Subnet"></a>Public Subnet and Private Subnet</h3><p>在 VPC 裡的 Subnet 依照路由目標差異，分成 Public Subnet 與 Private Subnet:</p>
+<ul>
+<li>Public Subnet<ul>
+<li>指的是 subnet 掛的 route table, destination 到 Public Network 走 Internet Gateway</li>
+<li>裡面的機器透過 EIP 出去 / 進來。所以 <strong>這個網段的 Instance 都要有 EIP</strong>.</li>
+<li>通常是開放給外面連線的服務或者網路設備，像是 VPN, Proxy, NAT Instance … etc.</li>
+</ul>
+</li>
+<li>Private Subnet<ul>
+<li>指的是 subnet 掛的 route table, destination 到 Public Network <strong>沒有</strong> 走 Internet Gateway, 而是走 NAT Gateway</li>
+<li>可出去外面，但是外面不可進來，像是走 NAT Gateway 或者是其他 VPN Gateway.</li>
+<li>這個網段不需要有 EIP 就可以出去。</li>
+<li>通常是 DB / Application Server 等內部服務。</li>
+</ul>
+</li>
+</ul>
+<p>參閱： <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html#vpc-subnet-diagram" target="_blank" rel="noopener">Your VPC with Subnets</a></p>
+<h2 id="Route-Table"><a href="#Route-Table" class="headerlink" title="Route Table"></a>Route Table</h2><p>網路的關鍵元件，決定 Subnet 的屬性與封包路徑。</p>
+<h2 id="VPC-Peering"><a href="#VPC-Peering" class="headerlink" title="VPC Peering"></a>VPC Peering</h2><p>不同的 VPC 資料交換的連線方式：</p>
+<ul>
+<li>允許 <code>相同</code> AWS Accounts，相同 Region 互串。</li>
+<li>允許 <code>不同</code> AWS Accounts，相同 Region 互串。</li>
+<li>可以跨 Region 互串，稱為 <code>Inter-region VPC Peering</code>，會有額外的費用與資料交換成本。</li>
+</ul>
+<p>要注意 CIDR 的規劃，不可以碰撞，否則 Routing 會無法到達。</p>
+<h2 id="VPC-Endpoint-and-Service"><a href="#VPC-Endpoint-and-Service" class="headerlink" title="VPC Endpoint and Service"></a>VPC Endpoint and Service</h2><p>AWS 的 Services 都是公開對外的服務，如果 VPC 裡面的服務 (像是 EC2) 要對這些服務存取，他的路由會走 Public Network，有額外的成本與效能問題。</p>
+<p>透過 Endpoint 可以讓這些服務類似於走 Private network (實際上還是 public network)，同時不用計算對外流量的費用。</p>
+<h2 id="Network-ACLs-and-Security-Groups"><a href="#Network-ACLs-and-Security-Groups" class="headerlink" title="Network ACLs and Security Groups"></a>Network ACLs and Security Groups</h2><p>詳細介紹參見：<a href="/2016/07/08/AWS/Security-Groups-And-Network-ACLs/">Security Groups and Network ACLs</a></p>
+<h2 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h2><p>詳細介紹參見： <a href="/2016/10/10/AWS/Migrate-to-AWS-NAT-Gateway/">Migrate to AWS NAT Gateway</a></p>
+<h2 id="Default-VPC-and-Default-Subnet"><a href="#Default-VPC-and-Default-Subnet" class="headerlink" title="Default VPC and Default Subnet"></a>Default VPC and Default Subnet</h2><p>預設的 VPC 與 Subnet，寫程式的時候，如果不指定 VPC 會走這個。無法由使用者自行建立或者指定。</p>
+<hr>
+<h1 id="應用場景"><a href="#應用場景" class="headerlink" title="應用場景"></a>應用場景</h1><h2 id="規劃-VPC-的考慮項目"><a href="#規劃-VPC-的考慮項目" class="headerlink" title="規劃 VPC 的考慮項目"></a>規劃 VPC 的考慮項目</h2><p>規劃 VPC 的考量重點在於 <code>存取管控 (Access Control)</code> 與 <code>資料交換 (Data Transfer)</code> 兩個面向，整理如下：</p>
+<p>存取控管：</p>
+<ul>
+<li>考量公、私網路的規劃，也就是 <code>路由 (Routing)</code></li>
+<li>考慮服務是否讓外部存取，也就是 Public Subnet</li>
+<li>禁止外部存取的內部服務，也就是 Private Subnet</li>
+</ul>
+<p>資料交換：</p>
+<ul>
+<li>則依照存取對象不一樣，有不同的 <code>網路拓墣 (Network Topology)</code> 的規劃。</li>
+<li>主要是 Network ACL、Route Table、以及 VPC Peering、VPN 等</li>
+<li>路由表的管理，包含靜態與動態路由</li>
+</ul>
+<h2 id="設計與規劃-Multiple-VPCs-in-Different-Regions"><a href="#設計與規劃-Multiple-VPCs-in-Different-Regions" class="headerlink" title="設計與規劃 Multiple VPCs in Different Regions"></a>設計與規劃 Multiple VPCs in Different Regions</h2><p>AWS VPC 基本上是一個資料中心 (Data Center) 的概念，所以不管是在雲端還是地端，除了傳統硬體要處理的問題，相關規劃的問題是少不了的。我最常規劃的案例官方文件中的 Scenario 3: <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Scenario3.html" target="_blank" rel="noopener">VPC with Public and Private Subnets and Hardware VPN Access</a>, 也就是包含：</p>
 <ol>
 <li>數個 Public Subnets</li>
 <li>數個 Private Subnets</li>
@@ -248,12 +328,15 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <p>多 AWS 帳號、多 AWS Regions 的規劃與設計，完整筆記參閱：<a href="/2017/07/07/AWS/Plan-And-Deisgn-Multiple-VPCs-in-Different-Regions/">Plan and Design Multiple VPCs in Different Regions</a></p>
 <hr>
 <h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><h2 id="如何將兩個-VPC-串接"><a href="#如何將兩個-VPC-串接" class="headerlink" title="如何將兩個 VPC 串接"></a>如何將兩個 VPC 串接</h2><ul>
-<li>使用 AWS Peering，就可以打通兩個 VPC. see <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-peering.html" target="_blank" rel="noopener">VPC Peering</a></li>
-<li><del>可以跨 AWS Account，但是不能跨 Region</del><ul>
-<li>更新: 2018/02 <a href="https://aws.amazon.com/about-aws/whats-new/2018/02/inter-region-vpc-peering-is-now-available-in-nine-additional-aws-regions/" target="_blank" rel="noopener">Inter-Region VPC Peering is Now Available in Nine Additional AWS Regions</a></li>
+<li>同一個 Region: 使用 AWS Peering，就可以打通兩個 VPC. see <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-peering.html" target="_blank" rel="noopener">VPC Peering</a></li>
+<li>需要跨 Region:<ul>
+<li>Before 2018/02: 可以跨 AWS Account，但是不能跨 Region</li>
+<li>After: 2018/02 <a href="https://aws.amazon.com/about-aws/whats-new/2018/02/inter-region-vpc-peering-is-now-available-in-nine-additional-aws-regions/" target="_blank" rel="noopener">Inter-Region VPC Peering is Now Available in Nine Additional AWS Regions</a></li>
 <li>詳細設定參考這篇筆記：<a href="/AWS/Inter-Region-VPC-Peering/">Inter-Region VPC Peering</a></li>
 </ul>
 </li>
+<li>不管是否同一個 Region，都可以跨 AWS Account</li>
+<li>也可以跨雲，像是與 GPC VPC 串接，參閱：<a href="/2018/04/08/GCP/Building-a-VPN-Between-GCP-and-AWS/">Building a VPN Between GCP and AWS</a></li>
 </ul>
 <h2 id="如何限制-VPC-Peering-之間的存取控制？"><a href="#如何限制-VPC-Peering-之間的存取控制？" class="headerlink" title="如何限制 VPC Peering 之間的存取控制？"></a>如何限制 VPC Peering 之間的存取控制？</h2><p>可以利用以下這方式管控：</p>
 <ul>
@@ -263,29 +346,15 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </ul>
 <p>流程上參考下圖：</p>
 <p><img src="/images/AWS/VPC/VPC-security-diagram.png" alt=""></p>
-<h2 id="VPC-or-Subnet-的-CIDR-Bloakc-Size-可以調整？"><a href="#VPC-or-Subnet-的-CIDR-Bloakc-Size-可以調整？" class="headerlink" title="VPC or Subnet 的 CIDR Bloakc Size 可以調整？"></a>VPC or Subnet 的 CIDR Bloakc Size 可以調整？</h2><p><del>不可以。VPC 和 Subnet 的 CIDR 建立好之後就無法更動。</del></p>
-<p>更新 2017/08/29: VPC CIDR 可以調整了，詳細參閱 <a href="https://aws.amazon.com/about-aws/whats-new/2017/08/amazon-virtual-private-cloud-vpc-now-allows-customers-to-expand-their-existing-vpcs/" target="_blank" rel="noopener">Amazon Virtual Private Cloud (VPC) now allows customers to expand their existing VPCs</a></p>
+<h2 id="VPC-or-Subnet-的-CIDR-Bloakc-Size-可以調整？"><a href="#VPC-or-Subnet-的-CIDR-Bloakc-Size-可以調整？" class="headerlink" title="VPC or Subnet 的 CIDR Bloakc Size 可以調整？"></a>VPC or Subnet 的 CIDR Bloakc Size 可以調整？</h2><ul>
+<li>Before 2017/08: 不可以。VPC 和 Subnet 的 CIDR 建立好之後就無法更動。</li>
+<li>After: 2017/08/29: VPC CIDR 可以調整，詳細參閱 <a href="https://aws.amazon.com/about-aws/whats-new/2017/08/amazon-virtual-private-cloud-vpc-now-allows-customers-to-expand-their-existing-vpcs/" target="_blank" rel="noopener">Amazon Virtual Private Cloud (VPC) now allows customers to expand their existing VPCs</a></li>
+</ul>
 <h2 id="怎麼知道目標會走哪一個-route-table"><a href="#怎麼知道目標會走哪一個-route-table" class="headerlink" title="怎麼知道目標會走哪一個 route table?"></a>怎麼知道目標會走哪一個 route table?</h2><p>看 subnet 設定在哪一個 route table. route table 跟 subnet 關係是一對一，也就是一個 subnet 只允許在一張 route table.</p>
 <h2 id="現有的-EC2-Instance-ENI-可否更換-subnet"><a href="#現有的-EC2-Instance-ENI-可否更換-subnet" class="headerlink" title="現有的 EC2 Instance ENI 可否更換 subnet?"></a>現有的 EC2 Instance ENI 可否更換 subnet?</h2><ul>
 <li>可以更換在同一個 AZ 的 Subnet，不同 AZ 則不可以。</li>
 <li>第一張 Primary NI 不可以 detach.</li>
 </ul>
-<h2 id="AWS-文件常看到-Public-Subnet-amp-Private-Subnet-是什麼意思？"><a href="#AWS-文件常看到-Public-Subnet-amp-Private-Subnet-是什麼意思？" class="headerlink" title="AWS 文件常看到 Public Subnet &amp; Private Subnet 是什麼意思？"></a>AWS 文件常看到 Public Subnet &amp; Private Subnet 是什麼意思？</h2><ul>
-<li>Public Subnet<ul>
-<li>指的是 subnet 掛的 route table, destination 到 Public Network 走 Internet Gateway</li>
-<li>裡面的機器透過 EIP 出去 / 進來。所以 <strong>這個網段的 Instance 都要有 EIP</strong>.</li>
-<li>通常是開放給外面連線的服務或者網路設備，像是 VPN, Proxy, NAT Instance … etc.</li>
-</ul>
-</li>
-<li>Private Subnet:<ul>
-<li>指的是 subnet 掛的 route table, destination 到 Public Network <strong>沒有</strong> 走 Internet Gateway, 而是走 NAT Gateway</li>
-<li>可出去外面，但是外面不可進來，像是走 NAT Gateway 或者是其他 VPN Gateway.</li>
-<li>這個網段不需要有 EIP 就可以出去。</li>
-<li>通常是 DB / Application Server 等內部服務。</li>
-</ul>
-</li>
-</ul>
-<p>參閱： <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html#vpc-subnet-diagram" target="_blank" rel="noopener">Your VPC with Subnets</a></p>
 <h2 id="Network-ACL-和-Security-Group-有什麼不一樣？"><a href="#Network-ACL-和-Security-Group-有什麼不一樣？" class="headerlink" title="Network ACL 和 Security Group 有什麼不一樣？"></a>Network ACL 和 Security Group 有什麼不一樣？</h2><ul>
 <li>Network ACLs:<ul>
 <li>針對 VPC Subnet</li>
@@ -320,22 +389,39 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </ol>
 <h2 id="VPC-NAT-Gateway-是否有單點-SPOF-問題？"><a href="#VPC-NAT-Gateway-是否有單點-SPOF-問題？" class="headerlink" title="VPC NAT Gateway 是否有單點 (SPOF) 問題？"></a>VPC NAT Gateway 是否有單點 (SPOF) 問題？</h2><p>建立 NAT Gateway 時，要選擇 Subnet，就等於表示此 Gateway 在 Subnet 所在的 AZ。如果此 AZ 出問題，Route Table 共用此 Gateway，其他的 AZ 將無法出去。參考：<a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html" target="_blank" rel="noopener">NAT Gateway Basics</a> 以下的描述：</p>
 <pre><code>If you have resources in multiple Availability Zones and they share one NAT gateway, in the event that the NAT gateway’s Availability Zone is down, resources in the other Availability Zones lose Internet access. To create an Availability Zone-independent architecture, create a NAT gateway in each Availability Zone and configure your routing to ensure that resources use the NAT gateway in the same Availability Zone.
-</code></pre><h2 id="Dedicated"><a href="#Dedicated" class="headerlink" title="Dedicated"></a>Dedicated</h2><ul>
+</code></pre><blockquote>
+<p>詳細介紹參見： <a href="/2016/10/10/AWS/Migrate-to-AWS-NAT-Gateway/">Migrate to AWS NAT Gateway</a></p>
+</blockquote>
+<h2 id="Dedicated"><a href="#Dedicated" class="headerlink" title="Dedicated"></a>Dedicated</h2><ul>
 <li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-instance.html" target="_blank" rel="noopener">Dedicated Instances</a></li>
 </ul>
+<h2 id="VPC-Limitation"><a href="#VPC-Limitation" class="headerlink" title="VPC Limitation"></a>VPC Limitation</h2><ul>
+<li>VPC User Guide:<ul>
+<li><a href="https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html" target="_blank" rel="noopener">Amazon VPC Limits</a></li>
+<li><a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-limits" target="_blank" rel="noopener">DNS Limits</a></li>
+</ul>
+</li>
+<li>AWS General Reference: <a href="https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_vpc" target="_blank" rel="noopener">Amazon Virtual Private Cloud (Amazon VPC) Limits</a></li>
+</ul>
 <hr>
-<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
-<li><a href="/2017/07/07/AWS/Plan-And-Deisgn-Multiple-VPCs-in-Different-Regions/">Plan and Design Multiple VPCs in Different Regions</a></li>
-<li><a href="/2016/02/20/AWS/Unknown-ENI-Delete-Action-in-CloudTrial/">Unknown ENI Delete Action in CloudTrial</a></li>
-<li><a href="/2016/01/05/AWS/VPC-Peering/">設定 VPC Peering and Private DNS using Route53</a></li>
+<h1 id="本質"><a href="#本質" class="headerlink" title="本質"></a>本質</h1><p>網路是什麼？ What is Network?</p>
+<p>我的說法是：<code>路由</code>，學 VPC 整個的核心概念與關鍵在於如何控制好路由。</p>
+<p>底下截圖是我的說法：</p>
+<p><img src="/images/AWS/VPC/20171130-route.png" alt=""></p>
+<hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="VPC-相關文章"><a href="#VPC-相關文章" class="headerlink" title="VPC 相關文章"></a>VPC 相關文章</h2><ul>
 <li><a href="/2016/07/08/AWS/Security-Groups-And-Network-ACLs/">Security Groups and Network ACLs</a></li>
 <li><a href="/2016/10/10/AWS/Migrate-to-AWS-NAT-Gateway/">Migrate to AWS NAT Gateway</a></li>
+<li><a href="/2016/01/05/AWS/Study-Notes-VPC-Peering/">Study Notes - VPC Peering and Private DNS using Route53</a></li>
+<li><a href="/2017/07/07/AWS/Plan-And-Deisgn-Multiple-VPCs-in-Different-Regions/">Plan and Design Multiple VPCs in Different Regions</a></li>
+<li><a href="/2016/02/20/AWS/Unknown-ENI-Delete-Action-in-CloudTrial/">Unknown ENI Delete Action in CloudTrial</a></li>
+</ul>
+<h2 id="站內延伸"><a href="#站內延伸" class="headerlink" title="站內延伸"></a>站內延伸</h2><ul>
 <li><a href="/2016/10/01/AWS-Study-Roadmap/">AWS Study Roadmap</a></li>
 <li><a href="/2017/06/22/GCP/Study-Notes_VPC-in-GCP/">Study Notes - VPC in GCP</a></li>
 <li><a href="/2018/04/08/GCP/Building-a-VPN-Between-GCP-and-AWS/">Building a VPN Between GCP and AWS</a></li>
 </ul>
-<hr>
-<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
 <li><a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Security.html" target="_blank" rel="noopener">Security in Your VPC</a></li>
 <li><a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Appendix_NACLs.html" target="_blank" rel="noopener">Recommended Network ACL Rules for Your VPC</a></li>
 <li><a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Scenario3.html" target="_blank" rel="noopener">VPC with Public and Private Subnets and Hardware VPN Access</a></li>
@@ -343,9 +429,10 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li><a href="https://aws.amazon.com/vpc/faqs/" target="_blank" rel="noopener">VPC FAQs</a></li>
 <li><a href="http://www.slideshare.net/gsilverm/aws-vpc-in" target="_blank" rel="noopener">Introduction to AWS VPC, Guidelines, and Best Practices</a></li>
 </ul>
-<h1 id="更新紀錄"><a href="#更新紀錄" class="headerlink" title="更新紀錄"></a>更新紀錄</h1><ul>
-<li>2016/02/21: init</li>
+<h2 id="更新紀錄"><a href="#更新紀錄" class="headerlink" title="更新紀錄"></a>更新紀錄</h2><ul>
+<li>2019/01/14: 重構文章結構</li>
 <li>2016/03/30: 新增 Public Subnet 的描述</li>
+<li>2016/02/21: init</li>
 </ul>
 
 
@@ -423,7 +510,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#應用場景"><span class="toc-article-text">應用場景</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#設計與規劃-Multiple-VPCs-in-Different-Regions"><span class="toc-article-text">設計與規劃 Multiple VPCs in Different Regions</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#FAQ"><span class="toc-article-text">FAQ</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#如何將兩個-VPC-串接"><span class="toc-article-text">如何將兩個 VPC 串接</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#如何限制-VPC-Peering-之間的存取控制？"><span class="toc-article-text">如何限制 VPC Peering 之間的存取控制？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#VPC-or-Subnet-的-CIDR-Bloakc-Size-可以調整？"><span class="toc-article-text">VPC or Subnet 的 CIDR Bloakc Size 可以調整？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#怎麼知道目標會走哪一個-route-table"><span class="toc-article-text">怎麼知道目標會走哪一個 route table?</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#現有的-EC2-Instance-ENI-可否更換-subnet"><span class="toc-article-text">現有的 EC2 Instance ENI 可否更換 subnet?</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#AWS-文件常看到-Public-Subnet-amp-Private-Subnet-是什麼意思？"><span class="toc-article-text">AWS 文件常看到 Public Subnet &amp; Private Subnet 是什麼意思？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Network-ACL-和-Security-Group-有什麼不一樣？"><span class="toc-article-text">Network ACL 和 Security Group 有什麼不一樣？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Private-Subnet-裡的-EC2-突然無法對外連線了？"><span class="toc-article-text">Private Subnet 裡的 EC2 突然無法對外連線了？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Public-Subnet-裡的-EC2-無法對外連線了？"><span class="toc-article-text">Public Subnet 裡的 EC2 無法對外連線了？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#VPC-NAT-Gateway-是否有單點-SPOF-問題？"><span class="toc-article-text">VPC NAT Gateway 是否有單點 (SPOF) 問題？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Dedicated"><span class="toc-article-text">Dedicated</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#更新紀錄"><span class="toc-article-text">更新紀錄</span></a></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#基本概念與功能"><span class="toc-article-text">基本概念與功能</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#VPC"><span class="toc-article-text">VPC</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Subnets"><span class="toc-article-text">Subnets</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Public-Subnet-and-Private-Subnet"><span class="toc-article-text">Public Subnet and Private Subnet</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Route-Table"><span class="toc-article-text">Route Table</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#VPC-Peering"><span class="toc-article-text">VPC Peering</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#VPC-Endpoint-and-Service"><span class="toc-article-text">VPC Endpoint and Service</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Network-ACLs-and-Security-Groups"><span class="toc-article-text">Network ACLs and Security Groups</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#NAT"><span class="toc-article-text">NAT</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Default-VPC-and-Default-Subnet"><span class="toc-article-text">Default VPC and Default Subnet</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#應用場景"><span class="toc-article-text">應用場景</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#規劃-VPC-的考慮項目"><span class="toc-article-text">規劃 VPC 的考慮項目</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#設計與規劃-Multiple-VPCs-in-Different-Regions"><span class="toc-article-text">設計與規劃 Multiple VPCs in Different Regions</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#FAQ"><span class="toc-article-text">FAQ</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#如何將兩個-VPC-串接"><span class="toc-article-text">如何將兩個 VPC 串接</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#如何限制-VPC-Peering-之間的存取控制？"><span class="toc-article-text">如何限制 VPC Peering 之間的存取控制？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#VPC-or-Subnet-的-CIDR-Bloakc-Size-可以調整？"><span class="toc-article-text">VPC or Subnet 的 CIDR Bloakc Size 可以調整？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#怎麼知道目標會走哪一個-route-table"><span class="toc-article-text">怎麼知道目標會走哪一個 route table?</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#現有的-EC2-Instance-ENI-可否更換-subnet"><span class="toc-article-text">現有的 EC2 Instance ENI 可否更換 subnet?</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Network-ACL-和-Security-Group-有什麼不一樣？"><span class="toc-article-text">Network ACL 和 Security Group 有什麼不一樣？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Private-Subnet-裡的-EC2-突然無法對外連線了？"><span class="toc-article-text">Private Subnet 裡的 EC2 突然無法對外連線了？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Public-Subnet-裡的-EC2-無法對外連線了？"><span class="toc-article-text">Public Subnet 裡的 EC2 無法對外連線了？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#VPC-NAT-Gateway-是否有單點-SPOF-問題？"><span class="toc-article-text">VPC NAT Gateway 是否有單點 (SPOF) 問題？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Dedicated"><span class="toc-article-text">Dedicated</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#VPC-Limitation"><span class="toc-article-text">VPC Limitation</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#本質"><span class="toc-article-text">本質</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#VPC-相關文章"><span class="toc-article-text">VPC 相關文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#站內延伸"><span class="toc-article-text">站內延伸</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#更新紀錄"><span class="toc-article-text">更新紀錄</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -453,7 +540,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Route53/" style="color: white">Route53 <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/VPC/" style="color: white">VPC <span class="badge">20</span></a></span> <span class="label label-success"><a href="/tags/Security-Groups/" style="color: white">Security Groups <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Network-ACLs/" style="color: white">Network ACLs <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Public-Subnet/" style="color: white">Public Subnet <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/VPC-Peering/" style="color: white">VPC Peering <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Private-Subnet/" style="color: white">Private Subnet <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/NAT-Gateway/" style="color: white">NAT Gateway <span class="badge">4</span></a></span>
+  <span class="label label-success"><a href="/tags/Route53/" style="color: white">Route53 <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/VPC/" style="color: white">VPC <span class="badge">20</span></a></span> <span class="label label-success"><a href="/tags/Security-Groups/" style="color: white">Security Groups <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Network-ACLs/" style="color: white">Network ACLs <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Public-Subnet/" style="color: white">Public Subnet <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/VPC-Peering/" style="color: white">VPC Peering <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/NAT-Gateway/" style="color: white">NAT Gateway <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Private-Subnet/" style="color: white">Private Subnet <span class="badge">1</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
