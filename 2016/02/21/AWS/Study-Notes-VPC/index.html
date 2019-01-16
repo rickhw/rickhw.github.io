@@ -18,8 +18,8 @@
 
 基本概念與功能分別描述 VPC 核心元件，包含：
 
-Subnet、Route Table
-Internet Gateway、NAT Gatew">
+Subnet、Route Table、Transit Gateways
+Internet ">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -233,7 +233,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <hr>
 <h1 id="基本概念與功能"><a href="#基本概念與功能" class="headerlink" title="基本概念與功能"></a>基本概念與功能</h1><p>分別描述 VPC 核心元件，包含：</p>
 <ul>
-<li>Subnet、Route Table</li>
+<li>Subnet、Route Table、<a href="/2016/07/08/AWS/Security-Groups-And-Network-ACLs/">Transit Gateways</a></li>
 <li>Internet Gateway、NAT Gateway、Egress-Only Internet Gateways</li>
 <li>Network ACLs、Security Group</li>
 <li>Elastic IPs (EIP)</li>
@@ -428,6 +428,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li><a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Security.html" target="_blank" rel="noopener">Comparison of Security Groups and Network ACLs</a></li>
 <li><a href="https://aws.amazon.com/vpc/faqs/" target="_blank" rel="noopener">VPC FAQs</a></li>
 <li><a href="http://www.slideshare.net/gsilverm/aws-vpc-in" target="_blank" rel="noopener">Introduction to AWS VPC, Guidelines, and Best Practices</a></li>
+<li><a href="/2016/07/08/AWS/Security-Groups-And-Network-ACLs/">AWS Transit Gateways</a></li>
 </ul>
 <h2 id="更新紀錄"><a href="#更新紀錄" class="headerlink" title="更新紀錄"></a>更新紀錄</h2><ul>
 <li>2019/01/14: 重構文章結構</li>
@@ -540,7 +541,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Route53/" style="color: white">Route53 <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/VPC/" style="color: white">VPC <span class="badge">20</span></a></span> <span class="label label-success"><a href="/tags/Security-Groups/" style="color: white">Security Groups <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Network-ACLs/" style="color: white">Network ACLs <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Public-Subnet/" style="color: white">Public Subnet <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/VPC-Peering/" style="color: white">VPC Peering <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/NAT-Gateway/" style="color: white">NAT Gateway <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Private-Subnet/" style="color: white">Private Subnet <span class="badge">1</span></a></span>
+  <span class="label label-success"><a href="/tags/Route53/" style="color: white">Route53 <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/VPC/" style="color: white">VPC <span class="badge">20</span></a></span> <span class="label label-success"><a href="/tags/Security-Groups/" style="color: white">Security Groups <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Network-ACLs/" style="color: white">Network ACLs <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Public-Subnet/" style="color: white">Public Subnet <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/NAT-Gateway/" style="color: white">NAT Gateway <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/VPC-Peering/" style="color: white">VPC Peering <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Private-Subnet/" style="color: white">Private Subnet <span class="badge">1</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
