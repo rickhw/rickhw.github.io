@@ -111,6 +111,8 @@
       <category term="SRE" scheme="http://rickhw.github.io/categories/DevOps/SRE/"/>
     
     
+      <category term="Continuous Deployment" scheme="http://rickhw.github.io/tags/Continuous-Deployment/"/>
+    
       <category term="Automation" scheme="http://rickhw.github.io/tags/Automation/"/>
     
       <category term="Artifact Management" scheme="http://rickhw.github.io/tags/Artifact-Management/"/>
@@ -118,8 +120,6 @@
       <category term="Test" scheme="http://rickhw.github.io/tags/Test/"/>
     
       <category term="QA" scheme="http://rickhw.github.io/tags/QA/"/>
-    
-      <category term="Continuous Deployment" scheme="http://rickhw.github.io/tags/Continuous-Deployment/"/>
     
   </entry>
   
@@ -183,15 +183,15 @@
     
       <category term="Provisioning" scheme="http://rickhw.github.io/tags/Provisioning/"/>
     
+      <category term="Continuous Delivery" scheme="http://rickhw.github.io/tags/Continuous-Delivery/"/>
+    
       <category term="SRE" scheme="http://rickhw.github.io/tags/SRE/"/>
     
-      <category term="Continuous Delivery" scheme="http://rickhw.github.io/tags/Continuous-Delivery/"/>
+      <category term="Artifact Management" scheme="http://rickhw.github.io/tags/Artifact-Management/"/>
     
       <category term="Continuous Integration" scheme="http://rickhw.github.io/tags/Continuous-Integration/"/>
     
       <category term="Build" scheme="http://rickhw.github.io/tags/Build/"/>
-    
-      <category term="Artifact Management" scheme="http://rickhw.github.io/tags/Artifact-Management/"/>
     
       <category term="Configuration" scheme="http://rickhw.github.io/tags/Configuration/"/>
     
@@ -301,9 +301,9 @@
       <category term="Computer Science" scheme="http://rickhw.github.io/categories/Computer-Science/"/>
     
     
-      <category term="Networking" scheme="http://rickhw.github.io/tags/Networking/"/>
-    
       <category term="IPv6" scheme="http://rickhw.github.io/tags/IPv6/"/>
+    
+      <category term="Networking" scheme="http://rickhw.github.io/tags/Networking/"/>
     
       <category term="IPv4" scheme="http://rickhw.github.io/tags/IPv4/"/>
     
@@ -367,23 +367,23 @@
       <category term="DevOps" scheme="http://rickhw.github.io/categories/DevOps/"/>
     
     
+      <category term="Microservices" scheme="http://rickhw.github.io/tags/Microservices/"/>
+    
+      <category term="Continuous Delivery" scheme="http://rickhw.github.io/tags/Continuous-Delivery/"/>
+    
+      <category term="Continuous Deployment" scheme="http://rickhw.github.io/tags/Continuous-Deployment/"/>
+    
       <category term="SRE" scheme="http://rickhw.github.io/tags/SRE/"/>
     
       <category term="Distributed Consensus" scheme="http://rickhw.github.io/tags/Distributed-Consensus/"/>
     
-      <category term="Microservices" scheme="http://rickhw.github.io/tags/Microservices/"/>
-    
       <category term="Conway&#39;s Law" scheme="http://rickhw.github.io/tags/Conway-s-Law/"/>
-    
-      <category term="Continuous Delivery" scheme="http://rickhw.github.io/tags/Continuous-Delivery/"/>
-    
-      <category term="Continuous Integration" scheme="http://rickhw.github.io/tags/Continuous-Integration/"/>
     
       <category term="Artifact Management" scheme="http://rickhw.github.io/tags/Artifact-Management/"/>
     
-      <category term="Configuration" scheme="http://rickhw.github.io/tags/Configuration/"/>
+      <category term="Continuous Integration" scheme="http://rickhw.github.io/tags/Continuous-Integration/"/>
     
-      <category term="Continuous Deployment" scheme="http://rickhw.github.io/tags/Continuous-Deployment/"/>
+      <category term="Configuration" scheme="http://rickhw.github.io/tags/Configuration/"/>
     
       <category term="Version Control" scheme="http://rickhw.github.io/tags/Version-Control/"/>
     

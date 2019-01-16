@@ -233,7 +233,12 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </ul>
 <p>再舉一個例子 kops 的安裝</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># See: https://github.com/kubernetes/kops</span></span><br><span class="line">curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d <span class="string">'"'</span> -f 4)/kops-linux-amd64</span><br></pre></td></tr></table></figure>
-<p>概念則是透過 github <a href="https://developer.github.com/v3/repos/releases/" target="_blank" rel="noopener">release api</a> 取得 Artifact Meta (後述)，然後取得關鍵的資訊，例如 tag 名稱，也就是版本。</p>
+<p>概念則是透過 github <a href="https://developer.github.com/v3/repos/releases/" target="_blank" rel="noopener">release api</a> 取得 Artifact Meta (後述)，然後取得關鍵的資訊，例如 tag 名稱，也就是版本。底下是取得 Release Info 的例子：</p>
+<ul>
+<li>kubernetes: <a href="https://api.github.com/repos/kubernetes/kubernetes/releases/latest" target="_blank" rel="noopener">https://api.github.com/repos/kubernetes/kubernetes/releases/latest</a></li>
+<li>vscode: <a href="https://api.github.com/repos/microsoft/vscode/releases/latest" target="_blank" rel="noopener">https://api.github.com/repos/microsoft/vscode/releases/latest</a></li>
+<li>aws-go-sdk: <a href="https://api.github.com/repos/aws/aws-sdk-go/releases/latest" target="_blank" rel="noopener">https://api.github.com/repos/aws/aws-sdk-go/releases/latest</a></li>
+</ul>
 <p>這些概念基本上都是： <code>Learning from Open Source</code></p>
 <hr>
 <h1 id="定義"><a href="#定義" class="headerlink" title="定義"></a>定義</h1><p><code>Artifact</code> 中文翻譯成 <code>產出物</code>，在以前 <a href="https://en.wikipedia.org/wiki/Release_engineering" target="_blank" rel="noopener">Release Engineering</a> 慣稱為 Build、Image，主要就是 Source Code 經過 <code>編譯 (Compile)</code>、<code>打包 (Packing)</code> 最後的產出物。不管是什麼樣的語言，大致上都要經過這個過程。要注意的是，這個過程產出的東西，不包含 <code>Configuration</code>、<code>Settings</code> 之類的東西，有也只是 Templates、Sample。</p>
