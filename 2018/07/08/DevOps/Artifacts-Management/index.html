@@ -239,7 +239,9 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li>vscode: <a href="https://api.github.com/repos/microsoft/vscode/releases/latest" target="_blank" rel="noopener">https://api.github.com/repos/microsoft/vscode/releases/latest</a></li>
 <li>aws-go-sdk: <a href="https://api.github.com/repos/aws/aws-sdk-go/releases/latest" target="_blank" rel="noopener">https://api.github.com/repos/aws/aws-sdk-go/releases/latest</a></li>
 </ul>
-<p>這些概念基本上都是： <code>Learning from Open Source</code></p>
+<p>再舉一個例子是 docker 的安裝，也是一行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://get.docker.com/ | sh</span><br></pre></td></tr></table></figure>
+<p>這些概念基本上都是： <code>Learning from Open Source Software</code></p>
 <hr>
 <h1 id="定義"><a href="#定義" class="headerlink" title="定義"></a>定義</h1><p><code>Artifact</code> 中文翻譯成 <code>產出物</code>，在以前 <a href="https://en.wikipedia.org/wiki/Release_engineering" target="_blank" rel="noopener">Release Engineering</a> 慣稱為 Build、Image，主要就是 Source Code 經過 <code>編譯 (Compile)</code>、<code>打包 (Packing)</code> 最後的產出物。不管是什麼樣的語言，大致上都要經過這個過程。要注意的是，這個過程產出的東西，不包含 <code>Configuration</code>、<code>Settings</code> 之類的東西，有也只是 Templates、Sample。</p>
 <blockquote>
