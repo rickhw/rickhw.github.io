@@ -257,10 +257,13 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li>外部的人：像是交付給其他合作夥伴自行部署<ul>
 <li>遊戲產業很常是韓國負責開發，台灣則維運。</li>
 <li>整併的組織，權責移交</li>
+<li>新業務需求部署</li>
+<li>給客戶使用的沙箱環境</li>
 </ul>
 </li>
+<li>災難還原</li>
 </ul>
-<p>Artifact 在開發過程會出現的案例：</p>
+<p>在開發過程會出現的問題案例：</p>
 <blockquote>
 <p>測試測出問題，去跟開發講，開發說我找找。結果偷偷在 local 改了 code，然後跟測試說沒問題。</p>
 </blockquote>
@@ -270,6 +273,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li>Dev 根據回報的內容復現問題</li>
 </ol>
 <p>因為 Artifact Meta 會包含像是 git hashcode, branch, version, datetime 等資訊，可以讓雙方精準溝通，而不會有雞同鴨講的狀況。詳細參閱 <a href="/2018/03/18/SQA/How-To-Report-A-Defect-or-Bug/">如何有效的回報問題 (How to Report Problems Effectively)</a></p>
+<p>所以簡單說，透過 Artifact <code>解偶 (decouple)</code> 整個 pipeline，讓需要的角色可以獨立作業。如果 pipeline 只能是一件部署，而沒有其他的選擇，那麼表示部署流水線是沒有任何彈性的，換言之，部署的主動性只有開發團隊有，其他人都無法自主，造成的現象就是 <code>強耦合 (couple)</code>，當有第二、第三環境要部署的時候，就要重新 Pull Code、Build … 實際上是沒有意義的。</p>
 <h2 id="Artifact-Types"><a href="#Artifact-Types" class="headerlink" title="Artifact Types"></a>Artifact Types</h2><p>Artifacts 類型很多，整理如下：</p>
 <ul>
 <li><code>Application Build</code>: 也就是一般開發者寫的應用程式產出物，可能是透過:<ul>
@@ -291,6 +295,9 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </li>
 </ul>
 <p>這些 Artifacts 實際上基於一些因素，像是資安、維運效率化、一致性、部署等因素，需要納管、受控。</p>
+<blockquote>
+<p>具備一定規模的企業，都會有私有的 Artifact Repository，甚至把 Open Source 都複製一份，內部修改過後，檢查資安、安規、移除不必要的依賴，重新 Build 提供 Binary ，並規定只能使用這樣的版本。</p>
+</blockquote>
 <h2 id="Artifact-Metadata"><a href="#Artifact-Metadata" class="headerlink" title="Artifact Metadata"></a>Artifact Metadata</h2><p>Artifact 必須包含以下這些重要的資訊 (Metadata)，讓其他人、或者程式可以串接：</p>
 <ul>
 <li><code>AppName</code>：應用程式名稱</li>
@@ -308,6 +315,9 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </ul>
 <p>這些資訊是之後持續整合的關鍵資料，不管是自動化測試、還是部署、還是交付給其他單位。相關例子參閱：<a href="/2015/02/11/SoftwareEngineering/Version-Control/">Version Control</a>。如果要自動化串接，則可以提供 API，像是 github 的 <a href="https://developer.github.com/v3/repos/releases/" target="_blank" rel="noopener">Release API</a></p>
 <!-- 下圖是我過往某個專案 Artifacts 的結構： -->
+<blockquote>
+<p>相關參閱 <a href="/2015/02/11/SoftwareEngineering/Version-Control/">Version Control</a></p>
+</blockquote>
 <h2 id="產出物的存放"><a href="#產出物的存放" class="headerlink" title="產出物的存放"></a>產出物的存放</h2><p>Artifact 盡可能集中儲存在 Storage Services，讓需要的人透過身份驗證可以自行存取。</p>
 <p>這個存放空間通常會規劃底下結構：</p>
 <ul>
@@ -401,6 +411,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 -->
 <!-- AWS 相關工具，像是 [CodeDeploy][2]、CloudFormation、SAM 都可以部署，但是這些工具都有個前提：Artifact 已經完備。 -->
 <h2 id="SaaS-平台-Updated-2019-01-18"><a href="#SaaS-平台-Updated-2019-01-18" class="headerlink" title="SaaS 平台 (Updated: 2019/01/18)"></a>SaaS 平台 (Updated: 2019/01/18)</h2><p>下圖是 2018/07/24 我在 FB 上隨機問的小題目，這樣的條件是我定義的 <code>產品服務化</code> 的基本要素。而問這問題目的就是想了解大家對於 <code>持續交付</code> 的想像與應用，而這個題目就可直接創造出有意義的價值，交付價值的最大化，而要做到這一步的基本條件就是 Artifact Management 要做好。</p>
+<p>符合這樣的產品很多，AWS 的 SaaS 都是，像是 ElastiCache、RDS，外面的產品像是 CloudAMQP、一些 Wordpress 的 Provider 都是。</p>
 <p>PS: 圖中文字的 PaaS 應該更正為 SaaS</p>
 <p><img src="/images/DevOps/Artifacts-Management/20180724-SaaS.png" alt=""></p>
 <hr>
