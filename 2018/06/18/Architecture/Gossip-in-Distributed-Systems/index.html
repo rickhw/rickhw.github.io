@@ -211,9 +211,13 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		    <p>整理資料，回顧之前寫的東西，常常覺得這些就是要不斷地拿出來提，特別是分散式系統 (Distributed Systems) 已經是現代架構的常態，他就跟組織一樣，要面對各式各樣 <code>依賴性</code>、<code>內外聚合</code>、<code>可控性</code>、<code>可治理</code>、<code>可觀測</code>、<code>網路拓墣</code>、<code>效能</code>、<code>快取</code>、<code>錯誤處理</code> … 等問題，這些問題不只可以對應到系統，也可以對應到人、組織 (<code>康威定律</code>)。</p>
 <a id="more"></a>
 <hr>
-<h1 id="分散式系統的問題"><a href="#分散式系統的問題" class="headerlink" title="分散式系統的問題"></a>分散式系統的問題</h1><ul>
-<li>Design Pattern 與分散式架構：請參考 <a href="/2018/06/18/Architecture/Design-Patterns-for-Distributed-Systems/">Design Patterns for Distributed Systems</a></li>
-<li>分散式系統的核心議題：<a href="/2018/08/11/Architecture/Distributed-Consistency-and-Consensus-Algorithm/">分散式一致性問題與共識演算法</a></li>
+<h1 id="分散式系統的問題"><a href="#分散式系統的問題" class="headerlink" title="分散式系統的問題"></a>分散式系統的問題</h1><p>分散式系統相對的就是集中式系統，代表的是 IBM 的大型主機 (Mainframe)，像是 z/System、z/OS 系列。分散式系統相對於大型主機的好處，主要在於可擴展性佳、高容錯性、高冗余、可以承載高容量的業務量，但是這些優點背後也是有很大的代價的，整理如下：</p>
+<ul>
+<li><a href="/2018/08/11/Architecture/CAP-Theorem/">CAP Theorem</a></li>
+<li>核心議題：<a href="/2018/08/11/Architecture/Distributed-Consistency-and-Consensus-Algorithm/">分散式一致性問題與共識演算法</a></li>
+<li>分散式系統的謬論 (Fallacies of distributed computing)</li>
+<li>通訊問題：<a href="/2018/06/18/Architecture/Distributed-Message-Systems/">Distributed Message Systems</a></li>
+<li><a href="/2018/06/18/Architecture/Design-Patterns-for-Distributed-Systems/">Design Patterns for Distributed Systems</a></li>
 </ul>
 <hr>
 <h2 id="分散式系統的謬論-Fallacies-of-distributed-computing"><a href="#分散式系統的謬論-Fallacies-of-distributed-computing" class="headerlink" title="分散式系統的謬論 (Fallacies of distributed computing)"></a>分散式系統的謬論 (Fallacies of distributed computing)</h2><p>計算計科學家 Peter Deutsch 在九零年代就提出 <a href="https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing" target="_blank" rel="noopener">Fallacies of distributed computing (分散式系統的謬論)</a>，點出以下容易被忽略、或者輕忽的觀點：</p>
@@ -315,6 +319,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li><a href="/2018/06/18/Architecture/Distributed-Message-Systems/">Distributed Message Systems</a></li>
 <li><a href="/2018/06/13/Architecture/What-Software-Architecture-Do/">軟體架構做什麼？</a></li>
 <li><a href="/2018/02/06/Architecture/Service-Mesh/">Service Mesh</a></li>
+<li><a href="/2018/08/11/Architecture/CAP-Theorem/">CAP Theorem</a></li>
 <li><a href="/2018/01/24/AWS/Study-Notes-Overview-API-Gateway/">Overview API Gateway</a></li>
 <li><a href="/2016/03/21/AWS/Whitepaper-Architecting-for-the-Cloud-AWS-Best-Practices/">Whitepaper - Architecting for the Cloud (AWS Best Practices)</a></li>
 <li><a href="/2018/05/12/SQA/Designing-Test-Architecture-and-Framework/">Designing Test Architecture and Framework</a></li>
@@ -374,13 +379,13 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <ul class="pagination">
 	 
 				
-    	<li class="prev"><a href="/2018/06/18/Architecture/Design-Patterns-for-Distributed-Systems/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+    	<li class="prev"><a href="/2018/06/19/Management/Face-the-Real-World/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
   		
 
         <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
 
 		
-		   <li class="next"><a href="/2018/06/18/Architecture/Distributed-Message-Systems/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+		   <li class="next"><a href="/2018/06/18/Architecture/Design-Patterns-for-Distributed-Systems/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
         
 	
 </ul>
