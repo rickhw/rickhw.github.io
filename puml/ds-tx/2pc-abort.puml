@@ -1,0 +1,31 @@
+@startuml
+
+Coordinator -> Coordinator : 0. create transaction (tid)
+
+group phase 1: voting
+    Coordinator -> ParticipantA : 1. prepareTaskA(tid) - canCommit?
+    activate ParticipantA
+    Coordinator -> ParticipantB : 1. prepareTaskB(tid) - canCommit?
+    activate ParticipantB
+
+    ParticipantA --> Coordinator : 2. prepared - canCommit?
+    deactivate ParticipantA
+    ParticipantB --> Coordinator : 2. <font color=red>failed</font>
+    deactivate ParticipantB
+end
+
+group phase 2: commit
+    Coordinator -> ParticipantA : commitA(tid)
+    activate ParticipantA
+    Coordinator -> ParticipantB : <font color=red>abort(tid)</font>
+    activate ParticipantB
+
+    ParticipantA --> Coordinator : done
+    deactivate ParticipantA
+    ParticipantB --> Coordinator : done
+    deactivate ParticipantB
+end
+
+Coordinator -> Coordinator : end of transaction (tid)
+
+@enduml

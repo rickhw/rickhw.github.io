@@ -1,0 +1,46 @@
+@startuml
+robust "Semaphore" as SP
+concise "Thread 0" as T0
+concise "Thread 1" as T1
+concise "Thread 2" as T2
+concise "Thread 3" as T3
+concise "Thread 4" as T4
+SP has 2,1,0
+
+@+0
+SP is 0
+T4 is INIT
+T3 is INIT
+T0 is INIT
+T2 is INIT
+T1 is INIT
+
+@+5
+T0 is ENTERD
+
+@+6
+T1 is ENTERD
+SP is 0
+SP is 2
+SP is 1
+T2 is ENTERD
+T1 is EXITED
+T3 is ENTERD
+T0 is EXITED
+
+@+12
+SP is 2
+SP is 1
+T2 is EXITED
+T4 is ENTERD
+
+@+15
+T3 is EXITED
+SP is 1
+
+@+19
+SP is 0
+T4 is EXITED
+
+
+@enduml

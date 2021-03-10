@@ -1,0 +1,747 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>摘要密碼學與資訊安全 | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="整理一些 密碼學 (Cryptography) 與 資訊安全 (Information Security) 的專有名詞、重要概念、密碼學演算法、應用協議、資訊安全概念，主要資料都參考自 Wikipedia。
+
+
+本文非一次性整理，相關筆記漸進式整理上來。
+本文只是個人學習的梳理，可能有誤，如有建議歡">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="摘要密碼學與資訊安全"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/2020/03/07/ComputerScience/Cryptography/"/>
+  <meta property="og:image" content="/images/ComputerScience/Network-Security-Essentials.jpg" />
+  
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-71839551-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>21</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>14</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>7</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>10</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>24</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>6</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>50</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>11</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> 摘要密碼學與資訊安全</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> 摘要密碼學與資訊安全</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+		
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2020%2F03%2F07%2FComputerScience%2FCryptography%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/2020/03/07/ComputerScience/Cryptography/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+
+				<hr />
+
+				<p>整理一些 <a href="https://zh.wikipedia.org/zh-tw/%E5%AF%86%E7%A0%81%E5%AD%A6" target="_blank" rel="noopener">密碼學 (Cryptography)</a> 與 <a href="https://en.wikipedia.org/wiki/Information_security" target="_blank" rel="noopener">資訊安全 (Information Security)</a> 的專有名詞、重要概念、密碼學演算法、應用協議、資訊安全概念，主要資料都參考自 Wikipedia。</p>
+<blockquote>
+<ul>
+<li>本文非一次性整理，相關筆記漸進式整理上來。</li>
+<li>本文只是個人學習的梳理，可能有誤，如有建議歡迎給予指導，感謝。</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+<hr>
+<h1 id="一、專有名詞與重要概念"><a href="#一、專有名詞與重要概念" class="headerlink" title="一、專有名詞與重要概念"></a>一、專有名詞與重要概念</h1><p>專有名詞的寫法統一格式：<code>縮寫, 英文原文 - 中文翻譯</code></p>
+<ul>
+<li>cryptography: 密碼學</li>
+<li>cryptographic algorithms: 加密演算法<ul>
+<li>symmetric encryption: 對稱式加密</li>
+<li>asymmetric encryption: 非對稱式加密, 一對金鑰，分別是 <code>Private Key (私鑰)</code> 以及 <code>Public Key (公鑰)</code></li>
+</ul>
+</li>
+<li>encrypt: 加密</li>
+<li>decrypt: 解密</li>
+<li>key: 一般來說都翻譯成 <code>金鑰</code>，類似於真實世界的鑰匙概念。</li>
+<li>plaintext: 明文, 尚未經過加密處理的原始資料。</li>
+<li>ciphertext: 密文, 明文經過加密演算法所產生的</li>
+<li>digital signature: 數位簽章<ul>
+<li>DSA, Digital Signature Algorithm 數位簽章演算法</li>
+</ul>
+</li>
+<li>OTP, one-time pad 一次性密碼</li>
+<li>brute-force attacks 暴力攻擊</li>
+</ul>
+<h2 id="Public-Key-Infrastructure-PKI"><a href="#Public-Key-Infrastructure-PKI" class="headerlink" title="Public Key Infrastructure, PKI"></a>Public Key Infrastructure, PKI</h2><p>Public Key Infrastructure, PKI, <a href="https://zh.wikipedia.org/zh-tw/%E5%85%AC%E9%96%8B%E9%87%91%E9%91%B0%E5%9F%BA%E7%A4%8E%E5%BB%BA%E8%A8%AD" target="_blank" rel="noopener">公開金鑰基礎建設</a>: 又稱公開金鑰基礎架構、公鑰基礎建設、公鑰基礎設施、公開密碼匙基礎建設或公鑰基礎架構，是一組由硬體、軟體、參與者、管理政策與流程組成的基礎架構，其目的在於創造、管理、分配、使用、儲存以及復原 <code>數位憑證</code>。</p>
+<p>簡單說，PKI 的目的是：</p>
+<blockquote>
+<p>如何確認我拿到的 Public Key 真的是對方發的 Public Key？</p>
+</blockquote>
+<p>由以下成分組成：</p>
+<ul>
+<li>用戶: 使用 PKI 的人或機構</li>
+<li>CA (Certification Authority, <a href="https://zh.wikipedia.org/zh-tw/%E8%AF%81%E4%B9%A6%E9%A2%81%E5%8F%91%E6%9C%BA%E6%9E%84" target="_blank" rel="noopener">認證機構</a>): 頒發憑證的人或機構</li>
+<li>Repository: 儲存憑證 (Certificate) 的資料庫</li>
+</ul>
+<h2 id="Public-Key-Certificate"><a href="#Public-Key-Certificate" class="headerlink" title="Public Key Certificate"></a>Public Key Certificate</h2><p><a href="https://en.wikipedia.org/wiki/Public_key_certificate" target="_blank" rel="noopener">Public Key Certificate</a> <a href="https://zh.wikipedia.org/zh-tw/%E5%85%AC%E9%96%8B%E9%87%91%E9%91%B0%E8%AA%8D%E8%AD%89" target="_blank" rel="noopener">公開金鑰認證</a>, 又稱 <code>數位憑證 (Digital Certificate</code>）或 <code>身份憑證（Identity Certificate)</code>。用來證明擁有 <code>公開金鑰</code> 的身份數位識別，這個識別裡必須包含 <code>公鑰資訊</code>、<code>擁有者身份</code>、<code>數為憑證認證機構</code>，也就是 (用戶 Public Key + 識別資訊) + (CA Public Key) + CA 資訊</p>
+<ul>
+<li>電子憑證的儲存形式，常見的有兩種：<ul>
+<li>PEM：全名 <code>Privacy Enhance Mail</code>，ASCII 使用 Base64 編碼後的憑證。</li>
+<li>DER：全名 <code>Distinguished Encoding Rules</code>，二進位編碼的憑證，通常以 <code>.cer</code>、<code>.crt</code>、<code>.der</code> 檔案出現。</li>
+</ul>
+</li>
+<li>把憑證跟私鑰一起儲存，則使用 <code>PKCS#12 (.p12)</code> 格式</li>
+<li>憑證種類：自簽憑證、根憑證、中介憑證、授權憑證、終端實體憑證 (TLS 伺服器憑證、萬用字元憑證、TLS 客戶端憑證)</li>
+<li><code>X.509</code>：一種廣泛使用的憑證標準格式，v3 的標準是 RFC 5280<ul>
+<li>CSR: <code>Certificate Signing Request</code> 憑證簽章請求</li>
+</ul>
+</li>
+</ul>
+<h3 id="Process-of-Digital-Certificate"><a href="#Process-of-Digital-Certificate" class="headerlink" title="Process of Digital Certificate"></a>Process of Digital Certificate</h3><p>下圖是數位簽章的工作流程，分成兩個部分：</p>
+<p><img src="/images/ComputerScience/SSL/ProcessOfDigitialCertificate.png" alt=""></p>
+<p>上圖左邊 Sender 的部分，也就是想要傳送資料的人，步驟如下：</p>
+<ol>
+<li>Sender 使用雜湊演算法 (Hashing algorithms)，計算待傳送資料 (Data) 的雜湊值 (Hash)<ul>
+<li>常見的 <a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function" target="_blank" rel="noopener">雜湊演算法</a>：MD5、SHA-family</li>
+<li>可以透過 <code>openssl dgst -h</code> 找到相關的演算法。</li>
+<li>這個雜湊值也稱為 <code>指紋 (Fingerprint)</code></li>
+</ul>
+</li>
+<li>Sender 用自己的 <code>私鑰 (PrivateKey)</code> 對步驟 1) 的 Fingerprint 進行加密，產生 <code>簽章 (Signature)</code><ul>
+<li>這個動作叫做 <code>簽名 (Signing)</code>，用來代表證明是 Sender 送過去的 <code>認證</code></li>
+</ul>
+</li>
+<li>Sender 將 (簽章和原始資料) 寄給 Receiver.<ul>
+<li>Sender 應該要透過其他方式，對其他人 (包含 Receiver) 公開公鑰 (PublicKey)</li>
+<li>Data + Signature 稱為 <code>數位簽章資料（Digitally signed data）</code></li>
+</ul>
+</li>
+</ol>
+<p>這個過程用 <code>openssl</code> 範例如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 原始資料 (Data)</span></span><br><span class="line">❯ cat Service.manifest</span><br><span class="line"></span><br><span class="line">service-id: gt.shorturl</span><br><span class="line">service-owner: rickhwang@abc.com</span><br><span class="line">service-init: 2020/01/22</span><br><span class="line"></span><br><span class="line"><span class="comment"># 取得資料的指紋 (Fingerprint)，範例使用雜揍演算法為 SHA1</span></span><br><span class="line"><span class="comment">## 註：MD5 / SHA1 已經都被證實會產生碰撞造成不安全</span></span><br><span class="line">❯ openssl dgst -sha1 Service.manifest</span><br><span class="line">SHA1(Service.manifest)= b3903ad5463fb72f5bad31088c43aae76fe4ce4c</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 透過 OpenSSL，使用 Private Key 與 sha1 簽一份檔案，產生簽章</span></span><br><span class="line"><span class="comment">## 一次完成步驟 1), 2) </span></span><br><span class="line">openssl dgst -sha1 \</span><br><span class="line">    -sign serviceA-rsa-4096bit.private.pem \</span><br><span class="line">    -out Service.manifest.sha1 \</span><br><span class="line">    Service.manifest</span><br><span class="line"></span><br><span class="line">❯ cat Service.manifest.sha1</span><br><span class="line">S~�h�s</span><br><span class="line">      W�۳|2&#123;</span><br><span class="line">            ���~m�c�B�3�<span class="built_in">fc</span>��n�B�s�ܭX���]v=1[�E=�&#123;��ӭ�Cdg%���2 0���R</span><br><span class="line">Sb��O�p�w�</span><br><span class="line">	qB|a�Ĺ�Ƌ��!�&gt;&#123;�^,��8�oDc</span><br><span class="line"></span><br><span class="line"><span class="comment">## 轉 Base64</span></span><br><span class="line">❯ cat Service.manifest.sha1 | openssl enc -base64 \</span><br><span class="line">    -out Service.manifest.sha1.enc</span><br><span class="line"></span><br><span class="line">❯ cat Service.manifest.sha1.enc</span><br><span class="line">R15c71gPo/y8fhuJNFMrMHEMuOZ4SVYHlYvm2TWCJgoHoOsK+5+EsnmNbKk1eNFY</span><br><span class="line">xZsREPZbR549dMtPStJ+2/1OoTfrIWfrNM0lmEFCNqC1a8XiuM3BerUx1HAbwC0u</span><br><span class="line">... </span><br><span class="line">/OKSfK1/l2DMLXl1hafMzB3pHQiymkBLa0ZescTVD1t7BSfau08bu/aBvRHxbefS</span><br><span class="line">Xn46kKqkIhdlnOObWMQEjC1cuSXMg3N4chmuLAD4R1c=</span><br></pre></td></tr></table></figure>
+<p>寫成 psudo code 大概長這樣：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Fingerprint = Hash(Data, HashFunction);</span><br><span class="line">Signature = Signing(Fingerprint, PrivateKey);</span><br><span class="line">send (Signature, Certificate);</span><br></pre></td></tr></table></figure>
+<p>上圖右邊 Receiver 的部分，接收到資料後，確認是 Sender 寄來的過程：</p>
+<ol>
+<li>Receiver 會收到 Sender 寄來的 Data + Signature 兩個東西。</li>
+<li>Receiver 首先透過 Sender 對外公開的公鑰 (PublicKey) 對簽章進行解密，取得 Sender 簽名之前就計算好的 HashCode (Fingerprint)</li>
+<li>Receiver 使用跟 Sender 相同的 Hash 演算法計算出原始資料 (Data) 的 Hash 值<ul>
+<li>Sender 使用的演算法是簽章中的明文資訊，Receiver 可以從中得知</li>
+</ul>
+</li>
+<li>Receiver 比較前兩步驟中得出的 Hash 值，兩者一樣，則驗證成功，反之則失敗</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Receiver 取得 PublicKey 及 Service.manifest.sha1 簽章檔，</span></span><br><span class="line"><span class="comment"># 驗證檔案確實是由 Sender 所簽發出的</span></span><br><span class="line">openssl dgst -sha1 \</span><br><span class="line">    -verify serviceA-rsa-4096bit.public.pem \</span><br><span class="line">    -signature Service.manifest.sha1 \</span><br><span class="line">    Service.manifest</span><br><span class="line">Verified OK</span><br></pre></td></tr></table></figure>
+<p>同樣的用 psudo code 表示這段：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">DigitallySingedData = (Signature, Certificate);</span><br><span class="line"></span><br><span class="line">PublicKey = Certificate?.GetPublicKey();</span><br><span class="line">HashFunctionName = Certificate?.GetHashFunction();</span><br><span class="line"></span><br><span class="line">DataHash = Hash(Data, HashFunctionName)</span><br><span class="line">SignatureHash = Decrypt(Signature, PublicKey)</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> (DataHash == SignatureHash);</span><br></pre></td></tr></table></figure>
+<p>數位簽章滿足密碼學以下的特性：</p>
+<ul>
+<li><code>Integrity (完整性)</code>：確認檔案沒有在傳輸過程中遭到竄改</li>
+<li><code>Authentication (認證)</code>：Receiver 透過公鑰 (PublicKey) 驗證收到的訊息是否真的是 Sender 本人送過來的。</li>
+<li><code>Non-repudiation (不可否定性)</code>：Sender 無法否定對於其所寄出的訊息的所有權 (Ownership)，因為其私鑰已經參與在產生簽章的過程中了，且此私鑰是只有該持有人才知道的。</li>
+</ul>
+<p>數位簽章常見的應用：</p>
+<ul>
+<li>TLS/SSL</li>
+<li>JWT</li>
+</ul>
+<h2 id="Cryptographic-Hash-Function"><a href="#Cryptographic-Hash-Function" class="headerlink" title="Cryptographic Hash Function"></a>Cryptographic Hash Function</h2><p><a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function" target="_blank" rel="noopener">Cryptographic Hash Function</a> 密碼雜湊函式: 又譯為 <code>加密雜湊函式</code>、<code>密碼雜湊函式</code>、<code>加密雜湊函式</code>，是 <a href="https://en.wikipedia.org/wiki/Hash_function" target="_blank" rel="noopener">雜湊函式</a> 的一種。它被認為是一種單向函式，也就是說極其難以由雜湊函式輸出的結果，回推輸入的資料是什麼。這樣的 <code>單向函式</code> 被稱為「現代密碼學的馱馬」。</p>
+<hr>
+<h1 id="二、密碼學"><a href="#二、密碼學" class="headerlink" title="二、密碼學"></a>二、密碼學</h1><ol>
+<li>Symmetric-key Algorithm 對稱式演算法</li>
+<li>Asymmetric Cryptography 非對稱式密碼學</li>
+</ol>
+<h2 id="Symmetric-key-Algorithm-對稱式演算法"><a href="#Symmetric-key-Algorithm-對稱式演算法" class="headerlink" title="Symmetric-key Algorithm (對稱式演算法)"></a>Symmetric-key Algorithm (對稱式演算法)</h2><p>也稱 <code>Symmetric-key Cryptography (對稱金鑰密碼學)</code></p>
+<ul>
+<li>DES (Data Encryption Standard)</li>
+<li>3DES</li>
+<li>AES</li>
+<li>Blowfish</li>
+<li>IDEA</li>
+<li>RC5</li>
+<li>RC6</li>
+</ul>
+<h2 id="Asymmetric-Cryptography-非對稱式密碼學"><a href="#Asymmetric-Cryptography-非對稱式密碼學" class="headerlink" title="Asymmetric Cryptography (非對稱式密碼學)"></a>Asymmetric Cryptography (非對稱式密碼學)</h2><p>也稱 <a href="https://en.wikipedia.org/wiki/Public-key_cryptography" target="_blank" rel="noopener">Public-Key Cryptography</a> (<a href="https://zh.wikipedia.org/zh-tw/%E5%85%AC%E5%BC%80%E5%AF%86%E9%92%A5%E5%8A%A0%E5%AF%86" target="_blank" rel="noopener">公開金鑰密碼學</a>)，簡稱 <code>公鑰密碼學</code>，主要是 <code>Asymmetric Algorithm (非對稱金鑰演算法)</code> ，相對於對稱金鑰密碼學，最大的特點在於 <code>Encrypt (加密)</code> 和 <code>Decrypt (解密)</code> 使用不同的金鑰。</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)" target="_blank" rel="noopener">RSA</a>: 1977 年由 Ron Rivest, Adi Shamir, Leonard Adleman 三人共同提出的非對稱加密演算法。</li>
+<li><a href="https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange" target="_blank" rel="noopener">Diffie-Hellman</a> (<a href="https://zh.wikipedia.org/zh-tw/%E8%BF%AA%E8%8F%B2-%E8%B5%AB%E7%88%BE%E6%9B%BC%E5%AF%86%E9%91%B0%E4%BA%A4%E6%8F%9B" target="_blank" rel="noopener">迪菲-赫爾曼密鑰交換</a>)</li>
+</ul>
+<hr>
+<h1 id="三、協議系統"><a href="#三、協議系統" class="headerlink" title="三、協議系統"></a>三、協議系統</h1><p>整理一些基於密碼學與資訊安全、常見的安全協議系統：</p>
+<ul>
+<li>應用層<ul>
+<li>PGP (Pretty Good Privacy，<a href="https://zh.wikipedia.org/zh-tw/PGP" target="_blank" rel="noopener">優良保密協定</a>): 是一套用於訊息加密、驗證的應用程式，採用IDEA的雜湊演算法作為加密和驗證之用。</li>
+<li>DKIM, DomainKeys Identified Mail <a href="https://zh.wikipedia.org/zh-tw/%E5%9F%9F%E5%90%8D%E5%AF%86%E9%92%A5%E8%AF%86%E5%88%AB%E9%82%AE%E4%BB%B6" target="_blank" rel="noopener">域名密鑰識別郵件</a>: </li>
+<li>SSL/TLS</li>
+<li>SSH</li>
+<li>OAuth</li>
+</ul>
+</li>
+<li>密鑰管理<ul>
+<li><a href="https://zh.wikipedia.org/zh-tw/Kerberos" target="_blank" rel="noopener">Kerberos</a>: Kerberos是一種計算機網絡認證協議，它允許某實體在非安全網絡環境下通信，向另一個實體以一種安全的方式證明自己的身份。</li>
+<li><a href="https://zh.wikipedia.org/zh-tw/X.509" target="_blank" rel="noopener">X.509</a>: 簡稱 PKIX，公鑰憑證的格式標準。應用在包括 TLS/SSL 的眾多網路協定。</li>
+</ul>
+</li>
+<li>域名系統<ul>
+<li>CAA, DNS Certification Authority Authorization - <a href="https://zh.wikipedia.org/zh-tw/DNS%E8%AF%81%E4%B9%A6%E9%A2%81%E5%8F%91%E6%9C%BA%E6%9E%84%E6%8E%88%E6%9D%83" target="_blank" rel="noopener">DNS 憑證頒發機構授權</a></li>
+<li><a href="https://zh.wikipedia.org/zh-tw/%E5%9F%9F%E5%90%8D%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8%E6%89%A9%E5%B1%95" target="_blank" rel="noopener">DNSSEC</a></li>
+<li>DNS over HTTPS</li>
+</ul>
+</li>
+<li>網路層<ul>
+<li>IPSec</li>
+<li>L2TP</li>
+<li>OpenVPN</li>
+<li>PPTP</li>
+</ul>
+</li>
+</ul>
+<h2 id="HTTPS-SSL-TLS-Protocol"><a href="#HTTPS-SSL-TLS-Protocol" class="headerlink" title="HTTPS - SSL/TLS Protocol"></a>HTTPS - SSL/TLS Protocol</h2><p>以下資料參考自 <a href="https://medium.com/@clu1022/%E9%82%A3%E4%BA%9B%E9%97%9C%E6%96%BCssl-tls%E7%9A%84%E4%BA%8C%E4%B8%89%E4%BA%8B-%E4%B9%9D-ssl-communication-31a2a8a888a6" target="_blank" rel="noopener">那些關於 SSL/TLS 的二三事  — SSL Communication</a>、<a href="https://medium.com/@clu1022/%E9%82%A3%E4%BA%9B%E9%97%9C%E6%96%BCssl-tls%E7%9A%84%E4%BA%8C%E4%B8%89%E4%BA%8B-%E4%BA%8C-how-ssl-works-a9d6720bdd48" target="_blank" rel="noopener">How SSL works?</a>，整理我的理解。</p>
+<h3 id="How-SSL-Works"><a href="#How-SSL-Works" class="headerlink" title="How SSL Works?"></a>How SSL Works?</h3><p>整體來看看 SSL/TLS 是怎麼運作的。</p>
+<p><img src="/images/ComputerScience/SSL/HowSSLWorks.png" alt="How SSL Works?"></p>
+<h3 id="SSL-Communication"><a href="#SSL-Communication" class="headerlink" title="SSL Communication"></a>SSL Communication</h3><p>下圖是 SSL 整個通訊協議過程的流程圖：</p>
+<p><img src="/images/ComputerScience/SSL/SSL-Communication.jpg" alt="SSL Communication Flow Diagram"></p>
+<ol>
+<li><code>Authentication</code>: 使用 Public / Asymmetric Key Encryption Algorithms.</li>
+<li><code>Key Exchange</code>: 使用 Public / Asymmetric Key Encryption Algorithms/Key Exchange protocol.</li>
+<li><code>Encrypted Data Transfer</code>: 使用 Private / Symmetric Key Encryption Algorithms</li>
+</ol>
+<p>前面 1)、2) 又稱 <code>SSL Handshake Protocol</code>，3) 則稱為 <code>SSL Record Protocol</code></p>
+<!--
+
+
+
+## JWT
+
+
+要解決的問題：
+
+* HTTP 資料傳輸的加密
+* 服務認證
+
+作法：
+
+1. Header = [ALGORITHM, TOKEN TYPE]
+1. Payload: 又稱 claims (要求)
+2. Data = Header + Payload
+3. Signature = Encrypt (base64UrlEncode(header) + "." + base64UrlEncode(payload), PrivateKey)
+
+概念與數位簽章一樣
+
+1. Fingerprint = Hash(Data, HashFunction)
+2. Signature = Encrypt(Fingerprint, PrivateKey)
+3. DigitallySingedData = Signature + Certificate
+
+
+
+# 四、資訊安全
+
+
+* XSS
+* SQL Injection
+
+
+應用
+
+* Auth/SSO
+
+# 四、應用與工具
+
+## SSL
+
+
+
+## LDAP
+
+
+
+## Auth
+
+* token
+* SSO
+* OpenID
+* OAuth
+* OAuth 2.0
+  - 老版跟秘書
+  - 委任書
+    - Implicit Grant Flow: Facebook
+        - Access Token 的安全性
+        - Browser app/plugin
+    - Authorization Code: Google, FB
+
+## 工具
+
+* openssl
+* pgp
+
+* token 令牌
+  * access token
+  * security token
+  * session token: JSESSIONID (Java EE), PHPSESSID (PHP), and ASPSESSIONID (Microsoft ASP)
+
+
+-->
+<hr>
+<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>一直對於資訊安全與密碼學很有興趣，在整理 <a href="/2020/03/02/AWS/Study-Notes-KMS/">AWS KMS</a> 學習筆記時，就給自己挖一個坑：</p>
+<blockquote>
+<p>整理密碼學與資訊安全的筆記，把一些以往不清楚的知識整理起來。</p>
+</blockquote>
+<p>很多東西平常工作都會用到，但是卻不求甚解，透過整理文章重新梳理自己有限的知識，如有誤歡迎給予指證，感謝。</p>
+<hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
+<li><a href="/2020/03/02/AWS/Study-Notes-KMS/">Study Notes - Key Management Service</a></li>
+<li><a href="/2019/05/30/AWS/Federated-SSO-to-AWS-using-GSuite/">如何用 G Guite 整合 AWS Single Sign-On</a></li>
+</ul>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a href="https://en.wikipedia.org/wiki/X.509" target="_blank" rel="noopener">X.509</a></li>
+<li><a href="https://draveness.me/whys-the-design-https-latency" target="_blank" rel="noopener">为什么 HTTPS 需要 7 次握手以及 9 倍时延 · Why’s THE Design?</a></li>
+<li><a href="https://medium.com/@clu1022/%E9%82%A3%E4%BA%9B%E9%97%9C%E6%96%BCssl-tls%E7%9A%84%E4%BA%8C%E4%B8%89%E4%BA%8B-%E4%B9%9D-ssl-communication-31a2a8a888a6" target="_blank" rel="noopener">那些關於SSL/TLS的二三事(九) — SSL (HTTPS)Communication</a></li>
+<li><a href="https://medium.com/@clu1022/%E9%82%A3%E4%BA%9B%E9%97%9C%E6%96%BCssl-tls%E7%9A%84%E4%BA%8C%E4%B8%89%E4%BA%8B-%E4%BA%8C-how-ssl-works-a9d6720bdd48" target="_blank" rel="noopener">那些關於SSL/TLS的二三事(二) — How SSL works?</a></li>
+</ul>
+<h2 id="資訊安全相關"><a href="#資訊安全相關" class="headerlink" title="資訊安全相關"></a>資訊安全相關</h2><ul>
+<li><a href="https://github.com/lirantal/awesome-nodejs-security" target="_blank" rel="noopener">Awesome Node.js Security resources</a></li>
+<li><a href="https://github.com/guardrailsio/awesome-golang-security" target="_blank" rel="noopener">Awesome Golang Security resources</a></li>
+<li><a href="https://blog.cloudflare.com/speeding-up-linux-disk-encryption/" target="_blank" rel="noopener">Speeding up Linux disk encryption</a></li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/2020/03/07/ComputerScience/Cryptography/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+				<br />
+
+				<!-- LikeCoin -->
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2020/03/07/ComputerScience/Cryptography/"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2020/03/24/Management/Principles-of-Communication/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2020/03/02/AWS/Study-Notes-KMS/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+  	 <div id="disqus_thread">
+     <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  	 </div>
+  
+
+
+</section>
+
+
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2020/03/07 21:42:30
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#一、專有名詞與重要概念"><span class="toc-article-text">一、專有名詞與重要概念</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Public-Key-Infrastructure-PKI"><span class="toc-article-text">Public Key Infrastructure, PKI</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Public-Key-Certificate"><span class="toc-article-text">Public Key Certificate</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Process-of-Digital-Certificate"><span class="toc-article-text">Process of Digital Certificate</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Cryptographic-Hash-Function"><span class="toc-article-text">Cryptographic Hash Function</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#二、密碼學"><span class="toc-article-text">二、密碼學</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Symmetric-key-Algorithm-對稱式演算法"><span class="toc-article-text">Symmetric-key Algorithm (對稱式演算法)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Asymmetric-Cryptography-非對稱式密碼學"><span class="toc-article-text">Asymmetric Cryptography (非對稱式密碼學)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#三、協議系統"><span class="toc-article-text">三、協議系統</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#HTTPS-SSL-TLS-Protocol"><span class="toc-article-text">HTTPS - SSL/TLS Protocol</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#How-SSL-Works"><span class="toc-article-text">How SSL Works?</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#SSL-Communication"><span class="toc-article-text">SSL Communication</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#結論"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#參考資料"><span class="toc-article-text">參考資料</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#資訊安全相關"><span class="toc-article-text">資訊安全相關</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/Computer-Science/" style="color: white">Computer Science <span class="badge">5</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/SSO/" style="color: white">SSO <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Cryptography/" style="color: white">Cryptography <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Information-Security/" style="color: white">Information Security <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Hash/" style="color: white">Hash <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/LDAP/" style="color: white">LDAP <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+		<h4>About</h4>
+
+		<!-- v4 -->
+		
+			<li><a href="/2018/07/08/Index/">全站索引</a></li>
+		
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+		
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		
+			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+		
+
+		<!-- v3 -->
+		<!--
+		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		-->
+
+		<!-- v2 -->
+		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+		<!-- v1 -->
+		<!--
+		<li>Software Developer</li>
+		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+		<li><a href="/categories/DevOps/">Operation Manager</a></li>
+		<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+		<li>
+			<ol>
+				<li>Management</li>
+				<li>Cloud / Distributed Systems</li>
+				<li>DevOps / SRE / </li>
+			</ol>
+		</li>
+		-->
+
+		<h4>Donate</h4>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick" />
+		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
+		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
+		</form>
+
+		<h4>Facebook</h4>
+
+		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
+
+
+		<h4>AWS Certifications</h4>
+		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+		<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+		<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+		
+
+	</div><!-- row -->
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2019 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+  -->
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'complete-think';
+(function() {
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Understand Dapr Concepts and Designing | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="分散式架構大概都要面對一些複雜的基礎架構議題，一些我常思考要解決的問題：
+
+服務治理：包含 Service Invocation、Service Trusted and Authorization (服務的信任、認證與授權)、通訊模式 (HTTP / gRPC)、通訊機制 (Pub/Sub)、狀態管">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="Understand Dapr Concepts and Designing"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/Understand-Dapr-Concepts-Designing.html"/>
+  <meta property="og:image" content="/images/Architecture/cap-theoram-image.png" />
+  
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-71839551-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>21</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>14</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>7</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>10</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>24</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>6</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>50</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>11</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Understand Dapr Concepts and Designing</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Understand Dapr Concepts and Designing</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row page">
+	<!-- cols -->
+	
+		<div class="col-md-12">
+			
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2FUnderstand-Dapr-Concepts-Designing.html&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/Understand-Dapr-Concepts-Designing.html" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+
+				<hr />
+
+				<p>分散式架構大概都要面對一些複雜的基礎架構議題，一些我常思考要解決的問題：</p>
+<ol>
+<li>服務治理：包含 Service Invocation、Service Trusted and Authorization (服務的信任、認證與授權)、通訊模式 (HTTP / gRPC)、通訊機制 (Pub/Sub)、狀態管理 (State Machine)</li>
+<li>維運基礎：高可用、擴展機制、Log 處理、Distributed Tracing、Metric </li>
+<li>安全性：Secret Management、KMS、Auth 整合</li>
+<li>效能與可靠度：Rate Limit、降級、熔斷 …</li>
+<li>擴充架構：Extendable Service Architecture</li>
+<li>如何提升開發團隊工作效能：上述的東西，一個有經驗的、資深的軟體工程師，如何在一台資源為數不多的狀況之下，可以快速開發，是很多技術主管說不出的痛。</li>
+</ol>
+<p>這些問題個別來看，都有相當成熟的系統、或者生態圈，如果個別看，或者是個別從頭開始其實都不難，有很多現成的實踐可以參考。而對於既有的系統架構而言，如果要放入上述單一個功能，往往都要割肉、放血，傷筋動骨，讓技術主管、或者是架構師傷透腦筋，往往要面對新舊技術的整併，同時也要面對現場團隊對於新技術的排擠或者學習門檻。</p>
+<p>對於開發應用程式的開發人員來講，滿足業務需求的開發已經夠頭痛了，還要考慮這麼多系統架構面的東西，這種事是靠熱情無法填補的。</p>
+<p>也因此，很多文章在講 microservice 失敗的案例，或者再談分散式系統的難度：</p>
+<ul>
+<li><a href="https://www.infoq.com/news/2020/04/microservices-back-again/" target="_blank" rel="noopener">To Microservices and Back Again - Why Segment Went Back to a Monolith</a>, 2020/08</li>
+<li><a href="https://medium.com/xebia-engineering/11-reasons-why-you-are-going-to-fail-with-microservices-29b93876268b" target="_blank" rel="noopener">11 Reasons Why You Are Going To Fail With Microservices</a></li>
+<li><a href="https://thenewstack.io/distributed-systems-hard/" target="_blank" rel="noopener">Distributed Systems Are Hard</a></li>
+</ul>
+<p>整理幾個概念: Building Blocks, Components, Dapr control plane - Configuration</p>
+<p>Sidecar Pattern,<br><a href="https://github.com/dapr/components-contrib/tree/master/nameresolution" target="_blank" rel="noopener">name resolution</a>: mdns, kubernetes<br>Service invocation</p>
+<a id="more"></a>
+<h2 id="app-lifecycle"><a href="#app-lifecycle" class="headerlink" title="app lifecycle"></a>app lifecycle</h2><p>app-id</p>
+<p>效能</p>
+<p><a href="https://docs.dapr.io/operations/performance-and-scalability/perf-service-invocation/" target="_blank" rel="noopener">https://docs.dapr.io/operations/performance-and-scalability/perf-service-invocation/</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">❯ dapr uninstall -k</span><br><span class="line">ℹ️  Removing Dapr from your cluster...</span><br><span class="line">✅  Dapr has been removed successfully</span><br></pre></td></tr></table></figure>
+<h2 id="run-on-k8s"><a href="#run-on-k8s" class="headerlink" title="run on k8s"></a>run on k8s</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">❯ dapr init -k </span><br><span class="line">⌛  Making the jump to hyperspace...</span><br><span class="line">ℹ️  Note: To install Dapr using Helm, see here: https://docs.dapr.io/getting-started/install-dapr-kubernetes/<span class="comment">#install-with-helm-advanced</span></span><br><span class="line"></span><br><span class="line">✅  Deploying the Dapr control plane to your cluster...</span><br><span class="line">✅  Success! Dapr has been installed to namespace dapr-system. To verify, run `dapr status -k` <span class="keyword">in</span> your terminal. To get started, go here: https://aka.ms/dapr-getting-started</span><br><span class="line"></span><br><span class="line">❯ dapr status -k</span><br><span class="line">  NAME                   NAMESPACE    HEALTHY  STATUS   REPLICAS  VERSION  AGE  CREATED</span><br><span class="line">  dapr-dashboard         dapr-system  True     Running  1         0.6.0    32s  2021-03-09 09:11.15</span><br><span class="line">  dapr-sidecar-injector  dapr-system  True     Running  1         1.0.1    32s  2021-03-09 09:11.15</span><br><span class="line">  dapr-placement-server  dapr-system  False    Running  1         1.0.1    32s  2021-03-09 09:11.15</span><br><span class="line">  dapr-sentry            dapr-system  True     Running  1         1.0.1    32s  2021-03-09 09:11.15</span><br><span class="line">  dapr-operator          dapr-system  True     Running  1         1.0.1    32s  2021-03-09 09:11.15</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">❯ k get po -n dapr-system -o wide</span><br><span class="line">NAME                                     READY   STATUS    RESTARTS   AGE   IP             NODE       NOMINATED NODE   READINESS GATES</span><br><span class="line">dapr-dashboard-79b6846f6c-v5vk5          1/1     Running   0          76s   10.244.3.48    nylab235   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">dapr-operator-7fb567cf76-78mv7           1/1     Running   0          76s   10.244.2.231   nylab234   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">dapr-placement-server-0                  1/1     Running   0          76s   10.244.3.49    nylab235   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">dapr-sentry-6f46dd98c7-qpskp             1/1     Running   0          76s   10.244.3.47    nylab235   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">dapr-sidecar-injector-5fcd998fbb-vxprb   1/1     Running   0          76s   10.244.3.46    nylab235   &lt;none&gt;           &lt;none&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h1><ol>
+<li>概念介紹: Building Blocks, Components, Dapr control plane - Configuration</li>
+<li>體驗 Dapr: 表象 很小、很快、<br>Lifecycle</li>
+<li>Dapr cli: dashboard</li>
+<li>Dapr Configurations</li>
+<li>其他：zipkin</li>
+</ol>
+<h2 id="Service-Discovery"><a href="#Service-Discovery" class="headerlink" title="Service Discovery"></a>Service Discovery</h2><p>Pluggable service discovery</p>
+<p> Kubernetes name resolution component uses the Kubernetes DNS service to resolve the location of other applications running in the cluster.<br> For local and multiple physical machines this uses the mDNS protocol.</p>
+<h2 id="讓我注意到的一些東西"><a href="#讓我注意到的一些東西" class="headerlink" title="讓我注意到的一些東西"></a>讓我注意到的一些東西</h2><ul>
+<li>Building Block 與 Components 的設計概念：除了 Sidecar Pattern，這兩個是 dapr 的整個架構核心，基於這個想法，可以讓 dapr 完美著處理 microservice 要處理的難題。</li>
+<li>Service Invocation: <a href="https://spiffe.io/" target="_blank" rel="noopener">SPIFFE</a>, <a href="https://github.com/spiffe/spiffe/blob/master/standards/X509-SVID.md" target="_blank" rel="noopener">X.509 SPIFFE</a></li>
+<li>Secret Store: </li>
+<li>Distributed Tracing: <a href="https://zipkin.io/" target="_blank" rel="noopener">zipkin</a>, <a href="https://github.com/open-telemetry/opentelemetry-collector" target="_blank" rel="noopener">OpenTelemetry Collector</a>, <a href="https://www.jaegertracing.io/docs/1.21/getting-started/#all-in-one" target="_blank" rel="noopener">jaeger</a></li>
+<li>State management</li>
+<li>Component: 直接使用 K8s CRD (類似於 Plugin/Extension 的方法)，直接讓 dapr 原生與 K8s 做完美的整合。後面我會專門整理這段的設計。</li>
+<li>mTLS, OAuth 整合</li>
+</ul>
+<h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><p>底下是在 Study 過程想到的問題，之後陸續整理筆記。</p>
+<ul>
+<li><a href="https://docs.dapr.io/operations/configuration/invoke-allowlist/" target="_blank" rel="noopener">Service Invocation ACLS</a></li>
+<li><a href="https://docs.dapr.io/operations/configuration/secret-scope/" target="_blank" rel="noopener">Limit the secrets that can be read from secret stores</a></li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/Understand-Dapr-Concepts-Designing.html" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+				<br />
+
+				<!-- LikeCoin -->
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/Understand-Dapr-Concepts-Designing.html"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+
+	</div><!-- row -->
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2019 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+  -->
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'complete-think';
+(function() {
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

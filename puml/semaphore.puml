@@ -1,0 +1,26 @@
+@startuml
+robust "Semaphore" as SP
+concise "Thread 1" as T1
+concise "Thread 2" as T2
+concise "Thread 3" as T3
+
+@0
+
+SP is 0
+T1 is NULL
+T2 is NULL
+T3 is NULL
+
+@+10
+T1 is ENTERED
+T2 is ENTERED
+
+
+@+5
+SP is 2
+T3 is ENTERED
+
+
+
+
+@enduml

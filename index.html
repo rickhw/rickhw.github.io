@@ -1,0 +1,3474 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  
+  <meta name="description" content="先生不知來自何方，亦不知歸去何處，年過而立，參悟生與死，淡泊名與利，但憂天下蒼生。蹤跡走紅塵，藏身山林田野，撫琴於搖滾，振筆於網路，傳道於教學；神遊金庸武俠，往返程式思考，常以此樂而忘眠。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/index.html"/>
+  <meta property="og:image" content="/images/site_main_logo_v2-201902.png"/>
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-71839551-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>21</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>14</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>7</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>10</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>24</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>6</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>50</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>11</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       <!-- updated by @rick -->
+<div class='jumbotron site_main_bar'>
+  <div class='container'>
+	  <h2 style="color: white; text-shadow: 2px 2px #ffaa00;">Thinking, Coding, and Learning.</h2>
+	  
+	  <p style="width: 80%; ; text-shadow: 2px 2px #223344;">先生不知來自何方，亦不知歸去何處，年過而立，參悟生與死，淡泊名與利，但憂天下蒼生。蹤跡走紅塵，藏身山林田野，撫琴於搖滾，振筆於網路，傳道於教學；神遊金庸武俠，往返程式思考，常以此樂而忘眠。<a href='/2017/12/29/About/About-Author/' target='_blank'>... 更多關於我</a></p>
+	  
+  </div>
+</div>
+
+<div class="row page">
+
+	
+	<div class="col-md-9">
+	
+
+		<!--
+<div class="slogan">
+      <i class="fa fa-heart"></i>
+      undefined
+</div>    
+-->
+
+		<div class="mypage">
+		
+		<!-- title and entry -->
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2018/07/08/Index/" >置頂 - 全站索引</a>
+			<span class="date"> 2018/07/08 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2018/07/08/Index/" >置頂 - 全站索引</a>
+				<span class="badge article_title_date"> 2018/07/08 10:30:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>這篇是整個 Blog 的全站索引，如果您是第一次來這裡，可以先看看這篇索引，大概知道 Blog 的全貌：</p>
+<ul>
+<li>[理念] <a href="/2017/11/26/Thinking-in-Essence/">思考本質、實踐、抽象、想像力、教育</a>: 這是獨立文章，也是我最想推廣的概念。</li>
+<li>[目錄] <a href="/2017/07/01/Index-Management/">經營管理</a>: 整理我的管理經驗談、管理哲學、經營、領導、用人之道、學習方法、專案管理</li>
+<li>[目錄] <a href="/2017/07/01/Index-Software-Engineering-In-Practice/">軟體工程實踐之道</a>: 包含軟體架構、開發、測試、維運等 … 實踐的心得。</li>
+<li>[目錄] 雲端應用、分散式系統，包含 <a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a>、<a href="/categories/GCP/">GCP</a>、<a href="/tags/Kubernetes/">Kubernetes</a>: Cloud 是我這幾年專注的技術領域，這裡會整理相關的學習筆記。</li>
+<li>[參考] <a href="/2017/07/01/Reference/Books/">參考書</a>、<a href="/2017/07/01/Reference/Tech-Terms/">資訊技術與工程專有名詞</a>、<a href="/2017/07/01/Reference/SC-Terms/">計算機科學專有名詞</a>、<a href="/2017/07/01/Reference/Mgmt-Terms/">經營管理專有名詞</a></li>
+<li>[關於] <a href="/2017/12/29/About/About-This-Blog/">這個部落格</a>、<a href="/2017/12/29/About/About-Author/">關於作者</a>、<a href="/2017/09/20/About/Learning-Approaches/">學習法則</a>、<a href="/2014/12/27/Management/%E7%B6%93%E7%87%9F%E4%B9%8B%E9%81%93/">經營之道</a>、<a href="/2017/12/02/About/Epiphany/">一些領悟</a>、<a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+</ul>
+<blockquote>
+<p>不管是程式、文章、資料還是房間，我都會定期重新整理，基本的概念來自於這篇 <a href="/2014/10/26/Management/Classified-Philosophy/">分類的哲學</a></p>
+</blockquote>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2018/07/08/Index/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2018/07/08/Index/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2018/07/08/Updated/" >置頂 - 最近更新文章</a>
+			<span class="date"> 2018/07/08 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2018/07/08/Updated/" >置頂 - 最近更新文章</a>
+				<span class="badge article_title_date"> 2018/07/08 10:30:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>底下整理的是這個 Blog 最近更新的文章記錄，如果您是第一次來這裡、或者是老朋友，想要知道我最近更新哪一些文章，可以從這裡知道。</p>
+<table>
+<thead>
+<tr>
+<th>更新時間</th>
+<th style="text-align:left">更新方式</th>
+<th style="text-align:left">文章標題</th>
+<th style="text-align:left">發布時間</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 2020/09/13</td>
+<td style="text-align:left">新增資料</td>
+<td style="text-align:left"><a href="/2018/06/18/Architecture/Gossip-in-Distributed-Systems/">聊聊分散式系統</a></td>
+<td style="text-align:left">2018/06/18</td>
+</tr>
+<tr>
+<td> 2020/09/13</td>
+<td style="text-align:left">增加段落</td>
+<td style="text-align:left"><a href="https://rickhw.github.io/2018/08/11/Architecture/CAP-Theorem/">CAP Theorem</a></td>
+<td style="text-align:left">2018/08/11</td>
+</tr>
+<tr>
+<td> 2020/08/09</td>
+<td style="text-align:left">調整結構</td>
+<td style="text-align:left"><a href="/2019/03/17/Container/Install-K8s-with-Kubeadm/">K8s 學習筆記 - kubeadm 手動安裝</a></td>
+<td style="text-align:left">2019/03/17</td>
+</tr>
+<tr>
+<td> 2020/07/25</td>
+<td style="text-align:left">增加段落</td>
+<td style="text-align:left"><a href="/2018/08/11/Architecture/Distributed-Consistency-and-Consensus-Algorithm/">一致性問題與共識演算法</a></td>
+<td style="text-align:left">2018/08/11</td>
+</tr>
+<tr>
+<td> 2020/06/07</td>
+<td style="text-align:left">增加段落</td>
+<td style="text-align:left"><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></td>
+<td style="text-align:left">2017/09/20</td>
+</tr>
+<tr>
+<td> 2020/05/26</td>
+<td style="text-align:left">重構文章</td>
+<td style="text-align:left"><a href="/2015/08/22/Management/Senior-Software-Developer/">資深軟體工程師</a></td>
+<td style="text-align:left">2015/08/22</td>
+</tr>
+<tr>
+<td> 2020/05/09</td>
+<td style="text-align:left">文句修飾</td>
+<td style="text-align:left"><a href="/2019/06/05/DevOps/Github-Incident-Analysis/">GitHub Post-Incident Analysis</a></td>
+<td style="text-align:left">2019/06/05</td>
+</tr>
+</tbody>
+</table>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2018/07/08/Updated/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2018/07/08/Updated/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2017/11/26/Thinking-in-Essence/" >置頂 - 思考本質、實踐、抽象、想像力、教育</a>
+			<span class="date"> 2017/11/26 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2017/11/26/Thinking-in-Essence/" >置頂 - 思考本質、實踐、抽象、想像力、教育</a>
+				<span class="badge article_title_date"> 2017/11/26 10:30:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>一直很想找一些人，這些人有個特質：</p>
+<blockquote>
+<p>喜歡思考事物的本質性、背後的故事、問題、原理、抽象化、想像、實踐方法</p>
+</blockquote>
+<p>像是：</p>
+<ul>
+<li>使用 Slack 的時候：<ul>
+<li>他背後可能的系統架構是什麼？他的 App Store 怎麼設計的？通知機制怎麼設計？API 的架構怎麼規劃？歷史資料如何讓使用者查詢？</li>
+<li>如何讓使用者建立完整的帳號？付費用戶跟沒有付費的架構是一樣的？</li>
+</ul>
+</li>
+<li>使用 iPhone 的時候，他對人類的貢獻是？<ul>
+<li>思考他是如何生產的？有多少公司提供零件給他？怎麼整合這些資訊？iPhone 最後如何銷毀？ (生命週期)</li>
+<li><a href="https://panx.asia/archives/newspost/57045" target="_blank" rel="noopener">十年過去，全球為了生產 71 億支智慧型手機付出的代價是？</a></li>
+<li><a href="https://www.facebook.com/greenpeace.org.tw/videos/1582705515094601/?t=4" target="_blank" rel="noopener">循環式經濟：智慧型手機十年進化史，有一些事情必須要知道</a></li>
+</ul>
+</li>
+<li>電商帶給消費者方便，他背後的系統是如何運作的？如何面對巨大的交易？電商帶來的社會問題你注意到了？便利另外一面是什麼？人類交易的本質是什麼？<ul>
+<li><a href="https://technews.tw/2017/11/18/china-online-shopping-garbage-double-11/" target="_blank" rel="noopener">中國電商污染，5 千萬噸垃圾誰來買單</a></li>
+<li><a href="http://www.stevecutts.com/illustration.html" target="_blank" rel="noopener">Steve Cutts</a> - 諷刺漫畫</li>
+<li><a href="https://www.gvm.com.tw/article.html?id=41356" target="_blank" rel="noopener">過度包裝的迷思：你只是買了更多垃圾</a></li>
+<li>2019/04/07: <a href="https://www.thenewslens.com/article/116846" target="_blank" rel="noopener">台灣網購1年估計產生8000萬個物流貨箱，「過度包裝」法規卻還管不到</a></li>
+<li>2018/06/28: <a href="http://www.storm.mg/lifestyle/453664?p=fwk" target="_blank" rel="noopener">亞馬遜爆出巨大醜聞！全新商品「直接銷毀」只為省錢，便利服務全來自資源浪費、勞工血汗</a></li>
+<li>2018/06/15: <a href="https://udn.com/news/story/7266/3204180" target="_blank" rel="noopener">超商年丟70億食物？ 300超商加盟店聯手抗議</a></li>
+</ul>
+</li>
+<li>聽演唱會的時候，你會注意演唱會整體想表現的情緒？你會注意演唱會主角以外的人事物？最後組成的整體性？<ul>
+<li><a href="https://www.facebook.com/1545972845647417/videos/2072639179647445/UzpfSTE4MTUwMzkyMjc6MTAyMDkzNTkzMjExNzk0MDc/" target="_blank" rel="noopener">LIVE 節目導播在忙什麼</a></li>
+<li><a href="http://rickmidi.blogspot.com/2011/08/blog-post.html" target="_blank" rel="noopener">樂團的主唱</a></li>
+</ul>
+</li>
+<li>看電影時，你會注意每個鏡頭想要表達的是什麼？鏡頭是如何取的？有多少個鏡頭？拍攝現場要怎麼準備？演員走位。。。<ul>
+<li><a href="https://www.youtube.com/watch?v=zzWIj-a5Zdo" target="_blank" rel="noopener">體育賽場如戰場 攝影師拍攝…跟在後面跑</a></li>
+<li><a href="https://www.youtube.com/watch?v=Lz5I57Zg1Qw" target="_blank" rel="noopener">电影最TOP 104：涨姿势！盘点影史十大经典长镜头</a></li>
+</ul>
+</li>
+<li>看小說時，為什麼會寫出這麼精彩的故事？為什麼會想出 <code>星艦企業號</code> 這樣的劇情？</li>
+<li>金庸怎麼把小說寫成歷史，把歷史變成小說？ (虛實融合？)</li>
+</ul>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2017/11/26/Thinking-in-Essence/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2017/11/26/Thinking-in-Essence/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2021/03/11/Architecture/Experience-Dapr-Hello-World/" >Experience Dapr - Hello World</a>
+			<span class="date"> 2021/03/11 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2021/03/11/Architecture/Experience-Dapr-Hello-World/" >Experience Dapr - Hello World</a>
+				<span class="badge article_title_date"> 2021/03/11 22:30:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p><a href="https://dapr.io/" target="_blank" rel="noopener">Dapr</a> 是微軟開發的 Distributed Application Framework。核心概念是 Sidecar 模式，搭配 <a href="https://docs.dapr.io/concepts/building-blocks-concept/" target="_blank" rel="noopener">Building Blocks</a>、<a href="https://docs.dapr.io/concepts/components-concept/" target="_blank" rel="noopener">Components</a> 等類似 Middleware / Pipeline 的概念，以及 <a href="https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/" target="_blank" rel="noopener">K8s CRD (Custom Resource Definition)</a> 的 擴充 Extensions / Plugins 的機制，以這些為主要設計的結構，然後完善大部分分散式系統 (或者說 Microservice) 所必要的基礎建設、開發體驗、維運考量、及架構擴展的需求。</p>
+<p>這些概念與特性疊加起來實在是非常吸引我，加上 Dapr 本身很輕量，版本也已經到了 1.0 版，官方宣稱 production ready，可以一試了！底下是探索性的整理使用體驗。</p>
+<blockquote>
+<p>在這之前，我也 Study 過類似的框架，其中有 Line 的 <a href="https://armeria.dev/" target="_blank" rel="noopener">Armeria</a>、carousell 的 <a href="https://github.com/carousell/Orion" target="_blank" rel="noopener">Orion</a> … 不過概念以及考量的成熟度，還是 Dapr 比較完整。</p>
+</blockquote>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2021/03/11/Architecture/Experience-Dapr-Hello-World/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2021/03/11/Architecture/Experience-Dapr-Hello-World/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2021/01/03/Linux/Shell-and-Bash-Concepts/" >Shell and Bash Concepts</a>
+			<span class="date"> 2021/01/03 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2021/01/03/Linux/Shell-and-Bash-Concepts/" >Shell and Bash Concepts</a>
+				<span class="badge article_title_date"> 2021/01/03 15:37:03 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p><a href="https://en.wikipedia.org/wiki/Shell_(computing)" target="_blank" rel="noopener">Shell</a> 是使用者與作業系統溝通的介面，人機介面的形式分成 CLI 與 GUI 兩種。CLI (Command Line Interface) 讓一堆指令可以透過 <code>指令搞 (command script)</code> 變成自動化 <code>程序 (procedure)</code>，提高工作效能，這樣的指令搞我們把它稱為 <code>shell scripts</code>，中文通常翻譯成 <code>程式化腳本</code>、<code>Shell 指令搞</code>。</p>
+<p>Shell 本身也是一個程式，但是他並沒有一個表準的型態，不同作業系統使用的也不盡相同。Unix-like 上最基本的 Shell 叫做 <code>sh</code>，全名是 <code>Bouren Shell</code>，是個 <a href="https://en.wikipedia.org/wiki/POSIX" target="_blank" rel="noopener">POXIS</a> 標準。Bash 全名是 <code>Bourne Again Shell</code>，是 sh 的 superset。sh 與 bash 有點像 vi vs vim 的關係。</p>
+<p>Unix / Linux 上很常用 Bash Script 做一些工作，本文整理 Linux 上的 Shell 和 Bash Script 重要的概念 … 等 <code>外在因子</code>。</p>
+<blockquote>
+<ul>
+<li>註一：Shell 中文為 <code>殼</code>，由法國計算機科學家 <a href="https://en.wikipedia.org/wiki/Louis_Pouzin" target="_blank" rel="noopener">Louis Pouzin</a> 在 1964-1965 年間提出來的概念，後來實作在 Multics 上，而 Multics 後來催促 Unix 的誕生。</li>
+<li>註二：中文的 <code>程序</code> 一詞，有時候指的是作業系統的 process 概念，是個實際上佔有資源的單位；有時候也指的是 procedure，指的是一段 <code>作業流程 (workflow)</code>，後面描述視狀況會增加英文註記。</li>
+</ul>
+</blockquote>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2021/01/03/Linux/Shell-and-Bash-Concepts/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2021/01/03/Linux/Shell-and-Bash-Concepts/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2020/10/18/DevOps/Deploy-on-Friday-or-Not/" >星期五要不要部署？</a>
+			<span class="date"> 2020/10/18 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2020/10/18/DevOps/Deploy-on-Friday-or-Not/" >星期五要不要部署？</a>
+				<span class="badge article_title_date"> 2020/10/18 12:43:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>標題是最近 (2020/10) 在 Facebook 上的熱門話題，經過幾天之後，看了很多業界高手、前輩、專家的熱烈討論之後，沈澱了幾天，昨天 (10/17 Sat) 午休睡醒後迷迷糊糊寫下的， <a href="https://www.facebook.com/rick.kyhwang/posts/10214422588277920" target="_blank" rel="noopener">原始文章連結</a> … 過程中，陸續修補一些想法和參考資料。</p>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2020/10/18/DevOps/Deploy-on-Friday-or-Not/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2020/10/18/DevOps/Deploy-on-Friday-or-Not/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2020/10/11/Management/Effective-Meetings/" >一場有效的會議</a>
+			<span class="date"> 2020/10/11 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2020/10/11/Management/Effective-Meetings/" >一場有效的會議</a>
+				<span class="badge article_title_date"> 2020/10/11 09:33:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>原文是 <a href="https://www.facebook.com/rick.kyhwang/posts/10214079393098255" target="_blank" rel="noopener">2020/08/13</a> 寫下的 memo，主要是有效的會議，最後一段則是 <a href="https://www.facebook.com/rick.kyhwang/posts/10214040314401312" target="_blank" rel="noopener">08/06</a> 寫的一段想法，也是會議效率化的想法。</p>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2020/10/11/Management/Effective-Meetings/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2020/10/11/Management/Effective-Meetings/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2020/09/12/ComputerScience/Synchronization/" >淺談同步機制</a>
+			<span class="date"> 2020/09/12 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2020/09/12/ComputerScience/Synchronization/" >淺談同步機制</a>
+				<span class="badge article_title_date"> 2020/09/12 22:30:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>整理 <code>同步機制 (Synchronization)</code> 的基礎概念，基本上就是作業系統概念的第六章內容。</p>
+<blockquote>
+<p>Operating System Concepts，俗稱恐龍書，整理筆記時最新是第十版 (2018)。</p>
+</blockquote>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2020/09/12/ComputerScience/Synchronization/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2020/09/12/ComputerScience/Synchronization/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2020/08/01/Management/Expression-and-Communication/" >表達與溝通的差異</a>
+			<span class="date"> 2020/08/01 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2020/08/01/Management/Expression-and-Communication/" >表達與溝通的差異</a>
+				<span class="badge article_title_date"> 2020/08/01 03:21:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>這段是我跟同事分享、也是放在心裡很久，沒有寫下的東西：<code>溝通與表達的差異</code>。原文點<a href="https://www.facebook.com/rick.kyhwang/posts/10213820329061816" target="_blank" rel="noopener">這裡</a>。</p>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2020/08/01/Management/Expression-and-Communication/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2020/08/01/Management/Expression-and-Communication/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2020/06/21/Management/Interview-Problems/" >面試常見的問題</a>
+			<span class="date"> 2020/06/21 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2020/06/21/Management/Interview-Problems/" >面試常見的問題</a>
+				<span class="badge article_title_date"> 2020/06/21 21:32:31 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>面試是雙向的，資方要用人，勞方要找機會，雙方透過面試找到彼此的交集、找到共事的可能與機會。本文整理數百次面試經驗過程中，常見的面試問題，希望可以協助更多求職者順利找到理想工作。</p>
+<p>問題分成以下幾類：</p>
+<ul>
+<li>一、履歷的問題</li>
+<li>二、自我介紹的問題</li>
+<li>三、面試過程的問題</li>
+</ul>
+<p>這些問題種類，裡面各有代表性的各別整理問題的現象。</p>
+<p>最後整理一些建議做法，給求職者參考。</p>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2020/06/21/Management/Interview-Problems/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2020/06/21/Management/Interview-Problems/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2020/05/16/Architecture/Distributed-Transactions/" >淺談分散式交易</a>
+			<span class="date"> 2020/05/16 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2020/05/16/Architecture/Distributed-Transactions/" >淺談分散式交易</a>
+				<span class="badge article_title_date"> 2020/05/16 13:30:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p><code>分散式交易 (Distributed Transactions)</code> 指分散在各個運算單元的一系列任務操作 (Operations) 或任務 (Tasks)、有次序的 (Ordered)、且彼此是隔離 (Isolation)、最終達成一致的過程。<code>達成一致</code> 指的是全部動作都成功、或者全部動作都失敗，後者則透過 Rollback 還原。</p>
+<p>分散式交易對應的就是單機交易，也就是在一個運算資源上，完成交易動作，電商最常見的案例就是：</p>
+<ul>
+<li>1) 完成訂單 (含付款)</li>
+<li>2) 完成扣庫存</li>
+</ul>
+<p>這兩的操作 (Operations) 滿足次序性、最後達成交易，也就是關聯式資料庫常說的 ACID 原則。如果這個過程是在分散式系統，就必須有其他機制達到此需求。</p>
+<p>常見的分散式交易有幾種協議，像是：</p>
+<ol>
+<li>基於 X/Open 國際聯盟的 <a href="https://en.wikipedia.org/wiki/X/Open_XA" target="_blank" rel="noopener">Distributed Transaction Processing Model (DTP)</a>，簡稱 XA，用來達到強一致性，符合 ACID 原則的協議：<ol>
+<li>二階段提交 (Two Phase Commit, 2PC)</li>
+</ol>
+</li>
+<li>三階段提交 (Three Phase Commit, 3PC)</li>
+<li>另外就是屬於最終一致性、符合 BASE 原則的消息對列 (Message Queue) 方式。</li>
+</ol>
+<p>本文整理 XA、二階段提交 (2PC)、三階段提交 (3PC)、TCC (Try-Confirm-Cancel) … 等基礎概念。文章資料主要參考自 <a href="https://www.amazon.com/Distributed-Systems-Concepts-Design-5th/dp/0132143011" target="_blank" rel="noopener">Distributed Systems: Concepts and Design (5th Edition)</a>、<a href="https://time.geekbang.org/column/article/144970" target="_blank" rel="noopener">分佈式事務：All or nothing</a> 兩篇的整理。</p>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2020/05/16/Architecture/Distributed-Transactions/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2020/05/16/Architecture/Distributed-Transactions/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2020/05/09/Management/Problems-in-Documentation/" >寫文件常見的問題</a>
+			<span class="date"> 2020/05/09 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2020/05/09/Management/Problems-in-Documentation/" >寫文件常見的問題</a>
+				<span class="badge article_title_date"> 2020/05/09 16:53:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>這段 <a href="https://www.facebook.com/rick.kyhwang/posts/10213015706066744" target="_blank" rel="noopener">隨筆</a> 整理的關於 <code>寫文件常見的問題</code>，寫文件跟寫程式一樣，都是需要訓練的。本文整理的是觀察到普遍的錯誤認知，造成普遍的刻板映像。</p>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2020/05/09/Management/Problems-in-Documentation/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2020/05/09/Management/Problems-in-Documentation/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2020/04/30/DevOps/Disaster-Recovery/" >災難還原 - 實戰演練</a>
+			<span class="date"> 2020/04/30 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2020/04/30/DevOps/Disaster-Recovery/" >災難還原 - 實戰演練</a>
+				<span class="badge article_title_date"> 2020/04/30 00:21:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p><a href="/2019/09/09/AWS/Whitepaper-Using-AWS-For-Disaster-Recovery/">Using AWS for Disaster Recovery</a> 整理 AWS 針對災難還原的實踐原則，而去年 (2019) 我在公司真實執行災難演練，這是第二次的經驗。這段過程，在年初 (2020/01/08) 的 <a href="https://aws.amazon.com/tw/events/reinvent-recap-taipei/" target="_blank" rel="noopener">AWS reInvent reCAP 2019</a> 跟大家分享整個執行過程。</p>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2020/04/30/DevOps/Disaster-Recovery/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2020/04/30/DevOps/Disaster-Recovery/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2020/04/22/Architecture/Reliability-Engineering/" >可靠性工程 (Reliability Engineering)</a>
+			<span class="date"> 2020/04/22 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2020/04/22/Architecture/Reliability-Engineering/" >可靠性工程 (Reliability Engineering)</a>
+				<span class="badge article_title_date"> 2020/04/22 13:30:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>在整理 <a href="/2019/09/20/SQA/How-to-Measure-System-Capacity/">如何量測系統的容量？</a> 給自己挖了一個坑，整理這篇，先起個頭。<code>可靠性工程 (Reliability Engineering)</code><sup><a href="https://en.wikipedia.org/wiki/Elasticity_(cloud_computing)" target="_blank" rel="noopener">1</a></sup> 是系統工程的子項目之一，概念上非常類似於 <code>可用性 (Available)</code>，但不全然。依據 <a href="https://onlinelibrary.wiley.com/doi/book/10.1002/9781119961260" target="_blank" rel="noopener">Practical Reliability Engineering</a> 的定義，可靠性如下：</p>
+<blockquote>
+<p>The probability that an item will perform a required function without failure under stated conditions for a statd period of time.<br>可靠性是指某套系統在指定的環境下，在要求的時間內成功持續執行某個功能的機率。</p>
+</blockquote>
+<p>這段定義在 SRE 序中也有引用。</p>
+<p>這篇整理個人的理解與簡單總結，不見得與一般的書本一樣，主要專注在 What (可靠性的定義)、How (工程實踐)。</p>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2020/04/22/Architecture/Reliability-Engineering/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2020/04/22/Architecture/Reliability-Engineering/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2020/03/24/Management/Principles-of-Communication/" >溝通的原理</a>
+			<span class="date"> 2020/03/24 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2020/03/24/Management/Principles-of-Communication/" >溝通的原理</a>
+				<span class="badge article_title_date"> 2020/03/24 16:53:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>溝通就是把資訊從自己腦袋裡挖出來，然後透過載體，像是用語言、文字、圖畫、藝術、肢體 …. 傳達給另一個人，讓對方知道你在想啥。溝通的理想結果是彼此 100% 知道彼此的感受、體驗、想法，藉由此相互的理解，然後進一步的合作、協作、或者是情感交流。一般透過語言的溝通程序大概如下圖：</p>
+<p><img src="/images/Management/Principles-of-Communication/Process.png" alt=""></p>
+<p>整個過程有幾個階段：</p>
+<ol>
+<li>你想說的</li>
+<li>你說出來的</li>
+<li>我聽到的</li>
+<li>我理解的</li>
+</ol>
+<blockquote>
+<p>本文同步發佈在 Matters: <a href="https://matters.news/@rickhwang/%E5%BB%A2%E6%96%87-%E6%BA%9D%E9%80%9A%E7%9A%84%E5%8E%9F%E7%90%86-bafyreieyitucjves6rwzpwjdnx42yxcz7gnpjm44vhql3c25lllmaxxpcu" target="_blank" rel="noopener">廢文：溝通的原理</a></p>
+</blockquote>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2020/03/24/Management/Principles-of-Communication/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2020/03/24/Management/Principles-of-Communication/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2020/03/07/ComputerScience/Cryptography/" >摘要密碼學與資訊安全</a>
+			<span class="date"> 2020/03/07 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2020/03/07/ComputerScience/Cryptography/" >摘要密碼學與資訊安全</a>
+				<span class="badge article_title_date"> 2020/03/07 21:42:30 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>整理一些 <a href="https://zh.wikipedia.org/zh-tw/%E5%AF%86%E7%A0%81%E5%AD%A6" target="_blank" rel="noopener">密碼學 (Cryptography)</a> 與 <a href="https://en.wikipedia.org/wiki/Information_security" target="_blank" rel="noopener">資訊安全 (Information Security)</a> 的專有名詞、重要概念、密碼學演算法、應用協議、資訊安全概念，主要資料都參考自 Wikipedia。</p>
+<blockquote>
+<ul>
+<li>本文非一次性整理，相關筆記漸進式整理上來。</li>
+<li>本文只是個人學習的梳理，可能有誤，如有建議歡迎給予指導，感謝。</li>
+</ul>
+</blockquote>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2020/03/07/ComputerScience/Cryptography/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2020/03/07/ComputerScience/Cryptography/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2020/03/02/AWS/Study-Notes-KMS/" >Study Notes - Key Management Service</a>
+			<span class="date"> 2020/03/02 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2020/03/02/AWS/Study-Notes-KMS/" >Study Notes - Key Management Service</a>
+				<span class="badge article_title_date"> 2020/03/02 02:35:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>整理 Key Management Service (KMS) 的學習筆記，包含以下：</p>
+<ul>
+<li>一、基本概念</li>
+<li>二、基本使用</li>
+<li>三、整合應用</li>
+<li>四、常見問答</li>
+</ul>
+<blockquote>
+<p>KMS 需要有密碼學與資訊安全的概念，所以另外整理 <a href="/2020/03/07/ComputerScience/Cryptography/">摘要密碼學與資訊安全</a> 的筆記。</p>
+</blockquote>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2020/03/02/AWS/Study-Notes-KMS/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2020/03/02/AWS/Study-Notes-KMS/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2020/02/08/Container/Why-Container/" >為什麼要使用容器？</a>
+			<span class="date"> 2020/02/08 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2020/02/08/Container/Why-Container/" >為什麼要使用容器？</a>
+				<span class="badge article_title_date"> 2020/02/08 22:37:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>下班前 (02/07 Fri) 同事問 Container 除了可以讓應用程式在本機與正式環境一樣，跟 VM 比較起來還有什麼好處？認真說可以說很多，簡單整理 我在三分鐘內口述的東西，因為要趕公車，三分鐘到了我就先跑了XDD，這段文字是在公車上敲下的，原文點 <a href="https://www.facebook.com/rick.kyhwang/posts/10212803570923498" target="_blank" rel="noopener">這裡</a>。</p>
+<blockquote>
+<p>當下第一個直覺就是清楚的資源邊界：<code>隔離性</code>，衍生的議題就是 <code>資源管理</code> 與 <code>成本</code>。第二個想到的就是 <code>資安</code>，衍生議題就是 <code>系統維運 (Operations)</code> 。所以先針對這兩個部分描述。</p>
+</blockquote>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2020/02/08/Container/Why-Container/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2020/02/08/Container/Why-Container/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2020/02/02/DevOps/Incident-Management-Aspects/" >事件管理的維度</a>
+			<span class="date"> 2020/02/02 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2020/02/02/DevOps/Incident-Management-Aspects/" >事件管理的維度</a>
+				<span class="badge article_title_date"> 2020/02/02 12:43:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>最近因為武漢肺炎事件，國家必須用各種方式通報國民，包含嚴重性、通報的方法、交付有意義的資訊。</p>
+<p>這整個過程就是事件管理是一樣的。摘錄我在 2017 年分享的一段想法：<a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a>，其中第四部分談的異常通報 就是談事件通報與管理的核心概念。</p>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2020/02/02/DevOps/Incident-Management-Aspects/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2020/02/02/DevOps/Incident-Management-Aspects/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2020/02/01/Reference/Famous-Computer-Scientists/" >我認識的計算機科學家</a>
+			<span class="date"> 2020/02/01 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2020/02/01/Reference/Famous-Computer-Scientists/" >我認識的計算機科學家</a>
+				<span class="badge article_title_date"> 2020/02/01 15:37:03 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>整理我認識的計算機科學家。</p>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2020/02/01/Reference/Famous-Computer-Scientists/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2020/02/01/Reference/Famous-Computer-Scientists/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2020/01/20/Blog/Hello-Hugo/" >Hello Hugo</a>
+			<span class="date"> 2020/01/20 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2020/01/20/Blog/Hello-Hugo/" >Hello Hugo</a>
+				<span class="badge article_title_date"> 2020/01/20 19:55:31 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>去年針對 <a href="/2019/03/10/DevOps/Continuous-Delivery-Docs/">文件持續交付</a> 找了一些工具，當時以 K8s 官方網站作為目標，研究他使用的工具以及架構，後來這件事情就沒有時間持續往下。最近想把個人的入口網站，做更完善的整理，試了一些東西，最後腦海還是出現去年研究 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 的想法，所以整理一下研究的筆記。</p>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2020/01/20/Blog/Hello-Hugo/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2020/01/20/Blog/Hello-Hugo/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2019/12/28/Management/Awareness-and-Deep-Thinking/" >如何意識到問題的存在</a>
+			<span class="date"> 2019/12/28 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2019/12/28/Management/Awareness-and-Deep-Thinking/" >如何意識到問題的存在</a>
+				<span class="badge article_title_date"> 2019/12/28 18:21:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>在組織裡推動事情，最困難的往往不是技術上的執行問題、不是成本問題、溝通問題、協作問題，困難的是：</p>
+<blockquote>
+<p>如何讓高層、主管、團隊成員 <code>意識 (Awareness)</code> 到：<code>這是一個必須被正視的問題</code>。</p>
+</blockquote>
+<p>當問題被正視了，大家都 Awareness 了，接下來才有開始討論如何解決、如何 <a href="/2019/11/19/Management/Objectives-Key-Results-Executions/">有效定義目標與執行、落地</a>、資源才會進來 …</p>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2019/12/28/Management/Awareness-and-Deep-Thinking/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2019/12/28/Management/Awareness-and-Deep-Thinking/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2019/12/08/About/SRE-Study-Group-Round3/" >SRE 讀書會 Round3 結語</a>
+			<span class="date"> 2019/12/08 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2019/12/08/About/SRE-Study-Group-Round3/" >SRE 讀書會 Round3 結語</a>
+				<span class="badge article_title_date"> 2019/12/08 15:01:30 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p><a href="https://www.facebook.com/groups/sre.taiwan/" target="_blank" rel="noopener">SRE</a> 讀書會 Round 3 從今年 2019/03/15 開始，在 2019/12/05 (四) 的寒流之下完結了，大家頂著 15 度低溫、加上下著雨，依舊準時出席讀書會，走完這次最後的章節。</p>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2019/12/08/About/SRE-Study-Group-Round3/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2019/12/08/About/SRE-Study-Group-Round3/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2019/11/19/Management/Objectives-Key-Results-Executions/" >有效定義目標與執行、落地</a>
+			<span class="date"> 2019/11/19 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2019/11/19/Management/Objectives-Key-Results-Executions/" >有效定義目標與執行、落地</a>
+				<span class="badge article_title_date"> 2019/11/19 23:30:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>今年一整年，起了好幾個跨部門、跨組織的任務，在這過程一直在嘗試讓一個成員、或者讓一個團隊可以自主完成任務的方法，過程中踩了很多雷，像七傷拳一樣，常常是還沒發拳自己就先中了內傷，內力不夠深厚打七傷拳才會傷到自己，後來慢慢梳理出一套可以執行的方法，年底也看到成果了。</p>
+<p>除了這些大範圍的協作，工作上經常交付任務給團隊執行，交辦的方式會是口頭交辦、公開的指派、正式的賦予權責，交辦的對象則有自己團隊的資深、到資遣成員，協作團隊的成員 … 不管怎樣的交付任務，都需要一個有效的方法來確立目標是可以執行。</p>
+<p>這篇整理了一些歷程與土炮方法，分成以下幾個部分：</p>
+<ul>
+<li>一、給任務前，管理者的思考</li>
+<li>二、情境領導：不同成員的引導</li>
+<li>三、執行與落地</li>
+</ul>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2019/11/19/Management/Objectives-Key-Results-Executions/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2019/11/19/Management/Objectives-Key-Results-Executions/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2019/11/02/AWS/Study-Notes-CloudFront/" >Study Notes - CloudFront</a>
+			<span class="date"> 2019/11/02 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2019/11/02/AWS/Study-Notes-CloudFront/" >Study Notes - CloudFront</a>
+				<span class="badge article_title_date"> 2019/11/02 03:30:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>CloudFront 是 AWS 非常重要的服務，用了幾年，斷斷續續有一些心得與想法，這次換個方式整理筆記，先全部用 Q and A 方式記錄學習。</p>
+<blockquote>
+<p>本文整理的 Delivery Method 以 Web 為主</p>
+</blockquote>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2019/11/02/AWS/Study-Notes-CloudFront/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2019/11/02/AWS/Study-Notes-CloudFront/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2019/10/30/SQA/Problems-In-Software-Testing/" >關於軟體測試，一些觀察到的現象</a>
+			<span class="date"> 2019/10/30 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2019/10/30/SQA/Problems-In-Software-Testing/" >關於軟體測試，一些觀察到的現象</a>
+				<span class="badge article_title_date"> 2019/10/30 11:08:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>最近有朋友問我一些測試的問題，問題層面很廣，像是去一家新創 Startup 如何 Build Up QA Team？自動化測試該用哪一套？測試的方法論該怎麼落地？聊到後來我發現問題背後的期待有問題，期待是什麼？</p>
+<blockquote>
+<p>測試想要一步到位</p>
+</blockquote>
+<p>基於這個前提，後來我把觀察到的現象與問題寫下，起筆是 2018/07/03 的<a href="https://www.facebook.com/rick.kyhwang/posts/10209533409411504" target="_blank" rel="noopener">隨筆</a>，陸陸續續整理以下文章：</p>
+<ul>
+<li>2018/07/03: <a href="https://www.facebook.com/rick.kyhwang/posts/10209533409411504" target="_blank" rel="noopener">軟體品質的核心概念</a></li>
+<li>2019/01/19: <a href="https://www.facebook.com/rick.kyhwang/posts/10210605483812694" target="_blank" rel="noopener">關於軟體測試：一些觀察到的現象</a></li>
+<li>2019/10/28: <a href="https://www.facebook.com/rick.kyhwang/posts/10212139110272397" target="_blank" rel="noopener">軟體測試的現實與理想</a></li>
+<li>文中列舉的問題，我自己親身的經歷參見： <a href="/2015/10/11/SQA/How-To-Be-An-SQA/">Software QA 的職能條件</a></li>
+</ul>
+<p>這篇文章整理上述文章的想法與整合。</p>
+<blockquote>
+<p>本文的思路，後來整理成專文： <a href="/2019/12/28/Management/Awareness-and-Deep-Thinking/">如何意識到問題的存在</a></p>
+</blockquote>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2019/10/30/SQA/Problems-In-Software-Testing/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2019/10/30/SQA/Problems-In-Software-Testing/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2019/10/24/Management/Learning-From-Amazon/" >從 Jeff Bezos 與 Werner Vogels 學到的</a>
+			<span class="date"> 2019/10/24 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2019/10/24/Management/Learning-From-Amazon/" >從 Jeff Bezos 與 Werner Vogels 學到的</a>
+				<span class="badge article_title_date"> 2019/10/24 00:16:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>這幾年工作關係，經常讀一些資料，但有幾篇是經常重複閱讀、重複分享，這幾篇文字影響我很多，整理起來需要分享時比較快 XD</p>
+<ul>
+<li>Jeff Bezos - Amazon CEO</li>
+<li>Werner Vogels - Amazon Web Services CTO</li>
+</ul>
+<p>所有文章標題都是原文連結。</p>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2019/10/24/Management/Learning-From-Amazon/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2019/10/24/Management/Learning-From-Amazon/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2019/10/19/AWS/Study-Notes-EKS_Networking/" >EKS 學習筆記 - 網路規劃與管理篇</a>
+			<span class="date"> 2019/10/19 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2019/10/19/AWS/Study-Notes-EKS_Networking/" >EKS 學習筆記 - 網路規劃與管理篇</a>
+				<span class="badge article_title_date"> 2019/10/19 19:41:58 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>整理 EKS 的 Networking 相關的問題，主要有規劃、管理 … 等觀測，如下：</p>
+<ul>
+<li>VPC Consideration: 規劃的考量</li>
+<li>VPC-CNI Utilization: VPC IP 的使用狀況</li>
+<li>Cluster AutoScaler: Worker Node 的 AutoScale</li>
+</ul>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2019/10/19/AWS/Study-Notes-EKS_Networking/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2019/10/19/AWS/Study-Notes-EKS_Networking/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2019/10/17/DevOps/The-Three-Body-Problems-in-Software-Delivery/" >軟體交付的三體問題</a>
+			<span class="date"> 2019/10/17 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2019/10/17/DevOps/The-Three-Body-Problems-in-Software-Delivery/" >軟體交付的三體問題</a>
+				<span class="badge article_title_date"> 2019/10/17 00:16:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>這段個別剪接出來的三分鐘錄影，是今年 (2019) 四月我在新竹敏捷 (交大) 分享的，我稱為 <code>軟體交付的三體問題</code>。</p>
+<p><img src="/images/DevOps/Introduce-to-CD20/p1-00.png" alt=""></p>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2019/10/17/DevOps/The-Three-Body-Problems-in-Software-Delivery/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2019/10/17/DevOps/The-Three-Body-Problems-in-Software-Delivery/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2019/10/13/AWS/Study-Notes-EKS/" >EKS 學習筆記</a>
+			<span class="date"> 2019/10/13 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2019/10/13/AWS/Study-Notes-EKS/" >EKS 學習筆記</a>
+				<span class="badge article_title_date"> 2019/10/13 19:41:58 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>整理相關 EKS 的學習筆記，包含規劃 (Planning)、建置 (Provisioning)、管理 (Management / Operation) 等。</p>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2019/10/13/AWS/Study-Notes-EKS/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2019/10/13/AWS/Study-Notes-EKS/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2019/10/13/AWS/Study-Notes-EKS_Provision-Cluster/" >EKS 學習筆記 - 基礎安裝篇</a>
+			<span class="date"> 2019/10/13 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2019/10/13/AWS/Study-Notes-EKS_Provision-Cluster/" >EKS 學習筆記 - 基礎安裝篇</a>
+				<span class="badge article_title_date"> 2019/10/13 19:41:58 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p><a href="/2019/03/17/Container/Install-K8s-with-Kubeadm/">上一篇</a> 整理了使用 kubeadm 安裝 K8s Cluster / Worker Nodes / CNI … 等，同樣的，本文整理使用 AWS EKS 安裝 K8s <code>v1.14</code> 的筆記，安裝過程則以 AWS CLI 為主，同樣方式也可以使用 eksctl、AWS Console、CloudFormation 執行。</p>
+<p>如同之前提及，雖然 EKS 是 Managed Service，但是實際上只有針對 Master Nodes，而 Worker Nodes 還是需要自行管理以及維護的，另外針對 Ingress、使用者權限、Log 蒐集、資源監控、網路 (CNI 相關) … 等，還是需要額外規劃。</p>
+<p>筆記內容：</p>
+<ol>
+<li>準備: IAM User, IAM Role, VPC Subnets</li>
+<li>建置: EKS Master Nodes, ConfigMap, CNI, Worker Nodes</li>
+<li>Q and A</li>
+</ol>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2019/10/13/AWS/Study-Notes-EKS_Provision-Cluster/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2019/10/13/AWS/Study-Notes-EKS_Provision-Cluster/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2019/10/04/DevOps/How-to-Figure-out-the-RootCause-for-an-AbnormalSystem-In-ZeroTime/" >系統發生異常時，第一時間如何快速止血？</a>
+			<span class="date"> 2019/10/04 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2019/10/04/DevOps/How-to-Figure-out-the-RootCause-for-an-AbnormalSystem-In-ZeroTime/" >系統發生異常時，第一時間如何快速止血？</a>
+				<span class="badge article_title_date"> 2019/10/04 23:43:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>這也是個朋友問的問題，問題截圖如下：</p>
+<p><img src="/images/DevOps/Troubleshooting-on-services/Question.png" alt=""></p>
+<p>先不管誰有沒有穿褲子，從整體來看，重新整理問題：</p>
+<blockquote>
+<p>系統發生異常時，第一時間如何快速止血？</p>
+</blockquote>
+<p>底下整理我經常在處理分析時的思路。</p>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2019/10/04/DevOps/How-to-Figure-out-the-RootCause-for-an-AbnormalSystem-In-ZeroTime/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2019/10/04/DevOps/How-to-Figure-out-the-RootCause-for-an-AbnormalSystem-In-ZeroTime/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2019/09/20/SQA/How-to-Measure-System-Capacity/" >如何量測系統的容量？（壓測）</a>
+			<span class="date"> 2019/09/20 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2019/09/20/SQA/How-to-Measure-System-Capacity/" >如何量測系統的容量？（壓測）</a>
+				<span class="badge article_title_date"> 2019/09/20 11:08:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p><a href="/2018/07/22/SQA/Performance-Test/">淺談效能測試</a> 整理了關於 Capacity、Reliabilty、Stability 的概念與定義。本文針對如何量測 <code>系統容量 (Capacity)</code>，整理怎麼做的方法論，可以當作  Capacity Plan Guideline。</p>
+<blockquote>
+<p>系統容量是透過 <code>量測 (Measure)</code> 出來的，結果是數據統計的報表，而 <code>測試</code> 的結果通常是 pass or fail，故本文的描述不用 <code>測試</code> 這個動詞。</p>
+</blockquote>
+<p>這篇文章整理的是如何執行的概念，但不包含以下：</p>
+<ol>
+<li>介紹工具</li>
+<li>環境如何建置</li>
+<li>如何設計架構</li>
+<li>如何優化架構</li>
+</ol>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2019/09/20/SQA/How-to-Measure-System-Capacity/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2019/09/20/SQA/How-to-Measure-System-Capacity/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2019/09/14/AWS/Study-Notes-CloudWatch-Agent-For-Linux/" >Study Notes - CloudWatch Agent for Linux</a>
+			<span class="date"> 2019/09/14 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2019/09/14/AWS/Study-Notes-CloudWatch-Agent-For-Linux/" >Study Notes - CloudWatch Agent for Linux</a>
+				<span class="badge article_title_date"> 2019/09/14 03:30:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p><code>CloudWatch Agent (底下簡稱 CWA)</code> 是 <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/UsePreviousCloudWatchLogsAgent.html" target="_blank" rel="noopener">awslogs</a> 的後續版本，提供了更強大的功能與整合能力。整理 CWA 的基本概念、如何安裝與配置、以及常見問題。</p>
+<blockquote>
+<p>本文範例為 <code>地端 (On-Premise)</code> Linux (Ubuntu 16.04) 為例。</p>
+</blockquote>
+<ol>
+<li>體驗</li>
+<li>簡介</li>
+<li>Q and A</li>
+</ol>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2019/09/14/AWS/Study-Notes-CloudWatch-Agent-For-Linux/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2019/09/14/AWS/Study-Notes-CloudWatch-Agent-For-Linux/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+			
+	
+		<!-- title in index page -->
+		<!--
+		<h3 class="title">
+			<a href="/2019/09/13/DevOps/Scrum-for-SRE-Team/" >Infra 團隊適合 Scrum？</a>
+			<span class="date"> 2019/09/13 </span>
+		</h3>
+		-->
+
+		<div class="panel panel-default article_title_in_index_page">
+			<div class="panel-heading">
+        <i class="fa fa-book"></i>
+				<a href="/2019/09/13/DevOps/Scrum-for-SRE-Team/" >Infra 團隊適合 Scrum？</a>
+				<span class="badge article_title_date"> 2019/09/13 23:43:00 </span>
+  		</div>
+		</div>
+
+	
+
+
+			
+	<!-- Facebook -->
+	<!--
+	<div
+	  class="fb-like"
+	  data-share="true"
+	  data-width="450"
+	  data-show-faces="true">
+	</div>
+	-->
+
+<div class="entry">
+
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>朋友 <a href="https://shazi.info" target="_blank" rel="noopener">Scott Liao</a> 問了一個好問題：</p>
+<p><img src="/images/DevOps/ScrumForSRE/00.png" alt=""></p>
+<p>底下整理當時在 <a href="https://www.facebook.com/rick.kyhwang/posts/10211809787039522" target="_blank" rel="noopener">FB</a> 上的想法。</p>
+	
+	</div>
+	
+	
+  
+</div>
+	
+	<a type="button" href="/2019/09/13/DevOps/Scrum-for-SRE-Team/" class="btn btn-default more"><i class="fa fa-expand"></i> Read More </a>
+	
+	<!-- <a href="/2019/09/13/DevOps/Scrum-for-SRE-Team/">... Read More </a> -->
+</div>
+
+<br />
+
+		
+
+		</div>
+
+		<!-- pagination -->
+		<div>
+  		<center>
+		<div class="pagination">
+<ul class="pagination">
+	 
+		
+          <li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+        
+
+        <li><a href="/"><i class="fa fa-home"></i>Home</a></li>
+
+		
+		   <li class="next"> <a href="/page/2/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a> </li>          
+        
+	
+</ul>
+</div>
+
+  		</center>
+		</div>
+		
+	</div> <!-- col-md-9 -->
+
+	
+		<div class="col-md-3">
+	<div id="sidebar">
+	
+			
+
+
+		<div class="meta-widget">
+			<h4>About</h4>
+
+			
+				<li><a href="/2018/07/08/Index/">全站索引</a></li>
+			
+				<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+			
+				<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+			
+				<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+			
+				<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+			
+				<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+			
+				<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+			
+
+			<h4>Donate</h4>
+			<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+			<input type="hidden" name="cmd" value="_s-xclick" />
+			<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
+			<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+			<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
+			</form>
+
+			<h4>Facebook</h4>
+
+			<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
+
+
+
+			<h4>AWS Certifications</h4>
+			<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+			<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+			<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+
+		</div>
+
+
+
+		
+			<div class="form-group has-success has-feedback">
+  <form action="//google.com/search" method="get" accept-charset="utf-8" >
+    <input type="search" name="q" results="0" placeholder="Search" class="form-control">
+    <input type="hidden" name="q" value="site:rickhw.github.io">	
+  </form>
+</div>
+
+		
+			
+	<div class="widget">
+		<h4>Categories</h4>
+		<ul class="tag_box inline list-unstyled">
+		
+			<li><a href="/categories/AWS/">AWS <span>82</span></a></li>
+		
+			<li><a href="/categories/About/">About <span>21</span></a></li>
+		
+			<li><a href="/categories/Architecture/">Architecture <span>14</span></a></li>
+		
+			<li><a href="/categories/Blog/">Blog <span>5</span></a></li>
+		
+			<li><a href="/categories/Coding/">Coding <span>3</span></a></li>
+		
+			<li><a href="/categories/Computer-Science/">Computer Science <span>5</span></a></li>
+		
+			<li><a href="/categories/Container/">Container <span>7</span></a></li>
+		
+			<li><a href="/categories/DevOps/">DevOps <span>43</span></a></li>
+		
+			<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <span>10</span></a></li>
+		
+			<li><a href="/categories/GCP/">GCP <span>8</span></a></li>
+		
+			<li><a href="/categories/Linux/">Linux <span>9</span></a></li>
+		
+			<li><a href="/categories/Misc/">Misc <span>3</span></a></li>
+		
+			<li><a href="/categories/OS-X/">OS X <span>4</span></a></li>
+		
+			<li><a href="/categories/Redmine/">Redmine <span>6</span></a></li>
+		
+			<li><a href="/categories/Reference/">Reference <span>5</span></a></li>
+		
+			<li><a href="/categories/DevOps/SRE/">SRE <span>24</span></a></li>
+		
+			<li><a href="/categories/Software-Engineering/">Software Engineering <span>6</span></a></li>
+		
+			<li><a href="/categories/經營管理/">經營管理 <span>50</span></a></li>
+		
+			<li><a href="/categories/軟體測試/">軟體測試 <span>11</span></a></li>
+		
+		</ul>
+	</div>
+
+
+		
+			
+<div class="widget">
+  <h4>Recent Posts</h4>
+  <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2021/03/11/Architecture/Experience-Dapr-Hello-World/" ><i class="fa fa-file-o"></i>Experience Dapr - Hello World</a>
+      </li>
+    
+      <li>
+        <a href="/2021/01/03/Linux/Shell-and-Bash-Concepts/" ><i class="fa fa-file-o"></i>Shell and Bash Concepts</a>
+      </li>
+    
+      <li>
+        <a href="/2020/10/18/DevOps/Deploy-on-Friday-or-Not/" ><i class="fa fa-file-o"></i>星期五要不要部署？</a>
+      </li>
+    
+      <li>
+        <a href="/2020/10/11/Management/Effective-Meetings/" ><i class="fa fa-file-o"></i>一場有效的會議</a>
+      </li>
+    
+      <li>
+        <a href="/2020/09/12/ComputerScience/Synchronization/" ><i class="fa fa-file-o"></i>淺談同步機制</a>
+      </li>
+    
+      <li>
+        <a href="/2020/08/01/Management/Expression-and-Communication/" ><i class="fa fa-file-o"></i>表達與溝通的差異</a>
+      </li>
+    
+      <li>
+        <a href="/2020/06/21/Management/Interview-Problems/" ><i class="fa fa-file-o"></i>面試常見的問題</a>
+      </li>
+    
+      <li>
+        <a href="/2020/05/16/Architecture/Distributed-Transactions/" ><i class="fa fa-file-o"></i>淺談分散式交易</a>
+      </li>
+    
+      <li>
+        <a href="/2020/05/09/Management/Problems-in-Documentation/" ><i class="fa fa-file-o"></i>寫文件常見的問題</a>
+      </li>
+    
+      <li>
+        <a href="/2020/04/30/DevOps/Disaster-Recovery/" ><i class="fa fa-file-o"></i>災難還原 - 實戰演練</a>
+      </li>
+    
+      <li>
+        <a href="/2020/04/22/Architecture/Reliability-Engineering/" ><i class="fa fa-file-o"></i>可靠性工程 (Reliability Engineer...</a>
+      </li>
+    
+      <li>
+        <a href="/2020/03/24/Management/Principles-of-Communication/" ><i class="fa fa-file-o"></i>溝通的原理</a>
+      </li>
+    
+      <li>
+        <a href="/2020/03/07/ComputerScience/Cryptography/" ><i class="fa fa-file-o"></i>摘要密碼學與資訊安全</a>
+      </li>
+    
+      <li>
+        <a href="/2020/03/02/AWS/Study-Notes-KMS/" ><i class="fa fa-file-o"></i>Study Notes - Key Managemen...</a>
+      </li>
+    
+      <li>
+        <a href="/2020/02/08/Container/Why-Container/" ><i class="fa fa-file-o"></i>為什麼要使用容器？</a>
+      </li>
+    
+  </ul>
+</div>
+
+		
+			
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+		
+			
+	<div class="widget">
+		<h4>Tag Cloud</h4>
+		<ul class="tag_box inline list-unstyled">		
+		
+			<li><a href="/tags/CloudWatch-Metrics/">CloudWatch Metrics<span>7</span></a></li>
+		
+			<li><a href="/tags/Task-Queue/">Task Queue<span>2</span></a></li>
+		
+			<li><a href="/tags/Entropy/">Entropy<span>4</span></a></li>
+		
+			<li><a href="/tags/Route-Table/">Route Table<span>1</span></a></li>
+		
+			<li><a href="/tags/Openresty/">Openresty<span>2</span></a></li>
+		
+			<li><a href="/tags/BFF/">BFF<span>1</span></a></li>
+		
+			<li><a href="/tags/BASE/">BASE<span>5</span></a></li>
+		
+			<li><a href="/tags/CRI/">CRI<span>6</span></a></li>
+		
+			<li><a href="/tags/Conference/">Conference<span>10</span></a></li>
+		
+			<li><a href="/tags/Cloud-Endpoint/">Cloud Endpoint<span>1</span></a></li>
+		
+			<li><a href="/tags/Semantic-Versioning/">Semantic Versioning<span>3</span></a></li>
+		
+			<li><a href="/tags/CodeDeploy/">CodeDeploy<span>4</span></a></li>
+		
+			<li><a href="/tags/Ops-as-Code/">Ops as Code<span>7</span></a></li>
+		
+			<li><a href="/tags/Observability/">Observability<span>2</span></a></li>
+		
+			<li><a href="/tags/CNI/">CNI<span>6</span></a></li>
+		
+			<li><a href="/tags/Distributed-Consistency/">Distributed Consistency<span>1</span></a></li>
+		
+			<li><a href="/tags/Trace/">Trace<span>1</span></a></li>
+		
+			<li><a href="/tags/Deep-Dive/">Deep Dive<span>3</span></a></li>
+		
+			<li><a href="/tags/用人之道/">用人之道<span>14</span></a></li>
+		
+			<li><a href="/tags/Microservices/">Microservices<span>13</span></a></li>
+		
+			<li><a href="/tags/Linux/">Linux<span>6</span></a></li>
+		
+			<li><a href="/tags/Java/">Java<span>1</span></a></li>
+		
+			<li><a href="/tags/STEM/">STEM<span>1</span></a></li>
+		
+			<li><a href="/tags/Log/">Log<span>7</span></a></li>
+		
+			<li><a href="/tags/Disaster-Recovery/">Disaster Recovery<span>5</span></a></li>
+		
+			<li><a href="/tags/IaaS/">IaaS<span>1</span></a></li>
+		
+			<li><a href="/tags/SSL/">SSL<span>1</span></a></li>
+		
+			<li><a href="/tags/Stress-Test/">Stress Test<span>2</span></a></li>
+		
+			<li><a href="/tags/溝通成本/">溝通成本<span>1</span></a></li>
+		
+			<li><a href="/tags/DLP/">DLP<span>1</span></a></li>
+		
+			<li><a href="/tags/PIP/">PIP<span>1</span></a></li>
+		
+			<li><a href="/tags/Dynamo/">Dynamo<span>1</span></a></li>
+		
+			<li><a href="/tags/DCOS/">DCOS<span>1</span></a></li>
+		
+			<li><a href="/tags/Maintainable/">Maintainable<span>1</span></a></li>
+		
+			<li><a href="/tags/Wordpress/">Wordpress<span>1</span></a></li>
+		
+			<li><a href="/tags/Dapr/">Dapr<span>1</span></a></li>
+		
+			<li><a href="/tags/Software-Test/">Software Test<span>11</span></a></li>
+		
+			<li><a href="/tags/Process/">Process<span>3</span></a></li>
+		
+			<li><a href="/tags/SDLC/">SDLC<span>6</span></a></li>
+		
+			<li><a href="/tags/Chaos-Engineering/">Chaos Engineering<span>10</span></a></li>
+		
+			<li><a href="/tags/ACM/">ACM<span>3</span></a></li>
+		
+			<li><a href="/tags/創新/">創新<span>1</span></a></li>
+		
+			<li><a href="/tags/VMWare/">VMWare<span>5</span></a></li>
+		
+			<li><a href="/tags/Service-Catalog/">Service Catalog<span>2</span></a></li>
+		
+			<li><a href="/tags/Scrum/">Scrum<span>3</span></a></li>
+		
+			<li><a href="/tags/Working-Backwards/">Working Backwards<span>8</span></a></li>
+		
+			<li><a href="/tags/AWS-Certified/">AWS Certified<span>7</span></a></li>
+		
+			<li><a href="/tags/Observer-Pattern/">Observer Pattern<span>1</span></a></li>
+		
+			<li><a href="/tags/DSL/">DSL<span>1</span></a></li>
+		
+			<li><a href="/tags/IPC/">IPC<span>1</span></a></li>
+		
+			<li><a href="/tags/Resilience/">Resilience<span>3</span></a></li>
+		
+			<li><a href="/tags/Jeff-Bezos/">Jeff Bezos<span>1</span></a></li>
+		
+			<li><a href="/tags/ETL/">ETL<span>1</span></a></li>
+		
+			<li><a href="/tags/Elasticity/">Elasticity<span>1</span></a></li>
+		
+			<li><a href="/tags/Arduino/">Arduino<span>1</span></a></li>
+		
+			<li><a href="/tags/騎士精神/">騎士精神<span>1</span></a></li>
+		
+			<li><a href="/tags/Vim/">Vim<span>3</span></a></li>
+		
+			<li><a href="/tags/golang/">golang<span>1</span></a></li>
+		
+			<li><a href="/tags/IoC/">IoC<span>1</span></a></li>
+		
+			<li><a href="/tags/Release-Notes/">Release Notes<span>1</span></a></li>
+		
+			<li><a href="/tags/CloudFormation/">CloudFormation<span>10</span></a></li>
+		
+			<li><a href="/tags/DynamoDB/">DynamoDB<span>10</span></a></li>
+		
+			<li><a href="/tags/CAP/">CAP<span>6</span></a></li>
+		
+			<li><a href="/tags/Lifecycle/">Lifecycle<span>28</span></a></li>
+		
+			<li><a href="/tags/Dashboard/">Dashboard<span>2</span></a></li>
+		
+			<li><a href="/tags/SVT/">SVT<span>1</span></a></li>
+		
+			<li><a href="/tags/Artifact-Management/">Artifact Management<span>13</span></a></li>
+		
+			<li><a href="/tags/Telegram/">Telegram<span>1</span></a></li>
+		
+			<li><a href="/tags/Continuous-Delivery/">Continuous Delivery<span>14</span></a></li>
+		
+			<li><a href="/tags/Storage-Gateway/">Storage Gateway<span>1</span></a></li>
+		
+			<li><a href="/tags/ps/">ps<span>1</span></a></li>
+		
+			<li><a href="/tags/K8s/">K8s<span>6</span></a></li>
+		
+			<li><a href="/tags/AWS-SDK/">AWS SDK<span>2</span></a></li>
+		
+			<li><a href="/tags/Node-js/">Node.js<span>1</span></a></li>
+		
+			<li><a href="/tags/Pub-Sub/">Pub/Sub<span>2</span></a></li>
+		
+			<li><a href="/tags/ENA/">ENA<span>1</span></a></li>
+		
+			<li><a href="/tags/Saga-Pattern/">Saga Pattern<span>1</span></a></li>
+		
+			<li><a href="/tags/JEMSPath/">JEMSPath<span>1</span></a></li>
+		
+			<li><a href="/tags/ALB/">ALB<span>2</span></a></li>
+		
+			<li><a href="/tags/VPN/">VPN<span>1</span></a></li>
+		
+			<li><a href="/tags/Proxmox/">Proxmox<span>4</span></a></li>
+		
+			<li><a href="/tags/IPv6/">IPv6<span>3</span></a></li>
+		
+			<li><a href="/tags/Operating-Systems/">Operating Systems<span>1</span></a></li>
+		
+			<li><a href="/tags/FlowLog/">FlowLog<span>1</span></a></li>
+		
+			<li><a href="/tags/Bus-Memo/">Bus Memo<span>28</span></a></li>
+		
+			<li><a href="/tags/Cryptography/">Cryptography<span>1</span></a></li>
+		
+			<li><a href="/tags/Network-Traffic/">Network Traffic<span>1</span></a></li>
+		
+			<li><a href="/tags/時間管理/">時間管理<span>3</span></a></li>
+		
+			<li><a href="/tags/Operations/">Operations<span>2</span></a></li>
+		
+			<li><a href="/tags/TOGAF/">TOGAF<span>1</span></a></li>
+		
+			<li><a href="/tags/markdown/">markdown<span>2</span></a></li>
+		
+			<li><a href="/tags/CloudWatch-Alarms/">CloudWatch Alarms<span>6</span></a></li>
+		
+			<li><a href="/tags/VPC/">VPC<span>21</span></a></li>
+		
+			<li><a href="/tags/Synchronous/">Synchronous<span>1</span></a></li>
+		
+			<li><a href="/tags/kubeadm/">kubeadm<span>6</span></a></li>
+		
+			<li><a href="/tags/Distributed-Consensus/">Distributed Consensus<span>6</span></a></li>
+		
+			<li><a href="/tags/AOP/">AOP<span>1</span></a></li>
+		
+			<li><a href="/tags/Compatible/">Compatible<span>1</span></a></li>
+		
+			<li><a href="/tags/github/">github<span>1</span></a></li>
+		
+			<li><a href="/tags/VPC-Peering/">VPC Peering<span>5</span></a></li>
+		
+			<li><a href="/tags/NAT/">NAT<span>1</span></a></li>
+		
+			<li><a href="/tags/Ubuntu-18-04/">Ubuntu 18.04<span>3</span></a></li>
+		
+			<li><a href="/tags/API-Management/">API Management<span>1</span></a></li>
+		
+			<li><a href="/tags/Quit/">Quit<span>1</span></a></li>
+		
+			<li><a href="/tags/OpenStack/">OpenStack<span>1</span></a></li>
+		
+			<li><a href="/tags/Blockchain/">Blockchain<span>2</span></a></li>
+		
+			<li><a href="/tags/DI/">DI<span>1</span></a></li>
+		
+			<li><a href="/tags/EC2-Auto-Scaling/">EC2 Auto Scaling<span>13</span></a></li>
+		
+			<li><a href="/tags/Interview/">Interview<span>4</span></a></li>
+		
+			<li><a href="/tags/System-Operations/">System Operations<span>3</span></a></li>
+		
+			<li><a href="/tags/Redmine-Plugins/">Redmine Plugins<span>1</span></a></li>
+		
+			<li><a href="/tags/Ubuntu-16-04/">Ubuntu 16.04<span>4</span></a></li>
+		
+			<li><a href="/tags/Public-Subnet/">Public Subnet<span>2</span></a></li>
+		
+			<li><a href="/tags/Deep-Thinking/">Deep Thinking<span>1</span></a></li>
+		
+			<li><a href="/tags/DDD/">DDD<span>2</span></a></li>
+		
+			<li><a href="/tags/Parser/">Parser<span>1</span></a></li>
+		
+			<li><a href="/tags/SMTP/">SMTP<span>1</span></a></li>
+		
+			<li><a href="/tags/Configuration/">Configuration<span>8</span></a></li>
+		
+			<li><a href="/tags/hexo/">hexo<span>5</span></a></li>
+		
+			<li><a href="/tags/QuickSight/">QuickSight<span>1</span></a></li>
+		
+			<li><a href="/tags/DNS/">DNS<span>2</span></a></li>
+		
+			<li><a href="/tags/cURL/">cURL<span>1</span></a></li>
+		
+			<li><a href="/tags/i18n/">i18n<span>1</span></a></li>
+		
+			<li><a href="/tags/Semaphore/">Semaphore<span>1</span></a></li>
+		
+			<li><a href="/tags/SSM/">SSM<span>2</span></a></li>
+		
+			<li><a href="/tags/CloudWatch-Log/">CloudWatch Log<span>1</span></a></li>
+		
+			<li><a href="/tags/crontab/">crontab<span>1</span></a></li>
+		
+			<li><a href="/tags/RESTful/">RESTful<span>1</span></a></li>
+		
+			<li><a href="/tags/CloudTrail/">CloudTrail<span>4</span></a></li>
+		
+			<li><a href="/tags/mkdocs/">mkdocs<span>1</span></a></li>
+		
+			<li><a href="/tags/Hiring/">Hiring<span>9</span></a></li>
+		
+			<li><a href="/tags/價值觀/">價值觀<span>1</span></a></li>
+		
+			<li><a href="/tags/斷捨離/">斷捨離<span>1</span></a></li>
+		
+			<li><a href="/tags/SCM/">SCM<span>2</span></a></li>
+		
+			<li><a href="/tags/Step-Functions/">Step Functions<span>2</span></a></li>
+		
+			<li><a href="/tags/Antifragile/">Antifragile<span>5</span></a></li>
+		
+			<li><a href="/tags/System-Test/">System Test<span>4</span></a></li>
+		
+			<li><a href="/tags/ruby/">ruby<span>1</span></a></li>
+		
+			<li><a href="/tags/RPi/">RPi<span>1</span></a></li>
+		
+			<li><a href="/tags/IAM-Role/">IAM Role<span>1</span></a></li>
+		
+			<li><a href="/tags/Version-Control/">Version Control<span>9</span></a></li>
+		
+			<li><a href="/tags/TCC/">TCC<span>1</span></a></li>
+		
+			<li><a href="/tags/Hybrid-Cloud/">Hybrid Cloud<span>1</span></a></li>
+		
+			<li><a href="/tags/CNCF/">CNCF<span>1</span></a></li>
+		
+			<li><a href="/tags/Kanban/">Kanban<span>1</span></a></li>
+		
+			<li><a href="/tags/Performance-Test/">Performance Test<span>4</span></a></li>
+		
+			<li><a href="/tags/rvm/">rvm<span>1</span></a></li>
+		
+			<li><a href="/tags/Refactoring/">Refactoring<span>4</span></a></li>
+		
+			<li><a href="/tags/NLB/">NLB<span>1</span></a></li>
+		
+			<li><a href="/tags/康威定律/">康威定律<span>1</span></a></li>
+		
+			<li><a href="/tags/Emergency-Response/">Emergency Response<span>5</span></a></li>
+		
+			<li><a href="/tags/Information-Security/">Information Security<span>1</span></a></li>
+		
+			<li><a href="/tags/File-Descriptor/">File Descriptor<span>2</span></a></li>
+		
+			<li><a href="/tags/Console/">Console<span>1</span></a></li>
+		
+			<li><a href="/tags/Test-Strategy/">Test Strategy<span>1</span></a></li>
+		
+			<li><a href="/tags/情境領導/">情境領導<span>1</span></a></li>
+		
+			<li><a href="/tags/STS/">STS<span>1</span></a></li>
+		
+			<li><a href="/tags/SQA/">SQA<span>2</span></a></li>
+		
+			<li><a href="/tags/top/">top<span>1</span></a></li>
+		
+			<li><a href="/tags/Benchmark/">Benchmark<span>1</span></a></li>
+		
+			<li><a href="/tags/Infrastructure/">Infrastructure<span>2</span></a></li>
+		
+			<li><a href="/tags/Windows-Server/">Windows Server<span>1</span></a></li>
+		
+			<li><a href="/tags/Documentation/">Documentation<span>2</span></a></li>
+		
+			<li><a href="/tags/Nginx/">Nginx<span>2</span></a></li>
+		
+			<li><a href="/tags/Secrets-Manager/">Secrets Manager<span>1</span></a></li>
+		
+			<li><a href="/tags/專案管理/">專案管理<span>8</span></a></li>
+		
+			<li><a href="/tags/YAML/">YAML<span>3</span></a></li>
+		
+			<li><a href="/tags/Version-Manager/">Version Manager<span>2</span></a></li>
+		
+			<li><a href="/tags/Minikube/">Minikube<span>1</span></a></li>
+		
+			<li><a href="/tags/AMI/">AMI<span>6</span></a></li>
+		
+			<li><a href="/tags/Design/">Design<span>1</span></a></li>
+		
+			<li><a href="/tags/Container-Orchestration-Framework/">Container Orchestration Framework<span>1</span></a></li>
+		
+			<li><a href="/tags/部屬發展模型/">部屬發展模型<span>1</span></a></li>
+		
+			<li><a href="/tags/SMAL/">SMAL<span>1</span></a></li>
+		
+			<li><a href="/tags/Launch-Configurations/">Launch Configurations<span>5</span></a></li>
+		
+			<li><a href="/tags/Config-Management/">Config Management<span>1</span></a></li>
+		
+			<li><a href="/tags/EC2-Run-Command/">EC2 Run Command<span>1</span></a></li>
+		
+			<li><a href="/tags/Cluster-Manager/">Cluster Manager<span>1</span></a></li>
+		
+			<li><a href="/tags/DevOpsDays/">DevOpsDays<span>2</span></a></li>
+		
+			<li><a href="/tags/Synchronization/">Synchronization<span>1</span></a></li>
+		
+			<li><a href="/tags/S3/">S3<span>11</span></a></li>
+		
+			<li><a href="/tags/SES/">SES<span>2</span></a></li>
+		
+			<li><a href="/tags/Vector-Clock/">Vector Clock<span>1</span></a></li>
+		
+			<li><a href="/tags/Redundant/">Redundant<span>1</span></a></li>
+		
+			<li><a href="/tags/Critical-Section/">Critical Section<span>1</span></a></li>
+		
+			<li><a href="/tags/VSTS/">VSTS<span>1</span></a></li>
+		
+			<li><a href="/tags/Essence/">Essence<span>8</span></a></li>
+		
+			<li><a href="/tags/Unit-Test/">Unit Test<span>1</span></a></li>
+		
+			<li><a href="/tags/EC2/">EC2<span>20</span></a></li>
+		
+			<li><a href="/tags/ENI/">ENI<span>3</span></a></li>
+		
+			<li><a href="/tags/RDS/">RDS<span>2</span></a></li>
+		
+			<li><a href="/tags/LDAP/">LDAP<span>1</span></a></li>
+		
+			<li><a href="/tags/CloudWatch-Events/">CloudWatch Events<span>6</span></a></li>
+		
+			<li><a href="/tags/NoSQL/">NoSQL<span>1</span></a></li>
+		
+			<li><a href="/tags/Hash/">Hash<span>1</span></a></li>
+		
+			<li><a href="/tags/Direct-Connect/">Direct Connect<span>1</span></a></li>
+		
+			<li><a href="/tags/ResourceTag/">ResourceTag<span>1</span></a></li>
+		
+			<li><a href="/tags/Virtual-Machine/">Virtual Machine<span>1</span></a></li>
+		
+			<li><a href="/tags/GCP/">GCP<span>2</span></a></li>
+		
+			<li><a href="/tags/VPC-Links/">VPC Links<span>1</span></a></li>
+		
+			<li><a href="/tags/Shell/">Shell<span>1</span></a></li>
+		
+			<li><a href="/tags/Consensus-Protocol/">Consensus Protocol<span>2</span></a></li>
+		
+			<li><a href="/tags/三體問題/">三體問題<span>1</span></a></li>
+		
+			<li><a href="/tags/iTerms/">iTerms<span>1</span></a></li>
+		
+			<li><a href="/tags/SSO/">SSO<span>2</span></a></li>
+		
+			<li><a href="/tags/Build/">Build<span>5</span></a></li>
+		
+			<li><a href="/tags/Docker/">Docker<span>3</span></a></li>
+		
+			<li><a href="/tags/Serverless/">Serverless<span>14</span></a></li>
+		
+			<li><a href="/tags/CDN/">CDN<span>2</span></a></li>
+		
+			<li><a href="/tags/CloudWatch-Agent/">CloudWatch Agent<span>1</span></a></li>
+		
+			<li><a href="/tags/Network-ACLs/">Network ACLs<span>4</span></a></li>
+		
+			<li><a href="/tags/CloudFront/">CloudFront<span>4</span></a></li>
+		
+			<li><a href="/tags/CloudWatch-Logs/">CloudWatch Logs<span>11</span></a></li>
+		
+			<li><a href="/tags/RSS-Reader/">RSS Reader<span>1</span></a></li>
+		
+			<li><a href="/tags/Firewall/">Firewall<span>1</span></a></li>
+		
+			<li><a href="/tags/API-Gateway/">API Gateway<span>15</span></a></li>
+		
+			<li><a href="/tags/pipe/">pipe<span>1</span></a></li>
+		
+			<li><a href="/tags/Incident-Management/">Incident Management<span>7</span></a></li>
+		
+			<li><a href="/tags/Ingress/">Ingress<span>1</span></a></li>
+		
+			<li><a href="/tags/Product/">Product<span>1</span></a></li>
+		
+			<li><a href="/tags/EBS/">EBS<span>3</span></a></li>
+		
+			<li><a href="/tags/JSON/">JSON<span>3</span></a></li>
+		
+			<li><a href="/tags/會議原則/">會議原則<span>1</span></a></li>
+		
+			<li><a href="/tags/Reverse-Proxy/">Reverse Proxy<span>1</span></a></li>
+		
+			<li><a href="/tags/NAT-Gateway/">NAT Gateway<span>4</span></a></li>
+		
+			<li><a href="/tags/Project-Management/">Project Management<span>5</span></a></li>
+		
+			<li><a href="/tags/R-R/">R&amp;R<span>1</span></a></li>
+		
+			<li><a href="/tags/SpinLock/">SpinLock<span>1</span></a></li>
+		
+			<li><a href="/tags/Security-Groups/">Security Groups<span>8</span></a></li>
+		
+			<li><a href="/tags/Imagination/">Imagination<span>1</span></a></li>
+		
+			<li><a href="/tags/Perception/">Perception<span>1</span></a></li>
+		
+			<li><a href="/tags/ITIL/">ITIL<span>1</span></a></li>
+		
+			<li><a href="/tags/Networking/">Networking<span>6</span></a></li>
+		
+			<li><a href="/tags/Governance/">Governance<span>1</span></a></li>
+		
+			<li><a href="/tags/Management/">Management<span>1</span></a></li>
+		
+			<li><a href="/tags/Situational-Leadership-Theory/">Situational Leadership Theory<span>1</span></a></li>
+		
+			<li><a href="/tags/HTTP/">HTTP<span>1</span></a></li>
+		
+			<li><a href="/tags/KMS/">KMS<span>2</span></a></li>
+		
+			<li><a href="/tags/Paxos/">Paxos<span>3</span></a></li>
+		
+			<li><a href="/tags/Werner-Vogels/">Werner Vogels<span>1</span></a></li>
+		
+			<li><a href="/tags/Continuous-Integration/">Continuous Integration<span>9</span></a></li>
+		
+			<li><a href="/tags/Ops/">Ops<span>15</span></a></li>
+		
+			<li><a href="/tags/2PC/">2PC<span>1</span></a></li>
+		
+			<li><a href="/tags/Service-Discovery/">Service Discovery<span>3</span></a></li>
+		
+			<li><a href="/tags/Fired/">Fired<span>1</span></a></li>
+		
+			<li><a href="/tags/OS-X/">OS X<span>1</span></a></li>
+		
+			<li><a href="/tags/CloudWatch/">CloudWatch<span>33</span></a></li>
+		
+			<li><a href="/tags/Flywheel-Effect/">Flywheel Effect<span>1</span></a></li>
+		
+			<li><a href="/tags/Cloud-Storage/">Cloud Storage<span>2</span></a></li>
+		
+			<li><a href="/tags/DevOps/">DevOps<span>24</span></a></li>
+		
+			<li><a href="/tags/Development-Level-of-the-Individual/">Development Level of the Individual<span>1</span></a></li>
+		
+			<li><a href="/tags/Private-Subnet/">Private Subnet<span>2</span></a></li>
+		
+			<li><a href="/tags/TDD/">TDD<span>1</span></a></li>
+		
+			<li><a href="/tags/Reliability/">Reliability<span>5</span></a></li>
+		
+			<li><a href="/tags/BCP/">BCP<span>2</span></a></li>
+		
+			<li><a href="/tags/Conway-s-Law/">Conway&#39;s Law<span>7</span></a></li>
+		
+			<li><a href="/tags/IMAP/">IMAP<span>1</span></a></li>
+		
+			<li><a href="/tags/文件/">文件<span>1</span></a></li>
+		
+			<li><a href="/tags/Resilience-2/">Resilience 2<span>1</span></a></li>
+		
+			<li><a href="/tags/Sidecar/">Sidecar<span>2</span></a></li>
+		
+			<li><a href="/tags/Elastic-Beanstalk/">Elastic Beanstalk<span>3</span></a></li>
+		
+			<li><a href="/tags/AES/">AES<span>1</span></a></li>
+		
+			<li><a href="/tags/POXIS/">POXIS<span>1</span></a></li>
+		
+			<li><a href="/tags/Cognito/">Cognito<span>1</span></a></li>
+		
+			<li><a href="/tags/Algorithm/">Algorithm<span>4</span></a></li>
+		
+			<li><a href="/tags/3PC/">3PC<span>1</span></a></li>
+		
+			<li><a href="/tags/System-Design/">System Design<span>1</span></a></li>
+		
+			<li><a href="/tags/OKR/">OKR<span>2</span></a></li>
+		
+			<li><a href="/tags/Route53/">Route53<span>9</span></a></li>
+		
+			<li><a href="/tags/kubelet/">kubelet<span>6</span></a></li>
+		
+			<li><a href="/tags/process/">process<span>1</span></a></li>
+		
+			<li><a href="/tags/Learning-Approaches/">Learning Approaches<span>7</span></a></li>
+		
+			<li><a href="/tags/Symptom/">Symptom<span>1</span></a></li>
+		
+			<li><a href="/tags/Blue-Green-Deployment/">Blue-Green Deployment<span>3</span></a></li>
+		
+			<li><a href="/tags/G-Suite/">G Suite<span>1</span></a></li>
+		
+			<li><a href="/tags/Resource-Management/">Resource Management<span>1</span></a></li>
+		
+			<li><a href="/tags/Artifacts-Management/">Artifacts Management<span>1</span></a></li>
+		
+			<li><a href="/tags/Software-Delivery/">Software Delivery<span>1</span></a></li>
+		
+			<li><a href="/tags/Regression-Test/">Regression Test<span>3</span></a></li>
+		
+			<li><a href="/tags/Integration-Test/">Integration Test<span>1</span></a></li>
+		
+			<li><a href="/tags/Abstract-Thinking/">Abstract Thinking<span>1</span></a></li>
+		
+			<li><a href="/tags/Whitepapers/">Whitepapers<span>4</span></a></li>
+		
+			<li><a href="/tags/Load-Balancing/">Load Balancing<span>1</span></a></li>
+		
+			<li><a href="/tags/ACID/">ACID<span>4</span></a></li>
+		
+			<li><a href="/tags/Engineer/">Engineer<span>1</span></a></li>
+		
+			<li><a href="/tags/Developer/">Developer<span>1</span></a></li>
+		
+			<li><a href="/tags/Practice/">Practice<span>1</span></a></li>
+		
+			<li><a href="/tags/Monitoring/">Monitoring<span>8</span></a></li>
+		
+			<li><a href="/tags/PaaS/">PaaS<span>1</span></a></li>
+		
+			<li><a href="/tags/CLB/">CLB<span>1</span></a></li>
+		
+			<li><a href="/tags/企業文化/">企業文化<span>1</span></a></li>
+		
+			<li><a href="/tags/AI/">AI<span>1</span></a></li>
+		
+			<li><a href="/tags/Infra/">Infra<span>1</span></a></li>
+		
+			<li><a href="/tags/Gossip-Protocol/">Gossip Protocol<span>1</span></a></li>
+		
+			<li><a href="/tags/ServiceMesh/">ServiceMesh<span>2</span></a></li>
+		
+			<li><a href="/tags/User-Acceptance-Test/">User Acceptance Test<span>1</span></a></li>
+		
+			<li><a href="/tags/IAM-Access-Key/">IAM Access Key<span>1</span></a></li>
+		
+			<li><a href="/tags/Ubuntu/">Ubuntu<span>5</span></a></li>
+		
+			<li><a href="/tags/蝴蝶效應/">蝴蝶效應<span>1</span></a></li>
+		
+			<li><a href="/tags/Kubernetes/">Kubernetes<span>11</span></a></li>
+		
+			<li><a href="/tags/Asynchronous/">Asynchronous<span>3</span></a></li>
+		
+			<li><a href="/tags/Distributed-Systems/">Distributed Systems<span>12</span></a></li>
+		
+			<li><a href="/tags/Automation/">Automation<span>13</span></a></li>
+		
+			<li><a href="/tags/I-O-Models/">I/O Models<span>1</span></a></li>
+		
+			<li><a href="/tags/SSH/">SSH<span>1</span></a></li>
+		
+			<li><a href="/tags/System-Thinking/">System Thinking<span>1</span></a></li>
+		
+			<li><a href="/tags/Test-Architecture/">Test Architecture<span>1</span></a></li>
+		
+			<li><a href="/tags/Athena/">Athena<span>6</span></a></li>
+		
+			<li><a href="/tags/Raft/">Raft<span>3</span></a></li>
+		
+			<li><a href="/tags/SNS/">SNS<span>8</span></a></li>
+		
+			<li><a href="/tags/OOP/">OOP<span>3</span></a></li>
+		
+			<li><a href="/tags/VPC-Endpoint/">VPC Endpoint<span>4</span></a></li>
+		
+			<li><a href="/tags/Blocking/">Blocking<span>1</span></a></li>
+		
+			<li><a href="/tags/Subnet/">Subnet<span>1</span></a></li>
+		
+			<li><a href="/tags/AWS-VS-GCP/">AWS VS GCP<span>4</span></a></li>
+		
+			<li><a href="/tags/Alarm/">Alarm<span>1</span></a></li>
+		
+			<li><a href="/tags/Design-Patterns/">Design Patterns<span>4</span></a></li>
+		
+			<li><a href="/tags/Alert/">Alert<span>1</span></a></li>
+		
+			<li><a href="/tags/Functional-Test/">Functional Test<span>1</span></a></li>
+		
+			<li><a href="/tags/Continuous-Deployment/">Continuous Deployment<span>4</span></a></li>
+		
+			<li><a href="/tags/OOD/">OOD<span>2</span></a></li>
+		
+			<li><a href="/tags/Infra-as-Code/">Infra as Code<span>5</span></a></li>
+		
+			<li><a href="/tags/Race-Condition/">Race Condition<span>1</span></a></li>
+		
+			<li><a href="/tags/Capacity/">Capacity<span>3</span></a></li>
+		
+			<li><a href="/tags/Scheduler/">Scheduler<span>1</span></a></li>
+		
+			<li><a href="/tags/AWS/">AWS<span>1</span></a></li>
+		
+			<li><a href="/tags/Quorum-NWR/">Quorum NWR<span>1</span></a></li>
+		
+			<li><a href="/tags/JIRA/">JIRA<span>1</span></a></li>
+		
+			<li><a href="/tags/Node-JS/">Node.JS<span>1</span></a></li>
+		
+			<li><a href="/tags/Redmine/">Redmine<span>15</span></a></li>
+		
+			<li><a href="/tags/encoding/">encoding<span>1</span></a></li>
+		
+			<li><a href="/tags/Workflow/">Workflow<span>2</span></a></li>
+		
+			<li><a href="/tags/Message-Queue/">Message Queue<span>4</span></a></li>
+		
+			<li><a href="/tags/談武論俠/">談武論俠<span>1</span></a></li>
+		
+			<li><a href="/tags/Fault-Tolerance/">Fault Tolerance<span>1</span></a></li>
+		
+			<li><a href="/tags/Synergy/">Synergy<span>1</span></a></li>
+		
+			<li><a href="/tags/BGP/">BGP<span>1</span></a></li>
+		
+			<li><a href="/tags/SQS/">SQS<span>6</span></a></li>
+		
+			<li><a href="/tags/Load-Test/">Load Test<span>2</span></a></li>
+		
+			<li><a href="/tags/LLVM/">LLVM<span>1</span></a></li>
+		
+			<li><a href="/tags/VirtulBox/">VirtulBox<span>1</span></a></li>
+		
+			<li><a href="/tags/Incident-Response/">Incident Response<span>1</span></a></li>
+		
+			<li><a href="/tags/Appearance/">Appearance<span>1</span></a></li>
+		
+			<li><a href="/tags/read-after-write/">read-after-write<span>1</span></a></li>
+		
+			<li><a href="/tags/Question-Behind-Question/">Question Behind Question<span>5</span></a></li>
+		
+			<li><a href="/tags/Layoff/">Layoff<span>1</span></a></li>
+		
+			<li><a href="/tags/NWR/">NWR<span>1</span></a></li>
+		
+			<li><a href="/tags/Slack/">Slack<span>6</span></a></li>
+		
+			<li><a href="/tags/Meetings/">Meetings<span>2</span></a></li>
+		
+			<li><a href="/tags/Non-Blocking/">Non-Blocking<span>1</span></a></li>
+		
+			<li><a href="/tags/Azure/">Azure<span>2</span></a></li>
+		
+			<li><a href="/tags/Event-Driven/">Event-Driven<span>3</span></a></li>
+		
+			<li><a href="/tags/SRE/">SRE<span>30</span></a></li>
+		
+			<li><a href="/tags/Mutex/">Mutex<span>1</span></a></li>
+		
+			<li><a href="/tags/Job-Description/">Job Description<span>1</span></a></li>
+		
+			<li><a href="/tags/EKS/">EKS<span>3</span></a></li>
+		
+			<li><a href="/tags/bash/">bash<span>2</span></a></li>
+		
+			<li><a href="/tags/Eventually-Consistent/">Eventually Consistent<span>3</span></a></li>
+		
+			<li><a href="/tags/Provisioning/">Provisioning<span>16</span></a></li>
+		
+			<li><a href="/tags/Service-Mesh/">Service Mesh<span>4</span></a></li>
+		
+			<li><a href="/tags/IPv4/">IPv4<span>1</span></a></li>
+		
+			<li><a href="/tags/Lambda/">Lambda<span>17</span></a></li>
+		
+			<li><a href="/tags/Source-Control/">Source Control<span>4</span></a></li>
+		
+			<li><a href="/tags/EC2-Image-Builder/">EC2 Image Builder<span>2</span></a></li>
+		
+			<li><a href="/tags/JWT/">JWT<span>1</span></a></li>
+		
+			<li><a href="/tags/Network-Load-Balancing/">Network Load Balancing<span>2</span></a></li>
+		
+			<li><a href="/tags/Finite-State-Machine/">Finite-State Machine<span>3</span></a></li>
+		
+			<li><a href="/tags/Agile/">Agile<span>4</span></a></li>
+		
+			<li><a href="/tags/SLI/">SLI<span>1</span></a></li>
+		
+			<li><a href="/tags/Issue-Tracking/">Issue Tracking<span>2</span></a></li>
+		
+			<li><a href="/tags/ELB/">ELB<span>16</span></a></li>
+		
+			<li><a href="/tags/IAM-Policy/">IAM Policy<span>2</span></a></li>
+		
+			<li><a href="/tags/hugo/">hugo<span>2</span></a></li>
+		
+			<li><a href="/tags/KPI/">KPI<span>1</span></a></li>
+		
+			<li><a href="/tags/bootstrap/">bootstrap<span>2</span></a></li>
+		
+			<li><a href="/tags/AWS-CLI/">AWS CLI<span>8</span></a></li>
+		
+			<li><a href="/tags/Consensus-Algorithm/">Consensus Algorithm<span>4</span></a></li>
+		
+			<li><a href="/tags/Message-Broker/">Message Broker<span>2</span></a></li>
+		
+			<li><a href="/tags/溝通/">溝通<span>18</span></a></li>
+		
+			<li><a href="/tags/Distributed-Transactions/">Distributed Transactions<span>1</span></a></li>
+		
+			<li><a href="/tags/iostat/">iostat<span>1</span></a></li>
+		
+			<li><a href="/tags/Reverse-Engineering/">Reverse Engineering<span>3</span></a></li>
+		
+			<li><a href="/tags/ubuntu/">ubuntu<span>1</span></a></li>
+		
+			<li><a href="/tags/Concurrency/">Concurrency<span>1</span></a></li>
+		
+			<li><a href="/tags/What-is/">What is<span>4</span></a></li>
+		
+			<li><a href="/tags/Git/">Git<span>4</span></a></li>
+		
+			<li><a href="/tags/Data-Structure/">Data Structure<span>2</span></a></li>
+		
+			<li><a href="/tags/Stability/">Stability<span>2</span></a></li>
+		
+			<li><a href="/tags/CQRS/">CQRS<span>1</span></a></li>
+		
+			<li><a href="/tags/Awareness/">Awareness<span>1</span></a></li>
+		
+			<li><a href="/tags/Architecture/">Architecture<span>7</span></a></li>
+		
+			<li><a href="/tags/lsof/">lsof<span>1</span></a></li>
+		
+			<li><a href="/tags/IAM/">IAM<span>11</span></a></li>
+		
+			<li><a href="/tags/PCI-DSS/">PCI DSS<span>1</span></a></li>
+		
+			<li><a href="/tags/Rate-Limit/">Rate Limit<span>3</span></a></li>
+		
+			<li><a href="/tags/Cloud-Load-Balancing/">Cloud Load Balancing<span>2</span></a></li>
+		
+		</ul>
+	</div>
+
+
+		
+			
+<div class="widget">
+	<h4>Links</h4>
+	<ul class="blogroll list-unstyled">
+	
+		<li><i class="fa fa-rss"></i><a href="atom.xml" title="" target="_blank"]);">RSS</a></li>
+	
+		<li><i class="fa fa-sitemap"></i><a href="sitemap.xml" title="" target="_blank"]);">Site Map</a></li>
+	
+		<li><i class="fa fa-github"></i><a href="https://github.com/rickhw" title="My Github account." target="_blank"]);">Github</a></li>
+	
+		<li><i class="fa fa-github"></i><a href="https://www.slideshare.net/rickhwang" title="Slideshare" target="_blank"]);">Slideshare</a></li>
+	
+		<li><i class="fa fa-github"></i><a href="https://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a></li>
+	
+	</ul>
+</div>
+
+
+		
+	</div> <!-- sidebar -->
+</div> <!-- col-md-3 -->
+
+	
+	
+</div> <!-- row-fluid -->
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2019 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+  -->
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'complete-think';
+(function() {
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

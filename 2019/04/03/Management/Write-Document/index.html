@@ -1,0 +1,547 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>再談『為什麼寫文件？』 | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="寫文件，對很多人是很痛苦的事情，特別是工程師。不過，我卻一直很享受這件事情，享受重新組織整理知識的過程，因為這個過程獲得最多的是我自己。
+
+
+聊聊關於文件底下這段文字，是我 自言自語 的紀錄，表達了個人對於組織內寫文件的看法。
+
+很多人會跟我說：寫文件不重要，寫了也沒人看，寫文件花時間。。。bala">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="再談『為什麼寫文件？』"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/2019/04/03/Management/Write-Document/"/>
+  <meta property="og:image" content="/images/Management/KM/KM.png" />
+  
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-71839551-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>21</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>14</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>7</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>10</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>24</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>6</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>50</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>11</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> 再談『為什麼寫文件？』</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> 再談『為什麼寫文件？』</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+		
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2019%2F04%2F03%2FManagement%2FWrite-Document%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/2019/04/03/Management/Write-Document/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+
+				<hr />
+
+				<p>寫文件，對很多人是很痛苦的事情，特別是工程師。不過，我卻一直很享受這件事情，享受重新組織整理知識的過程，因為這個過程獲得最多的是我自己。</p>
+<a id="more"></a>
+<hr>
+<h2 id="聊聊關於文件"><a href="#聊聊關於文件" class="headerlink" title="聊聊關於文件"></a>聊聊關於文件</h2><p>底下這段文字，是我 <a href="https://www.facebook.com/rick.kyhwang/posts/10209944685813157" target="_blank" rel="noopener">自言自語</a> 的紀錄，表達了個人對於組織內寫文件的看法。</p>
+<blockquote>
+<p>很多人會跟我說：寫文件不重要，寫了也沒人看，寫文件花時間。。。balabala …..</p>
+<p>恩，我只有幾個問題反問：</p>
+<ol>
+<li>你會看自己寫的 <code>文件</code>？如果你自己都不看，那內部文件不寫也罷。</li>
+<li>你看完自己寫的 <code>文件</code>，看得懂嗎？會更正嗎？如果不會那砍掉好了，也不用寫了。</li>
+<li>你寫 Blog 嗎？你自己會看嗎？如果你自己都不看那就不要寫。</li>
+<li>你讀書嗎？如果你不讀書，那也不用寫文件。</li>
+</ol>
+<blockquote>
+<p>請用 <code>code</code> 換 <code>文件</code>, 道理一樣</p>
+</blockquote>
+<p>有寫，就有讀，有讀，就有寫。文件是用來傳遞經驗與知識的。前面的四點都做不到，傳遞的就沒啥意義。</p>
+<p>時間問題：好的文件，例如 OSS (Open Source Software) 的 <code>README.md</code> 通常自己看就知道怎麼做。比起在那邊慢慢問人，搞清楚到底要做啥，是更有效的方法。OSS 的資訊傳遞都是靠文件，從文件中就可以掌握大部分的資訊與知識。寫好的文件不重要？不需要花時間讀文件？如果組織裡沒有這樣好的文件，難道一個團隊一個個問？還是觀落陰算了？</p>
+<p>所以我堅決要寫文件，因為人不可靠 (in-memory)，落地 (persistence) 才可靠。但 <code>寫文件</code> 這件事要訓練，要修正，跟 code 一樣</p>
+<p>很多人問我問題，我會很快地跟你說在我 Blog 的哪一篇，因為我每天都自己在讀，然後修正。另外一個因為我很重視 <code>結構與分類</code> 的問題，可以很快用關鍵字找最短路徑。有次同事寫的文件不知道放哪，我是十秒不到找到他寫的文件，因為我知道 <a href="/2014/10/26/Management/Classified-Philosophy/">分類結構</a>。</p>
+</blockquote>
+<h2 id="普遍的問題"><a href="#普遍的問題" class="headerlink" title="普遍的問題"></a>普遍的問題</h2><p>企業內文件為什麼會被當作箭靶？很多人覺得這不重要，甚至大肆批評寫文件是浪費時間？</p>
+<p>歸納原因應該有底下：</p>
+<ol>
+<li>寫文件的人表達能力不佳</li>
+<li>員工沒有閱讀習慣</li>
+<li>文件沒有被有效的組織與管理</li>
+<li>文件沒有被廣泛的傳遞與閱讀</li>
+</ol>
+<p>基本上，理想的文件循環如下：</p>
+<blockquote>
+<p>寫 -&gt; 讀 -&gt; 組織 -&gt; 修正</p>
+</blockquote>
+<p>這些循環缺一不可，但一般的企業的問題，都會以為買了一個工具（像是 Confluence) 文件就搞定了，這跟協作管理系統一樣，以為裝個 Redmine / JIRA / VSTS 就搞定了，但是本質的問題卻都沒有面對，或者沒認知到那才是問題的根源。</p>
+<hr>
+<h1 id="A-Leader-is-a-Reader"><a href="#A-Leader-is-a-Reader" class="headerlink" title="A Leader is a Reader"></a>A Leader is a Reader</h1><p>這句話很常見：<code>領導者是閱讀者。</code></p>
+<p>為什麼？因為他能廣泛地吸收各家的想法，透過文字的傳遞，了解別人的思緒。閱讀的過程本身就是一段思考的過程，閱讀是主動學習之一。而寫作則是傳達理念的方法之一，所以我覺得：</p>
+<blockquote>
+<p>領導者是閱讀者，同時也會是寫作者。</p>
+</blockquote>
+<hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
+<li><a href="/2017/03/11/Management/Requirements-Management/">需求管理 (Requirement Management)</a></li>
+<li><a href="/2015/01/06/Management/協同合作系統建制與導入-以-Redmine-為例/">協同合作系統建制與導入 - 以 Redmine 為例</a></li>
+</ul>
+<h2 id="學習、寫作、閱讀系列文章"><a href="#學習、寫作、閱讀系列文章" class="headerlink" title="學習、寫作、閱讀系列文章"></a>學習、寫作、閱讀系列文章</h2><ul>
+<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+<li><a href="/2019/04/05/About/Working-Backwards/">一個人的 Working Backwards</a></li>
+<li><a href="/2019/01/20/About/Reading/">閱讀能力的重要性</a></li>
+<li><a href="/2017/06/29/Management/Why-Document/">為什麼寫文件？</a></li>
+<li><a href="/2019/04/03/Management/Write-Document/">再談『為什麼寫文件？』</a></li>
+<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類的哲學</a></li>
+<li><a href="/2019/06/08/About/Spotlight-Phenomenon/">Spotlight 現象</a></li>
+<li><a href="/2019/03/10/DevOps/Continuous-Delivery-Docs/">文件的持續交付</a></li>
+<li><a href="/2020/05/09/Management/Problems-in-Documentation/">寫文件常見的問題</a></li>
+<li><a href="/2019/10/24/Management/Learning-From-Amazon/">從 Jeff Bezos 與 Werner Vogels 學到的</a></li>
+<li><a href="/2019/04/27/DevOps/Introduce-to-Continuous-Delivery-2/">導讀持續交付 2.0 - 談當代軟體交付之虛實融合</a></li>
+<li><a href="/2019/11/19/Management/Objectives-Key-Results-Executions/">有效定義目標與執行、落地</a></li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/2019/04/03/Management/Write-Document/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+				<br />
+
+				<!-- LikeCoin -->
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2019/04/03/Management/Write-Document/"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2019/04/03/AWS/Study-Notes-EC2-Auto-Scaling_Terminiation-Policies/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2019/04/02/Management/Overall/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/>
+
+  
+  	 <div id="disqus_thread">
+     <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  	 </div>
+  
+
+
+</section>
+
+
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2019/04/03 10:30:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#聊聊關於文件"><span class="toc-article-text">聊聊關於文件</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#普遍的問題"><span class="toc-article-text">普遍的問題</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#A-Leader-is-a-Reader"><span class="toc-article-text">A Leader is a Reader</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#延伸閱讀"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#學習、寫作、閱讀系列文章"><span class="toc-article-text">學習、寫作、閱讀系列文章</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/經營管理/" style="color: white">經營管理 <span class="badge">50</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Essence/" style="color: white">Essence <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Learning-Approaches/" style="color: white">Learning Approaches <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/Bus-Memo/" style="color: white">Bus Memo <span class="badge">28</span></a></span> <span class="label label-success"><a href="/tags/Documentation/" style="color: white">Documentation <span class="badge">2</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+		<h4>About</h4>
+
+		<!-- v4 -->
+		
+			<li><a href="/2018/07/08/Index/">全站索引</a></li>
+		
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+		
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		
+			<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		
+			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+		
+
+		<!-- v3 -->
+		<!--
+		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		-->
+
+		<!-- v2 -->
+		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+		<!-- v1 -->
+		<!--
+		<li>Software Developer</li>
+		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+		<li><a href="/categories/DevOps/">Operation Manager</a></li>
+		<li><a href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+		<li>
+			<ol>
+				<li>Management</li>
+				<li>Cloud / Distributed Systems</li>
+				<li>DevOps / SRE / </li>
+			</ol>
+		</li>
+		-->
+
+		<h4>Donate</h4>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick" />
+		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
+		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
+		</form>
+
+		<h4>Facebook</h4>
+
+		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
+
+
+		<h4>AWS Certifications</h4>
+		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+		<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+		<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+		
+
+	</div><!-- row -->
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2019 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+  -->
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'complete-think';
+(function() {
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

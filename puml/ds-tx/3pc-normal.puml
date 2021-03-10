@@ -1,0 +1,34 @@
+@startuml
+title
+    Three-Phase Commit
+end title
+
+
+group phase 1: canCommit
+    
+    Coordinator -> Cohorts : 1. canCommit?
+    activate Cohorts
+
+    Cohorts --> Coordinator : 2. Yes 
+    deactivate Cohorts
+end
+
+
+group phase 2: preCommit
+    Coordinator -> Cohorts : preCommit
+    activate Cohorts
+
+    Cohorts --> Coordinator : ACK
+    deactivate Cohorts
+end
+
+group phase 3: doCommit
+    Coordinator -> Cohorts : doCommit
+    activate Cohorts
+
+    Cohorts --> Coordinator : haveCommited
+    deactivate Cohorts
+end
+
+
+@enduml

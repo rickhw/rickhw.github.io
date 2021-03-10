@@ -1,0 +1,31 @@
+@startuml
+
+Coordinator -> Coordinator : 0. create transaction, (transId)
+
+group phase 1: voting
+    Coordinator -> ParticipantA : 1. prepare(transId) - canCommit?
+    activate ParticipantA
+    Coordinator -> ParticipantB : 1. prepare(transId) - canCommit?
+    activate ParticipantB
+
+    ParticipantA --> Coordinator : 2. prepared 
+    deactivate ParticipantA
+    ParticipantB --> Coordinator : 2. prepared
+    deactivate ParticipantB
+end
+
+group phase 2: commit
+    Coordinator -> ParticipantA : commitA(transId)
+    activate ParticipantA
+    Coordinator -> ParticipantB : commitB(transId)
+    activate ParticipantB
+
+    ParticipantA --> Coordinator : done
+    deactivate ParticipantA
+    ParticipantB --> Coordinator : done
+    deactivate ParticipantB
+end
+
+Coordinator -> Coordinator : end of transaction (transId)
+
+@enduml

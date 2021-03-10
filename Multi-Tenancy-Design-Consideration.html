@@ -1,0 +1,403 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Multi-Tenancy Design Consideration | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="Multi-Tenancy
+
+概念整理
+核心議題與考慮
+
+
+
+Tenant租戶 (Tenant) 一般指的是一棟房子的承租概念，承租者叫做房客、承租人、或佃戶。出租房子的人叫做 房東 (Landlord) ，與租戶對應的房子稱為
+在架構設計中，類似的概念就是在 SaaS 裡提到的
+Multi-Ten">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="Multi-Tenancy Design Consideration"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/Multi-Tenancy-Design-Consideration.html"/>
+  <meta property="og:image" content="/images/Architecture/cap-theoram-image.png" />
+  
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-71839551-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>21</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>14</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>7</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>10</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>24</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>6</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>50</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>11</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Multi-Tenancy Design Consideration</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Multi-Tenancy Design Consideration</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row page">
+	<!-- cols -->
+	
+		<div class="col-md-12">
+			
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2FMulti-Tenancy-Design-Consideration.html&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/Multi-Tenancy-Design-Consideration.html" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+
+				<hr />
+
+				<p>Multi-Tenancy</p>
+<ol>
+<li>概念整理</li>
+<li>核心議題與考慮</li>
+</ol>
+<a id="more"></a>
+<hr>
+<h1 id="Tenant"><a href="#Tenant" class="headerlink" title="Tenant"></a>Tenant</h1><p><code>租戶 (Tenant)</code> 一般指的是一棟房子的承租概念，承租者叫做房客、承租人、或佃戶。出租房子的人叫做 <code>房東 (Landlord)</code> ，與租戶對應的房子稱為</p>
+<p>在架構設計中，類似的概念就是在 SaaS 裡提到的</p>
+<h2 id="Multi-Tenancy"><a href="#Multi-Tenancy" class="headerlink" title="Multi-Tenancy"></a>Multi-Tenancy</h2><ul>
+<li>Isolation for What?</li>
+<li>Multi-tenant Application (MTA)</li>
+<li>Multi-instance Solution (MIS)</li>
+</ul>
+<h2 id="Single-Tenant"><a href="#Single-Tenant" class="headerlink" title="Single-Tenant"></a>Single-Tenant</h2><hr>
+<h2 id="核心議題-Isolation"><a href="#核心議題-Isolation" class="headerlink" title="核心議題: Isolation"></a>核心議題: Isolation</h2><p>tenant abstract physical isoloation</p>
+<ul>
+<li>隔離邊界: <ul>
+<li>實體: 網路, 運算, 資料</li>
+<li>虛擬: 帳號, Session</li>
+</ul>
+</li>
+<li>資料</li>
+</ul>
+<ul>
+<li><p>SaaS Deployment Architecture</p>
+<p>Considerations</p>
+</li>
+</ul>
+<h2 id="Three-schemes-of-multi-tenant-data-isolation"><a href="#Three-schemes-of-multi-tenant-data-isolation" class="headerlink" title="Three schemes of multi tenant data isolation"></a>Three schemes of multi tenant data isolation</h2><ol>
+<li>Independent database</li>
+<li>Shared database, independent schema </li>
+<li>Shared database, shared schema, shared data table</li>
+</ol>
+<h2 id="Levels"><a href="#Levels" class="headerlink" title="Levels"></a>Levels</h2><hr>
+<h1 id="我的想法"><a href="#我的想法" class="headerlink" title="我的想法"></a>我的想法</h1><p>隔離</p>
+<p>用什麼當隔離條件？</p>
+<ul>
+<li>Biz 角度<ul>
+<li>用戶, 商店, 使用者, </li>
+</ul>
+</li>
+<li>Physical: <ul>
+<li>由外至內：網路, 運算, 儲存</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a href="http://en.wikipedia.org/wiki/Multitenancy" target="_blank" rel="noopener">Multitenancy</a></li>
+<li><a href="https://web.archive.org/web/20150221181153/http://se2.informatik.uni-wuerzburg.de/pa/uploads/papers/paper-371.pdf" target="_blank" rel="noopener">Architectural Concerns in Multi-Tenant SaaS Applications</a></li>
+<li><a href="https://www.forbes.com/sites/forbesbusinesscouncil/2019/11/20/what-is-the-saas-architecture-maturity-model/?sh=4196006c4b40" target="_blank" rel="noopener">What Is The SaaS Architecture Maturity Model?</a> - 2019</li>
+<li><a href="https://www.ibm.com/blogs/cloud-computing/2016/08/16/design-considerations-multi-tenant-cloud/" target="_blank" rel="noopener">4 key design considerations for a multi-tenant cloud</a></li>
+</ul>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
+<p>=======</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>b3b14b69798412fce3e792a9323b644edc05126a</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/Multi-Tenancy-Design-Consideration.html" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+				<br />
+
+				<!-- LikeCoin -->
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/Multi-Tenancy-Design-Consideration.html"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+
+	</div><!-- row -->
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2019 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+  -->
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'complete-think';
+(function() {
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

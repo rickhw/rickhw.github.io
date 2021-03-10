@@ -1,0 +1,362 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Experience Dapr - Run on K8s | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="Experience Dapr - Run on K8sSetup123456789101112❯ dapr init -k8s⌛  Making the jump to hyperspace...↑  Downloading binaries and setting up components..">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="Experience Dapr - Run on K8s"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/Experience-Dapr-Run-on-K8s.html"/>
+  <meta property="og:image" content="/images/Architecture/experience-dapr/hello-world.png" />
+  
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-71839551-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+										<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+									
+										<li><a href="/categories/About/">About <sup>21</sup></a></li>
+									
+										<li><a href="/categories/Architecture/">Architecture <sup>14</sup></a></li>
+									
+										<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Coding/">Coding <sup>3</sup></a></li>
+									
+										<li><a href="/categories/Computer-Science/">Computer Science <sup>5</sup></a></li>
+									
+										<li><a href="/categories/Container/">Container <sup>7</sup></a></li>
+									
+										<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+									
+										<li><a href="/categories/Architecture/Distributed-Systems/">Distributed Systems <sup>10</sup></a></li>
+									
+										<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+									
+										<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+									
+										<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+									
+										<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+									
+										<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+									
+										<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+									
+										<li><a href="/categories/DevOps/SRE/">SRE <sup>24</sup></a></li>
+									
+										<li><a href="/categories/Software-Engineering/">Software Engineering <sup>6</sup></a></li>
+									
+										<li><a href="/categories/經營管理/">經營管理 <sup>50</sup></a></li>
+									
+										<li><a href="/categories/軟體測試/">軟體測試 <sup>11</sup></a></li>
+									
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Experience Dapr - Run on K8s</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Experience Dapr - Run on K8s</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row page">
+	<!-- cols -->
+	
+		<div class="col-md-12">
+			
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2FExperience-Dapr-Run-on-K8s.html&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/Experience-Dapr-Run-on-K8s.html" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+
+				<hr />
+
+				<a id="more"></a>
+<hr>
+<h1 id="Experience-Dapr-Run-on-K8s"><a href="#Experience-Dapr-Run-on-K8s" class="headerlink" title="Experience Dapr - Run on K8s"></a>Experience Dapr - Run on K8s</h1><h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">❯ dapr init -k8s</span><br><span class="line">⌛  Making the jump to hyperspace...</span><br><span class="line">↑  Downloading binaries and setting up components...</span><br><span class="line">Dapr runtime installed to /Users/rick/.dapr/bin, you may run the following to add it to your path <span class="keyword">if</span> you want to run daprd directly:</span><br><span class="line">    <span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/Users/rick/.dapr/bin</span><br><span class="line">✅  Downloaded binaries and completed components <span class="built_in">set</span> up.</span><br><span class="line">ℹ️  daprd binary has been installed to /Users/rick/.dapr/bin.</span><br><span class="line">ℹ️  dapr_placement container is running.</span><br><span class="line">ℹ️  dapr_redis container is running.</span><br><span class="line">ℹ️  dapr_zipkin container is running.</span><br><span class="line">ℹ️  Use `docker ps` to check running containers.</span><br><span class="line">✅  Success! Dapr is up and running. To get started, go here: https://aka.ms/dapr-getting-started</span><br></pre></td></tr></table></figure>
+<p>完成初始化之後，可以在 docker 發現啟動了三個 container，如下：</p>
+<h3 id="Dapr-Runtime-and-Components"><a href="#Dapr-Runtime-and-Components" class="headerlink" title="Dapr Runtime and Components"></a>Dapr Runtime and Components</h3><h2 id="Launch-an-Application"><a href="#Launch-an-Application" class="headerlink" title="Launch an Application"></a>Launch an Application</h2><h3 id="傳送請求"><a href="#傳送請求" class="headerlink" title="傳送請求"></a>傳送請求</h3><p>依照文件，發送一個 POST 給 Application，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ curl -X POST \</span><br><span class="line">  -H <span class="string">"Content-Type: application/json"</span> \</span><br><span class="line">  -d <span class="string">'[&#123; "key": "name", "value": "Bruce Wayne"&#125;]'</span> \</span><br><span class="line">  http://localhost:3500/v1.0/state/statestore</span><br></pre></td></tr></table></figure>
+<p>到 dapr_redis container 檢查：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">~$ docker <span class="built_in">exec</span> -it dapr_redis redis-cli</span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; keys *</span><br><span class="line">1) <span class="string">"myapp||name"</span></span><br><span class="line">127.0.0.1:6379&gt; hgetall <span class="string">"myapp||name"</span></span><br><span class="line">1) <span class="string">"data"</span></span><br><span class="line">2) <span class="string">"\"Bruce Wayne\""</span></span><br><span class="line">3) <span class="string">"version"</span></span><br><span class="line">4) <span class="string">"1"</span></span><br></pre></td></tr></table></figure>
+<h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><h3 id="Post-Message"><a href="#Post-Message" class="headerlink" title="Post Message"></a>Post Message</h3><h3 id="Get-Order"><a href="#Get-Order" class="headerlink" title="Get Order"></a>Get Order</h3><h2 id="觀察到的"><a href="#觀察到的" class="headerlink" title="觀察到的"></a>觀察到的</h2><p>自動產生 Sidecar: Dapr Runtime, Service</p>
+<hr>
+<h1 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h1><hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="分散式系統系列"><a href="#分散式系統系列" class="headerlink" title="分散式系統系列"></a>分散式系統系列</h2><ul>
+<li>概念與理論<ul>
+<li><a href="/2019/05/17/About/DDS-zh_TW/">分散式系統設計 - 正體中文版翻譯記事</a></li>
+<li><a href="/2018/08/11/Architecture/Distributed-Consistency-and-Consensus-Algorithm/">分散式一致性問題與共識演算法</a></li>
+<li><a href="/2018/06/18/Architecture/Distributed-Message-Systems/">Distributed Message Systems</a></li>
+<li><a href="/2018/08/11/Architecture/CAP-Theorem/">CAP Theorem</a></li>
+<li><a href="/2018/06/18/Architecture/Design-Patterns-for-Distributed-Systems/">Design Patterns for Distributed Systems</a>  </li>
+<li><a href="/2018/12/09/Architecture/Eventually-Consistent-Dynamo-NWR/">Eventually Consistent 與 Dynamo NWR 模型</a></li>
+<li><a href="/2020/05/16/Architecture/Distributed-Transactions/">淺談分散式交易</a></li>
+</ul>
+</li>
+<li>實踐方法與技術<ul>
+<li><a href="/2018/02/06/Architecture/Service-Mesh/">Service Mesh</a></li>
+<li><a href="/2018/01/24/AWS/Study-Notes-Overview-API-Gateway/">Overview API Gateway</a></li>
+<li><a href="/2016/03/21/AWS/Whitepaper-Architecting-for-the-Cloud-AWS-Best-Practices/">Whitepaper - Architecting for the Cloud (AWS Best Practices)</a></li>
+<li><a href="/2016/11/27/AWS/Whitepaper-AWS-Well-Architect-Framework/">Whitepaper - AWS Well-Architected Framework</a></li>
+<li><a href="/2018/06/15/AWS/Study-Notes-API-Gateway-Private-Endpoint/">API Gateway Private Endpoint</a></li>
+<li><a href="/2020/04/22/Architecture/Reliability-Engineering/">可靠性工程 (Reliability Engineering)</a></li>
+<li><a href="/2018/10/08/DevOps/Chaos-Engineering/">混沌工程 (Chaos Engineering)</a></li>
+<li><a href="/2018/08/03/DevOps/An-Introduction-to-SRE/">推薦：Site Reliability Engineering (SRE, 網站可靠性工程)</a></li>
+</ul>
+</li>
+<li>經驗分享<ul>
+<li><a href="/2018/05/12/SQA/Designing-Test-Architecture-and-Framework/">Designing Test Architecture and Framework</a></li>
+<li><a href="/2018/06/13/Architecture/What-Software-Architecture-Do/">軟體架構做什麼？</a></li>
+</ul>
+</li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/Experience-Dapr-Run-on-K8s.html" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+				<br />
+
+				<!-- LikeCoin -->
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/Experience-Dapr-Run-on-K8s.html"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+
+	</div><!-- row -->
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2019 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div> <!-- container-narrow -->
+
+<div id="gotop">
+  <!--
+  
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://rickmidi.blogspot.com/" title="喝咖啡 聊音樂" target="_blank"]);">喝咖啡 聊音樂</a><br />
+  
+  -->
+<a href="#"><span>▲</span></a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'complete-think';
+(function() {
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>
