@@ -399,11 +399,11 @@
     <category term="Distributed Systems" scheme="https://rickhw.github.io/categories/Distributed-Systems/"/>
     
     
-    <category term="Operating System" scheme="https://rickhw.github.io/tags/Operating-System/"/>
+    <category term="Pub/Sub" scheme="https://rickhw.github.io/tags/Pub-Sub/"/>
     
     <category term="Java" scheme="https://rickhw.github.io/tags/Java/"/>
     
-    <category term="Pub/Sub" scheme="https://rickhw.github.io/tags/Pub-Sub/"/>
+    <category term="Operating System" scheme="https://rickhw.github.io/tags/Operating-System/"/>
     
     <category term="Eclipse" scheme="https://rickhw.github.io/tags/Eclipse/"/>
     
@@ -593,8 +593,6 @@
     <category term="AWS" scheme="https://rickhw.github.io/categories/AWS/"/>
     
     
-    <category term="Linux" scheme="https://rickhw.github.io/tags/Linux/"/>
-    
     <category term="EKS" scheme="https://rickhw.github.io/tags/EKS/"/>
     
     <category term="Docker" scheme="https://rickhw.github.io/tags/Docker/"/>
@@ -602,6 +600,8 @@
     <category term="VMWare" scheme="https://rickhw.github.io/tags/VMWare/"/>
     
     <category term="K8s" scheme="https://rickhw.github.io/tags/K8s/"/>
+    
+    <category term="Linux" scheme="https://rickhw.github.io/tags/Linux/"/>
     
     <category term="IRSA" scheme="https://rickhw.github.io/tags/IRSA/"/>
     
