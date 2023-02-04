@@ -269,33 +269,27 @@
 
 <h2 id="版本編號規則"><a href="#版本編號規則" class="headerlink" title="版本編號規則"></a>版本編號規則</h2><p>Software 常用的 X.Y.Z 三碼規範以 “功能” 為主, 如下:</p>
 <ol>
-<li>X: 代表新增 <code>重大功能</code>、<code>無法向下相容</code> 或者 <code>重大架構變更</code>, 或者行銷 Magic Number. 像最近的 iOS 7, 或者Android 3.x -&gt; 4.x</li>
-</ol>
-<ul>
+<li>X: 代表新增 <code>重大功能</code>、<code>無法向下相容</code> 或者 <code>重大架構變更</code>, 或者行銷 Magic Number. 像最近的 iOS 7, 或者Android 3.x -&gt; 4.x<ul>
 <li>iOS7: UI 全面扁平化</li>
 <li>iOS8: 提供 Health, 以及 Wearable 的界面</li>
 </ul>
-<ol start="2">
-<li>Y: 每一碼表示增減 features &#x2F; function</li>
-</ol>
-<ul>
+</li>
+<li>Y: 每一碼表示增減 features &#x2F; function<ul>
 <li>向下相容，例如 6.1 跟 6.0 是相容的</li>
 <li>例如 iOS 6.0 -&gt; 6.1, 或者最近的 Android 4.4</li>
 </ul>
-<ol start="3">
-<li>Z: 表示維護碼, 常見名稱是 patch, 或 Fixpack, Hotfix. 針對已經 release 的產品, 作重大 bug fix, 或者 language patch &#x2F; support IME, 通常不會有大功能新增.</li>
-</ol>
-<ul>
+</li>
+<li>Z: 表示維護碼, 常見名稱是 patch, 或 Fixpack, Hotfix. 針對已經 release 的產品, 作重大 bug fix, 或者 language patch &#x2F; support IME, 通常不會有大功能新增.<ul>
 <li>維護碼更動表示沒有相容性問題, 也就是 1.8.1 和 1.8.2 的設定應該是相容, 且不需要合併 (Merge) 的.</li>
 <li>IBM 稱 FixPack, Microsoft 稱 Hotfix</li>
 </ul>
-<ol start="4">
-<li>Q: 有些版本會有第四碼，用來表示 <code>Patch</code>，Patch 通常指的是跟軟體工程無關的功能</li>
-</ol>
-<ul>
+</li>
+<li>Q: 有些版本會有第四碼，用來表示 <code>Patch</code>，Patch 通常指的是跟軟體工程無關的功能<ul>
 <li>語言支援</li>
 <li>文件版本</li>
 </ul>
+</li>
+</ol>
 <p>版號在專案開始就會定義, 例如 <code>1.6.0</code>, 軟體有 daily build or nightly build, 所以除了版號, 還會附帶:</p>
 <ul>
 <li><code>build id</code>: 通常是時間戳記, 格式通常是 <code>YYYYMMDD-HHmm</code></li>
@@ -331,14 +325,14 @@
 <li>我方須維護 FW 每個版本的 requirement, design document, change log, test report, bug list, release note</li>
 <li>Vendor 要提供每次交付的測試報告, 同時把 FW image 交付給我方 PM</li>
 <li>來自於 Vendor FW images&#x2F;Toolchain&#x2F;Document&#x2F;Tool, 我們要有儲存, 交付內部單位, 等管理的方式.</li>
-<li>Vendor給我們的FW image, 相關內容要定義清楚:</li>
-</ol>
-<ul>
+<li>Vendor給我們的FW image, 相關內容要定義清楚:<ul>
 <li>檔案壓縮格式: RAR or zip (RAR 需要 license)</li>
 <li>檔名格式: image: <code>&#123;APPNAME&#125;_&#123;VERSION&#125;_&#123;BUILD_ID&#125;_r&#123;REVISION&#125;.zip</code>, ex: <code>ORZ2000_1.5.0_b20130808_r2345.rar</code></li>
 <li>交付內容: 壓縮檔裡包含 FW image, change log</li>
 <li>Change log 內容格式</li>
 </ul>
+</li>
+</ol>
 <blockquote>
 <p>這段是針對 Firmware version 的控管討論</p>
 </blockquote>
