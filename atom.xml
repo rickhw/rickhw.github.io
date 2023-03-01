@@ -401,6 +401,8 @@
     
     <category term="Pub/Sub" scheme="https://rickhw.github.io/tags/Pub-Sub/"/>
     
+    <category term="Operating System" scheme="https://rickhw.github.io/tags/Operating-System/"/>
+    
     <category term="Java" scheme="https://rickhw.github.io/tags/Java/"/>
     
     <category term="Eclipse" scheme="https://rickhw.github.io/tags/Eclipse/"/>
@@ -414,8 +416,6 @@
     <category term="Extension" scheme="https://rickhw.github.io/tags/Extension/"/>
     
     <category term="Design Thinking" scheme="https://rickhw.github.io/tags/Design-Thinking/"/>
-    
-    <category term="Operating System" scheme="https://rickhw.github.io/tags/Operating-System/"/>
     
     <category term="Multi-Tenancy" scheme="https://rickhw.github.io/tags/Multi-Tenancy/"/>
     
