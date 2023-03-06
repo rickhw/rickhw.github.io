@@ -62,11 +62,11 @@
     <category term="Container" scheme="https://rickhw.github.io/categories/Container/"/>
     
     
-    <category term="Ubuntu" scheme="https://rickhw.github.io/tags/Ubuntu/"/>
+    <category term="Kubernetes" scheme="https://rickhw.github.io/tags/Kubernetes/"/>
     
     <category term="K8s" scheme="https://rickhw.github.io/tags/K8s/"/>
     
-    <category term="Kubernetes" scheme="https://rickhw.github.io/tags/Kubernetes/"/>
+    <category term="Ubuntu" scheme="https://rickhw.github.io/tags/Ubuntu/"/>
     
     <category term="Macbook Pro M1" scheme="https://rickhw.github.io/tags/Macbook-Pro-M1/"/>
     
@@ -83,9 +83,9 @@
     <link href="https://rickhw.github.io/2022/12/21/About/2022-AWS-Career-Exploration-Day/"/>
     <id>https://rickhw.github.io/2022/12/21/About/2022-AWS-Career-Exploration-Day/</id>
     <published>2022-12-21T13:42:30.000Z</published>
-    <updated>2022-12-22T06:35:30.245Z</updated>
+    <updated>2023-03-06T01:52:23.469Z</updated>
     
-    <content type="html"><![CDATA[<p>這是一場很特別的活動：<a href="https://pages.awscloud.com/20221121-tw-career-day.html">雲端職涯探索日</a> (<a href="https://events.104.com.tw/aws/20221201/">104專區</a>)，第一時間 AWS 的邀請我就毫不猶豫的答應了 XDD</p><span id="more"></span><h2 id="Slide-與錄影"><a href="#Slide-與錄影" class="headerlink" title="Slide 與錄影"></a>Slide 與錄影</h2><p>沒有來現場的朋友，可以透過以下的 Slide 與錄影回看內容：</p><iframe src="//www.slideshare.net/slideshow/embed_code/key/3Aqb5R8P5ZJTTN" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/rickhwang/aws-career-exploration-day" title="AWS Career Exploration Day" target="_blank">AWS Career Exploration Day</a> </strong> from <strong><a href="//www.slideshare.net/rickhwang" target="_blank">Rick Hwang</a></strong> </div><p>錄影 (iPad 直接錄影，收音)</p><iframe width="560" height="315" src="https://www.youtube.com/embed/q-58KOHbGSY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><h2 id="重點摘要"><a href="#重點摘要" class="headerlink" title="重點摘要"></a>重點摘要</h2><ol><li>從問題中出發，解決問題、探索需要的技能</li><li>為自己的技能抓一個目標：考證照</li></ol><p><img src="/images/About/2022-AWSCareerExplorationDay/Slide1.png"><br><img src="/images/About/2022-AWSCareerExplorationDay/Slide2.png"><br><img src="/images/About/2022-AWSCareerExplorationDay/Slide3.png"><br><img src="/images/About/2022-AWSCareerExplorationDay/Slide4.png"></p><h2 id="現場問答-一-：問問題，找答案"><a href="#現場問答-一-：問問題，找答案" class="headerlink" title="現場問答 (一)：問問題，找答案"></a>現場問答 (一)：問問題，找答案</h2><p>在現場攤位有一些朋友來問準備考試的方向，類似問題我統一把當下講的東西，重點敲下來，關鍵就是：</p><blockquote><p>問問題，找答案。</p></blockquote><p>這個過程，才是從不會、到會的學習過程。</p><p>現場我給了我的標準面試考題：<code>短網址</code>、<code>縮網址</code>，關鍵字是 <code>Short URL</code>。這個題目可以從開發 (寫程式) 角度、從架構設計角度、從維運角度，都可以切入；可以用 AWS 服務組出來，也可以完全自幹。</p><p>依照我要用人的職務、角色不一樣，我會有不同問法。例如要找 Cloud Engineer，就會看看如何用 AWS 服務做出來，而且考慮可靠度、效能、成本、資安 … 等因素。如果是面試開發工程師，如果他也懂 AWS，那我就會說：設計不能用 AWS Lambda (Serverless)，要怎麼做架構設計？怎麼做系統設計？</p><p>同樣，會真實情境去思考問題，例如短網址最常拿來用什麼？Line 廣告推播，例如某個商品特價了、新商品上架優惠 … 通常會有瞬間巨量 (或叫高併發)，怎麼利用 AWS 的服務，組出一個滿足這樣需求的設計？</p><p>養分來自於問題，問題的深度與廣度，會決定學習的方向。</p><p>現場很多朋友是剛出社會、或者尚未出社會，我的建議就是：</p><blockquote><p>先做出來再說。</p></blockquote><p>不管啥方式，先把短網址這個功能做出來，先能用了，再來開始挑戰。如果不知道短網址是啥，那就趕快去 google ~</p><h2 id="現場問答-二-：探索自己"><a href="#現場問答-二-：探索自己" class="headerlink" title="現場問答 (二)：探索自己"></a>現場問答 (二)：探索自己</h2><p>現場另一類的問題是，不知道自己下一步要做什麼？要繼續做開發？還是碰 AWS？要做資料分析？還是做維運？</p><p>更多看這篇： <a href="/2021/09/10/About/Self-Exploration/">職涯、探索、退休</a></p><h2 id="相關文章"><a href="#相關文章" class="headerlink" title="相關文章"></a>相關文章</h2><p>這場主軸是職涯 (Career)，構思內容的出發點是從 “<a href="/2021/09/10/About/Self-Exploration/">職涯、探索、退休</a>“、”<a href="/2018/08/20/Management/Overview-Hiring/">聊聊人力招募</a>“ 這兩篇出發，然後再扣回主辦單位想要的考證照，以 “<a href="/2019/08/14/About/About-Certificate/">證照有無用論？</a>“ 為主軸，真實案例是 “<a href="/2016/10/10/AWS/Migrate-to-AWS-NAT-Gateway/">Migrate to AWS NAT Gateway</a>“ 這篇。其他更多還有以下：</p><ul><li><a href="/2020/06/21/Management/Interview-Problems/">面試常見的問題</a></li><li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li><li><a href="/2016/10/01/AWS-Study-Roadmap/">AWS Study Roadmap</a></li><li><a href="/2016/08/20/AWS/AWS-Certified-Developer/">AWS Certified Developer - Associate 準備心得</a></li><li><a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/">AWS Certified SysOps Administrator - Associate 準備心得</a></li><li><a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/">AWS Certified Solutions Architect - Associate 準備心得</a></li><li><a href="/2019/01/12/About/Talent-And-Effort/">天賦與努力</a></li></ul><h2 id="照片-by-主辦單位-AWS"><a href="#照片-by-主辦單位-AWS" class="headerlink" title="照片 by 主辦單位 (AWS)"></a>照片 by 主辦單位 (AWS)</h2><p>這次活動 AWS 籌辦很久，其中最辛苦的莫過於負責活動的 Pamela，過程中很有耐心跟我討論內容，很慎重的 rehearsal 活動 rundown 流程 (這些過程我真的都滿熟的 XD) ～</p><p>感謝推坑的老朋友 Cliff、認識的新朋友 - 另一位 Scott (Data)、Carol，很久沒碰面的 Roy、來攤位詢問職涯的朋友、SRE 社群的朋友、前同事 Viola … (認親大會嗎 XDD)</p><p><img src="/images/About/2022-AWSCareerExplorationDay/IMG_6549.JPG"></p><p><img src="/images/About/2022-AWSCareerExplorationDay/IMG_6553.JPG"></p>]]></content>
+    <content type="html"><![CDATA[<p>這是一場很特別的活動：<a href="https://pages.awscloud.com/20221121-tw-career-day.html">雲端職涯探索日</a> (<a href="https://events.104.com.tw/aws/20221201/">104專區</a>)，第一時間 AWS 的邀請我就毫不猶豫的答應了 XDD</p><span id="more"></span><h2 id="Slide-與錄影"><a href="#Slide-與錄影" class="headerlink" title="Slide 與錄影"></a>Slide 與錄影</h2><p>沒有來現場的朋友，可以透過以下的 Slide 與錄影回看內容：</p><iframe src="//www.slideshare.net/slideshow/embed_code/key/3Aqb5R8P5ZJTTN" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/rickhwang/aws-career-exploration-day" title="AWS Career Exploration Day" target="_blank">AWS Career Exploration Day</a> </strong> from <strong><a href="//www.slideshare.net/rickhwang" target="_blank">Rick Hwang</a></strong> </div><p>錄影 (iPad 直接錄影，收音)</p><iframe width="560" height="315" src="https://www.youtube.com/embed/q-58KOHbGSY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><hr><h2 id="重點摘要"><a href="#重點摘要" class="headerlink" title="重點摘要"></a>重點摘要</h2><ol><li>從問題中出發，解決問題、探索需要的技能</li><li>為自己的技能抓一個目標：考證照</li></ol><p><img src="/images/About/2022-AWSCareerExplorationDay/Slide1.png"><br><img src="/images/About/2022-AWSCareerExplorationDay/Slide2.png"><br><img src="/images/About/2022-AWSCareerExplorationDay/Slide3.png"><br><img src="/images/About/2022-AWSCareerExplorationDay/Slide4.png"></p><h3 id="現場問答-一-：問問題，找答案"><a href="#現場問答-一-：問問題，找答案" class="headerlink" title="現場問答 (一)：問問題，找答案"></a>現場問答 (一)：問問題，找答案</h3><p>在現場攤位有一些朋友來問準備考試的方向，類似問題我統一把當下講的東西，重點敲下來，關鍵就是：</p><blockquote><p>問問題，找答案。</p></blockquote><p>這個過程，才是從不會、到會的學習過程。</p><p>現場我給了我的標準面試考題：<code>短網址</code>、<code>縮網址</code>，關鍵字是 <code>Short URL</code>。這個題目可以從開發 (寫程式) 角度、從架構設計角度、從維運角度，都可以切入；可以用 AWS 服務組出來，也可以完全自幹。</p><p>依照我要用人的職務、角色不一樣，我會有不同問法。例如要找 Cloud Engineer，就會看看如何用 AWS 服務做出來，而且考慮可靠度、效能、成本、資安 … 等因素。如果是面試開發工程師，如果他也懂 AWS，那我就會說：設計不能用 AWS Lambda (Serverless)，要怎麼做架構設計？怎麼做系統設計？</p><p>同樣，會真實情境去思考問題，例如短網址最常拿來用什麼？Line 廣告推播，例如某個商品特價了、新商品上架優惠 … 通常會有瞬間巨量 (或叫高併發)，怎麼利用 AWS 的服務，組出一個滿足這樣需求的設計？</p><p>養分來自於問題，問題的深度與廣度，會決定學習的方向。</p><p>現場很多朋友是剛出社會、或者尚未出社會，我的建議就是：</p><blockquote><p>先做出來再說。</p></blockquote><p>不管啥方式，先把短網址這個功能做出來，先能用了，再來開始挑戰。如果不知道短網址是啥，那就趕快去 google ~</p><h3 id="現場問答-二-：探索自己"><a href="#現場問答-二-：探索自己" class="headerlink" title="現場問答 (二)：探索自己"></a>現場問答 (二)：探索自己</h3><p>現場另一類的問題是，不知道自己下一步要做什麼？要繼續做開發？還是碰 AWS？要做資料分析？還是做維運？</p><p>更多看這篇： <a href="/2021/09/10/About/Self-Exploration/">職涯、探索、退休</a></p><h2 id="相關文章"><a href="#相關文章" class="headerlink" title="相關文章"></a>相關文章</h2><p>這場主軸是職涯 (Career)，構思內容的出發點是從 “<a href="/2021/09/10/About/Self-Exploration/">職涯、探索、退休</a>“、”<a href="/2018/08/20/Management/Overview-Hiring/">聊聊人力招募</a>“ 這兩篇出發，然後再扣回主辦單位想要的考證照，以 “<a href="/2019/08/14/About/About-Certificate/">證照有無用論？</a>“ 為主軸，真實案例是 “<a href="/2016/10/10/AWS/Migrate-to-AWS-NAT-Gateway/">Migrate to AWS NAT Gateway</a>“ 這篇。其他更多還有以下：</p><ul><li><a href="/2020/06/21/Management/Interview-Problems/">面試常見的問題</a></li><li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li><li><a href="/2016/10/01/AWS-Study-Roadmap/">AWS Study Roadmap</a></li><li><a href="/2016/08/20/AWS/AWS-Certified-Developer/">AWS Certified Developer - Associate 準備心得</a></li><li><a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/">AWS Certified SysOps Administrator - Associate 準備心得</a></li><li><a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/">AWS Certified Solutions Architect - Associate 準備心得</a></li><li><a href="/2019/01/12/About/Talent-And-Effort/">天賦與努力</a></li></ul><h2 id="照片-by-主辦單位-AWS"><a href="#照片-by-主辦單位-AWS" class="headerlink" title="照片 by 主辦單位 (AWS)"></a>照片 by 主辦單位 (AWS)</h2><p>這次活動 AWS 籌辦很久，其中最辛苦的莫過於負責活動的 Pamela，過程中很有耐心跟我討論內容，很慎重的 rehearsal 活動 rundown 流程 (這些過程我真的都滿熟的 XD) ～</p><p>感謝推坑的老朋友 Cliff、認識的新朋友 - 另一位 Scott (Data)、Carol，很久沒碰面的 Roy、來攤位詢問職涯的朋友、SRE 社群的朋友、前同事 Viola … (認親大會嗎 XDD)</p><p><img src="/images/About/2022-AWSCareerExplorationDay/IMG_6549.JPG"></p><p><img src="/images/About/2022-AWSCareerExplorationDay/IMG_6553.JPG"></p><h2 id="相關連結"><a href="#相關連結" class="headerlink" title="相關連結"></a>相關連結</h2><ul><li><a href="https://pages.awscloud.com/20221121-tw-career-day.html">雲端職涯探索日</a></li><li><a href="https://events.104.com.tw/aws/20221201/">104專區</a></li><li><a href="https://buzzorange.com/techorange/2023/03/01/aws-people-3/">雲端大鬧人才荒！如何加速職涯跳轉、成為搶破頭的雲端人才？</a> - Updated: 2023&#x2F;03&#x2F;06</li></ul>]]></content>
     
     
     <summary type="html">&lt;p&gt;這是一場很特別的活動：&lt;a href=&quot;https://pages.awscloud.com/20221121-tw-career-day.html&quot;&gt;雲端職涯探索日&lt;/a&gt; (&lt;a href=&quot;https://events.104.com.tw/aws/20221201/&quot;&gt;104專區&lt;/a&gt;)，第一時間 AWS 的邀請我就毫不猶豫的答應了 XDD&lt;/p&gt;</summary>
@@ -120,9 +120,9 @@
     <category term="About" scheme="https://rickhw.github.io/categories/About/"/>
     
     
-    <category term="Continuous Delivery" scheme="https://rickhw.github.io/tags/Continuous-Delivery/"/>
-    
     <category term="Gitlab" scheme="https://rickhw.github.io/tags/Gitlab/"/>
+    
+    <category term="Continuous Delivery" scheme="https://rickhw.github.io/tags/Continuous-Delivery/"/>
     
     <category term="Continuous Integration" scheme="https://rickhw.github.io/tags/Continuous-Integration/"/>
     
@@ -399,11 +399,11 @@
     <category term="Distributed Systems" scheme="https://rickhw.github.io/categories/Distributed-Systems/"/>
     
     
-    <category term="Pub/Sub" scheme="https://rickhw.github.io/tags/Pub-Sub/"/>
+    <category term="Java" scheme="https://rickhw.github.io/tags/Java/"/>
     
     <category term="Operating System" scheme="https://rickhw.github.io/tags/Operating-System/"/>
     
-    <category term="Java" scheme="https://rickhw.github.io/tags/Java/"/>
+    <category term="Pub/Sub" scheme="https://rickhw.github.io/tags/Pub-Sub/"/>
     
     <category term="Eclipse" scheme="https://rickhw.github.io/tags/Eclipse/"/>
     
@@ -593,15 +593,15 @@
     <category term="AWS" scheme="https://rickhw.github.io/categories/AWS/"/>
     
     
-    <category term="EKS" scheme="https://rickhw.github.io/tags/EKS/"/>
-    
-    <category term="Docker" scheme="https://rickhw.github.io/tags/Docker/"/>
+    <category term="K8s" scheme="https://rickhw.github.io/tags/K8s/"/>
     
     <category term="VMWare" scheme="https://rickhw.github.io/tags/VMWare/"/>
     
-    <category term="K8s" scheme="https://rickhw.github.io/tags/K8s/"/>
+    <category term="Docker" scheme="https://rickhw.github.io/tags/Docker/"/>
     
     <category term="Linux" scheme="https://rickhw.github.io/tags/Linux/"/>
+    
+    <category term="EKS" scheme="https://rickhw.github.io/tags/EKS/"/>
     
     <category term="IRSA" scheme="https://rickhw.github.io/tags/IRSA/"/>
     
