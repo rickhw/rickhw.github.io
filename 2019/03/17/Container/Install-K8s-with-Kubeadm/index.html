@@ -9,9 +9,7 @@
 
 全自動: Master &amp;#x2F; Worker Nodes 安裝都不用管，連升級 K8s 版本都不用管，像 GCP 的 GKE
 半自動: Cluster 的建置與管理是半自動，需要自己處理 K8s 升級。類似產品如下：
-
-
-kops: Master &amp;">
+kops: Master &amp;#x">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -257,14 +255,12 @@ kops: Master &amp;">
 				<p>K8s Cluster 安裝分幾種選擇：</p>
 <ol>
 <li><code>全自動</code>: Master &#x2F; Worker Nodes 安裝都不用管，連升級 K8s 版本都不用管，像 GCP 的 GKE</li>
-<li><code>半自動</code>: Cluster 的建置與管理是半自動，需要自己處理 K8s 升級。類似產品如下：</li>
-</ol>
-<ul>
+<li><code>半自動</code>: Cluster 的建置與管理是半自動，需要自己處理 K8s 升級。類似產品如下：<ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/kubernetes/kops">kops</a>: Master &#x2F; Worker Nodes 都自己裝，除了這些，也包含網路規劃、權限等</li>
 <li><a href="/2019/03/17/Container/Install-K8s-with-Kubeadm/">EKS</a>: Master Node 由 AWS 管理，使用者管理 Worker Nodes，詳細筆記參閱：<a href="/2019/03/17/Container/Install-K8s-with-Kubeadm/">K8s 安裝筆記 - AWS EKS</a></li>
 <li><a href="/2021/09/23/AWS/Experience-EKS-Anywhere/">Experience EKS Anywhere</a>: AWS OpenSource 的 EKS 版本，可以安裝在自己的環境。</li>
 </ul>
-<ol>
+</li>
 <li><code>半手動</code>: 從 VM &#x2F; Machine 開始就要自己來，也就是本文，主要是使用 K8s 官方工具 <code>kubeadm</code>。</li>
 <li><code>全手動</code>: 全都自己來，每個 k8s 的角色都自己安裝，從 kube-apiserver、etcd、kube-proxy … 等。</li>
 </ol>
@@ -404,12 +400,10 @@ EOF
 </ol>
 <p>ubuntu 18.04:</p>
 <ol>
-<li>關閉 cloud-init 自動更改 hostname 的設定： <code>/etc/cloud/cloud.cfg</code> ，把 preserve_hostname 改成 false.</li>
-</ol>
-<ul>
+<li>關閉 cloud-init 自動更改 hostname 的設定： <code>/etc/cloud/cloud.cfg</code> ，把 preserve_hostname 改成 false.<ul>
 <li>或者關閉 <code>cloud-init</code>: <code>systemctl disable cloud-init</code></li>
 </ul>
-<ol>
+</li>
 <li><code>hostnamectl set-hostname u1804-k118-m01</code></li>
 <li><code>reboot</code></li>
 </ol>
@@ -663,7 +657,7 @@ EOF
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Kubernetes/" style="color: white">Kubernetes <span class="badge">14</span></a></span> <span class="label label-success"><a href="/tags/K8s/" style="color: white">K8s <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/kubeadm/" style="color: white">kubeadm <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/kubelet/" style="color: white">kubelet <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Proxmox/" style="color: white">Proxmox <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/VMWare/" style="color: white">VMWare <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CNI/" style="color: white">CNI <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CRI/" style="color: white">CRI <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Ubuntu/" style="color: white">Ubuntu <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Ubuntu-16-04/" style="color: white">Ubuntu 16.04 <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Ubuntu-18-04/" style="color: white">Ubuntu 18.04 <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Ubuntu-20-04/" style="color: white">Ubuntu 20.04 <span class="badge">1</span></a></span>
+  <span class="label label-success"><a href="/tags/Kubernetes/" style="color: white">Kubernetes <span class="badge">14</span></a></span> <span class="label label-success"><a href="/tags/VMWare/" style="color: white">VMWare <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/K8s/" style="color: white">K8s <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/Ubuntu/" style="color: white">Ubuntu <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Ubuntu-16-04/" style="color: white">Ubuntu 16.04 <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/kubeadm/" style="color: white">kubeadm <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/kubelet/" style="color: white">kubelet <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CNI/" style="color: white">CNI <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CRI/" style="color: white">CRI <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Proxmox/" style="color: white">Proxmox <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Ubuntu-18-04/" style="color: white">Ubuntu 18.04 <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Ubuntu-20-04/" style="color: white">Ubuntu 20.04 <span class="badge">1</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
