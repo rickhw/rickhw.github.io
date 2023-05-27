@@ -288,7 +288,7 @@
 <p>詳細軟體測試階段的定義，請參閱 <a href="/2017/03/18/SQA/Stages-In-Software-Testing/">淺談軟體測試的階段與策略</a> 的介紹。</p>
 </blockquote>
 <p>以 RT 必須 Cover 這麼多 Stage 來看，除非很明確知道 <code>特定功能</code> 跟 <code>時間</code> 有關係。但實務上的 RT，經常需要遷就於資源、環境、維護 … 等因素，大部分能跑的是 Functional Test 的範圍，也就是各個獨立功能的測試。而功能跟功能 (ex: Apple Pay + Datetime) 不見得會有完整排列組合的 Integration Test。</p>
-<p>想像在 iOS 點到 Settings 裡面之後，相關的、或無關的功能樹，要做 n * n 的排列組合，全部跑過測試。如果這段有做，應該有機會發現，但實務上能做到的不容易，同時誰也不知道會不會改了 FuncA 居然會影響 FuncB，更別提 FuncA 還有 SubFuncN、AttributeX Z X …。</p>
+<p>想像在 iOS 點到 Settings 裡面之後，相關的、或無關的功能樹，要做 n - n 的排列組合，全部跑過測試。如果這段有做，應該有機會發現，但實務上能做到的不容易，同時誰也不知道會不會改了 FuncA 居然會影響 FuncB，更別提 FuncA 還有 SubFuncN、AttributeX Z X …。</p>
 <p>不過以蘋果這種規模的公司，他的資源要做到我說的應該是必要的，只是，感覺越來越不重視罷了。</p>
 <h2 id="有了-UT-就不需要其他測試？"><a href="#有了-UT-就不需要其他測試？" class="headerlink" title="有了 UT 就不需要其他測試？"></a>有了 UT 就不需要其他測試？</h2><p>這個問題需要看面對什麼樣的測試對象 (Objective)，例如：</p>
 <ul>

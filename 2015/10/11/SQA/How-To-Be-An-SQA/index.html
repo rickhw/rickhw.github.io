@@ -7,9 +7,12 @@
   <meta name="author" content="Rick Hwang">
   <meta name="description" content="很多事情，換個角度會有完全不一樣的見解。這篇文章整理我個人對於 SQA 職能的一些想法與經驗談。
 
+20230523 更新: 本文部分收錄在 共同著作《軟體測試實務》 第一冊 第一章之中，歡迎大家彭場。
 
 
-我的 SQA 經歷As a Software Developer, Unit Test &amp;#x2F; WebUI Integration Test &amp;#x2F; Automation Test很多">
+
+
+我的 SQA 經歷As a Software Developer, Unit Test ">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -254,6 +257,9 @@
 				<hr />
 
 				<p>很多事情，換個角度會有完全不一樣的見解。這篇文章整理我個人對於 SQA 職能的一些想法與經驗談。</p>
+<blockquote>
+<p><code>20230523 更新</code>: 本文部分收錄在 <a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作《軟體測試實務》</a> 第一冊 第一章之中，歡迎大家彭場。</p>
+</blockquote>
 <span id="more"></span>
 
 <hr>
@@ -329,7 +335,7 @@
 <p>測試目標能否配置、要怎麼配置，需要 developer 配合設計，利用 IoC &#x2F; DI &#x2F; AoP 等概念，設計出配置依賴互轉的功能。如果沒有辦法配置，那麼對於測試工作來講，是很卡的，而且也會限制整個測試的廣度與深度。上線後問題會反撲回 Developer 自己，然後 QA &#x2F; PM &#x2F; SE &#x2F; AE 會在那邊乾著急。</p>
 <p>環境的配置會跟 SE (System Engineer) or 現在很潮的 <a target="_blank" rel="noopener" href="http://www.ithome.com.tw/devops">DevOps</a> 有關係，因為這些單位往往需要知道部署時要如何配置，然後才是考慮線上的部署調配。 SE&#x2F;DevOps 需要跟 Developer 了解配置的細節，需要跟 QA 了解可能的問題，以及測試環境如何配置。進而更清楚線上系統該怎麼調配。</p>
 <p>比較有規模的公司，像是 Trend Micro、IBM，或者 KKBox 都有獨立的 QA &#x2F; SQA &#x2F; QE 部門，硬體廠 (網通) 則會花錢蓋實驗室 (就像義美一樣) ，而且具備一定的技術能力，需要配置自己的測試環境。這種測試環境有個很重要的目的：在理想的條件之象，量測 (Measure) 系統的狀況，或者在很髒的環境之下，執行壓力 (Load test)、效能 (Performance)、穩定性 (Stability)、可靠度 (Reliability)、容錯 (Fault Tolerance) 等測試。</p>
-<p>不過大部份的台商公司，QA 往往都是屬於附屬單位，大多僅止於 <em>能動</em> 就出貨的程度。很多公司都是為了省錢，所以往往忽略這段，然後問題都是上線 &#x2F; 出貨的之後才發現。上線 &#x2F; 出貨之後的成本遠比測試環境的成本高很多。</p>
+<p>不過大部份的台商公司，QA 往往都是屬於附屬單位，大多僅止於 *能動- 就出貨的程度。很多公司都是為了省錢，所以往往忽略這段，然後問題都是上線 &#x2F; 出貨的之後才發現。上線 &#x2F; 出貨之後的成本遠比測試環境的成本高很多。</p>
 <p>相關文章：</p>
 <blockquote>
 <ul>
@@ -470,7 +476,7 @@
 <li>測試執行管理與資源分配.<ul>
 <li>問題追蹤或專案管理都有一套系統，有名的像是 Redmine, JIRA.</li>
 <li>測試管理是很複雜且專業的事情，也有測試管理系統可以使用。我用過 Testlink (Open Source, LAMP), 以及 <a target="_blank" rel="noopener" href="http://www.gurock.com/testrail/">Testrail</a> (LAMP, 要錢，很貴，但超強).<ul>
-<li>Testrail 我非常推薦 (前後參與兩家公司都有買)，雖然他不便宜 (25 個人要 4500USD &#x3D; 13.5 萬台幣)，但是流程、Test Spec、Execution &#x2F; Test Dimension、人力資源分配、與其他系統整合 (e.g., JIRA &#x2F; Redmine) 完整，是真正的 <em>專業的</em> 測試管理平台。</li>
+<li>Testrail 我非常推薦 (前後參與兩家公司都有買)，雖然他不便宜 (25 個人要 4500USD &#x3D; 13.5 萬台幣)，但是流程、Test Spec、Execution &#x2F; Test Dimension、人力資源分配、與其他系統整合 (e.g., JIRA &#x2F; Redmine) 完整，是真正的 *專業的- 測試管理平台。</li>
 <li><strong>2022&#x2F;08 Updated</strong>: Testrail 後來改成訂閱制， <a target="_blank" rel="noopener" href="https://kiwitcms.org/">Kiwi TCMS</a> 是另一套 Open Source 的測試管理，可以取代 Testrail.</li>
 </ul>
 </li>
@@ -480,7 +486,7 @@
 </ul>
 <blockquote>
 <ol>
-<li>這邊要強調，<em>測試</em> 這個工作的專業度與技術深度，不會輸給開發 (Developer)，甚至更深更廣，而他的管理工具更是需要具備專業經驗與知識才能夠駕馭，不是花了錢，品質就可以達到 100%。該有的 Domain Know How 還是要有，否則只是打腫臉充胖子而已。</li>
+<li>這邊要強調，*測試- 這個工作的專業度與技術深度，不會輸給開發 (Developer)，甚至更深更廣，而他的管理工具更是需要具備專業經驗與知識才能夠駕馭，不是花了錢，品質就可以達到 100%。該有的 Domain Know How 還是要有，否則只是打腫臉充胖子而已。</li>
 <li>國外的 QA 的條件是要做過 Developer，而且是 Senior Developer</li>
 <li>花錢買工具以為事情就完美的老闆很多，就像花錢買很貴的吉他，然後都沒在練，彈出來一樣 2266.</li>
 </ol>
@@ -533,6 +539,7 @@
 <li><a href="/2020/04/22/SoftwareEngineering/Reliability-Engineering/">可靠性工程 (Reliability Engineering)</a></li>
 <li><a href="/2019/09/20/SQA/How-to-Measure-System-Capacity/">如何量測系統的容量？</a></li>
 <li><a href="/2022/08/13/SQA/Path-to-Software-Testing/">演講：從理想、到現實的距離，開啟品味軟體測試之路</a></li>
+<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">新書上市 - 共同著作《軟體測試實務 I、II》</a></li>
 </ul>
 <h2 id="參考資料-站外"><a href="#參考資料-站外" class="headerlink" title="參考資料 (站外)"></a>參考資料 (站外)</h2><ul>
 <li><a href="/2019/09/20/SQA/How-to-Measure-System-Capacity/">600 多個 bugs 要怎麼修？</a></li>
