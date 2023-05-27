@@ -46,11 +46,11 @@
   </entry>
   
   <entry>
-    <title>新書上市公告 - 共同著作《軟體測試實務 I、II》</title>
+    <title>新書上市 - 共同著作《軟體測試實務 I、II》</title>
     <link href="https://rickhw.github.io/2023/05/23/About/2023-Software-Test-Practice/"/>
     <id>https://rickhw.github.io/2023/05/23/About/2023-Software-Test-Practice/</id>
     <published>2023-05-23T13:42:30.000Z</published>
-    <updated>2023-05-27T02:32:03.197Z</updated>
+    <updated>2023-05-27T04:45:35.999Z</updated>
     
     <content type="html"><![CDATA[<p>2022 年初的時候，經過朋友的介紹認識成大資工系 <a href="https://researchoutput.ncku.edu.tw/zh/persons/shin-jie-lee">李信杰 教授</a>，因此才有了這本書的誕生。</p><p>李老師對軟體工程非常有熱情，特別是軟體測試領域，是全球最熱門開源測試軟體 Selenium IDE V3、Katalon Recorder 與 Qualys Recorder 原型創造者。</p><p>2022 年暑假，在老師的熱情邀 (ㄊㄨㄟ) 約 (ㄎㄥ) 之下，讓我有機會分享一場心路歷程：<a href="/2022/08/13/SQA/Path-to-Software-Testing/">從理想、到現實的距離，開啟品味軟體測試之路</a>，重新燃起對於軟體測試與品質的想法，然後也著手寫下多年積累的想法。</p><p><img src="/images/About/2023-swtesting/MP22255-3d.png"></p><span id="more"></span><p>在這個過程中，同步進行的就是本文的主角，也就是《軟體測試實務》的共同著作，老師從收文、討論、到收稿、校稿、一校、二校、三校，定稿，確認出版。一路走來，跟著業界的前輩們一起努力，大家一條心，期望分享做寶貴的心得與經驗！</p><p>經過約半年的寫作，以及大約四個月的協作，終於確立出版，因為文章篇幅很多，所以分成一、二兩冊 (未來還會有三、四？)，過程中我邀請前同事，優秀的現任測試主管 - 師孝一起參與寫作，同時也貢獻了 Blog 上一些文章的內容 (後面羅列)，也把以前曾經想寫，但一直沒 (ㄊㄡ) 空 (ㄌㄢˇ) 寫的，完整的寫出來。</p><p>除了我自己的心得與想法，書本還有其他各大知名企業的團隊，大家貢獻的心得與經驗，希望大家的想法與經驗，可以為業界軟體帶來新的動能與不同的觀點。</p><h2 id="Rick-貢獻的內容與站內相關文章"><a href="#Rick-貢獻的內容與站內相關文章" class="headerlink" title="Rick 貢獻的內容與站內相關文章"></a>Rick 貢獻的內容與站內相關文章</h2><ul><li>第一冊 CH01 軟體測試工程師的職涯手冊<ul><li><a href="/2015/10/11/SQA/How-To-Be-An-SQA/">Software QA 的職能條件</a></li><li><a href="/2015/08/20/SQA/Three-Kinds-Of-QA/">三種 QA (Quality Assurance)</a></li><li><a href="/2019/10/30/SQA/Problems-In-Software-Testing/">關於軟體測試，一些觀察到的現象</a></li></ul></li><li>第一冊 CH05 從零開始，軟體測試團隊建立實戰<ul><li><a href="/2022/09/18/SQA/Integration-Test-and-Execution-Strategy/">整合測試與執行策略</a></li><li><a href="/2018/03/18/SQA/Gossip-System-Testing/">輕鬆聊：系統測試 (SVT) 的三兩事</a></li><li><a href="/2017/03/18/SQA/Stages-In-Software-Testing/">淺談軟體測試的階段與策略</a></li></ul></li><li>第二冊 CH01 Web Service系統容量量測的實務方法論<ul><li><a href="/2019/09/20/SQA/How-to-Measure-System-Capacity/">如何量測系統的容量？（壓測）</a></li></ul></li></ul><h2 id="相關資訊-amp-購買通路"><a href="#相關資訊-amp-購買通路" class="headerlink" title="相關資訊 &amp; 購買通路"></a>相關資訊 &amp; 購買通路</h2><ul><li><a href="https://sites.google.com/view/swtesting">書本官方網站</a></li><li>天瓏書局連結<ul><li><a href="https://www.tenlong.com.tw/products/9786263334854">軟體測試實務 : 業界成功案例與高效實踐 [ I ]</a></li><li><a href="https://www.tenlong.com.tw/products/9786263334861">軟體測試實務 : 業界成功案例與高效實踐 [ II ]</a></li></ul></li></ul><p><img src="/images/About/2023-swtesting/MP22256-3d.png"></p><p><img src="/images/About/2023-swtesting/swtesting0.png"><br><img src="/images/About/2023-swtesting/swtesting1.png"><br><img src="/images/About/2023-swtesting/swtesting2.png"></p><p><img src="/images/About/2023-swtesting/tenlong1.png"><br><img src="/images/About/2023-swtesting/tenlong2.png"></p><hr>]]></content>
     
@@ -436,8 +436,6 @@
     
     <category term="Java" scheme="https://rickhw.github.io/tags/Java/"/>
     
-    <category term="Operating System" scheme="https://rickhw.github.io/tags/Operating-System/"/>
-    
     <category term="Eclipse" scheme="https://rickhw.github.io/tags/Eclipse/"/>
     
     <category term="Event Driven Architecture" scheme="https://rickhw.github.io/tags/Event-Driven-Architecture/"/>
@@ -449,6 +447,8 @@
     <category term="Extension" scheme="https://rickhw.github.io/tags/Extension/"/>
     
     <category term="Design Thinking" scheme="https://rickhw.github.io/tags/Design-Thinking/"/>
+    
+    <category term="Operating System" scheme="https://rickhw.github.io/tags/Operating-System/"/>
     
     <category term="Multi-Tenancy" scheme="https://rickhw.github.io/tags/Multi-Tenancy/"/>
     
