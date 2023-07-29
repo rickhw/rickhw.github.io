@@ -1,0 +1,639 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>API 設計 - 摘要 API 通訊模式與協議 | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="API First 在跨企業的系統交互越來越頻繁的今天，提供有效的擴展業務的方法。過往什麼功能都要自行開發，但卻因為內部資源不足；亦或錯估新業務規模的深度與需求層次，造成投入沒有成效、或者必須不斷的加碼投入，最後才意會到，這是個獨立領域，需要獨立的專業團隊，像是 MarTech、支付、通訊 …
+AP">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="API 設計 - 摘要 API 通訊模式與協議"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/2023/06/24/DistributedSystems/API-First_Communication-Protocol/"/>
+  <meta property="og:image" content="/images/DistributedSystems/API-Comm-Protocol/API-Comm-Mode_v20230623.png" />
+  
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<!--
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'G-74Y1F3F5W0']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-74Y1F3F5W0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-74Y1F3F5W0');
+</script>
+
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!-- @rickd 2022/02/24
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
+  -->
+  <!-- @ricka 2022/02/24 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!--
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="bd9r2mJp"></script>
+  -->
+
+  <!-- @ricka 2022/09/06 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="opf2Gext"></script>
+
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+						
+						<li><a href="/categories/About/">About <sup>31</sup></a></li>
+						
+						<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+						
+						<li><a href="/categories/Coding/">Coding <sup>7</sup></a></li>
+						
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+						
+						<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+						
+						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>19</sup></a></li>
+						
+						<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+						
+						<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+						
+						<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+						
+						<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+						
+						<li><a href="/categories/DevOps/SRE/">SRE <sup>25</sup></a></li>
+						
+						<li><a href="/categories/Software-Engineering/">Software Engineering <sup>9</sup></a></li>
+						
+						<li><a href="/categories/經營管理/">經營管理 <sup>55</sup></a></li>
+						
+						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
+						
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂 (v2021)</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> API 設計 - 摘要 API 通訊模式與協議</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> API 設計 - 摘要 API 通訊模式與協議</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+		
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2023%2F06%2F24%2FDistributedSystems%2FAPI-First_Communication-Protocol%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2023/06/24/DistributedSystems/API-First_Communication-Protocol/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/2023/06/24/DistributedSystems/API-First_Communication-Protocol/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<p><code>API First</code> 在跨企業的系統交互越來越頻繁的今天，提供有效的擴展業務的方法。過往什麼功能都要自行開發，但卻因為內部資源不足；亦或錯估新業務規模的深度與需求層次，造成投入沒有成效、或者必須不斷的加碼投入，最後才意會到，這是個獨立領域，需要獨立的專業團隊，像是 MarTech、支付、通訊 …</p>
+<p>API First 的概念，背後是雙方在技術上彼此溝通的通訊協議，透過這層協議，雙方可以更快速的仰賴彼此的擅長的領域，進而拓展業務。最常見的就是電商與支付系統、廣告服務、電信系統、物流業、與 ChatBot &#x2F; AI … 等整合。</p>
+<p>開放 API 是個策略性決策，背後代表著要與合作夥伴達成策略聯盟，本質上是 B2B 的商業行為；同時開放 API 也意味著內部系統需要有高度整合，提供對外統一介面與標準，讓合作夥伴在開發過程，可以有一致性的使用介面與理解。</p>
+<p>基於這樣的前提，只要是 API 對外開放、或者是內部整合，都要面對本文要提到的問題：<code>API 通訊模式與協議</code></p>
+<span id="more"></span>
+
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>本文摘要基於 B2B 的業務模式，開放 API 時必須要規劃的對內、對外通訊模式，以及分析實務上的情境組合。</p>
+<h2 id="通訊模式"><a href="#通訊模式" class="headerlink" title="通訊模式"></a>通訊模式</h2><p><code>通訊模式</code> 代表 API 對內、對外彼此交互的方式，整理如下圖：</p>
+<p><img src="/images/DistributedSystems/API-Comm-Protocol/API-Comm-Mode_v20230623.png"></p>
+<p>圖中定義的系統包含如下：</p>
+<ol>
+<li><code>API Platform</code>: 主要處理的是外部通訊請求，<ul>
+<li>架構角色包含 API Gateway, API Manaement, API Operation 等部分<ul>
+<li><code>API Gateway</code>: 職責包含 AAA, Traffic Control, Protection, Rate Limit,</li>
+<li><code>API Management</code>: API 的 Publisher &#x2F; Subscriber, Token &amp; Key Management &#x2F; Lifecycle &#x2F; Documentation … 等，背後本質與核心議題是 <code>API Governance</code></li>
+<li><code>API Operation</code>: 包含 Obervability &amp; Monitoring, APM, Tracing, Logging, Cache … 等架構性問題.</li>
+</ul>
+</li>
+<li>整合 API Platform 對外處理合作夥伴的 API 請求, 同時轉發請求給對應的內部服務.</li>
+<li>API Platform 本身必須滿足以下架構需求: Security, Reliablity, Performance, Operational</li>
+</ul>
+</li>
+<li><code>Service X</code>: 企業內部各種 Domain Services 的泛稱，像是訂單 &#x2F; 商品 &#x2F; 庫存 … 等.<ul>
+<li>這些服務都是內部系統，不直接對外</li>
+<li>這些服務對於 API Platform 兒言，都屬於 Publisher，或稱 Provider (供應商)</li>
+<li>這些服務跟服務之間的溝通，必須遵循 <code>內部通訊協議 (Internal Commucation Protocol, ICP)</code></li>
+</ul>
+</li>
+<li><code>External Services</code>: 使用 API 的合作夥伴，這裡的案例是 B2B</li>
+<li><code>Client</code>: 提供給 End User 使用的 GUI 介面形式，包含 Mobile, Desktop, Web … 等.</li>
+</ol>
+<p>這四個角色之間，彼此之間的溝通用不同顏色以及標示 (C2, B3, C4, C3, D4 … )，搭配 <code>情境矩陣</code> 收斂實際的範圍。</p>
+<h2 id="情境矩陣"><a href="#情境矩陣" class="headerlink" title="情境矩陣"></a>情境矩陣</h2><p>這四個角色之間的通訊，有 16 種排列組合，整理出以下的情境矩陣：</p>
+<p><img src="/images/DistributedSystems/API-Comm-Protocol/API-Comm-Scenario_v20230623.png"></p>
+<p>這十六種排列組合，彼此之間都有可能會相互通訊，情境矩陣則展開了所有的可能，經過分析後，刪除不合理、不需要、不必要的排列組合 (A1, B2, C1 …)，確立我們需要關注的組合，最核心情境有以下：</p>
+<ol>
+<li><code>Session Base</code>: 排列組合中的 A2</li>
+<li><code>External API</code>: 排列組合中的 B3, C4</li>
+<li><code>Internal Commucation</code>: 排列組合中的 C3, D3, D4</li>
+<li><code>External Invcation</code>: 排列組合中的 C2, D2</li>
+</ol>
+<p>有了這樣的定義與理解之後，針對每個通訊模式，就可以定義適當的 Context ，讓彼此有一致的標準溝通，包含 (但不限於) 以下：</p>
+<ol>
+<li>認證授權</li>
+<li>服務治理</li>
+<li>展開適當的架構設計</li>
+<li>追蹤管理</li>
+<li>API 設計方法</li>
+<li>API 生態系的管理與治理</li>
+<li>API 維運</li>
+<li>… etc.</li>
+</ol>
+<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>下圖是網路上很有名的故事，個人覺得核心是「經營之道」：</p>
+<p><img src="/images/DistributedSystems/API-Comm-Protocol/Biz.png"></p>
+<p>故事摘要如下：</p>
+<blockquote>
+<p>第一個猶太人來到小鎮上開了個加油站，生意很旺。第二個猶太人來了，發現加油站生意很不錯，想到加油站的客戶需要吃飯，所以投資開了個餐館。第三個猶太人來了，想到來小鎮的人多了需要住宿，於是開了個飯店。第四個猶太人又發現住店的人需要生活用品，於是開了超市。第五個，第六個……來的人越來越多，吃飯住宿旅遊經商的人又需要加油，於是加油站、餐館、飯店、超市的生意相繼更旺了，逐步小鎮就成了一個經濟繁榮的小鎮，很多猶太人都富裕了。</p>
+<p>第一個中國人來到小鎮上開了個加油站，生意很旺。第二個中國人來了，發現第一個人投資的加油站生意真令人羨慕，趕緊開了第二個加油站。第三個中國人又來了，看見前面2個同胞的加油站生意很好妒嫉得眼紅，火速開了第三個加油站。第四，第五個同胞過來都是一樣，開加油站還打折促銷……最後惡性競爭，然後紛紛倒閉，小鎮又回到原點……</p>
+</blockquote>
+<p>先不論故事中的反諷，但是猶太人的重點就在於經營的過程，透過整合的方式，而不是硬碰硬，透過共榮、相互依存的概念，集結成一個生態系。API 本身就是生態系中的一環，企業透過開放 API，與其他異業結合，相互協助、相互依存，形成一個生態系。</p>
+<p>有了這個核心的模式與情境，接下來就可以討論實際上架構設計時的選擇與設計思路，以及市面上的解決方案。</p>
+<hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="站內文章"><a href="#站內文章" class="headerlink" title="站內文章"></a>站內文章</h2><ul>
+<li><a href="/2023/06/24/DistributedSystems/API-Communication-Protocol/">API 設計 - 摘要 API 通訊模式與協議</a></li>
+<li><a href="/2023/07/02/DistributedSystems/API-Integration-Matrix/">API 設計 - API 整合矩陣</a></li>
+<li><a href="/2018/01/24/DistributedSystems/Overview-API-Gateway/">Overview API Gateway</a></li>
+<li><a href="/2021/05/14/DistributedSystems/Service-Governance/">聊聊分散式架構的服務治理</a></li>
+<li><a href="/2022/07/04/DistributedSystems/Inspired-Design-From-Eclipse/">摘要 Eclipse 設計的啟發：當代 SaaS 分散式架構的關鍵設計</a></li>
+<li><a href="/2021/01/03/Linux/Shell-and-Bash-Concepts/">Shell and Bash Concepts</a></li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/2023/06/24/DistributedSystems/API-First_Communication-Protocol/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<!-- LikeCoin -->
+				<!-- @rickd 2022/09/06 -->
+				<!--
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2023/06/24/DistributedSystems/API-First_Communication-Protocol/"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+				-->
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2023/07/02/DistributedSystems/API-First_Integration-Matrix/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2023/06/14/Management/Failed-Meeting/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
+  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
+  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2023/06/24/DistributedSystems/API-First_Communication-Protocol/" data-width="100%" data-numposts="10"></div>
+
+  
+
+
+</section>
+
+
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2023/06/24 13:30:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%91%98%E8%A6%81"><span class="toc-article-text">摘要</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%80%9A%E8%A8%8A%E6%A8%A1%E5%BC%8F"><span class="toc-article-text">通訊模式</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%83%85%E5%A2%83%E7%9F%A9%E9%99%A3"><span class="toc-article-text">情境矩陣</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-article-text">小結</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">19</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/API-Gateway/" style="color: white">API Gateway <span class="badge">17</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Communication/" style="color: white">Distributed Communication <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/API-Platform/" style="color: white">API Platform <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/API-First/" style="color: white">API First <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Contract-First/" style="color: white">Contract First <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Communication-Protocol/" style="color: white">Communication Protocol <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/API-Governance/" style="color: white">API Governance <span class="badge">2</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+		<!-- v4 -->
+		<h4>About</h4>
+		
+			<li><a href="/2035/01/21/Index/">全站索引</a></li>
+		
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+		
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		
+			<li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+		
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		
+			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+		
+
+		<h4>著作</h4>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作：SRE實踐與開發平台指南</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作：軟體測試實務 (2023)</a></li>
+		
+			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
+		
+
+		<h4>演講</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影@Youtube</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">軟體測試實務 - 新書發表會</a></li>
+		
+			<li><a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">AWS Career Exploration Day</a></li>
+		
+			<li><a href="/2022/08/13/SQA/Path-to-Software-Testing/">從理想、到現實的距離，開啟品味軟體測試之路</a></li>
+		
+			<li><a href="/2022/05/10/About/2022-SREConf2022/">91APP 在 AWS 上的 SRE 實踐之路</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/2020-aws-summit-aws">在矩陣型組織裡，如何有效管理 AWS 的成本結構與系統架構</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/aws-using-aws-for-disaster-recovery/">災難演練 @ AWS 實戰分享</a></li>
+		
+			<li><a href="/2019/04/27/DevOps/Introduce-to-Continuous-Delivery-2/">導讀持續交付 2.0 - 談當代軟體交付之虛實融合</a></li>
+		
+			<li><a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理</a></li>
+		
+			<li><a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">從緊急事件 談 SRE 應變能力的培養</a></li>
+		
+			<li><a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
+		
+			<li><a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">Monitoring Tools 大亂鬥 - AWS CloudWatch</a></li>
+		
+			<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></li>
+		
+			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
+		
+
+		<!-- v3 -->
+		<!--
+		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		-->
+
+		<!-- v2 -->
+		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+		<!-- v1 -->
+		<!--
+		<li>Software Developer</li>
+		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+		<li><a href="/categories/DevOps/">Operation Manager</a></li>
+		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+		<li>
+			<ol>
+				<li>Management</li>
+				<li>Cloud / Distributed Systems</li>
+				<li>DevOps / SRE / </li>
+			</ol>
+		</li>
+		-->
+
+		<!--
+		<h4>Donate</h4>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick" />
+		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
+		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
+		</form>
+		-->
+
+		<h4>Facebook</h4>
+
+		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
+
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
+				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+
+		<h4>AWS Certifications</h4>
+		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+		<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+		<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+		
+
+	</div><!-- row -->
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2022 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div>
+
+<!-- container-narrow -->
+
+<div id="gotop">
+
+  <!-- 
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"]);">喝咖啡 聊音樂 (v2021)</a><br />
+   -->
+
+  <!-- <h4>About</h4> -->
+
+  
+    <li><a href="/2035/01/21/Index/">全站索引</a></li>
+  
+    <li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+  
+    <li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+  
+    <li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+  
+    <li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+  
+    <li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+  
+    <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+  
+
+  <a href="#">▲ TOP ▲ </a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

@@ -2,28 +2,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>開會原則 | Complete Think</title>
+  <title>API 設計 - API 整合矩陣 | Complete Think</title>
 
   <meta name="author" content="Rick Hwang">
-  <meta name="description" content="開會的目的是針對一個主題，大家交換想法、討論、甚至是吵架，達成一致共識的過程。不管是在銷售、研發、決策、營運、生產單位，都是每天在發生的。
+  <meta name="description" content="API 存在的目的，最早期是程式邏輯可以重複使用，例如 時間相關的工具，透過標準的介面定義，以及模組化的概念，每個人在開發應用程式的時候，都可以引用同一個函示庫，透過標準介面就可以調用。像是 Java 語言的 java.util.Date 這樣的標準介面，所以 API 的概念就出現了。
 
 
-
-
-我開會的原則：
-
-會議主題：一定要有明確的會議主題、範圍、還有準備相關的文件
-預計結果：預計會議應該要達到什麼樣的共識，如果無法評估，那會議就不具意義。">
+後來程式">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   <!-- properties -->
-  <meta property="og:title" content="開會原則"/>
+  <meta property="og:title" content="API 設計 - API 整合矩陣"/>
   <meta property="og:site_name" content="Complete Think"/>
   <meta property="og:type"      content="website" />
-  <meta property="og:url" content="https://rickhw.github.io/2014/11/26/Management/開會原則/"/>
-  <meta property="og:image" content="/images/site_main_logo_v2-201902.png"/>
+  <meta property="og:url" content="https://rickhw.github.io/2023/07/02/DistributedSystems/API-First_Integration-Matrix/"/>
+  <meta property="og:image" content="/images/DistributedSystems/API-Product-Plan-Design-Overview/API-Integration-Matrix_v20230701.png" />
+  
 
   <!-- links -->
   <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
@@ -119,19 +115,19 @@
 		            	
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
-						<li><a href="/categories/About/">About <sup>30</sup></a></li>
+						<li><a href="/categories/About/">About <sup>31</sup></a></li>
 						
 						<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
 						
-						<li><a href="/categories/Coding/">Coding <sup>6</sup></a></li>
+						<li><a href="/categories/Coding/">Coding <sup>7</sup></a></li>
 						
 						<li><a href="/categories/Computer-Science/">Computer Science <sup>6</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
-						<li><a href="/categories/DevOps/">DevOps <sup>42</sup></a></li>
+						<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
 						
-						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>18</sup></a></li>
+						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>19</sup></a></li>
 						
 						<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
 						
@@ -145,11 +141,11 @@
 						
 						<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
 						
-						<li><a href="/categories/DevOps/SRE/">SRE <sup>24</sup></a></li>
+						<li><a href="/categories/DevOps/SRE/">SRE <sup>25</sup></a></li>
 						
 						<li><a href="/categories/Software-Engineering/">Software Engineering <sup>9</sup></a></li>
 						
-						<li><a href="/categories/經營管理/">經營管理 <sup>54</sup></a></li>
+						<li><a href="/categories/經營管理/">經營管理 <sup>55</sup></a></li>
 						
 						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
 						
@@ -213,13 +209,13 @@
 		<!-- @rick, header of article -->
 		<!-- original
 		<div class="page-header">
-			<h1> 開會原則</h1>
+			<h1> API 設計 - API 整合矩陣</h1>
 		</div>
 		-->
 
 		<div class="panel article_title">
 			<div class="panel-heading">
-    		<h1> 開會原則</h1>
+    		<h1> API 設計 - API 整合矩陣</h1>
   		</div>
 		</div>
 
@@ -241,87 +237,97 @@
 				<!-- Facebook in front of page -->
 				<!--
 				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2014%2F11%2F26%2FManagement%2F%E9%96%8B%E6%9C%83%E5%8E%9F%E5%89%87%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2023%2F07%2F02%2FDistributedSystems%2FAPI-First_Integration-Matrix%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
 					width="450" height="80"
 					style="border:none;overflow:hidden"
 					scrolling="no" frameborder="0"
 					allowTransparency="true" allow="encrypted-media"></iframe>
 				-->
 
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2014/11/26/Management/開會原則/" data-layout="standard"
+				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2023/07/02/DistributedSystems/API-First_Integration-Matrix/" data-layout="standard"
 					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
 
-				<div class="fb-like" data-href="https://rickhw.github.io/2014/11/26/Management/開會原則/" data-width="" data-layout="button_count"
+				<div class="fb-like" data-href="https://rickhw.github.io/2023/07/02/DistributedSystems/API-First_Integration-Matrix/" data-width="" data-layout="button_count"
 					data-action="like" data-size="small" data-share="true"></div>
 
 				<hr />
 
-				<p>開會的目的是針對一個主題，大家交換想法、討論、甚至是吵架，達成一致共識的過程。不管是在銷售、研發、決策、營運、生產單位，都是每天在發生的。</p>
+				<p>API 存在的目的，最早期是程式邏輯可以重複使用，例如 時間相關的工具，透過標準的介面定義，以及模組化的概念，每個人在開發應用程式的時候，都可以引用同一個函示庫，透過標準介面就可以調用。像是 Java 語言的 <code>java.util.Date</code> 這樣的標準介面，所以 API 的概念就出現了。</p>
 <span id="more"></span>
 
-
-<hr>
-<p>我開會的原則：</p>
-<ol>
-<li>會議主題：一定要有明確的會議主題、範圍、還有準備相關的文件</li>
-<li>預計結果：預計會議應該要達到什麼樣的共識，如果無法評估，那會議就不具意義。</li>
-<li>哪些人要參加：通常會議上我希望每個人都要發言，甚至是吵架（吵架也是溝通），因為如果有話都不講，那就不要來了，也不用開會了。</li>
-</ol>
-<p>會議前想想這些東西，</p>
-<h2 id="什麼時候需要開會？"><a href="#什麼時候需要開會？" class="headerlink" title="什麼時候需要開會？"></a>什麼時候需要開會？</h2><ul>
-<li>認知不一樣、意見衝突：對於事情的看法有落差、資訊不同步，大家可以坐下來面對面講清楚，說明白。困難的地方可以一起解決，或者一起想辦法。</li>
-<li>了解彼此的狀態：通常就是所謂的週會 (Weekly Meeting)、例行性會議 (Status Meeting)、主管會議、營運會議 (Operation Meeting)、銷售會議 … 等。</li>
-<li>資訊分享、心得分享：研發部門經常會需要有的，是最好的輪流、相互成長的機會。</li>
-<li>臨時動議：遇到無法解決的問題，臨時找大家討論</li>
-</ul>
-<h2 id="參與人員"><a href="#參與人員" class="headerlink" title="參與人員"></a>參與人員</h2><ul>
-<li>主席 (Host)：要負責控制開會的節奏、議程、時間、議題方向。<ul>
-<li>確立議程 (Agenda)，會議文件</li>
-<li>發出會議邀請 (Invitation)，並確認與會人員時間地點沒問題。</li>
-<li>確立會議室、以及設備沒問題</li>
-<li>如果與會者有異義、衝突的時候，要能夠居中協調，讓雙方冷靜。</li>
-<li>如果該會議無法達成共識，或者問題無法釐清，那麼要繼續追蹤，或者另外開會討論。</li>
-<li>如果會議議題偏離主題，要能夠適時拉回來，但也要知道偏離的原因，因為那可能是大家都不曾想過的問題，需要另外討論。</li>
-<li>想辦法讓每個人都發言</li>
+<p>後來程式跟程式之間也要相互調用，像是 Java 要使用 linux ls 的資料，所以產生了 <code>Inter-Process Communication (IPC)</code>，讓 Process 跟 Process 之間可以相互調用。</p>
+<p>但這都還是在同一個作業系統裡面，分散式系統的出現，開始出現 RPC (Remote Procedure Call)，讓跨系統之間可以相互調用，做出更複雜的功能。</p>
+<p>類似的概念，到了 Web &#x2F; HTTP 出現之後，SOA 概念興起，跨服務之間的溝通，就變得更重要了，API 的概念又被更放大了。</p>
+<h2 id="什麼是-API？"><a href="#什麼是-API？" class="headerlink" title="什麼是 API？"></a>什麼是 API？</h2><p><code>API (Application Programming Interface)</code> 指的是讓 <code>兩個以上</code> 的 <code>異質系統</code>，相互調用彼此功能的可程式化介面。例如：</p>
+<blockquote>
+<p>在 Windows (作業系統) 上有一個 行事曆 (Desktop 應用程式)，他需要取得 Windows 本身提供的時間資訊，所以調用 <code>Windows.Date()</code> 取得現在的時間。</p>
+</blockquote>
+<p>這個例子，Windows 和 行事曆 兩者就是異質系統，而 Windows 提供的 <code>Windows.Date()</code> 就是個 API 介面，通常這種稱為 Syscall。</p>
+<p>API 泛指各種可以相互調用的介面，包含以下：</p>
+<ul>
+<li><code>Libraries</code>: 各種 C 的 .h、Java &#x2F; C# Code 的 Interface 都算是<ul>
+<li>同一個程式語言之間，使用彼此功能的介面</li>
 </ul>
 </li>
-<li>與會者 (Attendee)：主要參與討論的人。會議前必須讀過相關文件，需要時先和相關人員討論</li>
-<li>列席 (Optional)：主題的間接關係人，可以自由選擇是否參加。通常是老闆、或者跨部門有關的人。</li>
+<li><code>RPC</code>: Remote Procedure Call 遠程調用介面，技術觀點就是跨語言 &#x2F; 跨系統之間的調用，垂直整合 (系統與程式)、水平整合 (系統與系統)<ul>
+<li><code>Web</code>: 基於 HTTP 協議的介面，也是本文的主角，屬於水平整合的 <code>系統與系統</code> 溝通</li>
+<li><code>SSH</code>: 透過 SSH 下的 remote call</li>
 </ul>
-<p>開會前中後，每個人都要注意一些事情：</p>
-<h2 id="會議前"><a href="#會議前" class="headerlink" title="會議前"></a>會議前</h2><ul>
-<li>清楚會議討論主題，以及目的</li>
-<li>確定自己的時間、地點沒問題</li>
-<li>看過相關文件，並把問題準備好，必要時，與與會人員先討論過</li>
+</li>
 </ul>
-<h2 id="會議中"><a href="#會議中" class="headerlink" title="會議中"></a>會議中</h2><ul>
-<li>針對議程 (Agenda) 一一討論</li>
-<li>針對議題提出客觀的看法，如果有衝突，一定要聽聽彼此的看法</li>
-<li>用證據說話、用客觀的方法呈現、讓科學數據說話</li>
-<li>Open your mind</li>
+<h2 id="API-Integration-Matrix"><a href="#API-Integration-Matrix" class="headerlink" title="API Integration Matrix"></a>API Integration Matrix</h2><p>常見的 API 整合方式，以 <code>提供者與使用者</code> 的角度，API 形式則用 <code>系統與程式</code> 區分，定義這兩者如下：</p>
+<ul>
+<li><code>Pub/Sub</code>：API 有 <code>提供者 (Publisher)</code> 也有 <code>使用者 (Subscriber)</code>，負責整合兩者稱為 API Platform，是個管理角色。</li>
+<li><code>系統</code>：只作業系統、或者 Web Services</li>
+<li><code>程式</code>：應用程式，像是 Desktop、開一個 Port 走 TCP &#x2F; UDP 的應用<ul>
+<li>應用程式之間大多透過 <code>Inter-Process Communication (IPC)</code> 交互通訊，更多參閱 <a href="/2021/01/03/Linux/Shell-and-Bash-Concepts/">Shell and Bash Concepts</a></li>
 </ul>
-<h2 id="會後"><a href="#會後" class="headerlink" title="會後"></a>會後</h2><ul>
-<li>確立會中執行項目，並確實執行</li>
-<li>持續討論、思考</li>
-<li>記錄結論、確立 action items 以及 owner</li>
+</li>
 </ul>
-<h2 id="成本問題"><a href="#成本問題" class="headerlink" title="成本問題"></a>成本問題</h2><p>開會會消耗與會者的時間，如果與會者在企業裡是扮演著『能產出』的角色，像是工程師、作業員、維護員等，那麼他們開會的時間，等於就是沒有產出，換句話說，就是在燒公司的錢。用工廠產線的成本概念計算，這個支出 &#x3D; (與會人數 x 時間 x 工時)。但是越是腦力工作者、決策層級，這個成本計算就越沒意義。因為腦力工作者開會的成果，往往產生的效果，會遠大於這些基本的人事支出。</p>
-<p>如果會議中如果討論沒有主軸、方向，或者大家在閒聊、與會者不發言、找不相關的人進來，那麼這個會議就是失敗的，這公司就是在空轉。所以會議主席的重要性，或者掌握發言權的人，會是很重要的。</p>
+<p>依照這樣的定義，整理出以下的整合矩陣：</p>
+<p><img src="/images/DistributedSystems/API-Product-Plan-Design-Overview/API-Integration-Matrix_v20230701.png"></p>
+<p>這四個象限分別說明如下：</p>
+<ul>
+<li>A: 指的是系統發布 API ，提供給程式使用<ul>
+<li>例如：Linux 提供 Syscall 給應用程式 ls 使用。</li>
+</ul>
+</li>
+<li>B: 程式跟程式之間相互調用使用，例如：<ul>
+<li>使用 Springboot 開發 Web 應用，Springboot 是一個框架，開發者寫出自己的邏輯，背後調用框架的 API.</li>
+<li>這裡指的程式是同一種語言，如果是不同語言，那屬於 D 象限。</li>
+</ul>
+</li>
+<li>C: 與 A 相反，程式語言提供介面給系統使用，例如：<ul>
+<li>微軟瀏覽器 Edge 的常駐程式，當需要更新版本的時候，提供介面讓 macOS 調用，並通知使用者有新版本更新</li>
+</ul>
+</li>
+<li>D: 系統對系統，像是：<ul>
+<li>Web Service 彼此之間 API 的調用</li>
+<li>Linux 之間的溝通與調用 RPC，也是這個範圍</li>
+<li>如果是跨作業系統溝通，例如 Linux 調用 Windows，這年代大多會封裝成 Web API 的方式調用，例如 AWS 的 microVM - <a target="_blank" rel="noopener" href="https://github.com/firecracker-microvm/firecracker">FireCracker</a> 預設就有 WebAPI 可以使用</li>
+</ul>
+</li>
+</ul>
+<p>因為分散式系統的大爆炸，所以 D 象限大爆炸，特別是基於 Web &#x2F; HTTP 的 API，所以現在口語上說 API 的時候，很多時候都是泛指 Web API，特別是 RESTful API，當然也會包含其他像是 gRPC &#x2F; GraphQL 等不同的實踐技術。</p>
+<p>實際上 D 範圍包含 A &#x2F; C &#x2F; B 三大塊，也就是為了達到 D 的目的，開發工作會橫跨另外三個。</p>
 <hr>
-<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
-<li><a href="/2017/01/23/Management/Cost-In-Context-Switch/">Cost in Context Switch</a></li>
-<li><a href="/2014/12/10/Management/%E6%BA%9D%E9%80%9A-%E6%88%90%E6%9C%AC/">溝通＝成本</a></li>
-<li><a href="/2019/08/25/Management/Problems-of-Meeting/">會議的普遍現象</a></li>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="站內相關文章"><a href="#站內相關文章" class="headerlink" title="站內相關文章"></a>站內相關文章</h2><ul>
+<li><a href="/2023/06/24/DistributedSystems/API-Communication-Protocol/">API 設計 - 摘要 API 通訊模式與協議</a></li>
+<li><a href="/2023/07/02/DistributedSystems/API-Integration-Matrix/">API 設計 - API 整合矩陣</a></li>
+<li><a href="/2018/01/24/DistributedSystems/Overview-API-Gateway/">Overview API Gateway</a></li>
+<li><a href="/2021/05/14/DistributedSystems/Service-Governance/">聊聊分散式架構的服務治理</a></li>
+<li><a href="/2022/07/04/DistributedSystems/Inspired-Design-From-Eclipse/">摘要 Eclipse 設計的啟發：當代 SaaS 分散式架構的關鍵設計</a></li>
+<li><a href="/2021/01/03/Linux/Shell-and-Bash-Concepts/">Shell and Bash Concepts</a></li>
 </ul>
-<h2 id="相關資料"><a href="#相關資料" class="headerlink" title="相關資料"></a>相關資料</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://www.hbrtaiwan.com/article_content_AR0008882.html">讓員工在開會時知無不言</a></li>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://dineshchandgr.medium.com/api-things-every-software-engineer-must-know-api-integration-economy-protocols-endpoint-4649ecbc7c41">API things every Software Engineer must know — API Integration, Economy, Protocols, Endpoint, Security…</a></li>
 </ul>
 
 
 				<hr />
 
 				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2014/11/26/Management/開會原則/" data-width="" data-layout="button_count"
+				<div class="fb-like" data-href="https://rickhw.github.io/2023/07/02/DistributedSystems/API-First_Integration-Matrix/" data-width="" data-layout="button_count"
 					data-action="like" data-size="small" data-share="true"></div>
 
 				<hr />
@@ -330,7 +336,7 @@
 				<!-- @rickd 2022/09/06 -->
 				<!--
 				<iframe data-v-b66e9a5a=""
-					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2014/11/26/Management/開會原則/"
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2023/07/02/DistributedSystems/API-First_Integration-Matrix/"
 					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
 				</iframe>
 				<br />
@@ -343,13 +349,13 @@
 <ul class="pagination">
 	 
 				
-    	<li class="prev"><a href="/2014/12/10/Management/溝通-成本/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+    	<li class="prev"><a href="/2023/07/06/DevOps/SRE-FAQ/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
   		
 
         <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
 
 		
-		   <li class="next"><a href="/2014/11/18/Linux/cURL/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+		   <li class="next"><a href="/2023/06/24/DistributedSystems/API-First_Communication-Protocol/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
         
 	
 </ul>
@@ -367,7 +373,7 @@
 	<!-- @rick add for facebook -->
 	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
   <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2014/11/26/Management/開會原則/" data-width="100%" data-numposts="10"></div>
+  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2023/07/02/DistributedSystems/API-First_Integration-Matrix/" data-width="100%" data-numposts="10"></div>
 
   
 
@@ -393,7 +399,7 @@
 	
 	<div class="meta-widget">
 		<i class="fa fa-clock-o"></i>
-		2014/11/26 19:56:00
+		2023/07/02 13:30:00
 	</div>
 	
 
@@ -401,6 +407,11 @@
 
 	<!-- toc -->
 	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF-API%EF%BC%9F"><span class="toc-article-text">什麼是 API？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#API-Integration-Matrix"><span class="toc-article-text">API Integration Matrix</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E7%9B%B8%E9%97%9C%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內相關文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol>
+		</div>
 	
 	</div>
 
@@ -413,7 +424,7 @@
     <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
       <div>
   <!--<li>-->
-    <span class="label label-info"><a href="/categories/經營管理/" style="color: white">經營管理 <span class="badge">54</span></a></span>
+    <span class="label label-info"><a href="/categories/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">19</span></a></span>
   <!--</li>-->
 </div>
     <!--</ul>-->
@@ -429,7 +440,7 @@
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/溝通/" style="color: white">溝通 <span class="badge">22</span></a></span> <span class="label label-success"><a href="/tags/Meetings/" style="color: white">Meetings <span class="badge">13</span></a></span> <span class="label label-success"><a href="/tags/專案管理/" style="color: white">專案管理 <span class="badge">8</span></a></span>
+  <span class="label label-success"><a href="/tags/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Communication/" style="color: white">Distributed Communication <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/API-Platform/" style="color: white">API Platform <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/API-First/" style="color: white">API First <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Contract-First/" style="color: white">Contract First <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/API-Governance/" style="color: white">API Governance <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/API-Management/" style="color: white">API Management <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/API-Styles/" style="color: white">API Styles <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/API-Protocol/" style="color: white">API Protocol <span class="badge">1</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -458,6 +469,8 @@
 		
 
 		<h4>著作</h4>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作：SRE實踐與開發平台指南</a></li>
 		
 			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作：軟體測試實務 (2023)</a></li>
 		

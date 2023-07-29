@@ -112,19 +112,19 @@
 		            	
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
-						<li><a href="/categories/About/">About <sup>30</sup></a></li>
+						<li><a href="/categories/About/">About <sup>31</sup></a></li>
 						
 						<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
 						
-						<li><a href="/categories/Coding/">Coding <sup>6</sup></a></li>
+						<li><a href="/categories/Coding/">Coding <sup>7</sup></a></li>
 						
 						<li><a href="/categories/Computer-Science/">Computer Science <sup>6</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
-						<li><a href="/categories/DevOps/">DevOps <sup>42</sup></a></li>
+						<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
 						
-						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>18</sup></a></li>
+						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>19</sup></a></li>
 						
 						<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
 						
@@ -138,11 +138,11 @@
 						
 						<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
 						
-						<li><a href="/categories/DevOps/SRE/">SRE <sup>24</sup></a></li>
+						<li><a href="/categories/DevOps/SRE/">SRE <sup>25</sup></a></li>
 						
 						<li><a href="/categories/Software-Engineering/">Software Engineering <sup>9</sup></a></li>
 						
-						<li><a href="/categories/經營管理/">經營管理 <sup>54</sup></a></li>
+						<li><a href="/categories/經營管理/">經營管理 <sup>55</sup></a></li>
 						
 						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
 						
@@ -250,6 +250,9 @@
 				<hr />
 
 				<p><a target="_blank" rel="noopener" href="https://devopsdays.tw/">DevOpsDay Taipei 2018</a> 兩天半的盛會，今天總算順利落幕。今天我分享了過去工作上，面對緊急事件的心得與歷程，同時彙整了 SRE 的重點，分享了這個在大會中，相對特殊的主題。不同於兩個月前的 <a href="/2018/07/18/About/20180718-API-Gateway/">AWS Summit</a>，這次我不談技術、也不談高大上的數據、也不用新潮的用語，而只談如何面對 <code>緊急異常</code> 這件事，同時也分享了如何培養應變能力的方法與思路。</p>
+<blockquote>
+<p>Updated 2023&#x2F;07&#x2F;19: 本文部分內容收錄在個人著作 <a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">《SRE 實踐與開發平台指南》</a> - 2023&#x2F;08 上市</p>
+</blockquote>
 <span id="more"></span>
 
 <hr>
@@ -332,7 +335,8 @@
 <p><img src="/images/SRE/Emergency-IncidentManagementWithSRE/audience-feedback2.png"></p>
 <p>有正面、有批評，不管怎樣，都謝謝大家回饋給我，其中缺點我也知道，有機會的話我再調整，總之，謝謝大家來聽我分享！</p>
 <hr>
-<h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><ul>
+<h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><h2 id="SRE-相關"><a href="#SRE-相關" class="headerlink" title="SRE 相關"></a>SRE 相關</h2><ul>
+<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作《SRE 實踐與開發平台指南》</a> (2023&#x2F;08 上市)</li>
 <li><a href="/2018/05/27/DevOps/Emergency-Response-on-Stage/">跨領域的緊急應變 - SRV 斷弦事件</a></li>
 <li><a href="/2018/01/07/DevOps/Emergency-Response/">緊急應變 (Emergency Response)</a></li>
 <li><a href="/2019/06/05/DevOps/Github-Incident-Analysis/">GitHub Post-Incident Analysis</a></li>
@@ -444,7 +448,7 @@
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B0%A1%E5%A0%B1%E8%88%87%E6%91%98%E8%A6%81"><span class="toc-article-text">簡報與摘要</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%85%A8%E8%B2%8C%E8%88%87%E4%B8%BB%E6%97%A8"><span class="toc-article-text">全貌與主旨</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Part-I-%E4%BA%8B%E4%BB%B6%E7%95%B6%E4%B8%8B%E7%9A%84%E6%87%89%E8%AE%8A"><span class="toc-article-text">Part I 事件當下的應變</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Part-II-%E6%87%89%E8%AE%8A%E8%83%BD%E5%8A%9B%E5%9F%B9%E9%A4%8A"><span class="toc-article-text">Part II 應變能力培養</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Part-II-%E6%9E%B6%E6%A7%8B"><span class="toc-article-text">Part II 架構</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Part-II-%E6%8E%A2%E7%B4%A2"><span class="toc-article-text">Part II 探索</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Part-II-%E7%AE%A1%E7%90%86"><span class="toc-article-text">Part II 管理</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-and-A"><span class="toc-article-text">Q and A</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8E%9F%E5%85%88%E9%A0%90%E5%AE%9A%E7%9A%84-Agenda"><span class="toc-article-text">原先預定的 Agenda</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96-1"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%81%BD%E7%9C%BE%E7%9A%84%E5%9B%9E%E9%A5%8B"><span class="toc-article-text">聽眾的回饋</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80-%E7%AB%99%E5%85%A7"><span class="toc-article-text">延伸閱讀 (站內)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SRE-%E7%9B%B8%E9%97%9C%E6%95%B4%E7%90%86"><span class="toc-article-text">SRE 相關整理</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E7%9B%B8%E9%97%9C"><span class="toc-article-text">延伸相關</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B0%A1%E5%A0%B1%E8%88%87%E6%91%98%E8%A6%81"><span class="toc-article-text">簡報與摘要</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%85%A8%E8%B2%8C%E8%88%87%E4%B8%BB%E6%97%A8"><span class="toc-article-text">全貌與主旨</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Part-I-%E4%BA%8B%E4%BB%B6%E7%95%B6%E4%B8%8B%E7%9A%84%E6%87%89%E8%AE%8A"><span class="toc-article-text">Part I 事件當下的應變</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Part-II-%E6%87%89%E8%AE%8A%E8%83%BD%E5%8A%9B%E5%9F%B9%E9%A4%8A"><span class="toc-article-text">Part II 應變能力培養</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Part-II-%E6%9E%B6%E6%A7%8B"><span class="toc-article-text">Part II 架構</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Part-II-%E6%8E%A2%E7%B4%A2"><span class="toc-article-text">Part II 探索</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Part-II-%E7%AE%A1%E7%90%86"><span class="toc-article-text">Part II 管理</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-and-A"><span class="toc-article-text">Q and A</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8E%9F%E5%85%88%E9%A0%90%E5%AE%9A%E7%9A%84-Agenda"><span class="toc-article-text">原先預定的 Agenda</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96-1"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%81%BD%E7%9C%BE%E7%9A%84%E5%9B%9E%E9%A5%8B"><span class="toc-article-text">聽眾的回饋</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80-%E7%AB%99%E5%85%A7"><span class="toc-article-text">延伸閱讀 (站內)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SRE-%E7%9B%B8%E9%97%9C"><span class="toc-article-text">SRE 相關</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SRE-%E7%9B%B8%E9%97%9C%E6%95%B4%E7%90%86"><span class="toc-article-text">SRE 相關整理</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E7%9B%B8%E9%97%9C"><span class="toc-article-text">延伸相關</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -458,7 +462,7 @@
     <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
       <div>
   <!--<li>-->
-    <span class="label label-info"><a href="/categories/DevOps/" style="color: white">DevOps <span class="badge">42</span></a></span> <span class="label label-info"><a href="/categories/DevOps/SRE/" style="color: white">SRE <span class="badge">24</span></a></span>
+    <span class="label label-info"><a href="/categories/DevOps/" style="color: white">DevOps <span class="badge">43</span></a></span> <span class="label label-info"><a href="/categories/DevOps/SRE/" style="color: white">SRE <span class="badge">25</span></a></span>
   <!--</li>-->
 </div>
     <!--</ul>-->
@@ -474,7 +478,7 @@
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Reverse-Engineering/" style="color: white">Reverse Engineering <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/溝通/" style="color: white">溝通 <span class="badge">22</span></a></span> <span class="label label-success"><a href="/tags/Conference/" style="color: white">Conference <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/Published-SRE1/" style="color: white">Published-SRE1 <span class="badge">24</span></a></span> <span class="label label-success"><a href="/tags/DevOpsDays/" style="color: white">DevOpsDays <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Emergency-Response/" style="color: white">Emergency Response <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Incident-Management/" style="color: white">Incident Management <span class="badge">7</span></a></span>
+  <span class="label label-success"><a href="/tags/Reverse-Engineering/" style="color: white">Reverse Engineering <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/溝通/" style="color: white">溝通 <span class="badge">23</span></a></span> <span class="label label-success"><a href="/tags/Conference/" style="color: white">Conference <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/Published-SRE1/" style="color: white">Published-SRE1 <span class="badge">22</span></a></span> <span class="label label-success"><a href="/tags/DevOpsDays/" style="color: white">DevOpsDays <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Emergency-Response/" style="color: white">Emergency Response <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Incident-Management/" style="color: white">Incident Management <span class="badge">8</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -503,6 +507,8 @@
 		
 
 		<h4>著作</h4>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作：SRE實踐與開發平台指南</a></li>
 		
 			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作：軟體測試實務 (2023)</a></li>
 		

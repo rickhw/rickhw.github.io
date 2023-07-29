@@ -2,22 +2,28 @@
 <head>
   <meta charset="utf-8">
   
-  <title>分散式系統設計 - 摘要 API 通訊模式與協議 | Complete Think</title>
+  <title>開會原則 | Complete Think</title>
 
   <meta name="author" content="Rick Hwang">
-  <meta name="description" content="API First 在跨企業的系統交互越來越頻繁的今天，提供有效的擴展業務的方法。過往什麼功能都要自行開發，但卻因為內部資源不足；亦或錯估新業務規模的深度與需求層次，造成投入沒有成效、或者必須不斷的加碼投入，最後才意會到，這是個獨立領域，需要獨立的專業團隊，像是 MarTech、支付、通訊 …
-AP">
+  <meta name="description" content="開會的目的是針對一個主題，大家交換想法、討論、甚至是吵架，達成一致共識的過程。不管是在銷售、研發、決策、營運、生產單位，都是每天在發生的。
+
+
+
+
+我開會的原則：
+
+會議主題：一定要有明確的會議主題、範圍、還有準備相關的文件
+預計結果：預計會議應該要達到什麼樣的共識，如果無法評估，那會議就不具意義。">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   <!-- properties -->
-  <meta property="og:title" content="分散式系統設計 - 摘要 API 通訊模式與協議"/>
+  <meta property="og:title" content="開會原則"/>
   <meta property="og:site_name" content="Complete Think"/>
   <meta property="og:type"      content="website" />
-  <meta property="og:url" content="https://rickhw.github.io/2023/06/24/DistributedSystems/API-Communication-Protocol/"/>
-  <meta property="og:image" content="/images/DistributedSystems/API-Comm-Protocol/API-Comm-Mode_v20230623.png" />
-  
+  <meta property="og:url" content="https://rickhw.github.io/2014/11/26/Management/Meeting-Principle/"/>
+  <meta property="og:image" content="/images/site_main_logo_v2-201902.png"/>
 
   <!-- links -->
   <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
@@ -113,19 +119,19 @@ AP">
 		            	
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
-						<li><a href="/categories/About/">About <sup>30</sup></a></li>
+						<li><a href="/categories/About/">About <sup>31</sup></a></li>
 						
 						<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
 						
-						<li><a href="/categories/Coding/">Coding <sup>6</sup></a></li>
+						<li><a href="/categories/Coding/">Coding <sup>7</sup></a></li>
 						
 						<li><a href="/categories/Computer-Science/">Computer Science <sup>6</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
-						<li><a href="/categories/DevOps/">DevOps <sup>42</sup></a></li>
+						<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
 						
-						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>18</sup></a></li>
+						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>19</sup></a></li>
 						
 						<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
 						
@@ -139,11 +145,11 @@ AP">
 						
 						<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
 						
-						<li><a href="/categories/DevOps/SRE/">SRE <sup>24</sup></a></li>
+						<li><a href="/categories/DevOps/SRE/">SRE <sup>25</sup></a></li>
 						
 						<li><a href="/categories/Software-Engineering/">Software Engineering <sup>9</sup></a></li>
 						
-						<li><a href="/categories/經營管理/">經營管理 <sup>54</sup></a></li>
+						<li><a href="/categories/經營管理/">經營管理 <sup>55</sup></a></li>
 						
 						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
 						
@@ -207,13 +213,13 @@ AP">
 		<!-- @rick, header of article -->
 		<!-- original
 		<div class="page-header">
-			<h1> 分散式系統設計 - 摘要 API 通訊模式與協議</h1>
+			<h1> 開會原則</h1>
 		</div>
 		-->
 
 		<div class="panel article_title">
 			<div class="panel-heading">
-    		<h1> 分散式系統設計 - 摘要 API 通訊模式與協議</h1>
+    		<h1> 開會原則</h1>
   		</div>
 		</div>
 
@@ -235,92 +241,87 @@ AP">
 				<!-- Facebook in front of page -->
 				<!--
 				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2023%2F06%2F24%2FDistributedSystems%2FAPI-Communication-Protocol%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2014%2F11%2F26%2FManagement%2FMeeting-Principle%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
 					width="450" height="80"
 					style="border:none;overflow:hidden"
 					scrolling="no" frameborder="0"
 					allowTransparency="true" allow="encrypted-media"></iframe>
 				-->
 
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2023/06/24/DistributedSystems/API-Communication-Protocol/" data-layout="standard"
+				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2014/11/26/Management/Meeting-Principle/" data-layout="standard"
 					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
 
-				<div class="fb-like" data-href="https://rickhw.github.io/2023/06/24/DistributedSystems/API-Communication-Protocol/" data-width="" data-layout="button_count"
+				<div class="fb-like" data-href="https://rickhw.github.io/2014/11/26/Management/Meeting-Principle/" data-width="" data-layout="button_count"
 					data-action="like" data-size="small" data-share="true"></div>
 
 				<hr />
 
-				<p><code>API First</code> 在跨企業的系統交互越來越頻繁的今天，提供有效的擴展業務的方法。過往什麼功能都要自行開發，但卻因為內部資源不足；亦或錯估新業務規模的深度與需求層次，造成投入沒有成效、或者必須不斷的加碼投入，最後才意會到，這是個獨立領域，需要獨立的專業團隊，像是 MarTech、支付、通訊 …</p>
-<p>API First 的概念，背後是雙方在技術上彼此溝通的通訊協議，透過這層協議，雙方可以更快速的仰賴彼此的擅長的領域，進而拓展業務。最常見的就是電商與支付系統、廣告服務、電信系統、物流業、與 ChatBot &#x2F; AI … 等整合。</p>
-<p>開放 API 是個策略性決策，背後代表著要與合作夥伴達成策略聯盟，本質上是 B2B 的商業行為；同時開放 API 也意味著內部系統需要有高度整合，提供對外統一介面與標準，讓合作夥伴在開發過程，可以有一致性的使用介面與理解。</p>
-<p>基於這樣的前提，只要是 API 對外開放，大概都要面對本文要提到的問題：<code>API 通訊模式與協議</code></p>
+				<p>開會的目的是針對一個主題，大家交換想法、討論、甚至是吵架，達成一致共識的過程。不管是在銷售、研發、決策、營運、生產單位，都是每天在發生的。</p>
 <span id="more"></span>
 
-<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>本文摘要基於 B2B 的業務模式，開放 API 時必須要規劃的對內、對外通訊模式，以及分析實務上的情境組合。</p>
-<h2 id="通訊模式"><a href="#通訊模式" class="headerlink" title="通訊模式"></a>通訊模式</h2><p><code>通訊模式</code> 代表 API 對內、對外彼此交互的方式，整理如下圖：</p>
-<p><img src="/images/DistributedSystems/API-Comm-Protocol/API-Comm-Mode_v20230623.png"></p>
-<p>圖中定義的系統包含如下：</p>
-<ol>
-<li><code>API Platform</code>: 主要處理的是外部通訊請求，   <ul>
-<li>架構角色包含 API Gateway, API Manaement, API Operation 等部分<ul>
-<li>API Gateway: 職責包含 AAA, Traffic Control, Protection, Rate Limit, </li>
-<li>Management: API 的 Publisher &#x2F; Scription, Token &amp; Key Management &#x2F; Lifecycle &#x2F; Documentation … 等。背後本質是 API Governance.</li>
-<li>API Operation: 包含 Obervability &amp; Monitoring, APM, Tracing, Logging, Cache … 等.</li>
-</ul>
-</li>
-<li>整合 API Platform 對外處理合作夥伴的 API 請求, 同時轉發請求給對應的內部服務.</li>
-</ul>
-</li>
-<li><code>Service X</code>: 企業內部各種 Domain Services 的泛稱，像是訂單 &#x2F; 商品 &#x2F; 庫存 … 等.<ul>
-<li>這些服務都是內部系統，不直接對外</li>
-<li>這些服務跟服務之間的溝通，必須遵循 <code>內部通訊協議 (Internal Commucation Protocol, ICP)</code></li>
-</ul>
-</li>
-<li><code>External Services</code>: 使用 API 的合作夥伴，這裡的案例是 B2B</li>
-<li><code>Client</code>: 提供給 End User 使用的 GUI 介面形式，包含 Mobile, Desktop, Web … 等.</li>
-</ol>
-<p>這四個角色之間，彼此之間的溝通用不同顏色以及標示 (C2, B3, C4, C3, D4 … )，搭配 <code>情境矩陣</code> 收斂實際的範圍。</p>
-<h2 id="情境矩陣"><a href="#情境矩陣" class="headerlink" title="情境矩陣"></a>情境矩陣</h2><p>這四個角色之間的通訊，有 16 種排列組合，整理出以下的情境矩陣：</p>
-<p><img src="/images/DistributedSystems/API-Comm-Protocol/API-Comm-Scenario_v20230623.png"></p>
-<p>這十六種排列組合，彼此之間都有可能會相互通訊，情境矩陣則展開了所有的可能，經過分析後，刪除不合理、不需要、不必要的排列組合 (A1, B2, C1 …)，確立我們需要關注的組合，最核心情境有以下：</p>
-<ol>
-<li><code>Session Base</code>: 排列組合中的 A2</li>
-<li><code>External API</code>: 排列組合中的 B3, C4</li>
-<li><code>Internal Commucation</code>: 排列組合中的 C3, D3, D4</li>
-<li><code>External Invcation</code>: 排列組合中的 C2, D2</li>
-</ol>
-<p>有了這樣的定義與理解之後，針對每個通訊模式，就可以定義適當的 Context ，讓彼此有一致的標準溝通，包含 (但不限於) 以下：</p>
-<ol>
-<li>認證授權</li>
-<li>服務治理</li>
-<li>展開適當的架構設計</li>
-<li>追蹤管理</li>
-<li>API 設計方法</li>
-<li>API 生態系的管理與治理</li>
-<li>API 維運 </li>
-<li>… etc.</li>
-</ol>
-<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>下圖是網路上很有名的故事，個人覺得核心是「經營之道」：</p>
-<p><img src="/images/DistributedSystems/API-Comm-Protocol/Biz.png"></p>
-<p>故事摘要如下：</p>
-<blockquote>
-<p>第一個猶太人來到小鎮上開了個加油站，生意很旺。第二個猶太人來了，發現加油站生意很不錯，想到加油站的客戶需要吃飯，所以投資開了個餐館。第三個猶太人來了，想到來小鎮的人多了需要住宿，於是開了個飯店。第四個猶太人又發現住店的人需要生活用品，於是開了超市。第五個，第六個……來的人越來越多，吃飯住宿旅遊經商的人又需要加油，於是加油站、餐館、飯店、超市的生意相繼更旺了，逐步小鎮就成了一個經濟繁榮的小鎮，很多猶太人都富裕了。</p>
-<p>第一個中國人來到小鎮上開了個加油站，生意很旺。第二個中國人來了，發現第一個人投資的加油站生意真令人羨慕，趕緊開了第二個加油站。第三個中國人又來了，看見前面2個同胞的加油站生意很好妒嫉得眼紅，火速開了第三個加油站。第四，第五個同胞過來都是一樣，開加油站還打折促銷……最後惡性競爭，然後紛紛倒閉，小鎮又回到原點……</p>
-</blockquote>
-<p>先不論故事中的反諷，但是猶太人的重點就在於經營的過程，透過整合的方式，而不是硬碰硬，透過共榮、相互依存的概念，集結成一個生態系。API 本身就是生態系中的一環，企業透過開放 API，與其他異業結合，相互協助、相互依存，形成一個生態系。</p>
-<p>有了這個核心的模式與情境，接下來就可以討論實際上架構設計時的選擇與設計思路，以及市面上的解決方案。</p>
+
 <hr>
-<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="站內文章"><a href="#站內文章" class="headerlink" title="站內文章"></a>站內文章</h2><ul>
-<li><a href="/2021/05/14/DistributedSystems/Service-Governance/">聊聊分散式架構的服務治理</a></li>
-<li><a href="/2022/07/04/DistributedSystems/Inspired-Design-From-Eclipse/">摘要 Eclipse 設計的啟發：當代 SaaS 分散式架構的關鍵設計</a></li>
-<li><a href="/2018/01/24/DistributedSystems/Overview-API-Gateway/">Overview API Gateway</a></li>
+<p>我開會的原則：</p>
+<ol>
+<li>會議主題：一定要有明確的會議主題、範圍、還有準備相關的文件</li>
+<li>預計結果：預計會議應該要達到什麼樣的共識，如果無法評估，那會議就不具意義。</li>
+<li>哪些人要參加：通常會議上我希望每個人都要發言，甚至是吵架（吵架也是溝通），因為如果有話都不講，那就不要來了，也不用開會了。</li>
+</ol>
+<p>會議前想想這些東西，</p>
+<h2 id="什麼時候需要開會？"><a href="#什麼時候需要開會？" class="headerlink" title="什麼時候需要開會？"></a>什麼時候需要開會？</h2><ul>
+<li>認知不一樣、意見衝突：對於事情的看法有落差、資訊不同步，大家可以坐下來面對面講清楚，說明白。困難的地方可以一起解決，或者一起想辦法。</li>
+<li>了解彼此的狀態：通常就是所謂的週會 (Weekly Meeting)、例行性會議 (Status Meeting)、主管會議、營運會議 (Operation Meeting)、銷售會議 … 等。</li>
+<li>資訊分享、心得分享：研發部門經常會需要有的，是最好的輪流、相互成長的機會。</li>
+<li>臨時動議：遇到無法解決的問題，臨時找大家討論</li>
+</ul>
+<h2 id="參與人員"><a href="#參與人員" class="headerlink" title="參與人員"></a>參與人員</h2><ul>
+<li>主席 (Host)：要負責控制開會的節奏、議程、時間、議題方向。<ul>
+<li>確立議程 (Agenda)，會議文件</li>
+<li>發出會議邀請 (Invitation)，並確認與會人員時間地點沒問題。</li>
+<li>確立會議室、以及設備沒問題</li>
+<li>如果與會者有異義、衝突的時候，要能夠居中協調，讓雙方冷靜。</li>
+<li>如果該會議無法達成共識，或者問題無法釐清，那麼要繼續追蹤，或者另外開會討論。</li>
+<li>如果會議議題偏離主題，要能夠適時拉回來，但也要知道偏離的原因，因為那可能是大家都不曾想過的問題，需要另外討論。</li>
+<li>想辦法讓每個人都發言</li>
+</ul>
+</li>
+<li>與會者 (Attendee)：主要參與討論的人。會議前必須讀過相關文件，需要時先和相關人員討論</li>
+<li>列席 (Optional)：主題的間接關係人，可以自由選擇是否參加。通常是老闆、或者跨部門有關的人。</li>
+</ul>
+<p>開會前中後，每個人都要注意一些事情：</p>
+<h2 id="會議前"><a href="#會議前" class="headerlink" title="會議前"></a>會議前</h2><ul>
+<li>清楚會議討論主題，以及目的</li>
+<li>確定自己的時間、地點沒問題</li>
+<li>看過相關文件，並把問題準備好，必要時，與與會人員先討論過</li>
+</ul>
+<h2 id="會議中"><a href="#會議中" class="headerlink" title="會議中"></a>會議中</h2><ul>
+<li>針對議程 (Agenda) 一一討論</li>
+<li>針對議題提出客觀的看法，如果有衝突，一定要聽聽彼此的看法</li>
+<li>用證據說話、用客觀的方法呈現、讓科學數據說話</li>
+<li>Open your mind</li>
+</ul>
+<h2 id="會後"><a href="#會後" class="headerlink" title="會後"></a>會後</h2><ul>
+<li>確立會中執行項目，並確實執行</li>
+<li>持續討論、思考</li>
+<li>記錄結論、確立 action items 以及 owner</li>
+</ul>
+<h2 id="成本問題"><a href="#成本問題" class="headerlink" title="成本問題"></a>成本問題</h2><p>開會會消耗與會者的時間，如果與會者在企業裡是扮演著『能產出』的角色，像是工程師、作業員、維護員等，那麼他們開會的時間，等於就是沒有產出，換句話說，就是在燒公司的錢。用工廠產線的成本概念計算，這個支出 &#x3D; (與會人數 x 時間 x 工時)。但是越是腦力工作者、決策層級，這個成本計算就越沒意義。因為腦力工作者開會的成果，往往產生的效果，會遠大於這些基本的人事支出。</p>
+<p>如果會議中如果討論沒有主軸、方向，或者大家在閒聊、與會者不發言、找不相關的人進來，那麼這個會議就是失敗的，這公司就是在空轉。所以會議主席的重要性，或者掌握發言權的人，會是很重要的。</p>
+<hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
+<li><a href="/2017/01/23/Management/Cost-In-Context-Switch/">Cost in Context Switch</a></li>
+<li><a href="/2014/12/10/Management/%E6%BA%9D%E9%80%9A-%E6%88%90%E6%9C%AC/">溝通＝成本</a></li>
+<li><a href="/2019/08/25/Management/Problems-of-Meeting/">會議的普遍現象</a></li>
+</ul>
+<h2 id="相關資料"><a href="#相關資料" class="headerlink" title="相關資料"></a>相關資料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.hbrtaiwan.com/article_content_AR0008882.html">讓員工在開會時知無不言</a></li>
 </ul>
 
 
 				<hr />
 
 				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2023/06/24/DistributedSystems/API-Communication-Protocol/" data-width="" data-layout="button_count"
+				<div class="fb-like" data-href="https://rickhw.github.io/2014/11/26/Management/Meeting-Principle/" data-width="" data-layout="button_count"
 					data-action="like" data-size="small" data-share="true"></div>
 
 				<hr />
@@ -329,7 +330,7 @@ AP">
 				<!-- @rickd 2022/09/06 -->
 				<!--
 				<iframe data-v-b66e9a5a=""
-					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2023/06/24/DistributedSystems/API-Communication-Protocol/"
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2014/11/26/Management/Meeting-Principle/"
 					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
 				</iframe>
 				<br />
@@ -342,13 +343,13 @@ AP">
 <ul class="pagination">
 	 
 				
-    	<li class="prev"><a href="/2035/01/21/Updated/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+    	<li class="prev"><a href="/2014/12/10/Management/溝通-成本/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
   		
 
         <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
 
 		
-		   <li class="next"><a href="/2023/06/14/Management/Failed-Meeting/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+		   <li class="next"><a href="/2014/11/18/Linux/cURL/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
         
 	
 </ul>
@@ -366,7 +367,7 @@ AP">
 	<!-- @rick add for facebook -->
 	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
   <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2023/06/24/DistributedSystems/API-Communication-Protocol/" data-width="100%" data-numposts="10"></div>
+  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2014/11/26/Management/Meeting-Principle/" data-width="100%" data-numposts="10"></div>
 
   
 
@@ -392,7 +393,7 @@ AP">
 	
 	<div class="meta-widget">
 		<i class="fa fa-clock-o"></i>
-		2023/06/24 13:30:00
+		2014/11/26 19:56:00
 	</div>
 	
 
@@ -400,11 +401,6 @@ AP">
 
 	<!-- toc -->
 	<div class="meta-widget">
-	
-	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
-	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%91%98%E8%A6%81"><span class="toc-article-text">摘要</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%80%9A%E8%A8%8A%E6%A8%A1%E5%BC%8F"><span class="toc-article-text">通訊模式</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%83%85%E5%A2%83%E7%9F%A9%E9%99%A3"><span class="toc-article-text">情境矩陣</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-article-text">小結</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li></ol></li></ol>
-		</div>
 	
 	</div>
 
@@ -417,7 +413,7 @@ AP">
     <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
       <div>
   <!--<li>-->
-    <span class="label label-info"><a href="/categories/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">18</span></a></span>
+    <span class="label label-info"><a href="/categories/經營管理/" style="color: white">經營管理 <span class="badge">55</span></a></span>
   <!--</li>-->
 </div>
     <!--</ul>-->
@@ -433,7 +429,7 @@ AP">
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Distributed-Communication/" style="color: white">Distributed Communication <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/API-Platform/" style="color: white">API Platform <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/API-First/" style="color: white">API First <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Contract-First/" style="color: white">Contract First <span class="badge">1</span></a></span>
+  <span class="label label-success"><a href="/tags/溝通/" style="color: white">溝通 <span class="badge">23</span></a></span> <span class="label label-success"><a href="/tags/Meetings/" style="color: white">Meetings <span class="badge">13</span></a></span> <span class="label label-success"><a href="/tags/時間管理/" style="color: white">時間管理 <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/會議原則/" style="color: white">會議原則 <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/會議效率/" style="color: white">會議效率 <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/溝通成本/" style="color: white">溝通成本 <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/工作管理/" style="color: white">工作管理 <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/專案管理/" style="color: white">專案管理 <span class="badge">8</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -462,6 +458,8 @@ AP">
 		
 
 		<h4>著作</h4>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作：SRE實踐與開發平台指南</a></li>
 		
 			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作：軟體測試實務 (2023)</a></li>
 		
