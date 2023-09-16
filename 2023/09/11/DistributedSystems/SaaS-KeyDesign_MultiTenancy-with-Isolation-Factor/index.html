@@ -14,8 +14,8 @@
   <meta property="og:title" content="SaaS 關鍵設計 - Multi-Tenancy - 探討真實世界的租賃關係"/>
   <meta property="og:site_name" content="Complete Think"/>
   <meta property="og:type"      content="website" />
-  <meta property="og:url" content="https://rickhw.github.io/2023/09/11/DistributedSystems/SaaS-Design-KeyDesign_MultiTenancy-with-Isolation-Factor/"/>
-  <meta property="og:image" content="/images/DistributedSystems/MultiTenancy/lodger-landlord-rental-agreement.png" />
+  <meta property="og:url" content="https://rickhw.github.io/2023/09/11/DistributedSystems/SaaS-KeyDesign_MultiTenancy-with-Isolation-Factor/"/>
+  <meta property="og:image" content="/images/DistributedSystems/MultiTenancy/lodger-landlord-rental-agreement_v20230911.png" />
   
 
   <!-- links -->
@@ -234,17 +234,17 @@
 				<!-- Facebook in front of page -->
 				<!--
 				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2023%2F09%2F11%2FDistributedSystems%2FSaaS-Design-KeyDesign_MultiTenancy-with-Isolation-Factor%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2023%2F09%2F11%2FDistributedSystems%2FSaaS-KeyDesign_MultiTenancy-with-Isolation-Factor%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
 					width="450" height="80"
 					style="border:none;overflow:hidden"
 					scrolling="no" frameborder="0"
 					allowTransparency="true" allow="encrypted-media"></iframe>
 				-->
 
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2023/09/11/DistributedSystems/SaaS-Design-KeyDesign_MultiTenancy-with-Isolation-Factor/" data-layout="standard"
+				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2023/09/11/DistributedSystems/SaaS-KeyDesign_MultiTenancy-with-Isolation-Factor/" data-layout="standard"
 					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
 
-				<div class="fb-like" data-href="https://rickhw.github.io/2023/09/11/DistributedSystems/SaaS-Design-KeyDesign_MultiTenancy-with-Isolation-Factor/" data-width="" data-layout="button_count"
+				<div class="fb-like" data-href="https://rickhw.github.io/2023/09/11/DistributedSystems/SaaS-KeyDesign_MultiTenancy-with-Isolation-Factor/" data-width="" data-layout="button_count"
 					data-action="like" data-size="small" data-share="true"></div>
 
 				<hr />
@@ -489,6 +489,11 @@
 <p><img src="/images/DistributedSystems/MultiTenancy/Multiple-Windows.jpg"><br>Source: <a target="_blank" rel="noopener" href="https://www.facebook.com/groups/it.humor.and.memes/posts/24452121121053675/">https://www.facebook.com/groups/it.humor.and.memes/posts/24452121121053675/</a></p>
 <p>圖中在 Windows 裡裝了 VMWare，然後裡面裝了 Windows，裡面再裝 VMWare … 如此好幾層 … 這張圖表述了多租戶的核心概念，不過大家知道 VM 本身是模擬硬體，換言之實作的是實體隔離。相對於 VM 則是 Container，透過 Kernal 的特性 (cgroup, namespace … etc)，時做出隔離的概念。</p>
 <p>而應用程式如果要做出隔離概念，則必定要面對如何定義租戶的概念，租戶本質就是為了達到隔離，用來隔離的 <code>隔離因子 (Isolation Factor)</code>，則是本文想帶出的概念。</p>
+<!--
+source: https://docs.google.com/presentation/d/1tPPkhBHIdGeWC7He4782rzwIr7SFr8VCBNrT50Wjwng/edit#slide=id.p
+-->
+
+
 <hr>
 <h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
 <li><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Multitenancy">Multitenancy</a></li>
@@ -531,7 +536,7 @@
 				<hr />
 
 				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2023/09/11/DistributedSystems/SaaS-Design-KeyDesign_MultiTenancy-with-Isolation-Factor/" data-width="" data-layout="button_count"
+				<div class="fb-like" data-href="https://rickhw.github.io/2023/09/11/DistributedSystems/SaaS-KeyDesign_MultiTenancy-with-Isolation-Factor/" data-width="" data-layout="button_count"
 					data-action="like" data-size="small" data-share="true"></div>
 
 				<hr />
@@ -540,7 +545,7 @@
 				<!-- @rickd 2022/09/06 -->
 				<!--
 				<iframe data-v-b66e9a5a=""
-					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2023/09/11/DistributedSystems/SaaS-Design-KeyDesign_MultiTenancy-with-Isolation-Factor/"
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2023/09/11/DistributedSystems/SaaS-KeyDesign_MultiTenancy-with-Isolation-Factor/"
 					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
 				</iframe>
 				<br />
@@ -577,7 +582,7 @@
 	<!-- @rick add for facebook -->
 	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
   <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2023/09/11/DistributedSystems/SaaS-Design-KeyDesign_MultiTenancy-with-Isolation-Factor/" data-width="100%" data-numposts="10"></div>
+  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2023/09/11/DistributedSystems/SaaS-KeyDesign_MultiTenancy-with-Isolation-Factor/" data-width="100%" data-numposts="10"></div>
 
   
 
