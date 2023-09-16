@@ -422,6 +422,13 @@
 <li>GCP 以 Project 為隔離單位</li>
 <li>AWS 則以 Account 為單位</li>
 <li>Chrome 這個瀏覽器則以 Profile 為隔離概念</li>
+<li>多租戶架構的電商平台，隔離則是以 <code>店</code> 為單位，像是 91APP 是開店平台</li>
+<li>教育平台，則是以學校為單位，像是 <a target="_blank" rel="noopener" href="https://teachable.com/">Teachable</a> 這個平台<ul>
+<li>開學校之後，每個學校都可以有自己的學生、自己的老師 .. 等角色定義</li>
+</ul>
+</li>
+<li>作業系統的隔離：Linux 的系統權限 user-group-anyone 本質上就是種隔離</li>
+<li>資料庫的隔離：Database &#x2F; Table &#x2F; Row 都是隔離概念，更甚者則是交易過程的鎖。</li>
 </ul>
 <p>上述的隔離，在權限系統稱為 <code>垂直權限</code>，也就是透過 <code>帳號 (通常)</code> 隔離彼此。除了垂直權限，相對則是 <code>水平權限</code>，概念如下圖：</p>
 <p><img src="/images/DistributedSystems/MultiTenancy/SaaS-Multi-Tenancy-Permission-Design_v20230911.png"></p>
@@ -435,12 +442,23 @@
 <li>實體隔離 (physical isolation)</li>
 <li>邏輯隔離 (logical isolation): 虛擬化 virtualization, VPC</li>
 </ul>
-<h2 id="隔離沒做好會怎樣？以及常見的做法"><a href="#隔離沒做好會怎樣？以及常見的做法" class="headerlink" title="隔離沒做好會怎樣？以及常見的做法"></a>隔離沒做好會怎樣？以及常見的做法</h2><p>這是隔離背後要解決的關鍵痛點，最經典的案例是下圖：</p>
+<h3 id="AWS-服務的隔離因子"><a href="#AWS-服務的隔離因子" class="headerlink" title="AWS 服務的隔離因子"></a>AWS 服務的隔離因子</h3><p>AWS 有很多服務，舉凡 EC2 &#x2F; S3 &#x2F; DynamoDB &#x2F; CloudFront … etc. 這些服務在 AWS 裏面都需要計算隔離方式，但是每個服務本身的屬性不一樣，在設計的時候怎麼知道每個服務的隔離因子是什麼？底下列舉設計 AWS 服務要考慮的隔離因子：</p>
+<ul>
+<li>EC2: Instance</li>
+<li>S3: Bucket</li>
+<li>DynamoDB: Table</li>
+<li>CloudFront: Distribution</li>
+<li>VPC 本身就是個隔離單位</li>
+</ul>
+<p>上述列舉的是這些服務的隔離因子例子，因為每個服務特性有所差異，要對應到 AWS Account 時，就要具體用一個單位對應隔離的想法，不然就會無法對應。</p>
+<h2 id="隔離沒做好會怎樣？"><a href="#隔離沒做好會怎樣？" class="headerlink" title="隔離沒做好會怎樣？"></a>隔離沒做好會怎樣？</h2><p>這是隔離背後要解決的關鍵痛點，最經典的案例是下圖：</p>
 <p><img src="/images/DistributedSystems/MultiTenancy/20160421_SRE.png"><br>Source: <a target="_blank" rel="noopener" href="https://www.ithome.com.tw/news/105366">Google儲存SRE團隊負責人第一手經驗大公開</a>, by ITHome, 20160421</p>
 <p>另一個經典案例則是 VPC 的問題，底下截圖則是中國知名技術專家 <a target="_blank" rel="noopener" href="https://coolshell.me/">陳皓</a> 的部落格：</p>
 <p><img src="/images/DistributedSystems/MultiTenancy/20200419_AliyunVPC.png"><br>Source: <a target="_blank" rel="noopener" href="https://www.ithome.com.tw/news/105366">关于阿里云经典网络的问题</a>, by Coolshell, 20200419</p>
 <p>這都是別人的問題，而我面對過的問題則是之前在電商工作時，曾經出現的問題，我把它稱為 <code>A-c-B event</code>，中文稱為 <code>A 店跨 B 店</code>。也就是 B 店的使用者，看到 A 店的資料，不管是商品資料、還是訂單資料。</p>
-<p>這類問題，在作業系統已經都有很成熟的做法：</p>
+<p>這三個例子，資安角度都是 <code>垂直權限</code> 的問題，背後實際問題就是隔離的設計與實踐。</p>
+<h2 id="跨租戶問題常見的做法"><a href="#跨租戶問題常見的做法" class="headerlink" title="跨租戶問題常見的做法"></a>跨租戶問題常見的做法</h2><p>雖然說跨租戶是不允許的，但是生活中還是有很多場景，需要跨租戶存取，例如我們信用卡掛失的時候，客服人員可以幫你調整信用卡的狀態。客服人員代替你調整信用卡的過程，就是個跨租戶操作，不管怎樣他要操作設定的時候，都要獲得你的允許，然後才能幫你調整狀態。這樣的過程，其實就是個身份暫時轉換，代理 (delegate) 執行的過程。</p>
+<p>類似的做法，在作業系統已經都有很成熟的做法：</p>
 <ul>
 <li>Linux: sudo as XXX</li>
 <li>Windows: Run as XXXX</li>
@@ -489,13 +507,31 @@
 <p><img src="/images/DistributedSystems/MultiTenancy/Multiple-Windows.jpg"><br>Source: <a target="_blank" rel="noopener" href="https://www.facebook.com/groups/it.humor.and.memes/posts/24452121121053675/">https://www.facebook.com/groups/it.humor.and.memes/posts/24452121121053675/</a></p>
 <p>圖中在 Windows 裡裝了 VMWare，然後裡面裝了 Windows，裡面再裝 VMWare … 如此好幾層 … 這張圖表述了多租戶的核心概念，不過大家知道 VM 本身是模擬硬體，換言之實作的是實體隔離。相對於 VM 則是 Container，透過 Kernal 的特性 (cgroup, namespace … etc)，時做出隔離的概念。</p>
 <p>而應用程式如果要做出隔離概念，則必定要面對如何定義租戶的概念，租戶本質就是為了達到隔離，用來隔離的 <code>隔離因子 (Isolation Factor)</code>，則是本文想帶出的概念。</p>
+<p>多租戶架構因而衍生的相關議題：</p>
+<ol>
+<li>水平權限系統，像是 RBAC &#x2F; ABAC，也就是 AWS IAM<ul>
+<li>衍生的則是 API 認證授權與通訊協議，相關參閱 <a href="/2023/06/24/DistributedSystems/API-First_Communication-Protocol/">API 設計 - 摘要 API 通訊模式與協議</a></li>
+</ul>
+</li>
+<li>租戶與 <code>功能</code> 的訂閱市集 (Marketplace)，背後本質是個 Pub&#x2F;Sub 概念<ul>
+<li>相關參閱 <a href="/2022/07/04/DistributedSystems/Inspired-Design-From-Eclipse/">摘要 Eclipse 設計的啟發：當代 SaaS 分散式架構的關鍵設計</a></li>
+</ul>
+</li>
+<li>帳務系統：延續租戶與功能訂閱而產生的議題，也就是使用狀況 (Usage) 與帳務資訊 (Billing)</li>
+<li>功能系統的通訊架構，相關參閱 <a href="/2022/07/04/DistributedSystems/Inspired-Design-From-Eclipse/">摘要 Eclipse 設計的啟發：當代 SaaS 分散式架構的關鍵設計</a></li>
+</ol>
 <!--
 source: https://docs.google.com/presentation/d/1tPPkhBHIdGeWC7He4782rzwIr7SFr8VCBNrT50Wjwng/edit#slide=id.p
 -->
 
 
 <hr>
-<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="站內文章"><a href="#站內文章" class="headerlink" title="站內文章"></a>站內文章</h2><ul>
+<li><a href="/2022/07/04/DistributedSystems/Inspired-Design-From-Eclipse/">摘要 Eclipse 設計的啟發：當代 SaaS 分散式架構的關鍵設計</a></li>
+<li><a href="/2023/06/24/DistributedSystems/API-First_Communication-Protocol/">API 設計 - 摘要 API 通訊模式與協議</a></li>
+<li><a href="/2021/05/14/DistributedSystems/Service-Governance/">聊聊分散式架構的服務治理</a></li>
+</ul>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
 <li><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Multitenancy">Multitenancy</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.arkency.com/comparison-of-approaches-to-multitenancy-in-rails-apps/">Comparison of approaches to multitenancy in Rails apps</a></li>
 <li><a target="_blank" rel="noopener" href="https://cloud.google.com/kubernetes-engine/docs/best-practices/enterprise-multitenancy">Best practices for enterprise multi-tenancy</a> - GKE</li>
@@ -619,7 +655,7 @@ source: https://docs.google.com/presentation/d/1tPPkhBHIdGeWC7He4782rzwIr7SFr8VC
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%9C%9F%E5%AF%A6%E4%B8%96%E7%95%8C%E8%A3%A1%E7%9A%84%E7%A7%9F%E8%B3%83%E9%97%9C%E4%BF%82"><span class="toc-article-text">真實世界裡的租賃關係</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%85%B6%E4%BB%96%E5%B0%88%E6%9C%89%E5%90%8D%E8%A9%9E"><span class="toc-article-text">其他專有名詞</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E8%83%8C%E6%99%AF%E6%8E%A2%E8%A8%8E%EF%BC%9A%E5%90%84%E7%A8%AE%E7%A7%9F%E8%B3%83%E7%B5%84%E5%90%88"><span class="toc-article-text">背景探討：各種租賃組合</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%A7%9F%E8%B3%83%E9%97%9C%E4%BF%82%E7%9A%84%E6%8E%92%E5%88%97%E7%B5%84%E5%90%88"><span class="toc-article-text">租賃關係的排列組合</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Case-A-Single-Tenant"><span class="toc-article-text">Case A: Single Tenant</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Case-B-Multiple-Tenant"><span class="toc-article-text">Case B: Multiple Tenant</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Case-C"><span class="toc-article-text">Case C</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Case-D"><span class="toc-article-text">Case D</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%8E%A2%E8%A8%8E"><span class="toc-article-text">探討</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%8E%A2%E8%A8%8E%E4%B8%80%EF%BC%9ACase-X1-x3D-Case-B-D"><span class="toc-article-text">探討一：Case X1 &#x3D; Case B + D</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%8E%A2%E8%A8%8E%E4%BA%8C%EF%BC%9A%E4%BA%8C%E6%88%BF%E6%9D%B1-Case-X2"><span class="toc-article-text">探討二：二房東 Case X2</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%9A%94%E9%9B%A2%E7%9A%84%E6%A0%B8%E5%BF%83%E8%AD%B0%E9%A1%8C-Isolation-Factor-%E9%9A%94%E9%9B%A2%E5%9B%A0%E5%AD%90"><span class="toc-article-text">隔離的核心議題: Isolation Factor (隔離因子)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%AF%A6%E9%AB%94%E9%9A%94%E9%9B%A2%E8%88%87%E9%82%8F%E8%BC%AF%E9%9A%94%E9%9B%A2"><span class="toc-article-text">實體隔離與邏輯隔離</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%9A%94%E9%9B%A2%E6%B2%92%E5%81%9A%E5%A5%BD%E6%9C%83%E6%80%8E%E6%A8%A3%EF%BC%9F%E4%BB%A5%E5%8F%8A%E5%B8%B8%E8%A6%8B%E7%9A%84%E5%81%9A%E6%B3%95"><span class="toc-article-text">隔離沒做好會怎樣？以及常見的做法</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-article-text">小結</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%9C%9F%E5%AF%A6%E4%B8%96%E7%95%8C%E8%A3%A1%E7%9A%84%E7%A7%9F%E8%B3%83%E9%97%9C%E4%BF%82"><span class="toc-article-text">真實世界裡的租賃關係</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%85%B6%E4%BB%96%E5%B0%88%E6%9C%89%E5%90%8D%E8%A9%9E"><span class="toc-article-text">其他專有名詞</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E8%83%8C%E6%99%AF%E6%8E%A2%E8%A8%8E%EF%BC%9A%E5%90%84%E7%A8%AE%E7%A7%9F%E8%B3%83%E7%B5%84%E5%90%88"><span class="toc-article-text">背景探討：各種租賃組合</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%A7%9F%E8%B3%83%E9%97%9C%E4%BF%82%E7%9A%84%E6%8E%92%E5%88%97%E7%B5%84%E5%90%88"><span class="toc-article-text">租賃關係的排列組合</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Case-A-Single-Tenant"><span class="toc-article-text">Case A: Single Tenant</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Case-B-Multiple-Tenant"><span class="toc-article-text">Case B: Multiple Tenant</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Case-C"><span class="toc-article-text">Case C</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Case-D"><span class="toc-article-text">Case D</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%8E%A2%E8%A8%8E"><span class="toc-article-text">探討</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%8E%A2%E8%A8%8E%E4%B8%80%EF%BC%9ACase-X1-x3D-Case-B-D"><span class="toc-article-text">探討一：Case X1 &#x3D; Case B + D</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%8E%A2%E8%A8%8E%E4%BA%8C%EF%BC%9A%E4%BA%8C%E6%88%BF%E6%9D%B1-Case-X2"><span class="toc-article-text">探討二：二房東 Case X2</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%9A%94%E9%9B%A2%E7%9A%84%E6%A0%B8%E5%BF%83%E8%AD%B0%E9%A1%8C-Isolation-Factor-%E9%9A%94%E9%9B%A2%E5%9B%A0%E5%AD%90"><span class="toc-article-text">隔離的核心議題: Isolation Factor (隔離因子)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%AF%A6%E9%AB%94%E9%9A%94%E9%9B%A2%E8%88%87%E9%82%8F%E8%BC%AF%E9%9A%94%E9%9B%A2"><span class="toc-article-text">實體隔離與邏輯隔離</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#AWS-%E6%9C%8D%E5%8B%99%E7%9A%84%E9%9A%94%E9%9B%A2%E5%9B%A0%E5%AD%90"><span class="toc-article-text">AWS 服務的隔離因子</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%9A%94%E9%9B%A2%E6%B2%92%E5%81%9A%E5%A5%BD%E6%9C%83%E6%80%8E%E6%A8%A3%EF%BC%9F"><span class="toc-article-text">隔離沒做好會怎樣？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%B7%A8%E7%A7%9F%E6%88%B6%E5%95%8F%E9%A1%8C%E5%B8%B8%E8%A6%8B%E7%9A%84%E5%81%9A%E6%B3%95"><span class="toc-article-text">跨租戶問題常見的做法</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-article-text">小結</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
