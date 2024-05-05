@@ -276,18 +276,14 @@ How SSL W">
 <ol>
 <li>CA (Godaddy): 發一張 root certificate 給所有 browser 開發者</li>
 <li>Browser Vendor (Google, Mozilla): root certificate 會包在 App (ex 瀏覽器) 發布給使用者。</li>
-<li>CSR (certificate signing request): 瀏覽器對 CA 發出 CSR 請求</li>
-</ol>
-<ul>
+<li>CSR (certificate signing request): 瀏覽器對 CA 發出 CSR 請求<ul>
 <li>目的是針對目前 WebSite 的 Domain 做認證</li>
 </ul>
-<ol>
-<li>CA 回傳簽可的憑證 (Signed Certificate)</li>
-</ol>
-<ul>
+</li>
+<li>CA 回傳簽可的憑證 (Signed Certificate)<ul>
 <li>代表 WebSite Domain 的合法性</li>
 </ul>
-<ol>
+</li>
 <li>Client App (browser) 對 Web Server 發出請求</li>
 <li>Web Server 回傳請求給 Client App</li>
 <li>Client App 驗證 WebSite 的 Domain Certificate</li>
@@ -444,19 +440,15 @@ How SSL W">
 <p>結構與流程說明如下：</p>
 <ol>
 <li>Application Data: 應用程式資料會被拆分成若干份 Fragment</li>
-<li>Fragment: 每個傳輸資料會被拆分成幾個區塊後，個別傳送，這個區塊稱為 Fragment</li>
-</ol>
-<ul>
+<li>Fragment: 每個傳輸資料會被拆分成幾個區塊後，個別傳送，這個區塊稱為 Fragment<ul>
 <li>每個 Fragment 會經過壓縮演算法進行資料壓縮</li>
 </ul>
-<ol>
-<li>MAC: 用來確認每個 Fragment 的完整性驗證碼</li>
-</ol>
-<ul>
+</li>
+<li>MAC: 用來確認每個 Fragment 的完整性驗證碼<ul>
 <li>每個壓縮過後的資料，透過 Hash 計算出 MAC 值</li>
 <li>這個 MAC 值附加在壓縮資料之後</li>
 </ul>
-<ol>
+</li>
 <li>Encrypt: 取得 Fragment 的 MAC 之後，使用 Secret Key 加密這兩個</li>
 <li>SSL Record Header: 最後附上 Record Header</li>
 </ol>
@@ -692,7 +684,7 @@ Q4: 為什麼我會想花時間了解這個協議？
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/SSO/" style="color: white">SSO <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Cryptography/" style="color: white">Cryptography <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Information-Security/" style="color: white">Information Security <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Hash/" style="color: white">Hash <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/LDAP/" style="color: white">LDAP <span class="badge">2</span></a></span>
+  <span class="label label-success"><a href="/tags/Cryptography/" style="color: white">Cryptography <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Information-Security/" style="color: white">Information Security <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Hash/" style="color: white">Hash <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/LDAP/" style="color: white">LDAP <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/SSO/" style="color: white">SSO <span class="badge">3</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>

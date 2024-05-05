@@ -424,53 +424,43 @@
 <li>整合 CloudFront + Route 53 Alias + S3 Bucket (有 HTTPS)</li>
 </ol>
 <h3 id="S3-Bucket-Route53"><a href="#S3-Bucket-Route53" class="headerlink" title="S3 Bucket + Route53"></a>S3 Bucket + Route53</h3><ol>
-<li>建立 S3 Bucket</li>
-</ol>
-<ul>
+<li>建立 S3 Bucket<ul>
 <li>使用 Domain Name 當作 S3 Bucket Name，例如：<code>website1.abc.com</code>，此例子放在 <code>us-west-2</code></li>
-<li>開啟 <code>Static Website Hosting</code> 功能，一定要開啟，否則功能不會正常（如下訊息）。<br><img src="/images/AWS/S3/Static-Website/Fail-WebsiteConfig.png"></li>
-<li>權限：<ul>
+<li>開啟 <code>Static Website Hosting</code> 功能，一定要開啟，否則功能不會正常（如下訊息）。<br> <img src="/images/AWS/S3/Static-Website/Fail-WebsiteConfig.png"></li>
+<li>權限：</li>
 <li>關閉 <code>Block public access</code>，預設是開啟的。因為太多資安事件，後來新增的預設功能。</li>
 <li>用 Bucket Policy 或 Object ACL ，後面描述</li>
-</ul>
-</li>
 <li>放一個 <code>index.html</code></li>
 </ul>
-<ol>
-<li>設定 Route 53</li>
-</ol>
-<ul>
+</li>
+<li>設定 Route 53<ul>
 <li>新增一筆 A Record</li>
-<li>開啟 Alias，選擇已經建立好的 S3 Bucket，或者填入：<code>s3-website-us-west-2.amazonaws.com.</code>。 如果 AutoComplete 沒有 S3 Bucket 可以選，表示沒有開啟 <code>Static Website Hosting</code>，如果已經開啟卻沒得選，重新載入 Route53 Console。如下圖：<br><img src="/images/AWS/S3/Static-Website/r53-alias.png"></li>
+<li>開啟 Alias，選擇已經建立好的 S3 Bucket，或者填入：<code>s3-website-us-west-2.amazonaws.com.</code>。 如果 AutoComplete 沒有 S3 Bucket 可以選，表示沒有開啟 <code>Static Website Hosting</code>，如果已經開啟卻沒得選，重新載入 Route53 Console。如下圖：<br> <img src="/images/AWS/S3/Static-Website/r53-alias.png"></li>
 </ul>
-<ol>
-<li>權限設定：要讓使用者可以瀏覽靜態資料</li>
-</ol>
-<ul>
-<li><code>Bucket Policy</code>：好處是 Object 上傳後，不需要額外的權限設定。底下是範例：<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;Version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2012-10-17&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Statement&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;Sid&quot;</span><span class="punctuation">:</span> <span class="string">&quot;PublicReadGetObject&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Effect&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Allow&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Principal&quot;</span><span class="punctuation">:</span> <span class="string">&quot;*&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Action&quot;</span><span class="punctuation">:</span> <span class="string">&quot;s3:GetObject&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Resource&quot;</span><span class="punctuation">:</span> <span class="string">&quot;arn:aws:s3:::website1.abc.com/*&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
-<li><code>Object ACL</code>：開啟個別 Object 的 Permission，方法有以下：<ul>
+</li>
+<li>權限設定：要讓使用者可以瀏覽靜態資料<ul>
+<li><code>Bucket Policy</code>：好處是 Object 上傳後，不需要額外的權限設定。底下是範例： <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;Version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2012-10-17&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Statement&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;Sid&quot;</span><span class="punctuation">:</span> <span class="string">&quot;PublicReadGetObject&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Effect&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Allow&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Principal&quot;</span><span class="punctuation">:</span> <span class="string">&quot;*&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Action&quot;</span><span class="punctuation">:</span> <span class="string">&quot;s3:GetObject&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Resource&quot;</span><span class="punctuation">:</span> <span class="string">&quot;arn:aws:s3:::website1.abc.com/*&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li><code>Object ACL</code>：開啟個別 Object 的 Permission，方法有以下：</li>
 <li>在 S3 Console，選擇 Object -&gt; “Make Public”</li>
 <li>在 S3 Console：點選 Object -&gt; 右邊 Properties -&gt; Permission -&gt; Public access -&gt; 開啟 <code>Read Object</code></li>
 <li>透過 SDK &#x2F; API 操作（如下），指定 ACL 為 <code>public-read</code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">aws s3api put-object \</span><br><span class="line">    --acl public-read \</span><br><span class="line">    --body s3-permission-control-flow.png \</span><br><span class="line">    --bucket website1.abc.com \</span><br><span class="line">    --key images/s3-permission-control-flow.png \</span><br><span class="line">    --content-type image/png \</span><br><span class="line">    --content-disposition <span class="string">&quot;inline; filename=s3-permission-control-flow.png&quot;</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-</ul>
+</ol>
 <p>權限兩種方法都可以，如果要安全性高一點，選擇 Object ACL 控制，透過程式控制；如果是開放資料，像是文件，則可以使用 Bucket Policy 控制。</p>
 <h3 id="Endpoints-of-Path-Style-and-Virtual-Hosted-Style"><a href="#Endpoints-of-Path-Style-and-Virtual-Hosted-Style" class="headerlink" title="Endpoints of Path-Style and Virtual-Hosted Style"></a>Endpoints of Path-Style and Virtual-Hosted Style</h3><p>S3 支援兩種存取格式的 Endpoints，格式如下：</p>
 <ol>
-<li><code>Path-Style (v1)</code>:</li>
-</ol>
-<ul>
+<li><code>Path-Style (v1)</code>:<ul>
 <li>Bucket in us-east-1: <code>https://s3.amazonaws.com/&#123;BUCKET_NAME&#125;/&#123;OBJECT_KEY_NAME&#125;</code></li>
 <li>Bucket in other regions: <code>https://s3-&#123;REGION_CODE&#125;.amazonaws.com/&#123;BUCKET_NAME&#125;/&#123;OBJECT_KEY_NAME&#125;</code></li>
 </ul>
-<ol>
-<li><code>Virtual-Hosted Style (v2)</code></li>
-</ol>
-<ul>
+</li>
+<li><code>Virtual-Hosted Style (v2)</code><ul>
 <li>Bucket in us-east-1: 同下</li>
 <li>Bucket in other regions: <code>http://&#123;BUCKET_NAME&#125;.s3-website-&#123;REGION_CODE&#125;.amazonaws.com/&#123;OBJECT_KEY_NAME&#125;</code></li>
 </ul>
+</li>
+</ol>
 <p>為了方便說明，我建立兩個 Bucket 當範例：</p>
 <ol>
 <li>website.abc.com -&gt; region 在 us-east-1 (N. Virginia)</li>
@@ -892,9 +882,9 @@ S3 Bucket 可以當作靜態網頁服務器，透過 Route53 可以直接關聯 
 - 假設網站名稱叫做: `www.rick.com` ，建立一個 Bucket 叫做 `www.rick.com`
 - 在 Route53 建立一個 Hosted Zone `rick.com` (假設已經註冊 DNS),
 - 建立一筆 record set
-  - Name: `www.rick.com`
-  - Type: `A`
-  - Alias: `Yes`, Target 選擇 `s3-website-us-east-1.amazonaws.com`. 如果沒有出現候選清單，則自己敲
+    - Name: `www.rick.com`
+    - Type: `A`
+    - Alias: `Yes`, Target 選擇 `s3-website-us-east-1.amazonaws.com`. 如果沒有出現候選清單，則自己敲
 
 要注意：alias 不需要輸入 S3 Bucket Name，只要 S3 的 endpoint 就可以，Route53 會用 DNS 當作 Bucket Name 組成，還有 S3 endpoint 組成完整的 FQDN.
 -->
@@ -1016,33 +1006,25 @@ https://docs.aws.amazon.com/AmazonS3/latest/dev/ShareObjectPreSignedURL.html
 <p>S3 的幾種 Endpoints 規則，分四大類，各有其用途：</p>
 <ol>
 <li>Static Web Host: <code>&#123;BUCKET_NAME&#125;.s3-website-&#123;REGION&#125;.amazonaws.com</code></li>
-<li>Path-Style, 又稱 v1</li>
-</ol>
-<ul>
-<li>IPv4<ul>
+<li>Path-Style, 又稱 v1<ul>
+<li>IPv4</li>
 <li>us-east-1: <code>s3.amazonaws.com/&#123;BUCKET_NAME&#125;/</code></li>
 <li>other regions: <code>s3-&#123;REGION_CODE&#125;.amazonaws.com/&#123;BUCKET_NAME&#125;/</code></li>
-</ul>
-</li>
 <li>DualStack (IPv6): <code>s3.dualstack.&#123;REGION&#125;.amazonaws.com/&#123;BUCKET_NAME&#125;</code></li>
 </ul>
-<ol>
-<li>Virtual-Hosted Style, 又稱 v2</li>
-</ol>
-<ul>
-<li>HTTP: <code>&#123;BUCKET_NAME&#125;.s3-&#123;REGION_CODE&#125;.amazonaws.com</code><ul>
+</li>
+<li>Virtual-Hosted Style, 又稱 v2<ul>
+<li>HTTP: <code>&#123;BUCKET_NAME&#125;.s3-&#123;REGION_CODE&#125;.amazonaws.com</code></li>
 <li>要注意的是，名字不是 <code>s3-website-&#123;REGION_CODE&#125;</code></li>
 <li>不支援 HTTPS</li>
-</ul>
-</li>
 <li>DualStack (IPv6): <code>&#123;BUCKET_NAME&#125;.s3.dualstack.&#123;REGION&#125;.amazonaws.com</code></li>
 </ul>
-<ol>
-<li>Web Service (SOAP): <code>&#123;BUCKET_NAME&#125;.s3-&#123;REGION&#125;.amazonaws.com</code>:</li>
-</ol>
-<ul>
+</li>
+<li>Web Service (SOAP): <code>&#123;BUCKET_NAME&#125;.s3-&#123;REGION&#125;.amazonaws.com</code>:<ul>
 <li>透過 ACL 控制的 API Endpoint</li>
 </ul>
+</li>
+</ol>
 <p>Q: 使用 S3 當靜態網站，能限定來源 IP？或者特定 VPC？</p>
 <blockquote>
 <p>可以，Bucket Policy 範例參閱： <a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies-vpc-endpoint.html">Example Bucket Policies for VPC Endpoints for Amazon S3</a></p>

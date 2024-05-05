@@ -275,13 +275,11 @@
 <p>上述步驟，將會在 local 建立好 git 儲存庫 (Repository)。</p>
 <h2 id="新增遠端儲存庫-Remote-Repository"><a href="#新增遠端儲存庫-Remote-Repository" class="headerlink" title="新增遠端儲存庫 (Remote Repository)"></a>新增遠端儲存庫 (Remote Repository)</h2><ol>
 <li>檢查目前專案的 remote repos: <code>git remote -v</code>，會看到剛初始的儲存庫是沒有關聯到任何遠端儲存庫的。</li>
-<li>接下來使用 <code>git remote add $&#123;REPOS_NAME&#125; $&#123;REMOTE_REPOS_URL&#125;</code> 建立遠端儲存庫。</li>
-</ol>
-<ul>
+<li>接下來使用 <code>git remote add $&#123;REPOS_NAME&#125; $&#123;REMOTE_REPOS_URL&#125;</code> 建立遠端儲存庫。<ul>
 <li>${REPOS_NAME}: 是遠端儲存庫的名稱，這邊例子是 <code>origin</code></li>
 <li>${REMOTE_REPOS_URL}: 是遠端儲存庫的位址，它的結尾會是 <code>.git</code></li>
 </ul>
-<ol start="3">
+</li>
 <li>建立完成後，使用 <code>git remote -v</code> 可以看到關聯起來，一個是 fetch，一個是 push</li>
 </ol>
 <p>如果還有使用其他的遠端儲存庫，像是 github，也可以一並加入。</p>
