@@ -156,7 +156,7 @@ M">
 						
 						<li><a href="/categories/System-Design/">System Design <sup>1</sup></a></li>
 						
-						<li><a href="/categories/經營管理/">經營管理 <sup>57</sup></a></li>
+						<li><a href="/categories/經營管理/">經營管理 <sup>58</sup></a></li>
 						
 						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
 						
@@ -408,17 +408,15 @@ M">
 <p>運作原理：</p>
 <p>P 和 V 的意義來自荷蘭文 ( <code>Edsger W. Dijkstr</code> 為荷蘭人)</p>
 <ol>
-<li>V operation：V() 會將 semaphore 的值加 1，signal 函數或是 sem_post()</li>
-</ol>
-<ul>
+<li>V operation：V() 會將 semaphore 的值加 1，signal 函數或是 sem_post()<ul>
 <li>V 代表 verhogen (荷蘭文)，意思是增加</li>
 </ul>
-<ol>
-<li>P operation：P() 會將 semaphore 的值減 1，wait 函數或是 sem_wait()</li>
-</ol>
-<ul>
+</li>
+<li>P operation：P() 會將 semaphore 的值減 1，wait 函數或是 sem_wait()<ul>
 <li>P 代表 portmanteau prolaag (荷蘭文)，其意思是嘗試減小。</li>
 </ul>
+</li>
+</ol>
 <p>每個 P 或 V operation 必須具備 atomic operation，該 operation 是不可分割的 (all or nothing)。</p>
 <blockquote>
 <p>註：Dijkstra 是荷蘭人，所以均以荷蘭文為代號</p>
@@ -432,11 +430,13 @@ M">
 <p>衍伸問題：</p>
 <ol>
 <li>Accidental release</li>
-<li>Deadlock</li>
+<li>Deadlock<ol>
 <li>Recursive Deadlock</li>
 <li>Deadlock through Task Death</li>
 <li>Priority Inversion</li>
 <li>Semaphore as a Signal</li>
+</ol>
+</li>
 </ol>
 <p>實作：</p>
 <ul>
@@ -542,8 +542,8 @@ https://hackmd.io/@nKngvyhpQdGagg1V6GKLwA/Skh9Z2DpX?type=view
 <!--
 # Q and A
 
-* Semaphore as Rate Limit ?
-* Mutex as Lock?
+- Semaphore as Rate Limit ?
+- Mutex as Lock?
 
 -->
 
