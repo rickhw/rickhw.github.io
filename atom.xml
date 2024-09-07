@@ -100,9 +100,9 @@
     <link href="https://rickhw.github.io/2024/09/07/Coding/Codegen-for-Productivity-and-Quality/"/>
     <id>https://rickhw.github.io/2024/09/07/Coding/Codegen-for-Productivity-and-Quality/</id>
     <published>2024-09-06T19:33:00.000Z</published>
-    <updated>2024-09-07T07:01:02.482Z</updated>
+    <updated>2024-09-07T10:15:44.840Z</updated>
     
-    <content type="html"><![CDATA[<p>這篇是我在 <a href="https://www.facebook.com/rick.kyhwang/posts/pfbid02FD5nDLcNkpH2c7dDEh6iKJheZgswXhyzn3rFSBx82PB2p5T7FGPwFfHx7aya8Cnal">2023&#x2F;09&#x2F;07</a> 聊到關於 Code Generator (底下簡稱 codegen or CodeGen) 的經驗與想法。</p><span id="more"></span><hr><h2 id="Codegen-經驗談"><a href="#Codegen-經驗談" class="headerlink" title="Codegen 經驗談"></a>Codegen 經驗談</h2><h3 id="2008-codegen-banking-system-design-patterns"><a href="#2008-codegen-banking-system-design-patterns" class="headerlink" title="2008: codegen banking system design patterns"></a>2008: codegen banking system design patterns</h3><p>我大約 2008 一個案子開始接觸 codegen，從一開始我就很喜歡這個模式，因為生產力很高。可以透過這樣的方法快速產生 project template (Java Project using EJB for eclipse project)、design pattern for best practice，然後執行各項 Unit Test. 下圖則是當時用 CodeGen 產生後，執行 UT 的紀錄：</p><p><img src="/images/Coding/CodeGen/Codegen-experience-2008-banking.jpg"></p><h3 id="2010-codegen-for-automation-test"><a href="#2010-codegen-for-automation-test" class="headerlink" title="2010: codegen for automation test"></a>2010: codegen for automation test</h3><p><a href="/2018/05/12/SQA/Designing-Test-Architecture-and-Framework/">Designing Test Architecture and Framework</a> 一文分享了過去設計 Automation Test Framework 的紀錄，主要都在討論框架怎麼設計，以及流程面。不過其中沒提到的就是如何寫 Test Case，這個過程也是用 Codegen 產生標準的 Test Case 框架，讓 QA &#x2F; Tester 依照標準框架開發，包含 Config &#x2F; Data &#x2F; Log 等。</p><h3 id="2012-codegen-improves-ORM-productivity"><a href="#2012-codegen-improves-ORM-productivity" class="headerlink" title="2012: codegen improves ORM productivity"></a>2012: codegen improves ORM productivity</h3><p>類似的概念，也用在我自己曾經開發過的 ORM (背後設計想法有點像 MyBatis)。那個時候大部分主流的 ORM (MyBatis &#x2F; Hibernate) 還是要寫一些基本的東西，像是 repostory、VO、entity … etc。</p><p>但我實在很懶得再寫這堆重複性很高的東西，所以整個設計就是直接把傳統 ORM 要做的雜事，用 CodeGen 直接產生。實作概念是直接掃描整個 database，用 codegen 直接產生出整個 ORM 的 skeleton，也就是 用 java 產生出 java，整個生產力非常高。下圖則是用這個 ORM 開發的 app … 主要是用來管理一堆 Server Rack 的管理介面。</p><p><img src="/images/Coding/CodeGen/Codegen-ORM_2012.jpg"></p><p>這個做法讓我很專注在設計 Database Schema 以及處理 Service Layer 的商業邏輯，省去很多時間處理 ORM 中間的重複性很高的任務。</p><h3 id="API-First"><a href="#API-First" class="headerlink" title="API First"></a>API First</h3><p>除了上述的應用場景，另一個 CodeGen 用很多的地方是導入 API First 的過程。</p><p>OpenAPI 的規格 swagger.yaml 可以透過設計優先 (Design First) 的概念，先完成規格的設計，透過 CodeGen 產生出對應程式語言的 RESTful skeleton，這個 skeleton 會依據 Spec 描述的 Data Model 產生對應的程式碼，同時也完成一些基本的處理，像是 Data Validation、Response 等，而開發者只要專注在商業邏輯的處理即可。</p><p>API First 背後的精神都在於 Spec 是否完善，後面才會跟著完善。</p><h2 id="Objective-and-Key-Result"><a href="#Objective-and-Key-Result" class="headerlink" title="Objective and Key Result"></a>Objective and Key Result</h2><p>做每一件事情，背後都有其動機，CodeGen 最重要的目的 (Objective) 是：</p><blockquote><p>提高開發 <code>生產力 (Productivity)</code> 與 <code>品質 (Quality)</code></p></blockquote><p>這個目的背後更具體的就是標準化開發過程所共同 (Common) 的東西，像是 Log &#x2F; Config &#x2F; Security &#x2F; Coding Style … 等 標準化，而這些標準化的工作其實就是 <code>Internal Developer Platform (IDP)</code> 的基本工作之一。</p><blockquote><p>更多關於 IDP 參閱個人著作：<a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作《SRE 實踐與開發平台指南》</a></p></blockquote><h2 id="導入的問題"><a href="#導入的問題" class="headerlink" title="導入的問題"></a>導入的問題</h2><p>codegen 概念對我個人來講，算是很熟捻的東西，包含怎麼活用、怎麼提升產能、或者降低開發過程的一致性問題 ..</p><p>不過在工作中導入，也遇過一些問題，像是:</p><ul><li>被嗆說這種東西是一次性的，沒啥屁用</li><li>這種東西大多都失敗，不要浪費時間</li></ul><p>這兩個問題的源頭都不在技術本身，在於用的人懂不懂軟體工程 …</p><p>所有的 IDE 在 create project 的原理就是 codegen，所有 open source 網站上文件的 reference part，都是 codegen，一些 SDK for multiple languages 也都是 codegen，然後 MVC 的 View 本質上就是 codegen …</p><p><code>軟體工程</code> 的價值 在於:</p><ol><li>reusable (可重複使用，提高開發生產力、品質)</li><li>scalable (可拓展業務)</li></ol><p>codegen is 1) for most of cases, for advanced case, such as #IDP, is 2)</p><h2 id="一些想法"><a href="#一些想法" class="headerlink" title="一些想法"></a>一些想法</h2><p>判斷一家公司是否是上軌道的軟體公司，不是用規模或人數來判斷，反而是可以從以下過程的速度當指標：</p><blockquote><p>idea -&gt; poc -&gt; MVP</p></blockquote><p>這個過程的速度有多快，就是軟體開發成熟度的指標。</p><p>而且 MVP 出來的東西要符合公司既定開發政策，像是 metadata、logging、config、security、coding conversion … 等老生常談的 <code>guideline</code> 或者 <code>discipline (紀律)</code> ，而這些都是 codegen 可以直接秒殺的東西，只要有持續迭代。</p><p>如果每個團隊都還要重新理解、自己寫、或者問要遵守哪一套，那有兩個問題是要留意的：</p><ol><li>管理與治理 - 管理團隊的管理能力</li><li>軟體工程的能力 - 專業團隊的專業能力與專業素養</li></ol><p>如果要做 <code>Platform Engineering</code>, or <code>Internal Developer Platform (IDP)</code>，Codegen 是直接呈現產能最直接的方式，否則一堆規範 &#x2F; 制度 &#x2F; 紀律 …. 都只是紙上談兵的東西。</p><hr><h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul><li><a href="/2022/05/06/Coding/Designing-Configuration-Loading-Strategies/">Designing Configuration Loading Strategies</a></li><li><a href="/2018/05/12/SQA/Designing-Test-Architecture-and-Framework/">Designing Test Architecture and Framework</a></li><li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作《SRE 實踐與開發平台指南》</a></li></ul>]]></content>
+    <content type="html"><![CDATA[<p>這篇是我在 <a href="https://www.facebook.com/rick.kyhwang/posts/pfbid02FD5nDLcNkpH2c7dDEh6iKJheZgswXhyzn3rFSBx82PB2p5T7FGPwFfHx7aya8Cnal">2023&#x2F;09&#x2F;07</a> 聊到關於 Code Generator (底下簡稱 codegen or CodeGen) 的經驗與想法。</p><span id="more"></span><hr><h2 id="Codegen-經驗談"><a href="#Codegen-經驗談" class="headerlink" title="Codegen 經驗談"></a>Codegen 經驗談</h2><h3 id="2008-codegen-banking-system-design-patterns"><a href="#2008-codegen-banking-system-design-patterns" class="headerlink" title="2008: codegen banking system design patterns"></a>2008: codegen banking system design patterns</h3><p>我大約 2008 一個案子開始接觸 codegen，從一開始我就很喜歡這個模式，因為生產力很高。可以透過這樣的方法快速產生 project template (Java Project using EJB for eclipse project)、design pattern for best practice，然後執行各項 Unit Test. 下圖則是當時用 CodeGen 產生後，執行 UT 的紀錄：</p><p><img src="/images/Coding/CodeGen/Codegen-experience-2008-banking.jpg"></p><h3 id="2010-codegen-for-automation-test"><a href="#2010-codegen-for-automation-test" class="headerlink" title="2010: codegen for automation test"></a>2010: codegen for automation test</h3><p><a href="/2018/05/12/SQA/Designing-Test-Architecture-and-Framework/">Designing Test Architecture and Framework</a> 一文分享了過去設計 Automation Test Framework 的紀錄，主要都在討論框架怎麼設計，以及流程面。不過其中沒提到的就是如何寫 Test Case，這個過程也是用 Codegen 產生標準的 Test Case 框架，讓 QA &#x2F; Tester 依照標準框架開發，包含 Config &#x2F; Data &#x2F; Log 等。</p><h3 id="2012-codegen-improves-ORM-productivity"><a href="#2012-codegen-improves-ORM-productivity" class="headerlink" title="2012: codegen improves ORM productivity"></a>2012: codegen improves ORM productivity</h3><p>類似的概念，也用在我自己曾經開發過的 ORM (背後設計想法有點像 MyBatis)。那個時候大部分主流的 ORM (MyBatis &#x2F; Hibernate) 還是要寫一些基本的東西，像是 repostory、VO、entity … etc。</p><p>但我實在很懶得再寫這堆重複性很高的東西，所以整個設計就是直接把傳統 ORM 要做的雜事，用 CodeGen 直接產生。實作概念是直接掃描整個 database，用 codegen 直接產生出整個 ORM 的 skeleton，也就是 用 java 產生出 java，整個生產力非常高。下圖則是用這個 ORM 開發的 app … 主要是用來管理一堆 Server Rack 的管理介面。</p><p><img src="/images/Coding/CodeGen/Codegen-ORM_2012.jpg"></p><p>這個做法讓我很專注在設計 Database Schema 以及處理 Service Layer 的商業邏輯，省去很多時間處理 ORM 中間的重複性很高的任務。</p><h3 id="API-First"><a href="#API-First" class="headerlink" title="API First"></a>API First</h3><p>除了上述的應用場景，另一個 CodeGen 用很多的地方是導入 API First 的過程。</p><p>OpenAPI 的規格 swagger.yaml 可以透過設計優先 (Design First) 的概念，先完成規格的設計，透過 CodeGen 產生出對應程式語言的 RESTful skeleton，這個 skeleton 會依據 Spec 描述的 Data Model 產生對應的程式碼，同時也完成一些基本的處理，像是 Data Validation、Response 等，而開發者只要專注在商業邏輯的處理即可。</p><p>API First 背後的精神都在於 Spec 是否完善，後面才會跟著完善。</p><h2 id="Objective-and-Key-Result"><a href="#Objective-and-Key-Result" class="headerlink" title="Objective and Key Result"></a>Objective and Key Result</h2><p>做每一件事情，背後都有其動機，CodeGen 最重要的目的 (Objective) 是：</p><blockquote><p>提高開發 <code>生產力 (Productivity)</code> 與 <code>品質 (Quality)</code></p></blockquote><p>這個目的背後更具體的就是標準化開發過程所共同 (Common) 的東西，像是 Log &#x2F; Config &#x2F; Security &#x2F; Coding Style … 等 標準化，而這些標準化的工作其實就是 <code>Internal Developer Platform (IDP)</code> 的基本工作之一。</p><blockquote><p>更多關於 IDP 參閱個人著作：<a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作《SRE 實踐與開發平台指南》</a></p></blockquote><h2 id="導入的問題"><a href="#導入的問題" class="headerlink" title="導入的問題"></a>導入的問題</h2><p>codegen 概念對我個人來講，算是很熟捻的東西，包含怎麼活用、怎麼提升產能、或者降低開發過程的一致性問題 ..</p><p>不過在工作中導入，也遇過一些問題，像是:</p><ul><li>被嗆說這種東西是一次性的，沒啥屁用</li><li>這種東西大多都失敗，不要浪費時間</li></ul><p>這兩個問題的源頭都不在技術本身，在於用的人懂不懂軟體工程 …</p><p>所有的 IDE 在 create project 的原理就是 codegen，所有 open source 網站上文件的 reference part，都是 codegen，一些 SDK for multiple languages 也都是 codegen，然後 MVC 的 View 本質上就是 codegen …</p><p><code>軟體工程</code> 的價值 在於:</p><ol><li>reusable (可重複使用，提高開發生產力、品質)</li><li>scalable (可拓展業務)</li></ol><p>codegen is 1) for most of cases, for advanced case, such as #IDP, is 2)</p><h2 id="一些想法"><a href="#一些想法" class="headerlink" title="一些想法"></a>一些想法</h2><p>判斷一家公司是否是上軌道的軟體公司，不是用規模或人數來判斷，反而是可以從以下過程的速度當指標：</p><blockquote><p>idea -&gt; poc -&gt; MVP</p></blockquote><p>這個過程的速度有多快，就是軟體開發成熟度的指標。</p><p>而且 MVP 出來的東西要符合公司既定開發政策，像是 metadata、logging、config、security、coding conversion … 等老生常談的 <code>guideline</code> 或者 <code>discipline (紀律)</code> ，而這些都是 codegen 可以直接秒殺的東西，只要有持續迭代。</p><p>如果每個團隊都還要重新理解、自己寫、或者問要遵守哪一套，那有兩個問題是要留意的：</p><ol><li>管理與治理 - 管理團隊的管理能力</li><li>軟體工程的能力 - 專業團隊的專業能力與專業素養</li></ol><p>如果要做 <code>Platform Engineering</code>, or <code>Internal Developer Platform (IDP)</code>，Codegen 是直接呈現產能最直接的方式，否則一堆規範 &#x2F; 制度 &#x2F; 紀律 …. 都只是紙上談兵的東西。</p><h2 id="AI"><a href="#AI" class="headerlink" title="AI"></a>AI</h2><p>AI 已經是趨勢，而可以 CodeGen 代表背後要被 AI 直接產生就更簡單了，也代表 AI 其實可以直接透過其他動態的方式，完成 CodeGen 的任務。</p><hr><h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul><li><a href="/2022/05/06/Coding/Designing-Configuration-Loading-Strategies/">Designing Configuration Loading Strategies</a></li><li><a href="/2018/05/12/SQA/Designing-Test-Architecture-and-Framework/">Designing Test Architecture and Framework</a></li><li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作《SRE 實踐與開發平台指南》</a></li></ul>]]></content>
     
     
     <summary type="html">&lt;p&gt;這篇是我在 &lt;a href=&quot;https://www.facebook.com/rick.kyhwang/posts/pfbid02FD5nDLcNkpH2c7dDEh6iKJheZgswXhyzn3rFSBx82PB2p5T7FGPwFfHx7aya8Cnal&quot;&gt;2023&amp;#x2F;09&amp;#x2F;07&lt;/a&gt; 聊到關於 Code Generator (底下簡稱 codegen or CodeGen) 的經驗與想法。&lt;/p&gt;</summary>
@@ -347,13 +347,13 @@
     
     <category term="時間管理" scheme="https://rickhw.github.io/tags/%E6%99%82%E9%96%93%E7%AE%A1%E7%90%86/"/>
     
-    <category term="工作管理" scheme="https://rickhw.github.io/tags/%E5%B7%A5%E4%BD%9C%E7%AE%A1%E7%90%86/"/>
-    
     <category term="會議原則" scheme="https://rickhw.github.io/tags/%E6%9C%83%E8%AD%B0%E5%8E%9F%E5%89%87/"/>
     
     <category term="會議效率" scheme="https://rickhw.github.io/tags/%E6%9C%83%E8%AD%B0%E6%95%88%E7%8E%87/"/>
     
     <category term="溝通成本" scheme="https://rickhw.github.io/tags/%E6%BA%9D%E9%80%9A%E6%88%90%E6%9C%AC/"/>
+    
+    <category term="工作管理" scheme="https://rickhw.github.io/tags/%E5%B7%A5%E4%BD%9C%E7%AE%A1%E7%90%86/"/>
     
   </entry>
   
@@ -575,9 +575,9 @@
     
     <category term="Contract First" scheme="https://rickhw.github.io/tags/Contract-First/"/>
     
-    <category term="Communication Protocol" scheme="https://rickhw.github.io/tags/Communication-Protocol/"/>
-    
     <category term="API Governance" scheme="https://rickhw.github.io/tags/API-Governance/"/>
+    
+    <category term="Communication Protocol" scheme="https://rickhw.github.io/tags/Communication-Protocol/"/>
     
   </entry>
   
@@ -610,13 +610,13 @@
     
     <category term="時間管理" scheme="https://rickhw.github.io/tags/%E6%99%82%E9%96%93%E7%AE%A1%E7%90%86/"/>
     
-    <category term="工作管理" scheme="https://rickhw.github.io/tags/%E5%B7%A5%E4%BD%9C%E7%AE%A1%E7%90%86/"/>
-    
     <category term="會議原則" scheme="https://rickhw.github.io/tags/%E6%9C%83%E8%AD%B0%E5%8E%9F%E5%89%87/"/>
     
     <category term="會議效率" scheme="https://rickhw.github.io/tags/%E6%9C%83%E8%AD%B0%E6%95%88%E7%8E%87/"/>
     
     <category term="溝通成本" scheme="https://rickhw.github.io/tags/%E6%BA%9D%E9%80%9A%E6%88%90%E6%9C%AC/"/>
+    
+    <category term="工作管理" scheme="https://rickhw.github.io/tags/%E5%B7%A5%E4%BD%9C%E7%AE%A1%E7%90%86/"/>
     
   </entry>
   
@@ -662,11 +662,11 @@
     <category term="Container" scheme="https://rickhw.github.io/categories/Container/"/>
     
     
+    <category term="Kubernetes" scheme="https://rickhw.github.io/tags/Kubernetes/"/>
+    
     <category term="Ubuntu" scheme="https://rickhw.github.io/tags/Ubuntu/"/>
     
     <category term="K8s" scheme="https://rickhw.github.io/tags/K8s/"/>
-    
-    <category term="Kubernetes" scheme="https://rickhw.github.io/tags/Kubernetes/"/>
     
     <category term="Macbook Pro M1" scheme="https://rickhw.github.io/tags/Macbook-Pro-M1/"/>
     
