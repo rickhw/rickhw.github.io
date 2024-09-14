@@ -107,7 +107,7 @@
     <link href="https://rickhw.github.io/2024/09/14/SoftwareEngineering/Versioning-in-SDLC/"/>
     <id>https://rickhw.github.io/2024/09/14/SoftwareEngineering/Versioning-in-SDLC/</id>
     <published>2024-09-14T01:50:30.000Z</published>
-    <updated>2024-09-14T01:38:26.478Z</updated>
+    <updated>2024-09-14T01:48:29.004Z</updated>
     
     <content type="html"><![CDATA[<p>這篇是 <a href="https://www.facebook.com/rick.kyhwang/posts/pfbid0f6xrxJDMvAoBTDRV6cSKshmEhCpizxpdGzXtEzYpRtL9LHgUxygVg6xE6J6pZ8GPl">2022&#x2F;09&#x2F;12</a> 寫下的隨筆，主要是整理軟體版本在軟體開發團隊內部、外部的意義。</p><p>版本的概念在我的職涯生涯裡，對個人來說幾乎是常識，而且大部分 Open Source Software (OSS) 也都是這樣。但實際上在軟體開發團隊的經驗裡，很難直接套在團隊上，因為普遍的團隊，無論怎樣的角色，對於版本是沒有概念的。</p><p>特別感謝 <a href="https://www.facebook.com/groups/DevOpsTaiwan/posts/5392736727479996/">DevOps 艦長 陳正瑋</a> 幫忙整理文字的摘要，如下：</p><ul><li>版本號是溝通的介面</li><li>為何需要版本號</li><li>何時決定版本號</li><li>為何需要版本號的管理原則</li><li>release 的生命週期</li><li>程式需要向下相容嗎</li></ul><p>其中，商業思維學院 院長 Gipi 也參與了討論，交換了不少想法，很有共鳴～</p><span id="more"></span><hr><h2 id="決定版本"><a href="#決定版本" class="headerlink" title="決定版本"></a>決定版本</h2><p>決定 版本 (Versioning) 的時間點：</p><ol><li>專案週期開始的時候</li><li>Release 的當下決定</li></ol><hr><h3 id="版本先決：階段開始就確立版本號碼-適合產品"><a href="#版本先決：階段開始就確立版本號碼-適合產品" class="headerlink" title="版本先決：階段開始就確立版本號碼 - 適合產品"></a>版本先決：階段開始就確立版本號碼 - 適合產品</h3><p>專案開始的時候決定版本號 (<a href="https://semver.org/">Semantic Versioning</a>，底下縮寫成 SemVer)，例如已經 Release 出去給別人用的版本是 <code>3.2.0</code>，而接下來要開發的是 <code>3.3.0</code>，改變的是第二碼。</p><p>這種開發流程，對於版本號碼是有很高的靈敏度，而版本號也是開發過程，團隊對內對外主要的溝通介面。</p><p>版本號通常在專案階段性的開始，由 Product Manager 宣告版本號碼，接下來要開發的版本號碼是 3.3.0 (有時候也會用代號)，然後改動 Source Code 裡面關鍵的版本編號檔，發動第一次的 Build 流程，代表下一個開發週期開始。</p><p>而已經 release 出去的版本，就代表著要做 <code>客戶關係管理 (CRM)</code>，也就是用版本先跟客戶對焦，確立問題的基礎點。通常為了避免內部資源耗盡，都會定義 LTS (Long Term Support) Version，通常不會同時有三個版本以上。 (我以前維護過 4 個 @@</p><p>大部分具規模的 Open Source 都是這種跑法，像是 K8s, Dapr, .NET, Linux, Ubuntu … 或者開發給別人使用的 <code>工具 (被依賴)</code>，就像像是 Lib &#x2F; SDK &#x2F; Tools &#x2F; CLI &#x2F; API … 也都適合這種方法。</p><h3 id="版本後決：上線前決定-適合專案"><a href="#版本後決：上線前決定-適合專案" class="headerlink" title="版本後決：上線前決定 - 適合專案"></a>版本後決：上線前決定 - 適合專案</h3><p>第二種屬於 Release 當下才知道版本，也就是 <code>專案完成決定版本</code>，通常屬於沒有被依賴、快速迭代的專案。</p><p>像是直接對外的 Web Site (有前端)，版本通常不會是必要的資訊，仰賴自動化標記版本號碼。實際的作法像是 commit 後的 hook 或者 gitops，依照規則自動打上版號，或者 timestamp，或者自動計算 SemVer。規則可以是 tag event、merge event、特定的 branch、特定的 branch naming role … 等。</p><p>這種案例比較好的做法也應該是走 SemVer，特別是 Single Code Base、Multiple Deployment 的時候，這樣才能確保 Single 的唯一性，也就是不同的部署，都是同一個 (Artifacts)。</p><p>概念就是同樣都是 Windows 11，大家裝的應該都是透過同一個 Image 安裝的，換言之也應該 專案開始決定版本 的做法</p><hr><h2 id="現象探討"><a href="#現象探討" class="headerlink" title="現象探討"></a>現象探討</h2><h3 id="版本後決衍生的現象-缺乏統一的溝通基礎"><a href="#版本後決衍生的現象-缺乏統一的溝通基礎" class="headerlink" title="版本後決衍生的現象 - 缺乏統一的溝通基礎"></a>版本後決衍生的現象 - 缺乏統一的溝通基礎</h3><p><code>版本後決</code> 通常會衍伸以下現象：</p><ol><li>版本本身沒有啥意義，因為大家不會拿來溝通</li><li>團隊各種角色 (P&#x2F;D&#x2F;Q&#x2F;O)，普遍都不知道現在版本是多少</li><li>各種角色的溝通沒有 Baseline<ul><li>Dev 會用各種技術手段自動化版號的更動，像是用 Timestamp 取代 SemVer、或者改動 SemVer 規則，像是三碼變兩碼、兩碼變一碼。總之，能動就好。</li><li>PM&#x2F;PO 通常也不會在乎，通常這都是產品&#x2F;專案規劃的問題，也是判斷軟體的產品經理是否具備專業度的指標之一。</li><li>其他角色 QA &#x2F; Ops 也不知道 Dev 在做啥。</li></ul></li></ol><p>換言之，溝通沒有一個標準的介面點，如果同一個版本布署到很多環境，其實沒有人能知道，這些環境用的版本是否是同一個 Artifact。所以通常沒有版本概念的團隊，也不太會有 Artifact 的概念，衍伸的問題則是蓋環境困難度很高 (Provisioning)。</p><p>團隊裡各個角色溝通的介面是模糊的，不是具體的介面。</p><p>通常這樣的團隊，QA 的測試往往沒有基礎點 (BaseLine)，換言之，常常會測到一半，版本就變了，但是沒人知道 (Dev &#x2F; QA 都不知道)</p><p>比較理想的測試基礎就是基於 Artifact，透過 Artifact 上的版本資訊，做驗證以及後續問題的討論與溝通。</p><h3 id="版本的用途是什麼？-溝通"><a href="#版本的用途是什麼？-溝通" class="headerlink" title="版本的用途是什麼？ - 溝通"></a>版本的用途是什麼？ - 溝通</h3><p>在軟體開發中，版本主要有幾個很重要的用途：</p><ol><li><code>溝通的標準介面</code>: 不管是怎樣的角色 (PM &#x2F; Dev &#x2F; QA &#x2F; Ops) 都是透過 版本溝通，以這為起點，才知道現在溝通的 base line 是什麼</li><li><code>產品的階段性</code>: 版本本身代表階段性功能的集合，例如 Windows 11 一定會有 “一堆 New Features”，這也牽涉 PO &#x2F; PM 對於階段性定義的掌握與佈局</li><li><code>持續迭代</code>: 版本本身就具備迭代概念，特別是 SemVer 就是個持續改善的定義</li></ol><p>版本背後也隱含：</p><ol><li><code>明確有哪些功能</code>: 例如 6.0 有一堆新功能 A, B, C, D，6.1 多了 E 功能。 … etc.</li><li><code>明確迭代的節奏</code>: 有週期性、有 LTS .</li><li><code>可以比較新舊差異</code>: 比較就是有新功能，有舊功能，才有辦法做 Migration Plan，或者告訴客戶應該怎麼應變。</li></ol><p>上述都仰賴團隊一起努力做好專案管理與產品規劃。</p><h3 id="在軟體開發過程，為什麼會缺乏版本？"><a href="#在軟體開發過程，為什麼會缺乏版本？" class="headerlink" title="在軟體開發過程，為什麼會缺乏版本？"></a>在軟體開發過程，為什麼會缺乏版本？</h3><p>沒有版本概念的肇因：</p><ol><li>缺乏全局角度的觀點，也就是從客戶角度思考產品</li><li>沒有溝通的標準介面定義，通常是專案管理的問題</li><li>為了自動化而自動化，只知道 commit 後會動 (ex: gitops) 就好</li></ol><p>普遍是為了自動而自動，工具都是為了輔助流程，<code>主、次</code> 應該是 <code>標準程序</code> 是 <code>主</code>，透過工具 (自動化) 滿足標準程序，工具 (自動化) 是 <code>次</code>。</p><!--## 軟體團隊開發，版本管理的常見問題### 問題：內外不一致的版本 - 開發工程師有自己內部的版本、PM 有自己對外的版本### 問題：同一個產品底下的模組版本是否一致的問題--><hr><h2 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h2><ul><li><a href="/2017/11/12/DevOps/Gossip-Automation/">自動化帶來的問題</a></li><li><a href="/2022/04/06/SoftwareEngineering/Artifact-Management-and-Version-Control/">Version Control 與 Artifact Management</a></li><li><a href="/2015/02/11/SoftwareEngineering/Version-Control/">Version Control</a></li></ul>]]></content>
     
@@ -161,8 +161,6 @@
     
     <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
     
-    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
-    
     <category term="Code Generator" scheme="https://rickhw.github.io/tags/Code-Generator/"/>
     
     <category term="Template" scheme="https://rickhw.github.io/tags/Template/"/>
@@ -170,6 +168,8 @@
     <category term="Productivity" scheme="https://rickhw.github.io/tags/Productivity/"/>
     
     <category term="Quality" scheme="https://rickhw.github.io/tags/Quality/"/>
+    
+    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
   </entry>
   
@@ -570,11 +570,11 @@
     
     <category term="Distributed Systems" scheme="https://rickhw.github.io/tags/Distributed-Systems/"/>
     
+    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
+    
     <category term="Distributed Communication" scheme="https://rickhw.github.io/tags/Distributed-Communication/"/>
     
     <category term="API Platform" scheme="https://rickhw.github.io/tags/API-Platform/"/>
-    
-    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
     <category term="Contract First" scheme="https://rickhw.github.io/tags/Contract-First/"/>
     
@@ -612,11 +612,11 @@
     
     <category term="Distributed Systems" scheme="https://rickhw.github.io/tags/Distributed-Systems/"/>
     
+    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
+    
     <category term="Distributed Communication" scheme="https://rickhw.github.io/tags/Distributed-Communication/"/>
     
     <category term="API Platform" scheme="https://rickhw.github.io/tags/API-Platform/"/>
-    
-    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
     <category term="Contract First" scheme="https://rickhw.github.io/tags/Contract-First/"/>
     
