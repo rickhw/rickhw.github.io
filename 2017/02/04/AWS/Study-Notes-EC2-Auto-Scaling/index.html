@@ -349,7 +349,7 @@ AWS 另一個類似發表於 2018&amp;#x2F;01&amp;#x2F;16 的服務叫做 AWS Au
 </blockquote>
 <p>如果 Health Type 是 ELB，那麼就會根據 CLB 或者 ALB Target Group 的狀態決定。當 ELB 狀態是 OutOfService 的時候，ASG 呈現 unhealthy 狀態。如果 Connection Draining 有開啟，那麼 ASG 會 in-flight 請求，或者等到 timeout。</p>
 <p>Health Type 可以自行定義，使用上目前只能透過 AWS CLI 設定，直接指定某一台機器的狀態為 <code>Unhealthy</code>，而這個狀態就由使用者自行設計，只是最後是透過 CLI 設定，如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">aws autoscaling set-instance-health \</span><br><span class="line">    --instance-id i-123abc45d \</span><br><span class="line">    --health-status Unhealthy</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">aws autoscaling set-instance-health \</span><br><span class="line">        --instance-id i-123abc45d \</span><br><span class="line">        --health-status Unhealthy</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>相關文件：</p>

@@ -343,9 +343,7 @@ Study N">
 </ol>
 <p>作法大概有以下：</p>
 <ol>
-<li>直接調整 ASG 的 Desired</li>
-</ol>
-<ul>
+<li>直接調整 ASG 的 Desired<ul>
 <li>流程：<ol>
 <li>為新版本建立 新的 Golden Image 與 Launch Config</li>
 <li>為 ASG 更換 Launch Config - 新舊版本不一樣的</li>
@@ -358,10 +356,8 @@ Study N">
 <li>優點：很簡單</li>
 <li>缺點：比較慢</li>
 </ul>
-<ol>
-<li>Blue&#x2F;Green: 建立新的 ASG</li>
-</ol>
-<ul>
+</li>
+<li>Blue&#x2F;Green: 建立新的 ASG<ul>
 <li>流程：<ol>
 <li>建立新的 ASG，長出與舊 ASG 一樣的機器數</li>
 <li>透過自動化，交換兩個新舊 ASG 的 ELB 設定</li>
@@ -371,10 +367,8 @@ Study N">
 <li>成本：部署過程會有額外成本產生</li>
 <li>優點：可以處理無法向下相容的版本，新舊版本可以快速切換</li>
 </ul>
-<ol>
-<li>A&#x2F;B: 建立新的 ELB 與額外成本產生立兩組，流量透過 Route53 直接調整分佈比例</li>
-</ol>
-<ul>
+</li>
+<li>A&#x2F;B: 建立新的 ELB 與額外成本產生立兩組，流量透過 Route53 直接調整分佈比例<ul>
 <li>流程：<ol>
 <li>建立新的 ELB + ASG</li>
 <li>設定 Route53 的 Traffic Policy</li>
@@ -385,6 +379,8 @@ Study N">
 <li>成本：部署過程會有額外成本產生</li>
 <li>優點：可以處理無法向下相容的版本，新舊版本可以快速切換，流量百分比可以自行控制</li>
 </ul>
+</li>
+</ol>
 <hr>
 <h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="系列文章"><a href="#系列文章" class="headerlink" title="系列文章"></a>系列文章</h2><ul>
 <li><a href="/2017/02/04/AWS/Study-Notes-EC2-Auto-Scaling/">Study Notes - EC2 Auto Scaling 基礎介紹</a></li>
@@ -524,7 +520,7 @@ Study N">
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/EC2/" style="color: white">EC2 <span class="badge">20</span></a></span> <span class="label label-success"><a href="/tags/ELB/" style="color: white">ELB <span class="badge">16</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">33</span></a></span> <span class="label label-success"><a href="/tags/EC2-Auto-Scaling/" style="color: white">EC2 Auto Scaling <span class="badge">13</span></a></span> <span class="label label-success"><a href="/tags/Provisioning/" style="color: white">Provisioning <span class="badge">16</span></a></span> <span class="label label-success"><a href="/tags/AMI/" style="color: white">AMI <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/SRE/" style="color: white">SRE <span class="badge">33</span></a></span> <span class="label label-success"><a href="/tags/Launch-Configurations/" style="color: white">Launch Configurations <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Blue-Green-Deployment/" style="color: white">Blue-Green Deployment <span class="badge">3</span></a></span>
+  <span class="label label-success"><a href="/tags/EC2/" style="color: white">EC2 <span class="badge">20</span></a></span> <span class="label label-success"><a href="/tags/ELB/" style="color: white">ELB <span class="badge">16</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">33</span></a></span> <span class="label label-success"><a href="/tags/EC2-Auto-Scaling/" style="color: white">EC2 Auto Scaling <span class="badge">13</span></a></span> <span class="label label-success"><a href="/tags/Provisioning/" style="color: white">Provisioning <span class="badge">16</span></a></span> <span class="label label-success"><a href="/tags/SRE/" style="color: white">SRE <span class="badge">33</span></a></span> <span class="label label-success"><a href="/tags/AMI/" style="color: white">AMI <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Launch-Configurations/" style="color: white">Launch Configurations <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Blue-Green-Deployment/" style="color: white">Blue-Green Deployment <span class="badge">3</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>

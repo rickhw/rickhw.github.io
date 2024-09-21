@@ -294,7 +294,7 @@ Source: [Controlling Which Instances Auto Scaling Terminates During Scale In][r1
 <h2 id="Default-Termination-Policy"><a href="#Default-Termination-Policy" class="headerlink" title="Default Termination Policy"></a>Default Termination Policy</h2><p>Default Termination Policy 挑選刪除 Instance 的條件次序：</p>
 <ol>
 <li>據機器在 AZ 的數量 -&gt; 選擇機器多的 AZ，然後挑一台砍掉</li>
-<li>如果在 AZ 裡有多台 unprotected instances，先找機器多的 AZs<br>a. 根據選擇 Instance Type 的策略，可能是 Spot or On-Demand<br>b. 如果有多台機器，則找到其中 LC or LT 最舊的機器，然後砍掉<br>c. 如果是使用 LC 跑起來的 ASG，找到最舊的 LC 砍掉。</li>
+<li>如果在 AZ 裡有多台 unprotected instances，先找機器多的 AZs<br>  a. 根據選擇 Instance Type 的策略，可能是 Spot or On-Demand<br>  b. 如果有多台機器，則找到其中 LC or LT 最舊的機器，然後砍掉<br>  c. 如果是使用 LC 跑起來的 ASG，找到最舊的 LC 砍掉。</li>
 <li>那一台機器快到下個 Billing 的時間</li>
 <li>如果有多台 unprotected instances 都快到下一個 billing hour，那就隨機挑一台坎。</li>
 </ol>
@@ -314,7 +314,7 @@ Source: [Controlling Which Instances Auto Scaling Terminates During Scale In][r1
 <li>Spot Instance Interruption 會直接砍了機器。</li>
 </ul>
 <h2 id="Termination-要注意的地方"><a href="#Termination-要注意的地方" class="headerlink" title="Termination 要注意的地方"></a>Termination 要注意的地方</h2><p>通常要砍掉機器，要注意的是應用程式是否有 <code>Graceful Shutdown</code>。</p>
-<p>如果執行中的程序 (Process)，直接被中斷，不影響邏輯或者狀態，那麼就無所謂。如果執行中的程序被中斷，會影響商業邏輯，那麼就要透過 Lifecycle 機制，通知應用程式執行完之後不要在繼續執行了，這個過程稱為  <code>Graceful Shutdown</code>。類似的例子是 ELB 的 Connection Draining (連線排水) 其實就是 Graceful Shutdown 在 Load Balancer 的實作。</p>
+<p>如果執行中的程序 (Process)，直接被中斷，不影響邏輯或者狀態，那麼就無所謂。如果執行中的程序被中斷，會影響商業邏輯，那麼就要透過 Lifecycle 機制，通知應用程式執行完之後不要在繼續執行了，這個過程稱為    <code>Graceful Shutdown</code>。類似的例子是 ELB 的 Connection Draining (連線排水) 其實就是 Graceful Shutdown 在 Load Balancer 的實作。</p>
 <p>ASG 上的 Graceful Shutdown 實作通常會搭配 Lifecycle Hooks 執行，詳細介紹參見：<a href="/2017/05/12/AWS/Study-Notes-EC2-Auto-Scaling_Lifecycle-and-Hooks/">EC2 Auto Scaling Lifecycle and Hooks</a>。</p>
 <hr>
 <h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="系列文章"><a href="#系列文章" class="headerlink" title="系列文章"></a>系列文章</h2><ul>

@@ -367,7 +367,7 @@ Study Notes - EC2 Auto S">
 <ul>
 <li>架構調整：應用程式一定要是 Stateless (無狀態)，架構上需要考慮 Loose Coupling。更多參考 <a href="/2017/02/11/DevOps/Resource-Provisioning-and-DevOps/">Architecting for the Cloud</a> 的整理。</li>
 <li>思考環境：因為有 AMI，環境的建置應該更快更容易，所以各個階段的環境應該都可以更自動，像是 Dev &#x2F; Test &#x2F; Staging &#x2F; Production。</li>
-<li>思考維運流程：這邊的 <strong>維運</strong> 指的是上線之後的事情，像是如何監控、異常處理流程、人員的訓練、監控機制的調整 … 等，都是要跟著改變的。</li>
+<li>思考維運流程：這邊的 *<em>維運</em>- 指的是上線之後的事情，像是如何監控、異常處理流程、人員的訓練、監控機制的調整 … 等，都是要跟著改變的。</li>
 <li>思考是否配合 ELB、EC2、Route53、CloudFormation 等服務使用，讓部署更自動化</li>
 </ul>
 <h2 id="Artifacts-Management"><a href="#Artifacts-Management" class="headerlink" title="Artifacts Management"></a>Artifacts Management</h2><p>應用程式的 Artifact 必須完善，ASG 在執行部署時，才更有彈性。</p>
@@ -379,10 +379,7 @@ Study Notes - EC2 Auto S">
 <blockquote>
 <p>詳細參見： <a href="/2018/07/08/DevOps/Artifacts-Management/">Artifacts Management</a>、<a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理</a></p>
 </blockquote>
-<h2 id="EC2-建置自動化"><a href="#EC2-建置自動化" class="headerlink" title="EC2 建置自動化"></a>EC2 建置自動化</h2><p>調整慮部署方式：部署方式要先從如何做 AMI 開始，如何自動化應用程式的配置 (Provision)、部署 (Deployment)、測試、監控 (Observing)、Log 如何搜集 … 等，這邊的重點在於這些事情都要 <code>自動化</code></p>
-<ul>
-<li>配置請參閱 <a href="/2017/02/11/DevOps/Resource-Provisioning-and-DevOps/">Resource Provisioning</a>，有更多想法整理。</li>
-</ul>
+<h2 id="EC2-建置自動化"><a href="#EC2-建置自動化" class="headerlink" title="EC2 建置自動化"></a>EC2 建置自動化</h2><p>調整慮部署方式：部署方式要先從如何做 AMI 開始，如何自動化應用程式的配置 (Provision)、部署 (Deployment)、測試、監控 (Observing)、Log 如何搜集 … 等，這邊的重點在於這些事情都要 <code>自動化</code><br>    - 配置請參閱 <a href="/2017/02/11/DevOps/Resource-Provisioning-and-DevOps/">Resource Provisioning</a>，有更多想法整理。</p>
 <h2 id="Config-Managemnet"><a href="#Config-Managemnet" class="headerlink" title="Config Managemnet"></a>Config Managemnet</h2><p>應用程式的配置管理 (Config Management, CM) 與設定 (Settings) 必須完全的應用程式抽離。</p>
 <h2 id="Design-for-Failure"><a href="#Design-for-Failure" class="headerlink" title="Design for Failure"></a>Design for Failure</h2><p>使用 ASG 當發生異常時，必須要有應變的方法。故障的種類大概有以下幾種：</p>
 <ol>
@@ -392,7 +389,7 @@ Study Notes - EC2 Auto S">
 </ol>
 <p><code>Graceful Shutdown</code> 是處理方式，簡單說，上述的狀況發生時，透過生命週期的 Callback &#x2F; Hook，決定如何處理這些問題。底下是 EC2 Instance Lifecycle 和 ASG Lifecycle 的整理，只要有處理這些 Hook &#x2F; Event 就可以達到自動修復的功能。</p>
 <ul>
-<li>EC2 Auto Scaling -  <a href="/2017/05/12/AWS/Study-Notes-EC2-Auto-Scaling_Lifecycle-and-Hooks/">Lifecycle and Hooks</a></li>
+<li>EC2 Auto Scaling -    <a href="/2017/05/12/AWS/Study-Notes-EC2-Auto-Scaling_Lifecycle-and-Hooks/">Lifecycle and Hooks</a></li>
 <li><a href="/2016/07/09/AWS/EC2-Instance-Lifecycle-And-Troubleshooting/">EC2 Instance Lifecycle and Troubleshooting</a></li>
 </ul>
 <!--
@@ -636,7 +633,7 @@ ASG 需要適度的教育訓練，針對 Developer、Operator 直接就是做 La
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/EC2/" style="color: white">EC2 <span class="badge">20</span></a></span> <span class="label label-success"><a href="/tags/ELB/" style="color: white">ELB <span class="badge">16</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">33</span></a></span> <span class="label label-success"><a href="/tags/EC2-Auto-Scaling/" style="color: white">EC2 Auto Scaling <span class="badge">13</span></a></span> <span class="label label-success"><a href="/tags/Provisioning/" style="color: white">Provisioning <span class="badge">16</span></a></span> <span class="label label-success"><a href="/tags/AMI/" style="color: white">AMI <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/SRE/" style="color: white">SRE <span class="badge">33</span></a></span> <span class="label label-success"><a href="/tags/Launch-Configurations/" style="color: white">Launch Configurations <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Blue-Green-Deployment/" style="color: white">Blue-Green Deployment <span class="badge">3</span></a></span>
+  <span class="label label-success"><a href="/tags/EC2/" style="color: white">EC2 <span class="badge">20</span></a></span> <span class="label label-success"><a href="/tags/ELB/" style="color: white">ELB <span class="badge">16</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">33</span></a></span> <span class="label label-success"><a href="/tags/EC2-Auto-Scaling/" style="color: white">EC2 Auto Scaling <span class="badge">13</span></a></span> <span class="label label-success"><a href="/tags/Provisioning/" style="color: white">Provisioning <span class="badge">16</span></a></span> <span class="label label-success"><a href="/tags/SRE/" style="color: white">SRE <span class="badge">33</span></a></span> <span class="label label-success"><a href="/tags/AMI/" style="color: white">AMI <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Launch-Configurations/" style="color: white">Launch Configurations <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Blue-Green-Deployment/" style="color: white">Blue-Green Deployment <span class="badge">3</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
