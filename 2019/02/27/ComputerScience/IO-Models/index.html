@@ -270,20 +270,20 @@
 <!--
 # 名詞
 
-* select / poll
-* epoll: nginx, Squid, Memcached
-* iocp (I/O completion ports): Windows 針對 AIO 的實作
-* kqueue (FreeBSD)
-* Patterns
-  * Read-Write Lock Pattern（讀寫鎖）
-  * Before / After Pattern
-  * Reactive / Observer Pattern
-  * Reactor 模型
-  * Future
-  * Promise
-* Race Condition: 競爭條件，又稱 Race Hazard (種族危險)
-* Context Switch
-* Critical Section
+- select / poll
+- epoll: nginx, Squid, Memcached
+- iocp (I/O completion ports): Windows 針對 AIO 的實作
+- kqueue (FreeBSD)
+- Patterns
+    - Read-Write Lock Pattern（讀寫鎖）
+    - Before / After Pattern
+    - Reactive / Observer Pattern
+    - Reactor 模型
+    - Future
+    - Promise
+- Race Condition: 競爭條件，又稱 Race Hazard (種族危險)
+- Context Switch
+- Critical Section
 -->
 
 <hr>
@@ -322,24 +322,22 @@ parallel
 <li><code>Non-Blocking I/O</code> (Non-Blocking &#x2F; Synchronous): NIO，非阻塞 I&#x2F;O</li>
 <li><code>I/O Multiplexing</code> (Blocking &#x2F; Asynchronous): I&#x2F;O 多工 (多路複用)</li>
 <li><code>Signal-driven I/O</code> (SIGIO): 訊號驅動，屬於 Synchronous I&#x2F;O</li>
-<li><code>Asynchronous I/O</code> (Non-Blocking &#x2F; Asynchronous): AIO</li>
-</ol>
-<ul>
+<li><code>Asynchronous I/O</code> (Non-Blocking &#x2F; Asynchronous): AIO<ul>
 <li>在 Java7 裡面稱為 NIO2</li>
 </ul>
+</li>
+</ol>
 <p>一次的 Network I&#x2F;O 都會涉及到兩個層次：先是呼叫此 I&#x2F;O 應用程式的 Process &#x2F; Thread，再來就是 Kernel。一個 read 動作會有以下兩個階段：</p>
 <ol>
-<li>等待資料準備好 (Waiting for the data to be ready).</li>
-</ol>
-<ul>
+<li>等待資料準備好 (Waiting for the data to be ready).<ul>
 <li>This involves waiting for data to arrive on the network. When the packet arrives, it is copied into a buffer within the kernel.</li>
 </ul>
-<ol start="2">
-<li>把資料從 Kernel 複製到 Process (Copying the data from the kernel to the process).</li>
-</ol>
-<ul>
+</li>
+<li>把資料從 Kernel 複製到 Process (Copying the data from the kernel to the process).<ul>
 <li>This means copying the (ready) data from the kernel’s buffer into our application buffer</li>
 </ul>
+</li>
+</ol>
 <p>這兩個階段的些微差異，產生了這五種 I&#x2F;O Models。</p>
 <p>依照我自己的理解，重新繪製了他們的時序圖，然後用我自己的語言重新解釋圖中的意思，整理如下。</p>
 <h2 id="1-Blocking-I-x2F-O-Model-BIO"><a href="#1-Blocking-I-x2F-O-Model-BIO" class="headerlink" title="1. Blocking I&#x2F;O Model (BIO)"></a>1. Blocking I&#x2F;O Model (BIO)</h2><p>阻塞發生在執行緒 (Thread) 處於執行中，無法處理其他任務造成的現象，除非滿足特定條件讓 Thread 繼續做事。最常見的例子就是寫入資料的操作，需要等到 I&#x2F;O 結束，才能繼續下一個動作。</p>
@@ -357,7 +355,7 @@ parallel
 <li>抽象概念來講，NIO 等同於 AIO，只是 NIO 是透過輪詢 (Polling) 方式取得結果，AIO 則有更多選擇。</li>
 </ul>
 <!--
-* 可以提供類似 `多工 (Multiplexing, 或翻譯成多路複用)` 的效果
+- 可以提供類似 `多工 (Multiplexing, 或翻譯成多路複用)` 的效果
 -->
 
 
@@ -433,8 +431,8 @@ parallel
 
 Nonblocking 與 AIO 的差異：
 
-* Nonblocking 只有第一個請求不會 Blocking，後面仍要持續的檢查 (Check)，等待資料完成。
-* AIO 則不需要持續檢查，不會 Blocking。
+- Nonblocking 只有第一個請求不會 Blocking，後面仍要持續的檢查 (Check)，等待資料完成。
+- AIO 則不需要持續檢查，不會 Blocking。
 
 
 ## 怎樣使用？
