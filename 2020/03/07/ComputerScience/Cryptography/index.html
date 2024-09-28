@@ -327,28 +327,24 @@
 <p><img src="/images/ComputerScience/HTTPS-TLS/ProcessOfDigitialCertificate.png"></p>
 <p>上圖左邊 Sender 的部分，也就是想要傳送資料的人，步驟如下：</p>
 <ol>
-<li>Sender 使用雜湊演算法 (Hashing algorithms)，計算待傳送資料 (Data) 的雜湊值 (Hash)</li>
-</ol>
-<ul>
+<li>Sender 使用雜湊演算法 (Hashing algorithms)，計算待傳送資料 (Data) 的雜湊值 (Hash)<ul>
 <li>常見的 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">雜湊演算法</a>：MD5、SHA-family</li>
 <li>可以透過 <code>openssl dgst -h</code> 找到相關的演算法。</li>
 <li>這個雜湊值也稱為 <code>指紋 (Fingerprint)</code></li>
 </ul>
-<ol>
-<li>Sender 用自己的 <code>私鑰 (PrivateKey)</code> 對步驟 1) 的 Fingerprint 進行加密，產生 <code>簽章 (Signature)</code></li>
-</ol>
-<ul>
+</li>
+<li>Sender 用自己的 <code>私鑰 (PrivateKey)</code> 對步驟 1) 的 Fingerprint 進行加密，產生 <code>簽章 (Signature)</code><ul>
 <li>這個動作叫做 <code>簽名 (Signing)</code>，用來代表證明是 Sender 送過去的 <code>認證</code></li>
 </ul>
-<ol>
-<li>Sender 將 (簽章和原始資料) 寄給 Receiver.</li>
-</ol>
-<ul>
+</li>
+<li>Sender 將 (簽章和原始資料) 寄給 Receiver.<ul>
 <li>Sender 應該要透過其他方式，對其他人 (包含 Receiver) 公開公鑰 (PublicKey)</li>
 <li>Data + Signature 稱為 <code>數位簽章資料（Digitally signed data）</code></li>
 </ul>
+</li>
+</ol>
 <p>這個過程用 <code>openssl</code> 範例如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 原始資料 (Data)</span></span><br><span class="line">❯ <span class="built_in">cat</span> Service.manifest</span><br><span class="line"></span><br><span class="line">service-id: gt.shorturl</span><br><span class="line">service-owner: rickhwang@abc.com</span><br><span class="line">service-init: 2020/01/22</span><br><span class="line"></span><br><span class="line"><span class="comment"># 取得資料的指紋 (Fingerprint)，範例使用雜揍演算法為 SHA1</span></span><br><span class="line"><span class="comment">## 註：MD5 / SHA1 已經都被證實會產生碰撞造成不安全</span></span><br><span class="line">❯ openssl dgst -sha1 Service.manifest</span><br><span class="line">SHA1(Service.manifest)= b3903ad5463fb72f5bad31088c43aae76fe4ce4c</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 透過 OpenSSL，使用 Private Key 與 sha1 簽一份檔案，產生簽章</span></span><br><span class="line"><span class="comment">## 一次完成步驟 1), 2)</span></span><br><span class="line">openssl dgst -sha1 \</span><br><span class="line">    -sign serviceA-rsa-4096bit.private.pem \</span><br><span class="line">    -out Service.manifest.sha1 \</span><br><span class="line">    Service.manifest</span><br><span class="line"></span><br><span class="line">❯ <span class="built_in">cat</span> Service.manifest.sha1</span><br><span class="line">S~�h�s</span><br><span class="line">      W�۳|2&#123;</span><br><span class="line">            ���~m�c�B�3�<span class="built_in">fc</span>��n�B�s�ܭX���]v=1[�E=�&#123;��ӭ�Cdg%���2 0���R</span><br><span class="line">Sb��O�p�w�</span><br><span class="line">	qB|a�Ĺ�Ƌ��!�&gt;&#123;�^,��8�oDc</span><br><span class="line"></span><br><span class="line"><span class="comment">## 轉 Base64</span></span><br><span class="line">❯ <span class="built_in">cat</span> Service.manifest.sha1 | openssl enc -<span class="built_in">base64</span> \</span><br><span class="line">    -out Service.manifest.sha1.enc</span><br><span class="line"></span><br><span class="line">❯ <span class="built_in">cat</span> Service.manifest.sha1.enc</span><br><span class="line">R15c71gPo/y8fhuJNFMrMHEMuOZ4SVYHlYvm2TWCJgoHoOsK+5+EsnmNbKk1eNFY</span><br><span class="line">xZsREPZbR549dMtPStJ+2/1OoTfrIWfrNM0lmEFCNqC1a8XiuM3BerUx1HAbwC0u</span><br><span class="line">...</span><br><span class="line">/OKSfK1/l2DMLXl1hafMzB3pHQiymkBLa0ZescTVD1t7BSfau08bu/aBvRHxbefS</span><br><span class="line">Xn46kKqkIhdlnOObWMQEjC1cuSXMg3N4chmuLAD4R1c=</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 原始資料 (Data)</span></span><br><span class="line">❯ <span class="built_in">cat</span> Service.manifest</span><br><span class="line"></span><br><span class="line">service-id: gt.shorturl</span><br><span class="line">service-owner: rickhwang@abc.com</span><br><span class="line">service-init: 2020/01/22</span><br><span class="line"></span><br><span class="line"><span class="comment"># 取得資料的指紋 (Fingerprint)，範例使用雜揍演算法為 SHA1</span></span><br><span class="line"><span class="comment">## 註：MD5 / SHA1 已經都被證實會產生碰撞造成不安全</span></span><br><span class="line">❯ openssl dgst -sha1 Service.manifest</span><br><span class="line">SHA1(Service.manifest)= b3903ad5463fb72f5bad31088c43aae76fe4ce4c</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 透過 OpenSSL，使用 Private Key 與 sha1 簽一份檔案，產生簽章</span></span><br><span class="line"><span class="comment">## 一次完成步驟 1), 2)</span></span><br><span class="line">openssl dgst -sha1 \</span><br><span class="line">        -sign serviceA-rsa-4096bit.private.pem \</span><br><span class="line">        -out Service.manifest.sha1 \</span><br><span class="line">        Service.manifest</span><br><span class="line"></span><br><span class="line">❯ <span class="built_in">cat</span> Service.manifest.sha1</span><br><span class="line">S~�h�s</span><br><span class="line">            W�۳|2&#123;</span><br><span class="line">                        ���~m�c�B�3�<span class="built_in">fc</span>��n�B�s�ܭX���]v=1[�E=�&#123;��ӭ�Cdg%���2 0���R</span><br><span class="line">Sb��O�p�w�</span><br><span class="line">	qB|a�Ĺ�Ƌ��!�&gt;&#123;�^,��8�oDc</span><br><span class="line"></span><br><span class="line"><span class="comment">## 轉 Base64</span></span><br><span class="line">❯ <span class="built_in">cat</span> Service.manifest.sha1 | openssl enc -<span class="built_in">base64</span> \</span><br><span class="line">        -out Service.manifest.sha1.enc</span><br><span class="line"></span><br><span class="line">❯ <span class="built_in">cat</span> Service.manifest.sha1.enc</span><br><span class="line">R15c71gPo/y8fhuJNFMrMHEMuOZ4SVYHlYvm2TWCJgoHoOsK+5+EsnmNbKk1eNFY</span><br><span class="line">xZsREPZbR549dMtPStJ+2/1OoTfrIWfrNM0lmEFCNqC1a8XiuM3BerUx1HAbwC0u</span><br><span class="line">...</span><br><span class="line">/OKSfK1/l2DMLXl1hafMzB3pHQiymkBLa0ZescTVD1t7BSfau08bu/aBvRHxbefS</span><br><span class="line">Xn46kKqkIhdlnOObWMQEjC1cuSXMg3N4chmuLAD4R1c=</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>寫成 psudo code 大概長這樣：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Fingerprint = Hash(Data, HashFunction);</span><br><span class="line">Signature = Signing(Fingerprint, PrivateKey);</span><br><span class="line">send (Signature, Certificate);</span><br></pre></td></tr></table></figure>
@@ -358,15 +354,13 @@
 <ol>
 <li>Receiver 會收到 Sender 寄來的 Data + Signature 兩個東西。</li>
 <li>Receiver 首先透過 Sender 對外公開的公鑰 (PublicKey) 對簽章進行解密，取得 Sender 簽名之前就計算好的 HashCode (Fingerprint)</li>
-<li>Receiver 使用跟 Sender 相同的 Hash 演算法計算出原始資料 (Data) 的 Hash 值</li>
-</ol>
-<ul>
+<li>Receiver 使用跟 Sender 相同的 Hash 演算法計算出原始資料 (Data) 的 Hash 值<ul>
 <li>Sender 使用的演算法是簽章中的明文資訊，Receiver 可以從中得知</li>
 </ul>
-<ol>
+</li>
 <li>Receiver 比較前兩步驟中得出的 Hash 值，兩者一樣，則驗證成功，反之則失敗</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Receiver 取得 PublicKey 及 Service.manifest.sha1 簽章檔，</span></span><br><span class="line"><span class="comment"># 驗證檔案確實是由 Sender 所簽發出的</span></span><br><span class="line">openssl dgst -sha1 \</span><br><span class="line">    -verify serviceA-rsa-4096bit.public.pem \</span><br><span class="line">    -signature Service.manifest.sha1 \</span><br><span class="line">    Service.manifest</span><br><span class="line">Verified OK</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Receiver 取得 PublicKey 及 Service.manifest.sha1 簽章檔，</span></span><br><span class="line"><span class="comment"># 驗證檔案確實是由 Sender 所簽發出的</span></span><br><span class="line">openssl dgst -sha1 \</span><br><span class="line">        -verify serviceA-rsa-4096bit.public.pem \</span><br><span class="line">        -signature Service.manifest.sha1 \</span><br><span class="line">        Service.manifest</span><br><span class="line">Verified OK</span><br></pre></td></tr></table></figure>
 
 <p>同樣的用 psudo code 表示這段：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">DigitallySingedData = (Signature, Certificate);</span><br><span class="line"></span><br><span class="line">PublicKey = Certificate?.GetPublicKey();</span><br><span class="line">HashFunctionName = Certificate?.GetHashFunction();</span><br><span class="line"></span><br><span class="line">DataHash = Hash(Data, HashFunctionName)</span><br><span class="line">SignatureHash = Decrypt(Signature, PublicKey)</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> (DataHash == SignatureHash);</span><br></pre></td></tr></table></figure>
@@ -419,7 +413,7 @@
 <ul>
 <li>Binary DER-encoded format</li>
 <li>PEM or base64 format<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN FOO BAR KEY-----</span><br><span class="line">MIIBgjAcBgoqhkiG9w0BDAEDMA4ECKZesfWLQOiDAgID6ASCAWBu7izm8N4V</span><br><span class="line">2puRO/Mdt+Y8ceywxiC0cE57nrbmvaTSvBwTg9b/xyd8YC6QK7lrhC9Njgp/</span><br><span class="line">...</span><br><span class="line">-----END FOO BAR KEY-----</span><br></pre></td></tr></table></figure></li>
-<li>XML format: W3C 和 .NET 的標準格式，以 XML 呈現的資料結構，如下：<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">RSAKeyPair</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">Modulus</span>&gt;</span>4IlzOY3Y9fXoh3Y5f06wBbtTg94Pt6vcfcd1KQ0FLm0S36aGJtTSb6pYKfyX7PqCUQ8wgL6xUJ5GRPEsu9</span><br><span class="line">    gyz8ZobwfZsGCsvu40CWoT9fcFBZPfXro1Vtlh/xl/yYHm+Gzqh0Bw76xtLHSfLfpVOrmZdwKmSFKMTvNXOFd0V18=</span><br><span class="line">  <span class="tag">&lt;/<span class="name">Modulus</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">Exponent</span>&gt;</span>AQAB<span class="tag">&lt;/<span class="name">Exponent</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">P</span>&gt;</span>9tbgIiFMXwpw/yf85bNQap3lD7WFlsZA+qgKtJubDFXCAR35N4KKFMjykw6SzaVmIbk80ga/tFUxydytypgt0Q==<span class="tag">&lt;/<span class="name">P</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">Q</span>&gt;</span>6N6wESUJ0gJRAd6K6JhQ9Xd3YaRFk2sIVZZzXfTIWxKTInOLf9Nwf/Wkqrt0/Twiato4kSqGW2wU6K5MnvqOLw==<span class="tag">&lt;/<span class="name">Q</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">DP</span>&gt;</span>l0zwh5sXf+4bgxsUtgtqkF+GJ1Hht6B/9eSI41m5+R6b0yl3OCJI1yKxJZi6PVlTt/oeILLIURYjdZNR56vN8Q==<span class="tag">&lt;/<span class="name">DP</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">DQ</span>&gt;</span>LPAkW/qgzYUi6tBuT/pszSHTyOTxhERIZHPXKY9+RozsFd7kUbOU5yyZLVVleyTqo2IfPmxNZ0ERO+G+6YMCgw==<span class="tag">&lt;/<span class="name">DQ</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">InverseQ</span>&gt;</span></span><br><span class="line">    WIjZoVA4hGqrA7y730v0nG+4tCol+/bkBS9u4oiJIW9LJZ7Qq1CTyr9AcewhJcV/+wLpIZa4M83ixpXub41fKA==</span><br><span class="line">  <span class="tag">&lt;/<span class="name">InverseQ</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">D</span>&gt;</span>pAPDJ0d2NDRspoa1eUkBSy6K0shissfXSAlqi5H3NvJ11ujNFZBgJzFHNWRNlc1nY860n1asLzduHO4Ovygt9DmQb</span><br><span class="line">    zTYbghb1WVq2EHzE9ctOV7+M8v/KeQDCz0Foo+38Y6idjeweVfTLyvehwYifQRmXskbr4saw+yRRKt/IQ==</span><br><span class="line">  <span class="tag">&lt;/<span class="name">D</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">RSAKeyPair</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<li>XML format: W3C 和 .NET 的標準格式，以 XML 呈現的資料結構，如下：<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">RSAKeyPair</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Modulus</span>&gt;</span>4IlzOY3Y9fXoh3Y5f06wBbtTg94Pt6vcfcd1KQ0FLm0S36aGJtTSb6pYKfyX7PqCUQ8wgL6xUJ5GRPEsu9</span><br><span class="line">        gyz8ZobwfZsGCsvu40CWoT9fcFBZPfXro1Vtlh/xl/yYHm+Gzqh0Bw76xtLHSfLfpVOrmZdwKmSFKMTvNXOFd0V18=</span><br><span class="line">    <span class="tag">&lt;/<span class="name">Modulus</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Exponent</span>&gt;</span>AQAB<span class="tag">&lt;/<span class="name">Exponent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">P</span>&gt;</span>9tbgIiFMXwpw/yf85bNQap3lD7WFlsZA+qgKtJubDFXCAR35N4KKFMjykw6SzaVmIbk80ga/tFUxydytypgt0Q==<span class="tag">&lt;/<span class="name">P</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Q</span>&gt;</span>6N6wESUJ0gJRAd6K6JhQ9Xd3YaRFk2sIVZZzXfTIWxKTInOLf9Nwf/Wkqrt0/Twiato4kSqGW2wU6K5MnvqOLw==<span class="tag">&lt;/<span class="name">Q</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">DP</span>&gt;</span>l0zwh5sXf+4bgxsUtgtqkF+GJ1Hht6B/9eSI41m5+R6b0yl3OCJI1yKxJZi6PVlTt/oeILLIURYjdZNR56vN8Q==<span class="tag">&lt;/<span class="name">DP</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">DQ</span>&gt;</span>LPAkW/qgzYUi6tBuT/pszSHTyOTxhERIZHPXKY9+RozsFd7kUbOU5yyZLVVleyTqo2IfPmxNZ0ERO+G+6YMCgw==<span class="tag">&lt;/<span class="name">DQ</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">InverseQ</span>&gt;</span></span><br><span class="line">        WIjZoVA4hGqrA7y730v0nG+4tCol+/bkBS9u4oiJIW9LJZ7Qq1CTyr9AcewhJcV/+wLpIZa4M83ixpXub41fKA==</span><br><span class="line">    <span class="tag">&lt;/<span class="name">InverseQ</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">D</span>&gt;</span>pAPDJ0d2NDRspoa1eUkBSy6K0shissfXSAlqi5H3NvJ11ujNFZBgJzFHNWRNlc1nY860n1asLzduHO4Ovygt9DmQb</span><br><span class="line">        zTYbghb1WVq2EHzE9ctOV7+M8v/KeQDCz0Foo+38Y6idjeweVfTLyvehwYifQRmXskbr4saw+yRRKt/IQ==</span><br><span class="line">    <span class="tag">&lt;/<span class="name">D</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">RSAKeyPair</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>PEN to XML 的轉換工具： <a target="_blank" rel="noopener" href="https://the-x.cn/en-US/certificate/PemToXml.aspx">https://the-x.cn/en-US/certificate/PemToXml.aspx</a></li>
 <li>.NET API: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.rsacryptoserviceprovider?view=net-5.0">https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.rsacryptoserviceprovider?view=net-5.0</a></li>
@@ -475,8 +469,8 @@
 
 要解決的問題：
 
-* HTTP 資料傳輸的加密
-* 服務認證
+- HTTP 資料傳輸的加密
+- 服務認證
 
 作法：
 
@@ -496,8 +490,8 @@
 # 四、資訊安全
 
 
-* XSS
-* SQL Injection
+- XSS
+- SQL Injection
 
 
 
@@ -513,27 +507,27 @@
 
 ## Auth
 
-* token
-* SSO
-* OpenID
-* OAuth
-* OAuth 2.0
-    - 老版跟秘書
-    - 委任書
-    - Implicit Grant Flow: Facebook
-        - Access Token 的安全性
-        - Browser app/plugin
-    - Authorization Code: Google, FB
+- token
+- SSO
+- OpenID
+- OAuth
+- OAuth 2.0
+        - 老版跟秘書
+        - 委任書
+        - Implicit Grant Flow: Facebook
+                - Access Token 的安全性
+                - Browser app/plugin
+        - Authorization Code: Google, FB
 
 ## 工具
 
-* openssl
-* pgp
+- openssl
+- pgp
 
-* token 令牌
-  * access token
-  * security token
-  * session token: JSESSIONID (Java EE), PHPSESSID (PHP), and ASPSESSIONID (Microsoft ASP)
+- token 令牌
+    - access token
+    - security token
+    - session token: JSESSIONID (Java EE), PHPSESSID (PHP), and ASPSESSIONID (Microsoft ASP)
 
 
 -->
@@ -565,9 +559,9 @@
 <blockquote>
 <ol>
 <li>How are you.</li>
-<li>hOW ARE YOU.  (大小寫互換)</li>
-<li>Oh WRA EOY.U  (位置對調)</li>
-<li>Le TOX BLV.R  (字母往左移三個位數)</li>
+<li>hOW ARE YOU.    (大小寫互換)</li>
+<li>Oh WRA EOY.U    (位置對調)</li>
+<li>Le TOX BLV.R    (字母往左移三個位數)</li>
 </ol>
 </blockquote>
 <p>心儀對象打開信封之後，只要發現內容符合規則，那麼就只有他知道怎麼解讀內容。</p>
@@ -601,7 +595,7 @@
 <ol>
 <li><code>In Transit (傳輸)</code>: the data which is being transmitted somewhere to somewhere else</li>
 <li><code>At Rest (落地)</code>: the data that is stored somewhere without being used by and&#x2F;or transmitted to anyone</li>
-<li><code>In Use (使用)</code>:  the data is not just being stored passively on a hard drive or external storage media, but is being processed by one or more applications</li>
+<li><code>In Use (使用)</code>:    the data is not just being stored passively on a hard drive or external storage media, but is being processed by one or more applications</li>
 </ol>
 <p>其實就是資料在 <code>傳輸</code>、<code>落地</code>、<code>使用</code> 三個階段的概念。</p>
 <p>傳輸 (In transit) 大多都是走 SSL&#x2F;TLS, mTLS 方式，但 落地 (At Rest) 的方式每個實作都不一樣，底下整理一些 Solution 的資訊:</p>
