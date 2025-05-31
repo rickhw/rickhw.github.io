@@ -275,7 +275,7 @@ API 治理與管理：版本控管、導入策略 (API ">
 <li><code>API 實作與模式</code>：包含常見的機制，像是 async、pagination、tracing、idempotence、batch、bulk … 等</li>
 <li><code>API 軟體工程</code>：開發方法、測試方法、開發流程、跨團隊協作、文件</li>
 </ol>
-<p>以及寫在 <a target="_blank" rel="noopener" href="https://www.facebook.com/rick.kyhwang/posts/pfbid02GVzcRhLpYhtpX4NbK876vfbrB3ZAWXVniLgD7842zH4XRA3SwYKerwirYAC9jg7ml">FB</a> 的隨筆，包含 API 在當代軟體開發的重要性、設計方法論、實務經驗談，以及一些背後的思路。</p>
+<p>以及寫在 <a target="_blank" rel="noopener" href="https://www.facebook.com/rick.kyhwang/posts/pfbid02GVzcRhLpYhtpX4NbK876vfbrB3ZAWXVniLgD7842zH4XRA3SwYKerwirYAC9jg7ml">FB</a>, <a target="_blank" rel="noopener" href="https://www.threads.net/@rick.kyhwang/post/DF-BbSiTs17">Thread#1</a>, <a target="_blank" rel="noopener" href="https://www.threads.net/@rick.kyhwang/post/DGA1LrNzQp0">Thread#2</a>, <a target="_blank" rel="noopener" href="https://www.threads.net/@rick.kyhwang/post/DGjXMqkTU-b">Thread#3</a> 的隨筆，包含 API 在當代軟體開發的重要性、設計方法論、實務經驗談，以及一些背後的思路。</p>
 <span id="more"></span>
 
 <hr>
@@ -475,7 +475,7 @@ API 治理與管理：版本控管、導入策略 (API ">
 <li>API 管理與治理（Management）</li>
 </ol>
 <p>Design Methodology 目的就是要找出一個設計方法，可以讓公司的 API 設計對標一些大型組織的設計，那時候研究 K8s API、GCP API、Shopify API、AWS API、GitHub API、Azure API … 等。這些 API 都有一個共通點，就是資源的狀態移轉，以及角色的權限控管。加上之前我使用 Redmine 等經驗，所以嘗試把 FSM 的概念帶入 RESTful 設計裡，搭配 OOD 的 Class Diagram 設計，這樣的設計方法論，可以讓 API 設計更有邏輯性，也更容易讓使用者理解。同時可以透過刪去法，減少不必要的 API，讓 API 的語意更清晰。</p>
-<p>API Architecture 的工作重點則是要規劃 API Gateway 以及內部系統通訊協議，這部分是的大坑，有空再來寫。</p>
+<p>API Architecture 的工作重點則是要規劃 API Gateway 以及內部系統通訊協議，這部分是的大坑，有空再來寫。有興趣可以看看 2018 我在 AWS Summit 分享的 <a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a>、<a href="/2018/01/24/DistributedSystems/Overview-API-Gateway/">AWS API Gateway 系列文</a>、<a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/study-notes-using-an-api-gateway">Study Notes - Using an API Gateway</a> 的分享。</p>
 <p>API Management 則是要規劃 API 的生命週期管理，包含 API 設計、API 開發、API 測試、API 上線、API 監控、API 退市等等。這部分也是大坑，有空再來寫 XDD  </p>
 <p>過程中，啃了不少書，有三本推薦的:</p>
 <ol>
@@ -513,6 +513,8 @@ API 治理與管理：版本控管、導入策略 (API ">
 <li><a href="/2023/06/24/DistributedSystems/API-First_Communication-Protocol/">API 設計 - 摘要 API 通訊模式與協議</a></li>
 <li><a href="/2023/07/02/DistributedSystems/API-First_Integration-Matrix/">API 設計 - API 整合矩陣</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.threads.net/@rick.kyhwang/post/DGjXMqkTU-b">API First Approach 導入的實際問題</a>, <a target="_blank" rel="noopener" href="https://www.facebook.com/rick.kyhwang/posts/pfbid02GVzcRhLpYhtpX4NbK876vfbrB3ZAWXVniLgD7842zH4XRA3SwYKerwirYAC9jg7ml">FB</a></li>
+<li><a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/study-notes-using-an-api-gateway">Study Notes - Using an API Gateway</a></li>
 </ul>
 
 
