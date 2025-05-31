@@ -1,0 +1,698 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>K8s 學習筆記 - 在 MacBook Pro M1 安裝 K3s | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="在 Macbook Pro M1 (Apple Silicon) 安裝 K3s 的筆記。
+
+
+
+摘要K3d vs K3sK3d 其實是 K3s in Docker 的縮寫，也就是透過 docker 把 K8s 的角色跑起來，包含 api, kube-api, kube-proxy, coredns ">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="K8s 學習筆記 - 在 MacBook Pro M1 安裝 K3s"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/2023/01/17/Container/Install-K3s-on-MBPR-M1/"/>
+  <meta property="og:image" content="/images/Container/k3s/k3s-architecture-single-server.png" />
+  
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<!--
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'G-74Y1F3F5W0']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-74Y1F3F5W0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-74Y1F3F5W0');
+</script>
+
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!-- @rickd 2022/02/24
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
+  -->
+  <!-- @ricka 2022/02/24 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!--
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="bd9r2mJp"></script>
+  -->
+
+  <!-- @ricka 2022/09/06 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="opf2Gext"></script>
+
+
+</head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+						
+						<li><a href="/categories/About/">About <sup>29</sup></a></li>
+						
+						<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+						
+						<li><a href="/categories/經營管理/Career/">Career <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
+						
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Data/">Data <sup>2</sup></a></li>
+						
+						<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+						
+						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>20</sup></a></li>
+						
+						<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+						
+						<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+						
+						<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+						
+						<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+						
+						<li><a href="/categories/DevOps/SRE/">SRE <sup>25</sup></a></li>
+						
+						<li><a href="/categories/Software-Engineering/">Software Engineering <sup>10</sup></a></li>
+						
+						<li><a href="/categories/System-Design/">System Design <sup>2</sup></a></li>
+						
+						<li><a href="/categories/經營管理/人才管理/">人才管理 <sup>10</sup></a></li>
+						
+						<li><a href="/categories/經營管理/溝通/">溝通 <sup>9</sup></a></li>
+						
+						<li><a href="/categories/經營管理/知識管理/">知識管理 <sup>4</sup></a></li>
+						
+						<li><a href="/categories/經營管理/">經營管理 <sup>61</sup></a></li>
+						
+						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
+						
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"> <i class="fa fa-book"></i>學習法則</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂 (v2021)</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> K8s 學習筆記 - 在 MacBook Pro M1 安裝 K3s</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> K8s 學習筆記 - 在 MacBook Pro M1 安裝 K3s</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+		
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2023%2F01%2F17%2FContainer%2FInstall-K3s-on-MBPR-M1%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2023/01/17/Container/Install-K3s-on-MBPR-M1/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/2023/01/17/Container/Install-K3s-on-MBPR-M1/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<p>在 Macbook Pro M1 (Apple Silicon) 安裝 K3s 的筆記。</p>
+<span id="more"></span>
+
+<hr>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><h2 id="K3d-vs-K3s"><a href="#K3d-vs-K3s" class="headerlink" title="K3d vs K3s"></a>K3d vs K3s</h2><p>K3d 其實是 <code>K3s in Docker</code> 的縮寫，也就是透過 docker 把 K8s 的角色跑起來，包含 api, kube-api, kube-proxy, coredns … 等。兩者的使用對象有所差異，整理如下：</p>
+<ul>
+<li>開發者：適合用 K3d 快速建立 cluster，測試自己的應用程式。<ul>
+<li>如果要在 Apple Silicon 的環境使用 k8s，也可以用 k3d 就可以。</li>
+</ul>
+</li>
+<li>K8s admin：適合用 K3s 設計與規劃 K8s cluster，模擬各種 cluster 的需求。</li>
+</ul>
+<p>K3s 的架構與原理如下圖：</p>
+<p><img src="/images/Container/k3s/k3s-architecture-single-server.svg"></p>
+<p>Source: <a target="_blank" rel="noopener" href="https://docs.k3s.io/architecture">https://docs.k3s.io/architecture</a></p>
+<p>類似於 dapr 的 hosted mode 與 cluster mode.</p>
+<h2 id="Multipasss"><a href="#Multipasss" class="headerlink" title="Multipasss"></a>Multipasss</h2><p><a target="_blank" rel="noopener" href="https://multipass.run/">multipass</a> 是 ubuntu 的公司出的，針對 ubuntu 在三大作業系統上可以順利運行 ubuntu vm 的工具，本身提供的 ubuntu image 也是輕量化過的。</p>
+<h3 id="安裝-multipass"><a href="#安裝-multipass" class="headerlink" title="安裝 multipass"></a>安裝 multipass</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">❯ brew install --cask multipass</span><br><span class="line">Running `brew update --auto-update`...</span><br><span class="line">==&gt; Auto-updated Homebrew!</span><br><span class="line">Updated 1 tap (homebrew/core).</span><br><span class="line">==&gt; New Formulae</span><br><span class="line">aptos          cargo-about    ecoji          grayskull      kwctl          podsync        twm            xorg-server</span><br><span class="line">aws-sam-cli    cargo-deny     fgbio          jbang          mpfrcx         quartz-wm      video-compare  xrdb</span><br><span class="line">bossa          cascadia       flagd          jreleaser      ocm            ruby@3.1       xinit</span><br><span class="line">bzip3          cdebug         gokey          kubent         openvino       simdutf        xmodmap</span><br><span class="line"></span><br><span class="line">You have 3 outdated formulae installed.</span><br><span class="line">You can upgrade them with brew upgrade</span><br><span class="line">or list them with brew outdated.</span><br><span class="line"></span><br><span class="line">==&gt; Tapping homebrew/cask</span><br><span class="line">Cloning into <span class="string">&#x27;/opt/homebrew/Library/Taps/homebrew/homebrew-cask&#x27;</span>...</span><br><span class="line">remote: Enumerating objects: 702522, <span class="keyword">done</span>.</span><br><span class="line">remote: Counting objects: 100% (57/57), <span class="keyword">done</span>.</span><br><span class="line">remote: Compressing objects: 100% (41/41), <span class="keyword">done</span>.</span><br><span class="line">Receiving objects:  39% (273984/702522), 98.74 MiB | 3.09 MiB/s</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">==&gt; Installing Cask multipass</span><br><span class="line">==&gt; Running installer <span class="keyword">for</span> multipass; your password may be necessary.</span><br><span class="line">Package installers may write to any location; options such as `--appdir` are ignored.</span><br><span class="line">Password:</span><br><span class="line">installer: Package name is multipass</span><br><span class="line">installer: Installing at base path /</span><br><span class="line">installer: The install was successful.</span><br><span class="line">🍺  multipass was successfully installed!</span><br></pre></td></tr></table></figure>
+
+<p>基本的使用參數：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">❯ multipass version</span><br><span class="line">multipass   1.10.1+mac</span><br><span class="line">multipassd  1.10.1+mac</span><br><span class="line"></span><br><span class="line"><span class="comment">## Help</span></span><br><span class="line">❯ multipass <span class="built_in">help</span></span><br><span class="line">Usage: multipass [options] &lt;<span class="built_in">command</span>&gt;</span><br><span class="line">Create, control and connect to Ubuntu instances.</span><br><span class="line"></span><br><span class="line">This is a <span class="built_in">command</span> line utility <span class="keyword">for</span> multipass, a</span><br><span class="line">service that manages Ubuntu instances.</span><br><span class="line"></span><br><span class="line"><span class="comment">## 查看 launch 的 help</span></span><br><span class="line">❯ multipass <span class="built_in">help</span> launch</span><br><span class="line">Usage: multipass launch [options] [[&lt;remote:&gt;]&lt;image&gt; | &lt;url&gt;]</span><br><span class="line">Create and start a new instance.</span><br><span class="line"></span><br><span class="line"><span class="comment">## 提供哪一些 Images</span></span><br><span class="line">❯ multipass find</span><br><span class="line">Image                       Aliases           Version          Description</span><br><span class="line">snapcraft:core18            18.04             20201111         Snapcraft builder <span class="keyword">for</span> Core 18</span><br><span class="line">snapcraft:core20            20.04             20210921         Snapcraft builder <span class="keyword">for</span> Core 20</span><br><span class="line">snapcraft:core22            22.04             20220426         Snapcraft builder <span class="keyword">for</span> Core 22</span><br><span class="line">18.04                       bionic            20230112         Ubuntu 18.04 LTS</span><br><span class="line">20.04                       focal             20230111         Ubuntu 20.04 LTS</span><br><span class="line">22.04                       jammy,lts         20230107         Ubuntu 22.04 LTS</span><br><span class="line">anbox-cloud-appliance                         latest           Anbox Cloud Appliance</span><br><span class="line">charm-dev                                     latest           A development and testing environment <span class="keyword">for</span> charmers</span><br><span class="line">docker                                        latest           A Docker environment with Portainer and related tools</span><br><span class="line">jellyfin                                      latest           Jellyfin is a Free Software Media System that puts you <span class="keyword">in</span> control of managing and streaming your media.</span><br><span class="line">minikube                                      latest           minikube is <span class="built_in">local</span> Kubernetes</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="啟動虛擬機"><a href="#啟動虛擬機" class="headerlink" title="啟動虛擬機"></a>啟動虛擬機</h3><p>透過 multipass 啟動一個虛擬機，指定虛擬機名稱、記憶體、Disk、CPU 數量、網路模式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">❯ multipass launch --name k3s-main \</span><br><span class="line">    --mem 4G --disk 20G \</span><br><span class="line">    --cpus 2</span><br><span class="line"></span><br><span class="line">Launched: k3s-main</span><br><span class="line"></span><br><span class="line">❯ multipass info k3s-main</span><br><span class="line">Name:           k3s-main</span><br><span class="line">State:          Running</span><br><span class="line">IPv4:           192.168.64.3</span><br><span class="line">Release:        Ubuntu 22.04.1 LTS</span><br><span class="line">Image <span class="built_in">hash</span>:     3100a27357a0 (Ubuntu 22.04 LTS)</span><br><span class="line">Load:           0.88 0.37 0.14</span><br><span class="line">Disk usage:     2.4G out of 19.2G</span><br><span class="line">Memory usage:   749.0M out of 3.8G</span><br><span class="line">Mounts:         --</span><br><span class="line"></span><br><span class="line">❯ <span class="built_in">mkdir</span> -p ~/Temp/K8s</span><br><span class="line"></span><br><span class="line"><span class="comment">## 掛載磁碟: Host Machine to Virtual Machine</span></span><br><span class="line">❯ multipass mount ~/Temp/K8s k3s:~/k8s</span><br><span class="line">Enabling support <span class="keyword">for</span> mounting \</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 刪除虛擬機</span></span><br><span class="line">❯ multipass delete k3s-main</span><br><span class="line">❯ multipass purge</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>進去虛擬機</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">❯ multipass shell k3s-main</span><br><span class="line"></span><br><span class="line"><span class="comment">## 查看 disk 狀況</span></span><br><span class="line">ubuntu@k3s-main:~$ <span class="built_in">df</span> -h</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">tmpfs           393M  864K  392M   1% /run</span><br><span class="line">/dev/vda1        20G  1.9G   18G  10% /</span><br><span class="line">tmpfs           2.0G     0  2.0G   0% /dev/shm</span><br><span class="line">tmpfs           5.0M     0  5.0M   0% /run/lock</span><br><span class="line">/dev/vda15      105M  5.3M  100M   5% /boot/efi</span><br><span class="line">tmpfs           393M  4.0K  393M   1% /run/user/1000</span><br><span class="line"></span><br><span class="line"><span class="comment">## 查看 CPU 狀況, 需要安裝 apt install cpuinfo</span></span><br><span class="line">ubuntu@k3s-main:~$ cpu-info</span><br><span class="line">Packages:</span><br><span class="line">	0: Intel Core i9-9900K</span><br><span class="line">	1: Intel Core i9-9900K</span><br><span class="line">Microarchitectures:</span><br><span class="line">	2x Sky Lake</span><br><span class="line">Cores:</span><br><span class="line">	0: 1 processor (0), Intel Sky Lake</span><br><span class="line">	1: 1 processor (1), Intel Sky Lake</span><br><span class="line">Logical processors (System ID):</span><br><span class="line">	0 (0): APIC ID 0x00000000</span><br><span class="line">	1 (1): APIC ID 0x00000001</span><br></pre></td></tr></table></figure>
+
+
+<p>整理幾個 multipass 運作的資訊：</p>
+<ul>
+<li>multipass 程序主要工作在 <code>/Library/Application Support/com.canonical.multipass</code></li>
+<li>multipass 預設使用 <code>qemu</code> 為 Hypervisor，虛擬磁碟為 COW2 格式，網路為 Bridge 模式</li>
+<li>虛擬機的預設路徑為：<code>/var/root/Library/Application Support/multipassd/</code> (需要 root 權限才能存取)</li>
+<li>multipass 預設透過 luanchd 跟著作業系統啟動<ul>
+<li>配置檔位置： <code>/Library/LaunchDaemons/com.canonical.multipassd.plist</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="安裝-K3s"><a href="#安裝-K3s" class="headerlink" title="安裝 K3s"></a>安裝 K3s</h1><h2 id="直接安裝"><a href="#直接安裝" class="headerlink" title="直接安裝"></a>直接安裝</h2><p>如果在 macOS 直接安裝 k3s 會出現以下訊息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">❯ curl -sfL https://get.k3s.io | sh -</span><br><span class="line">[ERROR]  Can not find systemd or openrc to use as a process supervisor <span class="keyword">for</span> k3s</span><br></pre></td></tr></table></figure>
+
+<p>不管是 Intel or Apple Silicon 都是。</p>
+<h2 id="在-VM-裡面安裝-K3s"><a href="#在-VM-裡面安裝-K3s" class="headerlink" title="在 VM 裡面安裝 K3s"></a>在 VM 裡面安裝 K3s</h2><p>透過 multipass 裝起好一台 VM 之後，進去裡面再安裝 K3s 就可以了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 在虛擬機裡面</span></span><br><span class="line">root@k3s:~<span class="comment"># curl -sfL https://get.k3s.io | sh -</span></span><br><span class="line">[INFO]  Finding release <span class="keyword">for</span> channel stable</span><br><span class="line">[INFO]  Using v1.25.5+k3s2 as release</span><br><span class="line">[INFO]  Downloading <span class="built_in">hash</span> https://github.com/k3s-io/k3s/releases/download/v1.25.5+k3s2/sha256sum-arm64.txt</span><br><span class="line">[INFO]  Downloading binary https://github.com/k3s-io/k3s/releases/download/v1.25.5+k3s2/k3s-arm64</span><br><span class="line">[INFO]  Verifying binary download</span><br><span class="line">[INFO]  Installing k3s to /usr/local/bin/k3s</span><br><span class="line">[INFO]  Skipping installation of SELinux RPM</span><br><span class="line">[INFO]  Creating /usr/local/bin/kubectl symlink to k3s</span><br><span class="line">[INFO]  Creating /usr/local/bin/crictl symlink to k3s</span><br><span class="line">[INFO]  Creating /usr/local/bin/ctr symlink to k3s</span><br><span class="line">[INFO]  Creating killall script /usr/local/bin/k3s-killall.sh</span><br><span class="line">[INFO]  Creating uninstall script /usr/local/bin/k3s-uninstall.sh</span><br><span class="line">[INFO]  <span class="built_in">env</span>: Creating environment file /etc/systemd/system/k3s.service.env</span><br><span class="line">[INFO]  systemd: Creating service file /etc/systemd/system/k3s.service</span><br><span class="line">[INFO]  systemd: Enabling k3s unit</span><br><span class="line">Created symlink /etc/systemd/system/multi-user.target.wants/k3s.service → /etc/systemd/system/k3s.service.</span><br><span class="line">[INFO]  systemd: Starting k3se</span><br><span class="line"></span><br><span class="line"><span class="comment">## 確認 K8s 安裝的狀況</span></span><br><span class="line">ubuntu@k3s-main:~$ sudo kubectl get po,no --all-namespaces</span><br><span class="line">NAMESPACE     NAME                                          READY   STATUS      RESTARTS   AGE</span><br><span class="line">kube-system   pod/local-path-provisioner-79f67d76f8-w946b   1/1     Running     0          8m15s</span><br><span class="line">kube-system   pod/coredns-597584b69b-9mx2w                  1/1     Running     0          8m15s</span><br><span class="line">kube-system   pod/metrics-server-5f9f776df5-p826z           1/1     Running     0          8m15s</span><br><span class="line">kube-system   pod/helm-install-traefik-crd-bq27h            0/1     Completed   0          8m15s</span><br><span class="line">kube-system   pod/helm-install-traefik-b6vb4                0/1     Completed   1          8m15s</span><br><span class="line">kube-system   pod/svclb-traefik-09095d96-v9fpk              2/2     Running     0          7m45s</span><br><span class="line">kube-system   pod/traefik-66c46d954f-r48tq                  1/1     Running     0          7m45s</span><br><span class="line"></span><br><span class="line">NAMESPACE   NAME            STATUS   ROLES                  AGE     VERSION</span><br><span class="line">            node/k3s-main   Ready    control-plane,master   8m31s   v1.25.5+k3s2</span><br><span class="line"></span><br><span class="line">ubuntu@k3s-main:~$ sudo kubectl api-resources</span><br><span class="line">NAME                              SHORTNAMES   APIVERSION                             NAMESPACED   KIND</span><br><span class="line">bindings                                       v1                                     <span class="literal">true</span>         Binding</span><br><span class="line">componentstatuses                 cs           v1                                     <span class="literal">false</span>        ComponentStatus</span><br><span class="line">configmaps                        cm           v1                                     <span class="literal">true</span>         ConfigMap</span><br><span class="line">endpoints                         ep           v1                                     <span class="literal">true</span>         Endpoints</span><br><span class="line">events                            ev           v1                                     <span class="literal">true</span>         Event</span><br><span class="line">... 略 ...</span><br><span class="line"></span><br><span class="line">ubuntu@k3s-main:~$ sudo kubectl get rs --all-namespaces</span><br><span class="line">NAMESPACE     NAME                                DESIRED   CURRENT   READY   AGE</span><br><span class="line">kube-system   local-path-provisioner-79f67d76f8   1         1         1       10m</span><br><span class="line">kube-system   coredns-597584b69b                  1         1         1       10m</span><br><span class="line">kube-system   metrics-server-5f9f776df5           1         1         1       10m</span><br><span class="line">kube-system   traefik-66c46d954f                  1         1         1       10m</span><br><span class="line"></span><br><span class="line"><span class="comment">## 在 Host Machine，取得 K8s 的 Node Token</span></span><br><span class="line">❯ multipass <span class="built_in">exec</span> k3s-main sudo <span class="built_in">cat</span> /var/lib/rancher/k3s/server/node-token</span><br><span class="line">K1082f1ce868a513c55999a7eba68ab888dc2035baf2323131466364f65bf5f0220::server:27b105f74351819669c0481da7c87baa</span><br><span class="line"></span><br><span class="line"><span class="comment">## 在 Master Node 裏取得 KubeConfig</span></span><br><span class="line"><span class="comment">## 如果要在 Master Node 之外使用，複製檔案內容後，</span></span><br><span class="line"><span class="comment">## 記得把 server: https://127.0.0.1:6443 改成 Master Node 的 IP</span></span><br><span class="line"><span class="built_in">cat</span> /etc/rancher/k3s/k3s.yaml</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="新增-Worker-Node"><a href="#新增-Worker-Node" class="headerlink" title="新增 Worker Node"></a>新增 Worker Node</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">multipass launch --name k3s-worker1 --mem 2G --disk 20G</span><br><span class="line">multipass launch --name k3s-worker2 --mem 2G --disk 20G</span><br><span class="line"></span><br><span class="line">multipass shell k3s-worker1</span><br><span class="line">multipass shell k3s-worker2</span><br><span class="line"></span><br><span class="line"><span class="comment">## 進去 VM 裡</span></span><br><span class="line">curl -sfL https://get.k3s.io | K3S_URL=https://192.168.64.3:6443 K3S_TOKEN=<span class="string">&quot;K102a46f234cf614bd49a50092389d8e03fed00618846936782fbdae904c32ee9d5::server:5fc3190151a2de0126199cc6fbd94acf&quot;</span> sh -</span><br><span class="line"></span><br><span class="line"><span class="comment">## 在 Master Node</span></span><br><span class="line">ubuntu@k3s-main:~$ sudo kubectl get no</span><br><span class="line">NAME          STATUS   ROLES                  AGE   VERSION</span><br><span class="line">k3s-main      Ready    control-plane,master   65m   v1.25.5+k3s2</span><br><span class="line">k3s-worker1   Ready    &lt;none&gt;                 75s   v1.25.5+k3s2</span><br><span class="line">k3s-worker2   Ready    &lt;none&gt;                 2s    v1.25.5+k3s2</span><br></pre></td></tr></table></figure>
+
+<h2 id="移除-Worker-Node"><a href="#移除-Worker-Node" class="headerlink" title="移除 Worker Node"></a>移除 Worker Node</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kubectl drain k3s-worker --delete-emptydir-data --force --ignore-daemonsets</span><br><span class="line"></span><br><span class="line">root@k3s:~<span class="comment"># kubectl delete node k3s-worker</span></span><br><span class="line">node <span class="string">&quot;k3s-worker&quot;</span> deleted</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<h1 id="測試"><a href="#測試" class="headerlink" title="測試"></a>測試</h1><p>底下都在 k3s-master node 裡面執行。</p>
+<p>建立測試網頁: <code>index.html</code>，內容如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>把這個 HTML 設定成 configmap:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ kubectl create configmap hello-world --from-file index.html</span><br></pre></td></tr></table></figure>
+
+<p>建立 K8s YAML:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">hello-world</span></span><br><span class="line">  <span class="attr">annotations:</span></span><br><span class="line">    <span class="attr">kubernetes.io/ingress.class:</span> <span class="string">&quot;traefik&quot;</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">rules:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">http:</span></span><br><span class="line">      <span class="attr">paths:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">path:</span> <span class="string">/</span></span><br><span class="line">        <span class="attr">pathType:</span> <span class="string">Prefix</span></span><br><span class="line">        <span class="attr">backend:</span></span><br><span class="line">          <span class="attr">service:</span></span><br><span class="line">            <span class="attr">name:</span> <span class="string">hello-world</span></span><br><span class="line">            <span class="attr">port:</span></span><br><span class="line">              <span class="attr">number:</span> <span class="number">80</span></span><br><span class="line"></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">hello-world</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app:</span>  <span class="string">hello-world</span></span><br><span class="line"></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">hello-world-nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">hello-world</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">hello-world</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br><span class="line">        <span class="attr">volumeMounts:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">hello-world-volume</span></span><br><span class="line">          <span class="attr">mountPath:</span> <span class="string">/usr/share/nginx/html</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">hello-world-volume</span></span><br><span class="line">        <span class="attr">configMap:</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">hello-world</span></span><br></pre></td></tr></table></figure>
+
+<p>執行這段 YAML</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">~$ kubectl apply -f hello-world.yml</span><br><span class="line">~$ kubectl get po</span><br><span class="line">NAME                                 READY   STATUS    RESTARTS   AGE</span><br><span class="line">hello-world-nginx-5876d86d96-k2mm6   1/1     Running   0          4m25s</span><br><span class="line">hello-world-nginx-5876d86d96-krsrh   1/1     Running   0          4m25s</span><br><span class="line">hello-world-nginx-5876d86d96-wq9hf   1/1     Running   0          4m25s</span><br></pre></td></tr></table></figure>
+
+<p>測試：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~$ curl localhost:80</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;<span class="built_in">head</span>&gt;</span><br><span class="line">  &lt;title&gt;Hello World!&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;Hello World!&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q &amp; A"></a>Q &amp; A</h1><h2 id="Q-可以把-master-和-worker-node-裝在同一台-VM"><a href="#Q-可以把-master-和-worker-node-裝在同一台-VM" class="headerlink" title="Q: 可以把 master 和 worker node 裝在同一台 VM?"></a>Q: 可以把 master 和 worker node 裝在同一台 VM?</h2><p>不可以，Port 會出現衝突，要裝在同一台 VM，就用 K3d</p>
+<p>如果已經執行了，記得跑 <code>k3s-agent-uninstall.sh</code> 或者 <code>k3s-uninstall.sh</code> 刪掉造成衝突的一方，然後重新啟動 service 即可:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start k3s.service</span><br><span class="line">systemctl status k3s.service</span><br></pre></td></tr></table></figure>
+
+
+
+
+<!--
+## 安裝 K3d
+
+如果想透過
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">❯ curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash</span><br><span class="line"></span><br><span class="line">Preparing to install k3d into /usr/local/bin</span><br><span class="line">Password:</span><br><span class="line">k3d installed into /usr/local/bin/k3d</span><br><span class="line">Run <span class="string">&#x27;k3d --help&#x27;</span> to see what you can <span class="keyword">do</span> with it.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 建立 Cluster -- 有啟動 docker</span></span><br><span class="line">❯ k3d cluster create mycluster</span><br><span class="line">INFO[0000] Prep: Network</span><br><span class="line">INFO[0000] Created network <span class="string">&#x27;k3d-mycluster&#x27;</span></span><br><span class="line">INFO[0000] Created image volume k3d-mycluster-images</span><br><span class="line">INFO[0000] Starting new tools node...</span><br><span class="line">INFO[0001] Creating node <span class="string">&#x27;k3d-mycluster-server-0&#x27;</span></span><br><span class="line">INFO[0002] Pulling image <span class="string">&#x27;ghcr.io/k3d-io/k3d-tools:5.4.6&#x27;</span></span><br><span class="line">INFO[0004] Pulling image <span class="string">&#x27;docker.io/rancher/k3s:v1.24.4-k3s1&#x27;</span></span><br><span class="line">INFO[0016] Creating LoadBalancer <span class="string">&#x27;k3d-mycluster-serverlb&#x27;</span></span><br><span class="line">INFO[0018] Pulling image <span class="string">&#x27;ghcr.io/k3d-io/k3d-proxy:5.4.6&#x27;</span></span><br><span class="line">INFO[0027] Starting Node <span class="string">&#x27;k3d-mycluster-tools&#x27;</span></span><br><span class="line">INFO[0028] Using the k3d-tools node to gather environment information</span><br><span class="line">INFO[0028] Starting new tools node...</span><br><span class="line">INFO[0028] Starting Node <span class="string">&#x27;k3d-mycluster-tools&#x27;</span></span><br><span class="line">INFO[0030] Starting cluster <span class="string">&#x27;mycluster&#x27;</span></span><br><span class="line">INFO[0030] Starting servers...</span><br><span class="line">INFO[0030] Starting Node <span class="string">&#x27;k3d-mycluster-server-0&#x27;</span></span><br><span class="line">INFO[0033] All agents already running.</span><br><span class="line">INFO[0033] Starting helpers...</span><br><span class="line">INFO[0033] Starting Node <span class="string">&#x27;k3d-mycluster-serverlb&#x27;</span></span><br><span class="line">INFO[0039] Injecting records <span class="keyword">for</span> hostAliases (incl. host.k3d.internal) and <span class="keyword">for</span> 3 network members into CoreDNS configmap...</span><br><span class="line">INFO[0042] Cluster <span class="string">&#x27;mycluster&#x27;</span> created successfully!</span><br><span class="line">INFO[0042] You can now use it like this:</span><br><span class="line">kubectl cluster-info</span><br><span class="line"></span><br><span class="line"><span class="comment">## 建立 Cluster -- 沒有啟動 docker</span></span><br><span class="line">❯ k3d cluster create mycluster</span><br><span class="line">ERRO[0000] Failed to get nodes <span class="keyword">for</span> cluster <span class="string">&#x27;mycluster&#x27;</span>: docker failed to get containers with labels <span class="string">&#x27;map[k3d.cluster:mycluster]&#x27;</span>: failed to list containers: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?</span><br><span class="line">INFO[0000] Prep: Network</span><br><span class="line">ERRO[0000] Failed Cluster Preparation: Failed Network Preparation: failed to create cluster network: failed to check <span class="keyword">for</span> duplicate docker networks: docker failed to list networks: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?</span><br><span class="line">ERRO[0000] Failed to create cluster &gt;&gt;&gt; Rolling Back</span><br><span class="line">INFO[0000] Deleting cluster <span class="string">&#x27;mycluster&#x27;</span></span><br><span class="line">ERRO[0000] Failed to get nodes <span class="keyword">for</span> cluster <span class="string">&#x27;mycluster&#x27;</span>: docker failed to get containers with labels <span class="string">&#x27;map[k3d.cluster:mycluster]&#x27;</span>: failed to list containers: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?</span><br><span class="line">ERRO[0000] failed to get cluster: No nodes found <span class="keyword">for</span> given cluster</span><br><span class="line">FATA[0000] Cluster creation FAILED, also FAILED to rollback changes!</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 刪除 K3d cluster</span></span><br><span class="line">❯ k3d cluster delete mycluster</span><br><span class="line">INFO[0000] Deleting cluster <span class="string">&#x27;mycluster&#x27;</span></span><br><span class="line">INFO[0000] Deleting cluster network <span class="string">&#x27;k3d-mycluster&#x27;</span></span><br><span class="line">INFO[0000] Deleting 2 attached volumes...</span><br><span class="line">WARN[0000] Failed to delete volume <span class="string">&#x27;k3d-mycluster-images&#x27;</span> of cluster <span class="string">&#x27;mycluster&#x27;</span>: failed to find volume <span class="string">&#x27;k3d-mycluster-images&#x27;</span>: Error: No such volume: k3d-mycluster-images -&gt; Try to delete it manually</span><br><span class="line">INFO[0000] Removing cluster details from default kubeconfig...</span><br><span class="line">INFO[0000] Removing standalone kubeconfig file (<span class="keyword">if</span> there is one)...</span><br><span class="line">INFO[0000] Successfully deleted cluster mycluster!</span><br></pre></td></tr></table></figure>
+<p>–&gt;</p>
+<hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="站內文章：K8s-相關"><a href="#站內文章：K8s-相關" class="headerlink" title="站內文章：K8s 相關"></a>站內文章：K8s 相關</h2><ul>
+<li><a href="/2017/07/15/Container/Experience-minikube/">Experience minikube</a></li>
+<li><a href="/2021/09/23/AWS/Experience-EKS-Anywhere/">Experience EKS Anywhere</a></li>
+<li><a href="/2019/03/17/Container/Install-K8s-with-Kubeadm/">K8s 學習筆記 - kubeadm 手動安裝</a></li>
+<li><a href="/2019/03/17/Container/Install-Addons-For-K8s/">K8s 學習筆記 - 工具篇</a></li>
+<li><a href="/2019/03/17/Container/Admin-Maintenance-And-Troubleshooting-K8s/">K8s 學習筆記 - 維護與常見問題</a></li>
+<li><a href="/2019/10/13/AWS/Study-Notes-EKS_Provision-Cluster/">EKS 學習筆記 - 基礎安裝篇</a></li>
+<li><a href="/2019/10/19/AWS/Study-Notes-EKS_Networking/">EKS 學習筆記 - 網路規劃與管理篇</a></li>
+</ul>
+<h2 id="VPC-網路規劃"><a href="#VPC-網路規劃" class="headerlink" title="VPC - 網路規劃"></a>VPC - 網路規劃</h2><ul>
+<li><a href="/2016/02/21/AWS/Study-Notes-VPC/">Study Notes - Virtual Private Cloud (VPC)</a></li>
+<li><a href="/2018/04/08/GCP/Building-a-VPN-Between-GCP-and-AWS/">Building a VPN Between GCP and AWS</a></li>
+<li><a href="/2017/02/04/AWS/Study-Notes-EC2-Auto-Scaling/">Study Notes - EC2 Auto Scaling 基礎介紹</a></li>
+<li><a href="/2017/07/07/AWS/Plan-And-Deisgn-Multiple-VPCs-in-Different-Regions/">Plan and Design Multiple VPCs in Different Regions</a></li>
+</ul>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://dev.to/chillaranand/local-kubernetes-cluster-with-k3s-on-mac-m1-i57">https://dev.to/chillaranand/local-kubernetes-cluster-with-k3s-on-mac-m1-i57</a></li>
+<li><a target="_blank" rel="noopener" href="https://dev.to/sr229/how-to-use-nginx-ingress-controller-in-k3s-2ck2">https://dev.to/sr229/how-to-use-nginx-ingress-controller-in-k3s-2ck2</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/435237515">Multipass 对已经存在的实例进行调整</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jeffgeerling.com/blog/2022/quick-hello-world-http-deployment-testing-k3s-and-traefik">https://www.jeffgeerling.com/blog/2022/quick-hello-world-http-deployment-testing-k3s-and-traefik</a></li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/2023/01/17/Container/Install-K3s-on-MBPR-M1/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<!-- LikeCoin -->
+				<!-- @rickd 2022/09/06 -->
+				<!--
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2023/01/17/Container/Install-K3s-on-MBPR-M1/"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+				-->
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2023/05/23/About/2023-Software-Test-Practice/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2022/12/21/Management/Career/2022-AWS-Career-Exploration-Day/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
+  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
+  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2023/01/17/Container/Install-K3s-on-MBPR-M1/" data-width="100%" data-numposts="10"></div>
+
+  
+
+
+</section>
+
+
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2023/01/17 09:41:58
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%91%98%E8%A6%81"><span class="toc-article-text">摘要</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#K3d-vs-K3s"><span class="toc-article-text">K3d vs K3s</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Multipasss"><span class="toc-article-text">Multipasss</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%AE%89%E8%A3%9D-multipass"><span class="toc-article-text">安裝 multipass</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%95%9F%E5%8B%95%E8%99%9B%E6%93%AC%E6%A9%9F"><span class="toc-article-text">啟動虛擬機</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%AE%89%E8%A3%9D-K3s"><span class="toc-article-text">安裝 K3s</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B4%E6%8E%A5%E5%AE%89%E8%A3%9D"><span class="toc-article-text">直接安裝</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9C%A8-VM-%E8%A3%A1%E9%9D%A2%E5%AE%89%E8%A3%9D-K3s"><span class="toc-article-text">在 VM 裡面安裝 K3s</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%96%B0%E5%A2%9E-Worker-Node"><span class="toc-article-text">新增 Worker Node</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%A7%BB%E9%99%A4-Worker-Node"><span class="toc-article-text">移除 Worker Node</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%B8%AC%E8%A9%A6"><span class="toc-article-text">測試</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Q-amp-A"><span class="toc-article-text">Q &amp; A</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-%E5%8F%AF%E4%BB%A5%E6%8A%8A-master-%E5%92%8C-worker-node-%E8%A3%9D%E5%9C%A8%E5%90%8C%E4%B8%80%E5%8F%B0-VM"><span class="toc-article-text">Q: 可以把 master 和 worker node 裝在同一台 VM?</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/Container/" style="color: white">Container <span class="badge">9</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Kubernetes/" style="color: white">Kubernetes <span class="badge">14</span></a></span> <span class="label label-success"><a href="/tags/Ubuntu/" style="color: white">Ubuntu <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/K8s/" style="color: white">K8s <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/Macbook-Pro-M1/" style="color: white">Macbook Pro M1 <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Apple-Silicon/" style="color: white">Apple Silicon <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/multipass/" style="color: white">multipass <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/docker/" style="color: white">docker <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+		<!-- v4 -->
+		<h4>About</h4>
+		
+			<li><a href="/2035/01/21/Index/">全站索引</a></li>
+		
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+		
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		
+			<li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+		
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		
+			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+		
+
+		<h4>著作</h4>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作：SRE實踐與開發平台指南</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作：軟體測試實務 (2023)</a></li>
+		
+			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
+		
+
+		<h4>演講</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
+		
+			<li><a href="/2023/09/09/About/2023-AWS-Career-Exploration-Day/">探索職涯、複利人生 - AWS Career Exploration Day 2023</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作 SRE 書友見面會</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">軟體測試實務 - 新書發表會</a></li>
+		
+			<li><a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">探索職涯、成就未來 - AWS Career Exploration Day 2022</a></li>
+		
+			<li><a href="/2022/08/13/SQA/Path-to-Software-Testing/">從理想、到現實的距離，開啟品味軟體測試之路</a></li>
+		
+			<li><a href="/2022/05/10/About/2022-SREConf2022/">91APP 在 AWS 上的 SRE 實踐之路</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/2020-aws-summit-aws">在矩陣型組織裡，如何有效管理 AWS 的成本結構與系統架構</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/aws-using-aws-for-disaster-recovery/">災難演練 @ AWS 實戰分享</a></li>
+		
+			<li><a href="/2019/04/27/DevOps/Introduce-to-Continuous-Delivery-2/">導讀持續交付 2.0 - 談當代軟體交付之虛實融合</a></li>
+		
+			<li><a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理</a></li>
+		
+			<li><a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">從緊急事件 談 SRE 應變能力的培養</a></li>
+		
+			<li><a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
+		
+			<li><a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">Monitoring Tools 大亂鬥 - AWS CloudWatch</a></li>
+		
+			<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></li>
+		
+			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
+		
+
+		<!-- v3 -->
+		<!--
+		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		-->
+
+		<!-- v2 -->
+		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+		<!-- v1 -->
+		<!--
+		<li>Software Developer</li>
+		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+		<li><a href="/categories/DevOps/">Operation Manager</a></li>
+		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+		<li>
+			<ol>
+				<li>Management</li>
+				<li>Cloud / Distributed Systems</li>
+				<li>DevOps / SRE / </li>
+			</ol>
+		</li>
+		-->
+
+		<!--
+		<h4>Donate</h4>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick" />
+		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
+		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
+		</form>
+		-->
+
+		<h4>Facebook</h4>
+
+		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
+
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
+				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+
+		<h4>AWS Certifications</h4>
+		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+		<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+		<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+		
+
+	</div><!-- row -->
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2022 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div>
+
+<!-- container-narrow -->
+
+<div id="gotop">
+
+  <!-- 
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-book"></i> <a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"]);">學習法則</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"]);">喝咖啡 聊音樂 (v2021)</a><br />
+   -->
+
+  <!-- <h4>About</h4> -->
+
+  
+    <li><a href="/2035/01/21/Index/">全站索引</a></li>
+  
+    <li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+  
+    <li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+  
+    <li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+  
+    <li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+  
+    <li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+  
+    <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+  
+
+  <a href="#">▲ TOP ▲ </a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>
