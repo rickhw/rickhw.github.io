@@ -515,13 +515,13 @@
     
     <category term="時間管理" scheme="https://rickhw.github.io/tags/%E6%99%82%E9%96%93%E7%AE%A1%E7%90%86/"/>
     
+    <category term="工作管理" scheme="https://rickhw.github.io/tags/%E5%B7%A5%E4%BD%9C%E7%AE%A1%E7%90%86/"/>
+    
     <category term="會議原則" scheme="https://rickhw.github.io/tags/%E6%9C%83%E8%AD%B0%E5%8E%9F%E5%89%87/"/>
     
     <category term="會議效率" scheme="https://rickhw.github.io/tags/%E6%9C%83%E8%AD%B0%E6%95%88%E7%8E%87/"/>
     
     <category term="溝通成本" scheme="https://rickhw.github.io/tags/%E6%BA%9D%E9%80%9A%E6%88%90%E6%9C%AC/"/>
-    
-    <category term="工作管理" scheme="https://rickhw.github.io/tags/%E5%B7%A5%E4%BD%9C%E7%AE%A1%E7%90%86/"/>
     
   </entry>
   
@@ -662,9 +662,9 @@
     <category term="SRE" scheme="https://rickhw.github.io/categories/DevOps/SRE/"/>
     
     
-    <category term="Monitoring" scheme="https://rickhw.github.io/tags/Monitoring/"/>
-    
     <category term="SRE" scheme="https://rickhw.github.io/tags/SRE/"/>
+    
+    <category term="Monitoring" scheme="https://rickhw.github.io/tags/Monitoring/"/>
     
     <category term="Emergency Response" scheme="https://rickhw.github.io/tags/Emergency-Response/"/>
     
