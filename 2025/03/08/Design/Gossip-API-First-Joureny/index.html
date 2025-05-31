@@ -329,8 +329,8 @@ API 治理與管理：版本控管、導入策略 (API ">
 </blockquote>
 <p>一些 Backend 工程師整天會抱怨工作內容就是 CRUD，之所以會有這樣的連結、認知，這與資料庫操作方式密切相關。</p>
 <p><code>CRUD</code> 是 Create &#x2F; Read &#x2F; Update &#x2F; Delete 的縮寫，通常針對一筆資料的操作 (Operate)，背後描述的是針對「資料的操作」。當開發者直覺地將資料表對應到一組 CRUD API，就會出現 <code>API = CRUD</code> 的認知，然後就會出現自我懷疑的狀況。</p>
-<p>在此想先引用一個來自於 Martin Fowler 在 2003 年提出的概念：<a target="_blank" rel="noopener" href="https://martinfowler.com/bliki/AnemicDomainModel.html">貧血型模型 (Anemic Domain Model)</a>，文中提到大家在寫 Model 時，經常無腦的用 Getter &#x2F; Setter 來描述資料模型，卻缺乏透過模型的領域知識描述模型，像是領域特有的動作 &#x2F; 動詞。缺乏領域知識的模型就被稱為貧血型模型。而此描述的現象，跟用 CRUD 描述 API 有著一樣的現象，也就是只用操作來描述 API，所以我把它稱為 <code>貧血型 API</code>。</p>
-<p>實際上，優秀設計的 API 並不一定與資料表一一對應。因為有些資源屬於聚合（Aggregation）、有些是靜態資訊（如 Config、Version）、有些則是狀態描述或操作指令，並無對應的資料落地。因此從設計角度出發，應先理解「資源」的本質，再決定是否與資料表做一對一對應，最終目的則是要設計出以領域知識為核心的操作與行為，使用者更容易理解、更能滿足業務需求的 API，這樣才不會陷入 CRUD 這種無腦的思路。</p>
+<p>在此想先引用一個來自於 Martin Fowler 在 2003 年提出的概念：<a target="_blank" rel="noopener" href="https://martinfowler.com/bliki/AnemicDomainModel.html">貧血型模型 (Anemic Domain Model)</a>，文中提到大家在寫 Model 時，經常無腦的用 Getter &#x2F; Setter 來描述資料模型，卻缺乏透過模型的領域知識描述模型，像是領域特有的動作 &#x2F; 動詞。缺乏領域知識的模型就被稱為貧血型模型。而此描述的現象，跟用 CRUD 描述 API 有著一樣的現象，也就是只用 DB 操作 CRUD 來描述 API，因此我把這種只有 <code>CRUD API</code>，沒有領域概念的 API 稱為 <code>貧血型 API</code>。</p>
+<p>實際上，優秀設計的 API 並不一定與資料表一一對應。因為有些資源屬於 <code>聚合（Aggregation）</code>、有些是 <code>靜態資訊（如 Config、Version）</code>、有些則是狀態描述或操作指令，並無對應的資料落地。因此從設計角度出發，應先理解「資源」的本質，再決定是否與資料表做一對一對應，最終目的則是要設計出以領域知識為核心的操作與行為，使用者更容易理解、更能滿足業務需求的 API，這樣才不會陷入 CRUD 這種無腦的思路。</p>
 <h2 id="以-Domain-為核心的設計出發點，以-AWS-EC2-Instance-為例"><a href="#以-Domain-為核心的設計出發點，以-AWS-EC2-Instance-為例" class="headerlink" title="以 Domain 為核心的設計出發點，以 AWS EC2 Instance 為例"></a>以 Domain 為核心的設計出發點，以 AWS EC2 Instance 為例</h2><p>當我們以 <code>Domain Knowledge</code> 作為設計基礎，每個資源（Resource）的操作會有其特有動詞，形成獨特的 API。舉例來說，AWS EC2 的 Instance 資源，一台 VM Instance 操作 包含以下動作 (動詞)：</p>
 <blockquote>
 <p>launch、start、stop、shutdown、reboot、terminate、change instance type … etc</p>
@@ -338,20 +338,23 @@ API 治理與管理：版本控管、導入策略 (API ">
 <p>而一個 Instance 則會有以下的狀態移轉 (官方狀態圖)：</p>
 <p><img src="/images/AWS/EC2/Instance_Lifecycle.png"></p>
 <p>相關文章: <a href="/2016/07/09/AWS/EC2-Instance-Lifecycle-And-Troubleshooting/">EC2 Instance Lifecycle and Troubleshooting</a></p>
-<h2 id="使用狀態機描述的-RESTful-API-設計方法論"><a href="#使用狀態機描述的-RESTful-API-設計方法論" class="headerlink" title="使用狀態機描述的 RESTful API 設計方法論"></a>使用狀態機描述的 RESTful API 設計方法論</h2><p>我們 AWS EC2 Instance 官方提供的 Lifecycle 為例，透過 <code>狀態機 (Finite State Machine)</code> 分析過後得到以下狀態機：</p>
+<p>這些 <code>狀態 (State)</code> 與 <code>動作 (Action)</code> 才是 EC2 Instance 的領域知識。</p>
+<h2 id="使用狀態機描述的-RESTful-API-設計方法論"><a href="#使用狀態機描述的-RESTful-API-設計方法論" class="headerlink" title="使用狀態機描述的 RESTful API 設計方法論"></a>使用狀態機描述的 RESTful API 設計方法論</h2><p>用 AWS EC2 Instance 官方提供的 Lifecycle，透過 <code>狀態機 (Finite State Machine)</code> 重新分析過後得到以下狀態機：</p>
 <p><img src="/images/Design/RESTful-API/ec2-state-machine_v20250308.png"></p>
 <p>這張狀態機設計有幾個重點：</p>
 <ol>
-<li><code>狀態 (State)</code>: Instance 特有的狀態機行為，這些狀態以 <code>名詞</code> 或者 <code>形容詞</code> 描述<ul>
-<li>圖中描述的狀態有固定狀態, 以及過度狀態 (passing states) 兩種 </li>
-<li>狀態一定要有終止狀態，這個例子的結束是 <code>terminated</code></li>
+<li><code>狀態 (State)</code>:<ul>
+<li>Instance 特有的領域用詞，這些狀態以 <code>名詞</code> 或者 <code>形容詞</code> 描述</li>
+<li>圖中描述的狀態有 <code>固定狀態</code>, 以及 <code>過度狀態 (passing states)</code> 兩種。因為 Instance 操作本身是非同步的。</li>
+<li>狀態機一定要有 <code>終止狀態 (End State)</code>，這個例子的結束是 <code>terminated</code></li>
 <li>圖中灰底表示過度狀態，由系統控制</li>
 </ul>
 </li>
-<li><code>領域行為 (動詞)</code>: 展開領域特定的行為，VM Instance 的行為就是前述提到的 launch、start、stop、shutdown、reboot、terminate。<ul>
-<li><code>領域行為</code> 是使用者可以操作的，用以改變狀態的 <code>轉換 (Transition)</code>，所以動詞一定是放在狀態之間的連線</li>
+<li><code>領域行為 (Behaviro, 動詞)</code>:<ul>
+<li>領域特定的行為，VM Instance 的行為就是前述提到的 launch、start、stop、shutdown、reboot、terminate … 等 <code>動詞</code></li>
+<li><code>領域行為</code> 是使用者可以操作的動詞，用來觸發狀態之間的 <code>轉換 (Transition)</code></li>
 <li>圖中可以表述的領域行為有 launch, start, stop, reboot, terminate … etc</li>
-<li>本案例中的 <code>使用者</code> 預設是 end user of ec2，不包含 admin of ec2 instance.</li>
+<li>本案例中的 <code>使用者</code> 預設是 end user of ec2，不包含 admin of ec2 instance</li>
 </ul>
 </li>
 </ol>
@@ -371,14 +374,21 @@ API 治理與管理：版本控管、導入策略 (API ">
 <blockquote>
 <p>更多關於 Custom Methods 參閱我整理的簡報: API Design Patterns - <a target="_blank" rel="noopener" href="https://www.slideshare.net/slideshow/ch09-custom-methods/257455321">CH9: Custom Methods</a></p>
 </blockquote>
-<h2 id="狀態機：狀態控制"><a href="#狀態機：狀態控制" class="headerlink" title="狀態機：狀態控制"></a>狀態機：狀態控制</h2><p>這些操作本質上是 <code>狀態轉移（State Transition)</code>，可透過有限狀態機（FSM）設計，我們把狀態的移轉變成一個排列組合列表，稱為 <code>State Table</code> or <code>Transition Table</code>，這張表明確描述狀態 <code>起點 (From)</code> 與 <code>目標 (To)</code>之間的可操作性，如果可以操作，那是什麼動作？這樣可以明確的表示有哪些行為組合，展開後如下圖：</p>
+<h2 id="狀態機：狀態控制"><a href="#狀態機：狀態控制" class="headerlink" title="狀態機：狀態控制"></a>狀態機：狀態控制</h2><p>上圖透過狀態移轉設計出來的 RESTful API 因為版面關係無法表述所有的狀，所以透過另一種方式來所有排列組合列出來。透過 <code>狀態轉移（State Transition)</code> 的排列組合列表，表列出所有有可能的動作，這張表稱為 <code>State Table</code> or <code>Transition Table</code>。</p>
+<p>這張表明確描述狀態 <code>起點 (From)</code> 與 <code>目標 (To)</code>之間的可操作性，如果可以操作，那是什麼動作？這樣可以明確的表示有哪些行為組合，展開後如下圖：</p>
 <p><img src="/images/Design/RESTful-API/ec2-restful-api_state-table_v20250308.png"></p>
+<p>圖中 From &#x2F; To 的每個交集動作:</p>
+<ul>
+<li>如果是 ✅ 代表可以操作，如果是 ❌ 代表不可操作。</li>
+<li>能否操作，則由領域知識專家決定</li>
+<li>每個可以操作的動作，都是領域專有的動詞，用詞由領域知識決定</li>
+</ul>
 <p>使用狀態機設計要注意的地方如下：</p>
 <ul>
-<li>狀態用詞為 State，使用為名詞、形容詞，是有數量限制、有先後次序的。<ul>
+<li>狀態用詞為 State，使用為 <code>名詞</code>、<code>形容詞</code>，是有 <code>數量限制</code>、有 <code>先後次序</code>。<ul>
 <li>經驗上來看，狀態 10 個為上限，再上去會複雜到很難處理</li>
 <li>狀態數量 (N) 則表示有 <code>(N+1) x N</code> 的狀態移轉要思考</li>
-<li>非同步的系統，則會有 <code>過度狀態 (Passing State)</code></li>
+<li><code>非同步</code> 的系統，則會有 <code>過度狀態 (Passing State)</code></li>
 </ul>
 </li>
 <li>狀態機要有明確的 <code>起始</code> 與 <code>終止狀態 (End State)</code></li>
@@ -607,7 +617,7 @@ API 治理與管理：版本控管、導入策略 (API ">
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/API-Gateway/" style="color: white">API Gateway <span class="badge">18</span></a></span> <span class="label label-success"><a href="/tags/API-First/" style="color: white">API First <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Finite-State-Machine/" style="color: white">Finite-State Machine <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/API/" style="color: white">API <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/API-Design/" style="color: white">API Design <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/RESTful/" style="color: white">RESTful <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/API-Platform/" style="color: white">API Platform <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/API-Architecture/" style="color: white">API Architecture <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/API-Management/" style="color: white">API Management <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Headless/" style="color: white">Headless <span class="badge">1</span></a></span>
+  <span class="label label-success"><a href="/tags/API-Gateway/" style="color: white">API Gateway <span class="badge">18</span></a></span> <span class="label label-success"><a href="/tags/API-First/" style="color: white">API First <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Finite-State-Machine/" style="color: white">Finite-State Machine <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/RESTful/" style="color: white">RESTful <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/API/" style="color: white">API <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/API-Design/" style="color: white">API Design <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/API-Platform/" style="color: white">API Platform <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/API-Architecture/" style="color: white">API Architecture <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/API-Management/" style="color: white">API Management <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Headless/" style="color: white">Headless <span class="badge">1</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
