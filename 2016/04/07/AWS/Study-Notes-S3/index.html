@@ -1,0 +1,1494 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Study Notes - AWS S3 | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="S3 全名是 Simple Storage Service，故縮寫 S3，它是 AWS 在 2006 年推出的 第二個 SaaS 服務，有很長的歷史。雖然名字有個 Simple，但其實它不容易。本文整理研讀官方文件、以及工作上遇到的問題，整理以下的筆記：
+
+一、基本概念 (Concepts)
+二、核">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="Study Notes - AWS S3"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/2016/04/07/AWS/Study-Notes-S3/"/>
+  <meta property="og:image" content="/images/AWS/S3/S3-Object-Overview_20190623.png" />
+  
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<!--
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'G-74Y1F3F5W0']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-74Y1F3F5W0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-74Y1F3F5W0');
+</script>
+
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!-- @rickd 2022/02/24
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
+  -->
+  <!-- @ricka 2022/02/24 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!--
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="bd9r2mJp"></script>
+  -->
+
+  <!-- @ricka 2022/09/06 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="opf2Gext"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+						
+						<li><a href="/categories/About/">About <sup>29</sup></a></li>
+						
+						<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+						
+						<li><a href="/categories/經營管理/Career/">Career <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
+						
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Data/">Data <sup>2</sup></a></li>
+						
+						<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+						
+						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>20</sup></a></li>
+						
+						<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+						
+						<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+						
+						<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+						
+						<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+						
+						<li><a href="/categories/DevOps/SRE/">SRE <sup>25</sup></a></li>
+						
+						<li><a href="/categories/Software-Engineering/">Software Engineering <sup>10</sup></a></li>
+						
+						<li><a href="/categories/System-Design/">System Design <sup>2</sup></a></li>
+						
+						<li><a href="/categories/經營管理/人才管理/">人才管理 <sup>10</sup></a></li>
+						
+						<li><a href="/categories/經營管理/溝通/">溝通 <sup>9</sup></a></li>
+						
+						<li><a href="/categories/經營管理/知識管理/">知識管理 <sup>4</sup></a></li>
+						
+						<li><a href="/categories/經營管理/">經營管理 <sup>61</sup></a></li>
+						
+						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
+						
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"> <i class="fa fa-book"></i>學習法則</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂 (v2021)</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Study Notes - AWS S3</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Study Notes - AWS S3</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+		
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2016%2F04%2F07%2FAWS%2FStudy-Notes-S3%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2016/04/07/AWS/Study-Notes-S3/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/2016/04/07/AWS/Study-Notes-S3/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<p><a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html">S3</a> 全名是 <code>Simple Storage Service</code>，故縮寫 S3，它是 AWS 在 2006 年推出的 <a target="_blank" rel="noopener" href="https://aws.amazon.com/10year/">第二個 SaaS</a> 服務，有很長的歷史。雖然名字有個 Simple，但其實它不容易。本文整理研讀官方文件、以及工作上遇到的問題，整理以下的筆記：</p>
+<ul>
+<li>一、基本概念 (Concepts)</li>
+<li>二、核心功能 (Core Functions)</li>
+<li>三、存取權限 (Access Control)</li>
+<li>四、資料保護 (Data Protection)</li>
+<li>五、服務限制 (Limitation)</li>
+<li>六、開發 (Development)</li>
+<li>七、成本 (Cost)</li>
+<li>八、應用場景 (User Scenarios)</li>
+<li>九、常見問答 (FAQ)<!-- - 十、最佳實踐 (Best Practice) --></li>
+</ul>
+<span id="more"></span>
+
+<hr>
+<h1 id="一、基本概念-Concepts"><a href="#一、基本概念-Concepts" class="headerlink" title="一、基本概念 (Concepts)"></a>一、基本概念 (Concepts)</h1><p>整理幾個 S3 的核心概念：</p>
+<ul>
+<li>Buckets</li>
+<li>Objects</li>
+<li>Keys</li>
+<li>Resions</li>
+<li>Data Consistency Model</li>
+</ul>
+<h2 id="Bucket"><a href="#Bucket" class="headerlink" title="Bucket"></a>Bucket</h2><p>Bucket 中文可以翻譯成水桶、籃子，是容器 (Container) 的概念，也就是可以放東西的容器。</p>
+<p>在 S3 裡的 Bucket 名稱是 <code>唯一的</code>、而且是全域 (Global)、跨 Account、跨 Region 的，換言之，不管是哪一個 AWS 的使用者，Bucket Name 都不能與其他人重複。雖然 Bucket 名稱是唯一的識別，但是建立 Bucket 時要選擇 Region，表示實際上資料 Region Level 的，換言之，如果在乎存取的延遲時間，就要注意 Region 的位置。</p>
+<blockquote>
+<p>Bucket Name 與 Static WebSite 的關係後面段落詳細說明。</p>
+</blockquote>
+<h3 id="Bucket-名稱的命名規則"><a href="#Bucket-名稱的命名規則" class="headerlink" title="Bucket 名稱的命名規則"></a>Bucket 名稱的命名規則</h3><p>底下是 AWS 官方建議的命名注意事項：</p>
+<ul>
+<li>命名要符合 DNS 命名規範，例如不可以用底線 (<code>_</code>, underscore)、大寫字母 (uppercase, 2018&#x2F;03 後)<ul>
+<li>因為這名稱會被拿區當作 DNS 名稱，DNS 命名不允許有底線。</li>
+</ul>
+</li>
+<li>長度至少 3 個字元，最多 63 個字元</li>
+<li>名稱開始要小寫字母或者數字</li>
+<li>不要使用 IP address 當作名稱</li>
+<li>名稱不要包含點 <code>.</code> 當作段落的切割字元。<ul>
+<li>目前可以使用，沒有阻擋。</li>
+<li>如果要使用 Transfer Acceleration，那 bucket name 不可以包含點</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Bucket Name 命名建議格式：<code>&#123;ACCOUNT_NAME&#125;-&#123;REGION&#125;-&#123;PURPOSE&#125;</code></p>
+<ul>
+<li>建議使用 AWS Account Name 做開頭，避免與其他使用者衝突。在 IAM 的首頁可以設定，這個名稱也被當來 IAM Login 的 URL，例如：<code>https://&#123;AWS_ACCOUNT_NAME&#125;.signin.aws.amazon.com/console</code></li>
+<li>例如我的一個 AWS Account Name 叫做 gtlab01，那麼 bucket name 的開頭就是 <code>gtlab01-us-west-2-s3-lab</code>，如此不會與其他人衝突，也可以區分不同 region 的 bucket。</li>
+<li>命名格式後面可以自行延伸，主要就是前置 (<code>&#123;ACCOUNT_NAME&#125;-&#123;REGION&#125;</code>) 與切割符號 (我使用 <code>-</code>) 要注意，後面可以延續其他實際的用途，像是環境、服務名稱 … etc.</li>
+</ul>
+</blockquote>
+<!--
+### 歷史因素
+
+2018/03/01 之後，所有
+
+-->
+
+
+<h3 id="Dual-Stack-IPv6"><a href="#Dual-Stack-IPv6" class="headerlink" title="Dual Stack (IPv6)"></a>Dual Stack (IPv6)</h3><p>S3 Bucket 支援 IPv4 與 IPv6，DualStack 為了同時相容兩者，他們的 Endpoints 如下：</p>
+<p>Path-style dual-stack endpoint:</p>
+<blockquote>
+<p>s3.dualstack.{REGION}.amazonaws.com&#x2F;{BUCKET_NAME}</p>
+</blockquote>
+<p>Virtual hosted-style dual-stack endpoint:</p>
+<blockquote>
+<p>{BUCKET_NAME}.s3.dualstack.{REGION}.amazonaws.com</p>
+</blockquote>
+<p>相關文件：<a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/dual-stack-endpoints.html#dual-stack-endpoints-description">Amazon S3 Dual-Stack Endpoints</a></p>
+<h3 id="功能全貌"><a href="#功能全貌" class="headerlink" title="功能全貌"></a>功能全貌</h3><p>每個 Bucket 除了儲存的物件之外，都會有三大主要的功能區塊，展開有以下：</p>
+<ul>
+<li>Properties<ul>
+<li>Versioning: 物件的版本管理</li>
+<li>Server Access Logging: 存取紀錄</li>
+<li>Staitc Website Hosting: 靜態資料網站</li>
+<li>Object-level Logging: 紀錄 API 存取的紀錄，主要配合 CloudTrail</li>
+<li>Default Encryption: 預設的加密方式</li>
+<li>Advanced: Object Lock、Tags、Transfer Acceleration、Events、Requester Pays … 等，後面分段描述。</li>
+</ul>
+</li>
+<li>Permission: Block Public Access, Access Control List, Bucket Policy, CORS</li>
+<li>Management: Lifecycle、Replication、Analytics、Metric、Inventory</li>
+<li>Access points (2019)</li>
+</ul>
+<p>詳細介紹整理在後面。</p>
+<h2 id="Objects"><a href="#Objects" class="headerlink" title="Objects"></a>Objects</h2><p>S3 是一個 Object Store，存放在 S3 Bucket 裡的東西都稱為 <code>Object (物件)</code>，一個 Object 由以下組成：</p>
+<ul>
+<li>Key: 有時候會稱 Object Key、Key Name，在 Bucket 裡的唯一識別</li>
+<li>Version Id: 在 Bucket 裡，Key 和 Version ID 的組成，識別出一個 Object。S3 以此做到 <code>Object Versioning</code> 功能。</li>
+<li>Value: 就是實際儲存的資料內容。單一資料最大 5TB。</li>
+<li>Metadata: 是一個 Key-Value 的資料結構，儲存物件的控制資訊。分成 <code>User-definied Metadata</code>、<code>System-defined Metadata</code> 兩大類。</li>
+<li>Subresources: 定義 Bucket 與 Object 關係的。</li>
+<li>Access Control Information</li>
+</ul>
+<p>整理下圖描述整個 Object 的組成：</p>
+<p><img src="/images/AWS/S3/S3-Object-Overview_20190623.png"></p>
+<h3 id="Object-Keys"><a href="#Object-Keys" class="headerlink" title="Object Keys"></a>Object Keys</h3><p>也稱做 Object Key、Key Name，在 Bucket 裡是唯一識別，由 <code>(Prefix + Delimiter)</code> + <code>Key Name</code> 組成。整理概念如下圖：</p>
+<p><img src="/images/AWS/S3/S3-Key-Object_20190614.png"></p>
+<p>Prefix 可以想像成目錄 (Folder) 的概念，透過 Delimiter (<code>/</code>) 隔開。以此規則，例如：</p>
+<ul>
+<li>Bucket Name: <a target="_blank" rel="noopener" href="http://www.abc.com/">www.abc.com</a></li>
+<li>Key:<ul>
+<li>dev&#x2F;design.md</li>
+<li>dev&#x2F;seq-flow.md</li>
+<li>marketing&#x2F;rel&#x2F;purchese.pdf</li>
+<li>index.html</li>
+</ul>
+</li>
+</ul>
+<p>這四個都是 Key，只是 index.html 沒有 prefix，其他則有。在 S3 Console 就會看到目錄的結構。</p>
+<h3 id="Version-Id"><a href="#Version-Id" class="headerlink" title="Version Id"></a>Version Id</h3><p>S3 支援 Object 的版本管理，稱為 Versioning。每個物件都有屬於自己的 <code>Version Id</code> 用來區別版本。詳細後面描述。</p>
+<h3 id="Object-Metadata"><a href="#Object-Metadata" class="headerlink" title="Object Metadata"></a>Object Metadata</h3><p>Object Metadata 由 Key-Value 組成的資料結構，分成兩個部分： <code>System-defined Metadata (SDM)</code>、<code>User-defined Metadata (UDM)</code>，整理概念如下圖：</p>
+<p><img src="/images/AWS/S3/Object-Metadata.png"></p>
+<p>SDM 主要是 S3 用來系統資訊和控制屬性的。系統資訊像是時間、日期、MD5 … 等；控制屬性像是 server-side encryption 的是否開啟、version-id、Storage Class。大概分成可以修改與不可以修改兩大部分。下圖摘自官方文件的詳細列表：</p>
+<p><img src="/images/AWS/S3/official-figures/System-defined-metadata_20190614.png"></p>
+<p>放一個 Object，並指定 UDM：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">aws s3api put-object \</span><br><span class="line">    --acl private \</span><br><span class="line">    --body s3-permission-control-flow.png \</span><br><span class="line">    --bucket abc-dev-us-west-2-lab-s3 \</span><br><span class="line">    --key pic/s3-permission-control-flow.png \</span><br><span class="line">    --metadata <span class="built_in">type</span>=picture,status=release,version=1 \</span><br><span class="line">    --tagging <span class="built_in">date</span>=20170614,team=operation</span><br><span class="line"></span><br><span class="line"><span class="comment"># return result</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;ETag&quot;</span>: <span class="string">&quot;\&quot;74977eb17855dee8451f477f9exxxxxx\&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;VersionId&quot;</span>: <span class="string">&quot;5iVAfsiL3CLRPq9UAFuTVpxiwxxxxxx&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>取得 Object:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">aws s3api head-object \</span><br><span class="line">    --bucket abc-dev-us-west-2-lab-s3 \</span><br><span class="line">    --key pic/s3-permission-control-flow.png</span><br><span class="line"></span><br><span class="line"><span class="comment"># return result</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;AcceptRanges&quot;</span>: <span class="string">&quot;bytes&quot;</span>,</span><br><span class="line">    <span class="string">&quot;LastModified&quot;</span>: <span class="string">&quot;Fri, 14 Jun 2019 06:43:51 GMT&quot;</span>,</span><br><span class="line">    <span class="string">&quot;ContentLength&quot;</span>: 175470,</span><br><span class="line">    <span class="string">&quot;ETag&quot;</span>: <span class="string">&quot;\&quot;74977eb17855dee8451f477f9exxxxxx\&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;VersionId&quot;</span>: <span class="string">&quot;5iVAfsiL3CLRPq9UAFuTVpxiwxxxxxx&quot;</span>,</span><br><span class="line">    <span class="string">&quot;ContentType&quot;</span>: <span class="string">&quot;binary/octet-stream&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Metadata&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;version&quot;</span>: <span class="string">&quot;1&quot;</span>,</span><br><span class="line">        <span class="string">&quot;status&quot;</span>: <span class="string">&quot;Release&quot;</span>,</span><br><span class="line">        <span class="string">&quot;type&quot;</span>: <span class="string">&quot;picture&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>User-defined Metadata 的資料會在 HTTP Header <code>x-amz-meta-&#123;UDM_NAME&#125;</code> 呈現，例如上述範例就會產生 <code>x-amz-meta-version</code> 這樣的 header.</p>
+<h2 id="Storage-Classes"><a href="#Storage-Classes" class="headerlink" title="Storage Classes"></a>Storage Classes</h2><p>儲存在 S3 上的物件，依照使用情境與需求，分成幾種 <code>儲存類型 (Storage Classes)</code>，這些類型也會反映在 <code>SLA (可用性、持久性)</code>、<code>成本</code>、<code>效能</code>之上。下表是 <a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html">官方文件</a> 的提供的資訊：</p>
+<p><img src="/images/AWS/S3/official-figures/Storage-Classes.png"></p>
+<h2 id="Regions"><a href="#Regions" class="headerlink" title="Regions"></a>Regions</h2><p>建立 Bucket 的時候，除了名稱要考慮唯一性之外，也要選擇 Bucket 的位置。官方文件描述，只要物件存在 Region 之內，就不會再離開，除非使用者自行傳輸到其他地方。所以當應用程式需要考量傳輸效能時，在規劃 Bucket 時也要同時考慮地理位置，避免因為網路傳輸的問題，影響效能。</p>
+<h2 id="Data-Consistency-Model-資料一致性模式"><a href="#Data-Consistency-Model-資料一致性模式" class="headerlink" title="Data Consistency Model (資料一致性模式)"></a>Data Consistency Model (資料一致性模式)</h2><ul>
+<li>所有的 Region 的支援 PUTS and DELETES 操作的 <code>最終一致性模型</code></li>
+<li>寫入新的 Object 而且立刻 list bucket: 新的 Object 不會顯示在 list ，直到更改傳遞到所有的 servers<ul>
+<li>PUTS: <code>read-after-write consistency</code></li>
+</ul>
+</li>
+<li>更新既有的物件，同時立刻讀取：S3 可能會傳回前一個物件，直到更改傳遞到所有的 servers</li>
+<li>刪除既有物件，同時立刻讀取：S3 可能回傳要刪除的物件，直到更改傳遞到所有的 servers</li>
+<li>刪除既有物件，同時 list bucket 裡的 keys: S3 可能還是會顯示刪除的 object，直到更改傳遞到所有的 servers</li>
+<li>目前 S3 不支援 Object Locking</li>
+</ul>
+<p>下表描述 <code>Eventually Consistent Read (最終一致性讀取)</code> &amp; <code>Consistent Read (一致性讀取)</code> 的差異：</p>
+<p><img src="/images/AWS/S3/official-figures/ECR-CR.png"></p>
+<blockquote>
+<p>更多關於 <code>最終一致性</code> 的概念，參閱 <a href="/2018/12/09/DistributedSystems/Eventually-Consistent-Dynamo-NWR/">Eventually Consistent 與 Dynamo NWR 模型</a></p>
+</blockquote>
+<!--
+## Reduced Redundancy Storage (RRS)
+
+- reduce costs: 減少成本
+- store non-critical: 儲存不重要的資料
+- reproducible data: 重複性的資料
+- cost-effective, highly available: 成本效益，高可用性
+
+## Inventory
+
+-->
+
+<hr>
+<h1 id="二、核心功能-Core-Functions"><a href="#二、核心功能-Core-Functions" class="headerlink" title="二、核心功能 (Core Functions)"></a>二、核心功能 (Core Functions)</h1><p>S3 除了存資料之外，有很多因應而生的功能，這些功能都很實用，也是很多人選擇 S3 的主因。</p>
+<p>以下整理一些我個人認為的核心功能，我把他們分成兩大類：</p>
+<ul>
+<li>應用功能：應用服務使用的功能，主要是提供 Feature、創造價值，屬於進攻。</li>
+<li>管理功能：維運管理功能，主要是針對資安、節省成本，屬於防守。</li>
+</ul>
+<h2 id="Static-Website-Hosting"><a href="#Static-Website-Hosting" class="headerlink" title="Static Website Hosting"></a>Static Website Hosting</h2><p>有以下幾種方法可以讓 S3 當作靜態網頁服務：</p>
+<ol>
+<li>使用 S3 Bucket 的 Static Website Hosting 功能 (沒有 HTTPS)</li>
+<li>整合 Route 53 Alias + S3 Bucket (沒有 HTTPS)</li>
+<li>整合 CloudFront + Route 53 Alias + S3 Bucket (有 HTTPS)</li>
+</ol>
+<h3 id="S3-Bucket-Route53"><a href="#S3-Bucket-Route53" class="headerlink" title="S3 Bucket + Route53"></a>S3 Bucket + Route53</h3><ol>
+<li>建立 S3 Bucket<ul>
+<li>使用 Domain Name 當作 S3 Bucket Name，例如：<code>website1.abc.com</code>，此例子放在 <code>us-west-2</code></li>
+<li>開啟 <code>Static Website Hosting</code> 功能，一定要開啟，否則功能不會正常（如下訊息）。<br> <img src="/images/AWS/S3/Static-Website/Fail-WebsiteConfig.png"></li>
+<li>權限：</li>
+<li>關閉 <code>Block public access</code>，預設是開啟的。因為太多資安事件，後來新增的預設功能。</li>
+<li>用 Bucket Policy 或 Object ACL ，後面描述</li>
+<li>放一個 <code>index.html</code></li>
+</ul>
+</li>
+<li>設定 Route 53<ul>
+<li>新增一筆 A Record</li>
+<li>開啟 Alias，選擇已經建立好的 S3 Bucket，或者填入：<code>s3-website-us-west-2.amazonaws.com.</code>。 如果 AutoComplete 沒有 S3 Bucket 可以選，表示沒有開啟 <code>Static Website Hosting</code>，如果已經開啟卻沒得選，重新載入 Route53 Console。如下圖：<br> <img src="/images/AWS/S3/Static-Website/r53-alias.png"></li>
+</ul>
+</li>
+<li>權限設定：要讓使用者可以瀏覽靜態資料<ul>
+<li><code>Bucket Policy</code>：好處是 Object 上傳後，不需要額外的權限設定。底下是範例： <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;Version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2012-10-17&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Statement&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;Sid&quot;</span><span class="punctuation">:</span> <span class="string">&quot;PublicReadGetObject&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Effect&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Allow&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Principal&quot;</span><span class="punctuation">:</span> <span class="string">&quot;*&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Action&quot;</span><span class="punctuation">:</span> <span class="string">&quot;s3:GetObject&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Resource&quot;</span><span class="punctuation">:</span> <span class="string">&quot;arn:aws:s3:::website1.abc.com/*&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li><code>Object ACL</code>：開啟個別 Object 的 Permission，方法有以下：</li>
+<li>在 S3 Console，選擇 Object -&gt; “Make Public”</li>
+<li>在 S3 Console：點選 Object -&gt; 右邊 Properties -&gt; Permission -&gt; Public access -&gt; 開啟 <code>Read Object</code></li>
+<li>透過 SDK &#x2F; API 操作（如下），指定 ACL 為 <code>public-read</code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">aws s3api put-object \</span><br><span class="line">    --acl public-read \</span><br><span class="line">    --body s3-permission-control-flow.png \</span><br><span class="line">    --bucket website1.abc.com \</span><br><span class="line">    --key images/s3-permission-control-flow.png \</span><br><span class="line">    --content-type image/png \</span><br><span class="line">    --content-disposition <span class="string">&quot;inline; filename=s3-permission-control-flow.png&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<p>權限兩種方法都可以，如果要安全性高一點，選擇 Object ACL 控制，透過程式控制；如果是開放資料，像是文件，則可以使用 Bucket Policy 控制。</p>
+<h3 id="Endpoints-of-Path-Style-and-Virtual-Hosted-Style"><a href="#Endpoints-of-Path-Style-and-Virtual-Hosted-Style" class="headerlink" title="Endpoints of Path-Style and Virtual-Hosted Style"></a>Endpoints of Path-Style and Virtual-Hosted Style</h3><p>S3 支援兩種存取格式的 Endpoints，格式如下：</p>
+<ol>
+<li><code>Path-Style (v1)</code>:<ul>
+<li>Bucket in us-east-1: <code>https://s3.amazonaws.com/&#123;BUCKET_NAME&#125;/&#123;OBJECT_KEY_NAME&#125;</code></li>
+<li>Bucket in other regions: <code>https://s3-&#123;REGION_CODE&#125;.amazonaws.com/&#123;BUCKET_NAME&#125;/&#123;OBJECT_KEY_NAME&#125;</code></li>
+</ul>
+</li>
+<li><code>Virtual-Hosted Style (v2)</code><ul>
+<li>Bucket in us-east-1: 同下</li>
+<li>Bucket in other regions: <code>http://&#123;BUCKET_NAME&#125;.s3-website-&#123;REGION_CODE&#125;.amazonaws.com/&#123;OBJECT_KEY_NAME&#125;</code></li>
+</ul>
+</li>
+</ol>
+<p>為了方便說明，我建立兩個 Bucket 當範例：</p>
+<ol>
+<li>website.abc.com -&gt; region 在 us-east-1 (N. Virginia)</li>
+<li>website1.abc.com -&gt; region 在 us-west-2 (Oregon)</li>
+</ol>
+<p>Path-Style 是第一代 (1) 的格式，選擇一個 Object，下圖是 Overview，這是放在 Virginia 的 Object URL：</p>
+<p><img src="/images/AWS/S3/Static-Website/Path-Style_us-east-1.png"></p>
+<p>下圖是放在 Oregon 的 Object URL，有包含 REGION_CODE: us-west-2</p>
+<p><img src="/images/AWS/S3/Static-Website/Path-Style_us-west-2.png"></p>
+<p>不難發現，<code>Path-Style</code> 就是以 Region 為主要的 Hostname，然後把 Bucket Name 當作 URL 路徑看待，而且支援 HTTPS。另外 Virginia 因為是第一個 region，所以預設的 S3 Domain Name 就是給他用，其他則有個別的 Domain Name.</p>
+<p>Virtual-Hosted Style 是第二代 (v2) 的格式，主要就是以 Bucket Name 作為 Hostname。同樣的用 us-east-1、us-west-2 做範例，如下圖，在 Bucket -&gt; Properties -&gt; Static Website Hosting 找存取的 Endpoint：</p>
+<p><img src="/images/AWS/S3/Static-Website/vHost-Style_us-east-1.png"><br><img src="/images/AWS/S3/Static-Website/vHost-Style_us-west-2.png"></p>
+<p>要注意的是：</p>
+<ul>
+<li>Path-Style 支援 HTTPS</li>
+<li>Virtual-Hosted Style:<ul>
+<li>如果 Bucket Name 有 <code>. (dot)</code> 出現，那就無法支援 HTTPS，需要依賴 CloudFront</li>
+<li>如果 Bucket Name 沒有 <code>. (dot)</code> ，那可以支援 HTTPS</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>相關新聞：</p>
+<ul>
+<li>2019&#x2F;05&#x2F;08: <a target="_blank" rel="noopener" href="https://aws.amazon.com/blogs/aws/amazon-s3-path-deprecation-plan-the-rest-of-the-story/">Amazon S3 Path Deprecation Plan – The Rest of the Story</a>: 2020&#x2F;09 將淘汰 Path-Style.</li>
+</ul>
+</blockquote>
+<h2 id="Event-Notifications"><a href="#Event-Notifications" class="headerlink" title="Event Notifications"></a>Event Notifications</h2><p>S3 支援 Events 功能，屬於 Bucket Level 設定，透過 Notification 達到事件處理的功能。</p>
+<p>每個 Event 由以下組成：</p>
+<ul>
+<li><code>Name</code>: 顯示用名稱，不是 Key &#x2F; Id，可以修改</li>
+<li><code>Event Types</code>: 分成 Create、Remove、Others 三大類</li>
+<li><code>Filter</code>: 依據 Prefix、Suffix 為過濾條件，例如 <code>prefix=images/</code>、<code>suffix=jpg</code><ul>
+<li><code>PUT, prefix=images, suffix=jpg</code> 和 <code>PUT, prefix=images/, suffix=txt</code> 是不同的條件。</li>
+<li>注意 filter 條件不能重複</li>
+</ul>
+</li>
+<li><code>Destinations</code>: 處理，支援 SNS, SQS, Lambda</li>
+</ul>
+<p>Events Types (Action) 包含以下：</p>
+<ul>
+<li>Create an object:<ul>
+<li>s3:ObjectCreated:*</li>
+<li>s3:ObjectCreated:Put|Post|Copy|CompleteMultipartUpload</li>
+<li>如果上傳失敗，不會收到 failed operation</li>
+</ul>
+</li>
+<li>Remove an object:<ul>
+<li>s3:ObjectRemoved:*</li>
+<li>s3:ObjectRemoved:Delete|DeleteMarkerCreated</li>
+<li>透過 lifecycle 刪除，或者刪除失敗不會收到 failed operation</li>
+</ul>
+</li>
+<li>Others:<ul>
+<li>restore objects: s3:ObjectRestore:Post, s3:ObjectRestore:Completed</li>
+<li>s3:ReducedRedundancyLostObject</li>
+</ul>
+</li>
+</ul>
+<p>設定好 Event 之後， 觸發後  S3 會送出這樣的 Message：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">   <span class="attr">&quot;Records&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span></span><br><span class="line">      <span class="punctuation">&#123;</span></span><br><span class="line">         <span class="attr">&quot;eventVersion&quot;</span><span class="punctuation">:</span><span class="string">&quot;2.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">         <span class="attr">&quot;eventSource&quot;</span><span class="punctuation">:</span><span class="string">&quot;aws:s3&quot;</span><span class="punctuation">,</span></span><br><span class="line">         <span class="attr">&quot;awsRegion&quot;</span><span class="punctuation">:</span><span class="string">&quot;us-west-2&quot;</span><span class="punctuation">,</span></span><br><span class="line">         <span class="attr">&quot;eventTime&quot;</span><span class="punctuation">:</span>The time<span class="punctuation">,</span> in ISO<span class="number">-8601</span> format<span class="punctuation">,</span> for example<span class="punctuation">,</span> <span class="number">1970</span><span class="number">-01</span><span class="number">-01</span>T00<span class="punctuation">:</span><span class="number">00</span><span class="punctuation">:</span><span class="number">00.000</span>Z<span class="punctuation">,</span> when Amazon S3 finished processing the request<span class="punctuation">,</span></span><br><span class="line">         <span class="attr">&quot;eventName&quot;</span><span class="punctuation">:</span><span class="string">&quot;event-type&quot;</span><span class="punctuation">,</span></span><br><span class="line">         <span class="attr">&quot;userIdentity&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;principalId&quot;</span><span class="punctuation">:</span><span class="string">&quot;Amazon-customer-ID-of-the-user-who-caused-the-event&quot;</span></span><br><span class="line">         <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">         <span class="attr">&quot;requestParameters&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;sourceIPAddress&quot;</span><span class="punctuation">:</span><span class="string">&quot;ip-address-where-request-came-from&quot;</span></span><br><span class="line">         <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">         <span class="attr">&quot;responseElements&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;x-amz-request-id&quot;</span><span class="punctuation">:</span><span class="string">&quot;Amazon S3 generated request ID&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;x-amz-id-2&quot;</span><span class="punctuation">:</span><span class="string">&quot;Amazon S3 host that processed the request&quot;</span></span><br><span class="line">         <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">         <span class="attr">&quot;s3&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;s3SchemaVersion&quot;</span><span class="punctuation">:</span><span class="string">&quot;1.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;configurationId&quot;</span><span class="punctuation">:</span><span class="string">&quot;ID found in the bucket notification configuration&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;bucket&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">               <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span><span class="string">&quot;bucket-name&quot;</span><span class="punctuation">,</span></span><br><span class="line">               <span class="attr">&quot;ownerIdentity&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">                  <span class="attr">&quot;principalId&quot;</span><span class="punctuation">:</span><span class="string">&quot;Amazon-customer-ID-of-the-bucket-owner&quot;</span></span><br><span class="line">               <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">               <span class="attr">&quot;arn&quot;</span><span class="punctuation">:</span><span class="string">&quot;bucket-ARN&quot;</span></span><br><span class="line">            <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;object&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">               <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span><span class="string">&quot;object-key&quot;</span><span class="punctuation">,</span></span><br><span class="line">               <span class="attr">&quot;size&quot;</span><span class="punctuation">:</span>object-size<span class="punctuation">,</span></span><br><span class="line">               <span class="attr">&quot;eTag&quot;</span><span class="punctuation">:</span><span class="string">&quot;object eTag&quot;</span><span class="punctuation">,</span></span><br><span class="line">               <span class="attr">&quot;versionId&quot;</span><span class="punctuation">:</span><span class="string">&quot;object version if bucket is versioning-enabled, otherwise null&quot;</span><span class="punctuation">,</span></span><br><span class="line">               <span class="attr">&quot;sequencer&quot;</span><span class="punctuation">:</span> <span class="string">&quot;a string representation of a hexadecimal value used to determine event sequence,</span></span><br><span class="line"><span class="string">                   only used with PUTs and DELETEs&quot;</span></span><br><span class="line">            <span class="punctuation">&#125;</span></span><br><span class="line">         <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">         <span class="attr">&quot;glacierEventData&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;restoreEventData&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">               <span class="attr">&quot;lifecycleRestorationExpiryTime&quot;</span><span class="punctuation">:</span> <span class="string">&quot;The time, in ISO-8601 format, for example, 1970-01-01T00:00:00.000Z, of Restore Expiry&quot;</span><span class="punctuation">,</span></span><br><span class="line">               <span class="attr">&quot;lifecycleRestoreStorageClass&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Source storage class for restore&quot;</span></span><br><span class="line">            <span class="punctuation">&#125;</span></span><br><span class="line">         <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">   <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+<p>問題：</p>
+<p>Q: 同一個 Event，支援同時多種 Destinations?</p>
+<blockquote>
+<p>問題可以改成同一個 Event 的 Filter，可否支援多個 Dest？透過 SNS 就可以做到，也就是 Pub&#x2F;Sub Fanout 的功能。。</p>
+</blockquote>
+<p>Q: 同一個檔案，重複 Put，S3 會發 Event？</p>
+<blockquote>
+<p>實測過：會。</p>
+</blockquote>
+<p>Q: 刪除不存在的 Object，會重複驅動 Event？</p>
+<blockquote>
+<p>實測過：不管有無開啟 Versioning 都會收到 Event，只是 EventName 會有所差異：<code>ObjectRemoved:Delete</code>、<code>ObjectRemoved:DeleteMarkerCreated</code>。</p>
+</blockquote>
+<p>Q: 如果擔心 S3 Event 有遺漏，該如何確認？</p>
+<blockquote>
+<p>依照官方文件，以及實測的經驗，遺漏的機率很小，但如果真的需要檢驗方式，可以透過 Inventory 功能。假設上傳後儲存到 S3 沒問題，問題會發生的是在 S3 發動 Event 這個過程。相關文件：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/AmazonS3/latest/user-guide/setup-event-notification-destination.html">How Do I Set Up a Destination to Receive Event Notifications?</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/AmazonS3/latest/user-guide/enable-event-notifications.html">How Do I Enable and Configure Event Notifications for an S3 Bucket?</a></li>
+</ul>
+</blockquote>
+<p>Q: 能否控制 S3 發送 Event 的速率？</p>
+<blockquote>
+<p>目前只能透過 Lambda Concurrency 控制。實測以下的狀況：</p>
+<ul>
+<li>Lambda Concurrency&#x3D;3</li>
+<li>短時間 (&lt; 5m) 之內，上傳約 1300 個圖檔<br>觀察 Lambda <code>ConcurrentExecutions</code> 的狀況，以及 <code>Invocations</code> 的總和</li>
+</ul>
+</blockquote>
+<p>Q: Lifecycle 刪除的檔案會發動 Event？</p>
+<blockquote>
+<p>不會。</p>
+</blockquote>
+<p>Q: 哪裡可以監控 Event 發動的狀況？</p>
+<blockquote>
+<p>目前只能從 Destination 端的 Metric 監看，像是 Lambda 的 Invocations、SQS 的 Invocations、SNS 的 NumberOfMessagesPublished 等。</p>
+</blockquote>
+<p>Q: Event 是發生在 S3 Action 前、還是後？</p>
+<blockquote>
+<p>我也想知道。</p>
+</blockquote>
+<!--
+## Analytics
+
+Data Lake (Athena, Redshift, QuickSight), IoT Streaming Data, Machine Learning and AI Storage, Storage Class Analysis
+
+
+
+## Access Log
+
+## Cross-Region Replication
+
+## Tags
+
+-->
+
+<h2 id="Lifecycle-Management"><a href="#Lifecycle-Management" class="headerlink" title="Lifecycle Management"></a>Lifecycle Management</h2><p>Bucket Level 的功能，主要用途是透過 <code>條件</code> + <code>轉換</code> + <code>過期</code></p>
+<ul>
+<li>條件 (Rule)：Prefix 或者 Tags</li>
+<li>轉換 (Transition):<ul>
+<li>針對目前的版本或者前一些版本</li>
+<li>在 n 天之後，把 Object 轉換成指定的 Object Class</li>
+</ul>
+</li>
+<li>過期 (Expiration):<ul>
+<li>針對目前的版本或者前一些版本</li>
+<li>在 n 天之後完全刪除，或者把 MarkDelete 的刪除</li>
+<li>刪除未完成的 multipart upload</li>
+</ul>
+</li>
+</ul>
+<p>是非常實用的維運功能，經常使用的就是</p>
+<ul>
+<li>刪除 n 天之前的備份資料</li>
+<li>把轉換 n 天之前 Object 放到 Gliacier (磁帶)</li>
+</ul>
+<h2 id="Monitoring"><a href="#Monitoring" class="headerlink" title="Monitoring"></a>Monitoring</h2><p>監控 S3 的方法有很多，主要還是以 CloudWatch 為主。在 Bucket Level 的設定 -&gt; Management -&gt; Metrics 直接把 CloudWatch Metric 整合了。分成 Storage、Request、Data Transfer 三大部分。其中 Storage 預設是開啟的，Requests、Data Transfer 是另外要付費的。</p>
+<p>另外可以透過 Filter 的方式，針對 Prefix、Tags 過濾想要監控的資訊。</p>
+<p>除了 CloudWatch 的監控，AWS 還有其他服務可以做更細緻的監控，列舉如下：</p>
+<ul>
+<li>S3 Server Access Logs：S3 自身的 Access Logs。</li>
+<li>Trusted Advisor：成本、資安</li>
+<li>AWS Config Rules：程式化、自動化</li>
+<li>Amazon Macie：機器學習的安全服務，可以找到敏感資料、個資 … 等。</li>
+<li>CloudTrail：AWS 本身的 Audit Log</li>
+</ul>
+<h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><p>其他本文尚未整理的功能。</p>
+<ul>
+<li>Analytics: Data Lake (Athena, Redshift, QuickSight), IoT Streaming Data, Machine Learning and AI Storage, Storage Class Analysis</li>
+<li>Access Log</li>
+<li>Cross-Region Replication</li>
+<li>Tags</li>
+<li>Batch</li>
+<li>Transfer Acceleration: Spped up data uploads using CloudFront in reverse.</li>
+<li>BitTorrent</li>
+</ul>
+<hr>
+<h1 id="三、存取權限-Access-Control"><a href="#三、存取權限-Access-Control" class="headerlink" title="三、存取權限 (Access Control)"></a>三、存取權限 (Access Control)</h1><p>S3 存取的授權方式有兩種：<code>Resource-based policies</code> 和 <code>User Policies</code>。底下整理自 <a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-overview.html">Overview of Managing Access</a>。</p>
+<h2 id="Resource-based-Policies"><a href="#Resource-based-Policies" class="headerlink" title="Resource-based Policies"></a>Resource-based Policies</h2><p>概念如下圖 (取自 <a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-overview.html">官方文件</a>)，分成針對 Bucket 的 <code>Bucket Policy</code>、<code>Bucket ACL</code>，以及針對 S3 Object 的 <code>Object ACLs</code>：</p>
+<p><img src="/images/AWS/S3/official-figures/resource-based-policy.png"></p>
+<p><code>Bucket ACLs / Object ACLs</code>: 每個 Bucket 和 Object 都有一個 ACL 的關聯。ACLs 用來針對特定 <code>識別</code> 發放權限。像是可以發放給另一個 AWS Account 權限。可以透過設定 <code>Account Canonical User ID</code> ，讓另一個帳號可以存取 Bucket（但是不會在 Bucket List 上出現)。可設定的資訊如下：</p>
+<ul>
+<li><code>Canonical User ID</code>: 是個 Long String，大概像這樣：<code>7ae3d7f85d42d21d250ff1c13b3b8ec92189bedbd648252984ba6526a3b071d1</code>，可以在 S3 Bucket ACL 裡找到。</li>
+<li><code>Bucket ACLs</code>:<ul>
+<li>List Objects、Write Objects、Read Bucket Permissions、Write Bucket Permissions</li>
+</ul>
+</li>
+<li><code>Object ACLS</code>:<ul>
+<li>Read Objects、Read Object Permissions、Write Object Permissions</li>
+<li>注意：沒有 Write Objects</li>
+</ul>
+</li>
+</ul>
+<p>Bucket ACLs 以 XML 呈現，新版的 S3 Console 透過 GUI 設定即可。舊版的 Console 則需要自行設定 XML，格式如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">AccessControlPolicy</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://s3.amazonaws.com/doc/2006-03-01/&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">Owner</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ID</span>&gt;</span>*** Owner-Canonical-User-ID ***<span class="tag">&lt;/<span class="name">ID</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">DisplayName</span>&gt;</span>owner-display-name<span class="tag">&lt;/<span class="name">DisplayName</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">Owner</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">AccessControlList</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Grant</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Grantee</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">xsi:type</span>=<span class="string">&quot;Canonical User&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ID</span>&gt;</span>*** Owner-Canonical-User-ID ***<span class="tag">&lt;/<span class="name">ID</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">DisplayName</span>&gt;</span>display-name<span class="tag">&lt;/<span class="name">DisplayName</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">Grantee</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Permission</span>&gt;</span>FULL_CONTROL<span class="tag">&lt;/<span class="name">Permission</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Grant</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">AccessControlList</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">AccessControlPolicy</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>Bucket Policy</code>: 主要發放權限給 AWS Account 或者 IAM Users，整個 Bucket 與 Object 都會應用 Policy。Policy 的設定同 IAM Policy 的設計，每個 Statement 主要有必要的 Effect、Principal、Action、Resource 以及選擇性的 Condition。</p>
+<p>Principal 用來授權給哪一個 AWS Account 或者 特定的 Canonical User ID。AWS Account 使用的就是 ARN 格式，例如：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;Principal&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;AWS&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;arn:aws:iam::AccountNumber-WithoutHyphens:root&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;arn:aws:iam::AccountNumber-WithoutHyphens:user/user1&quot;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>Canonical User ID 範例：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;Principal&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;CanonicalUser&quot;</span><span class="punctuation">:</span> <span class="string">&quot;64-digit-alphanumeric-value&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>Condition 通常用來篩選條件，像是控制來源 IP、特定的 http header … etc。底下範例是授權特定來源 IP 存取的範例：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;Version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2012-10-17&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;Statement&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;Effect&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Allow&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Principal&quot;</span><span class="punctuation">:</span> <span class="string">&quot;*&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Action&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;s3:GetObject&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Resource&quot;</span><span class="punctuation">:</span> <span class="string">&quot;arn:aws:s3:::examplebucket/*&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Condition&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;IpAddress&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;aws:SourceIp&quot;</span><span class="punctuation">:</span> <span class="string">&quot;192.168.143.0/24&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;NotIpAddress&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;aws:SourceIp&quot;</span><span class="punctuation">:</span> <span class="string">&quot;192.168.143.188/32&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="User-policy"><a href="#User-policy" class="headerlink" title="User policy"></a>User policy</h2><p>這個 <code>User</code> 指的是 AWS IAM，包含 IAM users、groups、roles，概念如 <a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-overview.html">官方文件</a> 的圖：</p>
+<p><img src="/images/AWS/S3/official-figures/user-policy.png"></p>
+<blockquote>
+<p>IAM 相關概念請參閱 <a href="/2016/04/03/AWS/Study-Notes-IAM/">Study Notes - Identity and Access Management (IAM)</a> 的整理</p>
+</blockquote>
+<h2 id="S3-如何處理授權請求？"><a href="#S3-如何處理授權請求？" class="headerlink" title="S3 如何處理授權請求？"></a>S3 如何處理授權請求？</h2><p>官方文件: <a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/how-s3-evaluates-access-control.html">How Amazon S3 Authorizes a Request</a> 針對 Bucket Operation 和 Object Operation 有兩張圖，比較複雜，下圖是我自己簡化的整理。主要以 IAM User 的角度出發，分成三個驗證步驟：</p>
+<ol>
+<li>確認是否符合 Bucket ACL，主要確認是不是 CanonicalUser</li>
+<li>是否符合 Bucket Policy 的條件，預設 Bucket Policy 是空的。</li>
+<li>如果 2) 不符合，那麼看看是否符合 IAM Policy</li>
+</ol>
+<p><img src="/images/AWS/S3/acl/s3-permission-control-flow.png"></p>
+<!--
+![For a Bucket Operation](/images/AWS/S3/AccessControlAuthorizationFlowBucketResource.png)
+![For an Object Operation](/images/AWS/S3/AccessControlAuthorizationFlowObjectResource.png)
+-->
+
+
+
+
+<!--
+## VPC Endpoint (VPCE)
+
+08:04
+https://www.youtube.com/watch?v=x25FSsXrBqU
+
+![](/images/AWS/S3/VPC-Endpoint.png)
+
+
+## Block Public Access
+
+## CORS
+
+https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html
+
+
+
+<CORSConfiguration>
+ <CORSRule>
+   <AllowedOrigin>http://www.example1.com</AllowedOrigin>
+
+   <AllowedMethod>PUT</AllowedMethod>
+   <AllowedMethod>POST</AllowedMethod>
+   <AllowedMethod>DELETE</AllowedMethod>
+
+   <AllowedHeader>*</AllowedHeader>
+ </CORSRule>
+ <CORSRule>
+   <AllowedOrigin>http://www.example2.com</AllowedOrigin>
+
+   <AllowedMethod>PUT</AllowedMethod>
+   <AllowedMethod>POST</AllowedMethod>
+   <AllowedMethod>DELETE</AllowedMethod>
+
+   <AllowedHeader>*</AllowedHeader>
+ </CORSRule>
+ <CORSRule>
+   <AllowedOrigin>*</AllowedOrigin>
+   <AllowedMethod>GET</AllowedMethod>
+ </CORSRule>
+</CORSConfiguration>
+
+-->
+
+
+<hr>
+<h1 id="四、資料保護-Data-Protection"><a href="#四、資料保護-Data-Protection" class="headerlink" title="四、資料保護 (Data Protection)"></a>四、資料保護 (Data Protection)</h1><p>資料保護分成資料加密 (Data Encryption) 以及版本控管 (Versioning) 討論。</p>
+<h2 id="Data-Encryption-At-Rest"><a href="#Data-Encryption-At-Rest" class="headerlink" title="Data Encryption (At Rest)"></a>Data Encryption (At Rest)</h2><p>S3 的資料加密分成以下種：</p>
+<ul>
+<li><code>Server-Side Encryption (SSE)</code>: 由 Server-Side 負責加密後寫入儲存體，加密過程的運算資源、加密演算法都由 Server-Side 提供。<ul>
+<li>SSE-S3：全名是 <code>Server-Side Encryption with Amazon S3-Managed Keys</code>。加密過程使用的 Data Key 與 Master Key 都由 S3 管理，不需要自行管理，Master Key 則會定期更新 (Rotation)。S3 使用 256-bit Advanced Encryption Standard (AES-256) 加密。</li>
+<li>SSE-KMS：顧名思義就是使用 KMS 的 CMKs (Customer Master Keys) 加密 S3 Object。KMS 會負責管理 Data Key。</li>
+<li>SSE-C: 全名是 <code>Server-Side Encryption with Customer-Provided Keys</code>，由使用者提供 Encryption Key 作加密。</li>
+</ul>
+</li>
+<li><code>Client-Side Encryption (CSE)</code>：<ul>
+<li>Client-Side (PGP, GPG)</li>
+</ul>
+</li>
+</ul>
+<p>以下整理 SSE 三種的差異：</p>
+<p><img src="/images/AWS/S3/DataProtection/S3-Data-Encryption.png"></p>
+<blockquote>
+<p>更多關於參閱：<a href="/2020/03/07/ComputerScience/Cryptography/">密碼學與資訊安全</a> 的整理</p>
+</blockquote>
+<!--
+加密
+
+解密
+
+
+
+
+
+Q: 應該選擇 SSE 或者 CSE？考量的是什麼？
+
+
+Q: SSE 應該使用 SSE-S3 or SSE-KMS？
+
+
+Q: 資料加密方式可否更換？那已經加密的會怎樣？
+
+
+-->
+
+<h2 id="Versioning"><a href="#Versioning" class="headerlink" title="Versioning"></a>Versioning</h2><p>S3 Bucket Level 支援版本管控，亦即每個物件都可以有版本的概念。S3 Object 由 Key + VersionId + Metadata + Value 組成。其中 VersionId 就是用來代表版本概念的關鍵屬性。</p>
+<p>做了實驗：</p>
+<ol>
+<li>上傳一個檔案</li>
+<li>同一個檔案，再上傳一次</li>
+<li>刪除檔案</li>
+<li>同一個檔案，再上傳一次</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">FILENAME=<span class="string">&quot;IMG_0001.JPG&quot;</span></span><br><span class="line">BUCKET_NAME=<span class="string">&quot;dev-us-west-2-lab-s3&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 1. 上傳一個檔案</span></span><br><span class="line">aws s3api put-object \</span><br><span class="line">    --acl private \</span><br><span class="line">    --body <span class="variable">$&#123;FILENAME&#125;</span> \</span><br><span class="line">    --bucket <span class="variable">$&#123;BUCKET_NAME&#125;</span> \</span><br><span class="line">    --key pic/<span class="variable">$&#123;FILENAME&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 2. 同一個檔案，再上傳一次</span></span><br><span class="line">aws s3api put-object \</span><br><span class="line">    --acl private \</span><br><span class="line">    --body <span class="variable">$&#123;FILENAME&#125;</span> \</span><br><span class="line">    --bucket <span class="variable">$&#123;BUCKET_NAME&#125;</span> \</span><br><span class="line">    --key pic/<span class="variable">$&#123;FILENAME&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 3. 刪除檔案</span></span><br><span class="line">aws s3api delete-object \</span><br><span class="line">    --bucket <span class="variable">$&#123;BUCKET_NAME&#125;</span> \</span><br><span class="line">    --key pic/<span class="variable">$&#123;FILENAME&#125;</span> \</span><br><span class="line"></span><br><span class="line"><span class="comment">## 4. 同一個檔案，再上傳一次</span></span><br><span class="line">aws s3api put-object \</span><br><span class="line">    --acl private \</span><br><span class="line">    --body <span class="variable">$&#123;FILENAME&#125;</span> \</span><br><span class="line">    --bucket <span class="variable">$&#123;BUCKET_NAME&#125;</span> \</span><br><span class="line">    --key pic/<span class="variable">$&#123;FILENAME&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>結果如下圖：</p>
+<p><img src="/images/AWS/S3/Versioning/Lab01.png"></p>
+<p>觀察到的現象：</p>
+<ol>
+<li>S3 不會比對檔案來源，同樣的檔案會產生不同的 VersionId</li>
+<li>被蓋過去的檔案，可以下載</li>
+</ol>
+<p>Q: 如何指定特定的 VersionId 為 Latest Version？</p>
+<blockquote>
+<p>目前的方法只能指定 VersionId ，然後重新上傳該物件，把物件改掉。</p>
+</blockquote>
+<p>Q: 被標記 Delete Marker 可以下載？</p>
+<blockquote>
+<p>實測結果不行。</p>
+</blockquote>
+<!--
+## Object Lock
+
+-->
+
+
+<hr>
+<h1 id="五、服務限制-Limitiation"><a href="#五、服務限制-Limitiation" class="headerlink" title="五、服務限制 (Limitiation)"></a>五、服務限制 (Limitiation)</h1><p>Bucket Restrictions and Limitation</p>
+<ul>
+<li>Bucket:<ul>
+<li>每個 AWS 帳號可以建立 100 buckets，可以透過 Support Ticket 增加上限，最多可以到 1000 個。</li>
+<li>bucket ownership is not tranferable.</li>
+<li>delete bucket, the name become available.</li>
+<li>bucket policy size: 20KB, see: <a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html">https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html</a></li>
+</ul>
+</li>
+</ul>
+<!--
+https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html
+https://aws.amazon.com/tw/about-aws/whats-new/2018/07/amazon-s3-announces-increased-request-rate-performance/
+-->
+
+<hr>
+<h1 id="六、開發-Development"><a href="#六、開發-Development" class="headerlink" title="六、開發 (Development)"></a>六、開發 (Development)</h1><p>S3 每個 bucekt 除了提供 static website hosting 的功能，也提供了 REST API 給開發者使用。REST API for bucket 規則如下：</p>
+<!--
+[Amazon S3 REST API Introduction][r3]
+ Static Website: {BUCKET_NAME}.s3-website-{REGION_CODE}.amazonaws.com
+-->
+
+
+<ul>
+<li>Path-Style:<ul>
+<li>us-east-1: <code>https://s3.amazonaws.com/&#123;BUCKET_NAME&#125;/</code></li>
+<li>other regions: <code>https://s3-&#123;REGION_CODE&#125;.amazonaws.com/&#123;BUCKET_NAME&#125;/</code></li>
+</ul>
+</li>
+<li>Virtual-Hosted Style: <code>https://&#123;BUCKET_NAME&#125;.s3-&#123;REGION_CODE&#125;.amazonaws.com</code><ul>
+<li>要注意的是，名字不是 <code>s3-website-&#123;REGION_CODE&#125;</code></li>
+</ul>
+</li>
+</ul>
+<p>權限的設定如下：</p>
+<ul>
+<li>關掉 <code>Block Public Access</code></li>
+<li>開啟 Bucket ACL 的 List Object</li>
+</ul>
+<blockquote>
+<p>不需要開啟 Static Website Hosting</p>
+</blockquote>
+<p>例如 bucket name 叫做 <code>website.abc.com</code>，那就可以透過 <code>https://website.abc.com.s3-us-west2.amazonaws.com</code> 存取，下圖是 Path-Style 和 Virtual-Hosted Style 的範例：</p>
+<p><img src="/images/AWS/S3/RestAPI/REST-API_Path-Style_us-west-2_ListObject.png"><br><img src="/images/AWS/S3/RestAPI/REST-API_vHost-Style_us-west-2_ListObject.png"></p>
+<!--
+註記：
+
+
+## 效能
+
+## 設計模式
+
+-->
+
+<hr>
+<h1 id="七、成本-Cost"><a href="#七、成本-Cost" class="headerlink" title="七、成本 (Cost)"></a>七、成本 (Cost)</h1><p>S3 的成本分成幾個部分：儲存費用、請求費用、資料傳輸、S3 Transfer Acceleration、跨區複寫</p>
+<h2 id="儲存費用"><a href="#儲存費用" class="headerlink" title="儲存費用"></a>儲存費用</h2><p>Storage Classes: 依照儲存的類型，有不同的成本價錢，不同 region 也會有不同的定價。底下以 Oregon 做範例整理。下圖是 S3 Standard Class 的價錢，分成三個區段：</p>
+<p><img src="/images/AWS/S3/Pricing/S3-Standard-Price.png"></p>
+<p>下圖是其他 Storage Classes 比較表：</p>
+<p><img src="/images/AWS/S3/Pricing/S3-Pricing.png"></p>
+<p>下圖各種 Storage Classes 成本比例分析表：</p>
+<p><img src="/images/AWS/S3/Pricing/S3-Pricing-Comparision.png"></p>
+<h2 id="請求成本"><a href="#請求成本" class="headerlink" title="請求成本"></a>請求成本</h2><p>依照 REST 的請求，以及資料傳輸，費用會有所差異。計費考量的面相有以下：</p>
+<ul>
+<li>操作：PUT、COPY、POST、GET、SELECT 請求，其中 DELETE、CANCEL 是不用費用的。</li>
+<li>透過 S3 功能 (Select) 取得的資料傳輸費用</li>
+</ul>
+<p>依照 Storage Classes，分成不同價錢，傳輸的資料也有不同價錢。</p>
+<hr>
+<h1 id="八、應用場景-User-Scenarios"><a href="#八、應用場景-User-Scenarios" class="headerlink" title="八、應用場景 (User Scenarios)"></a>八、應用場景 (User Scenarios)</h1><p>應用場景我分成兩大類：解決方案、功能特性。解決方案通常會整合其他 AWS Services，整體也比較複雜；功能特性會著重在 S3 自身的功能應用。</p>
+<ul>
+<li>功能特性<ul>
+<li>大量上傳</li>
+<li>Pre-signed URL</li>
+<li>在 EC2 使用 S3 當作延伸磁碟</li>
+<li>如何跨帳號存取 S3 Bucket</li>
+</ul>
+</li>
+<li>解決方案 (Solution)<ul>
+<li>靜態資料傳遞：搭配 CloudFront</li>
+<li>非同步批次處理：搭配 Lambda</li>
+<li>Log 儲存與分析：搭配 Kinesis Firehose、Athena</li>
+<li>跨區資料備份與同步</li>
+</ul>
+</li>
+</ul>
+<!--
+## S3 as Static Web Site (s3 + Route53)
+
+S3 Bucket 可以當作靜態網頁服務器，透過 Route53 可以直接關聯 DNS.
+
+- 假設網站名稱叫做: `www.rick.com` ，建立一個 Bucket 叫做 `www.rick.com`
+- 在 Route53 建立一個 Hosted Zone `rick.com` (假設已經註冊 DNS),
+- 建立一筆 record set
+    - Name: `www.rick.com`
+    - Type: `A`
+    - Alias: `Yes`, Target 選擇 `s3-website-us-east-1.amazonaws.com`. 如果沒有出現候選清單，則自己敲
+
+要注意：alias 不需要輸入 S3 Bucket Name，只要 S3 的 endpoint 就可以，Route53 會用 DNS 當作 Bucket Name 組成，還有 S3 endpoint 組成完整的 FQDN.
+-->
+
+<!--
+## 大量上傳
+
+`大量` 上傳基本的情境有兩個：
+
+- 大檔案的大量上傳：單一檔案 4G ，像是 iso 檔。
+- 多檔案的大量上傳：很多檔案，像是照片每個約 5 ~ 10M，一次有 1000 張上傳。
+
+在開始之前，先了解 aws cli 針對 s3 有幾個效能參數可以調教，詳細參閱 [官方文件](https://docs.aws.amazon.com/cli/latest/topic/s3-config.html)：
+
+- max_concurrent_requests: 最多- The maximum number of concurrent requests.
+- max_queue_size - The maximum number of tasks in the task queue.
+- multipart_threshold - The size threshold the CLI uses for multipart transfers of individual files.
+- multipart_chunksize - When using multipart transfers, this is the chunk size that the CLI uses for multipart transfers of individual files.
+- max_bandwidth - The maximum bandwidth that will be consumed for uploading and downloading data to and from Amazon S3.
+-->
+
+<!--
+## 用 S3 做文件管理
+
+
+-->
+
+<h2 id="跨帳號存取-S3-Bucket"><a href="#跨帳號存取-S3-Bucket" class="headerlink" title="跨帳號存取 S3 Bucket"></a>跨帳號存取 S3 Bucket</h2><p>AWS Account A 有一個 Bucket 叫做: <code>Acc-A-Bucket1</code>，AWS Account B 有個 User 叫做 user1，想要存取此 Bucket。</p>
+<ol>
+<li>取得 Account B 的 <code>Canonical User Id</code>，然後到 <code>Acc-A-Bucket1</code> Permissions -&gt; ACLs -&gt; Access for other AWS accounts，加入 CU ID.</li>
+<li>驗證：使用 user1 的 profile 下 CLI  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## List Bucket and Object</span></span><br><span class="line">~$ aws s3 <span class="built_in">ls</span> s3://Acc-A-Bucket1/</span><br><span class="line">2019-06-10 22:53:22          0</span><br><span class="line">2019-06-10 22:53:52      38201 AccessControlAuthorizationFlowBucketResource.png</span><br><span class="line">2019-06-10 22:53:52      50491 AccessControlAuthorizationFlowObjectResource.png</span><br><span class="line">2019-06-10 22:53:58    1410705 Amazon-S3.png</span><br><span class="line">2019-06-10 22:53:52      23472 resource-based-policy.png</span><br><span class="line">2019-06-10 22:53:51      18793 user-policy.png</span><br><span class="line"></span><br><span class="line"><span class="comment">## 複製檔案：無法存取</span></span><br><span class="line">~$ aws s3 <span class="built_in">cp</span> s3://Acc-A-Bucket1/user-policy.png .</span><br><span class="line">fatal error: An error occurred (403) when calling the HeadObject operation: Forbidden</span><br></pre></td></tr></table></figure></li>
+<li>設定 <code>Acc-A-Bucket1</code> 的 Bucket Policy，如下：  <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;Version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2012-10-17&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;Statement&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;Effect&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Allow&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Principal&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;AWS&quot;</span><span class="punctuation">:</span> <span class="string">&quot;arn:aws:iam::1234567890123:user/user1&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Action&quot;</span><span class="punctuation">:</span> <span class="string">&quot;s3:*&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Resource&quot;</span><span class="punctuation">:</span> <span class="string">&quot;arn:aws:s3:::Acc-A-Bucket1/*&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li>驗證：使用 user1 的 profile 下 CLI:  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ aws s3 <span class="built_in">cp</span> s3://Acc-A-Bucket1/user-policy.png .</span><br><span class="line">download: s3://Acc-A-Bucket1/user-policy.png to ./user-policy.png</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>結論：</p>
+<ul>
+<li>跨帳號授權，必須在目標 Bucket 上設定同時 ACL 與 Bukcet Policy</li>
+<li>原 IAM USer 的 IAM Policy 不需要額外設定權限。</li>
+</ul>
+<h2 id="在-EC2-使用-S3-當作延伸磁碟"><a href="#在-EC2-使用-S3-當作延伸磁碟" class="headerlink" title="在 EC2 使用 S3 當作延伸磁碟"></a>在 EC2 使用 S3 當作延伸磁碟</h2><p>這是很多人一開用 S3 想到的，底下整理著名的工具：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/s3fs-fuse/s3fs-fuse">https://github.com/s3fs-fuse/s3fs-fuse</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/kahing/goofys">https://github.com/kahing/goofys</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/danilop/yas3fs">https://github.com/danilop/yas3fs</a></li>
+</ul>
+<p>剛開始用 S3 就用找過類似的，但因為 S3 的資料模型關係，往往使用體驗不如預期，所以大部分我不會建議這樣使用。</p>
+<!--
+
+
+BUCKET_NAME="abc-dev-us-west-2-files"
+ACCESS_KEY_ID=
+SECRET_ACCESS_KEY=
+
+echo ${ACCESS_KEY_ID}:${SECRET_ACCESS_KEY} > ${HOME}/.passwd-s3fs
+chmod 600 ${HOME}/.passwd-s3fsdf
+
+## Mount Bucket in us-east-1
+s3fs ${BUCKET_NAME} /mnt/${BUCKET_NAME} \
+  -o passwd_file=${HOME}/.passwd-s3fs
+
+## Mount with debug
+s3fs ${BUCKET_NAME} /mnt/${BUCKET_NAME} \
+  -o passwd_file=${HOME}/.passwd-s3fs \
+  -o dbglevel=info -f -o curldbg
+
+## Mount bucket specify region
+# not work
+s3fs ${BUCKET_NAME} /mnt/${BUCKET_NAME} \
+  -o url=https://abc-dev-us-west-2-files.s3-us-west-2.amazonaws.com \
+  -o passwd_file=${HOME}/.passwd-s3fs \
+  -o dbglevel=info -f -o curldbg
+
+# not work
+s3fs ${BUCKET_NAME} /mnt/${BUCKET_NAME} \
+  -o endpoint="us-west-2" \
+  -o passwd_file=${HOME}/.passwd-s3fs \
+  -o dbglevel=info -f -o curldbg
+
+# not work
+s3fs ${BUCKET_NAME} /mnt/${BUCKET_NAME} \
+  -o endpoint="us-west-2" \
+  -o iam_role="GT-Teamroom-Role" \
+  -o dbglevel=info \
+  -f -o curldbg
+
+
+
+## Storage Gateway
+
+
+
+## Pre-signed URL
+
+https://docs.aws.amazon.com/AmazonS3/latest/dev/PresignedUrlUploadObject.html
+
+https://docs.aws.amazon.com/AmazonS3/latest/dev/ShareObjectPreSignedURL.html
+
+-->
+
+
+<h2 id="Bucket-List"><a href="#Bucket-List" class="headerlink" title="Bucket List"></a>Bucket List</h2><p>有時候需要提供列出檔案下載的功能，類似於 Apache Index，可以利用 Bucket ACL + CORS 達到此功能。設定如下：</p>
+<ul>
+<li>設定 Bucket ACL，允許 Read Object</li>
+<li>設定 CORS 如下：<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">CORSConfiguration</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://s3.amazonaws.com/doc/2006-03-01/&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">CORSRule</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">AllowedOrigin</span>&gt;</span>*<span class="tag">&lt;/<span class="name">AllowedOrigin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">AllowedMethod</span>&gt;</span>GET<span class="tag">&lt;/<span class="name">AllowedMethod</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">AllowedHeader</span>&gt;</span>*<span class="tag">&lt;/<span class="name">AllowedHeader</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">CORSRule</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">CORSConfiguration</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>開啟 Static Website Hosting</li>
+<li>開啟 ACL，允許 ListObject<ul>
+<li>這個方法使用 S3 SOAP 方式取的 Bucket List</li>
+</ul>
+</li>
+<li>下載： <code>https://github.com/rufuspollock/s3-bucket-listing</code> ，設定 <code>index.html</code> 如下：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">var</span> <span class="variable constant_">S3BL_IGNORE_PATH</span> = <span class="literal">true</span>;</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">var</span> <span class="variable constant_">BUCKET_URL</span> = <span class="string">&#x27;https://&#123;BUCKET_NAME&#125;.s3-&#123;REGION_CODE&#125;.amazonaws.com&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/list.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>瀏覽網站，可以看到如下畫面：<br><img src="/images/AWS/S3/BucketListObject/List1.png"><br><img src="/images/AWS/S3/BucketListObject/List2.png"></li>
+</ul>
+<hr>
+<h1 id="九、常見問答-FAQ"><a href="#九、常見問答-FAQ" class="headerlink" title="九、常見問答 (FAQ)"></a>九、常見問答 (FAQ)</h1><p>Q: 使用 S3 當靜態網站，能支援 HTTPS？</p>
+<blockquote>
+<p>目前 S3 website endpoint 不支援 HTTPS，通常會搭配 CloudFront + ACM。參見 <a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteEndpoints.html">Website Endpoints</a></p>
+</blockquote>
+<p>Q: 一個 S3 Bucket 有哪一些 Endpoints?</p>
+<p>S3 的幾種 Endpoints 規則，分四大類，各有其用途：</p>
+<ol>
+<li>Static Web Host: <code>&#123;BUCKET_NAME&#125;.s3-website-&#123;REGION&#125;.amazonaws.com</code></li>
+<li>Path-Style, 又稱 v1<ul>
+<li>IPv4</li>
+<li>us-east-1: <code>s3.amazonaws.com/&#123;BUCKET_NAME&#125;/</code></li>
+<li>other regions: <code>s3-&#123;REGION_CODE&#125;.amazonaws.com/&#123;BUCKET_NAME&#125;/</code></li>
+<li>DualStack (IPv6): <code>s3.dualstack.&#123;REGION&#125;.amazonaws.com/&#123;BUCKET_NAME&#125;</code></li>
+</ul>
+</li>
+<li>Virtual-Hosted Style, 又稱 v2<ul>
+<li>HTTP: <code>&#123;BUCKET_NAME&#125;.s3-&#123;REGION_CODE&#125;.amazonaws.com</code></li>
+<li>要注意的是，名字不是 <code>s3-website-&#123;REGION_CODE&#125;</code></li>
+<li>不支援 HTTPS</li>
+<li>DualStack (IPv6): <code>&#123;BUCKET_NAME&#125;.s3.dualstack.&#123;REGION&#125;.amazonaws.com</code></li>
+</ul>
+</li>
+<li>Web Service (SOAP): <code>&#123;BUCKET_NAME&#125;.s3-&#123;REGION&#125;.amazonaws.com</code>:<ul>
+<li>透過 ACL 控制的 API Endpoint</li>
+</ul>
+</li>
+</ol>
+<p>Q: 使用 S3 當靜態網站，能限定來源 IP？或者特定 VPC？</p>
+<blockquote>
+<p>可以，Bucket Policy 範例參閱： <a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies-vpc-endpoint.html">Example Bucket Policies for VPC Endpoints for Amazon S3</a></p>
+</blockquote>
+<!--
+Q: 存放在 S3 上的資料，檔案名稱 (Object Key) 是否要分散成亂數？例如使用 UUID 命名？
+
+https://aws.amazon.com/blogs/aws/amazon-s3-performance-tips-tricks-seattle-hiring-event/
+
+Q: 每個 Object 的 Metadata 上有一個 `ETag` 是做什麼的？
+
+The entity tag is a hash of the object. The ETag reflects changes only to the contents of an object, not its metadata. The ETag may or may not be an MD5 digest of the object data. Whether or not it is depends on how the object was created and how it is encrypted as described below:
+
+https://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonResponseHeaders.html
+https://teppen.io/2018/06/23/aws_s3_etags/
+
+-->
+
+<p>Q: S3 可以當 SFTP 站嗎？</p>
+<blockquote>
+<p>自幹可以用 s3fs-fuse mount s3 bucket，然後開 ftp server，也可以直接用 AWS 的 <a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/transfer/latest/userguide/what-is-aws-transfer-for-sftp.html">Transfer for SFTP Service</a>，好處不用開機器、直接用 S3，不過有點貴就是了。</p>
+</blockquote>
+<p>Q: S3 的授權有分 Resource-based Policy 和 User Policies，應該使用哪一種存取方法？</p>
+<blockquote>
+<p>好問題，<a target="_blank" rel="noopener" href="https://youtu.be/x25FSsXrBqU?t=289">AWS re:Invent 2018: Deep Dive on Amazon S3 Security and Management</a> 有回答這問題，截圖如下：<br><img src="/images/AWS/S3/User-policy_vs_resource-policies_reinvent2018.png"></p>
+</blockquote>
+<!--
+Q: Static Web Hosting 有沒有 Access Log 可以查？
+
+https://docs.aws.amazon.com/AmazonS3/latest/dev/LoggingWebsiteTraffic.html
+
+-->
+
+<p>Q: 如果沒有給 IAM Policy 的權限，但有 Bucket Policy，那麼同一個 Account 底下的 IAM User 可以存取 Bucket？</p>
+<blockquote>
+<p>可以。底下是一個 Bucket Policy 範例：</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;Version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2012-10-17&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;Statement&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;Effect&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Allow&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Principal&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;AWS&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">          <span class="string">&quot;arn:aws:iam::123456689012:user/user1&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="string">&quot;arn:aws:iam::123456689012:user/user2&quot;</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Action&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;s3:GetObject&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;s3:GetBucketLocation&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;s3:ListBucket&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Resource&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;arn:aws:s3:::image.abc.com/*&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;arn:aws:s3:::image.abc.com&quot;</span></span><br><span class="line">      <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>Q: CloudFront 與 S3 整合的時候，需要開啟 Static Website Hosting？</p>
+<blockquote>
+<p>不用打開 Static Website Hosting，而是使用 Object ACL 或者 Bucket Policy，如下：</p>
+<ul>
+<li>Object ACL: 每個物件 ACL 都要是 <code>Public Read</code></li>
+<li>Bucket Policy: 允許 <code>GetObject</code></li>
+</ul>
+<p>這兩種選一種就好，然後 <code>Block public access</code> 要關掉。Bucket Policy 範例如下：</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;Version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2008-10-17&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span> <span class="string">&quot;PolicyForCloudFrontPrivateContent&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Statement&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;Effect&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Allow&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Principal&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;AWS&quot;</span><span class="punctuation">:</span> <span class="string">&quot;arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity EXXXXXXXXXXXX&quot;</span></span><br><span class="line">            <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Action&quot;</span><span class="punctuation">:</span> <span class="string">&quot;s3:GetObject&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Resource&quot;</span><span class="punctuation">:</span> <span class="string">&quot;arn:aws:s3:::&#123;S3_BUCKET_NAME&#125;/*&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>Q: S3 Bucket 做 Static Web Hosting，可否限制特定網站存取？</p>
+<blockquote>
+<p>可以。確認 Browser 送出的 Request 會包含 http referer，然後透過 Bucket Policy 的 <code>Condition</code>，限制 Referer 的 Domain Name 即可，底下範例是首頁放在 bucket <a target="_blank" rel="noopener" href="http://www.abc.com,圖檔放在/">www.abc.com，圖檔放在</a> bucket image.abc.com，這個 Bucket Policy 設定在 image.abc.com：</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;Version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2012-10-17&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span> <span class="string">&quot;image.abc.com&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;Statement&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;Sid&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Allow get requests originating from www.abc.com and abc.com.&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Effect&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Allow&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Principal&quot;</span><span class="punctuation">:</span> <span class="string">&quot;*&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Action&quot;</span><span class="punctuation">:</span> <span class="string">&quot;s3:GetObject&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Resource&quot;</span><span class="punctuation">:</span> <span class="string">&quot;arn:aws:s3:::image.abc.com/*&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Condition&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;StringLike&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;aws:Referer&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">            <span class="string">&quot;http://www.abc.com/*&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="string">&quot;http://abc.com/*&quot;</span></span><br><span class="line">          <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>Q: AWS CLI 提供 s3 和 s3api，這兩個有什麼差別？</p>
+<blockquote>
+<p>s3 是 high-level commands，s3api 則是 low-level commands，差異就是可控性。想要控制細緻的參數，像是 max_concurrent_requests、max_queue_size、max_bandwidth、multipart_threshold … 等效能的調教與除錯，那麼就要使用 s3api，詳細的配置參閱 <a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/cli/latest/topic/s3-config.html">AWS CLI S3 Configuration</a>。</p>
+</blockquote>
+<p>Q: Virtual-Hosted Style 提到 S3 Bucket Name 會變成 Hostname，如果名稱有很多點 <code>.</code> 會不會有問題？</p>
+<blockquote>
+<p>實測 bucket name: <code>a.1.2.3.4.5.6.7.8.9.0.1.2.3.4.5.6.7.8.9.0.1.2.3.4.5.6.7.8.9.0.1</code>，長度 63，結果是可以運行的，如下圖。依據 wikipeida 上對 DNS 的描述，節點數最多可以到 127 個，但是這個規範並沒有被定義在 RFC 裡。<br><img src="/images/AWS/S3/QA/long-name.png"></p>
+</blockquote>
+<p>Q: 有一些 AWS 服務建立的 Bucket (elasticbeanstalk-ap-northeast-1-{AWS_ACCOUNT_ID}) 無法刪除，可以刪？</p>
+<blockquote>
+<p>找到 Bucket Policy，應該會看到類似以下的 Policy，刪除即可。</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;Version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2008-10-17&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Statement&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;Sid&quot;</span><span class="punctuation">:</span> <span class="string">&quot;eb-ad78f54a-f239-4c90-adda-49e5f56cb51e&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Effect&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Allow&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Principal&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;AWS&quot;</span><span class="punctuation">:</span> <span class="string">&quot;AROAILKGB6ZL4XGFxxxxxx&quot;</span></span><br><span class="line">            <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Action&quot;</span><span class="punctuation">:</span> <span class="string">&quot;s3:PutObject&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Resource&quot;</span><span class="punctuation">:</span> <span class="string">&quot;arn:aws:s3:::elasticbeanstalk-us-east-1-123456789012/resources/environments/logs/*&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;Sid&quot;</span><span class="punctuation">:</span> <span class="string">&quot;eb-58950a8c-feb6-11e2-89e0-0800277d041b&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Effect&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Deny&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Principal&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;AWS&quot;</span><span class="punctuation">:</span> <span class="string">&quot;*&quot;</span></span><br><span class="line">            <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Action&quot;</span><span class="punctuation">:</span> <span class="string">&quot;s3:DeleteBucket&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Resource&quot;</span><span class="punctuation">:</span> <span class="string">&quot;arn:aws:s3:::elasticbeanstalk-us-east-1-123456789012&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;Sid&quot;</span><span class="punctuation">:</span> <span class="string">&quot;eb-af163bf3-d27b-4712-b795-d1e33e331ca4&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Effect&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Allow&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Principal&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;AWS&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                    <span class="string">&quot;AROAILKGB6ZL4XGxxxxxx&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="string">&quot;AROAI3S3HFNQTDLxxxxxx&quot;</span></span><br><span class="line">                <span class="punctuation">]</span></span><br><span class="line">            <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Action&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;s3:ListBucket&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;s3:ListBucketVersions&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;s3:GetObject&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;s3:GetObjectVersion&quot;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Resource&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;arn:aws:s3:::elasticbeanstalk-us-east-1-123456789012&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;arn:aws:s3:::elasticbeanstalk-us-east-1-123456789012/resources/environments/*&quot;</span></span><br><span class="line">            <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<!--
+
+# 十、最佳實踐 (Best Practice)
+
+## 保護 S3 資料的方法
+
+- IAM Policy
+- Encryption: Client and Server Sides
+- Bucket Versioning
+- MFA Delete
+
+-->
+
+
+
+<hr>
+<h1 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h1><p>越是有歷史的，表面看起來越是簡單的，背後越是有學問。AWS 每年 reInvent 都增加很多新服務，幾年下來數量翻倍的成長，但是實際上，還是圍繞在核心服務的所組合出來的應用架構。核心服務像是 EC2、S3、SQS、VPC、EBS、RDS、API Gateway、CloudFront、ELB、DynamoDB、CloudWatch、AutoScaling … 這些構成了整個 AWS 服務的生態系。深度的學好這些基礎服務的概念，對於學習其他服務會很有幫助。</p>
+<hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="站內延伸"><a href="#站內延伸" class="headerlink" title="站內延伸"></a>站內延伸</h2><ul>
+<li><a href="/2020/03/02/AWS/Study-Notes-KMS/">Study Notes - KMS</a></li>
+<li><a href="/2016/04/03/AWS/Study-Notes-IAM/">Study Notes - Identity and Access Management (IAM)</a></li>
+<li><a href="/2018/12/09/DistributedSystems/Eventually-Consistent-Dynamo-NWR/">Eventually Consistent 與 Dynamo NWR 模型</a></li>
+<li><a href="/2020/03/07/ComputerScience/Cryptography/">摘要密碼學與資訊安全</a></li>
+</ul>
+<h2 id="官方文件"><a href="#官方文件" class="headerlink" title="官方文件"></a>官方文件</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html">Amazon S3 Developer Guide</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html">Working with Amazon S3 Buckets</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html">Amazon S3 REST API Introduction</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-overview.html">Overview of Managing Access</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/how-s3-evaluates-access-control.html">How Amazon S3 Authorizes a Request</a></li>
+<li><a target="_blank" rel="noopener" href="https://aws.amazon.com/blogs/aws/amazon-s3-path-deprecation-plan-the-rest-of-the-story/">Amazon S3 Path Deprecation Plan – The Rest of the Story</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/cli/latest/topic/s3-config.html">AWS CLI S3 Configuration</a></li>
+</ul>
+<h2 id="Deep-Dive-and-Whitepapers"><a href="#Deep-Dive-and-Whitepapers" class="headerlink" title="Deep Dive and Whitepapers"></a>Deep Dive and Whitepapers</h2><ul>
+<li>AWS re:Invent<ul>
+<li>2018: <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=x25FSsXrBqU">Deep Dive on Amazon S3 Security and Management</a>, <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=vPgXx_zlEx0">Webina</a></li>
+<li>2018: <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=rHeTn9pHNKo">Best Practices for Amazon S3 and Amazon Glacier</a></li>
+</ul>
+</li>
+<li>Whitepapers<ul>
+<li><a target="_blank" rel="noopener" href="https://d1.awsstatic.com/whitepapers/AWS%20Storage%20Services%20Whitepaper-v9.pdf">AWS Storage Services Overview</a>, Dec 2016</li>
+<li><a target="_blank" rel="noopener" href="https://d1.awsstatic.com/whitepapers/AWS_Securing_Data_at_Rest_with_Encryption.pdf">Encrypting Data at Rest</a>, Nov 2014</li>
+<li><a target="_blank" rel="noopener" href="https://d0.awsstatic.com/whitepapers/Security/AWS_Security_Whitepaper.pdf">Amazon Web Services: Overview of Security Processes</a>, May 2017</li>
+</ul>
+</li>
+</ul>
+<h2 id="S3-新功能-New-Feature"><a href="#S3-新功能-New-Feature" class="headerlink" title="S3 新功能 (New Feature)"></a>S3 新功能 (New Feature)</h2><ul>
+<li>2019&#x2F;04&#x2F;30: Amazon S3 Introduces S3 Batch Operations for Object Management</li>
+<li>2018&#x2F;12&#x2F;04: Amazon S3 Inventory adds Apache Parquet output format</li>
+<li>2018&#x2F;11&#x2F;27: AWS Announces Amazon S3 Object Lock in all AWS Regions</li>
+<li>2018&#x2F;11&#x2F;26: Announcing S3 Intelligent-Tiering — a New Amazon S3 Storage Class</li>
+<li>2018&#x2F;11&#x2F;15: Introducing Amazon S3 Block Public Access – another layer of protection for your accounts and buckets</li>
+<li>2018&#x2F;09&#x2F;05: Amazon S3 Announces New Features for S3 Select</li>
+<li>2018&#x2F;08&#x2F;08: Amazon VPC Flow Logs can now be delivered to S3</li>
+<li>2018&#x2F;07&#x2F;18: Amazon S3 Announces Increased Request Rate Performance</li>
+<li>2018&#x2F;04&#x2F;30: Amazon S3 Adds Support for Amazon Glacier and S3 One Zone-Infrequent Access to Amazon CloudWatch Storage Metrics</li>
+<li>2018&#x2F;04&#x2F;05: Amazon S3 Select Is Now Generally Available</li>
+<li>2018&#x2F;04&#x2F;05: Announcing S3 One Zone-Infrequent Access, a New Amazon S3 Storage Class</li>
+</ul>
+<h2 id="更新紀錄"><a href="#更新紀錄" class="headerlink" title="更新紀錄"></a>更新紀錄</h2><ul>
+<li>2017&#x2F;09&#x2F;03: 更新 S3 + CloudFront 整合</li>
+<li>2019&#x2F;06&#x2F;11: 重構文章結構，分成數個部分。</li>
+<li>2019&#x2F;12&#x2F;13: 加入一個 QA: S3 Endpoints 的種類</li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/2016/04/07/AWS/Study-Notes-S3/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<!-- LikeCoin -->
+				<!-- @rickd 2022/09/06 -->
+				<!--
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2016/04/07/AWS/Study-Notes-S3/"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+				-->
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2016/04/07/Coding/Node-Left-Pad/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
+  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
+  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2016/04/07/AWS/Study-Notes-S3/" data-width="100%" data-numposts="10"></div>
+
+  
+
+
+</section>
+
+
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2016/04/07 21:53:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5-Concepts"><span class="toc-article-text">一、基本概念 (Concepts)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Bucket"><span class="toc-article-text">Bucket</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Bucket-%E5%90%8D%E7%A8%B1%E7%9A%84%E5%91%BD%E5%90%8D%E8%A6%8F%E5%89%87"><span class="toc-article-text">Bucket 名稱的命名規則</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Dual-Stack-IPv6"><span class="toc-article-text">Dual Stack (IPv6)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%8A%9F%E8%83%BD%E5%85%A8%E8%B2%8C"><span class="toc-article-text">功能全貌</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Objects"><span class="toc-article-text">Objects</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Object-Keys"><span class="toc-article-text">Object Keys</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Version-Id"><span class="toc-article-text">Version Id</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Object-Metadata"><span class="toc-article-text">Object Metadata</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Storage-Classes"><span class="toc-article-text">Storage Classes</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Regions"><span class="toc-article-text">Regions</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Data-Consistency-Model-%E8%B3%87%E6%96%99%E4%B8%80%E8%87%B4%E6%80%A7%E6%A8%A1%E5%BC%8F"><span class="toc-article-text">Data Consistency Model (資料一致性模式)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%BA%8C%E3%80%81%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD-Core-Functions"><span class="toc-article-text">二、核心功能 (Core Functions)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Static-Website-Hosting"><span class="toc-article-text">Static Website Hosting</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#S3-Bucket-Route53"><span class="toc-article-text">S3 Bucket + Route53</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Endpoints-of-Path-Style-and-Virtual-Hosted-Style"><span class="toc-article-text">Endpoints of Path-Style and Virtual-Hosted Style</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Event-Notifications"><span class="toc-article-text">Event Notifications</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Lifecycle-Management"><span class="toc-article-text">Lifecycle Management</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Monitoring"><span class="toc-article-text">Monitoring</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Others"><span class="toc-article-text">Others</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%B8%89%E3%80%81%E5%AD%98%E5%8F%96%E6%AC%8A%E9%99%90-Access-Control"><span class="toc-article-text">三、存取權限 (Access Control)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Resource-based-Policies"><span class="toc-article-text">Resource-based Policies</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#User-policy"><span class="toc-article-text">User policy</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#S3-%E5%A6%82%E4%BD%95%E8%99%95%E7%90%86%E6%8E%88%E6%AC%8A%E8%AB%8B%E6%B1%82%EF%BC%9F"><span class="toc-article-text">S3 如何處理授權請求？</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%9B%9B%E3%80%81%E8%B3%87%E6%96%99%E4%BF%9D%E8%AD%B7-Data-Protection"><span class="toc-article-text">四、資料保護 (Data Protection)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Data-Encryption-At-Rest"><span class="toc-article-text">Data Encryption (At Rest)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Versioning"><span class="toc-article-text">Versioning</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%BA%94%E3%80%81%E6%9C%8D%E5%8B%99%E9%99%90%E5%88%B6-Limitiation"><span class="toc-article-text">五、服務限制 (Limitiation)</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%85%AD%E3%80%81%E9%96%8B%E7%99%BC-Development"><span class="toc-article-text">六、開發 (Development)</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%B8%83%E3%80%81%E6%88%90%E6%9C%AC-Cost"><span class="toc-article-text">七、成本 (Cost)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%84%B2%E5%AD%98%E8%B2%BB%E7%94%A8"><span class="toc-article-text">儲存費用</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%AB%8B%E6%B1%82%E6%88%90%E6%9C%AC"><span class="toc-article-text">請求成本</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%85%AB%E3%80%81%E6%87%89%E7%94%A8%E5%A0%B4%E6%99%AF-User-Scenarios"><span class="toc-article-text">八、應用場景 (User Scenarios)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%B7%A8%E5%B8%B3%E8%99%9F%E5%AD%98%E5%8F%96-S3-Bucket"><span class="toc-article-text">跨帳號存取 S3 Bucket</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9C%A8-EC2-%E4%BD%BF%E7%94%A8-S3-%E7%95%B6%E4%BD%9C%E5%BB%B6%E4%BC%B8%E7%A3%81%E7%A2%9F"><span class="toc-article-text">在 EC2 使用 S3 當作延伸磁碟</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Bucket-List"><span class="toc-article-text">Bucket List</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%B9%9D%E3%80%81%E5%B8%B8%E8%A6%8B%E5%95%8F%E7%AD%94-FAQ"><span class="toc-article-text">九、常見問答 (FAQ)</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-article-text">結語</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E5%BB%B6%E4%BC%B8"><span class="toc-article-text">站內延伸</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%AE%98%E6%96%B9%E6%96%87%E4%BB%B6"><span class="toc-article-text">官方文件</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Deep-Dive-and-Whitepapers"><span class="toc-article-text">Deep Dive and Whitepapers</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#S3-%E6%96%B0%E5%8A%9F%E8%83%BD-New-Feature"><span class="toc-article-text">S3 新功能 (New Feature)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%9B%B4%E6%96%B0%E7%B4%80%E9%8C%84"><span class="toc-article-text">更新紀錄</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/AWS/" style="color: white">AWS <span class="badge">82</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/EC2/" style="color: white">EC2 <span class="badge">20</span></a></span> <span class="label label-success"><a href="/tags/S3/" style="color: white">S3 <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/IAM/" style="color: white">IAM <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">33</span></a></span> <span class="label label-success"><a href="/tags/Lifecycle/" style="color: white">Lifecycle <span class="badge">28</span></a></span> <span class="label label-success"><a href="/tags/Lambda/" style="color: white">Lambda <span class="badge">17</span></a></span> <span class="label label-success"><a href="/tags/SQS/" style="color: white">SQS <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CloudFront/" style="color: white">CloudFront <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/ACM/" style="color: white">ACM <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/SNS/" style="color: white">SNS <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Athena/" style="color: white">Athena <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Eventually-Consistent/" style="color: white">Eventually Consistent <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/KMS/" style="color: white">KMS <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Storage-Gateway/" style="color: white">Storage Gateway <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/QuickSight/" style="color: white">QuickSight <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/AES/" style="color: white">AES <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/read-after-write/" style="color: white">read-after-write <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+		<!-- v4 -->
+		<h4>About</h4>
+		
+			<li><a href="/2035/01/21/Index/">全站索引</a></li>
+		
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+		
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		
+			<li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+		
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		
+			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+		
+
+		<h4>著作</h4>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作：SRE實踐與開發平台指南</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作：軟體測試實務 (2023)</a></li>
+		
+			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
+		
+
+		<h4>演講</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
+		
+			<li><a href="/2023/09/09/About/2023-AWS-Career-Exploration-Day/">探索職涯、複利人生 - AWS Career Exploration Day 2023</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作 SRE 書友見面會</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">軟體測試實務 - 新書發表會</a></li>
+		
+			<li><a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">探索職涯、成就未來 - AWS Career Exploration Day 2022</a></li>
+		
+			<li><a href="/2022/08/13/SQA/Path-to-Software-Testing/">從理想、到現實的距離，開啟品味軟體測試之路</a></li>
+		
+			<li><a href="/2022/05/10/About/2022-SREConf2022/">91APP 在 AWS 上的 SRE 實踐之路</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/2020-aws-summit-aws">在矩陣型組織裡，如何有效管理 AWS 的成本結構與系統架構</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/aws-using-aws-for-disaster-recovery/">災難演練 @ AWS 實戰分享</a></li>
+		
+			<li><a href="/2019/04/27/DevOps/Introduce-to-Continuous-Delivery-2/">導讀持續交付 2.0 - 談當代軟體交付之虛實融合</a></li>
+		
+			<li><a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理</a></li>
+		
+			<li><a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">從緊急事件 談 SRE 應變能力的培養</a></li>
+		
+			<li><a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
+		
+			<li><a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">Monitoring Tools 大亂鬥 - AWS CloudWatch</a></li>
+		
+			<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></li>
+		
+			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
+		
+
+		<!-- v3 -->
+		<!--
+		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		-->
+
+		<!-- v2 -->
+		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+		<!-- v1 -->
+		<!--
+		<li>Software Developer</li>
+		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+		<li><a href="/categories/DevOps/">Operation Manager</a></li>
+		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+		<li>
+			<ol>
+				<li>Management</li>
+				<li>Cloud / Distributed Systems</li>
+				<li>DevOps / SRE / </li>
+			</ol>
+		</li>
+		-->
+
+		<!--
+		<h4>Donate</h4>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick" />
+		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
+		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
+		</form>
+		-->
+
+		<h4>Facebook</h4>
+
+		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
+
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
+				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+
+		<h4>AWS Certifications</h4>
+		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+		<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+		<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+		
+
+	</div><!-- row -->
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2022 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div>
+
+<!-- container-narrow -->
+
+<div id="gotop">
+
+  <!-- 
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-book"></i> <a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"]);">學習法則</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"]);">喝咖啡 聊音樂 (v2021)</a><br />
+   -->
+
+  <!-- <h4>About</h4> -->
+
+  
+    <li><a href="/2035/01/21/Index/">全站索引</a></li>
+  
+    <li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+  
+    <li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+  
+    <li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+  
+    <li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+  
+    <li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+  
+    <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+  
+
+  <a href="#">▲ TOP ▲ </a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

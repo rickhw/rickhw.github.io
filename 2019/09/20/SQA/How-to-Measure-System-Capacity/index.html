@@ -1,0 +1,1151 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>如何量測系統的容量？（壓測） | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="淺談效能測試 整理了關於 Capacity、Reliabilty、Stability 的概念與定義。本文針對如何量測 系統容量 (Capacity)，整理怎麼做的方法論，可以當作  Capacity Plan Guideline。
+
+系統容量是透過 量測 (Measure) 出來的，結果是數據統計的">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="如何量測系統的容量？（壓測）"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/2019/09/20/SQA/How-to-Measure-System-Capacity/"/>
+  <meta property="og:image" content="/images/SQA/Measure-Capacity/P3-Capaity-Trend.png" />
+  
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<!--
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'G-74Y1F3F5W0']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-74Y1F3F5W0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-74Y1F3F5W0');
+</script>
+
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!-- @rickd 2022/02/24
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
+  -->
+  <!-- @ricka 2022/02/24 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!--
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="bd9r2mJp"></script>
+  -->
+
+  <!-- @ricka 2022/09/06 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="opf2Gext"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+						
+						<li><a href="/categories/About/">About <sup>29</sup></a></li>
+						
+						<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+						
+						<li><a href="/categories/經營管理/Career/">Career <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
+						
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Data/">Data <sup>2</sup></a></li>
+						
+						<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+						
+						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>20</sup></a></li>
+						
+						<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+						
+						<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+						
+						<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+						
+						<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+						
+						<li><a href="/categories/DevOps/SRE/">SRE <sup>25</sup></a></li>
+						
+						<li><a href="/categories/Software-Engineering/">Software Engineering <sup>10</sup></a></li>
+						
+						<li><a href="/categories/System-Design/">System Design <sup>2</sup></a></li>
+						
+						<li><a href="/categories/經營管理/人才管理/">人才管理 <sup>10</sup></a></li>
+						
+						<li><a href="/categories/經營管理/溝通/">溝通 <sup>9</sup></a></li>
+						
+						<li><a href="/categories/經營管理/知識管理/">知識管理 <sup>4</sup></a></li>
+						
+						<li><a href="/categories/經營管理/">經營管理 <sup>61</sup></a></li>
+						
+						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
+						
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"> <i class="fa fa-book"></i>學習法則</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂 (v2021)</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> 如何量測系統的容量？（壓測）</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> 如何量測系統的容量？（壓測）</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+		
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2019%2F09%2F20%2FSQA%2FHow-to-Measure-System-Capacity%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2019/09/20/SQA/How-to-Measure-System-Capacity/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/2019/09/20/SQA/How-to-Measure-System-Capacity/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<p><a href="/2018/07/22/SQA/Performance-Test/">淺談效能測試</a> 整理了關於 Capacity、Reliabilty、Stability 的概念與定義。本文針對如何量測 <code>系統容量 (Capacity)</code>，整理怎麼做的方法論，可以當作  Capacity Plan Guideline。</p>
+<blockquote>
+<p>系統容量是透過 <code>量測 (Measure)</code> 出來的，結果是數據統計的報表，而 <code>測試</code> 的結果通常是 pass or fail，故本文的描述不用 <code>測試</code> 這個動詞。</p>
+</blockquote>
+<p>這篇文章整理的是如何執行的概念，但不包含以下：</p>
+<ol>
+<li>介紹工具</li>
+<li>環境如何建置</li>
+<li>如何設計架構</li>
+<li>如何優化架構</li>
+</ol>
+<blockquote>
+<p><code>20230523 更新</code>: 本文全文收錄在 <a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作《軟體測試實務》</a> 第二冊 第一章之中，歡迎大家彭場指導。</p>
+</blockquote>
+<span id="more"></span>
+
+
+<hr>
+<h1 id="結論：三種量測的策略"><a href="#結論：三種量測的策略" class="headerlink" title="結論：三種量測的策略"></a>結論：三種量測的策略</h1><p>先講結論，做容量的量測，常見的三種目的，也就是選擇的思路:</p>
+<ol>
+<li><code>以輸入為基準值 (業務導向)</code>：<ul>
+<li>業務目標是 200TPS (每秒兩百筆交易)，最後找到的結果是整體系統需要多少 <code>資源 (成本)</code></li>
+<li>以此結果，調教系統架構，找到瓶頸，降低成本。</li>
+</ul>
+</li>
+<li><code>以系統資源做基準值 (理想值 / 基準值)</code>：<ul>
+<li>用已知的資源做基準，例如一台 c5.xlarge，然後找到輸入的基礎值 Baseline ，像是 TPS &#x2F; RPS &#x2F; QPS</li>
+<li>依照 Baseline 的結果，推算線性結果，評估當需業務需求。</li>
+<li>本文描述的方法論屬於這個策略。</li>
+<li>基於本文量測的結果，超過理想值容量，是所謂的 <code>壓測</code>，壓測背後要處理的是可靠度的問題。</li>
+</ul>
+</li>
+<li><code>應用程式設計基準值 (效能值)</code>：<ul>
+<li>也就是 SLO，例如直接以 100QPS、以 c5.xlarge 為組合基準，以此開發應用程式</li>
+<li>目標就是把應用程式調教到這個目標，需要對效能調校有深度著墨，像是記憶體、Multi-Thread、I&#x2F;O Model … 等有深度理解。</li>
+<li>效能測試 (Performance) 指的是這個這樣的策略之下的測試</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h1 id="定義"><a href="#定義" class="headerlink" title="定義"></a>定義</h1><p>開始說明之前，先定義 <code>容量 (Capacity)</code> 是什麼：</p>
+<blockquote>
+<p><code>待測目標</code> 在一定的 <code>基本條件</code> 之下，能夠 <code>穩定的</code> 提供的 <code>產出、輸出</code>，這個在固定條件、單位時間內的輸出的值，稱為 <code>系統容量 (Capacity)</code></p>
+</blockquote>
+<p>這邊標記幾個名詞：</p>
+<ul>
+<li><code>待測目標 (target)</code>：主要的功能項目、商業邏輯的運算，可說是 algorithm</li>
+<li><code>基本條件 (resource)</code>：待測目標的載體，軟體要執行的硬體資源，像是多少 CPU、Memory、I&#x2F;O，甚至是怎樣的系統架構、網路環境</li>
+<li><code>產出 (output)</code>：待測目標的產出結果，依照應用程式的不同，可以有不同的結果。系統透過取樣 (Sample) CPU、Memory、I&#x2F;O 等 Metrics 資訊，AP 則透過 Trace &amp; Logging 作為 Raw Data，進而分析結果。通常會用百分位統計 (P90, P80, …) 來表示數據的分佈。</li>
+<li><code>輸入 (input)</code>：輸入請求與參數的量體，例如每秒多少的請求 (RPS)、交易數量 (TPS)、查詢數量 (QPS) … etc.</li>
+<li><code>穩定的</code>：最終追求的可控 (Controllable) 關係，穩定的數學概念 - <code>線性關係</code>，與時間 (t) 有關係</li>
+</ul>
+<p>用以下公式表達他們的關係：</p>
+<blockquote>
+<p>target (resource, input) &#x3D; output</p>
+</blockquote>
+<p>當產出的結果，與基本條件、處於穩定的 <code>線性關係</code> 時，這個基本條件稱為 <code>Baseline (基數)</code>，而這個產出結果稱為 <code>Beanchmark</code>。</p>
+<blockquote>
+<p>在很多領域都有一些指標，用來定義效能，例如：某某某廠牌的 SSD Read&#x2F;Write Throughput 可以達到 1200MiB&#x2F;s, 1000MiB&#x2F;s。</p>
+<ul>
+<li>1200MiB&#x2F;s 就是讀取效能量測的 Beanchmark</li>
+<li>SSD 的基數則是 透過怎樣的介面，例如 PCIe 介面</li>
+</ul>
+</blockquote>
+<hr>
+<h1 id="推演方法論"><a href="#推演方法論" class="headerlink" title="推演方法論"></a>推演方法論</h1><p>容量量測的執行面，本身是有很多方方面面要考慮的，用比較科學的精神，用類 Java Code (其實我也不知道是啥扣 XD) 整理 + 推演：</p>
+<blockquote>
+<p>如何有效的執行系統容量量測？</p>
+</blockquote>
+<p>這整個量測容量的流程，基本上就是一個演算法，也可以說是方法論。</p>
+<h2 id="一、準備工作：定義輸入、輸出、待測目標、量測工具"><a href="#一、準備工作：定義輸入、輸出、待測目標、量測工具" class="headerlink" title="一、準備工作：定義輸入、輸出、待測目標、量測工具"></a>一、準備工作：定義輸入、輸出、待測目標、量測工具</h2><p>首先就是宣告的變數，也就是一開始定義的名詞。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// -- 必要的前提條件、資訊</span></span><br><span class="line"><span class="comment">// 0-1. 定義 Resource，也就是系統資源，像是 c5.large, System Architecture</span></span><br><span class="line"><span class="type">IResource</span> <span class="variable">resSet</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ResourceSet</span>([</span><br><span class="line">    &#123;<span class="string">&quot;Provider&quot;</span>: <span class="string">&quot;AWS&quot;</span>, <span class="string">&quot;Region&quot;</span>: <span class="string">&quot;us-east-1&quot;</span>&#125;,</span><br><span class="line">    [<span class="string">&quot;Web&quot;</span>, <span class="string">&quot;c5.large&quot;</span>, <span class="number">1</span>],</span><br><span class="line">    [<span class="string">&quot;DB&quot;</span>, <span class="string">&quot;c5.large&quot;</span>, <span class="number">1</span>]</span><br><span class="line">]);</span><br><span class="line"><span class="comment">// 0-2. 定義輸入條件，例如 Concurrent 是 10 ~ 100, 打滿 10M 次，執行 &quot;STORY_SET1&quot; 跟 &quot;STORY_SET2&quot;</span></span><br><span class="line"><span class="type">IInputSet</span> <span class="variable">reqs</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimulateStation</span>([</span><br><span class="line">    <span class="string">&quot;ResourceSet&quot;</span>: <span class="keyword">new</span> <span class="title class_">ResourceSet</span>([</span><br><span class="line">        &#123;<span class="string">&quot;Provider&quot;</span>: <span class="string">&quot;AWS&quot;</span>, <span class="string">&quot;Region&quot;</span>: <span class="string">&quot;us-east-1&quot;</span>&#125;,</span><br><span class="line">        [<span class="string">&quot;JMeter&quot;</span>, <span class="string">&quot;c5.large&quot;</span>, <span class="number">10</span>],</span><br><span class="line">    ]),</span><br><span class="line">    <span class="string">&quot;SampleCases&quot;</span>: [<span class="string">&quot;STORY_SET1&quot;</span>, <span class="string">&quot;STORY_SET2&quot;</span>],</span><br><span class="line">    <span class="string">&quot;ConcurrentSet&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;sequence&quot;</span>: [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">50</span>, <span class="number">70</span>, <span class="number">100</span>],      <span class="comment">// 執行 10 個、同時 20 個等不同組合，用 IInputSet.next() 移動</span></span><br><span class="line">        <span class="string">&quot;amount&quot;</span>: <span class="string">&quot;10M&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// -- 產出資料與預期結果</span></span><br><span class="line"><span class="comment">// 0-3. 每次運算的的結果</span></span><br><span class="line"><span class="type">IOutputSet</span> <span class="variable">resultSet</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"><span class="comment">// 0-4. 待探索的 capacity</span></span><br><span class="line"><span class="type">IInputSet</span> <span class="variable">capacity</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// -- 待測邏輯</span></span><br><span class="line"><span class="comment">// 0-5. 也就是商業邏輯、軟體架構</span></span><br><span class="line">IOutput <span class="title function_">ldsAlgorithm</span><span class="params">(IResource res, IInputSet in)</span> <span class="keyword">throw</span> IZhaGuoException &#123;</span><br><span class="line">    <span class="comment">// blackbox, LDS</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">return</span> output;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// --- 定義</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">IResource</span> &#123;</span><br><span class="line">    <span class="comment">// move to next capacity</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">next</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// increase the time of instance type, ex: c5.large - 2 = c5.xlarge</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">inc</span><span class="params">(<span class="type">int</span> time)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">IInputSet</span> &#123;</span><br><span class="line">    <span class="comment">// move to next concurrentSet</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">next</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// increase the times of concurrentSet</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">inc</span><span class="params">(<span class="type">int</span> time)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">IOutputSet</span> &#123;</span><br><span class="line">    IMetric <span class="title function_">getInstanceMetric</span><span class="params">()</span>;</span><br><span class="line">    ILog <span class="title function_">getAppLog</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>這部分分成三大部分：</p>
+<ol>
+<li>第一部分準備資源集合 (resSet)、待測目標 (reqs)<ul>
+<li>資源集合: 指的是實際的載體，像是例子中描述的是一台 c5.large 做 Web Server、一台 c5.large 當 DB Server。</li>
+<li>待測目標: 輸入的條件是同時送的請求從每秒 10 到 100 個，然後打到 10M 的總量，跑 STORY_SET1 + STORY_SET1 的組合。</li>
+</ul>
+</li>
+<li>第二部分是輸出的結果，主要包含：<ul>
+<li>每次運算的結果資料 (resultSet)：通常就是用來分析的 Log &amp; Tracing 的 Raw Data，盡可能蒐集，不然事後少了這些資料可以分析，就要再重跑，會非常好成本。</li>
+<li>實際想要探索的結果 (capacity)，也就是預期的結論值，這個值在量測過程，必須不斷的修正。</li>
+<li>需要有適當的量測工具，包含 Logging &amp; Tracing、Metric 工具等。</li>
+</ul>
+</li>
+<li>第三部分是我們要實際量測的應用程式：<ul>
+<li>本文案例就是 Web Application</li>
+<li>有時候也會有類似 SDK ，但建議搭配適當無干擾的 Web Application 一起量測。</li>
+<li>理想就是要有 Artifacts、Configuration，讓執行團隊自行部署、與調整參數</li>
+</ul>
+</li>
+</ol>
+<p>用圖來表達概念，如下：</p>
+<p><img src="/images/SQA/Measure-Capacity/Concept.png"></p>
+<p>資源集合部分，理想的狀態必續包含以下：</p>
+<ol>
+<li>系統架構圖做主要的結構：<ul>
+<li>如何表達系統架構，參閱 <a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">演講：從緊急事件 談 SRE 應變能力的培養</a>，Slide 的 P64 ~ P97</li>
+<li>定義系統的邊界，同時把 <code>強依賴</code>、<code>弱依賴</code> 疏理清楚，這都會影響量測的結果。</li>
+<li>配置適當的網路架構：像是有些 AP 會大量做 DNS 查詢，所以 K8s 以前的 KubeDNS 就無法乘載，後來改成 CoreDNS 效能就比較好了。</li>
+<li>如果系統非常複雜，那麼要試著拆分架構，把邊界定義清楚，然後個別去量測，也就是 <code>divide and conquer (分而治之)</code>，千萬不要整坨混在一起做。</li>
+</ul>
+</li>
+<li>待測的應用程式 Artifacts：參見 <a href="/2018/07/08/DevOps/Artifacts-Management/">Artifacts Management</a>、<a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理</a></li>
+<li>配置檔 (Config)：分成靜態 (Static)、動態配置 (Dynamic)，配置檔通常會明確有依賴性的資訊，像是對外的 API 串接、一些 Callback …</li>
+</ol>
+<p>然後完成適當的部署與建制，移除不相關、或不重要的串接，可能帶來的干擾，像是不必要的 Auth 機制、不必要的 DNS 查詢 … 等。但也不能一味地把這些關聯移走，如果真實的狀況是有強依賴的，就必須考量額外的模擬方法，例如模擬 AWS SES 或者 Apple APNS &#x2F; Google GCM 的 API。所以如何界定好邊界，其實是系統架構一開始就要釐清的，否則容量量測會不容易定義邊界以及依賴。</p>
+<p>待測目標除了輸入的條件，最常被忽略的就是：</p>
+<blockquote>
+<p>Client 端的網路吞吐量 (Network Throughput)、以及 Server Side 運算資源的網路頻寬</p>
+</blockquote>
+<p>換言之，待測體要有資源準備，模擬請求端的系統，也是同樣要準備資源的，甚至是一個可觀的架構，才不會造成：</p>
+<blockquote>
+<p>大砲打小鳥，或者小鳥打大砲</p>
+</blockquote>
+<p>這樣就是一個不對等的資源比較，整個量測意義就不大了。</p>
+<p>實際上執行容量量測，一開始最難的就是環境的準備，這些都準備好了，確立了，接下來的量測方法才有意義，才不會浪費成本。</p>
+<h2 id="二、找到可能的容量-Capacity-與資源的基準線-Baseline"><a href="#二、找到可能的容量-Capacity-與資源的基準線-Baseline" class="headerlink" title="二、找到可能的容量 (Capacity) 與資源的基準線 (Baseline)"></a>二、找到可能的容量 (Capacity) 與資源的基準線 (Baseline)</h2><p>第一階段：找到 <code>可能的</code> capacity 大小，用以下的程式表達：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 輸入 resSet, reqs 當作基數, 得到 resultSet</span></span><br><span class="line"><span class="type">IOutput</span> <span class="variable">resultSet</span> <span class="operator">=</span> ldsAlgorithm(resSet, reqs);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 固定待測體的資源 (resSet), 讓 reqs 每次都跑的 concurrent 慢慢遞增</span></span><br><span class="line"><span class="comment">// 直到出現 I炸鍋Exception, 找到第一個 capacity 值</span></span><br><span class="line"><span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"><span class="type">IInputSet</span> <span class="variable">_reqs</span> <span class="operator">=</span> reqs; <span class="comment">// concurrent 從 10 開始</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// 一直試，直到炸鍋</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">        _reqs = reqs.next();   <span class="comment">// 取得下一個 concurrentSet</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 紀錄每次執行的系統使用狀況，像是 CPU, Memory, I/O</span></span><br><span class="line">        resultSet = ldsAlgorithm(resSet, _reqs);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">catch</span> (IZhaGuoException ex) &#123;</span><br><span class="line">    <span class="comment">// 炸鍋, 找到 capacity 了</span></span><br><span class="line">    capacity = _reqs;</span><br><span class="line">&#125; <span class="keyword">catch</span> (IEOFSimulateException ex) &#123;</span><br><span class="line">    <span class="comment">// 結束模擬 Sample</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>這段邏輯的前提就是：</p>
+<blockquote>
+<p>資源不變，找到最適合的的輸入條件。</p>
+</blockquote>
+<p>以這個例子來說，待測體的資源是 Web &#x2F; DB 都是 <code>c5.large</code>，這個條件不能變，模擬 Client 的 ConcurrentSet 每次測得值都不一樣，從 10 開始，然後依照指定增加、以此類推。如果結果在 70 的時候，系統當掉了 (無法關機、或者 CPU 100% 沒有回應了)，那麼再退回去 60 跑，結果就是 60 了。</p>
+<p>當然，實際上執行不會只有看 CPU，通常也會從 Client 看 Latency &#x2F; Error Rate、待測體的 Memory、Disk I&#x2F;O、Networking Throughtput、甚至是 AP 的 Log 分析等。</p>
+<p>這個例子找到的 capacity 是 60，資源的 baseline 是 c5.large。如果這個值最後確認是線性關係，那麼這個值稱為 <code>Benchmark</code>。</p>
+<p>這個過程要注意的事項，這些事情也是事前要準備好的：</p>
+<ol>
+<li>蒐集資源的使用率，每台機器的 CPU, Memory, Disk I&#x2F;O, Networking Throughtput<ul>
+<li>如果 AP 是 JVM Base，執行前要確認 HeapSize 的設定，執行過程同時蒐集 HeapSize 的使用狀況</li>
+</ul>
+</li>
+<li>蒐集 AP 本身的 Log 資訊</li>
+<li>在每個節點的進入與出去點記錄時間，紀錄 Process Latency。</li>
+<li>量測每個進入點的資料流、吞吐量 (Throughtput)</li>
+</ol>
+<p>上述的量測方法是固定資源，然後找到輸入條件，但如果反過來呢？也就是已經有確立的輸入條件（期望目標），然後量測所需要的資源規格，這也是一種量測方法，例如希望同時線上人數為 1000、同時交易目標 TPS 100。</p>
+<h2 id="三、驗證-Capacity-是否為線性關係？"><a href="#三、驗證-Capacity-是否為線性關係？" class="headerlink" title="三、驗證 Capacity 是否為線性關係？"></a>三、驗證 Capacity 是否為線性關係？</h2><p>上述階段的結果 (concurrent&#x3D;60) 其實無法確認是否真的是系統的 Capacity，所以接下來要調整量測方式：</p>
+<ul>
+<li>條件：<ul>
+<li>用 concurrent 60 的結果當作輸入的固定基礎</li>
+<li>等比調整 concurrent 與 IResource</li>
+</ul>
+</li>
+<li>預期結果<ul>
+<li>concurrent 與 IResource 的關係成正比。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假設輸入與資源是線性關係</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">isLinear</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 一直試，直到炸鍋</span></span><br><span class="line"><span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 輸入與資源，線性增加</span></span><br><span class="line">        ldsAlgorithm(resSet.inc(r), capacity.inc(r));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IZhaGuoException ex) &#123;</span><br><span class="line">        <span class="comment">// 炸鍋, 關係是非線性</span></span><br><span class="line">        isLinear = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 沒炸鍋, 繼續跑</span></span><br><span class="line">    x++;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 終止條件</span></span><br><span class="line">    <span class="keyword">if</span> (x &gt; <span class="number">10</span>) <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>這結果要確認幾個：</p>
+<ol>
+<li>結果沒有炸掉，表示可能是線性的</li>
+<li>承上，使用的資源狀況是否是等比上升</li>
+</ol>
+<p>結果概念如下圖：</p>
+<p><img src="/images/SQA/Measure-Capacity/P3-Capaity-Trend.png"></p>
+<p>X 軸是輸入，也就是 ConcurrentSet 的倍數關係，Y 軸是資源使用率， 100% 是滿的。</p>
+<ul>
+<li>藍色是理想</li>
+<li>黃色是炸掉了</li>
+<li>紅色是基準值太低</li>
+</ul>
+<p>如果結果是藍色的，那麼：</p>
+<blockquote>
+<p>∴ 可以如此宣告此 系統的容量是 <code>capacity</code>，基於的 Baseline 是 <code>c5.large</code></p>
+<ul>
+<li>系統的容量值為變數 <code>capacity</code> 的結果，這個數值可以稱為系統的 <code>Benchmark</code></li>
+<li>此 Resource 的數值: <code>c5.large</code> - 稱為 <code>Baseline</code></li>
+</ul>
+</blockquote>
+<hr>
+<h1 id="Q-and-A"><a href="#Q-and-A" class="headerlink" title="Q and A"></a>Q and A</h1><h2 id="Q1-Capactiy-跟-Load-Test、Stress-Test-有什麼不一樣？"><a href="#Q1-Capactiy-跟-Load-Test、Stress-Test-有什麼不一樣？" class="headerlink" title="Q1: Capactiy 跟 Load Test、Stress Test 有什麼不一樣？"></a>Q1: Capactiy 跟 Load Test、Stress Test 有什麼不一樣？</h2><p>Capacity 跟 Load Test 實際上是一樣的東西，只是用詞差異而已。</p>
+<p>Stress Test 是 <code>測試</code> 的一種，指的是輸入極端條件，確認系統的變化與反應。例如 Benchmark 是：</p>
+<blockquote>
+<p>c5.large 的機器可以乘載容量是 RPS 100</p>
+</blockquote>
+<p>然後打 RPS 500 ，持續 10 分鐘，看看系統的狀況。</p>
+<p>這樣的測試條件與方法，稱為 Stress Test，他的前提是已經知道 Capacity 的 Benchmark。</p>
+<ul>
+<li>Capacity 是量測，結果是 As c5.large，RPS 1000、TPS 50，呈現的是統計結果。</li>
+<li>Stress Test 是測試，結果是 CAN BE or CANNOT BE，是零或一的問題。</li>
+</ul>
+<p>Stress Test 的測試結果兩種：</p>
+<ul>
+<li>系統崩潰，回不來了</li>
+<li>系統沒有崩潰，通常需要具備的就是可靠性 (Reliability)，他會具備以下架構的特性：<ul>
+<li>有彈性 (Resilience)，系統自動修復 (Recoverability)</li>
+<li>具備容錯機制 (Fault Tolerance)</li>
+<li>有冗余機制，達到有高可用 (Highly Available)、沒有單點</li>
+<li>有降級 (Downgrade) 或者熔斷機制 (Broker)，自動保護系統</li>
+<li>系統有限流 (Rate Limit) 保護，不會被沖垮，更多參閱：<a href="/2018/05/03/AWS/Study-Notes-API-Gateway-Rate-Limit-and-Throttling/">API Gateway - Rate Limit and Throttling</a></li>
+<li>架構有解偶 (Loosely Coupled)，所以不會太過於依賴其他服務而影響到服務</li>
+</ul>
+</li>
+</ul>
+<p>Reliability 是 <code>架構議題</code>，架構是目標導向，必須滿足系統的特殊需求。而 *<em>測試屬於驗證導向</em>- 、 <strong>量測屬於統計導向</strong>。針對可靠性有機會另外撰文整理心得。</p>
+<blockquote>
+<p>Updated 2020&#x2F;04&#x2F;22: 相關請參考: <a href="/2020/04/22/SoftwareEngineering/Reliability-Engineering/">可靠性工程 Reliability Engineering</a></p>
+</blockquote>
+<h2 id="Q2-承上，那-壓測-跟你說的容量量測-有啥不一樣？"><a href="#Q2-承上，那-壓測-跟你說的容量量測-有啥不一樣？" class="headerlink" title="Q2: 承上，那 壓測 跟你說的容量量測 有啥不一樣？"></a>Q2: 承上，那 <code>壓測</code> 跟你說的容量量測 有啥不一樣？</h2><p>呃，中文有一些語意其實是怪怪的。<code>壓力測試</code> 對應到英文是 <code>Stress Test</code>，這概念上一個問題已經描述。</p>
+<p>實際上大部分的人問的都是系統的 <code>容量</code>，而不是真正的壓力。例如，業務單位常會問：</p>
+<blockquote>
+<ul>
+<li>我們的系統可以乘載多少人在線上？</li>
+<li>我們的系統可以同時處理多少交易？</li>
+<li>如果有 100 萬人，系統能否乘載？要加多少機器？</li>
+</ul>
+</blockquote>
+<p>這些問題，重新整理之後，你會發現大部分問的實際上都不是壓測 (Not TRUE or FALSE)，而是容量 (HOW Many)。</p>
+<h2 id="Q3-如果有相依性，請問怎麼量測？"><a href="#Q3-如果有相依性，請問怎麼量測？" class="headerlink" title="Q3: 如果有相依性，請問怎麼量測？"></a>Q3: 如果有相依性，請問怎麼量測？</h2><p>相依性分成 <code>內部依賴</code>、<code>外部依賴</code>，依照依賴的強弱又分 <code>強依賴</code> 與 <code>弱依賴</code>，可以用以下圖表分析，把這些依賴分類填入：</p>
+<p><img src="/images/SQA/Measure-Capacity/Dependencies.png"></p>
+<blockquote>
+<p>註：這張圖的依賴分法，是依據網路拓墣結構的分法，有些服務實際上是 WAN，但在 AWS 上卻可以透過 VPC Endponits 讓他有 LAN 的效果。</p>
+</blockquote>
+<p>外部依賴的類型：</p>
+<ul>
+<li>Managed Service: 像是 DynamoDB、S3、GCP Pub&#x2F;Sub 這些東西，很常會是 Vender Locking 的東西。<ul>
+<li>通常有 Rate Limit &#x2F; Quota，需要額外申請 RPS &#x2F; Quota</li>
+<li>會收到 HTTP 429 的 Return Code (RFC 6585)</li>
+</ul>
+</li>
+<li>3rd party API: 例如 Google Map API、某家 SMS Provider、Apple APNS &#x2F; Google GCM …<ul>
+<li>通常沒有 Rate Limit，用多少收多少錢。</li>
+<li>有機會把對方打掛。</li>
+</ul>
+</li>
+</ul>
+<p>量測過程中，可以透過 Fake &#x2F; Dummy API 模擬這些外部依賴。這些 API 是可以自己模擬的。</p>
+<p>通常系統會希望的結果是：</p>
+<ol>
+<li>自己對外的 <code>吞吐量 (Throughtput)</code> 是穩定的，單位時間的請求是可量測的值，例如 RPS 1000 這樣的數字。<ul>
+<li>實作方式就是利用 <code>大使模式 (ambassador)</code> 實作外部的 Rate Limit，限制自己對外的吞吐量，例如打 Google API 固定在 RPS 100。有點像車的定速器。</li>
+<li>大使模式概念 請參閱 <a href="/2019/05/17/About/DDS-zh_TW/">分散式系統設計 - 正體中文版</a> 第三章的介紹</li>
+</ul>
+</li>
+<li>依賴的對象，接受請求的吞吐量也是穩定的。<ul>
+<li>重要的服務，限制進來的流量在一定的承受範圍，例如登入 API 限制在 RPS 200，或者系統以此為 Beanchmark 可以線性 Scale Out (擴容)。</li>
+<li>通常是利用 API Gateway 管控進來的流量請求。</li>
+<li>想辦法把強依賴的移到弱依賴</li>
+</ul>
+</li>
+</ol>
+<h2 id="Q4-如果量測的是外部依賴，那要怎麼做？"><a href="#Q4-如果量測的是外部依賴，那要怎麼做？" class="headerlink" title="Q4: 如果量測的是外部依賴，那要怎麼做？"></a>Q4: 如果量測的是外部依賴，那要怎麼做？</h2><p>先不管怎麼做，先講注意事項。</p>
+<blockquote>
+<p>不管依賴的是什麼對象，把大量流量送到人家的系統，在網路上會被當作惡意攻擊，輕則影響業務，嚴重則有法律刑責問題</p>
+</blockquote>
+<p>因為這些行為，在維運人員的眼中，都是挑釁與攻擊。只要看到這種奇怪的流量，監控系統一定會跳起來（除非沒在監控），然後都會提高警覺。</p>
+<p>如果你的依賴是一般小公司的服務，可能會把他的系統打掛；如果你的依賴是 Google API … 呃，把它打掛嗎？他掛掉之前，你公司的網路頻寬塞爆，如果你是從 Cloud 上 (AWS, Azure, GCP) 製造流量，那可能會被這些 Providers 警告，然後錢會被燒光。</p>
+<p>到現在我還沒講怎麼做。</p>
+<p>這件事情應該是透過溝通取得，通常問幾個問題：</p>
+<ol>
+<li>你們的服務有沒有限流 (Rate Limit)？ 有的話是多少？</li>
+<li>如果沒有限流，那可以接受的流量是多少？</li>
+</ol>
+<p>請對方的工程團隊回答，答不出來我會拿過去與對方的請求歷史資料分析，當作參考，自己心裡才有底。外部依賴比較不是工程問題，而是溝通問題。</p>
+<p>除非可以溝通到對方願意讓你打，但要很警慎，通常這種任務，具備一定的工程能力，才有辦法處理，否則都是開資源（砸錢）解決，也就是沒有真的量測過。</p>
+<!--
+For AWS，底下是 AWS 本地版本，可以用來模擬類的行為。
+
+- https://github.com/localstack/localstack
+
+-->
+
+<h2 id="Q5-我們的系統很複雜，要怎麼做前述的量測？"><a href="#Q5-我們的系統很複雜，要怎麼做前述的量測？" class="headerlink" title="Q5: 我們的系統很複雜，要怎麼做前述的量測？"></a>Q5: 我們的系統很複雜，要怎麼做前述的量測？</h2><p>恩，如果你的團隊、你的老闆是講求科學與工程的團隊，那麼 <code>divide and conquer</code> 是最好、最短的路徑，中文叫做 <code>分而治之</code>，要做的就是 <code>一、準備工作</code> 的描述。拆分之後，了解他們的關係（如下圖），找出每個系統的容量，以及最小的個體，這個個體就是 <a target="_blank" rel="noopener" href="https://wiki.mbalib.com/zh-tw/%E6%9C%A8%E6%A1%B6%E5%8E%9F%E7%90%86">木桶理論</a> 裡的 <code>短版</code> 了，他滿了，整個系統就滿了。</p>
+<p><img src="/images/SQA/Measure-Capacity/Dependency-CannikinLaw.jpg"></p>
+<p>然後一定要花時間、踏實的把這些架構裡的角色弄清楚、依賴搞清楚，相信我，明年的現在，下一個人會問一模一樣的問題。如果有照著做，明年的現在，你會很有自信地說：我的系統可以乘載多少的容量，而且你會變得無比的強大。</p>
+<h2 id="Q6-承上，你在-聊聊分散式系統-有一張微服務架構圖，這張圖的架構要怎麼量測？"><a href="#Q6-承上，你在-聊聊分散式系統-有一張微服務架構圖，這張圖的架構要怎麼量測？" class="headerlink" title="Q6: 承上，你在 聊聊分散式系統 有一張微服務架構圖，這張圖的架構要怎麼量測？"></a>Q6: 承上，你在 <a href="/2018/06/18/DistributedSystems/Gossip-in-Distributed-Systems/">聊聊分散式系統</a> 有一張微服務架構圖，這張圖的架構要怎麼量測？</h2><p>這問題只有我才會問，因為圖是我畫的，我最清楚 XD</p>
+<p>圖是這張：</p>
+<p><img src="/images/AWS/API-Gateway/Private-Endpoint/Microservice-Arch-on-AWS_v3.png"></p>
+<p>各個 Service 的 Capacity 要怎麼量測？</p>
+<p>答案跟上一個一樣:</p>
+<blockquote>
+<p>divide and conquer, 分而治之</p>
+</blockquote>
+<p>我的答案始終如一，各個服務都要知道怎麼量測自己的容量，知道如何拆解自己的依賴、知道哪些是強弱依賴，最後的結論是可以透過數學公式，用推算的就可以算出來。例如圖中的服務量測的容量是：</p>
+<ul>
+<li>Service A: 1000</li>
+<li>Service B: 200</li>
+<li>Service C: 1500</li>
+<li>Service D: 300</li>
+</ul>
+<p>那麼再針對這些實際的流量調整必要的資源，例如放大 B 五倍，放大 D 三倍，整體容量就差不多在 1000 上下。然後確認整體的網路頻寬吞吐是足夠的，基本上就可以宣告整體 Capacity 是 1000 了。至於 1000 的單位是什麼？那要看是怎樣的系統了。</p>
+<p>請這樣思考：AWS Services 都有很大的規模，他們怎麼去提供彼此的依賴？準備實際的資源？通常不會真的去量測整個大系統，而是每個子系統都很清楚自己的容量 Beanchmark，以此為依據，然後用數學方法計算出服務之間的依賴狀況。</p>
+<h2 id="Q7-如果沒有足夠資源與時間，怎樣快速評估系統容量？"><a href="#Q7-如果沒有足夠資源與時間，怎樣快速評估系統容量？" class="headerlink" title="Q7: 如果沒有足夠資源與時間，怎樣快速評估系統容量？"></a>Q7: 如果沒有足夠資源與時間，怎樣快速評估系統容量？</h2><p>我很常被問這問題，通常會依照經驗快速計算出粗略值。概念也是前面提到的演算法：</p>
+<ol>
+<li>目前系統的資源做 Baseline，例如目前每天的機器數約 20 ~ 30 台 c5.xlarge 在跑，平均 CPU 在 60%</li>
+<li>目前系統的 request 範圍在 150k &#x2F; min ~ 170k &#x2F;min (ELB) 數據</li>
+</ol>
+<p>以此大概就可以快速推算出一個基數：</p>
+<blockquote>
+<p>十台 c5.xlarge 的均值在 70k ~ 80k &#x2F; min 的容量</p>
+</blockquote>
+<p>當然這是在完全沒有時間量測前提，基於每天系統的狀況反推的。前提是：</p>
+<blockquote>
+<p>你必須清楚每天線上有多少台機器在跑，以及他們的 Workload 是多大。</p>
+</blockquote>
+<h2 id="Q8-步驟三描述的結果，如果是非線性怎麼辦？"><a href="#Q8-步驟三描述的結果，如果是非線性怎麼辦？" class="headerlink" title="Q8: 步驟三描述的結果，如果是非線性怎麼辦？"></a>Q8: 步驟三描述的結果，如果是非線性怎麼辦？</h2><p>實際上的量測，不會是純線性關係，也就是到了一定臨界值之後，就會變成非線性，概念如下：</p>
+<p><img src="/images/SQA/Measure-Capacity/Non-Linear-and-Linaner.png"></p>
+<p>圖中的 Y 軸是 Latency、X 軸是 concurrent</p>
+<ul>
+<li>藍色是理想值：一直在穩定的量測比例關系。</li>
+<li>紅色是實際值：到了 concurrent 400 以上，整個狀態就往上飄了，呈現失控的狀態。</li>
+</ul>
+<p>非線性的原因可能是肇因於網路拓墣、或者分散式架構。但是這時候要思考的是：</p>
+<ul>
+<li>系統本身就有物理上的極限，即使是很強的機器，或者規劃很好的分散式架構</li>
+<li>需求是什麼？這個案例，搞不好需求 RPS 200 就夠了？後面也只是測爽的。</li>
+<li>但時間允許，請繼續深究，功力會有一甲子累積。</li>
+</ul>
+<p>現實跟理想，要取得平衡。</p>
+<h2 id="Q9-CI-x2F-CD-流程要整合效能測試？"><a href="#Q9-CI-x2F-CD-流程要整合效能測試？" class="headerlink" title="Q9: CI &#x2F; CD 流程要整合效能測試？"></a>Q9: CI &#x2F; CD 流程要整合效能測試？</h2><p>很多文章都會講：</p>
+<blockquote>
+<p>CI &#x2F; CD 要把壓力測試整合進去，每次都跑。</p>
+</blockquote>
+<p>概念上沒有錯，但實務上要考慮以下：</p>
+<ul>
+<li>待量測體的規模與量測目的</li>
+<li>整體的系統架構規模與依賴性</li>
+<li>量測頻率</li>
+<li>環境建置與資料還原</li>
+<li>成本考量</li>
+</ul>
+<p>當這些都可以很清楚的定義，而且大家可以接受 (特別是成本)，那就可以整合，否則大部分我會建議 <code>每季</code> 至少執行一次容量的量測。</p>
+<h2 id="Q10-你在-淺談效能測試-提到有三種，哪一種比較重要？"><a href="#Q10-你在-淺談效能測試-提到有三種，哪一種比較重要？" class="headerlink" title="Q10: 你在 淺談效能測試 提到有三種，哪一種比較重要？"></a>Q10: 你在 <a href="/2018/07/22/SQA/Performance-Test/">淺談效能測試</a> 提到有三種，哪一種比較重要？</h2><p>先說結論，針對 Web System 的重要性：</p>
+<blockquote>
+<ol>
+<li>Capacity 2) Reliability 3) Stability</li>
+</ol>
+</blockquote>
+<p>Capacity 是量測系統在基於基礎條件下的承載量，Capacity 下一個要做的是系統的可靠性 Reliability，前面有大概描述有哪些項目，有空再整理專文。</p>
+<blockquote>
+<p>Updated 2020&#x2F;04&#x2F;22: 請參考: <a href="/2020/04/22/SoftwareEngineering/Reliability-Engineering/">可靠性工程 Reliability Engineering</a></p>
+</blockquote>
+<p>最後一個是 <code>穩定性驗證 (Stability)</code>，一般 Web System 比較少做這種驗證。<code>穩定性驗證 (Stability)</code> 與容量測試截然不同，他的結果不是一個數值，而是：</p>
+<ol>
+<li>自然流量，長時間之下的統計結果</li>
+<li>過載之後，長時間之下的統計結果</li>
+</ol>
+<p>這兩個都在探索會不會有 Memory Leak、Deadlock、Resource Lock、Kernel Panic 等現象，通常 Embedded、設計 DB engine、Compiler 比較會有這種驗證，一般 Web App 不太需要注重。</p>
+<blockquote>
+<p>相關：<a href="/2015/01/22/Misc/Embedded-Notes/">Introduction to Embedded Systems</a></p>
+</blockquote>
+<h2 id="Q11-這個題目為啥是放在-SQA-這個分類裡？"><a href="#Q11-這個題目為啥是放在-SQA-這個分類裡？" class="headerlink" title="Q11: 這個題目為啥是放在 SQA 這個分類裡？"></a>Q11: 這個題目為啥是放在 SQA 這個分類裡？</h2><p>我知道很多單位是讓 Ops &#x2F; Infra &#x2F; SRE Team 做 <code>壓力測試</code>，但我卻不是這麼認為的，而且那不叫 <code>壓力測試</code>，大部分人講的都是容量量測。</p>
+<p>而我把這個題目放在 SQA (Software Quality Assurance) 這個分類，是因為我認為這算是 SQA Team 的職責，理由如下：</p>
+<ol>
+<li>軟體的品質不僅止於產品功能，還包含非功能性驗證，其中也包含系統容量量測</li>
+<li>Ops &#x2F; Infra &#x2F; SRE Team 應該在部署前，就已經知道系統容量的基準值 (Beanchmark)，以此作為依據，決定部署策略。<ul>
+<li>如果業務單位有行銷活動，Ops 也會問應該會帶來多少流量，依此強度去配置系統</li>
+<li>每次部署狀況，都依照此數據決定部署策略，該是 Canary、Blue &#x2F; Green、A&#x2F;B</li>
+<li>SQA 提供容量基準值數據，Ops &#x2F; Infra &#x2F; SRE 以此作為成本估算依據</li>
+</ul>
+</li>
+<li>如果要執行 Reliabilty 相關的工作，就更需要 Capacity 的數據。<ul>
+<li>像是 Chaos Monkey</li>
+<li>Fault Tolerance</li>
+<li>DR</li>
+<li>Highly Available</li>
+</ul>
+</li>
+</ol>
+<p>所以 SQA 的工作應該包含容量量測，而 Reliability 才是 SRE or Architect 的工作。</p>
+<p>台灣的很多 QA Team 其實是沒這樣的能力，因為大部分 QA 比較專注在產品功能，對於系統架構通常沒有認識、或者無法獨立建置環境，倚賴 Developers 或者 Ops &#x2F; SRE &#x2F; Infra Team 的 CI&#x2F;CD … 導致 QA 的價值一直被質疑。沒有工程能力，也沒有深度的 Domain Knowhow，最後很容易變成沒門檻的免洗筷。</p>
+<p>這是普遍的現象與現狀，但我覺得這是有問題的，相關整理與想法參閱：</p>
+<ul>
+<li><a href="/2015/08/20/SQA/Three-Kinds-Of-QA/">三種 QA</a></li>
+<li><a href="/2015/10/11/SQA/How-To-Be-An-SQA/">Software QA 的職能條件</a></li>
+<li><a href="/2018/12/15/DevOps/TheProblem-In-DevOps-8-Cycle/">DevOps 8 字環的誤區：左環問題</a></li>
+</ul>
+<h2 id="Q12-雖然你一開始說不推薦工具，但還是可以推薦一下嗎？"><a href="#Q12-雖然你一開始說不推薦工具，但還是可以推薦一下嗎？" class="headerlink" title="Q12: 雖然你一開始說不推薦工具，但還是可以推薦一下嗎？"></a>Q12: 雖然你一開始說不推薦工具，但還是可以推薦一下嗎？</h2><ul>
+<li>完整的：<ul>
+<li>JMeter：老牌子，功能完整、可以分散式製造大量的吞吐量、Silent Mode、完整的 Log 與分析報告、可以模擬真實的使用者情境、可以自行開發 Plugin 擴充 ….</li>
+<li><a target="_blank" rel="noopener" href="https://k6.io/">K6</a>: 由 Grafana Lab 開發，基於 Cloud Native 概念，新一代的工具。</li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosify.com/">ddosify</a></li>
+</ul>
+</li>
+<li>簡易工具：<ul>
+<li>apache ab</li>
+<li>stress-ng</li>
+</ul>
+</li>
+</ul>
+<h2 id="Q13-我們的系統有用-EC2-Auto-Scaling，那要怎麼測量你說的容量？"><a href="#Q13-我們的系統有用-EC2-Auto-Scaling，那要怎麼測量你說的容量？" class="headerlink" title="Q13: 我們的系統有用 EC2 Auto Scaling，那要怎麼測量你說的容量？"></a>Q13: 我們的系統有用 EC2 Auto Scaling，那要怎麼測量你說的容量？</h2><p>先不用管有沒有 Auto Scaling，先量測單一 Instance 的容量是多少，有此 Beanchmark 數值，之後的 Auto Scaling 只是讓你用線性方式 <code>擴容</code>。</p>
+<p>這跟有沒有用 Auto Scaling 沒關係。</p>
+<p>同樣的概念套在 K8s 的 Pod 也適用。</p>
+<h2 id="Q14-瞬間流量，要怎麼量測？像是雙十一那種的。"><a href="#Q14-瞬間流量，要怎麼量測？像是雙十一那種的。" class="headerlink" title="Q14: 瞬間流量，要怎麼量測？像是雙十一那種的。"></a>Q14: 瞬間流量，要怎麼量測？像是雙十一那種的。</h2><p>這問題可以參考 <a href="/2019/04/04/AWS/Study-Notes-EC2-Auto-Scaling-FAQ/">EC2 Auto Scaling 常見問題</a>，底下簡述：</p>
+<ul>
+<li>瞬間流量要靠的是 <code>限流機制 (Rate Limit)</code> + <code>排隊機制</code> + <code>擴容架構</code> + <code>快取機制</code> 處理。</li>
+<li>當限流可以做到限性控制的時候，瞬間流量進來就是考驗擴容的速度了。</li>
+<li>快取可以做到肖峰填谷，也就是分層過濾流量，概念如同 <code>AARRR</code> 的漏斗。</li>
+</ul>
+<p>瞬間流量跟量測容量是不同概念，容量只是解決瞬間量的其中一個環節。</p>
+<blockquote>
+<p>相關概念參閱： <a href="/2018/05/03/AWS/Study-Notes-API-Gateway-Rate-Limit-and-Throttling/">API Gateway - Rate Limit and Throttling</a></p>
+</blockquote>
+<h2 id="Q15-Database-的測量要怎麼做？"><a href="#Q15-Database-的測量要怎麼做？" class="headerlink" title="Q15: Database 的測量要怎麼做？"></a>Q15: Database 的測量要怎麼做？</h2><p>Database 通常會是系統架構的瓶頸之一，但是應用層的應用變化百百種，實務上建議針對最主要的功能 <code>個別</code> 做量測，例如：成立訂單、商品資訊、分類頁、活動頁 … 等。針對這些功能個別使用固定的架構（假設是 Web -&gt; App -&gt; DB 這樣的架構），先找到功能與最佳的資源組合，例如：成立訂單最佳的組合、商品資訊最佳的組合 … 等。這時候會找到一個最大的 Database 資源組合，這就是 Database 的短板了。</p>
+<p>另外提一個重要的設計概念：</p>
+<blockquote>
+<p>系統已經可以提供 Capacity Unit，像是 Write Read Throughput &#x2F; Second，那麼所謂的 <code>量測容量</code> 這件事情是可以不用做的，只要拿張紙，算一算就可以知道了。 一個 <code>可維運 (Operable)</code> 的服務，應該都是可以直接 <code>提供 (Provisioned)</code> 線性的 <code>容量單位 (Capacity Unit)</code>，使用者透過計算，就可以估算出容量。類似概念在 AWS 的 DynamoDB、ALB 都有。我最常舉的例子就是 DynamoDB 的設計，相關概念參閱 <a href="/2016/08/17/AWS/Study-Notes-DynamoDB/">DynamoDB 學習筆記</a>。</p>
+</blockquote>
+<h2 id="Q16-Cache-Redis-的量測要怎麼做？"><a href="#Q16-Cache-Redis-的量測要怎麼做？" class="headerlink" title="Q16: Cache (Redis) 的量測要怎麼做？"></a>Q16: Cache (Redis) 的量測要怎麼做？</h2><p>這問題怪怪的，Cache 本身不是一個設計來做長期容量算計的，如果超過 TTL 或者 Size，基本上就會使用內部的淘汰機制 (Eviction Policy) 處理，了解 AP 對於這種情境的處理。</p>
+<h2 id="Q17-基於特定背景，例如固定有-1000-rps-的流量之下，然後在此條件的前提，再做壓力測試算在你說的範疇？"><a href="#Q17-基於特定背景，例如固定有-1000-rps-的流量之下，然後在此條件的前提，再做壓力測試算在你說的範疇？" class="headerlink" title="Q17: 基於特定背景，例如固定有 1000 rps 的流量之下，然後在此條件的前提，再做壓力測試算在你說的範疇？"></a>Q17: 基於特定背景，例如固定有 1000 rps 的流量之下，然後在此條件的前提，再做壓力測試算在你說的範疇？</h2><p>這前提是系統在有固定自然流量的前提，然後特定功能使用量突然增加。舉例電商來說：自然流量是 <code>商品頁瀏覽</code>，突然增加的流量是 <code>結帳頁</code>。</p>
+<p>這其實也算是容量的量測，只是有特定的背景條件。可以先把固定流量當作基準值，然後以此作量測。</p>
+<hr>
+<!--
+2021/06/14: 重新定義效能
+
+，效能應該是是基於一個可靠的 #系統容量值 的現象。
+因為內在或者外在因素影響，改變了整個系統可以乘載總量，所以需要透過量測的方法 #診斷 (diagnostic) 系統狀況，以利作出適當的動作。
+例如一個水桶可以裝 30 公升的容量，因為裡面被放了五顆石頭，所以容量變成 25 公升，效能下降，所以要去透過效能調校找到問題點，進而改善。
+-->
+
+<h2 id="Q96-系統容量有沒有什麼策略性選擇可以參考，當做切入點？"><a href="#Q96-系統容量有沒有什麼策略性選擇可以參考，當做切入點？" class="headerlink" title="Q96: 系統容量有沒有什麼策略性選擇可以參考，當做切入點？"></a>Q96: 系統容量有沒有什麼策略性選擇可以參考，當做切入點？</h2><p>三種策略性選擇的思路:</p>
+<ol>
+<li><code>以輸入為基準值</code>：例如業務目標是 200QPS，以此找到系統資源的 Beachmark</li>
+<li><code>以系統資源做基準值</code>：例如用已知的資源做基準，例如一台 c5.xlarge，然後找到輸入的理想值</li>
+<li><code>應用程式設計基準值</code>：也就是 SLO，例如直接以 100QPS、以 c5.xlarge 為組合基準，以此開發應用程式</li>
+</ol>
+<p>這三個策略，如果是有考量 SLA 的新服務，建議用第一種當目標，也就是業務導向，找到所需要的資源。</p>
+<p>如果是既有的系統，像是一套 Legacy 推播系統，想要知道它的容量，那麼就用第二種方法。</p>
+<p>如果是全公司的架構設計團隊，準備設計給其他團隊使用的功能，那麼一開始就要使用第三種方法，直接定義目標 (SLO)。當然定義目標的過程，會在選擇一、二中遊走，最後找到第三個的基準值。整個概念如下圖：</p>
+<p><img src="/images/SQA/Measure-Capacity/Stretagy.png"></p>
+<h2 id="Q97-如果系統是跑在-K8s-上，這個概念也是一樣？"><a href="#Q97-如果系統是跑在-K8s-上，這個概念也是一樣？" class="headerlink" title="Q97: 如果系統是跑在 K8s 上，這個概念也是一樣？"></a>Q97: 如果系統是跑在 K8s 上，這個概念也是一樣？</h2><p>一樣。請先了解整個 Request 的 Traffic 途徑，包含 Ingress、Service、Pod … 等關係，了解之後先測個別的服務，測完再測整個的。</p>
+<h2 id="Q98-有沒有實際案例可以分享？"><a href="#Q98-有沒有實際案例可以分享？" class="headerlink" title="Q98: 有沒有實際案例可以分享？"></a>Q98: 有沒有實際案例可以分享？</h2><p>推薦我朋友 Earou Huang 在社群的分享：<a target="_blank" rel="noopener" href="https://www.slideshare.net/EarouHuang/20180726-107684075">為瞬間巨量做好準備</a>, 20180726</p>
+<p>這場分享，基本上就是這整篇整理的實踐紀錄之一。</p>
+<h2 id="Q99-可以總結，量測容量的前提與準備工作？"><a href="#Q99-可以總結，量測容量的前提與準備工作？" class="headerlink" title="Q99: 可以總結，量測容量的前提與準備工作？"></a>Q99: 可以總結，量測容量的前提與準備工作？</h2><p>簡單條列如下：</p>
+<ol>
+<li>功能驗證要過：基本的業務邏輯要完善，再來談容量量測。不要以為我在講幹話、開玩笑，我真的遇過功能不能用，跟我要求要做容量量測的。</li>
+<li>釐清系統架構：<ul>
+<li>包含邊界、角色、通訊、內外依賴等定義</li>
+<li>釐清網路拓墣、網路頻寬、WAN &#x2F; LAN 邊界、DNS &#x2F; Auth 相關基礎服務</li>
+<li>如何表達系統架構概念參閱 <a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">演講：從緊急事件 談 SRE 應變能力的培養</a>，Slide 的 P64 ~ P97</li>
+</ul>
+</li>
+<li>建置整個系統環境，相關參閱 <a href="/2017/02/11/DevOps/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a>、<a href="/2018/07/08/DevOps/Artifacts-Management/">Artifacts Management</a></li>
+<li>準備蒐集待測體的 Log、Metric 等機制，相關參閱：<a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a>、<a href="/2017/10/07/DevOps/Monitoring-vs-Observability/">Monitoring vs Observability</a></li>
+</ol>
+<p>這些都仰賴平常的基本功與紀律，不太容易一蹴可及。</p>
+<hr>
+<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>經過上面的方法論，才可以大概 <code>探索 (Discovery)</code> 系統的容量，而這個過程就是在 <code>量測 (Measure)</code>。如果覺得太難懂，那換個方式說好了：</p>
+<p>如果你想知道一個人的食量有多大，那麼就請他先去量體重，然後點一堆餅，餵他一直吃，像這樣：</p>
+<p><img src="/images/SQA/Measure-Capacity/Eat-the-Cookies.png"></p>
+<p>如果他回答：</p>
+<p><img src="/images/SQA/Measure-Capacity/Still-got-the-Hungry.png"></p>
+<p>那就繼續餵他，直到他說吃不下了，趁他還沒吐之前，抓他再去量一次體重，或者回去盤點到底吃了多少餅，這就是他的 Capacity 了。</p>
+<!--
+
+## 後記 (2019/10/02)
+
+很多
+
+
+## 如果 Phase 2 結果是非線性呢？
+
+-->
+
+<!--
+## 穩定性驗證 (Stability)
+
+`穩定性驗證 (Stability)` 與容量測試截然不同，他的結果不是一個數值，而是：
+
+1. 自然流量，長時間之下的統計結果
+1. 過載之後，長時間之下的統計結果
+
+
+確認系統是否
+
+
+穩定性需要確認 Capacity 的數值與 Baseline 之後，
+
+
+
+## 三、可靠性驗證
+
+
+- High Available (高可用性), Fault Tolerance (容錯), Resilience (彈性), Recoverability (可回復性), Loosely Coupled ... 都是可靠性的實踐方法
+
+-->
+
+<!--
+#
+
+
+以一個 web 應用程式來看:
+
+Beanchmark = HTTP request 數量 x (API Handler) / (4core, 8g)
+
+其中
+
+底下是一些 baseline 與 beanchmark 的例子：
+
+- 硬體設備可以乘載的環境變因，例如 Mac Mini 可以工作的環境條件：
+    - 攝氏 10 ~ 35 度，相對濕度 5 ~ 90%
+    - 工作電壓：100 ~ 240V AC
+    - 頻率：50Hz ~ 60Hz
+- 軟體運作所需要的基本條件：
+    - 需要 2 core, 4G 記憶體
+    - 需要 IOPS > 300 的條件 ...
+    - Network I/O ...
+    - ... etc.
+
+這些都是所謂的 Baseline，以此為條件，設計的產品功能在上面執行後最後得到的結果，用以下公式來呈現這樣的概念：
+
+
+---
+# 實際案例
+
+實務上，我們很常需要知道一個系統的乘載容量，例如 rps (Reuqest Per Second)、TPS (Transation Per Second)、QPS (Query Per Second) ....
+
+-->
+
+
+
+<hr>
+<h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><h2 id="軟體測試"><a href="#軟體測試" class="headerlink" title="軟體測試"></a>軟體測試</h2><ul>
+<li><a href="/2018/07/22/SQA/Performance-Test/">淺談效能測試</a></li>
+<li><a href="/2015/08/20/SQA/Three-Kinds-Of-QA/">三種 QA</a></li>
+<li><a href="/2017/03/18/SQA/Stages-In-Software-Testing/">淺談軟體測試的階段與策略</a></li>
+<li><a href="/2015/10/11/SQA/How-To-Be-An-SQA/">Software QA 的職能條件</a></li>
+<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">新書上市 - 共同著作《軟體測試實務 I、II》</a></li>
+</ul>
+<h2 id="DevOps-x2F-SRE"><a href="#DevOps-x2F-SRE" class="headerlink" title="DevOps &#x2F; SRE"></a>DevOps &#x2F; SRE</h2><ul>
+<li><a href="/2018/07/08/DevOps/Artifacts-Management/">Artifacts Management</a></li>
+<li><a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理</a> - DevOps Taiwan Meetup</li>
+<li><a href="/2019/04/04/DevOps/Four-Pillars-of-Software-Delivery/">軟體交付的四大支柱 (Four Pillars of Software Delivery)</a></li>
+<li><a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">演講：從緊急事件 談 SRE 應變能力的培養</a></li>
+<li><a href="/2018/12/15/DevOps/TheProblem-In-DevOps-8-Cycle/">DevOps 8 字環的誤區：左環問題</a></li>
+<li><a href="/2017/02/11/DevOps/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a></li>
+<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
+<li><a href="/2017/10/07/DevOps/Monitoring-vs-Observability/">Monitoring vs Observability</a></li>
+</ul>
+<h2 id="系統架構"><a href="#系統架構" class="headerlink" title="系統架構"></a>系統架構</h2><ul>
+<li><a href="/2018/06/18/DistributedSystems/Gossip-in-Distributed-Systems/">聊聊分散式系統</a></li>
+<li><a href="/2020/04/22/SoftwareEngineering/Reliability-Engineering/">可靠性工程 Reliability Engineering</a></li>
+<li><a href="/2018/05/03/AWS/Study-Notes-API-Gateway-Rate-Limit-and-Throttling/">API Gateway - Rate Limit and Throttling</a></li>
+<li><a href="/2019/05/17/About/DDS-zh_TW/">分散式系統設計 - 正體中文版</a></li>
+<li><a href="/2019/04/04/AWS/Study-Notes-EC2-Auto-Scaling-FAQ/">Study Notes - EC2 Auto Scaling 常見問題</a></li>
+<li><a href="/2016/08/17/AWS/Study-Notes-DynamoDB/">DynamoDB 學習筆記</a></li>
+</ul>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/EarouHuang/20180726-107684075">為瞬間巨量做好準備 20180726</a> - Earou Huang</li>
+<li><a target="_blank" rel="noopener" href="https://www.percona.com/blog/2019/02/25/mysql-challenge-100k-connections/">MySQL Challenge: 100k Connections</a></li>
+</ul>
+<h2 id="相關事件"><a href="#相關事件" class="headerlink" title="相關事件"></a>相關事件</h2><ul>
+<li>2020&#x2F;03&#x2F;21: <a target="_blank" rel="noopener" href="https://www.facebook.com/groups/616369245163622/?multi_permalinks=1942848815848985&comment_id=1943655769101623&notif_id=1584779472583707&notif_t=feedback_reaction_generic">Backend 台灣討論，關於搶購的建議</a><ul>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=qr_kzn1GrT0">300萬網站壞了&#x2F;大家罵館長 麵可預購?&#x2F;因疫情食品搶購潮 來聽館長怎說</a></li>
+</ul>
+</li>
+<li>2020&#x2F;02&#x2F;06: <a target="_blank" rel="noopener" href="https://www.ithome.com.tw/news/135681">4小時爆賣95萬片！口罩實名制上路官網爆量，健保署緊急調高頻寬並釋出開放資料</a></li>
+<li>2020&#x2F;02&#x2F;06: <a target="_blank" rel="noopener" href="https://medium.com/@LukaTW/%E9%A4%A8%E9%95%B7-300-%E8%90%AC%E7%9A%84%E6%96%B0%E7%B6%B2%E7%AB%99-%E7%A9%B6%E7%AB%9F%E5%87%BA%E4%BA%86%E4%BB%80%E9%BA%BC%E5%95%8F%E9%A1%8C-2824194b9e1b">館長 300 萬的新網站，究竟出了什麼問題？</a><ul>
+<li>2020&#x2F;01&#x2F;23: <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=YTnI4FdromE&feature=emb_title">小年夜&#x2F;館長與大家同樂 花費300萬新網站 讓館長好無言</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="更新紀錄"><a href="#更新紀錄" class="headerlink" title="更新紀錄"></a>更新紀錄</h2><ul>
+<li>2019&#x2F;09&#x2F;20: 初版</li>
+<li>2019&#x2F;10&#x2F;02: 加入多個新問題，重新排序。</li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/2019/09/20/SQA/How-to-Measure-System-Capacity/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<!-- LikeCoin -->
+				<!-- @rickd 2022/09/06 -->
+				<!--
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2019/09/20/SQA/How-to-Measure-System-Capacity/"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+				-->
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2019/10/04/DevOps/How-to-Figure-out-the-RootCause-for-an-AbnormalSystem-In-ZeroTime/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2019/09/14/AWS/Study-Notes-CloudWatch-Agent-For-Linux/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
+  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
+  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2019/09/20/SQA/How-to-Measure-System-Capacity/" data-width="100%" data-numposts="10"></div>
+
+  
+
+
+</section>
+
+
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2019/09/20 11:08:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96%EF%BC%9A%E4%B8%89%E7%A8%AE%E9%87%8F%E6%B8%AC%E7%9A%84%E7%AD%96%E7%95%A5"><span class="toc-article-text">結論：三種量測的策略</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%AE%9A%E7%BE%A9"><span class="toc-article-text">定義</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%8E%A8%E6%BC%94%E6%96%B9%E6%B3%95%E8%AB%96"><span class="toc-article-text">推演方法論</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%80%E3%80%81%E6%BA%96%E5%82%99%E5%B7%A5%E4%BD%9C%EF%BC%9A%E5%AE%9A%E7%BE%A9%E8%BC%B8%E5%85%A5%E3%80%81%E8%BC%B8%E5%87%BA%E3%80%81%E5%BE%85%E6%B8%AC%E7%9B%AE%E6%A8%99%E3%80%81%E9%87%8F%E6%B8%AC%E5%B7%A5%E5%85%B7"><span class="toc-article-text">一、準備工作：定義輸入、輸出、待測目標、量測工具</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BA%8C%E3%80%81%E6%89%BE%E5%88%B0%E5%8F%AF%E8%83%BD%E7%9A%84%E5%AE%B9%E9%87%8F-Capacity-%E8%88%87%E8%B3%87%E6%BA%90%E7%9A%84%E5%9F%BA%E6%BA%96%E7%B7%9A-Baseline"><span class="toc-article-text">二、找到可能的容量 (Capacity) 與資源的基準線 (Baseline)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%89%E3%80%81%E9%A9%97%E8%AD%89-Capacity-%E6%98%AF%E5%90%A6%E7%82%BA%E7%B7%9A%E6%80%A7%E9%97%9C%E4%BF%82%EF%BC%9F"><span class="toc-article-text">三、驗證 Capacity 是否為線性關係？</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Q-and-A"><span class="toc-article-text">Q and A</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q1-Capactiy-%E8%B7%9F-Load-Test%E3%80%81Stress-Test-%E6%9C%89%E4%BB%80%E9%BA%BC%E4%B8%8D%E4%B8%80%E6%A8%A3%EF%BC%9F"><span class="toc-article-text">Q1: Capactiy 跟 Load Test、Stress Test 有什麼不一樣？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q2-%E6%89%BF%E4%B8%8A%EF%BC%8C%E9%82%A3-%E5%A3%93%E6%B8%AC-%E8%B7%9F%E4%BD%A0%E8%AA%AA%E7%9A%84%E5%AE%B9%E9%87%8F%E9%87%8F%E6%B8%AC-%E6%9C%89%E5%95%A5%E4%B8%8D%E4%B8%80%E6%A8%A3%EF%BC%9F"><span class="toc-article-text">Q2: 承上，那 壓測 跟你說的容量量測 有啥不一樣？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q3-%E5%A6%82%E6%9E%9C%E6%9C%89%E7%9B%B8%E4%BE%9D%E6%80%A7%EF%BC%8C%E8%AB%8B%E5%95%8F%E6%80%8E%E9%BA%BC%E9%87%8F%E6%B8%AC%EF%BC%9F"><span class="toc-article-text">Q3: 如果有相依性，請問怎麼量測？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q4-%E5%A6%82%E6%9E%9C%E9%87%8F%E6%B8%AC%E7%9A%84%E6%98%AF%E5%A4%96%E9%83%A8%E4%BE%9D%E8%B3%B4%EF%BC%8C%E9%82%A3%E8%A6%81%E6%80%8E%E9%BA%BC%E5%81%9A%EF%BC%9F"><span class="toc-article-text">Q4: 如果量測的是外部依賴，那要怎麼做？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q5-%E6%88%91%E5%80%91%E7%9A%84%E7%B3%BB%E7%B5%B1%E5%BE%88%E8%A4%87%E9%9B%9C%EF%BC%8C%E8%A6%81%E6%80%8E%E9%BA%BC%E5%81%9A%E5%89%8D%E8%BF%B0%E7%9A%84%E9%87%8F%E6%B8%AC%EF%BC%9F"><span class="toc-article-text">Q5: 我們的系統很複雜，要怎麼做前述的量測？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q6-%E6%89%BF%E4%B8%8A%EF%BC%8C%E4%BD%A0%E5%9C%A8-%E8%81%8A%E8%81%8A%E5%88%86%E6%95%A3%E5%BC%8F%E7%B3%BB%E7%B5%B1-%E6%9C%89%E4%B8%80%E5%BC%B5%E5%BE%AE%E6%9C%8D%E5%8B%99%E6%9E%B6%E6%A7%8B%E5%9C%96%EF%BC%8C%E9%80%99%E5%BC%B5%E5%9C%96%E7%9A%84%E6%9E%B6%E6%A7%8B%E8%A6%81%E6%80%8E%E9%BA%BC%E9%87%8F%E6%B8%AC%EF%BC%9F"><span class="toc-article-text">Q6: 承上，你在 聊聊分散式系統 有一張微服務架構圖，這張圖的架構要怎麼量測？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q7-%E5%A6%82%E6%9E%9C%E6%B2%92%E6%9C%89%E8%B6%B3%E5%A4%A0%E8%B3%87%E6%BA%90%E8%88%87%E6%99%82%E9%96%93%EF%BC%8C%E6%80%8E%E6%A8%A3%E5%BF%AB%E9%80%9F%E8%A9%95%E4%BC%B0%E7%B3%BB%E7%B5%B1%E5%AE%B9%E9%87%8F%EF%BC%9F"><span class="toc-article-text">Q7: 如果沒有足夠資源與時間，怎樣快速評估系統容量？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q8-%E6%AD%A5%E9%A9%9F%E4%B8%89%E6%8F%8F%E8%BF%B0%E7%9A%84%E7%B5%90%E6%9E%9C%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%98%AF%E9%9D%9E%E7%B7%9A%E6%80%A7%E6%80%8E%E9%BA%BC%E8%BE%A6%EF%BC%9F"><span class="toc-article-text">Q8: 步驟三描述的結果，如果是非線性怎麼辦？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q9-CI-x2F-CD-%E6%B5%81%E7%A8%8B%E8%A6%81%E6%95%B4%E5%90%88%E6%95%88%E8%83%BD%E6%B8%AC%E8%A9%A6%EF%BC%9F"><span class="toc-article-text">Q9: CI &#x2F; CD 流程要整合效能測試？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q10-%E4%BD%A0%E5%9C%A8-%E6%B7%BA%E8%AB%87%E6%95%88%E8%83%BD%E6%B8%AC%E8%A9%A6-%E6%8F%90%E5%88%B0%E6%9C%89%E4%B8%89%E7%A8%AE%EF%BC%8C%E5%93%AA%E4%B8%80%E7%A8%AE%E6%AF%94%E8%BC%83%E9%87%8D%E8%A6%81%EF%BC%9F"><span class="toc-article-text">Q10: 你在 淺談效能測試 提到有三種，哪一種比較重要？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q11-%E9%80%99%E5%80%8B%E9%A1%8C%E7%9B%AE%E7%82%BA%E5%95%A5%E6%98%AF%E6%94%BE%E5%9C%A8-SQA-%E9%80%99%E5%80%8B%E5%88%86%E9%A1%9E%E8%A3%A1%EF%BC%9F"><span class="toc-article-text">Q11: 這個題目為啥是放在 SQA 這個分類裡？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q12-%E9%9B%96%E7%84%B6%E4%BD%A0%E4%B8%80%E9%96%8B%E5%A7%8B%E8%AA%AA%E4%B8%8D%E6%8E%A8%E8%96%A6%E5%B7%A5%E5%85%B7%EF%BC%8C%E4%BD%86%E9%82%84%E6%98%AF%E5%8F%AF%E4%BB%A5%E6%8E%A8%E8%96%A6%E4%B8%80%E4%B8%8B%E5%97%8E%EF%BC%9F"><span class="toc-article-text">Q12: 雖然你一開始說不推薦工具，但還是可以推薦一下嗎？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q13-%E6%88%91%E5%80%91%E7%9A%84%E7%B3%BB%E7%B5%B1%E6%9C%89%E7%94%A8-EC2-Auto-Scaling%EF%BC%8C%E9%82%A3%E8%A6%81%E6%80%8E%E9%BA%BC%E6%B8%AC%E9%87%8F%E4%BD%A0%E8%AA%AA%E7%9A%84%E5%AE%B9%E9%87%8F%EF%BC%9F"><span class="toc-article-text">Q13: 我們的系統有用 EC2 Auto Scaling，那要怎麼測量你說的容量？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q14-%E7%9E%AC%E9%96%93%E6%B5%81%E9%87%8F%EF%BC%8C%E8%A6%81%E6%80%8E%E9%BA%BC%E9%87%8F%E6%B8%AC%EF%BC%9F%E5%83%8F%E6%98%AF%E9%9B%99%E5%8D%81%E4%B8%80%E9%82%A3%E7%A8%AE%E7%9A%84%E3%80%82"><span class="toc-article-text">Q14: 瞬間流量，要怎麼量測？像是雙十一那種的。</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q15-Database-%E7%9A%84%E6%B8%AC%E9%87%8F%E8%A6%81%E6%80%8E%E9%BA%BC%E5%81%9A%EF%BC%9F"><span class="toc-article-text">Q15: Database 的測量要怎麼做？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q16-Cache-Redis-%E7%9A%84%E9%87%8F%E6%B8%AC%E8%A6%81%E6%80%8E%E9%BA%BC%E5%81%9A%EF%BC%9F"><span class="toc-article-text">Q16: Cache (Redis) 的量測要怎麼做？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q17-%E5%9F%BA%E6%96%BC%E7%89%B9%E5%AE%9A%E8%83%8C%E6%99%AF%EF%BC%8C%E4%BE%8B%E5%A6%82%E5%9B%BA%E5%AE%9A%E6%9C%89-1000-rps-%E7%9A%84%E6%B5%81%E9%87%8F%E4%B9%8B%E4%B8%8B%EF%BC%8C%E7%84%B6%E5%BE%8C%E5%9C%A8%E6%AD%A4%E6%A2%9D%E4%BB%B6%E7%9A%84%E5%89%8D%E6%8F%90%EF%BC%8C%E5%86%8D%E5%81%9A%E5%A3%93%E5%8A%9B%E6%B8%AC%E8%A9%A6%E7%AE%97%E5%9C%A8%E4%BD%A0%E8%AA%AA%E7%9A%84%E7%AF%84%E7%96%87%EF%BC%9F"><span class="toc-article-text">Q17: 基於特定背景，例如固定有 1000 rps 的流量之下，然後在此條件的前提，再做壓力測試算在你說的範疇？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q96-%E7%B3%BB%E7%B5%B1%E5%AE%B9%E9%87%8F%E6%9C%89%E6%B2%92%E6%9C%89%E4%BB%80%E9%BA%BC%E7%AD%96%E7%95%A5%E6%80%A7%E9%81%B8%E6%93%87%E5%8F%AF%E4%BB%A5%E5%8F%83%E8%80%83%EF%BC%8C%E7%95%B6%E5%81%9A%E5%88%87%E5%85%A5%E9%BB%9E%EF%BC%9F"><span class="toc-article-text">Q96: 系統容量有沒有什麼策略性選擇可以參考，當做切入點？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q97-%E5%A6%82%E6%9E%9C%E7%B3%BB%E7%B5%B1%E6%98%AF%E8%B7%91%E5%9C%A8-K8s-%E4%B8%8A%EF%BC%8C%E9%80%99%E5%80%8B%E6%A6%82%E5%BF%B5%E4%B9%9F%E6%98%AF%E4%B8%80%E6%A8%A3%EF%BC%9F"><span class="toc-article-text">Q97: 如果系統是跑在 K8s 上，這個概念也是一樣？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q98-%E6%9C%89%E6%B2%92%E6%9C%89%E5%AF%A6%E9%9A%9B%E6%A1%88%E4%BE%8B%E5%8F%AF%E4%BB%A5%E5%88%86%E4%BA%AB%EF%BC%9F"><span class="toc-article-text">Q98: 有沒有實際案例可以分享？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q99-%E5%8F%AF%E4%BB%A5%E7%B8%BD%E7%B5%90%EF%BC%8C%E9%87%8F%E6%B8%AC%E5%AE%B9%E9%87%8F%E7%9A%84%E5%89%8D%E6%8F%90%E8%88%87%E6%BA%96%E5%82%99%E5%B7%A5%E4%BD%9C%EF%BC%9F"><span class="toc-article-text">Q99: 可以總結，量測容量的前提與準備工作？</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80-%E7%AB%99%E5%85%A7"><span class="toc-article-text">延伸閱讀 (站內)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%BB%9F%E9%AB%94%E6%B8%AC%E8%A9%A6"><span class="toc-article-text">軟體測試</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#DevOps-x2F-SRE"><span class="toc-article-text">DevOps &#x2F; SRE</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B"><span class="toc-article-text">系統架構</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E4%BA%8B%E4%BB%B6"><span class="toc-article-text">相關事件</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%9B%B4%E6%96%B0%E7%B4%80%E9%8C%84"><span class="toc-article-text">更新紀錄</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/軟體測試/" style="color: white">軟體測試 <span class="badge">14</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Rate-Limit/" style="color: white">Rate Limit <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Benchmark/" style="color: white">Benchmark <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Software-Test/" style="color: white">Software Test <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/Reliability/" style="color: white">Reliability <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Published-SQA1/" style="color: white">Published-SQA1 <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/System-Test/" style="color: white">System Test <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Performance-Test/" style="color: white">Performance Test <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Capacity/" style="color: white">Capacity <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Stability/" style="color: white">Stability <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Load-Test/" style="color: white">Load Test <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Stress-Test/" style="color: white">Stress Test <span class="badge">2</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+		<!-- v4 -->
+		<h4>About</h4>
+		
+			<li><a href="/2035/01/21/Index/">全站索引</a></li>
+		
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+		
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		
+			<li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+		
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		
+			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+		
+
+		<h4>著作</h4>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作：SRE實踐與開發平台指南</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作：軟體測試實務 (2023)</a></li>
+		
+			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
+		
+
+		<h4>演講</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
+		
+			<li><a href="/2023/09/09/About/2023-AWS-Career-Exploration-Day/">探索職涯、複利人生 - AWS Career Exploration Day 2023</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作 SRE 書友見面會</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">軟體測試實務 - 新書發表會</a></li>
+		
+			<li><a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">探索職涯、成就未來 - AWS Career Exploration Day 2022</a></li>
+		
+			<li><a href="/2022/08/13/SQA/Path-to-Software-Testing/">從理想、到現實的距離，開啟品味軟體測試之路</a></li>
+		
+			<li><a href="/2022/05/10/About/2022-SREConf2022/">91APP 在 AWS 上的 SRE 實踐之路</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/2020-aws-summit-aws">在矩陣型組織裡，如何有效管理 AWS 的成本結構與系統架構</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/aws-using-aws-for-disaster-recovery/">災難演練 @ AWS 實戰分享</a></li>
+		
+			<li><a href="/2019/04/27/DevOps/Introduce-to-Continuous-Delivery-2/">導讀持續交付 2.0 - 談當代軟體交付之虛實融合</a></li>
+		
+			<li><a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理</a></li>
+		
+			<li><a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">從緊急事件 談 SRE 應變能力的培養</a></li>
+		
+			<li><a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
+		
+			<li><a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">Monitoring Tools 大亂鬥 - AWS CloudWatch</a></li>
+		
+			<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></li>
+		
+			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
+		
+
+		<!-- v3 -->
+		<!--
+		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		-->
+
+		<!-- v2 -->
+		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+		<!-- v1 -->
+		<!--
+		<li>Software Developer</li>
+		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+		<li><a href="/categories/DevOps/">Operation Manager</a></li>
+		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+		<li>
+			<ol>
+				<li>Management</li>
+				<li>Cloud / Distributed Systems</li>
+				<li>DevOps / SRE / </li>
+			</ol>
+		</li>
+		-->
+
+		<!--
+		<h4>Donate</h4>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick" />
+		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
+		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
+		</form>
+		-->
+
+		<h4>Facebook</h4>
+
+		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
+
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
+				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+
+		<h4>AWS Certifications</h4>
+		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+		<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+		<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+		
+
+	</div><!-- row -->
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2022 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div>
+
+<!-- container-narrow -->
+
+<div id="gotop">
+
+  <!-- 
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-book"></i> <a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"]);">學習法則</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"]);">喝咖啡 聊音樂 (v2021)</a><br />
+   -->
+
+  <!-- <h4>About</h4> -->
+
+  
+    <li><a href="/2035/01/21/Index/">全站索引</a></li>
+  
+    <li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+  
+    <li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+  
+    <li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+  
+    <li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+  
+    <li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+  
+    <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+  
+
+  <a href="#">▲ TOP ▲ </a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

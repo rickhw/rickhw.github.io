@@ -1,0 +1,677 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Study Notes - CloudFormation Debugging | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="整理開發 CloudFormation Template 和 Debug Stack 遇到的問題。。。
+
+
+
+問題整理底下整理一些開發 Template 過程遇到的問題。
+如何有效的學習 CloudFormation？CloudFormation 其實滿複雜的，而且要了解每一個 Resource 本">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="Study Notes - CloudFormation Debugging"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/2017/05/14/AWS/Study-Notes-CloudFormation-Debugging/"/>
+  <meta property="og:image" content="/images/site_main_logo_v2-201902.png"/>
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<!--
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'G-74Y1F3F5W0']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-74Y1F3F5W0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-74Y1F3F5W0');
+</script>
+
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!-- @rickd 2022/02/24
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
+  -->
+  <!-- @ricka 2022/02/24 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!--
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="bd9r2mJp"></script>
+  -->
+
+  <!-- @ricka 2022/09/06 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="opf2Gext"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+						
+						<li><a href="/categories/About/">About <sup>29</sup></a></li>
+						
+						<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+						
+						<li><a href="/categories/經營管理/Career/">Career <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
+						
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Data/">Data <sup>2</sup></a></li>
+						
+						<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+						
+						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>20</sup></a></li>
+						
+						<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+						
+						<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+						
+						<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+						
+						<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+						
+						<li><a href="/categories/DevOps/SRE/">SRE <sup>25</sup></a></li>
+						
+						<li><a href="/categories/Software-Engineering/">Software Engineering <sup>10</sup></a></li>
+						
+						<li><a href="/categories/System-Design/">System Design <sup>2</sup></a></li>
+						
+						<li><a href="/categories/經營管理/人才管理/">人才管理 <sup>10</sup></a></li>
+						
+						<li><a href="/categories/經營管理/溝通/">溝通 <sup>9</sup></a></li>
+						
+						<li><a href="/categories/經營管理/知識管理/">知識管理 <sup>4</sup></a></li>
+						
+						<li><a href="/categories/經營管理/">經營管理 <sup>61</sup></a></li>
+						
+						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
+						
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"> <i class="fa fa-book"></i>學習法則</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂 (v2021)</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Study Notes - CloudFormation Debugging</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Study Notes - CloudFormation Debugging</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+		
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2017%2F05%2F14%2FAWS%2FStudy-Notes-CloudFormation-Debugging%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2017/05/14/AWS/Study-Notes-CloudFormation-Debugging/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/2017/05/14/AWS/Study-Notes-CloudFormation-Debugging/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<p>整理開發 CloudFormation Template 和 Debug Stack 遇到的問題。。。</p>
+<span id="more"></span>
+
+<hr>
+<h1 id="問題整理"><a href="#問題整理" class="headerlink" title="問題整理"></a>問題整理</h1><p>底下整理一些開發 Template 過程遇到的問題。</p>
+<h2 id="如何有效的學習-CloudFormation？"><a href="#如何有效的學習-CloudFormation？" class="headerlink" title="如何有效的學習 CloudFormation？"></a>如何有效的學習 CloudFormation？</h2><p>CloudFormation 其實滿複雜的，而且要了解每一個 Resource 本身的 Attributes。建立 Template 的過程，還不了解 Resource 之前，先一個一個慢慢增加，重複確認是否符合預期的再繼續往下走。</p>
+<p>以下是我自己練習的例子：</p>
+<ul>
+<li>建立一個 S3 Bucket</li>
+<li>建立 VPC, Internet Gateway, NAT Gateway, Subnets, RouteTable, Security Groups</li>
+<li>建立 EC2, 設定多個 EBS, 指定 IOPS</li>
+<li>建立 EC2, 並且執行 UserData</li>
+<li>建立 EC2, 設計 <code>AWS::CloudFormation::Init</code> 流程</li>
+<li>建立 CloudWatch Alarm</li>
+<li>建立 Auto Scaling, Launch Configuration, ELB ..</li>
+</ul>
+<p>簡單說，就是：</p>
+<blockquote>
+<p>一個一個 Resource 慢慢增加，然後去了解每個 Resource 的屬性、與其他服務的關聯性</p>
+</blockquote>
+<h2 id="開發-Template-需要注意些什麼？"><a href="#開發-Template-需要注意些什麼？" class="headerlink" title="開發 Template 需要注意些什麼？"></a>開發 Template 需要注意些什麼？</h2><p>通常開發 Template 過程當中，開發者需要這些條件：</p>
+<ul>
+<li>基本功<ul>
+<li>對 AWS 服務有一定程度認識</li>
+<li>了解 Resource Types 與 Attributes</li>
+<li>了解 Stack 的生命週期、工作流程</li>
+</ul>
+</li>
+<li>權限與帳號：開發 Template 會需要較大的權限，所以實務上建議給予完整的 Admin 權限，甚至是獨立的 AWS Account，不然開發過程會很卡。</li>
+</ul>
+<h2 id="使用-YAML-取代-JSON"><a href="#使用-YAML-取代-JSON" class="headerlink" title="使用 YAML 取代 JSON"></a>使用 YAML 取代 JSON</h2><p>JSON 真的不是很好閱讀，而且無法註解，所以盡可能用 YAML 取代 JSON.</p>
+<h2 id="確認-cfn-hup-hooks-config-內容正確"><a href="#確認-cfn-hup-hooks-config-內容正確" class="headerlink" title="確認 cfn-hup, hooks config 內容正確"></a>確認 cfn-hup, hooks config 內容正確</h2><p>如果 VM Level 的配置想要透過 CloudFormation，那麼要注意控制的生命週期。EC2 or LaunchConfiguration 會透過 <code>Metadata</code> -&gt; <code>AWS::CloudFormation::Init</code> 的 configSets 產生 cfn-hup 的設定檔，其中包含 <code>cfn-hup.conf</code> 和多個 hooks ，要確認這些檔案的內容是否正確。</p>
+<p><code>/etc/cfn/cfn-hup.conf</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /etc/cfn/cfn-hup.conf</span></span><br><span class="line">[main]</span><br><span class="line">stack=arn:aws:cloudformation:ap-northeast-1:123456778890:stack/App-Dev-20170514-2310/8826e330-38b7-11e7-92d6-50d5ca9ff4c6</span><br><span class="line">region=ap-northeast-1</span><br></pre></td></tr></table></figure>
+
+
+<p><code>/etc/cfn/hooks.d/cfn-auto-reloader.conf</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># /etc/cfn/hooks.d/cfn-auto-reloader.conf</span><br><span class="line">[cfn-auto-reloader-hook]</span><br><span class="line">triggers=post.update</span><br><span class="line">path=Resources.AppLaunchConfiguration.Metadata.AWS::CloudFormation::Init</span><br><span class="line">action=/usr/local/bin/cfn-init -v --stack App_Dev-20170514-2310 --resource AppLaunchConfiguration --configsets app_init --region ap-northeast-1</span><br><span class="line">runas=root</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Debug-cfn-init-cfn-signal"><a href="#Debug-cfn-init-cfn-signal" class="headerlink" title="Debug cfn-init, cfn-signal"></a>Debug <code>cfn-init</code>, <code>cfn-signal</code></h2><p>以下是我在 <code>LaunchConfiguration</code> 裡的 <code>UserData</code>，我會在每個步驟前後 <code>touch xxxx.txt</code> 作為程序的確認。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">AppLaunchConfiguration:</span></span><br><span class="line">  <span class="comment"># http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig.html</span></span><br><span class="line">  <span class="attr">Type:</span> <span class="string">AWS::Auto</span> <span class="string">Scaling::LaunchConfiguration</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">Properties:</span></span><br><span class="line">    <span class="attr">UserData:</span></span><br><span class="line">      <span class="attr">&quot;Fn::Base64&quot;:</span></span><br><span class="line">        <span class="type">!Sub</span> <span class="string">|</span></span><br><span class="line"><span class="string">          #!/bin/bash -xe</span></span><br><span class="line"><span class="string">          # --------------------------------------------------</span></span><br><span class="line"><span class="string">          touch /tmp/start_cfn-init_$&#123;AWS::StackName&#125;.txt</span></span><br><span class="line"><span class="string">          # --------------------------------------------------</span></span><br><span class="line"><span class="string">          # run the configSets in AWS::CloudFormation::Init</span></span><br><span class="line"><span class="string">          /usr/local/bin/cfn-init \</span></span><br><span class="line"><span class="string">            --stack $&#123;AWS::StackName&#125; \</span></span><br><span class="line"><span class="string">            --resource AppLaunchConfiguration \</span></span><br><span class="line"><span class="string">            --configsets App_init \</span></span><br><span class="line"><span class="string">            --region $&#123;AWS::Region&#125;</span></span><br><span class="line"><span class="string">          EXIT_CODE=$?</span></span><br><span class="line"><span class="string">          echo $EXIT_CODE &gt;&gt; /tmp/cfn_exit-code.txt</span></span><br><span class="line"><span class="string">          # --------------------------------------------------</span></span><br><span class="line"><span class="string">          touch /tmp/done_cfn-init_$&#123;AWS::StackName&#125;.txt</span></span><br><span class="line"><span class="string">          # Signal the status from cfn-init</span></span><br><span class="line"><span class="string">          touch /tmp/start_cfn-signal_$&#123;AWS::StackName&#125;.txt</span></span><br><span class="line"><span class="string">          /usr/local/bin/cfn-signal \</span></span><br><span class="line"><span class="string">            --exit-code $EXIT_CODE \</span></span><br><span class="line"><span class="string">            --stack $&#123;AWS::StackName&#125; \</span></span><br><span class="line"><span class="string">            --resource AppAuto ScalingGroup \</span></span><br><span class="line"><span class="string">            --region $&#123;AWS::Region&#125;</span></span><br><span class="line"><span class="string">          touch /tmp/done_cfn-signal_$&#123;AWS::StackName&#125;.txt</span></span><br></pre></td></tr></table></figure>
+
+<p>除了 上述方法，一定要查看 cfn 自身的 log：</p>
+<ul>
+<li><code>/var/log/cfn-hup.log</code></li>
+<li><code>/var/log/cfn-init.log</code></li>
+<li><code>/var/log/cfn-init-cmd.log</code></li>
+<li><code>/var/log/cfn-wire.log</code></li>
+</ul>
+<h2 id="確認-Helper-Scripts-aws-cfn-bootstrap-latest-安裝正確"><a href="#確認-Helper-Scripts-aws-cfn-bootstrap-latest-安裝正確" class="headerlink" title="確認 Helper Scripts (aws-cfn-bootstrap-latest) 安裝正確"></a>確認 Helper Scripts (aws-cfn-bootstrap-latest) 安裝正確</h2><p> 是 EC2 Instance 起來時用來控制安裝程序的小程式。</p>
+<p>Ubuntu and Amazon Linux AMI (CentOS) 的安裝方式不一樣，確認也不一樣。官方文件並沒有很清楚的描述他們的差異。</p>
+<p>Amazon Linux AMI 預設就會安裝，如果要手動安裝如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y aws-cfn-bootstrap</span><br></pre></td></tr></table></figure>
+
+<p>但是 Ubuntu 就沒那麼簡單了，底下是 Ubuntu 14.04 的安裝</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># see: https://gist.github.com/kixorz/10194688</span></span><br><span class="line"><span class="built_in">cd</span> /opt</span><br><span class="line"><span class="built_in">mkdir</span> aws-cfn-bootstrap-latest</span><br><span class="line">apt-get update</span><br><span class="line">apt-get -y install python-setuptools</span><br><span class="line">curl https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz | tar xz -C aws-cfn-bootstrap-latest --strip-components 1</span><br><span class="line">easy_install aws-cfn-bootstrap-latest</span><br><span class="line"></span><br><span class="line"><span class="comment"># 要自行把 init 程序做 link, AWS AMI (CentOS) 似乎不用</span></span><br><span class="line"><span class="comment"># see: http://stackoverflow.com/questions/39760158/ubuntu-could-not-enable-service-cfn-hup</span></span><br><span class="line"><span class="built_in">ln</span> /usr/local/bin/cfn-hup /etc/init.d/</span><br><span class="line">initctl reload-configuration</span><br><span class="line"><span class="built_in">chmod</span> 700 /etc/init.d/cfn-hup</span><br><span class="line"><span class="built_in">chown</span> root:root /etc/init.d/cfn-hup</span><br><span class="line">update-rc.d cfn-hup defaults</span><br><span class="line">update-rc.d cfn-hup <span class="built_in">enable</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="在-Stack-Name-上加入時間"><a href="#在-Stack-Name-上加入時間" class="headerlink" title="在 Stack Name 上加入時間"></a>在 Stack Name 上加入時間</h2><p>開發 Template 過程，會反覆建立 Stack，這時候要確認很多東西，會來來回回跑。我習慣會在 Stack Name 上加入底下資訊，協助開發：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ROLE_NAME=api</span><br><span class="line">VERSION=<span class="variable">$1</span></span><br><span class="line">ENV=<span class="variable">$2</span></span><br><span class="line">TS=$(<span class="built_in">date</span> +%m%d-%H%M)</span><br><span class="line"></span><br><span class="line">aws cloudformation create-stack \</span><br><span class="line">  --stack-name <span class="variable">$&#123;ROLE_NAME&#125;</span>-<span class="variable">$&#123;VERSION&#125;</span>-<span class="variable">$&#123;ENV&#125;</span>-<span class="variable">$&#123;TS&#125;</span> \</span><br><span class="line">  --template-body file://template-<span class="variable">$&#123;ROLE_NAME&#125;</span>.yml \</span><br><span class="line">  --parameters ParameterKey=VERSION,ParameterValue=<span class="variable">$&#123;VERSION&#125;</span> ParameterKey=ENV,ParameterValue=<span class="variable">$&#123;ENV&#125;</span> ParameterKey=TS,ParameterValue=<span class="variable">$&#123;TS&#125;</span> \</span><br><span class="line">  --output text</span><br></pre></td></tr></table></figure>
+
+<p>版本、環境、時間，這三個當作參數傳給 Stack，確保每次的開發與除錯，不需要相互干擾。如果開發出來的 Stack 無法同時存在多個，也就表示無法重複利用此 Template。</p>
+<hr>
+<h1 id="結論與結語"><a href="#結論與結語" class="headerlink" title="結論與結語"></a>結論與結語</h1><p>實務上，依照狀況，不見得全部的資源都要透過 CloudFormation 建置，通常已經服務化的資源，像是 CloudFront、ELB、ALB、CloudWatch 適合用 CloudFormation 建置，但是如果是自行安裝配置在 EC2 上的 Middleware 就不太適合，反而要利用其他工具，像是 EC2 Template、Hashicorp Packer、AWS Machine Image、Ansible 等方式來配置與管理。</p>
+<hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="系列文章"><a href="#系列文章" class="headerlink" title="系列文章"></a>系列文章</h2><ul>
+<li><a href="/2017/03/30/AWS/Study-Notes-CloudFormation/">Study Notes - CloudFormation</a></li>
+<li><a href="/2017/03/31/AWS/Study-Notes-CloudFormation-Template-Anatomy/">Study Notes - CloudFormation Template Anatomy</a></li>
+<li><a href="/2017/04/01/AWS/Study-Notes-CloudFormation-Resource-Types-And-Attributes/">Study Notes - CloudFormation Resource Types and Attributes</a></li>
+<li><a href="/2017/04/09/AWS/Study-Notes-CloudFormation-Stack/">Study Notes - CloudFormation Stack</a></li>
+<li><a href="/2017/05/14/AWS/Study-Notes-CloudFormation-Debugging/">Study Notes - CloudFormation Debugging</a></li>
+</ul>
+<h2 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h2><ul>
+<li><a href="/2017/02/11/DevOps/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a></li>
+<li><a href="/2016/10/01/AWS-Study-Roadmap/">AWS Study Roadmap</a></li>
+</ul>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-helper-scripts-reference.html">CloudFormation Helper Scripts</a>: <a target="_blank" rel="noopener" href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-hup.html">cfn-hup</a>, <a target="_blank" rel="noopener" href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-init.html">cfn-init</a>, <a target="_blank" rel="noopener" href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-signal.html">cfn-signal</a></li>
+<li><a target="_blank" rel="noopener" href="https://aws.amazon.com/blogs/devops/faster-auto-scaling-in-aws-cloudformation-stacks-with-lambda-backed-custom-resources/">Faster Auto Scaling in AWS CloudFormation Stacks with Lambda-backed Custom Resources</a></li>
+<li><a target="_blank" rel="noopener" href="https://commscentral.net/tech/?post=50">AWS CloudFormation helper scripts on Ubuntu - aws-cfn-bootstrap</a></li>
+<li><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/39760158/ubuntu-could-not-enable-service-cfn-hup">Ubuntu: Could not enable service cfn-hup</a></li>
+</ul>
+<h2 id="更新紀錄"><a href="#更新紀錄" class="headerlink" title="更新紀錄"></a>更新紀錄</h2><ul>
+<li>2017&#x2F;03&#x2F;31: 初版</li>
+<li>2018&#x2F;12&#x2F;22: 調整排版</li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/2017/05/14/AWS/Study-Notes-CloudFormation-Debugging/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<!-- LikeCoin -->
+				<!-- @rickd 2022/09/06 -->
+				<!--
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2017/05/14/AWS/Study-Notes-CloudFormation-Debugging/"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+				-->
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2017/05/27/Blog/Migrate-Hexo_2.8-To-3.3/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2017/05/12/AWS/Study-Notes-EC2-Auto-Scaling_Lifecycle-and-Hooks/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
+  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
+  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2017/05/14/AWS/Study-Notes-CloudFormation-Debugging/" data-width="100%" data-numposts="10"></div>
+
+  
+
+
+</section>
+
+
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2017/05/14 09:22:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%95%8F%E9%A1%8C%E6%95%B4%E7%90%86"><span class="toc-article-text">問題整理</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%A6%82%E4%BD%95%E6%9C%89%E6%95%88%E7%9A%84%E5%AD%B8%E7%BF%92-CloudFormation%EF%BC%9F"><span class="toc-article-text">如何有效的學習 CloudFormation？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%96%8B%E7%99%BC-Template-%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E4%BA%9B%E4%BB%80%E9%BA%BC%EF%BC%9F"><span class="toc-article-text">開發 Template 需要注意些什麼？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BD%BF%E7%94%A8-YAML-%E5%8F%96%E4%BB%A3-JSON"><span class="toc-article-text">使用 YAML 取代 JSON</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%A2%BA%E8%AA%8D-cfn-hup-hooks-config-%E5%85%A7%E5%AE%B9%E6%AD%A3%E7%A2%BA"><span class="toc-article-text">確認 cfn-hup, hooks config 內容正確</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Debug-cfn-init-cfn-signal"><span class="toc-article-text">Debug cfn-init, cfn-signal</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%A2%BA%E8%AA%8D-Helper-Scripts-aws-cfn-bootstrap-latest-%E5%AE%89%E8%A3%9D%E6%AD%A3%E7%A2%BA"><span class="toc-article-text">確認 Helper Scripts (aws-cfn-bootstrap-latest) 安裝正確</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9C%A8-Stack-Name-%E4%B8%8A%E5%8A%A0%E5%85%A5%E6%99%82%E9%96%93"><span class="toc-article-text">在 Stack Name 上加入時間</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96%E8%88%87%E7%B5%90%E8%AA%9E"><span class="toc-article-text">結論與結語</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0"><span class="toc-article-text">系列文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80-%E7%AB%99%E5%85%A7"><span class="toc-article-text">延伸閱讀 (站內)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%9B%B4%E6%96%B0%E7%B4%80%E9%8C%84"><span class="toc-article-text">更新紀錄</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/AWS/" style="color: white">AWS <span class="badge">82</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/CloudFormation/" style="color: white">CloudFormation <span class="badge">10</span></a></span> <span class="label label-success"><a href="/tags/EC2-Auto-Scaling/" style="color: white">EC2 Auto Scaling <span class="badge">13</span></a></span> <span class="label label-success"><a href="/tags/DevOps/" style="color: white">DevOps <span class="badge">25</span></a></span> <span class="label label-success"><a href="/tags/Lifecycle/" style="color: white">Lifecycle <span class="badge">28</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+		<!-- v4 -->
+		<h4>About</h4>
+		
+			<li><a href="/2035/01/21/Index/">全站索引</a></li>
+		
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+		
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		
+			<li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+		
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		
+			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+		
+
+		<h4>著作</h4>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作：SRE實踐與開發平台指南</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作：軟體測試實務 (2023)</a></li>
+		
+			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
+		
+
+		<h4>演講</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
+		
+			<li><a href="/2023/09/09/About/2023-AWS-Career-Exploration-Day/">探索職涯、複利人生 - AWS Career Exploration Day 2023</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作 SRE 書友見面會</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">軟體測試實務 - 新書發表會</a></li>
+		
+			<li><a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">探索職涯、成就未來 - AWS Career Exploration Day 2022</a></li>
+		
+			<li><a href="/2022/08/13/SQA/Path-to-Software-Testing/">從理想、到現實的距離，開啟品味軟體測試之路</a></li>
+		
+			<li><a href="/2022/05/10/About/2022-SREConf2022/">91APP 在 AWS 上的 SRE 實踐之路</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/2020-aws-summit-aws">在矩陣型組織裡，如何有效管理 AWS 的成本結構與系統架構</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/aws-using-aws-for-disaster-recovery/">災難演練 @ AWS 實戰分享</a></li>
+		
+			<li><a href="/2019/04/27/DevOps/Introduce-to-Continuous-Delivery-2/">導讀持續交付 2.0 - 談當代軟體交付之虛實融合</a></li>
+		
+			<li><a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理</a></li>
+		
+			<li><a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">從緊急事件 談 SRE 應變能力的培養</a></li>
+		
+			<li><a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
+		
+			<li><a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">Monitoring Tools 大亂鬥 - AWS CloudWatch</a></li>
+		
+			<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></li>
+		
+			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
+		
+
+		<!-- v3 -->
+		<!--
+		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		-->
+
+		<!-- v2 -->
+		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+		<!-- v1 -->
+		<!--
+		<li>Software Developer</li>
+		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+		<li><a href="/categories/DevOps/">Operation Manager</a></li>
+		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+		<li>
+			<ol>
+				<li>Management</li>
+				<li>Cloud / Distributed Systems</li>
+				<li>DevOps / SRE / </li>
+			</ol>
+		</li>
+		-->
+
+		<!--
+		<h4>Donate</h4>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick" />
+		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
+		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
+		</form>
+		-->
+
+		<h4>Facebook</h4>
+
+		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
+
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
+				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+
+		<h4>AWS Certifications</h4>
+		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+		<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+		<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+		
+
+	</div><!-- row -->
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2022 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div>
+
+<!-- container-narrow -->
+
+<div id="gotop">
+
+  <!-- 
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-book"></i> <a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"]);">學習法則</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"]);">喝咖啡 聊音樂 (v2021)</a><br />
+   -->
+
+  <!-- <h4>About</h4> -->
+
+  
+    <li><a href="/2035/01/21/Index/">全站索引</a></li>
+  
+    <li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+  
+    <li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+  
+    <li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+  
+    <li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+  
+    <li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+  
+    <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+  
+
+  <a href="#">▲ TOP ▲ </a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

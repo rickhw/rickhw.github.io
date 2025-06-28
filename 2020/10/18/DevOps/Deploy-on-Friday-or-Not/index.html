@@ -1,0 +1,747 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>星期五要不要部署？ | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="標題是最近 (2020&amp;#x2F;10) 在 Facebook 上的熱門話題，經過幾天之後，看了很多業界高手、前輩、專家的熱烈討論之後，沈澱了幾天，昨天 (10&amp;#x2F;17 Sat) 午休睡醒後迷迷糊糊寫下的， 原始文章連結 … 過程中，陸續修補一些想法和參考資料。
+
+Updated 2023&amp;">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="星期五要不要部署？"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/2020/10/18/DevOps/Deploy-on-Friday-or-Not/"/>
+  <meta property="og:image" content="/images/DevOps/Deploy-on-Friday/cover.jpg" />
+  
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<!--
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'G-74Y1F3F5W0']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-74Y1F3F5W0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-74Y1F3F5W0');
+</script>
+
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!-- @rickd 2022/02/24
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
+  -->
+  <!-- @ricka 2022/02/24 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!--
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="bd9r2mJp"></script>
+  -->
+
+  <!-- @ricka 2022/09/06 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="opf2Gext"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+						
+						<li><a href="/categories/About/">About <sup>29</sup></a></li>
+						
+						<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+						
+						<li><a href="/categories/經營管理/Career/">Career <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
+						
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Data/">Data <sup>2</sup></a></li>
+						
+						<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+						
+						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>20</sup></a></li>
+						
+						<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+						
+						<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+						
+						<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+						
+						<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+						
+						<li><a href="/categories/DevOps/SRE/">SRE <sup>25</sup></a></li>
+						
+						<li><a href="/categories/Software-Engineering/">Software Engineering <sup>10</sup></a></li>
+						
+						<li><a href="/categories/System-Design/">System Design <sup>2</sup></a></li>
+						
+						<li><a href="/categories/經營管理/人才管理/">人才管理 <sup>10</sup></a></li>
+						
+						<li><a href="/categories/經營管理/溝通/">溝通 <sup>9</sup></a></li>
+						
+						<li><a href="/categories/經營管理/知識管理/">知識管理 <sup>4</sup></a></li>
+						
+						<li><a href="/categories/經營管理/">經營管理 <sup>61</sup></a></li>
+						
+						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
+						
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"> <i class="fa fa-book"></i>學習法則</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂 (v2021)</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> 星期五要不要部署？</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> 星期五要不要部署？</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+		
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2020%2F10%2F18%2FDevOps%2FDeploy-on-Friday-or-Not%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2020/10/18/DevOps/Deploy-on-Friday-or-Not/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/2020/10/18/DevOps/Deploy-on-Friday-or-Not/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<p>標題是最近 (2020&#x2F;10) 在 Facebook 上的熱門話題，經過幾天之後，看了很多業界高手、前輩、專家的熱烈討論之後，沈澱了幾天，昨天 (10&#x2F;17 Sat) 午休睡醒後迷迷糊糊寫下的， <a target="_blank" rel="noopener" href="https://www.facebook.com/rick.kyhwang/posts/10214422588277920">原始文章連結</a> … 過程中，陸續修補一些想法和參考資料。</p>
+<blockquote>
+<p>Updated 2023&#x2F;07&#x2F;19: 本文全文內容收錄在個人著作 <a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">《SRE 實踐與開發平台指南》</a> - 2023&#x2F;08 上市</p>
+</blockquote>
+<span id="more"></span>
+
+<hr>
+<h1 id="熱門話題：『星期五要不要部署？』"><a href="#熱門話題：『星期五要不要部署？』" class="headerlink" title="熱門話題：『星期五要不要部署？』"></a>熱門話題：『星期五要不要部署？』</h1><h2 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h2><p>在軟體業界，有個普遍不成文的共識：</p>
+<blockquote>
+<p>星期五不要部署、更版</p>
+</blockquote>
+<p>大部分是為了避免因為星期五部署影響系統的穩定性，造成週末要加班處理問題，出發點是風險管理。</p>
+<p>但這議題在這次 ModernWeb 2020 上，業界專家提出前衛的思考： <code>Testing in Production, Deploy on Fridays</code>，隨後引發很多討論，底下是我看到的討論原始連結整理：</p>
+<ul>
+<li>10&#x2F;16: <a target="_blank" rel="noopener" href="https://www.facebook.com/groups/179345672472/permalink/10157963041112473/">Joey Chen 轉貼到 Scrum Community 的討論</a></li>
+<li>10&#x2F;16: <a target="_blank" rel="noopener" href="https://www.facebook.com/yftzeng.tw/posts/10214600299680609">Ant 補充說明，國外的看法</a></li>
+<li>10&#x2F;15: <a target="_blank" rel="noopener" href="https://www.facebook.com/hatelove/posts/10221661851390117">Joey Chen 的討論：一天部署超過10次，但週五不行部署？</a></li>
+<li>10&#x2F;13: <a target="_blank" rel="noopener" href="https://www.facebook.com/groups/DevOpsTaiwan/permalink/3353541328066223/">DevOps 轉貼 Ant 文章的討論</a></li>
+<li>10&#x2F;13: <a target="_blank" rel="noopener" href="https://www.facebook.com/yftzeng.tw/posts/10214583014608493">Ant 在 ModernWeb 的發表預告：《 Testing in Production, Deploy on Fridays 》 (1&#x2F;3)</a> - ModernWeb2020</li>
+</ul>
+<h2 id="雙方的說法"><a href="#雙方的說法" class="headerlink" title="雙方的說法"></a>雙方的說法</h2><p>贊成可以星期五部署的說：</p>
+<blockquote>
+<p>一個團隊當要能夠在任何時間部署，這跟哪一天沒關係，理由是敏捷團隊應該如何、身為一個開發者應該如何 …. (省略 3000 字)</p>
+</blockquote>
+<p>反對在星期五部署的說：</p>
+<blockquote>
+<p>大多會以風險角度考慮事情，普遍認為時間會影響之後的生活或者士氣 … (省略 30000 字).</p>
+</blockquote>
+<h2 id="典型的現象"><a href="#典型的現象" class="headerlink" title="典型的現象"></a>典型的現象</h2><p>這討論反映出一個典型的現象：</p>
+<blockquote>
+<p>把 <code>能不能</code> 和 <code>應不應該</code> 混在一起談</p>
+</blockquote>
+<p>因為負責執行的『主詞』完全不一樣。立場不一樣，結果當然不一樣。</p>
+<blockquote>
+<p>每個反派，在自己的故事裡，都是英雄。</p>
+</blockquote>
+<p>先舉例其他類似的案例：</p>
+<blockquote>
+<ul>
+<li>資料庫能不能在 Internet 裸奔？資料庫應不應該在 Internet 裸奔？</li>
+<li>程式碼能不能提高可重用性？程式碼應不應該高可重用性？</li>
+<li>系統架構能不能微服務化？系統架構應不應該微服務化？</li>
+<li>上班日能不能在辦公室喝酒？上班日應不應該在辦公室喝酒？</li>
+<li>系統能不能有多個認證機制？系統應不應該有多個認證機制？</li>
+<li>… 可以再列一百條</li>
+</ul>
+</blockquote>
+<h2 id="雙方衝突點"><a href="#雙方衝突點" class="headerlink" title="雙方衝突點"></a>雙方衝突點</h2><p>回到『星期五能不能部署』這個案例，贊同者背景大多是敏捷團隊（團隊不分開發、測試、維運角色）、高階主管、團隊管理者、技術傳教士，這些角色大多認為部署時間不能被時間限制，而這些角色大多也的確能做到這樣，他們<u><strong>在乎的是『能不能』，理所當然的也就『也應該要』</strong></u>。</p>
+<p>反對的背景大多都是開發與維運分開，大多屬於開發流程的下游、承擔風險的那一方、資訊落差很大的一端，所以會以風險考量為第一，他們<u><strong>在乎的是『應不應該』，而不是『能不能』</strong></u>。</p>
+<blockquote>
+<p>討論議題，雙方的層次如果不在同一個水平線上，加上沒有背景資訊，很容易陷入筆戰。</p>
+</blockquote>
+<p>這個現象把 <code>理想</code>、<code>現實</code> 兩個對立面的問題點出來：</p>
+<blockquote>
+<p>理想派，期待理想能實踐，但忽略現實派長期的感受。<br>現實派，被困在現實無法突破，對理想失去信心。</p>
+</blockquote>
+<hr>
+<h1 id="我的看法"><a href="#我的看法" class="headerlink" title="我的看法"></a>我的看法</h1><p>我的看法呢？先講結論：</p>
+<blockquote>
+<p>兩邊我都不認同（藍的綠的我都不要 XD)</p>
+</blockquote>
+<p>因為經驗告訴我，真實狀況會是比例原則，不是零或一的問題。</p>
+<blockquote>
+<p>盡量 (80%) 不在星期五部署，但需要時 (20%) 團隊也不會擔心，因為團隊有能力駕馭自己的系統。</p>
+</blockquote>
+<p>實務經驗也是如此，必要的時候星期五一樣會部署，但隔天必須加強監控。另外是要看團隊運作的模式，如果是成熟的敏捷團隊，自己的服務自己部署，自己炸鍋自己扛，做好決定就好。對於一個 <code>成熟</code> 的敏捷團隊，不只是能力問題，還有 <code>面子</code> 問題。管理者使用面子果實，使用激將法，就可以達到目的。</p>
+<p>如果團隊運作是 <u><strong>傳統的 開發、維運分開</strong></u> ，通常會選擇盡量避免，因為星期五部署的風險是衝突的來源，累積到最後就是勢不兩立的狀況。對於維運方來講，因為是下游單位，往往是壓力鍋。維運方通常不會有面子問題，基於責任都會默默地吞下，但大多都有長期不平造成的心理壓力問題。</p>
+<blockquote>
+<p>補充觀察到的現象：說贊成的人，我的觀察啦，往往無法體會反對的人長期累積的壓力鍋，累積出來的厭世感。反對的人，也無法了解那種被需求壓著時程，然後學習不完的新技術，卻要如期交付的心理壓力。所以大家才一直有話題可以聊 XD</p>
+</blockquote>
+<h2 id="理解彼此的背景"><a href="#理解彼此的背景" class="headerlink" title="理解彼此的背景"></a>理解彼此的背景</h2><p>回到一開說的『能不能』與『應不應該』兩個，前者是能力問題 (Skills &#x2F; Ability) ，後者與時空背景 (Timeline)、政策 (Policy) 與態度 (Attitude) 有關係。</p>
+<p>做 <code>軟體設計</code>、<code>架構設計</code> 要做到的要滿足的是能不能問題，能不能很有彈性的滿足業務需求、能不能有很高的擴展性、能不能達到安全管理、能不能節省成本？但做設計出來的東西怎麼運用，則是政策問題、階段性問題。架構有很高的擴展性，但是現階段基於成本考量，先不使用；業務發展到下個階段，應該要能高擴展的能力。</p>
+<p>資料庫能不能在 Internet 裸奔？資料庫應不應該在 Internet 裸奔？理論上不應該在 Internet 裸奔，他會有資安的問題。能不能裸奔？很多開發團隊，特別是剛草創階段的新創團隊，沒有自己的專屬 MIS ，也沒時間去規劃資訊網路架構，為了讓大家方便存取 AWS RDS，都是直接讓 RDS 裸奔，這是很常見的實際案例。能啊，當然能，應不應該？看狀況。</p>
+<p>資料庫能不能裸奔？應不應該裸奔？星期五能不能部署？應不應該部署？</p>
+<blockquote>
+<p>先問問主詞是誰，問問時空背景，再來下定論。沒有這些背景資訊的討論，其實就是在交朋友 XD</p>
+</blockquote>
+<h2 id="零或一、二元論、非黑即白"><a href="#零或一、二元論、非黑即白" class="headerlink" title="零或一、二元論、非黑即白"></a>零或一、二元論、非黑即白</h2><p>這題目其實跟『 Agile 是否一定比 Waterfall 好』差不多 XD</p>
+<p>Agile 這幾年一堆人在推廣，幾年前都會拿著 Waterfall 打，推廣一個理念，找個墊背的也是理所當然的。這是典型的 <code>拿著錘子，看到什麼都是釘子</code> 的現象。但後來發現好像不太對，不能用一套方法論，然後從夠吃到尾，所以這幾年也看到一些敏捷的人說法有所改變。另外類似的 Scrum 跟看板也是一樣，也不是一套吃到尾的。</p>
+<blockquote>
+<p>類似議題參閱：<a href="/2019/09/13/DevOps/Scrum-for-SRE-Team/">Infra 團隊適合 Scrum？</a></p>
+</blockquote>
+<p>所以『星期五能不能部署』不希望大家落入 <code>二元論</code>、<code>非黑即白</code>，而是從 <u><strong>了解彼此的背景、彼此的困難、換位思考</strong></u>，然後 <u><strong>相互諒解與學習，這才是 “DevOps” 該要強調的合作精神</strong></u>，不是嗎？</p>
+<p>網路上筆戰，很容易以自己環境的背景、或者自己的立場切入，但是討論時 <u><strong>沒了解彼此的背景與經驗，直接這樣二元論的討論，不容易找到平衡點，也不太會有交集。再多的列舉與論證，都不會有交集</strong></u>。</p>
+<h2 id="層次問題：Should-Be-Can-be、談武論俠"><a href="#層次問題：Should-Be-Can-be、談武論俠" class="headerlink" title="層次問題：Should Be, Can be、談武論俠"></a>層次問題：Should Be, Can be、談武論俠</h2><p>另外我認為 <code>能不能 (Can be)</code>、<code>應不應該 (Should Be)</code> 本質上，是不同層次的議題。</p>
+<p>『能不能』強調的是技能 (Skills) 或者能力 (Ability)，技能是會 C#、Java、Golang … 這種東西；能力 (Ability) 是能設計架構、能夠管理團隊、有領導力 … 等。『應不應該』則是依照時空背景條件，依照個人經驗、能力、判斷力、組織政策 … ，最後所產生的行動。</p>
+<ul>
+<li>『能不能』當主管，跟『應不應該』當主管是兩個層次：應該當主管，那你就要學習如何讓自己能夠做好管理工作；能夠當主管，不代表應該就要去當主管。</li>
+<li>能夠星期五部署，在沒有背景環境因素的前提之下，討論應不應該一定要在星期五部署 … 不會有結論。</li>
+<li>女生能生小孩，不管怎樣都抓去當作生產機器，沒有人會同這種做法的。</li>
+</ul>
+<p><img src="/images/DevOps/Deploy-on-Friday/is-ought.png" alt="實然 (is) 不等於 應然 (ought)"><br>來源：<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=h4KcMTr0VXo">X戰警的倫理學：X教授與萬磁王的正義論 Xavier vs. Magneto</a></p>
+<p>類似的 … 自己列舉生活中的例子 … 太多了，像是：</p>
+<ul>
+<li>女生能生小孩，所以女生一定要生小孩。</li>
+<li>男生能承擔，所以不能哭</li>
+<li>工程師能寫程式，所以應該會修電腦</li>
+<li>薩諾斯可以彈指之間消滅宇宙一半的生命，所以他應該要做 …</li>
+<li>…</li>
+</ul>
+<p>『星期五應不應該部署？』的問題，通常需要從組織結構、團隊運作、系統架構等層次切入，然後再來討論是否應不應該的問題。類似議題的探討，可以參閱我以下的文章的探討，內容都不是在談技術如何能不能，而是應不應該如何：</p>
+<ul>
+<li><a href="/2018/12/16/DevOps/Hire-a-Release-Engineer/">需要專職的 Release Engineer？</a></li>
+<li><a href="/2020/02/02/DevOps/Incident-Management-Aspects/">事件管理的維度</a></li>
+<li><a href="/2019/10/04/DevOps/How-to-Figure-out-the-RootCause-for-an-AbnormalSystem-In-ZeroTime/">系統發生異常時，第一時間如何快速止血？</a></li>
+<li><a href="/2019/10/17/DevOps/The-Three-Body-Problems-in-Software-Delivery/">軟體交付的三體問題</a></li>
+<li><a href="/2019/04/27/DevOps/Introduce-to-Continuous-Delivery-2/">導讀持續交付 2.0 - 談當代軟體交付之虛實融合</a></li>
+</ul>
+<p>這兩個層次本質上是不一樣的，不同層次沒沒相對應的背景資訊，是很難找到交集的。</p>
+<blockquote>
+<p>我這場演講 <a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">Monitoring Tools 大亂鬥 - AWS CloudWatch</a> 開場用 <code>談武、論俠</code> 當開場，其實本質也是在討論 Should Be, Can Be 的問題，這題目最後的答案會是：<code>俠之大者</code>。</p>
+</blockquote>
+<hr>
+<h2 id="騎士精神、俠之大者"><a href="#騎士精神、俠之大者" class="headerlink" title="騎士精神、俠之大者"></a>騎士精神、俠之大者</h2><p>整篇文章的思慮與脈絡是用 <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=h4KcMTr0VXo">騎士精神</a> 貫穿，也就是：</p>
+<blockquote>
+<p>你應該，所以你能夠。</p>
+</blockquote>
+<p>如果你所處的環境是『應該』在星期五也能部署，那麼團隊就要具備『能夠』在星期五部署承擔風險的能力 (Skills &#x2F; Ability) 。如果你處在的環境覺得『不應該』，那麼身為一個專業的工作者，面子很重要，你也要讓自己能夠有在任何時間部署的能力 (Skills)</p>
+<p>專業工作者，要具備 <a target="_blank" rel="noopener" href="https://www.facebook.com/rick.kyhwang/posts/10212523093191730">騎士精神</a>，也就是：</p>
+<blockquote>
+<p>你應該，所以你能夠。</p>
+</blockquote>
+<p>套在主題：</p>
+<blockquote>
+<p>你的團隊應該能隨時部署，所以即使是星期五團隊也能夠部署。</p>
+</blockquote>
+<p>而不是：</p>
+<blockquote>
+<p>你能夠，所以你應該。<br>你的團隊能夠星期五部署，所以以後應該星期五部署。</p>
+</blockquote>
+<p>類似的概念，在金庸小說裡，就是 <code>俠之大者</code>。</p>
+<hr>
+<h1 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h1><p>我建議大家看看這段很有深度的電影分析，裡面的 <code>騎士精神</code> 就是我整個思緒脈絡的源頭，因為生活中很常看到類似的現象：</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/h4KcMTr0VXo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+<hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="站內文章"><a href="#站內文章" class="headerlink" title="站內文章"></a>站內文章</h2><ul>
+<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作《SRE 實踐與開發平台指南》</a> (2023&#x2F;08 上市)</li>
+<li><a href="/2019/09/13/DevOps/Scrum-for-SRE-Team/">Infra 團隊適合 Scrum？</a></li>
+<li><a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">演講：Monitoring Tools 大亂鬥 - AWS CloudWatch</a></li>
+<li><a href="/2018/12/16/DevOps/Hire-a-Release-Engineer/">需要專職的 Release Engineer？</a></li>
+<li><a href="/2020/02/02/DevOps/Incident-Management-Aspects/">事件管理的維度</a></li>
+<li><a href="/2019/10/04/DevOps/How-to-Figure-out-the-RootCause-for-an-AbnormalSystem-In-ZeroTime/">系統發生異常時，第一時間如何快速止血？</a></li>
+<li><a href="/2019/10/17/DevOps/The-Three-Body-Problems-in-Software-Delivery/">軟體交付的三體問題</a></li>
+<li><a href="/2019/04/27/DevOps/Introduce-to-Continuous-Delivery-2/">導讀持續交付 2.0 - 談當代軟體交付之虛實融合</a></li>
+</ul>
+<h2 id="相關討論整理-懶人包？"><a href="#相關討論整理-懶人包？" class="headerlink" title="相關討論整理 (懶人包？)"></a>相關討論整理 (懶人包？)</h2><ul>
+<li>10&#x2F;16: <a target="_blank" rel="noopener" href="https://www.facebook.com/groups/179345672472/permalink/10157963041112473/">Joey Chen 轉貼到 Scrum Community 的討論</a></li>
+<li>10&#x2F;16: <a target="_blank" rel="noopener" href="https://www.facebook.com/yftzeng.tw/posts/10214600299680609">Ant 補充說明，國外的看法</a></li>
+<li>10&#x2F;15: <a target="_blank" rel="noopener" href="https://www.facebook.com/hatelove/posts/10221661851390117">Joey Chen 的討論：一天部署超過10次，但週五不行部署？</a></li>
+<li>10&#x2F;13: <a target="_blank" rel="noopener" href="https://www.facebook.com/groups/DevOpsTaiwan/permalink/3353541328066223/">DevOps 轉貼 Ant 文章的討論</a></li>
+<li>10&#x2F;13: <a target="_blank" rel="noopener" href="https://www.facebook.com/yftzeng.tw/posts/10214583014608493">Ant ModernWeb 的發表預告：《 Testing in Production, Deploy on Fridays 》 (1&#x2F;3)</a> - ModernWeb2020</li>
+</ul>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=h4KcMTr0VXo">X戰警的倫理學：X教授與萬磁王的正義論 Xavier vs. Magneto</a></li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/2020/10/18/DevOps/Deploy-on-Friday-or-Not/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<!-- LikeCoin -->
+				<!-- @rickd 2022/09/06 -->
+				<!--
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2020/10/18/DevOps/Deploy-on-Friday-or-Not/"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+				-->
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2021/01/03/Linux/Shell-and-Bash-Concepts/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2020/10/11/Management/Communication/Effective-Meetings/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
+  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
+  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2020/10/18/DevOps/Deploy-on-Friday-or-Not/" data-width="100%" data-numposts="10"></div>
+
+  
+
+
+</section>
+
+
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2020/10/18 12:43:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%86%B1%E9%96%80%E8%A9%B1%E9%A1%8C%EF%BC%9A%E3%80%8E%E6%98%9F%E6%9C%9F%E4%BA%94%E8%A6%81%E4%B8%8D%E8%A6%81%E9%83%A8%E7%BD%B2%EF%BC%9F%E3%80%8F"><span class="toc-article-text">熱門話題：『星期五要不要部署？』</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%89%8D%E6%83%85%E6%8F%90%E8%A6%81"><span class="toc-article-text">前情提要</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%9B%99%E6%96%B9%E7%9A%84%E8%AA%AA%E6%B3%95"><span class="toc-article-text">雙方的說法</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%85%B8%E5%9E%8B%E7%9A%84%E7%8F%BE%E8%B1%A1"><span class="toc-article-text">典型的現象</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%9B%99%E6%96%B9%E8%A1%9D%E7%AA%81%E9%BB%9E"><span class="toc-article-text">雙方衝突點</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%88%91%E7%9A%84%E7%9C%8B%E6%B3%95"><span class="toc-article-text">我的看法</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%90%86%E8%A7%A3%E5%BD%BC%E6%AD%A4%E7%9A%84%E8%83%8C%E6%99%AF"><span class="toc-article-text">理解彼此的背景</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%9B%B6%E6%88%96%E4%B8%80%E3%80%81%E4%BA%8C%E5%85%83%E8%AB%96%E3%80%81%E9%9D%9E%E9%BB%91%E5%8D%B3%E7%99%BD"><span class="toc-article-text">零或一、二元論、非黑即白</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B1%A4%E6%AC%A1%E5%95%8F%E9%A1%8C%EF%BC%9AShould-Be-Can-be%E3%80%81%E8%AB%87%E6%AD%A6%E8%AB%96%E4%BF%A0"><span class="toc-article-text">層次問題：Should Be, Can be、談武論俠</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%A8%8E%E5%A3%AB%E7%B2%BE%E7%A5%9E%E3%80%81%E4%BF%A0%E4%B9%8B%E5%A4%A7%E8%80%85"><span class="toc-article-text">騎士精神、俠之大者</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BE%8C%E8%A8%98"><span class="toc-article-text">後記</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E8%A8%8E%E8%AB%96%E6%95%B4%E7%90%86-%E6%87%B6%E4%BA%BA%E5%8C%85%EF%BC%9F"><span class="toc-article-text">相關討論整理 (懶人包？)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/DevOps/" style="color: white">DevOps <span class="badge">43</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Continuous-Deployment/" style="color: white">Continuous Deployment <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Published-SRE1/" style="color: white">Published-SRE1 <span class="badge">22</span></a></span> <span class="label label-success"><a href="/tags/談武論俠/" style="color: white">談武論俠 <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/騎士精神/" style="color: white">騎士精神 <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+		<!-- v4 -->
+		<h4>About</h4>
+		
+			<li><a href="/2035/01/21/Index/">全站索引</a></li>
+		
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+		
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		
+			<li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+		
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		
+			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+		
+
+		<h4>著作</h4>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作：SRE實踐與開發平台指南</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作：軟體測試實務 (2023)</a></li>
+		
+			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
+		
+
+		<h4>演講</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
+		
+			<li><a href="/2023/09/09/About/2023-AWS-Career-Exploration-Day/">探索職涯、複利人生 - AWS Career Exploration Day 2023</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作 SRE 書友見面會</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">軟體測試實務 - 新書發表會</a></li>
+		
+			<li><a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">探索職涯、成就未來 - AWS Career Exploration Day 2022</a></li>
+		
+			<li><a href="/2022/08/13/SQA/Path-to-Software-Testing/">從理想、到現實的距離，開啟品味軟體測試之路</a></li>
+		
+			<li><a href="/2022/05/10/About/2022-SREConf2022/">91APP 在 AWS 上的 SRE 實踐之路</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/2020-aws-summit-aws">在矩陣型組織裡，如何有效管理 AWS 的成本結構與系統架構</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/aws-using-aws-for-disaster-recovery/">災難演練 @ AWS 實戰分享</a></li>
+		
+			<li><a href="/2019/04/27/DevOps/Introduce-to-Continuous-Delivery-2/">導讀持續交付 2.0 - 談當代軟體交付之虛實融合</a></li>
+		
+			<li><a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理</a></li>
+		
+			<li><a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">從緊急事件 談 SRE 應變能力的培養</a></li>
+		
+			<li><a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
+		
+			<li><a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">Monitoring Tools 大亂鬥 - AWS CloudWatch</a></li>
+		
+			<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></li>
+		
+			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
+		
+
+		<!-- v3 -->
+		<!--
+		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		-->
+
+		<!-- v2 -->
+		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+		<!-- v1 -->
+		<!--
+		<li>Software Developer</li>
+		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+		<li><a href="/categories/DevOps/">Operation Manager</a></li>
+		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+		<li>
+			<ol>
+				<li>Management</li>
+				<li>Cloud / Distributed Systems</li>
+				<li>DevOps / SRE / </li>
+			</ol>
+		</li>
+		-->
+
+		<!--
+		<h4>Donate</h4>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick" />
+		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
+		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
+		</form>
+		-->
+
+		<h4>Facebook</h4>
+
+		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
+
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
+				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+
+		<h4>AWS Certifications</h4>
+		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+		<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+		<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+		
+
+	</div><!-- row -->
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2022 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div>
+
+<!-- container-narrow -->
+
+<div id="gotop">
+
+  <!-- 
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-book"></i> <a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"]);">學習法則</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"]);">喝咖啡 聊音樂 (v2021)</a><br />
+   -->
+
+  <!-- <h4>About</h4> -->
+
+  
+    <li><a href="/2035/01/21/Index/">全站索引</a></li>
+  
+    <li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+  
+    <li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+  
+    <li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+  
+    <li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+  
+    <li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+  
+    <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+  
+
+  <a href="#">▲ TOP ▲ </a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

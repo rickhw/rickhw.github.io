@@ -1,0 +1,858 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>摘要 Eclipse 設計的啟發：當代 SaaS 分散式架構的關鍵設計 | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="整理關於 SaaS 架構設計的想法，部分是來自於 Eclipse 這個著名 Java IED 的設計概念。
+大約從 2018 之後，VSCode 可以算是統一 Open Source 的 IDE 了，之前由 GitHub 開發的 Atom 在微軟收購了 GitHub 之後，已經將在 December">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="摘要 Eclipse 設計的啟發：當代 SaaS 分散式架構的關鍵設計"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/2022/07/04/DistributedSystems/Inspired-Design-From-Eclipse/"/>
+  <meta property="og:image" content="/images/Coding/Inspired-Design-From-Eclipse/Platform-Architecture.png" />
+  
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<!--
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'G-74Y1F3F5W0']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-74Y1F3F5W0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-74Y1F3F5W0');
+</script>
+
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!-- @rickd 2022/02/24
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
+  -->
+  <!-- @ricka 2022/02/24 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!--
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="bd9r2mJp"></script>
+  -->
+
+  <!-- @ricka 2022/09/06 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="opf2Gext"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+						
+						<li><a href="/categories/About/">About <sup>29</sup></a></li>
+						
+						<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+						
+						<li><a href="/categories/經營管理/Career/">Career <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
+						
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Data/">Data <sup>2</sup></a></li>
+						
+						<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+						
+						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>20</sup></a></li>
+						
+						<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+						
+						<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+						
+						<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+						
+						<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+						
+						<li><a href="/categories/DevOps/SRE/">SRE <sup>25</sup></a></li>
+						
+						<li><a href="/categories/Software-Engineering/">Software Engineering <sup>10</sup></a></li>
+						
+						<li><a href="/categories/System-Design/">System Design <sup>2</sup></a></li>
+						
+						<li><a href="/categories/經營管理/人才管理/">人才管理 <sup>10</sup></a></li>
+						
+						<li><a href="/categories/經營管理/溝通/">溝通 <sup>9</sup></a></li>
+						
+						<li><a href="/categories/經營管理/知識管理/">知識管理 <sup>4</sup></a></li>
+						
+						<li><a href="/categories/經營管理/">經營管理 <sup>61</sup></a></li>
+						
+						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
+						
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"> <i class="fa fa-book"></i>學習法則</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂 (v2021)</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> 摘要 Eclipse 設計的啟發：當代 SaaS 分散式架構的關鍵設計</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> 摘要 Eclipse 設計的啟發：當代 SaaS 分散式架構的關鍵設計</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+		
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2022%2F07%2F04%2FDistributedSystems%2FInspired-Design-From-Eclipse%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2022/07/04/DistributedSystems/Inspired-Design-From-Eclipse/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/2022/07/04/DistributedSystems/Inspired-Design-From-Eclipse/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<p>整理關於 SaaS 架構設計的想法，部分是來自於 Eclipse 這個著名 Java IED 的設計概念。</p>
+<p>大約從 2018 之後，VSCode 可以算是統一 Open Source 的 IDE 了，之前由 GitHub 開發的 Atom 在微軟收購了 GitHub 之後，已經將在 December 15, 2022 落下了句點，其他 Editors (還不到 IDE) 大多還是屬於輔助性質，像是 Notepad++ 。</p>
+<p>而 VSCode 主要的設計者 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Erich_Gamma">Erich Gamma</a> 則是著名的 Design Pattern 的共同作者之一 (又稱 GoF)，而這個理論背後源自於他的實作，也是著名的 Java IDE - <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Eclipse_(software)">Eclipse</a>，Erich Gamma 負責最核心的 JDT (Java development Tooling) 的設計。</p>
+<p><a href="/2015/10/11/SQA/How-To-Be-An-SQA/">2004 - 2012 年期間，我在 IBM 駐點開發 Rational 相關產品</a>，其中主要就是 Eclipse Plugins 的開發，產品是給 Web Developer 用的工具，可以說就是在寫 IDE 的概念。過程曾經鑽研了 Eclipse Plugins、RCP (Rich Client Platform, XMind &#x2F; DBeaver 就是這個開發的) &#x2F; Equinox OSGi &#x2F; SWT &#x2F; JFace &#x2F; EMF &#x2F; GEF … 等設計概念，也因此對於 Eclipse 整個架構略有研究，而這些設計概念也不知不覺的用在之後工作上。</p>
+<p>這些年的更迭與代換，我自己的工作環境 <a href="/2013/11/17/OSX/Install-OSX-Mavericks-on-PC/">從 Windows 換到 macOS</a>，開發工具從 Eclipse 換到了 Atom，然後又跳到 VSCode。在使用 VS Code 的過程，處處都聞到 Eclipse 的設計感。開始做分散式架構設計、重讀作業系統、學習 CS 基礎知識、探索 AWS &#x2F; K8s … 等過程，發現這些背後的本質都有高度的雷同。</p>
+<span id="more"></span>
+
+<hr>
+<h1 id="Eclipse-設計摘要"><a href="#Eclipse-設計摘要" class="headerlink" title="Eclipse 設計摘要"></a>Eclipse 設計摘要</h1><h2 id="SDK-x2F-Platform"><a href="#SDK-x2F-Platform" class="headerlink" title="SDK &#x2F; Platform"></a>SDK &#x2F; Platform</h2><p>下圖是 Eclipse Platform 的架構圖：</p>
+<p><img src="/images/Coding/Inspired-Design-From-Eclipse/Platform-Architecture.png"><br>圖檔出處：<a target="_blank" rel="noopener" href="https://help.eclipse.org/latest/index.jsp?topic=/org.eclipse.platform.doc.isv/reference/api/org/eclipse/ui/class-use/IViewPart.html">Platform architecture</a></p>
+<p>Eclipse SDK 由一組完整的 Platform 元件組成，包含 <a target="_blank" rel="noopener" href="https://docs.osgi.org/specification/osgi.core/7.0.0/">Platform Runtime (OSGi)</a>、Workspace、UI 元件 (SWT &#x2F; Workbench &#x2F; JFace)、文件 (Help)、協作 (Team) … 組成。基於這些基元延展的兩個重要應用則是 <code>JDT (Java Development Tooling)</code> 和 <code>PDE (Plug-in Developer Environment)</code>。JDT 是給 Java 開發者用的整合開發環境，後者則是為了讓 Eclipse 具備延伸能力的開發環境。</p>
+<h2 id="Runtime-OSGi"><a href="#Runtime-OSGi" class="headerlink" title="Runtime: OSGi"></a>Runtime: OSGi</h2><p>Eclipse Platform 使用 <a target="_blank" rel="noopener" href="https://docs.osgi.org/specification/osgi.core/7.0.0/">OSGi (Open Service Gateway Initiative)</a> 作為主要的 Runtime 標準。OSGi 是一個標準協議組織 (OSGi Alliance)，也是一個標準服務平台 (Service Platform)。規範定義了應用程式生命週期與服務註冊、框架通訊、擴充機制 … 等等，如下圖所示。</p>
+<p><img src="/images/Coding/Inspired-Design-From-Eclipse/OSGi-Layering.png"><br>圖檔出處：<a target="_blank" rel="noopener" href="https://docs.osgi.org/specification/osgi.core/7.0.0/ch01.html#d0e76">OSGi Framework Overview</a></p>
+<p><img src="/images/Coding/Inspired-Design-From-Eclipse/OSGi-Interaction-between-layers.png"><br>圖檔出處：<a target="_blank" rel="noopener" href="https://docs.osgi.org/specification/osgi.core/7.0.0/ch01.html#d0e76">OSGi Framework Overview</a></p>
+<h2 id="Concurrency-Infrastructure"><a href="#Concurrency-Infrastructure" class="headerlink" title="Concurrency Infrastructure"></a>Concurrency Infrastructure</h2><p>整個 Eclipse Platform 同時有很多東西在前景跑 (Frontend)，不管是 Views 還是 Editor，而這些前景的物件會相互傳遞訊息，傳遞的訊息需要被處理，這個處理背後的機制就是 Eclipse 提供的 <a target="_blank" rel="noopener" href="https://help.eclipse.org/latest/index.jsp?topic=/org.eclipse.platform.doc.isv/guide/runtime_jobs.htm&cp=2_0_3_5">Concurrency Infrastructure</a>，用現代分散式架構來看就是個 Pub&#x2F;Sub 架構概念。</p>
+<p>整個架構背後透過 Jobs、IStatus、IJobManager、IJobChangeListener、IJobChangeEvent、IProgressMonitor … 等介面組成。</p>
+<h2 id="Extension-Point"><a href="#Extension-Point" class="headerlink" title="Extension Point"></a>Extension Point</h2><p>如圖中描述的概念，其中的 PDE 為了讓開發者可以依照 Platform 開發延伸應用程式，Platform 本身要提供一些介面做接點，這個界面稱為 <code>Extension Point</code>，而接入 Eclipse Platform 的動作稱為 <code>Registry</code>。從使用介面 (UI) 來看，有幾個主要的組成概念。</p>
+<p><img src="/images/Coding/Inspired-Design-From-Eclipse/Workbench.png"><br>圖檔出處：<a target="_blank" rel="noopener" href="https://help.eclipse.org/latest/index.jsp?topic=/org.eclipse.platform.doc.isv/reference/api/org/eclipse/ui/class-use/IViewPart.html">Plugging into the workbench</a></p>
+<h3 id="Workbench-Window-x2F-Page"><a href="#Workbench-Window-x2F-Page" class="headerlink" title="Workbench Window &#x2F; Page"></a>Workbench Window &#x2F; Page</h3><p>最上層容器，裡面包涵視窗的 MenuBar &#x2F; ToolBar、多個 Page，每個 Page 裡可以有一個 Editor Window + 多個 Viewer Window。Page 則是第二層的容器，主要是提供不同的 Perspective 用途。</p>
+<h3 id="Editor-and-View"><a href="#Editor-and-View" class="headerlink" title="Editor and View"></a>Editor and View</h3><p>Editor 是使用者輸入的主要 Window，通常是預設的 Focus 地方，使用者會在這裡做主要的輸入。實作上透過 Eclipse Platform 提供的 JFace 以及 EMF (Eclipse Modeling Framework) 處理，讓開發者可以自行開發符合各種語言特性需要的 Editor。</p>
+<p>而 View 則是用來輔助呈現資訊的視窗，預設是檔案結構，在 Eclipse 裡稱為 Navigator View</p>
+<ul>
+<li>Viewer 有多種呈現形式，舉例幾種：<ul>
+<li>Java Package View：基於 Navigator View ，但是以 Java Package 習慣的呈現方式。</li>
+<li>Outline View: 根據 Editor 內容，反映出結構，像是 Java 的 Properties、Methods</li>
+<li>Properties View: 用 Grid 方式呈現 Key &#x2F; Value 的資料結構</li>
+</ul>
+</li>
+<li>Viewer 有個基礎抽象類別 (稱做 <a target="_blank" rel="noopener" href="https://help.eclipse.org/latest/index.jsp?topic=/org.eclipse.platform.doc.isv/reference/api/org/eclipse/ui/class-use/IViewPart.html">ViewPart</a>)，並且提供事件驅動介面，讓 Viewer 與 Editor 之間可以以主動、被動的方式連動訊息。<ul>
+<li>實務上會用基礎類別實作不一樣的 Viewer，像是 Console、Debug 的 Runtime Variables。</li>
+</ul>
+</li>
+</ul>
+<p>預設的 Eclipse 有很多 View，如下圖看到的 Category 有 Git &#x2F; Gradle &#x2F; Help &#x2F; Java … 等。</p>
+<p><img src="/images/Coding/Inspired-Design-From-Eclipse/More-View.png"></p>
+<p>下圖則是 JDT 提供的 Debug 常見的幾個 Views：</p>
+<p><img src="/images/Coding/Inspired-Design-From-Eclipse/View-Debug.png"></p>
+<p>預設的 <code>Navigator View</code>，其實就是檔案管理器，把實體檔案的結構具體地呈現出來，如下圖：</p>
+<p><img src="/images/Coding/Inspired-Design-From-Eclipse/View-Navigator.png"></p>
+<p><code>Project Explorer</code> 是 Java 的 Viewer，會把 Package 的結構攤平，讓 Java 開發者更容易理解。</p>
+<p><img src="/images/Coding/Inspired-Design-From-Eclipse/View-Project-Explorer.png"></p>
+<p>以此為概念，可以開發給不同 語言 (C#, Python) 或者 SQL … etc … 專用的 Viewers。</p>
+<h3 id="Perspective"><a href="#Perspective" class="headerlink" title="Perspective"></a>Perspective</h3><p>中文翻譯成 <code>視角</code>、<code>觀點</code>，是在 Workbeanch 裡的數個 Views + Editor 與 Layout (BorderLayout) 組成的設定。每個開發者，在不同開發階段，或者做不同任務時會有不同的角度需要。透過 Perspective 就可以把該階段的畫面設定儲存下來，也可以分享設定給其他開發者。</p>
+<p>下圖是 Eclipse 預設提供的幾種 Perspective：</p>
+<p><img src="/images/Coding/Inspired-Design-From-Eclipse/Default-Perspective-List.png"></p>
+<p>下圖的則是預設的 Java Perspective，可以看到上面四個 View、從左到右由大到小分別是 Project -&gt; Packages -&gt; Type -&gt; Members，下面則是把偌大的空間留給 Editor。這是很多 Java Developer 最常用的了。</p>
+<p>我有很長一段時間再分析一個龐大的 Code Structure，那個過程很常需要了解整個 Class 的繼承關係、抽象介面的實作、Java Projects 的依賴關係、Plugins 的依賴關係 … 等，這配置很常用。只要切到這個 View 就是要分析程式用的。</p>
+<p><img src="/images/Coding/Inspired-Design-From-Eclipse/Perspective-Java-Browsing.png"></p>
+<p>下面這個叫做 <code>Rick&#39;s Perspective</code> 則是我自己以前在寫程式時最常用的 Layout。</p>
+<p><img src="/images/Coding/Inspired-Design-From-Eclipse/Ricks-Perspective.png"></p>
+<ul>
+<li>左上除了 Project Explorer，還有 Type Hierarchy，分析程式碼結構用。</li>
+<li>左下方式 Debug 需要的 Expressions 與 Breakpoints &#x2F; Runtime Variables</li>
+<li>右上角則是現在 Content 的 Outline</li>
+<li>下方 (South) 的上方區域，放的則是 Runtime 的控制 View，像是 Servers (Tomcat)、Debug (StepIn&#x2F;Out&#x2F;Over) 等 …</li>
+<li>最下方區域，則是 Console</li>
+</ul>
+<p>這樣的配置其實是很個人習慣的，當年就靠這個配置寫了不少東西。</p>
+<!--
+
+## Eclipse Marketplace
+
+
+![](/images/Coding/Inspired-Design-From-Eclipse/Eclipse-Marketplace.png)
+
+
+---
+
+# VSCode Extension 的設計
+
+簡單摘要了 Eclipse 的設計概念，但對於第一次入手的人，可能會被複雜的結構閃到，然後就退堂了。
+
+但如果對於如何開發 VSCode 的 Extension 有興趣，卻能看完上述 Eclipse 的概念，會發現 VSCode 的概念簡化了，或者說先捨去一些設計，像是 Perspective 的概念，加入 Web 常見的用法。
+
+下圖是官方提供的架構圖：
+
+![](/images/Coding/Inspired-Design-From-Eclipse/VSCode-UI-Architecture2.png)
+圖檔來源：[VSCode Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+
+底下整理幾個 VSCode Extension 的概念：
+
+* Contribution Points
+
+
+
+
+-->
+
+
+<hr>
+<h1 id="從-Eclipse-學到的分散式架構啟發"><a href="#從-Eclipse-學到的分散式架構啟發" class="headerlink" title="從 Eclipse 學到的分散式架構啟發"></a>從 Eclipse 學到的分散式架構啟發</h1><p>Eclipse 本身屬於 <code>軟體層級</code> 的架構 (<code>Software Architecture</code>)，基於這樣的架構可以讓 Eclipse 達到擴充性。而我借用這個概念，把軟體架構變成 <code>系統架構 (System Archtiecture)</code> 層級的擴充架構，實作上就是基於 Web Service 為單位的擴充架構，也是現代基於 <code>分散式架構</code> 的 SaaS 產品要面對的核心問題：</p>
+<ol>
+<li>通訊模式</li>
+<li>擴充架構與生態系</li>
+<li>多租戶架構與模型</li>
+</ol>
+<h2 id="1-通訊模式：Concurrency-Infrastructure"><a href="#1-通訊模式：Concurrency-Infrastructure" class="headerlink" title="1. 通訊模式：Concurrency Infrastructure"></a>1. 通訊模式：<a target="_blank" rel="noopener" href="https://help.eclipse.org/latest/index.jsp?topic=/org.eclipse.platform.doc.isv/guide/runtime_jobs.htm&cp=2_0_3_5">Concurrency Infrastructure</a></h2><p>下面兩張圖是我很久以前在設計 <a href="/2018/05/12/SQA/Designing-Test-Architecture-and-Framework/">Designing Test Architecture and Framework</a> 時所寫的管理介面，大概類似於 AWS Console EC2 個概念。</p>
+<p><img src="/images/SQA/Regression/FP004.png"><br><img src="/images/SQA/Regression/FP003.png"></p>
+<p>畫面上可以看一般應用程式的 Menu、主畫面 (有 Tab)、每個資源的 Detail View (下圖右邊) … 等基本結構。</p>
+<p>這是很常見的，但是上述三個東西 (Menu &#x2F; Main Window &#x2F; Detail View) 彼此之間經常是需要 <code>資訊交換</code> 的，像是 當點選 Menu 裡一個物件的時候，Main Window 與 Detail View 需要做連動，把資訊帶入，或執行對應的行為。我就利用類似 Eclipse 裡的 <a target="_blank" rel="noopener" href="https://help.eclipse.org/latest/index.jsp?topic=/org.eclipse.platform.doc.isv/guide/runtime_jobs.htm&cp=2_0_3_5">Concurrency Infrastructure</a> 機制，讓彼此之間做通訊，後來我才知道這就是 Pub&#x2F;Sub。</p>
+<p>用 Google Slide 來說，下圖畫面中有三個區域：</p>
+<ol>
+<li>上面的 Toolbar</li>
+<li>左邊的預覽 Preview</li>
+<li>右邊的編輯區域 (Editor)</li>
+</ol>
+<p>截圖的 Focus 停留在左邊預覽的 <code>第二頁</code>，另外兩個區域的行為有：</p>
+<ol>
+<li>Toolbar: 對應的 MenuItem 因為選擇改變功能，截圖 <code>格式</code> 相關的功能都 Disable 了，因為與在 Focus 的地方無關。</li>
+<li>Editor: 顯示 Focus 對應的內容</li>
+</ol>
+<p><img src="/images/Coding/Inspired-Design-From-Eclipse/event1.png"></p>
+<p>這三個區塊彼此是怎麼勾通的？線性的思路，就是 Foucs 點下去之後，另外兩個直接 Listen 物件的事件，然後把對應資訊傳給另外兩者處理。這樣做沒啥問題，也可以動。但如果區塊有五個？十個？二十個？100 個？還是直接這樣 Listen Event？而且直接 Listen 代表著這整個行為是 <a href="/2019/02/27/ComputerScience/IO-Models/">Blocking</a> 的，使用體驗也就不會好，通常也會因為 Blocking 而出現白畫面的現象。</p>
+<p>而比較理想做法就是利用 Pub&#x2F;Sub 這種非同步的方式，結構除了原本的三個區域，後面多了一個 Pub&#x2F;Sub，而整個動作會變成這樣：</p>
+<ol>
+<li>使用者點在左邊的 Preview</li>
+<li>Publish 一個 Message X，然後就返回。</li>
+<li>另外兩個 (Toolbar &#x2F; Editor) 去 Subscribe 對應的 Message<ul>
+<li>Toolbar 收到 Message X 處理定義的行為：Disable 相對應的 MenuItem</li>
+<li>Editor 收到 Message X 處理定義的行為：顯示內容</li>
+</ul>
+</li>
+</ol>
+<p>這樣基本的概念就是：觸發 Event 以及處理 Message 兩者之間是非同步的，整個使用體驗可以做到完全 <a href="/2019/02/27/ComputerScience/IO-Models/">Non-Blocking</a> 以及即時的效果。這個例子 1: 2 的，即使到了 1 : N 效果也不會有太多影響。</p>
+<p>這概念類似於 Eclipse 每個 Extension 之間、或者 View 之間的溝通，這也是現代分散式架構常見的模型 Pub&#x2F;Sub、在一個 Embedded 裡通常也會用 Queue 實作兩個 Device 的溝通、在作業系統則是透過 <code>Inter Process Communication</code> 實作 … 等。</p>
+<p>通訊模式要解決的是：</p>
+<ol>
+<li>狀態一致：像是交易、狀態機</li>
+<li>資料交換：傳檔、匯入、匯出</li>
+</ol>
+<p>通訊模式的關鍵技術則是：</p>
+<ol>
+<li><code>狀態一致性問題</code>，<a href="/2021/04/07/DistributedSystems/Dapr-Concepts-and-Designing/">Dapr 的設計與概念</a> 有著不錯的實踐。</li>
+<li><a href="/2019/02/27/ComputerScience/IO-Models/">同步與非同步</a></li>
+<li>相關關鍵基礎設施，參閱 <a href="/2021/05/14/DistributedSystems/Service-Governance/">服務治理</a></li>
+</ol>
+<h2 id="2-分散式架構的擴充與延伸架構"><a href="#2-分散式架構的擴充與延伸架構" class="headerlink" title="2. 分散式架構的擴充與延伸架構"></a>2. 分散式架構的擴充與延伸架構</h2><p>生態系是很多企業發展到一定程度後，勢必會出現的概念，很多大型公司都有這樣的概念，像是：</p>
+<ol>
+<li>Devices: 基於設備上的應用程式、應用市集<ul>
+<li>iPhone &#x2F; macOS 的 App Store</li>
+<li>Android 的 Google Play</li>
+<li><a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-tw/store/apps/">Windows 上的 App Store</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.qnap.com/zh-tw/app_center/">QNAP App Center</a></li>
+<li>其實 PS5 &#x2F; Switch &#x2F; XBox 上的下載遊戲也算。。。</li>
+</ul>
+</li>
+<li>Extensions &#x2F; Plguins &#x2F; Add-on in Web Services<ul>
+<li><a target="_blank" rel="noopener" href="https://slack.com/apps">Slack App</a></li>
+<li><a target="_blank" rel="noopener" href="https://aws.amazon.com/marketplace/">AWS 的 Marketplace</a></li>
+<li><a target="_blank" rel="noopener" href="https://apps.shopify.com/?itcat=home&itterm=app-store&locale=zh-TW">Shopify app store</a></li>
+<li>Facebook 應用程式</li>
+</ul>
+</li>
+<li>Extensions &#x2F; Plugins &#x2F; Add-on in App<ul>
+<li>Line 在自己的 APP 裡搞的小程序</li>
+<li><a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/category/extensions">Chrome Web Store</a></li>
+<li>VSCode Extensions</li>
+<li>Eclipse Plugins</li>
+</ul>
+</li>
+</ol>
+<p><code>擴充 (Plugins)</code> 與 <code>延伸 (Extension)</code> 是兩個概念，前者是基於既有的系統的功能，<code>垂直增加功能</code>；後者則是基於既有的系統 <code>水平擴充功能</code>。</p>
+<ul>
+<li><code>1)</code> 是集中管理、端點發布的架構：也就是應用程式需要被 <code>下載</code> 到使用者端，進行安裝後能夠使用。</li>
+<li><code>2)</code> 是集中管理、共同使用架構：也就是所謂的 SaaS，使用者不需要下載、安裝，直接透過 Browser 使用。</li>
+<li><code>3)</code> 是 <code>2)</code> 擴充，基於 <code>2)</code> 的結果繼續擴充。<ul>
+<li>OS 之於 Chrome 的 Extension 屬於這種。</li>
+<li>iOS 之於 Line 的 小程序 屬於這種。</li>
+</ul>
+</li>
+</ul>
+<p>下圖是 Google Docs Slide 的 Plugin，稱為 Google Workspace Marketplace</p>
+<p><img src="/images/Coding/Inspired-Design-From-Eclipse/Google-Workspace-Marketplace.png"></p>
+<p>水平擴充的例子在 Google 可以看到最好的例子，像是 Gmail &#x2F; Google Docs &#x2F; Slides &#x2F; Spreadsheet &#x2F; Calendar &#x2F; Meet … 就是水平功能，屬於獨立的產品線（在組織上應當屬於獨立盈利單位, BU)。他們共享的則是 SSO 機制，以及背後共用的介面、認證授權、以及 Multi-Tenancy 的隔離機制（我把它稱為 <code>Isolation Factor</code>)。</p>
+<p><code>分散式系統擴充架構</code> 背後帶出的是另外一個 SaaS 平台的常見策略應用，也就是 Marketplace 或者稱為生態系，而背後的關鍵基礎建設則是：<a href="/2021/05/14/DistributedSystems/Service-Governance/">服務治理</a></p>
+<p><code>擴充模式</code> 帶來的好處是：</p>
+<ol>
+<li>業務可拓展、探索性<ul>
+<li>自己 (In-House) 開發</li>
+<li>外包 (Out-Source) 給其他公司開發</li>
+</ul>
+</li>
+<li>組織與架構的平衡性：參閱 <a href="/2019/03/17/Management/Perspective-in-XYZT/">看見怎樣的全貌 - 軟體開發的三體問題</a></li>
+<li>開發可實驗性<ul>
+<li>多種語言</li>
+<li>跨平台</li>
+</ul>
+</li>
+</ol>
+<p><code>擴充模式</code> 的關鍵技術則是：</p>
+<ol>
+<li>具備 <code>通訊模式</code> 所需要的基礎設施</li>
+<li>具備 擴展性結構 的規格</li>
+<li>具備 良好的開發、測試規範</li>
+</ol>
+<p><code>擴充模式</code> 在程式語言的各種實踐樣態：</p>
+<ol>
+<li>Function &#x2F; Method …</li>
+<li>Java 的 import, C# 的 using</li>
+<li>Web Service</li>
+<li>RPC (remote procedure call), gRPC</li>
+<li>… 之後我會這個概念繼續掰下去 XD</li>
+</ol>
+<h2 id="3-多租戶架構與模型"><a href="#3-多租戶架構與模型" class="headerlink" title="3. 多租戶架構與模型"></a>3. 多租戶架構與模型</h2><p><code>多租戶架構 (Multi-Tenancy)</code> 是開發 SaaS 產品一定會面對的問題，其中 <code>產品線 (前面 Google Docs / Slide ... 等例子)</code> 與 <code>租戶 (Tenant)</code> 的關係如下圖：</p>
+<ul>
+<li>綠色：產品，圖直接用 AWS EC2 &#x2F; S3 &#x2F; DDB 當例子</li>
+<li>藍色：使用者帳號，也就是 <code>租戶概念 (Tenant)</code></li>
+</ul>
+<p>多租戶架構設計的關鍵就是 <code>隔離 (Isolation)</code> 的實踐。</p>
+<p><img src="/images/Coding/Inspired-Design-From-Eclipse/multi-tenancy.png"></p>
+<p><code>隔離</code> 的概念，在各種應用系統都有，舉例來說：</p>
+<ol>
+<li>docker 實踐隔離的機制就是 cgroup, namespace, 隔離的是 <code>CPU</code>, <code>Memory</code>, <code>Network</code>, <code>Storage</code> 等計算機資源</li>
+<li>VM 實踐隔離的透過模擬硬體隔離資源, 隔離的是整台 PC Hardware</li>
+<li>K8s 透過 Namespace 隔離資源，隔離的是 deployment, pod, deamonset 這些 object.</li>
+<li>Relation Database 實踐隔離則有各種層級與模式, 參閱論文 <a target="_blank" rel="noopener" href="http://sites.computer.org/debull/A16mar/p3.pdf">The many faces of consistency</a></li>
+<li>AWS 的 VPC 透過 overlay 實踐 <code>網路層級</code> 的隔離</li>
+<li>語言實踐隔離的方法：Class &#x2F; Namespace 都是實踐的機制，隔離的是 <code>物件的有效範圍</code><ul>
+<li>如果不是 OOP (像是 bash)，常用的隔離方法就是變數的命名加上 Prefix</li>
+</ul>
+</li>
+<li>程式語言 Runtime 記憶體與作業系統隔離的方式: 像是 Java JVM 在作業系統 User Space 要一塊記憶體，然後與一班應用程式隔離。</li>
+<li>WiFi Mesh 實踐的不是隔離，而是合併 ….</li>
+<li>…</li>
+</ol>
+<p>通常商業軟體談的隔離則是業務邏輯的隔離概念，通常是一種 Identity 的概念。主要是因為從資源層級的隔離切入，往往不是成本太高，不然就是工程浩大，說白點一開始根本不是這樣設計，改就是傷筋動骨。</p>
+<p>所以大部分打帶跑的開發就是從 Identity 出發做隔離，實作上就是 User Session 的概念。而因為開發階段不一樣，每個產品線可能都會有自己的隔離名稱，例如早期 S3 使用的是 <code>Canonical User ID</code> 作為隔離的單位，後來才統一使用 <code>Account Id</code> 。我把這個隔離抽象稱為 <code>隔離因子 (Isolation Factor)</code>，不同領域 Domain 會有不同名稱，做電商的會用 ShopId 做單位、開 Blog 的會用 UserId … etc。</p>
+<p><code>多租戶架構與模型</code> 帶來的好處是：</p>
+<ol>
+<li>業務增長性<ul>
+<li>與拓展不一樣</li>
+</ul>
+</li>
+<li>業績直接的成長</li>
+</ol>
+<p><code>多租戶架構與模型</code> 的關鍵技術則是：</p>
+<ol>
+<li>隔離技術的實踐能力</li>
+<li>隔離單位的定義：<ul>
+<li>docker 可以 in docker</li>
+<li>k8s 可以 in docker</li>
+<li>vm 也可以 in docker</li>
+<li>你知道 tenant 也可以 in tenant 嗎？…. 這種高 (ㄌㄞˊ) 級 (ㄌㄨㄢˋ) 的技術，一般鄉民是無法理解的。。。</li>
+</ul>
+</li>
+</ol>
+<p>SaaS 隔離具體的實踐是什麼？待我之後文章詳細整理與分析。</p>
+<hr>
+<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p><a href="/2018/06/18/DistributedSystems/Gossip-in-Distributed-Systems/">聊聊分散式系統</a> 一文提到這張圖：</p>
+<p><img src="/images/AWS/API-Gateway/Private-Endpoint/Microservice-Arch-on-AWS_v3.png"></p>
+<p>這張圖已經包含了這整個概念與脈絡，背後想表達的就是 <code>通訊模式</code> 與 <code>擴充</code> 概念，再加上這篇最後提到的多租戶與隔離的概念，一個基於分散式架構的 SaaS 平台基礎算式有了。</p>
+<p>這篇起個頭，整理一些動手實踐、也翻滾幾年的想法，細節之後慢慢展開詳談。</p>
+<hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="站內文章"><a href="#站內文章" class="headerlink" title="站內文章"></a>站內文章</h2><ul>
+<li><a href="/2019/02/27/ComputerScience/IO-Models/">Study Notes - I&#x2F;O Models</a></li>
+<li><a href="/2021/05/14/DistributedSystems/Service-Governance/">聊聊分散式架構的服務治理</a></li>
+<li><a href="/2018/06/18/DistributedSystems/Gossip-in-Distributed-Systems/">聊聊分散式系統</a></li>
+<li><a href="/2021/04/07/DistributedSystems/Dapr-Concepts-and-Designing/">摘要 Dapr 的設計與概念</a></li>
+<li><a href="/2019/03/17/Management/Perspective-in-XYZT/">看見怎樣的全貌 - 軟體開發的三體問題</a></li>
+<li><a href="/2018/05/12/SQA/Designing-Test-Architecture-and-Framework/">Designing Test Architecture and Framework</a></li>
+<li><a href="/2015/10/11/SQA/How-To-Be-An-SQA/">Software QA 的職能條件</a></li>
+<li><a href="/2021/07/11/DistributedSystems/Experience-Dapr-PubSub/">Experience Dapr - Pub&#x2F;Sub</a></li>
+<li><a href="/2013/11/17/OSX/Install-OSX-Mavericks-on-PC/">Install Mac OS Mavericks on PC (蘋果安裝筆記)</a></li>
+</ul>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://code.visualstudio.com/api">VS Code - Extension API</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.osgi.org/specification/osgi.core/7.0.0/">OSGi Specification License, Version 2.0</a></li>
+<li><a target="_blank" rel="noopener" href="http://sites.computer.org/debull/A16mar/p3.pdf">The many faces of consistency</a></li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/2022/07/04/DistributedSystems/Inspired-Design-From-Eclipse/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<!-- LikeCoin -->
+				<!-- @rickd 2022/09/06 -->
+				<!--
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2022/07/04/DistributedSystems/Inspired-Design-From-Eclipse/"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+				-->
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2022/07/30/SoftwareEngineering/HappyPath-and-UnitTest/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2022/05/10/About/2022-SREConf2022/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
+  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
+  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2022/07/04/DistributedSystems/Inspired-Design-From-Eclipse/" data-width="100%" data-numposts="10"></div>
+
+  
+
+
+</section>
+
+
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2022/07/04 18:21:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Eclipse-%E8%A8%AD%E8%A8%88%E6%91%98%E8%A6%81"><span class="toc-article-text">Eclipse 設計摘要</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SDK-x2F-Platform"><span class="toc-article-text">SDK &#x2F; Platform</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Runtime-OSGi"><span class="toc-article-text">Runtime: OSGi</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Concurrency-Infrastructure"><span class="toc-article-text">Concurrency Infrastructure</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Extension-Point"><span class="toc-article-text">Extension Point</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Workbench-Window-x2F-Page"><span class="toc-article-text">Workbench Window &#x2F; Page</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Editor-and-View"><span class="toc-article-text">Editor and View</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Perspective"><span class="toc-article-text">Perspective</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BE%9E-Eclipse-%E5%AD%B8%E5%88%B0%E7%9A%84%E5%88%86%E6%95%A3%E5%BC%8F%E6%9E%B6%E6%A7%8B%E5%95%9F%E7%99%BC"><span class="toc-article-text">從 Eclipse 學到的分散式架構啟發</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#1-%E9%80%9A%E8%A8%8A%E6%A8%A1%E5%BC%8F%EF%BC%9AConcurrency-Infrastructure"><span class="toc-article-text">1. 通訊模式：Concurrency Infrastructure</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-%E5%88%86%E6%95%A3%E5%BC%8F%E6%9E%B6%E6%A7%8B%E7%9A%84%E6%93%B4%E5%85%85%E8%88%87%E5%BB%B6%E4%BC%B8%E6%9E%B6%E6%A7%8B"><span class="toc-article-text">2. 分散式架構的擴充與延伸架構</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-%E5%A4%9A%E7%A7%9F%E6%88%B6%E6%9E%B6%E6%A7%8B%E8%88%87%E6%A8%A1%E5%9E%8B"><span class="toc-article-text">3. 多租戶架構與模型</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">20</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Pub-Sub/" style="color: white">Pub/Sub <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Operating-System/" style="color: white">Operating System <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Java/" style="color: white">Java <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Eclipse/" style="color: white">Eclipse <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Event-Driven-Architecture/" style="color: white">Event Driven Architecture <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Plugins/" style="color: white">Plugins <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/OSGi/" style="color: white">OSGi <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Extension/" style="color: white">Extension <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Design-Thinking/" style="color: white">Design Thinking <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Multi-Tenancy/" style="color: white">Multi-Tenancy <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Marketplace/" style="color: white">Marketplace <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/SaaS/" style="color: white">SaaS <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Isolation-Factor/" style="color: white">Isolation Factor <span class="badge">2</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+		<!-- v4 -->
+		<h4>About</h4>
+		
+			<li><a href="/2035/01/21/Index/">全站索引</a></li>
+		
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+		
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		
+			<li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+		
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		
+			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+		
+
+		<h4>著作</h4>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作：SRE實踐與開發平台指南</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作：軟體測試實務 (2023)</a></li>
+		
+			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
+		
+
+		<h4>演講</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
+		
+			<li><a href="/2023/09/09/About/2023-AWS-Career-Exploration-Day/">探索職涯、複利人生 - AWS Career Exploration Day 2023</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作 SRE 書友見面會</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">軟體測試實務 - 新書發表會</a></li>
+		
+			<li><a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">探索職涯、成就未來 - AWS Career Exploration Day 2022</a></li>
+		
+			<li><a href="/2022/08/13/SQA/Path-to-Software-Testing/">從理想、到現實的距離，開啟品味軟體測試之路</a></li>
+		
+			<li><a href="/2022/05/10/About/2022-SREConf2022/">91APP 在 AWS 上的 SRE 實踐之路</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/2020-aws-summit-aws">在矩陣型組織裡，如何有效管理 AWS 的成本結構與系統架構</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/aws-using-aws-for-disaster-recovery/">災難演練 @ AWS 實戰分享</a></li>
+		
+			<li><a href="/2019/04/27/DevOps/Introduce-to-Continuous-Delivery-2/">導讀持續交付 2.0 - 談當代軟體交付之虛實融合</a></li>
+		
+			<li><a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理</a></li>
+		
+			<li><a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">從緊急事件 談 SRE 應變能力的培養</a></li>
+		
+			<li><a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
+		
+			<li><a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">Monitoring Tools 大亂鬥 - AWS CloudWatch</a></li>
+		
+			<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></li>
+		
+			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
+		
+
+		<!-- v3 -->
+		<!--
+		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		-->
+
+		<!-- v2 -->
+		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+		<!-- v1 -->
+		<!--
+		<li>Software Developer</li>
+		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+		<li><a href="/categories/DevOps/">Operation Manager</a></li>
+		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+		<li>
+			<ol>
+				<li>Management</li>
+				<li>Cloud / Distributed Systems</li>
+				<li>DevOps / SRE / </li>
+			</ol>
+		</li>
+		-->
+
+		<!--
+		<h4>Donate</h4>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick" />
+		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
+		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
+		</form>
+		-->
+
+		<h4>Facebook</h4>
+
+		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
+
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
+				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+
+		<h4>AWS Certifications</h4>
+		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+		<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+		<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+		
+
+	</div><!-- row -->
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2022 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div>
+
+<!-- container-narrow -->
+
+<div id="gotop">
+
+  <!-- 
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-book"></i> <a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"]);">學習法則</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"]);">喝咖啡 聊音樂 (v2021)</a><br />
+   -->
+
+  <!-- <h4>About</h4> -->
+
+  
+    <li><a href="/2035/01/21/Index/">全站索引</a></li>
+  
+    <li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+  
+    <li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+  
+    <li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+  
+    <li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+  
+    <li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+  
+    <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+  
+
+  <a href="#">▲ TOP ▲ </a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

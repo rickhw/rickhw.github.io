@@ -1,0 +1,927 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Introduction to Embedded Systems | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="這份筆記主要是參考 交大開放式課程: 嵌入式系統設計概論與實作 的為主，大部份的內容都是錄影內容的筆記，範圍是 第一週 、第二週 的內容。然後加入一些我個人的筆記、複習一些知識、還有一些新的想法。
+摘要
+計算機結構摘要
+簡介嵌入式系統 (What, Why, How)
+嵌入式硬體開發
+嵌入式軟體開發">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="Introduction to Embedded Systems"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/2015/01/22/Misc/Embedded-Notes/"/>
+  <meta property="og:image" content="/images/site_main_logo_v2-201902.png"/>
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<!--
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'G-74Y1F3F5W0']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-74Y1F3F5W0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-74Y1F3F5W0');
+</script>
+
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!-- @rickd 2022/02/24
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
+  -->
+  <!-- @ricka 2022/02/24 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!--
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="bd9r2mJp"></script>
+  -->
+
+  <!-- @ricka 2022/09/06 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="opf2Gext"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+						
+						<li><a href="/categories/About/">About <sup>29</sup></a></li>
+						
+						<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+						
+						<li><a href="/categories/經營管理/Career/">Career <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
+						
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Data/">Data <sup>2</sup></a></li>
+						
+						<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+						
+						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>20</sup></a></li>
+						
+						<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+						
+						<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+						
+						<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+						
+						<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+						
+						<li><a href="/categories/DevOps/SRE/">SRE <sup>25</sup></a></li>
+						
+						<li><a href="/categories/Software-Engineering/">Software Engineering <sup>10</sup></a></li>
+						
+						<li><a href="/categories/System-Design/">System Design <sup>2</sup></a></li>
+						
+						<li><a href="/categories/經營管理/人才管理/">人才管理 <sup>10</sup></a></li>
+						
+						<li><a href="/categories/經營管理/溝通/">溝通 <sup>9</sup></a></li>
+						
+						<li><a href="/categories/經營管理/知識管理/">知識管理 <sup>4</sup></a></li>
+						
+						<li><a href="/categories/經營管理/">經營管理 <sup>61</sup></a></li>
+						
+						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
+						
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"> <i class="fa fa-book"></i>學習法則</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂 (v2021)</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Introduction to Embedded Systems</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Introduction to Embedded Systems</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+		
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2015%2F01%2F22%2FMisc%2FEmbedded-Notes%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2015/01/22/Misc/Embedded-Notes/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/2015/01/22/Misc/Embedded-Notes/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<p>這份筆記主要是參考 <a target="_blank" rel="noopener" href="http://ocw.nctu.edu.tw/">交大開放式課程</a>: <a target="_blank" rel="noopener" href="http://ocw.nctu.edu.tw/course_detail.php?bgid=9&gid=0&nid=246">嵌入式系統設計概論與實作</a> 的為主，大部份的內容都是錄影內容的筆記，範圍是 <a target="_blank" rel="noopener" href="http://ocw.nctu.edu.tw/course_detail_3.php?bgid=9&gid=0&nid=246&v1=5e66b884f8dbc3a66bb1c0891dd365944e8e0e04">第一週</a> 、<a target="_blank" rel="noopener" href="http://ocw.nctu.edu.tw/course_detail_3.php?bgid=9&gid=0&nid=246&v1=30ec297ef5593bc6462775abb2647a10157b2864">第二週</a> 的內容。然後加入一些我個人的筆記、複習一些知識、還有一些新的想法。</p>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><ol>
+<li>計算機結構摘要</li>
+<li>簡介嵌入式系統 (What, Why, How)</li>
+<li>嵌入式硬體開發</li>
+<li>嵌入式軟體開發</li>
+<li>一些好玩的應用</li>
+</ol>
+<span id="more"></span>
+
+<hr>
+<h1 id="1-計算機結構摘要"><a href="#1-計算機結構摘要" class="headerlink" title="1. 計算機結構摘要"></a>1. 計算機結構摘要</h1><p>嵌入式系統是電腦系統的應用概念，所以結構和一般電腦是類似的，所以先復習基本電腦的架構。現代電腦的結構差不多都會有以下這些東西：</p>
+<ul>
+<li>CPU: x86, ARM, MIPS, SPARC, PowerPC</li>
+<li>Cache: L1, L2, L3</li>
+<li>Memory</li>
+<li>Storage: HD, ROM, EEPROM, Flash</li>
+<li>I&#x2F;O, BUS: PCI, PCIe, AGP, ISA, SATA, eSATA, USB</li>
+</ul>
+<h1 id="1-1-CPU-設計模式"><a href="#1-1-CPU-設計模式" class="headerlink" title="1-1. CPU 設計模式"></a>1-1. CPU 設計模式</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/%E5%A4%8D%E6%9D%82%E6%8C%87%E4%BB%A4%E9%9B%86">CISC 複雜指令集</a><ul>
+<li>一開始 CPU 架構，不斷的加指令，但常用的只有 20%</li>
+<li>好處是工程師下簡單的指令，CPU 執行複雜的事情，減少設計師的時間。</li>
+<li>CISC CPU: Intel x86, <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/%E6%91%A9%E6%89%98%E7%BD%97%E6%8B%89_68000">Motorola 68000</a>, <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/PDP-11">PDP-11</a>, <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/IBM_System/360">System&#x2F;360</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/%E7%B2%BE%E7%AE%80%E6%8C%87%E4%BB%A4%E9%9B%86">RISC (Reduced Instruction Set Computing, 精簡指令集)</a><ul>
+<li>優點：指令長度固定、電晶體數量少，易於提升運作時脈、耗電量較低</li>
+<li>缺點：複雜指令需要由許多的小指令去完成，程式變得比較大。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>延伸閱讀：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="http://www.techbang.com/posts/10678-fully-understand-arm-processors-cisc-and-risc-are-what-history-structure-a-see-through-the-computer-96-issues-cover-story-the-king">完全看懂 ARM 處理器：RISC 與 CISC 是什麼？歷史、架構一次看透</a></li>
+<li>IBM System&#x2F;360 就是專案管理聖經 <strong><a target="_blank" rel="noopener" href="http://www.books.com.tw/products/0010254508">人月神話</a></strong> 的案例分析</li>
+</ol>
+</blockquote>
+<h1 id="1-2-快取-Cache"><a href="#1-2-快取-Cache" class="headerlink" title="1-2. 快取 Cache"></a>1-2. 快取 Cache</h1><ul>
+<li>指存取速度比一般隨機存取記憶體（RAM）快的一種RAM。</li>
+<li>L1, L2, L3</li>
+<li>貴</li>
+</ul>
+<h1 id="1-3-記憶單元-Memory"><a href="#1-3-記憶單元-Memory" class="headerlink" title="1-3. 記憶單元 (Memory)"></a>1-3. 記憶單元 (Memory)</h1><h2 id="唯讀記憶體-ROM"><a href="#唯讀記憶體-ROM" class="headerlink" title="唯讀記憶體: ROM"></a>唯讀記憶體: ROM</h2><ul>
+<li><strong>ROM (Read-Only Memory)</strong>: 唯讀記憶體。ROM被儲存在一個非揮發性晶片上，也就是說，即使在關機之後記憶的內容仍可以被保存，所以這種記憶體多用來儲存特定功能的程式或系統程式。</li>
+<li><strong>PROM (Programmable ROM)</strong>: 可程式唯讀記憶體。其內部有行列式的鎔絲，可依使用者（廠商）的需要，利用電流將其燒斷，以寫入所需的資料及程式，鎔絲一經燒斷便無法再恢復，亦即資料無法再更改。</li>
+<li><strong>EPROM (Erasable Programmable Read Only Memory)</strong>: 可抹除, 可編程唯讀記憶體。可利用高電壓將資料編程寫入，但抹除時需將線路曝光於紫外線下一段時間，資料始可被清空，再供重複使用。</li>
+<li><strong>OTPROM (One Time Programmable Read Only Memory)</strong>: 一次編程唯讀記憶體。內部所用的晶片與寫入原理同EPROM，但是為了節省成本，封裝上不設置透明窗，因此編程寫入之後就不能再抹除改寫。</li>
+<li><strong>EEPROM (Electrically Erasable Programmable Read Only Memory)</strong>: 電子抹除式可複寫唯讀記憶體。運作原理類似 EPROM，但是抹除的方式是使用高電場來完成，因此不需要透明窗。</li>
+<li><strong>Flash memory</strong>: 每一個記憶胞都具有一個「控制閘」與「浮動閘」，利用高電場改變浮動閘的臨限電壓即可進行編程動作。快閃記憶體主要分為NAND型與NOR型。</li>
+</ul>
+<blockquote>
+<p>以上資料主要來自：<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/%E5%94%AF%E8%AE%80%E8%A8%98%E6%86%B6%E9%AB%94">唯讀記憶體</a></p>
+</blockquote>
+<h2 id="隨機存取記憶體-RAM"><a href="#隨機存取記憶體-RAM" class="headerlink" title="隨機存取記憶體: RAM"></a>隨機存取記憶體: RAM</h2><p>RAM: Random Access Memory</p>
+<ul>
+<li>速度很快，通常作為作業系統或其他正在執行中的程式的臨時資料儲存媒介。</li>
+<li>隨機存取</li>
+<li>揮發性</li>
+<li>對靜電敏感</li>
+<li>價格不斷下降</li>
+</ul>
+<hr>
+<h1 id="2-簡介嵌入式系統"><a href="#2-簡介嵌入式系統" class="headerlink" title="2. 簡介嵌入式系統"></a>2. 簡介嵌入式系統</h1><h2 id="2-1-啥是嵌入式系統？"><a href="#2-1-啥是嵌入式系統？" class="headerlink" title="2-1. 啥是嵌入式系統？"></a>2-1. 啥是嵌入式系統？</h2><ul>
+<li>有硬體、有軟體，軟硬體會有做高度的整合</li>
+<li>在特定的環境和特定的情境、特定目的使用</li>
+<li>系統最佳化</li>
+<li>系統具備一定可靠度</li>
+</ul>
+<h2 id="2-2-哪裡有嵌入式系統？"><a href="#2-2-哪裡有嵌入式系統？" class="headerlink" title="2-2. 哪裡有嵌入式系統？"></a>2-2. 哪裡有嵌入式系統？</h2><ul>
+<li>家庭<ul>
+<li>冷氣, 電風扇, 冰箱, 電話</li>
+<li>手機, 平板</li>
+<li>相機：光學和感應技術</li>
+<li>鍵盤, 滑鼠</li>
+<li>床頭音響, MP3 player</li>
+<li>電視, 遙控器, LCD</li>
+<li>Gamer: XBox, PS2, PS3, PS4</li>
+</ul>
+</li>
+<li>辦公室<ul>
+<li>Projector, Printer, Fax</li>
+<li>Hub, Switch, Router, App, NAS</li>
+<li>IPCam</li>
+</ul>
+</li>
+<li>戶外大型<ul>
+<li>紅綠燈</li>
+<li>捷運買票機, iBon</li>
+<li>捷運刷卡機</li>
+<li>LED 廣告看板</li>
+<li>捷運: 文湖線 - False alarm</li>
+<li>高鐵</li>
+<li><a target="_blank" rel="noopener" href="https://www.ptt.cc/bbs/Gossiping/M.1422553777.A.D89.html">電梯</a></li>
+<li>工廠自動化</li>
+<li>汽車導航、汽車控制電腦、安全系統、公車定位</li>
+<li>醫療系統</li>
+<li>醫院, 郵局排隊</li>
+<li>武器系統: 風力, 溫度, 座標, 高度, 重量, 雷達, 速度, 燃料 - Robust 控制</li>
+<li>氣象監測站，監測儀</li>
+<li>衛星&#x2F;航太</li>
+<li>CPS: 模擬環境, ex 模擬土星, 木星</li>
+<li>核能發電廠</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-3-為啥需要嵌入式系統？"><a href="#2-3-為啥需要嵌入式系統？" class="headerlink" title="2-3. 為啥需要嵌入式系統？"></a>2-3. 為啥需要嵌入式系統？</h2><p>嵌入式系統主要的需要源自於應用場景的考量。</p>
+<p>真實的世界裏，實際的應用不同於個人電腦，像是工業電腦需要高可靠度，有些要耐震，有些則要具備 DSP 運算能力等。</p>
+<ol>
+<li>適當的、切中要點的設計 (Design in requirement)</li>
+<li>可靠性 (Reliablity)</li>
+<li>強韌性 (Robust)</li>
+<li>即時性 (Realtime)</li>
+<li>安全性 (Security)</li>
+<li>Cost</li>
+</ol>
+<ul>
+<li>手機 IC: 成本 2USD</li>
+<li>NB: 7000 NTD</li>
+<li>洗衣機: 不會放 Intel core-i7</li>
+</ul>
+<p>Over design or under design 是 embedded design 的原則，也是其難度。設計時，就有很清楚的目的以及用途、應用。不會有額外的用塗，通常不會讓使用者來 program (早期)。</p>
+<blockquote>
+<p>嵌入式系統單一個原件設計要小而美，且可以透過參數調教行為。很多小而美的原件放在一起聯動，構成功能強大的系統。就像是 unix 裡面工具的設計精神一樣。</p>
+</blockquote>
+<h2 id="2-4-如何開發嵌入式系統？"><a href="#2-4-如何開發嵌入式系統？" class="headerlink" title="2-4. 如何開發嵌入式系統？"></a>2-4. 如何開發嵌入式系統？</h2><p>嵌入式系統開發包含硬體開發、軟體開發。硬體開發有系統晶片、CPU 設計、開發板設計等；軟體開發則分成系統程式和應用程式兩種，系統程式一般就是韌體 (Firmware)，包含 Bootloader 以及作業系統、開發工具 Toolchain。</p>
+<blockquote>
+<p>用來設計 CPU 的開發工具: <a target="_blank" rel="noopener" href="http://zh.wikipedia.org/zh-tw/%E7%8E%B0%E5%9C%BA%E5%8F%AF%E7%BC%96%E7%A8%8B%E9%80%BB%E8%BE%91%E9%97%A8%E9%98%B5%E5%88%97">FPGA (Field Programmable Gate Array, 現場可編輯邏輯閘陣列)</a><br>硬體描述語言：<a target="_blank" rel="noopener" href="http://zh.wikipedia.org/zh-tw/Verilog">Verilog</a></p>
+</blockquote>
+<p>成熟的 <strong>開發時間</strong> 分配：</p>
+<ol>
+<li>40% design</li>
+<li>20% coding</li>
+<li>40% testing</li>
+</ol>
+<ul>
+<li>測試方法, tracking bug 機制</li>
+<li>元件測試, 整合測試, 壓力測試</li>
+<li>成熟的公司: bug 收斂的速度</li>
+<li>解問題: 在精準, 不在快</li>
+<li>國外: test engineer 比 design engineer 還貴. tester &gt; RD (55% &gt; 45%)</li>
+</ul>
+<p><strong>開發週期</strong></p>
+<ul>
+<li>Requirement</li>
+<li>Design &#x2F; Implement<ul>
+<li>設計和需求很容易一直循環</li>
+</ul>
+</li>
+<li>Test: <a target="_blank" rel="noopener" href="http://findliving.blogspot.tw/2009/09/evtdvtpvt.html">EVT&#x2F;DVT&#x2F;PVT</a><ul>
+<li>測試環境的建置是很大的挑戰</li>
+<li>測試永遠不嫌多</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>延伸閱讀：<a href="/2015/01/06/%E5%8D%94%E5%90%8C%E5%90%88%E4%BD%9C%E7%B3%BB%E7%B5%B1%E5%BB%BA%E5%88%B6%E8%88%87%E5%B0%8E%E5%85%A5-%E4%BB%A5-Redmine-%E7%82%BA%E4%BE%8B/">軟體開發流程</a></p>
+</blockquote>
+<hr>
+<h1 id="3-嵌入式系統硬體開發"><a href="#3-嵌入式系統硬體開發" class="headerlink" title="3. 嵌入式系統硬體開發"></a>3. 嵌入式系統硬體開發</h1><p>主要介紹硬體設計的商業分工模式，如下：</p>
+<ul>
+<li>晶片設計生產</li>
+<li>IC 設計</li>
+<li>晶片生產 &#x2F; 代工</li>
+<li>封裝 &#x2F; 測試廠</li>
+<li>開發版，工具提供</li>
+<li>系統整合廠 (SI)</li>
+</ul>
+<h2 id="3-1-晶片設計-IC-Design-House-Fabless"><a href="#3-1-晶片設計-IC-Design-House-Fabless" class="headerlink" title="3-1. 晶片設計 (IC Design House, Fabless)"></a>3-1. 晶片設計 (IC Design House, Fabless)</h2><ul>
+<li>設計 SoC (System on Chip): CPU + RAM + 其他雜七雜八</li>
+<li>設計特定功能晶片: CPU, Bluetooth, DSP, 2D&#x2F;3D Graphic, Video Encode&#x2F;Decode, Network.</li>
+<li>是無廠半導體公司 (Fabless IC 設計公司), 也就是 IC 負責設計, 銷售, 將生產測試外包其他公司.</li>
+<li>販售 Licensing 智慧財產權 (智財權, Intellectual Property, IP) 給其他 IC Design House<ul>
+<li>也會買其他公司的 IP</li>
+<li><a target="_blank" rel="noopener" href="http://zh.wikipedia.org/wiki/%E4%B8%8B%E7%B7%9A">Tapeout</a> : IC 設計公司將電路交給生產公司生產，這動作叫做 Tapeout。早期電路圖 layout 是存在磁帶 ，所以現在沿用這個名稱，即使現在都電子化了。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>這跟編曲完工後要 <strong>過帶</strong>，英文是 Tracking，意思是雷同的，年代差不多，都是用帶子 Tape，所以當時中文翻譯成過帶。</p>
+</blockquote>
+<p>一些有名的 IC 設計公司:</p>
+<ul>
+<li>ARM: 英國公司, 擅長設計 RISC CPU</li>
+<li>Apple: 這不用介紹了 … A7, A8</li>
+<li>MediaTek 聯發科</li>
+<li>Realtek</li>
+<li>HiMAX</li>
+<li>Richtek</li>
+<li>More see: <a target="_blank" rel="noopener" href="http://zh.wikipedia.org/wiki/%E5%8F%B0%E7%81%A3%E5%8D%81%E5%A4%A7IC%E8%A8%AD%E8%A8%88%E5%85%AC%E5%8F%B8">台灣十大IC設計公司</a></li>
+</ul>
+<h2 id="3-2-晶圓代工"><a href="#3-2-晶圓代工" class="headerlink" title="3-2. 晶圓代工"></a>3-2. 晶圓代工</h2><ul>
+<li>生產 IC 晶圓為主業</li>
+<li>八寸晶圓一片價值 20~30 萬 TWD</li>
+<li><a target="_blank" rel="noopener" href="http://forum.gamer.com.tw/Co.php?bsn=60433&sn=340636">從沙子到處理器的全程</a></li>
+</ul>
+<p>著名的晶圓代工廠:</p>
+<p><img src="/images/Embedded/IC_Fab_2013.png"></p>
+<p>Source: <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/%E6%99%B6%E5%9C%93%E4%BB%A3%E5%B7%A5">https://zh.wikipedia.org/zh-tw/%E6%99%B6%E5%9C%93%E4%BB%A3%E5%B7%A5</a></p>
+<h2 id="3-3-封裝測試廠"><a href="#3-3-封裝測試廠" class="headerlink" title="3-3. 封裝測試廠"></a>3-3. 封裝測試廠</h2><ul>
+<li>切割晶圓</li>
+<li>封裝成 IC</li>
+<li>拉線</li>
+<li>測試驗證</li>
+</ul>
+<blockquote>
+<p>南部某家污染河川的無良封裝廠就不說了。</p>
+</blockquote>
+<h2 id="3-4-系統整合廠-System-Integration"><a href="#3-4-系統整合廠-System-Integration" class="headerlink" title="3-4. 系統整合廠 (System Integration)"></a>3-4. 系統整合廠 (System Integration)</h2><ul>
+<li>面對的客戶是品牌公司 (Branding Company)<ul>
+<li>品牌公司不見得會懂 IC 設計</li>
+<li>品牌公司負責定義產品、定義功能、提出需求</li>
+</ul>
+</li>
+<li>系統整合廠找晶片設計廠</li>
+<li>獲利模式<ol>
+<li>成熟的品牌公司, 像是 Apple</li>
+<li>IC 設計公司也獲利的很多, 像是台積電</li>
+<li>系統廠獲利相對有限, 大多都是靠量來支撐, 像鴻海.</li>
+</ol>
+</li>
+</ul>
+<h1 id="4-嵌入式系統軟體開發"><a href="#4-嵌入式系統軟體開發" class="headerlink" title="4. 嵌入式系統軟體開發"></a>4. 嵌入式系統軟體開發</h1><p>嵌入是軟體分成兩大類：</p>
+<ol>
+<li>系統程式：Bootloader, OS, libraries, toolchain, 跟硬體有關的</li>
+<li>應用程式：iOS app, Android app, web console &#x2F; admin</li>
+</ol>
+<h2 id="系統軟體程式開發"><a href="#系統軟體程式開發" class="headerlink" title="系統軟體程式開發"></a>系統軟體程式開發</h2><p>會開發嵌入式軟體的人：</p>
+<ul>
+<li>開發嵌入式軟體的第一個就是 IC 設計公司。</li>
+<li>OEM&#x2F;ODM 廠，拿 public 的重新包裝，或者拿 SoC 的來包裝</li>
+<li>只有 CPU&#x2F;SoC 是不夠的，還要有 <strong>系統開發版、系統工具程式 (Toolchain)、基本的應用程式</strong> 等</li>
+</ul>
+<blockquote>
+<p>程式語言也是: Compiler, Language, Libraries, Document, Framework 缺一不可</p>
+</blockquote>
+<h2 id="開發環境"><a href="#開發環境" class="headerlink" title="開發環境"></a>開發環境</h2><p>開發環境如下：</p>
+<blockquote>
+<p>目標版&#x2F;評估版 (Target Platform) &lt;-—ICE&#x2F;JTAG –&gt; 主機 (Host)</p>
+</blockquote>
+<p><img src="/images/Embedded/Embedded_Development.png"></p>
+<blockquote>
+<p>Source: <a target="_blank" rel="noopener" href="http://ocw.nctu.edu.tw/course/di992/003.pdf">http://ocw.nctu.edu.tw/course/di992/003.pdf</a>, Page 10</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/%E5%9C%A8%E7%BA%BF%E4%BB%BF%E7%9C%9F%E5%99%A8">ICE, in-circuit emulator</a>: 在現模擬器</li>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/JTAG">JTAG, Joint Test Action Group</a>: 聯合測試工作群組。1990 年 JTAG 正式由 IEEE 的 1149.1-1990 號文件標準化，在 1994 年，加入了補充文件對邊界掃描描述語言（BSDL）進行了說明。從那時開始，這個標準被全球的電子企業廣泛採用。邊界掃描幾乎成為了 JTAG 的同義詞。</li>
+</ul>
+<p>目標版通常運算能力不多，記憶體不多，target 沒有軟體，所以需要用 host 開發軟體。問題來了：</p>
+<ol>
+<li>如何在 host 產生可以在 target 可以執行的程式？</li>
+<li>如何把程式放到 target board?</li>
+<li>如果程式在 target 有問題，要怎麼讓使用者知道？</li>
+</ol>
+<p>接下來針對這三個問題做整理。</p>
+<h2 id="1-Cross-Compiler"><a href="#1-Cross-Compiler" class="headerlink" title="1. Cross Compiler"></a>1. Cross Compiler</h2><p>Q1: 在 Linux compile 的 Hello World 可不可以放到 M$ Windows 執行？反之呢？<br>Q2: 如何在 host 產生可以在 target 可以執行的程式？</p>
+<p>通常 target 不會和 host 有一樣的 CPU，所以 host 的 hello world 無法在 target 是無法跑的<br>, 因為你不能用到 target 上可能沒有的資源，像是 printf().</p>
+<p>需要先複習基本的 C 編譯流程：</p>
+<ol>
+<li>preprocess -&gt; compile -&gt; assemble -&gt; link (連結其他 libraries) -&gt; 執行擋</li>
+<li>preprocess 處理 macro</li>
+<li>compiler 處理 <code>*.c</code>, 產生 <code>.as</code> (assemble), ex: <code>gcc -S hello.c -o hello.asm</code></li>
+<li>assembler 處理 <code>*.as</code>, 產生 <code>.o</code> or <code>.obj</code></li>
+<li>linker 將 obj files 串起來, 產生可執行的檔案</li>
+</ol>
+<p>在 Linux 底下產生組合語言，以 <code>hello.c</code> 為例：</p>
+<figure class="highlight c"><figcaption><span>hello.c</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello!\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一般的編譯：<code>gcc hello.c </code></p>
+<p>這個編譯出來的執行擋只能在 host 機器跑，而無法放到 target 跑，所以要在 target 上跑的程式需要用 <strong>cross compiler</strong> 編譯才可以：</p>
+<ol>
+<li>Host compiler: 吃 <code>.c</code>, <code>.h</code> 但是吐出 host 的 <strong>instruction set</strong>, ex x86</li>
+<li>cross compiler: 吃 <code>.c</code>, <code>.h</code> 但是吐出 target 版的 <strong>instruction set</strong>, ex ARM</li>
+<li>cross libraries &#x2F; assembler 同上</li>
+</ol>
+<p><strong>這些 cross compiler &#x2F; libraries &#x2F; assembler &#x2F; linker 統稱 toolchain.</strong></p>
+<p>那請問 toolchain 是怎麼來的？ (下載來的，老闆給的，撿到的 XD)</p>
+<ul>
+<li>cross compiler 本身還是一個 x86 的執行擋, 他產生 ARM 的執行擋</li>
+<li>cross libraries 呢？大多拿到的也是 build 好的 <code>.o</code></li>
+<li>那如果是拿到 cross compile 地 source code 呢？</li>
+<li>這時候就要 build cross compile。</li>
+<li>就是拿 host compile 去 build “cross compile source”，產生出 x86 cross compiler,</li>
+<li>然後再拿 cross compiler 去編譯 target libraries source 產生出 target board 的 <code>.o</code></li>
+</ul>
+<p><img src="/images/Embedded/Cross-Compiler.png" alt="Cross Compiler"></p>
+<p><strong>問題與思考</strong></p>
+<ul>
+<li>如果沒有 host 上沒有 compiler, 但是只有 ccompiler source code? 那怎麼辦？ (雞生蛋蛋生雞的問題)</li>
+<li>為什麼在 XCode 編譯出來的 ipa 無法裝在 XCode 上的模擬器跑？</li>
+<li>同上提，那 android 的 apk 呢？</li>
+<li>VM 概念為啥會流行，包含 JVM, LLVM, CLR (.NET)</li>
+</ul>
+<h2 id="2-如何把程式放在-Target-Board"><a href="#2-如何把程式放在-Target-Board" class="headerlink" title="2. 如何把程式放在 Target Board?"></a>2. 如何把程式放在 Target Board?</h2><p>用 Bootloader 程式來說明。</p>
+<p>一般電腦是這樣的關聯：CPU –開–&gt; bootloader —開—&gt; embedded OS —&gt; application</p>
+<p>CPU 需要知道去哪一個位址執行 bootloader，bootloader 需要知道去硬碟哪一個 sector 開始作業系統。所以已 Bootloader 為例，意思就是說 CPU 知道 (或者說 CPU 設計者指定) 到哪一個位址執行 bootloader，所以用 cross compiler 編譯好的 bootloader 要放在這個指定的位址：</p>
+<ol>
+<li><em>燒</em> 到 Chip -&gt; 讓程式留在 target board -&gt; 要放在關電不會不見的 EEPROM</li>
+<li>需要一個足夠的空間，用來擺放程式</li>
+<li>CPU 怎麼知道要去哪裡 (就是位址) 拿指令跟 CPU 的設計者有關，例如 0x5566</li>
+<li>CPU 第一個指令會去抓一個開機時有資料的地方 —&gt; 就是 boot loader</li>
+</ol>
+<p>嵌入式系統不見得都是 bootloader, 也有可能是 OS, OS 是放在硬碟.<br>OS 是被 Bootloader 叫起來的。</p>
+<ul>
+<li>IBM PC 架構: Windows 擺的位置是固定的, 所以很容易自己寫 OS</li>
+<li>但是嵌入式系統，bootloader 位址不見得是公開，所有的 CPU 定址也不見得一樣。</li>
+<li>bootloader &#x2F; embedded OS &#x2F; application 都要擺在 EEPROM&#x2F;ROM&#x2F;Flash Memory</li>
+<li>燒得位址：bootloader 問 CPU, OS 問 bootloader</li>
+<li>除了直接燒晶片，另外就是透過外面的介面燒，不用拔 IC,<ul>
+<li>另一種是燒在硬碟，然後裝到 target board</li>
+<li>放在網路: NFS &#x2F; TFTP</li>
+</ul>
+</li>
+</ul>
+<h1 id="現代嵌入式開發版"><a href="#現代嵌入式開發版" class="headerlink" title="現代嵌入式開發版"></a>現代嵌入式開發版</h1><ul>
+<li>Raspberry Pi (完整的小電腦)</li>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Arduino">Arduino</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.indiegogo.com/projects/pieceduino-easy-small-module-arduino-compatible">PieceDuino</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.kickstarter.com/projects/microduino/microduino-arduino-in-your-pocket-small-stackable">Microduino</a></li>
+<li>Lego EV3</li>
+</ul>
+<hr>
+<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>創新是什麼？以前我的答案在<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/2010/01/blog-post.html">這裡</a>，現在我有新的想法：  <strong>新的科技&#x2F;方法 + 舊的學問 &#x3D; 創新</strong></p>
+<hr>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<li><a target="_blank" rel="noopener" href="http://ocw.nctu.edu.tw/course_detail.php?bgid=9&gid=0&nid=246">嵌入式系統設計概論與實作</a> - 交大開放課程</li>
+<li><a target="_blank" rel="noopener" href="http://ocw.nctu.edu.tw/course_detail.php?bgid=9&gid=0&nid=238">計算機架構</a> - 交大開放課程</li>
+<li><a target="_blank" rel="noopener" href="http://ocw.nctu.edu.tw/course_detail_3.php?bgid=9&gid=0&nid=274">計算機組織</a> - 交大開放課程</li>
+<li><a target="_blank" rel="noopener" href="http://www.techbang.com/posts/10678-fully-understand-arm-processors-cisc-and-risc-are-what-history-structure-a-see-through-the-computer-96-issues-cover-story-the-king">完全看懂 ARM 處理器：RISC 與 CISC 是什麼？歷史、架構一次看透</a></li>
+<li><a target="_blank" rel="noopener" href="http://forum.gamer.com.tw/Co.php?bsn=60433&sn=340636">從沙子變成晶片 處理器製作全程揭秘</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.ni.com/white-paper/6983/zht/">FPGA 基本概念</a></li>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/Verilog">Verilog</a></li>
+<li><a target="_blank" rel="noopener" href="http://findliving.blogspot.tw/2009/09/evtdvtpvt.html">新產品開發的三個驗證階段(EVT&#x2F;DVT&#x2F;PVT)</a></li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/2015/01/22/Misc/Embedded-Notes/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<!-- LikeCoin -->
+				<!-- @rickd 2022/09/06 -->
+				<!--
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2015/01/22/Misc/Embedded-Notes/"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+				-->
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2015/01/24/Blog/Hexo-Tuning/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2015/01/15/Blog/Hello-Hexo/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
+  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
+  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2015/01/22/Misc/Embedded-Notes/" data-width="100%" data-numposts="10"></div>
+
+  
+
+
+</section>
+
+
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2015/01/22 19:41:58
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%91%98%E8%A6%81"><span class="toc-article-text">摘要</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#1-%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B%E6%91%98%E8%A6%81"><span class="toc-article-text">1. 計算機結構摘要</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#1-1-CPU-%E8%A8%AD%E8%A8%88%E6%A8%A1%E5%BC%8F"><span class="toc-article-text">1-1. CPU 設計模式</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#1-2-%E5%BF%AB%E5%8F%96-Cache"><span class="toc-article-text">1-2. 快取 Cache</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#1-3-%E8%A8%98%E6%86%B6%E5%96%AE%E5%85%83-Memory"><span class="toc-article-text">1-3. 記憶單元 (Memory)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%94%AF%E8%AE%80%E8%A8%98%E6%86%B6%E9%AB%94-ROM"><span class="toc-article-text">唯讀記憶體: ROM</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%9A%A8%E6%A9%9F%E5%AD%98%E5%8F%96%E8%A8%98%E6%86%B6%E9%AB%94-RAM"><span class="toc-article-text">隨機存取記憶體: RAM</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2-%E7%B0%A1%E4%BB%8B%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%B3%BB%E7%B5%B1"><span class="toc-article-text">2. 簡介嵌入式系統</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-1-%E5%95%A5%E6%98%AF%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%B3%BB%E7%B5%B1%EF%BC%9F"><span class="toc-article-text">2-1. 啥是嵌入式系統？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-2-%E5%93%AA%E8%A3%A1%E6%9C%89%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%B3%BB%E7%B5%B1%EF%BC%9F"><span class="toc-article-text">2-2. 哪裡有嵌入式系統？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-3-%E7%82%BA%E5%95%A5%E9%9C%80%E8%A6%81%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%B3%BB%E7%B5%B1%EF%BC%9F"><span class="toc-article-text">2-3. 為啥需要嵌入式系統？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-4-%E5%A6%82%E4%BD%95%E9%96%8B%E7%99%BC%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%B3%BB%E7%B5%B1%EF%BC%9F"><span class="toc-article-text">2-4. 如何開發嵌入式系統？</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#3-%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%B3%BB%E7%B5%B1%E7%A1%AC%E9%AB%94%E9%96%8B%E7%99%BC"><span class="toc-article-text">3. 嵌入式系統硬體開發</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-1-%E6%99%B6%E7%89%87%E8%A8%AD%E8%A8%88-IC-Design-House-Fabless"><span class="toc-article-text">3-1. 晶片設計 (IC Design House, Fabless)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-2-%E6%99%B6%E5%9C%93%E4%BB%A3%E5%B7%A5"><span class="toc-article-text">3-2. 晶圓代工</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-3-%E5%B0%81%E8%A3%9D%E6%B8%AC%E8%A9%A6%E5%BB%A0"><span class="toc-article-text">3-3. 封裝測試廠</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-4-%E7%B3%BB%E7%B5%B1%E6%95%B4%E5%90%88%E5%BB%A0-System-Integration"><span class="toc-article-text">3-4. 系統整合廠 (System Integration)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#4-%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%B3%BB%E7%B5%B1%E8%BB%9F%E9%AB%94%E9%96%8B%E7%99%BC"><span class="toc-article-text">4. 嵌入式系統軟體開發</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B3%BB%E7%B5%B1%E8%BB%9F%E9%AB%94%E7%A8%8B%E5%BC%8F%E9%96%8B%E7%99%BC"><span class="toc-article-text">系統軟體程式開發</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83"><span class="toc-article-text">開發環境</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#1-Cross-Compiler"><span class="toc-article-text">1. Cross Compiler</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-%E5%A6%82%E4%BD%95%E6%8A%8A%E7%A8%8B%E5%BC%8F%E6%94%BE%E5%9C%A8-Target-Board"><span class="toc-article-text">2. 如何把程式放在 Target Board?</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%8F%BE%E4%BB%A3%E5%B5%8C%E5%85%A5%E5%BC%8F%E9%96%8B%E7%99%BC%E7%89%88"><span class="toc-article-text">現代嵌入式開發版</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/Misc/" style="color: white">Misc <span class="badge">3</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Linux/" style="color: white">Linux <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/RPi/" style="color: white">RPi <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Arduino/" style="color: white">Arduino <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/創新/" style="color: white">創新 <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+		<!-- v4 -->
+		<h4>About</h4>
+		
+			<li><a href="/2035/01/21/Index/">全站索引</a></li>
+		
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+		
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		
+			<li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+		
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		
+			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+		
+
+		<h4>著作</h4>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作：SRE實踐與開發平台指南</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作：軟體測試實務 (2023)</a></li>
+		
+			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
+		
+
+		<h4>演講</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
+		
+			<li><a href="/2023/09/09/About/2023-AWS-Career-Exploration-Day/">探索職涯、複利人生 - AWS Career Exploration Day 2023</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作 SRE 書友見面會</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">軟體測試實務 - 新書發表會</a></li>
+		
+			<li><a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">探索職涯、成就未來 - AWS Career Exploration Day 2022</a></li>
+		
+			<li><a href="/2022/08/13/SQA/Path-to-Software-Testing/">從理想、到現實的距離，開啟品味軟體測試之路</a></li>
+		
+			<li><a href="/2022/05/10/About/2022-SREConf2022/">91APP 在 AWS 上的 SRE 實踐之路</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/2020-aws-summit-aws">在矩陣型組織裡，如何有效管理 AWS 的成本結構與系統架構</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/aws-using-aws-for-disaster-recovery/">災難演練 @ AWS 實戰分享</a></li>
+		
+			<li><a href="/2019/04/27/DevOps/Introduce-to-Continuous-Delivery-2/">導讀持續交付 2.0 - 談當代軟體交付之虛實融合</a></li>
+		
+			<li><a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理</a></li>
+		
+			<li><a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">從緊急事件 談 SRE 應變能力的培養</a></li>
+		
+			<li><a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
+		
+			<li><a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">Monitoring Tools 大亂鬥 - AWS CloudWatch</a></li>
+		
+			<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></li>
+		
+			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
+		
+
+		<!-- v3 -->
+		<!--
+		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		-->
+
+		<!-- v2 -->
+		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+		<!-- v1 -->
+		<!--
+		<li>Software Developer</li>
+		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+		<li><a href="/categories/DevOps/">Operation Manager</a></li>
+		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+		<li>
+			<ol>
+				<li>Management</li>
+				<li>Cloud / Distributed Systems</li>
+				<li>DevOps / SRE / </li>
+			</ol>
+		</li>
+		-->
+
+		<!--
+		<h4>Donate</h4>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick" />
+		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
+		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
+		</form>
+		-->
+
+		<h4>Facebook</h4>
+
+		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
+
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
+				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+
+		<h4>AWS Certifications</h4>
+		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+		<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+		<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+		
+
+	</div><!-- row -->
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2022 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div>
+
+<!-- container-narrow -->
+
+<div id="gotop">
+
+  <!-- 
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-book"></i> <a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"]);">學習法則</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"]);">喝咖啡 聊音樂 (v2021)</a><br />
+   -->
+
+  <!-- <h4>About</h4> -->
+
+  
+    <li><a href="/2035/01/21/Index/">全站索引</a></li>
+  
+    <li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+  
+    <li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+  
+    <li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+  
+    <li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+  
+    <li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+  
+    <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+  
+
+  <a href="#">▲ TOP ▲ </a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

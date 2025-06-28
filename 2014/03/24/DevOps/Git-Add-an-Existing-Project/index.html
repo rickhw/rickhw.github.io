@@ -1,0 +1,655 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Add an existing project to GIT repository | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="我想把 local 的一個 project source code 放到 git local &amp;#x2F; remote repository. 這邊 remote 我用的是 bitbucket. 在開始之前，先登入到 bitbucket 建立新的 Repository，如下圖：
+
+我建立的是一個 ">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="Add an existing project to GIT repository"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/2014/03/24/DevOps/Git-Add-an-Existing-Project/"/>
+  <meta property="og:image" content="/images/site_main_logo_v2-201902.png"/>
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<!--
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'G-74Y1F3F5W0']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-74Y1F3F5W0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-74Y1F3F5W0');
+</script>
+
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!-- @rickd 2022/02/24
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
+  -->
+  <!-- @ricka 2022/02/24 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!--
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="bd9r2mJp"></script>
+  -->
+
+  <!-- @ricka 2022/09/06 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="opf2Gext"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+						
+						<li><a href="/categories/About/">About <sup>29</sup></a></li>
+						
+						<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+						
+						<li><a href="/categories/經營管理/Career/">Career <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
+						
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Data/">Data <sup>2</sup></a></li>
+						
+						<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+						
+						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>20</sup></a></li>
+						
+						<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+						
+						<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+						
+						<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+						
+						<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+						
+						<li><a href="/categories/DevOps/SRE/">SRE <sup>25</sup></a></li>
+						
+						<li><a href="/categories/Software-Engineering/">Software Engineering <sup>10</sup></a></li>
+						
+						<li><a href="/categories/System-Design/">System Design <sup>2</sup></a></li>
+						
+						<li><a href="/categories/經營管理/人才管理/">人才管理 <sup>10</sup></a></li>
+						
+						<li><a href="/categories/經營管理/溝通/">溝通 <sup>9</sup></a></li>
+						
+						<li><a href="/categories/經營管理/知識管理/">知識管理 <sup>4</sup></a></li>
+						
+						<li><a href="/categories/經營管理/">經營管理 <sup>61</sup></a></li>
+						
+						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
+						
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"> <i class="fa fa-book"></i>學習法則</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂 (v2021)</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Add an existing project to GIT repository</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Add an existing project to GIT repository</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+		
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2014%2F03%2F24%2FDevOps%2FGit-Add-an-Existing-Project%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2014/03/24/DevOps/Git-Add-an-Existing-Project/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/2014/03/24/DevOps/Git-Add-an-Existing-Project/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<p>我想把 local 的一個 project source code 放到 git local &#x2F; remote repository. 這邊 remote 我用的是 <a target="_blank" rel="noopener" href="http://bitbucket.org/">bitbucket</a>. 在開始之前，先登入到 bitbucket 建立新的 Repository，如下圖：</p>
+<p><img src="http://user-image.logdown.io/user/5761/blog/5784/post/190166/rCKb9wdGSsuHosyEvKjY_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-03-24%2022.32.34.png" alt="Create repository in bitbucket"></p>
+<p>我建立的是一個 private repository, 可以在 repository -&gt; wiki 找到 git URL.</p>
+<p>接下來就是開始如在 local 建立 git repository，然後再把它 sync 到 remote.</p>
+<span id="more"></span>
+
+<hr>
+<h1 id="步驟"><a href="#步驟" class="headerlink" title="步驟"></a>步驟</h1><h2 id="在-local-建立目錄，把-source-code-放到目錄"><a href="#在-local-建立目錄，把-source-code-放到目錄" class="headerlink" title="在 local 建立目錄，把 source code 放到目錄"></a>在 local 建立目錄，把 source code 放到目錄</h2><ol>
+<li>將原始擋複製到新的目錄 (如果原本的原始檔目錄下沒有 <code>.git</code>，那麼可以省略這個部分)</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">mkdir</span> ~/Repository/Git/ezdao</span><br><span class="line">~$ <span class="built_in">cp</span> -R <span class="variable">$&#123;SOURCE_CODE&#125;</span> ~/Repository/Git/bitbucket/ezdao</span><br></pre></td></tr></table></figure>
+
+<h2 id="初始化-x2F-建立本地儲存庫-Local-Repository"><a href="#初始化-x2F-建立本地儲存庫-Local-Repository" class="headerlink" title="初始化 &#x2F; 建立本地儲存庫 (Local Repository)"></a>初始化 &#x2F; 建立本地儲存庫 (Local Repository)</h2><ol>
+<li>切換到將要建立 git repos 的目錄下</li>
+<li>輸入 <code>git init</code> 初始本地儲存庫 (Local Repository)，他會在本地端建立隱藏目錄 <code>.git</code></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">cd</span> ~/Repository/Git/bitbucket/ezdao</span><br><span class="line">~$ git init</span><br><span class="line">Initialized empty Git repository <span class="keyword">in</span> /Users/rick/Repository/Git/bitbucket/ezdao/.git/</span><br><span class="line">~$ <span class="built_in">ls</span> -al</span><br><span class="line">total 48</span><br><span class="line">drwxr-xr-x  14 rick  staff  476  3 24 22:12 .</span><br><span class="line">drwxr-xr-x   5 rick  staff  170  3 24 22:11 ..</span><br><span class="line">-rw-r--r--   1 rick  staff  368  3 24 22:10 .classpath</span><br><span class="line">drwxr-xr-x  13 rick  staff  442  3 24 22:18 .git</span><br><span class="line">-rw-r--r--   1 rick  staff   24  3 24 22:10 .gitignore</span><br><span class="line">-rw-r--r--   1 rick  staff  364  3 24 22:10 .project</span><br><span class="line">drwxr-xr-x   4 rick  staff  136  3 24 22:10 .settings</span><br><span class="line">-rw-r--r--   1 rick  staff   89  3 24 22:10 README.md</span><br><span class="line">drwxr-xr-x   3 rick  staff  102  3 24 22:10 bin</span><br><span class="line">-rw-r--r--   1 rick  staff  910  3 24 22:10 build.xml</span><br><span class="line">drwxr-xr-x   3 rick  staff  102  3 24 22:10 lib</span><br><span class="line">drwxr-xr-x   3 rick  staff  102  3 24 22:10 resource</span><br><span class="line">-rw-r--r--   1 rick  staff  787  3 24 22:10 settings.properties.template</span><br><span class="line">drwxr-xr-x   3 rick  staff  102  3 24 22:10 src</span><br><span class="line">~$</span><br></pre></td></tr></table></figure>
+
+<p>上述步驟，將會在 local 建立好 git 儲存庫 (Repository)。</p>
+<h2 id="新增遠端儲存庫-Remote-Repository"><a href="#新增遠端儲存庫-Remote-Repository" class="headerlink" title="新增遠端儲存庫 (Remote Repository)"></a>新增遠端儲存庫 (Remote Repository)</h2><ol>
+<li>檢查目前專案的 remote repos: <code>git remote -v</code>，會看到剛初始的儲存庫是沒有關聯到任何遠端儲存庫的。</li>
+<li>接下來使用 <code>git remote add $&#123;REPOS_NAME&#125; $&#123;REMOTE_REPOS_URL&#125;</code> 建立遠端儲存庫。<ul>
+<li>${REPOS_NAME}: 是遠端儲存庫的名稱，這邊例子是 <code>origin</code></li>
+<li>${REMOTE_REPOS_URL}: 是遠端儲存庫的位址，它的結尾會是 <code>.git</code></li>
+</ul>
+</li>
+<li>建立完成後，使用 <code>git remote -v</code> 可以看到關聯起來，一個是 fetch，一個是 push</li>
+</ol>
+<p>如果還有使用其他的遠端儲存庫，像是 github，也可以一並加入。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~$ git remote -v</span><br><span class="line">~$ git remote add origin https://rick_kyhwang@bitbucket.org/rick_kyhwang/ezdao.git</span><br><span class="line">~$ git remote -v</span><br><span class="line">origin	https://rick_kyhwang@bitbucket.org/rick_kyhwang/ezdao.git (fetch)</span><br><span class="line">origin	https://rick_kyhwang@bitbucket.org/rick_kyhwang/ezdao.git (push)</span><br><span class="line">~$</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="將專案放到本地儲存庫-Local-Repository"><a href="#將專案放到本地儲存庫-Local-Repository" class="headerlink" title="將專案放到本地儲存庫 (Local Repository)"></a>將專案放到本地儲存庫 (Local Repository)</h2><ul>
+<li>檢查目前狀態，指令：<code>git status</code>。這邊有幾個重要的訊息要注意：<ul>
+<li>第一行會顯示目前的分支 (branch)，預設是 <code>master</code>，有點類似 SVN 的 Trunk 意思。</li>
+<li>Untracked files：顯示目前還沒有 commit 到儲存庫的檔案</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://user-image.logdown.io/user/5761/blog/5784/post/190166/F4qSVuqnRbao4YnuO42U_git_status.png" alt="git status"></p>
+<ul>
+<li>把還沒有 commit 的檔案標記為 add：<code>git add .</code>，要注意最後是打一個點，表示目前位置。</li>
+</ul>
+<p><img src="http://user-image.logdown.io/user/5761/blog/5784/post/190166/badaoVPeRbK6FYP1gUiU_git_add.png" alt="git_add.png"></p>
+<ul>
+<li>commit 這些檔案：<code>git commit -m &#39;init&#39;</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">rick@iWish-3:22:18:09 ezdao$ git commit -m <span class="string">&quot;init&quot;</span></span><br><span class="line">[master (root-commit) fa2f54f] init</span><br><span class="line"> 26 files changed, 2621 insertions(+)</span><br><span class="line"> create mode 100644 .classpath</span><br><span class="line"> create mode 100644 .gitignore</span><br><span class="line"> create mode 100644 .project</span><br><span class="line"> create mode 100644 .settings/org.eclipse.core.resources.prefs</span><br><span class="line"> create mode 100644 .settings/org.eclipse.jdt.core.prefs</span><br><span class="line"> create mode 100644 README.md</span><br><span class="line"> create mode 100644 build.xml</span><br><span class="line"> create mode 100644 lib/mysql-connector-java-5.1.21.jar</span><br><span class="line"> create mode 100644 resource/daoTemplate/Dao.template</span><br><span class="line"> create mode 100644 resource/daoTemplate/Entity.template</span><br><span class="line"> create mode 100644 settings.properties.template</span><br><span class="line"> create mode 100644 src/com/gtcafe/ezdao/BaseEntity.java</span><br><span class="line"> create mode 100644 src/com/gtcafe/ezdao/DefaultEntity.java</span><br><span class="line"> create mode 100644 src/com/gtcafe/ezdao/Entity.java</span><br><span class="line"> create mode 100644 src/com/gtcafe/ezdao/IDao.java</span><br><span class="line"> create mode 100644 src/com/gtcafe/ezdao/IEntity.java</span><br><span class="line"> create mode 100644 src/com/gtcafe/ezdao/codegen/DaoCreator.java</span><br><span class="line"> create mode 100644 src/com/gtcafe/ezdao/codegen/EntityCreator.java</span><br><span class="line"></span><br><span class="line">rick@iWish-3:22:18:14 ezdao$</span><br></pre></td></tr></table></figure>
+
+<p>這樣就把檔案都 commit 到本地儲存庫了</p>
+<h2 id="將本地儲存庫-push-到遠端儲存庫"><a href="#將本地儲存庫-push-到遠端儲存庫" class="headerlink" title="將本地儲存庫 push 到遠端儲存庫"></a>將本地儲存庫 push 到遠端儲存庫</h2><p>指令：<code>git push $&#123;REPOS_NAME&#125; $&#123;BRANCH&#125;</code></p>
+<ul>
+<li>${REPOS_NAME}: 在新增遠端儲存庫時給與的名字，這邊用的名稱是 <code>origin</code></li>
+<li>${BRANCH}: 分支的名稱，git 預設的名稱是 <code>master</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">~$ git push origin master</span><br><span class="line">Counting objects: 41, <span class="keyword">done</span>.</span><br><span class="line">Delta compression using up to 4 threads.</span><br><span class="line">Compressing objects: 100% (36/36), <span class="keyword">done</span>.</span><br><span class="line">Writing objects: 100% (41/41), 791.47 KiB | 0 bytes/s, <span class="keyword">done</span>.</span><br><span class="line">Total 41 (delta 2), reused 0 (delta 0)</span><br><span class="line">To https://rick_kyhwang@bitbucket.org/rick_kyhwang/ezdao.git</span><br><span class="line"> * [new branch]      master -&gt; master</span><br><span class="line">~$</span><br></pre></td></tr></table></figure>
+
+<p>在回到遠端儲存庫就會看到檔案已經都上去了，如下圖：<br><img src="http://user-image.logdown.io/user/5761/blog/5784/post/190166/BJ7OuvONTmSvGJKT6Pvf_remote_repos.png" alt="remote_repos.png"></p>
+<p>如果根目錄有 README.md，將會被系統自動展開，放在 Overview。 .md 表示 Markdown 語法的 README</p>
+<h1 id="Relevant-Documents"><a href="#Relevant-Documents" class="headerlink" title="Relevant Documents"></a>Relevant Documents</h1><ul>
+<li><a href="/2014/03/20/Git-Notes/">Git Notes</a></li>
+<li><a href="/2015/02/26/Git-Setup-and-Migrate-SVN/">Setup Git Server, and Migrate SVN</a></li>
+</ul>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/doggy8088/Learn-Git-in-30-days">https://github.com/doggy8088/Learn-Git-in-30-days</a></li>
+<li><a target="_blank" rel="noopener" href="http://git-scm.com/book/zh-tw/">http://git-scm.com/book/zh-tw/</a></li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/2014/03/24/DevOps/Git-Add-an-Existing-Project/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<!-- LikeCoin -->
+				<!-- @rickd 2022/09/06 -->
+				<!--
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2014/03/24/DevOps/Git-Add-an-Existing-Project/"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+				-->
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2014/05/09/Management/個人工作管理/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2014/03/20/DevOps/Git-Notes/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
+  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
+  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2014/03/24/DevOps/Git-Add-an-Existing-Project/" data-width="100%" data-numposts="10"></div>
+
+  
+
+
+</section>
+
+
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2014/03/24 22:20:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%AD%A5%E9%A9%9F"><span class="toc-article-text">步驟</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9C%A8-local-%E5%BB%BA%E7%AB%8B%E7%9B%AE%E9%8C%84%EF%BC%8C%E6%8A%8A-source-code-%E6%94%BE%E5%88%B0%E7%9B%AE%E9%8C%84"><span class="toc-article-text">在 local 建立目錄，把 source code 放到目錄</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96-x2F-%E5%BB%BA%E7%AB%8B%E6%9C%AC%E5%9C%B0%E5%84%B2%E5%AD%98%E5%BA%AB-Local-Repository"><span class="toc-article-text">初始化 &#x2F; 建立本地儲存庫 (Local Repository)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%96%B0%E5%A2%9E%E9%81%A0%E7%AB%AF%E5%84%B2%E5%AD%98%E5%BA%AB-Remote-Repository"><span class="toc-article-text">新增遠端儲存庫 (Remote Repository)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%87%E5%B0%88%E6%A1%88%E6%94%BE%E5%88%B0%E6%9C%AC%E5%9C%B0%E5%84%B2%E5%AD%98%E5%BA%AB-Local-Repository"><span class="toc-article-text">將專案放到本地儲存庫 (Local Repository)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%87%E6%9C%AC%E5%9C%B0%E5%84%B2%E5%AD%98%E5%BA%AB-push-%E5%88%B0%E9%81%A0%E7%AB%AF%E5%84%B2%E5%AD%98%E5%BA%AB"><span class="toc-article-text">將本地儲存庫 push 到遠端儲存庫</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Relevant-Documents"><span class="toc-article-text">Relevant Documents</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Reference"><span class="toc-article-text">Reference</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/DevOps/" style="color: white">DevOps <span class="badge">43</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Git/" style="color: white">Git <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Source-Control/" style="color: white">Source Control <span class="badge">4</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+		<!-- v4 -->
+		<h4>About</h4>
+		
+			<li><a href="/2035/01/21/Index/">全站索引</a></li>
+		
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+		
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		
+			<li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+		
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		
+			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+		
+
+		<h4>著作</h4>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作：SRE實踐與開發平台指南</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作：軟體測試實務 (2023)</a></li>
+		
+			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
+		
+
+		<h4>演講</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
+		
+			<li><a href="/2023/09/09/About/2023-AWS-Career-Exploration-Day/">探索職涯、複利人生 - AWS Career Exploration Day 2023</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作 SRE 書友見面會</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">軟體測試實務 - 新書發表會</a></li>
+		
+			<li><a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">探索職涯、成就未來 - AWS Career Exploration Day 2022</a></li>
+		
+			<li><a href="/2022/08/13/SQA/Path-to-Software-Testing/">從理想、到現實的距離，開啟品味軟體測試之路</a></li>
+		
+			<li><a href="/2022/05/10/About/2022-SREConf2022/">91APP 在 AWS 上的 SRE 實踐之路</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/2020-aws-summit-aws">在矩陣型組織裡，如何有效管理 AWS 的成本結構與系統架構</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/aws-using-aws-for-disaster-recovery/">災難演練 @ AWS 實戰分享</a></li>
+		
+			<li><a href="/2019/04/27/DevOps/Introduce-to-Continuous-Delivery-2/">導讀持續交付 2.0 - 談當代軟體交付之虛實融合</a></li>
+		
+			<li><a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理</a></li>
+		
+			<li><a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">從緊急事件 談 SRE 應變能力的培養</a></li>
+		
+			<li><a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
+		
+			<li><a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">Monitoring Tools 大亂鬥 - AWS CloudWatch</a></li>
+		
+			<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></li>
+		
+			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
+		
+
+		<!-- v3 -->
+		<!--
+		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		-->
+
+		<!-- v2 -->
+		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+		<!-- v1 -->
+		<!--
+		<li>Software Developer</li>
+		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+		<li><a href="/categories/DevOps/">Operation Manager</a></li>
+		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+		<li>
+			<ol>
+				<li>Management</li>
+				<li>Cloud / Distributed Systems</li>
+				<li>DevOps / SRE / </li>
+			</ol>
+		</li>
+		-->
+
+		<!--
+		<h4>Donate</h4>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick" />
+		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
+		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
+		</form>
+		-->
+
+		<h4>Facebook</h4>
+
+		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
+
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
+				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+
+		<h4>AWS Certifications</h4>
+		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+		<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+		<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+		
+
+	</div><!-- row -->
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2022 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div>
+
+<!-- container-narrow -->
+
+<div id="gotop">
+
+  <!-- 
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-book"></i> <a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"]);">學習法則</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"]);">喝咖啡 聊音樂 (v2021)</a><br />
+   -->
+
+  <!-- <h4>About</h4> -->
+
+  
+    <li><a href="/2035/01/21/Index/">全站索引</a></li>
+  
+    <li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+  
+    <li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+  
+    <li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+  
+    <li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+  
+    <li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+  
+    <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+  
+
+  <a href="#">▲ TOP ▲ </a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

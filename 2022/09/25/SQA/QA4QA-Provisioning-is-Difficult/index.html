@@ -1,0 +1,820 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>蓋環境很難？是這樣的嗎？QA 需要自己蓋環境？ | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="上一次的分享 之後，開始有 QA 的朋友找我聊很多他正在面對的問題。其中一個問題是：
+
+Backend 開發人員說建立環境很難？是這樣嗎？
+
+本文針對這個問題，整理背後可能的問題，以及實際可行的方法。全文整理自 09&amp;#x2F;18 在 FB 寫的草稿。
+
+
+
+
+Backend 開發人員說建立環境很">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="蓋環境很難？是這樣的嗎？QA 需要自己蓋環境？"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/2022/09/25/SQA/QA4QA-Provisioning-is-Difficult/"/>
+  <meta property="og:image" content="/images/site_main_logo_v2-201902.png"/>
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<!--
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'G-74Y1F3F5W0']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-74Y1F3F5W0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-74Y1F3F5W0');
+</script>
+
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!-- @rickd 2022/02/24
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
+  -->
+  <!-- @ricka 2022/02/24 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!--
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="bd9r2mJp"></script>
+  -->
+
+  <!-- @ricka 2022/09/06 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="opf2Gext"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+						
+						<li><a href="/categories/About/">About <sup>29</sup></a></li>
+						
+						<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+						
+						<li><a href="/categories/經營管理/Career/">Career <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
+						
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Data/">Data <sup>2</sup></a></li>
+						
+						<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+						
+						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>20</sup></a></li>
+						
+						<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+						
+						<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+						
+						<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+						
+						<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+						
+						<li><a href="/categories/DevOps/SRE/">SRE <sup>25</sup></a></li>
+						
+						<li><a href="/categories/Software-Engineering/">Software Engineering <sup>10</sup></a></li>
+						
+						<li><a href="/categories/System-Design/">System Design <sup>2</sup></a></li>
+						
+						<li><a href="/categories/經營管理/人才管理/">人才管理 <sup>10</sup></a></li>
+						
+						<li><a href="/categories/經營管理/溝通/">溝通 <sup>9</sup></a></li>
+						
+						<li><a href="/categories/經營管理/知識管理/">知識管理 <sup>4</sup></a></li>
+						
+						<li><a href="/categories/經營管理/">經營管理 <sup>61</sup></a></li>
+						
+						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
+						
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"> <i class="fa fa-book"></i>學習法則</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂 (v2021)</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> 蓋環境很難？是這樣的嗎？QA 需要自己蓋環境？</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> 蓋環境很難？是這樣的嗎？QA 需要自己蓋環境？</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+		
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2022%2F09%2F25%2FSQA%2FQA4QA-Provisioning-is-Difficult%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2022/09/25/SQA/QA4QA-Provisioning-is-Difficult/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/2022/09/25/SQA/QA4QA-Provisioning-is-Difficult/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<p><a href="/2022/08/13/SQA/Path-to-Software-Testing/">上一次的分享</a> 之後，開始有 QA 的朋友找我聊很多他正在面對的問題。其中一個問題是：</p>
+<blockquote>
+<p>Backend 開發人員說建立環境很難？是這樣嗎？</p>
+</blockquote>
+<p>本文針對這個問題，整理背後可能的問題，以及實際可行的方法。全文整理自 <a target="_blank" rel="noopener" href="https://www.facebook.com/rick.kyhwang/posts/pfbid0tC7UQ4JMVfUf7bXng3o4wM6FfTZc6HzzW1NujnZgZ6p8cRJznMHkBXWBmHZKXLjcl">09&#x2F;18 在 FB 寫的草稿</a>。</p>
+<span id="more"></span>
+
+
+<hr>
+<h1 id="Backend-開發人員說建立環境很難？是這樣嗎？"><a href="#Backend-開發人員說建立環境很難？是這樣嗎？" class="headerlink" title="Backend 開發人員說建立環境很難？是這樣嗎？"></a>Backend 開發人員說建立環境很難？是這樣嗎？</h1><p>標題簡化了一些訊息，重現原本的提問：</p>
+<blockquote>
+<p>我是一個 QA，我曾經找 Backend 開發人員問，我想自己建環境測試，他們說很難，Config 很雜亂、DB Schema 很複雜、Infra 很複雜，真的是這樣？</p>
+</blockquote>
+<p>重新整理提問，整個問題是從 <a href="/2017/02/11/DevOps/Resource-Provisioning-and-DevOps/">蓋環境 (專有名詞 Provisioning)</a> 出發，對於測試人員來看，背後 <code>動機</code> 與 <code>目的</code> 有以下：</p>
+<ol>
+<li>因為執行測試過程會被自動觸發的 CI 部署打斷，希望不被干擾執行</li>
+<li>想要透過了解環境，更確立問題的正確性</li>
+<li>想要透過 Log 找問題，目前環境無法看到 Log</li>
+<li>測試過程，想進去 DB 增加資料，查問題</li>
+</ol>
+<p>從開發人員的回覆，可以看出背後有以下問題：</p>
+<ol>
+<li>Config 很雜亂</li>
+<li>DB Schema 很複雜</li>
+<li>Infra 很複雜</li>
+</ol>
+<h2 id="1-現象：Config-很雜亂"><a href="#1-現象：Config-很雜亂" class="headerlink" title="1. 現象：Config 很雜亂"></a>1. 現象：Config 很雜亂</h2><p>Config 指的是應用程式在啟動階段透過外界指定的配置資訊，應該在 <code>系統設計 (System Design)</code> 過程就要確立的結構，這屬於 <code>Application Interface</code> 的範疇，也是 System Design 階段要確立的東西。</p>
+<blockquote>
+<p><code>Application Interface</code> 是我自己定義的名詞，用來描述一個應用程式的外顯介面。只要是使用者會接觸到的資訊，都屬於外顯介面，像是 Config &#x2F; Environment Variables &#x2F; Secret &#x2F; API &#x2F; Documentation … etc.</p>
+</blockquote>
+<p>常見的 Config 大概可以分成以下幾個部分：</p>
+<ol>
+<li>系統依賴：<ol>
+<li>會有 connection string 的，包含 ip &#x2F; host、protocol、id &#x2F; password 、parameters 等。</li>
+<li>服務自己的基礎設施，像是對 Database &#x2F; Cacche &#x2F; Queue .. 等依賴</li>
+<li>公司內部與第三方系統的依賴：<ol>
+<li>公司內部：像是依賴於內部的 簡訊服務、另一個服務的 API … 等。</li>
+<li>第三方服務：像是依賴於 Google SSO、AWS S3 服務、Twillo 的簡訊服務、Paypal 的金流服務 … 等。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>業務邏輯功能的初始與預設參數：<ol>
+<li>通常是 Feature Toggle 以及其參數</li>
+<li>每頁商品數量的預設數量</li>
+<li>其他 … etc</li>
+</ol>
+</li>
+<li>非功能的參數：<ol>
+<li>Logging: Rotation 的規則、擋名規則、輸出模式 (File or Stdout) ..</li>
+<li>DI 框架的參數，像是 Autowire 掃描的規則</li>
+<li>框架的設定</li>
+</ol>
+</li>
+</ol>
+<p>這些依照實際案例，會有所差異，不過我個人大概是這樣分。</p>
+<p>Config 需要有經驗的人、經過有設計的過程，持續精煉與重構。因為沒有這個循環，隨著時間的推進 (通常是 &gt;2y)，會越來越複雜，隨之而來的是管理複雜度。如果再加上多環境部署 (不管 Test or Prod)，管理問題就會浮上檯面。</p>
+<blockquote>
+<p>Config 的設計概念參閱 <a href="/2022/05/06/Coding/Designing-Configuration-Loading-Strategies/">Designing Configuration Loading Strategies</a></p>
+</blockquote>
+<h3 id="問題背後的問題-QBQ"><a href="#問題背後的問題-QBQ" class="headerlink" title="問題背後的問題 (QBQ)"></a>問題背後的問題 (QBQ)</h3><ol>
+<li><code>開發過程沒有設計與管理</code>：在新需求開發過程中，Config 很常會因為新需求而增加，這時候沒有適度的設計與管理，時間久了，一定開花。<ol>
+<li>不管用 K&#x2F;V 結構 (.properies) 或者 object (XML &#x2F; JSON &#x2F; YAML)，只要沒有配套的 <code>技術管理機制</code>，最後就是整串葡萄串大亂鬥</li>
+<li>機制：透過統一個 ConfigLoader 限制，包含命名規則、資料結構驗證等</li>
+<li>規範：要有設計與 Review 流程</li>
+</ol>
+</li>
+<li><code>沒有持續收斂設計</code>：如果沒有適度的技術管理機制持續收斂，時間越久越亂是正常的<ol>
+<li>各種亂象出現在 Config 裡，像是在一個 JSON element 裡面塞入一個 XML string</li>
+<li>在一個 XML 的 attribute 裡塞入整個 JSON payload</li>
+</ol>
+</li>
+<li><code>部署管理機制不踏實</code>：<ol>
+<li>不管有沒設計或收斂，都需要面對管理問題，因為只要有部署的需求，部署的環境越多，就要有管理流程。</li>
+<li>實際上 APP 的部署第一關應該是 QA 要把關，這概念在 “<a href="/2018/12/15/DevOps/TheProblem-In-DevOps-8-Cycle/">DevOps 8 字環的誤區：左環問題</a>“ 有深入說明。</li>
+</ol>
+</li>
+</ol>
+<p>理想 Config 實踐流程有以下的循環：</p>
+<ol>
+<li><code>設計優先 (Design First)</code>: 系統設計的時候，#TechLead 必須把關規格</li>
+<li><code>持續迭代 (Continuous Iteration)</code>: 每次更版都要做適度的調整與迭代</li>
+<li><code>管理政策 (Management Policy)</code>: 也就是每次的更版要遵守的規範，例如 Key 的 增刪改 各自需要應對的措施<ul>
+<li>這些規範背後需要技術支撐，像是 Config Migration 機制與流程</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-現象：DB-Schema-很複雜"><a href="#2-現象：DB-Schema-很複雜" class="headerlink" title="2. 現象：DB Schema 很複雜"></a>2. 現象：DB Schema 很複雜</h2><p>DB Schema 很複雜 (或者很亂)，其實背後本質是跟 Config 一樣的問題。</p>
+<p>DB Schema (這裡指的是 Ralation DB, 不是 NoSQL) 一樣是要經過設計與收斂，透過迭代 <code>去蕪存菁</code>、<code>精煉</code>。資料結構的設計難的是在初期 <code>判斷</code> 與 <code>預測</code> <strong>判斷資料溫度在未來的變化性</strong>，因為很難一次到位，所以通常都要透過以下方法：</p>
+<ol>
+<li>設計階段 Tech Leader 需要把關 DDL 的設計</li>
+<li>持續小部分的迭代與改進，調整資料溫度的配置，例如：<ol>
+<li>原本判定是 <code>熱資料</code>，後期變成冷資料，那應該就要設計 Archive 機制，轉入 <code>OLAP</code></li>
+<li>原本是以為是 <code>冷資料</code>，變成溫資料，那就要透過快取緩存改善</li>
+<li>原本是以為是 <code>熱資料</code>，上線後發現根本沒有存取，所以要改成冷資料，或者一次快取。</li>
+</ol>
+</li>
+<li>規劃每次更版 DDL &#x2F; DML Migration 機制與流程</li>
+</ol>
+<p>這些都是透過 <code>持續迭代</code> 改善出來的，會越來越亂，都是因為 <code>沒有持續迭代</code>、或者 <code>經驗不足</code> 與 <code>能力不夠</code> 造成的。經驗與能力我覺得找到適當的人就可以了，難的是專案管理過程中，沒有持續迭代，這也是普遍公司的問題。</p>
+<p>看到這裡，不難發現， Config &#x2F; DB Schema 的處理與管理手段是一樣的。</p>
+<h2 id="3-現象：Infra-很複雜"><a href="#3-現象：Infra-很複雜" class="headerlink" title="3. 現象：Infra 很複雜"></a>3. 現象：Infra 很複雜</h2><p>再來談談 Infra 的部分，其實也是一樣的。</p>
+<p>通常一個應用程式起來，都會有相應的依賴，常見的有:</p>
+<ol>
+<li>Database (RDB &#x2F; NoSQL): MySQL &#x2F; PostgreSQL &#x2F; MongoDB &#x2F; DDB … etc</li>
+<li>Cache: Redis &#x2F; Memcached</li>
+<li>Queue: RabbitMQ &#x2F; SQS</li>
+<li>Storage: File System &#x2F; Object Storage (S3, GCS)</li>
+</ol>
+<blockquote>
+<p>上述的排序：Structure to Non-Structure</p>
+</blockquote>
+<p>這些東西，通常難的都不是建立 (Provisioning) 起來這件事情，因為這年代有 docker &#x2F; container 這個技術，通常只要 config 講清楚，不會太難。上面列的最難的大概只有 RDB (Relation Database)，因為他有 DDL 需要做 Migration，這個會稍微難一點。現在很多 ORM 都有對應的方法與策略，概念從 RoR (Ruby on Rails, 2008) 年代就有了，基本概念就是可以做到持續更迭 DDL。所以最難的沒了。</p>
+<p>其他不管是 NoSQL &#x2F; Cache &#x2F; Queue &#x2F; Storage …. 都談不上難。</p>
+<ul>
+<li>NoSQL 本身就是沒有 DDL Migration 的問題，因為這東西本身就是 Non-Schema 的。</li>
+<li>Cache 通常就是一些 Key &#x2F; Value 的操作，所以只要知道 Key 的定義與結構即可</li>
+<li>Queue 是通道的概念，大部分只要把通道規則弄好就好，一次性的。</li>
+<li>Storage 目錄結構，不管是 Object Storage or Block Storage，搞懂目錄結構即可。</li>
+</ul>
+<p>很多人想問，像那些 Replication &#x2F; HA &#x2F; Cluster 不是很難嗎？</p>
+<p>這時候我會先分清楚目的性：<code>Functional Test</code> or <code>NonFunctional Test</code></p>
+<p>如果前者，基本上，不用考慮這些是。如果是測後者，才需要考慮這些事情，看你自己的 R&amp;R。後者通常跟 <code>架構</code> 很有關係，因為 前述的 (HA, Cluster … ) 很多都跟 <a href="/2020/04/22/SoftwareEngineering/Reliability-Engineering/">Reliability</a> 有關係，可靠度本質就是工程 &#x2F; 架構 要面對的問題，這才是真正的難。</p>
+<p>相關概念參閱以下的文章：</p>
+<ul>
+<li><a href="/2022/08/13/SQA/Path-to-Software-Testing/">演講：從理想、到現實的距離，開啟品味軟體測試之路</a></li>
+<li><a href="/2017/03/18/SQA/Stages-In-Software-Testing/">淺談軟體測試的階段與策略</a></li>
+<li><a href="/2022/09/18/SQA/Integration-Test-and-Execution-Strategy/">整合測試與執行策略</a></li>
+<li><a href="https://rickhw.github.io/2018/03/18/SQA/Gossip-System-Testing/">輕鬆聊：系統測試 (SVT) 的三兩事</a></li>
+<li><a href="/2020/04/22/SoftwareEngineering/Reliability-Engineering/">可靠性工程 (Reliability Engineering)</a></li>
+</ul>
+<p>除了這些，可能還有其他像是 Networking, Platform (K8s) 的依賴。</p>
+<hr>
+<h1 id="問題背後的問題-Problem-Behind-Question-PBQ"><a href="#問題背後的問題-Problem-Behind-Question-PBQ" class="headerlink" title="問題背後的問題 (Problem Behind Question, PBQ)"></a>問題背後的問題 (Problem Behind Question, PBQ)</h1><h2 id="很雜亂？很難？"><a href="#很雜亂？很難？" class="headerlink" title="很雜亂？很難？"></a>很雜亂？很難？</h2><p>上述的東西，都很雜，談不上難，但是時間只要越來越久，就會由雜變成難。更多參閱： “<a href="/2022/09/10/About/Difficult-and-Complicate/">問題的難與雜</a>“</p>
+<p>只要有遵循前述的設計原則，持續迭代，給一台 Linux，足夠的 CPU &#x2F; Memory &#x2F; Disk，應該沒什麼做不到的。</p>
+<p>去看看外面 Open Source ，我沒看過有哪個說一定要 K8s &#x2F; AWS &#x2F; GCP 才能安裝的？</p>
+<p>我把問題歸類為：</p>
+<ol>
+<li>設計問題</li>
+<li>能力問題</li>
+<li>執行力</li>
+</ol>
+<p>對於 QA 而言，我自己親身經驗，裝軟體這件事情，只要上述條件具備，剩下的都是指日可待的問題。所以這問題，最後我的回答都是一樣的：</p>
+<blockquote>
+<p>如果你覺得很複雜，那表示不夠熟悉；如果覺得很難，那代表基本功不夠紮實；如果覺得很亂，那大多都是管理問題。</p>
+</blockquote>
+<!--
+RD 要會裝自己的環境
+就是基本功
+
+RD 自己都搞不定
+那 QA 就更遠了
+
+
+窮和尚
+富和尚
+
+
+
+# 議題：QA 需要自己蓋環境嗎？
+
+
+
+
+# 延續問題：如果公司開發團隊無法做到像你說的那樣，那我應該繼續待下去？
+
+-->
+
+<h2 id="團隊的問題"><a href="#團隊的問題" class="headerlink" title="團隊的問題"></a>團隊的問題</h2><p>而蓋環境背後也可以看出整個開發團隊的問題：</p>
+<ol>
+<li>Backend 開發人員都覺得蓋環境難，表示不了解整體架構與對外依賴配置<ol>
+<li>有很多依賴問題：<ol>
+<li>例如強依賴於 Cloud Services，像是 AWS S3 &#x2F; Secret Management，卻沒有做適度的設計。</li>
+<li>像是用了 EKS 的 IRSA，或者 AWS IAM Role，就以為一定要 AWS 應用程式才能跑，其實這些都是不了解運作原理，以及沒有適度設 Config 造成的。</li>
+</ol>
+</li>
+<li>時間久了，導致連開發人員自己都蓋不起來，就連一些 Sr. Engineer 都搞不定。</li>
+<li>沒有適度切割顆粒度，導致 Config 隨時間增長，複雜度過高。<ol>
+<li>切割顆粒度背後代表著要重構，一個 Method 有一千行，通常就要拆分職責。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>太過依賴於所謂的 <code>自動化</code>，而自動化的程式本身的品質堪憂，導致部署難度越來越高。<ol>
+<li>只有寫自動化的人大概知道整個架構是怎麼一回事</li>
+</ol>
+</li>
+<li>Config 的資訊只有開發人員知道，其他 (QA &#x2F; Ops) 都不知道</li>
+<li>蓋環境這件事情，在團隊裡是一個天方夜譚的 #能力</li>
+</ol>
+<p>所以，得到結論：</p>
+<blockquote>
+<p>蓋環境這件事情不可能<br>需要動用很多團隊</p>
+</blockquote>
+<p>上述問題，在越有歷史、越有規模，但不注重軟體工程的公司，越容易發生。</p>
+<blockquote>
+<p>翻譯：很多 (九成九) 公司都有這樣的問題。</p>
+</blockquote>
+<h2 id="怎麼解？"><a href="#怎麼解？" class="headerlink" title="怎麼解？"></a>怎麼解？</h2><p>做好該做的基本功，只要想省略、或者用自動化掩蓋的念頭，時間越久會越雜。 OOP 之所以會出現，是因為 早期程式發展到複雜度而產生，而 OOP 背後的本質就是持續的分類與重構。</p>
+<p>問題提到的 Config &#x2F; DB Schema &#x2F; Infra 其實都是要持續設計與改善的。不是只有自動化就天下太平，自動化只會粉飾太平。</p>
+<p>公司已經 Run 一段時間 (&gt;3y) 了，怎麼辦？這時候只能請 <a href="/2019/09/13/DevOps/Scrum-for-SRE-Team/">扁鵲</a> 出場開刀了，不用懷疑，任何想要走捷徑的方法，最後一定死路一條。該開刀，就要開刀，沒有特效藥。</p>
+<h2 id="QA-需要自己蓋環境嗎？"><a href="#QA-需要自己蓋環境嗎？" class="headerlink" title="QA 需要自己蓋環境嗎？"></a>QA 需要自己蓋環境嗎？</h2><p>QA 的職責之一是發現問題。</p>
+<p>發現問題這個過程，背後代表要能證明 <code>症狀 (Symptom)</code> 真的是一個 <code>問題 (Problem)</code>。如果已經是問題了，那麼一定能夠提供完整的重現步驟 (Reproducable)，有相關的證據，像是 Log、Config、Data …. 等。這個過程本身是非常講究科學方法的，</p>
+<p>當掌握環境建置的時候，上述的過程才能夠有效地掌握，也才能找出有意義的 Defect。</p>
+<p>對我來講，蓋環境，是 QA 的第一個條件，這段在 “<a href="/2015/10/11/SQA/How-To-Be-An-SQA/">Software QA 的職能條件</a>“ 的技能段落排第一位。</p>
+<hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
+<li><a href="/2022/08/13/SQA/Path-to-Software-Testing/">演講：從理想、到現實的距離，開啟品味軟體測試之路</a></li>
+<li><a href="/2022/09/05/About/Blog-Practice/">聊聊寫 Blog 的想法</a></li>
+<li><a href="/2022/05/06/Coding/Designing-Configuration-Loading-Strategies/">Designing Configuration Loading Strategies</a></li>
+<li><a href="/2022/09/10/About/Difficult-and-Complicate/">問題的難與雜</a></li>
+<li><a href="/2018/12/15/DevOps/TheProblem-In-DevOps-8-Cycle/">DevOps 8 字環的誤區：左環問題</a></li>
+<li><a href="/2017/02/11/DevOps/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a></li>
+<li><a href="/2018/03/18/SQA/How-To-Report-A-Defect-or-Bug/">如何有效的回報問題 (How to Report Problems Effectively)</a></li>
+<li><a href="/2018/04/01/DevOps/How-To-Make-CICD-Quality/">怎樣的 CI&#x2F;CD 才夠 Quality?</a></li>
+<li><a href="/2020/04/22/SoftwareEngineering/Reliability-Engineering/">可靠性工程 (Reliability Engineering)</a></li>
+<li><a href="/2015/10/11/SQA/How-To-Be-An-SQA/">Software QA 的職能條件</a></li>
+</ul>
+<h2 id="Facebook-隨筆"><a href="#Facebook-隨筆" class="headerlink" title="Facebook 隨筆"></a>Facebook 隨筆</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.facebook.com/rick.kyhwang/posts/pfbid0tC7UQ4JMVfUf7bXng3o4wM6FfTZc6HzzW1NujnZgZ6p8cRJznMHkBXWBmHZKXLjcl">Backend 開發人員說建立環境很難？是這樣嗎？</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/posts/pfbid09UTWvYbHLnKKixJyWiinmXQGCc7tuTkuoZ9Gna7W8KPzZxSp7vQL6jkhdaZVRthXl">軟體工程師需要會蓋環境？</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.facebook.com/rick.kyhwang/posts/pfbid024b4F5Q9xngNAV6NsqGi7wMZs4WVQPpohjCmGkomcGGCAYqirYeEjV2hDhW8LE2Eql">Container vs VM</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.facebook.com/rick.kyhwang/posts/pfbid0he6RNijEgMFY4pUcfWcUbJqRqZMmqw9pzHfCtw6gWQoG12b9YhZhZ2smMgJKEB7Jl">難與雜</a></li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/2022/09/25/SQA/QA4QA-Provisioning-is-Difficult/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<!-- LikeCoin -->
+				<!-- @rickd 2022/09/06 -->
+				<!--
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2022/09/25/SQA/QA4QA-Provisioning-is-Difficult/"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+				-->
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2022/10/07/About/As-Architect/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2022/09/18/SQA/Integration-Test-and-Execution-Strategy/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
+  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
+  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2022/09/25/SQA/QA4QA-Provisioning-is-Difficult/" data-width="100%" data-numposts="10"></div>
+
+  
+
+
+</section>
+
+
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2022/09/25 11:08:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Backend-%E9%96%8B%E7%99%BC%E4%BA%BA%E5%93%A1%E8%AA%AA%E5%BB%BA%E7%AB%8B%E7%92%B0%E5%A2%83%E5%BE%88%E9%9B%A3%EF%BC%9F%E6%98%AF%E9%80%99%E6%A8%A3%E5%97%8E%EF%BC%9F"><span class="toc-article-text">Backend 開發人員說建立環境很難？是這樣嗎？</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#1-%E7%8F%BE%E8%B1%A1%EF%BC%9AConfig-%E5%BE%88%E9%9B%9C%E4%BA%82"><span class="toc-article-text">1. 現象：Config 很雜亂</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%95%8F%E9%A1%8C%E8%83%8C%E5%BE%8C%E7%9A%84%E5%95%8F%E9%A1%8C-QBQ"><span class="toc-article-text">問題背後的問題 (QBQ)</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-%E7%8F%BE%E8%B1%A1%EF%BC%9ADB-Schema-%E5%BE%88%E8%A4%87%E9%9B%9C"><span class="toc-article-text">2. 現象：DB Schema 很複雜</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-%E7%8F%BE%E8%B1%A1%EF%BC%9AInfra-%E5%BE%88%E8%A4%87%E9%9B%9C"><span class="toc-article-text">3. 現象：Infra 很複雜</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%95%8F%E9%A1%8C%E8%83%8C%E5%BE%8C%E7%9A%84%E5%95%8F%E9%A1%8C-Problem-Behind-Question-PBQ"><span class="toc-article-text">問題背後的問題 (Problem Behind Question, PBQ)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BE%88%E9%9B%9C%E4%BA%82%EF%BC%9F%E5%BE%88%E9%9B%A3%EF%BC%9F"><span class="toc-article-text">很雜亂？很難？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9C%98%E9%9A%8A%E7%9A%84%E5%95%8F%E9%A1%8C"><span class="toc-article-text">團隊的問題</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%80%8E%E9%BA%BC%E8%A7%A3%EF%BC%9F"><span class="toc-article-text">怎麼解？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#QA-%E9%9C%80%E8%A6%81%E8%87%AA%E5%B7%B1%E8%93%8B%E7%92%B0%E5%A2%83%E5%97%8E%EF%BC%9F"><span class="toc-article-text">QA 需要自己蓋環境嗎？</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Facebook-%E9%9A%A8%E7%AD%86"><span class="toc-article-text">Facebook 隨筆</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/軟體測試/" style="color: white">軟體測試 <span class="badge">14</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Software-Test/" style="color: white">Software Test <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/Software-Quality-Assurance/" style="color: white">Software Quality Assurance <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+		<!-- v4 -->
+		<h4>About</h4>
+		
+			<li><a href="/2035/01/21/Index/">全站索引</a></li>
+		
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+		
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		
+			<li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+		
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		
+			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+		
+
+		<h4>著作</h4>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作：SRE實踐與開發平台指南</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作：軟體測試實務 (2023)</a></li>
+		
+			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
+		
+
+		<h4>演講</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
+		
+			<li><a href="/2023/09/09/About/2023-AWS-Career-Exploration-Day/">探索職涯、複利人生 - AWS Career Exploration Day 2023</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作 SRE 書友見面會</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">軟體測試實務 - 新書發表會</a></li>
+		
+			<li><a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">探索職涯、成就未來 - AWS Career Exploration Day 2022</a></li>
+		
+			<li><a href="/2022/08/13/SQA/Path-to-Software-Testing/">從理想、到現實的距離，開啟品味軟體測試之路</a></li>
+		
+			<li><a href="/2022/05/10/About/2022-SREConf2022/">91APP 在 AWS 上的 SRE 實踐之路</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/2020-aws-summit-aws">在矩陣型組織裡，如何有效管理 AWS 的成本結構與系統架構</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/aws-using-aws-for-disaster-recovery/">災難演練 @ AWS 實戰分享</a></li>
+		
+			<li><a href="/2019/04/27/DevOps/Introduce-to-Continuous-Delivery-2/">導讀持續交付 2.0 - 談當代軟體交付之虛實融合</a></li>
+		
+			<li><a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理</a></li>
+		
+			<li><a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">從緊急事件 談 SRE 應變能力的培養</a></li>
+		
+			<li><a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
+		
+			<li><a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">Monitoring Tools 大亂鬥 - AWS CloudWatch</a></li>
+		
+			<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></li>
+		
+			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
+		
+
+		<!-- v3 -->
+		<!--
+		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		-->
+
+		<!-- v2 -->
+		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+		<!-- v1 -->
+		<!--
+		<li>Software Developer</li>
+		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+		<li><a href="/categories/DevOps/">Operation Manager</a></li>
+		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+		<li>
+			<ol>
+				<li>Management</li>
+				<li>Cloud / Distributed Systems</li>
+				<li>DevOps / SRE / </li>
+			</ol>
+		</li>
+		-->
+
+		<!--
+		<h4>Donate</h4>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick" />
+		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
+		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
+		</form>
+		-->
+
+		<h4>Facebook</h4>
+
+		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
+
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
+				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+
+		<h4>AWS Certifications</h4>
+		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+		<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+		<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+		
+
+	</div><!-- row -->
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2022 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div>
+
+<!-- container-narrow -->
+
+<div id="gotop">
+
+  <!-- 
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-book"></i> <a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"]);">學習法則</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"]);">喝咖啡 聊音樂 (v2021)</a><br />
+   -->
+
+  <!-- <h4>About</h4> -->
+
+  
+    <li><a href="/2035/01/21/Index/">全站索引</a></li>
+  
+    <li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+  
+    <li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+  
+    <li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+  
+    <li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+  
+    <li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+  
+    <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+  
+
+  <a href="#">▲ TOP ▲ </a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,787 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Site Reliability Engineering (SRE, 網站可靠性工程) | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="SRE 全名是 Site Reliability Engineering 網站可靠性工程，是 Google 提倡的系統管理實踐之道、指導思想，這個名詞同時也是 軟體工程師 (Software Engineer) 的角色，可以類比於傳統的維運工程師或系統工程師，但是 SRE 是用 計算機科學 和 軟體">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="Site Reliability Engineering (SRE, 網站可靠性工程)"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/2018/08/03/DevOps/An-Introduction-to-SRE/"/>
+  <meta property="og:image" content="/images/SRE/Emergency-IncidentManagementWithSRE/A-01.png" />
+  
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<!--
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'G-74Y1F3F5W0']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-74Y1F3F5W0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-74Y1F3F5W0');
+</script>
+
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!-- @rickd 2022/02/24
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
+  -->
+  <!-- @ricka 2022/02/24 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!--
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="bd9r2mJp"></script>
+  -->
+
+  <!-- @ricka 2022/09/06 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="opf2Gext"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+						
+						<li><a href="/categories/About/">About <sup>29</sup></a></li>
+						
+						<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+						
+						<li><a href="/categories/經營管理/Career/">Career <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
+						
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Data/">Data <sup>2</sup></a></li>
+						
+						<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+						
+						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>20</sup></a></li>
+						
+						<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+						
+						<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+						
+						<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+						
+						<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+						
+						<li><a href="/categories/DevOps/SRE/">SRE <sup>25</sup></a></li>
+						
+						<li><a href="/categories/Software-Engineering/">Software Engineering <sup>10</sup></a></li>
+						
+						<li><a href="/categories/System-Design/">System Design <sup>2</sup></a></li>
+						
+						<li><a href="/categories/經營管理/人才管理/">人才管理 <sup>10</sup></a></li>
+						
+						<li><a href="/categories/經營管理/溝通/">溝通 <sup>9</sup></a></li>
+						
+						<li><a href="/categories/經營管理/知識管理/">知識管理 <sup>4</sup></a></li>
+						
+						<li><a href="/categories/經營管理/">經營管理 <sup>61</sup></a></li>
+						
+						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
+						
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"> <i class="fa fa-book"></i>學習法則</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂 (v2021)</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Site Reliability Engineering (SRE, 網站可靠性工程)</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Site Reliability Engineering (SRE, 網站可靠性工程)</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+		
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2018%2F08%2F03%2FDevOps%2FAn-Introduction-to-SRE%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2018/08/03/DevOps/An-Introduction-to-SRE/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/2018/08/03/DevOps/An-Introduction-to-SRE/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<p>SRE 全名是 <code>Site Reliability Engineering 網站可靠性工程</code>，是 Google 提倡的系統管理實踐之道、指導思想，這個名詞同時也是 <strong>軟體工程師 (Software Engineer)</strong> 的角色，可以類比於傳統的維運工程師或系統工程師，但是 SRE 是用 <code>計算機科學</code> 和 <code>軟體工程</code> 手段，實踐 <code>大型系統維運</code>、<a href="/2018/06/18/DistributedSystems/Gossip-in-Distributed-Systems/">分散式系統</a> 的設計與開發。</p>
+<blockquote>
+<p>Updated 2023&#x2F;07&#x2F;19: 個人著作 <a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">《SRE 實踐與開發平台指南》</a> 於 2023&#x2F;08 上市，內容整理個人過去數年實踐的經驗與總結。</p>
+</blockquote>
+<span id="more"></span>
+
+<hr>
+<h1 id="推薦閱讀"><a href="#推薦閱讀" class="headerlink" title="推薦閱讀"></a>推薦閱讀</h1><p>這本書我個人分成以下幾個部分，讀者可以依據個人身份、角色、經驗，選擇有興趣的部分：</p>
+<ul>
+<li><code>一、指導原則</code>：這段是描述 SRE 時會提到的關鍵原則</li>
+<li><code>二、事件管理</code>：該如何面對異常事件、管理、從失敗中學習</li>
+<li><code>三、工程實踐</code>：用軟體工程來看待系統維運</li>
+<li><code>四、管理與訓練</code>：管理者如何在團隊中實踐 SRE 的精神。</li>
+<li><code>五、箴言</code>：書本有很多讓人省思的箴言，值得深思</li>
+</ul>
+<h2 id="一、指導原則"><a href="#一、指導原則" class="headerlink" title="一、指導原則"></a>一、指導原則</h2><p>這本書 Part 2 談 SRE 的指導原則，也是大部分在描述 SRE 的文章、或者職缺描述 (Job Description, JD) 時，一定會有的原則，這些原則包含了：</p>
+<ul>
+<li>擁抱風險、錯誤預算 (Error Budget)：重點在於激勵團隊共同承擔責任，從錯誤中學習，這點跟 DevOps 精神是一致的。</li>
+<li>服務水準目標：討論 SLIs, SLOs, SLAs 等概念</li>
+<li>減少瑣事：用 50% 的時間，開發自動化維運工作</li>
+<li>監控分散式系統</li>
+<li>自動化、簡單化：自動化可能的問題以及其必要性</li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Release_engineering">發行工程 (Release Engineering)</a>：可以說是對應到 <a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9789862019627">持續交付 (Continuous Delivery)</a> 的概念</li>
+<li>軟體工程實踐維運工作：這也是 SRE 跟一般維運工程師、系統工程師不一樣，重點在於 <a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code</a> 的概念</li>
+</ul>
+<p>這段是認識 SRE 想法的入門心法，要如何讓團隊理解 SRE，這些章節提供了很多指導原則。</p>
+<h2 id="二、事件管理"><a href="#二、事件管理" class="headerlink" title="二、事件管理"></a>二、事件管理</h2><p>書本 <a target="_blank" rel="noopener" href="https://landing.google.com/sre/book/chapters/part3.html">Part 3 具體實踐</a> 針對 <code>事件管理</code> 有很多著墨，我以時間點來看整理事件的 <code>前</code>、<code>中</code>、<code>後</code> ，團隊應該做什麼？下圖是我整理的想法，也是 SRE 書中提到的概念：</p>
+<!-- ![](/images/SRE/Incident-management_20180810.jpg) -->
+<p><img src="/images/SRE/Emergency-IncidentManagementWithSRE/A-01.png"></p>
+<blockquote>
+<p>詳細參閱：<a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">演講：從緊急事件 談 SRE 應變能力的培養</a>：我在 DevOpsDays Taipei 2018 分享的心得</p>
+</blockquote>
+<p>書本章節先後次序剛好是時間軸次序，整理如下：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://landing.google.com/sre/book/chapters/being-on-call.html">CH11 Being On-Call</a>: 從事件發生之前，如何平衡 On-call 的工作</li>
+<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/sre-ch12-effective-troubleshooting-83573925">CH12 Effective Troubleshooting</a>: 討論事件當下，如何有效地故障排除技巧</li>
+<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/sre-ch13-emergency-response">CH13 Emergency Response</a>: 整理了緊急事件處理的案例，以及面對的方法</li>
+<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/sre-ch13-emergency-response">CH14 Managing Incidents</a>: 討論事件管理的方法，事件當下的角色、協作、作業、程序、溝通 … 等</li>
+<li><a target="_blank" rel="noopener" href="https://landing.google.com/sre/book/chapters/postmortem-culture.html">CH15 Postmortem Culture: Learning from Failure</a>: 如何從錯誤中學習的文化、不究責</li>
+<li><a target="_blank" rel="noopener" href="https://landing.google.com/sre/book/chapters/accelerating-sre-on-call.html">CH28 Accelerating SREs to On-Call and Beyond</a>: 如何培養 SRE 加入 On-Call</li>
+<li><a target="_blank" rel="noopener" href="https://landing.google.com/sre/book/chapters/lessons-learned.html">CH33 Lessons Learned from Other Industries</a>: 從不同專業背景學習</li>
+</ul>
+<p>異常事件處理非常仰賴紮實的軟體工程、團隊協作能力、應變管理，在各種領域都有類似的案例。特別用了其他領域的經驗，整理了類似的想法給大家參考：</p>
+<ul>
+<li><a href="/2018/01/07/DevOps/Emergency-Response/">緊急應變 (Emergency Response)</a>：這篇整理幾個例子，其中電影『薩利機長』是我最喜歡引用的例子。</li>
+<li><a href="/2018/05/27/DevOps/Emergency-Response-on-Stage/">跨領域的緊急應變 - SRV 斷弦事件</a>：音樂舞台表演看異常事件的處理</li>
+</ul>
+<p>如果你的時間有限、如果你不是技術背景，那麼推薦閱讀這些章節！會讓你有醍醐灌頂的感覺！</p>
+<h2 id="三、工程實踐"><a href="#三、工程實踐" class="headerlink" title="三、工程實踐"></a>三、工程實踐</h2><p>SRE 很強調用 <code>計算機科學</code>、<code>軟體工程</code> 實踐維運工作。書裡 Part 3 具體實踐有一半的章節都在談論這些屬於硬技能的工程實踐，特別是 <code>分散式系統 (Distributed Systems)</code>，包含了以下：</p>
+<ul>
+<li>前端伺服器的負載平衡、資料中心內部的附載平衡</li>
+<li>處理系統超載 (QPS, Rate Limit)、處理連鎖反應</li>
+<li>分散式系統：分散式一致化提高可靠性、分散式排程任務、資料處理管線、資料讀寫一致性 (<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/CAP_theorem">CAP theorem</a>)、<a href="/2018/08/11/DistributedSystems/Distributed-Consistency-and-Consensus-Algorithm/">分散式共識</a></li>
+<li>可靠的進行大規模發行 (Launch Coordination Engineers, LCE)</li>
+</ul>
+<p>其中對於 <code>負載平衡 (Load Balancer)</code> 有很多技術、原理的著墨，特別是在 <a href="/2018/06/18/DistributedSystems/Gossip-in-Distributed-Systems/">分散式架構</a> 盛行的年代，很多人不會注意到 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing">分散式系統謬論</a>、<a href="/2018/05/03/AWS/Study-Notes-API-Gateway-Rate-Limit-and-Throttling/">Rate Limit and Throttling</a>、<a href="/2018/08/11/DistributedSystems/Distributed-Consistency-and-Consensus-Algorithm/">分散式共識</a>、<a href="/2018/06/18/DistributedSystems/Distributed-Message-Systems/">Message Bus</a> … 等核心問題。</p>
+<p>想要深入了解大型分散式系統是如何運作、背後的原理，想要成為架構師、規劃出能面對大流量的系統，這些章節是必讀的！</p>
+<blockquote>
+<p>Updated 2019&#x2F;05&#x2F;17: 由小弟翻譯的書 <a href="/2019/05/17/About/DDS-zh_TW/">分散式系統設計</a> 在 2019&#x2F;05&#x2F;20 上市。</p>
+</blockquote>
+<h2 id="四、管理與訓練"><a href="#四、管理與訓練" class="headerlink" title="四、管理與訓練"></a>四、管理與訓練</h2><p>如何把 SRE 的概念放入既有的團隊是不容易的，如果你是團隊的 Leader、技術管理階層、企業經營者、產品經理，這些章節是可以好好研究的：</p>
+<ul>
+<li>可靠的進行大規模發行</li>
+<li>迅速培養 SRE 加入 on-call</li>
+<li>SRE 與其他團隊的溝通與協作</li>
+<li>SRE 參與模型的演進歷程</li>
+<li>其他行業的實踐經驗</li>
+</ul>
+<p>DevOps 的精神強調團隊的垂直整合，而身為管理者的你，如何讓這樣的新觀念、想法落實到現場，落地到組織，讓團隊能夠自主學習，這些章節有詳細的說明。</p>
+<h2 id="五、箴言-Slogan"><a href="#五、箴言-Slogan" class="headerlink" title="五、箴言 (Slogan)"></a>五、箴言 (Slogan)</h2><p>這本書很多章節開頭有一些意義深遠的 <code>箴言 (Slogan)</code>，完整請參考『<a href="/2017/12/12/DevOps/Slogan-in-SRE/">Slogan in SRE</a>』的整理。如果想要快速、簡單的了解這本書的精神與想法，快速讀過這些句子，你大概知道這本書的想法。底下整理我個人很喜歡的句子：</p>
+<blockquote>
+<ul>
+<li>Hope is not a strategy. (不能將運氣當作策略)</li>
+<li>Be warned that being an expert is more than understanding how a system is supposed to work. Expertise is gained by investigating why a system doesn’t work. (值得警惕的是，理解一個系統如何工作，並不能使人成為專家。只有靠調查系統為何不能正常工作才行。)</li>
+<li>Things break; that’s life. (東西早晚要壞的，這就是生活。)</li>
+<li>If you haven’t tried it, assume it’s broken. (如果你還沒開始親自測試過某件東西，那麼就假設他是壞的。)</li>
+<li>The cost of failure is education. (學習是避免失敗的最好辦法。)</li>
+</ul>
+</blockquote>
+<p>這些只是其中一小部分，而我個人最喜歡的句子：</p>
+<blockquote>
+<p>Things break; that’s life.</p>
+</blockquote>
+<p>這句話在 AWS Whitepaper 也經常提到類似的概念，像是 <a target="_blank" rel="noopener" href="https://www.slideshare.net/AmazonWebServices/best-practices-for-architecting-in-the-cloud-jeff-barr/10-Design_for_Failure_with_AWS">Design for failure</a>：不管是什麼東西，都會壞掉，設計架構時，就要思考壞了怎麼辦？同樣的， <code>Chaos Engineering</code> 也是同樣的概念。</p>
+<p>另外一段話也是我很喜歡的：</p>
+<blockquote>
+<p>值得警惕的是，理解一個系統如何工作，並不能使人成為專家。只有靠調查系統為何不能正常工作才行。</p>
+</blockquote>
+<p>這段話呼應到我平常 <a href="/2017/12/02/About/Epiphany/">鼓勵同事的話</a>：</p>
+<blockquote>
+<p>沒什麼大神，雷踩多了，還活著的，就是大神。</p>
+</blockquote>
+<p>這是一種推坑的概念，但是延伸想法平常的開發流程，就是要多做 <a href="/2018/03/18/SQA/Gossip-System-Testing/">系統性的測試</a>。</p>
+<hr>
+<h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><h2 id="Q1-DevOps-和-SRE-有啥不一樣？"><a href="#Q1-DevOps-和-SRE-有啥不一樣？" class="headerlink" title="Q1: DevOps 和 SRE 有啥不一樣？"></a>Q1: DevOps 和 SRE 有啥不一樣？</h2><blockquote>
+<p>Google 說 SRE 是 DevOps 的實踐，用程式碼表示就是：<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=uTEL8Ff1Zvk">class SRE implements DevOps</a>。我個人的看法：DevOps 是 <code>理念原則</code>，SRE 則是 <code>實踐方法</code>。</p>
+<p><code>DevOps</code> 現在的我是用整個 <code>企業經營</code> 的角度來看 (高大上)，也就是 Development 其實是產品開發週期，包含從需求、寫程式、測試、部署等段落，各式各樣的開發流程，不管是敏捷開發、還是我整理的 <a href="/2017/09/14/SoftwareEngineering/Software-Development-Lifecycle/">Software Development Lifecycle</a> 都是在討論這段；而 Operation 則是企業整體的營運。從業務把客戶引入之後，開始使用產品，形成營收 (Incoming)、系統維運成本、企業經營成本、最後算出的淨利、毛利 … 等。Operation 我看的是 <code>COO (營運長)</code> 的概念，Development 我看的是 <code>CPO (產品長)</code> 的概念。</p>
+</blockquote>
+<h2 id="Q2-SRE-要會啥技能？"><a href="#Q2-SRE-要會啥技能？" class="headerlink" title="Q2: SRE 要會啥技能？"></a>Q2: SRE 要會啥技能？</h2><blockquote>
+<p>SRE 也是軟體工程師，他除了需要具備傳統系統工程師 (System Engineer) 的技能之外，同時要具備 <code>軟體開發</code> 的能力、分散式系統知識。至少會一種 script、一種 compiling language 是基本的，了解基礎的 <code>計算機科學</code> 知識，像是 OS、Algorithm、Data Structure、Computer Architecture、Networking … 都是必要的基礎專業。</p>
+</blockquote>
+<h2 id="Q3-SRE-跟傳統的-MIS、機房-OP-有什麼差異？"><a href="#Q3-SRE-跟傳統的-MIS、機房-OP-有什麼差異？" class="headerlink" title="Q3: SRE 跟傳統的 MIS、機房 OP 有什麼差異？"></a>Q3: SRE 跟傳統的 MIS、機房 OP 有什麼差異？</h2><blockquote>
+<p>SRE 的主軸任務是維持系統的穩定服務，必須用程式自動化完成這些任務。<a href="/2017/12/21/DevOps/What-is-Automation/">自動化</a> 代表著，要瞭解如何 <code>軟體工程</code> 達到目的，而不只是為了自動化而自動化。</p>
+</blockquote>
+<p>Q4: SRE 這本書翻譯的好嗎？</p>
+<blockquote>
+<p>SRE 簡、繁中文版譯者 <a target="_blank" rel="noopener" href="http://www.infoq.com/cn/interviews/interview-with-sunyucong-talk-programmers-master-consciousness">孫宇聰</a>，中國人，2007-2014 在 Google SRE Team。因為他本身就在 Google SRE 待過很長的時間，所以語意上不是問題，簡繁中文版我都有看過，閱讀上是可以接受與理解的。</p>
+</blockquote>
+<h2 id="Q5-有哪些領域和-SRE-有關係？"><a href="#Q5-有哪些領域和-SRE-有關係？" class="headerlink" title="Q5: 有哪些領域和 SRE 有關係？"></a>Q5: 有哪些領域和 SRE 有關係？</h2><blockquote>
+<p>這個問題有點意思，用這張圖來回答比較生動：<br><img src="/images/SRE/20180430_SRE-associated-with-dss_v3-20180804.png"><br>原文 <a target="_blank" rel="noopener" href="https://www.facebook.com/groups/sre.taiwan/permalink/1018955371603700/">點這裡</a>，歡迎來喇低賽 XD</p>
+</blockquote>
+<h2 id="Q6-SRE-的概念會不會跟-敏捷開發-有衝突？"><a href="#Q6-SRE-的概念會不會跟-敏捷開發-有衝突？" class="headerlink" title="Q6: SRE 的概念會不會跟 敏捷開發 有衝突？"></a>Q6: SRE 的概念會不會跟 <code>敏捷開發</code> 有衝突？</h2><blockquote>
+<p>這些想法不會衝突。SRE 是強調用 <code>軟體工程</code>、<code>機算機科學</code> 做維運任務。敏捷開發團隊具備高度的學習、彈性、自組織的特性，在這樣的條件之下，SRE 可以協助團隊更快速面對 <a href="/2018/06/19/Management/Face-the-Real-World/">真實的世界</a>、給予團隊建議。團隊可以因此更的快地適應，更快地面對市場的挑戰！</p>
+<p>對我個人來講，不管是敏捷、SRE、DevOps，目的都是 <code>Getting Things Done</code>，當這樣想的時候，做事的過程，自然而然就會有更 <a href="2015/03/31/Management/Perspective-in-Your-Life/">宏觀的視野</a> 來面對。</p>
+<p>相關文章：</p>
+<ul>
+<li><a href="/2018/04/05/Management/Gossip-Agile/">談談敏捷開發的看法</a></li>
+<li><a href="/2015/01/06/Management/%E5%8D%94%E5%90%8C%E5%90%88%E4%BD%9C%E7%B3%BB%E7%B5%B1%E5%BB%BA%E5%88%B6%E8%88%87%E5%B0%8E%E5%85%A5-%E4%BB%A5-Redmine-%E7%82%BA%E4%BE%8B/">協同合作系統建制與導入</a></li>
+<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+</ul>
+</blockquote>
+<h2 id="Q7-SRE-這本書適合什麼人看？"><a href="#Q7-SRE-這本書適合什麼人看？" class="headerlink" title="Q7: SRE 這本書適合什麼人看？"></a>Q7: SRE 這本書適合什麼人看？</h2><blockquote>
+<p>如同章節的介紹，這本書很適合開發團隊各種角色一起閱讀討論。非工程背景、管理職適合閱讀 Part 1、CH12-16 事件管理部分、以及最後的管理與教育訓練。工程背景則建議完整閱讀整本書。</p>
+</blockquote>
+<h2 id="Q8-哪裡有-SRE-相關資源以及討論？"><a href="#Q8-哪裡有-SRE-相關資源以及討論？" class="headerlink" title="Q8: 哪裡有 SRE 相關資源以及討論？"></a>Q8: 哪裡有 SRE 相關資源以及討論？</h2><blockquote>
+<p>Facebook 社群 <a target="_blank" rel="noopener" href="https://www.facebook.com/groups/DevOpsTaiwan/">DevOps Taiwan</a>、<a target="_blank" rel="noopener" href="https://www.facebook.com/groups/sre.taiwan/">Site Reliability Engineering Taiwan</a> 有很多讀書會的資料： <a target="_blank" rel="noopener" href="https://cross-community.github.io/sre/books/index.html">SRE 讀書會筆記</a></p>
+</blockquote>
+<hr>
+<h1 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h1><p>知道 SRE 這個又新又潮的詞，是在 2016 年的 <a target="_blank" rel="noopener" href="https://www.ithome.com.tw/news/105366">媒體報導</a> 文章開始，那時候我已經負責系統維運工作一段時間，每天面臨各式各樣系統管理、與維運的任務，處理各式各樣系統異常、寫了 n 篇異常報告，要監控、值班、要管理團隊、要學習 Cloud 相關知識，在這些日常維運的過程，同時因為 <code>DevOps</code> 一詞在社群鋪天蓋地的湧現，各種研討會、新技術如荒洪般的衝向我。這樣的衝擊、經歷，讓我不斷的在思考底下這些問題：</p>
+<ul>
+<li><a href="/2017/12/02/DevOps/Spirit-In-SysOps/">維運的精神？</a></li>
+<li><a href="/2017/11/27/DevOps/What-is-Ops/">什麼是維運？維護甚麼？運轉什麼？</a></li>
+<li><a href="/2017/12/22/DevOps/What-is-Monitoring/">什麼是監控？量測與觀測的差異？</a></li>
+<li>DevOps 字義上是有開發、維運，那 <a href="/2017/03/18/SQA/Stages-In-Software-Testing/">測試</a> 呢？</li>
+</ul>
+<p>那段人生的歲月就在這些思考中起起伏伏、跌跌撞撞中度過，而 SRE 的出現讓我有了新的方向，特別是書本前言這段讓人非常有感的話：</p>
+<blockquote>
+<p>軟體工程有的時候和育兒類似：雖然生育過程痛苦、艱辛，但是養育成人的過程才是真正耗費心力之處。傳統的軟體工程花費很多精力討論軟體開發的過程，而不是其後的維護過程。統計顯示，一套軟體系統的 40% ~ 90% 成本，其實是花費在建置之後，不斷維護的過程。</p>
+<p>業界流行的一個說法：一套系統如果已經開發完成，部署在正式環境上，那麼他就是『穩定的』，不需要那麼多工程師花費精力去最佳化、維護。</p>
+<p>我們認為這樣的說法是錯的，從這個角度來看，如果軟體工程主要專注於設計和建構軟體系統，那麼應該有另一個種職業專注於整個軟體系統的生命週期管理：從其設計一直到部署，經歷不斷改進，最後順利除役。這樣的職業必須具備非常廣泛的技能，並且和其他職業的專注點不同，Google 把這個職位稱為 <code>網站可靠性工程師 (SRE, Site Reliability Engineering)</code>。</p>
+</blockquote>
+<p>因為個人 Dev、<a href="/categories/%E8%BB%9F%E9%AB%94%E6%B8%AC%E8%A9%A6/">QA</a>、<a href="/categories/DevOps/">Ops</a> 三段完整的經歷，有一些深刻的體悟與心得，加上書本開場這段話，讓我更深刻的體悟到 Dev &amp; Ops 從來就不只是口號，而是具體且深刻的實踐，是動詞！SRE 告訴大家 Google 如何 <code>做</code>，站在巨人肩膀，讓大家有機會走得更穩、更強壯！</p>
+<blockquote>
+<p>本文授權 <a target="_blank" rel="noopener" href="https://devopsdays.tw/">DevOpsDays Taipei 2018</a> 及 <a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/events/devops4">天瓏網路書店</a> 全文轉載</p>
+</blockquote>
+<hr>
+<h2 id="最難的事"><a href="#最難的事" class="headerlink" title="最難的事"></a>最難的事</h2><p><img src="/images/SRE/CH34/P39.png"><br><img src="/images/SRE/CH34/P40.png"><br><img src="/images/SRE/CH34/P41.png"><br><img src="/images/SRE/CH34/P42.png"><br><img src="/images/SRE/CH34/P43.png"><br><img src="/images/SRE/CH34/P44.png"><br><img src="/images/SRE/CH34/P45.png"><br><img src="/images/SRE/CH34/P46.png"><br><img src="/images/SRE/CH34/P47.png"></p>
+<hr>
+<h1 id="相關文章-站內"><a href="#相關文章-站內" class="headerlink" title="相關文章 (站內)"></a>相關文章 (站內)</h1><h2 id="SRE-相關"><a href="#SRE-相關" class="headerlink" title="SRE 相關"></a>SRE 相關</h2><ul>
+<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作《SRE 實踐與開發平台指南》</a></li>
+<li><a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">演講：從緊急事件 談 SRE 應變能力的培養</a></li>
+<li><a href="/2017/11/04/DevOps/Study-Notes-SRE-Opening-Ch1/">SRE Opening and Chapter 1</a></li>
+<li><a href="/2018/03/11/DevOps/Conclusion-SRE/">Conclusion SRE</a></li>
+<li><a href="/2017/12/12/DevOps/Slogan-in-SRE/">Slogan in SRE</a></li>
+<li><a href="/2018/05/27/DevOps/Emergency-Response-on-Stage/">跨領域的緊急應變 - SRV 斷弦事件</a></li>
+<li><a href="/2018/01/07/DevOps/Emergency-Response/">緊急應變 (Emergency Response)</a></li>
+<li><a href="/2018/08/11/DistributedSystems/Distributed-Consistency-and-Consensus-Algorithm/">分散式一致性問題與共識演算法</a></li>
+</ul>
+<h2 id="測試與自動化相關"><a href="#測試與自動化相關" class="headerlink" title="測試與自動化相關"></a>測試與自動化相關</h2><ul>
+<li><a href="/2017/03/18/SQA/Stages-In-Software-Testing/">淺談軟體測試的階段與策略</a></li>
+<li><a href="/2018/03/18/SQA/Gossip-System-Testing/">輕鬆聊：系統測試 (SVT) 的三兩事</a></li>
+<li><a href="/2017/11/12/DevOps/Gossip-Automation/">自動化帶來的問題</a></li>
+<li><a href="/2017/12/21/DevOps/What-is-Automation/">What is Automation?</a></li>
+<li><a href="/2017/08/30/DevOps/Automation-or-Process/">自動化 XXX 的陷阱</a></li>
+<li><a href="/2014/05/09/SQA/Problems_In-Software-Autotest/">軟體自動化測試常見的問題</a></li>
+</ul>
+<h2 id="維運、運維"><a href="#維運、運維" class="headerlink" title="維運、運維"></a>維運、運維</h2><ul>
+<li><a href="/2017/12/02/DevOps/Spirit-In-SysOps/">系統維運的精神</a></li>
+<li><a href="/2017/11/27/DevOps/What-is-Ops/">What is Ops?</a></li>
+<li><a href="/2018/06/14/DevOps/Recap-What-is-Ops/">再談啥是維運？</a></li>
+<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">演講：Ops as Code using Serverless</a></li>
+<li><a href="/2017/11/14/DevOps/Go-Live/">Go Live</a></li>
+<li><a href="/2017/12/22/DevOps/What-is-Monitoring/">What is Monitoring?</a></li>
+<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">演講：淺談系統監控與 CloudWatch 的應用</a></li>
+<li><a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/">AWS Certified SysOps Administrator - Associate 準備心得</a></li>
+</ul>
+<hr>
+<h1 id="延伸閱讀-站外"><a href="#延伸閱讀-站外" class="headerlink" title="延伸閱讀 (站外)"></a>延伸閱讀 (站外)</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://yq.aliyun.com/articles/582942?utm_content=m_49385">孙宇聪：来自 Google 的 DevOps 理念及实践</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ithome.com.tw/news/105366">Google 儲存 SRE 團隊負責人第一手經驗大公開</a> - iTHome</li>
+<li><a target="_blank" rel="noopener" href="https://note.drx.tw/2018/07/devops-journey-devops-engineer-sre-jobs.html">DevOps Engineer、SRE 徵才求職雜談</a> - 凍仁的筆記</li>
+<li><a target="_blank" rel="noopener" href="https://cross-community.github.io/sre/books/index.html">SRE 讀書會筆記</a></li>
+</ul>
+<h2 id="Google-官方資料"><a href="#Google-官方資料" class="headerlink" title="Google 官方資料"></a>Google 官方資料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=uTEL8Ff1Zvk">What’s the Difference Between DevOps and SRE?</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloudplatform.googleblog.com/2018/05/SRE-vs-DevOps-competing-standards-or-close-friends.html">SRE vs. DevOps: competing standards or close friends?</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloudplatform.googleblog.com/2018/07/sre-fundamentals-slis-slas-and-slos.html">SRE fundamentals: SLIs, SLAs and SLOs</a></li>
+<li><a target="_blank" rel="noopener" href="https://landing.google.com/sre/interview/ben-treynor.html">What is ‘Site Reliability Engineering’?</a></li>
+</ul>
+<h2 id="相關資料、書"><a href="#相關資料、書" class="headerlink" title="相關資料、書"></a>相關資料、書</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.atlassian.com/incident-management/get-the-handbook">Atlassian’s Incident Management Handbook</a> - Free Download</li>
+<li><a target="_blank" rel="noopener" href="https://www.amazon.com/Database-Reliability-Engineering-Designing-Operating/dp/1491925949">Database Reliability Engineering: Designing and Operating Resilient Database Systems</a></li>
+<li><a target="_blank" rel="noopener" href="http://shop.oreilly.com/product/0636920063964.do">Seek SRE</a></li>
+<li><a target="_blank" rel="noopener" href="https://landing.google.com/sre/workbook/toc/">The Site Reliability Workbook</a> - Online</li>
+</ul>
+<h2 id="相關-FB-社群"><a href="#相關-FB-社群" class="headerlink" title="相關 FB 社群"></a>相關 FB 社群</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.facebook.com/groups/DevOpsTaiwan/">DevOps Taiwan</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.facebook.com/groups/sre.taiwan/">Site Reliability Engineering Taiwan</a></li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/2018/08/03/DevOps/An-Introduction-to-SRE/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<!-- LikeCoin -->
+				<!-- @rickd 2022/09/06 -->
+				<!--
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2018/08/03/DevOps/An-Introduction-to-SRE/"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+				-->
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2018/08/11/DistributedSystems/Distributed-Consistency-and-Consensus-Algorithm/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2018/07/22/SQA/Performance-Test/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
+  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
+  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2018/08/03/DevOps/An-Introduction-to-SRE/" data-width="100%" data-numposts="10"></div>
+
+  
+
+
+</section>
+
+
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2018/08/03 12:43:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%8E%A8%E8%96%A6%E9%96%B1%E8%AE%80"><span class="toc-article-text">推薦閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%80%E3%80%81%E6%8C%87%E5%B0%8E%E5%8E%9F%E5%89%87"><span class="toc-article-text">一、指導原則</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BA%8C%E3%80%81%E4%BA%8B%E4%BB%B6%E7%AE%A1%E7%90%86"><span class="toc-article-text">二、事件管理</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%89%E3%80%81%E5%B7%A5%E7%A8%8B%E5%AF%A6%E8%B8%90"><span class="toc-article-text">三、工程實踐</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9B%9B%E3%80%81%E7%AE%A1%E7%90%86%E8%88%87%E8%A8%93%E7%B7%B4"><span class="toc-article-text">四、管理與訓練</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BA%94%E3%80%81%E7%AE%B4%E8%A8%80-Slogan"><span class="toc-article-text">五、箴言 (Slogan)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#FAQ"><span class="toc-article-text">FAQ</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q1-DevOps-%E5%92%8C-SRE-%E6%9C%89%E5%95%A5%E4%B8%8D%E4%B8%80%E6%A8%A3%EF%BC%9F"><span class="toc-article-text">Q1: DevOps 和 SRE 有啥不一樣？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q2-SRE-%E8%A6%81%E6%9C%83%E5%95%A5%E6%8A%80%E8%83%BD%EF%BC%9F"><span class="toc-article-text">Q2: SRE 要會啥技能？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q3-SRE-%E8%B7%9F%E5%82%B3%E7%B5%B1%E7%9A%84-MIS%E3%80%81%E6%A9%9F%E6%88%BF-OP-%E6%9C%89%E4%BB%80%E9%BA%BC%E5%B7%AE%E7%95%B0%EF%BC%9F"><span class="toc-article-text">Q3: SRE 跟傳統的 MIS、機房 OP 有什麼差異？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q5-%E6%9C%89%E5%93%AA%E4%BA%9B%E9%A0%98%E5%9F%9F%E5%92%8C-SRE-%E6%9C%89%E9%97%9C%E4%BF%82%EF%BC%9F"><span class="toc-article-text">Q5: 有哪些領域和 SRE 有關係？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q6-SRE-%E7%9A%84%E6%A6%82%E5%BF%B5%E6%9C%83%E4%B8%8D%E6%9C%83%E8%B7%9F-%E6%95%8F%E6%8D%B7%E9%96%8B%E7%99%BC-%E6%9C%89%E8%A1%9D%E7%AA%81%EF%BC%9F"><span class="toc-article-text">Q6: SRE 的概念會不會跟 敏捷開發 有衝突？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q7-SRE-%E9%80%99%E6%9C%AC%E6%9B%B8%E9%81%A9%E5%90%88%E4%BB%80%E9%BA%BC%E4%BA%BA%E7%9C%8B%EF%BC%9F"><span class="toc-article-text">Q7: SRE 這本書適合什麼人看？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q8-%E5%93%AA%E8%A3%A1%E6%9C%89-SRE-%E7%9B%B8%E9%97%9C%E8%B3%87%E6%BA%90%E4%BB%A5%E5%8F%8A%E8%A8%8E%E8%AB%96%EF%BC%9F"><span class="toc-article-text">Q8: 哪裡有 SRE 相關資源以及討論？</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-article-text">結語</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%9C%80%E9%9B%A3%E7%9A%84%E4%BA%8B"><span class="toc-article-text">最難的事</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E6%96%87%E7%AB%A0-%E7%AB%99%E5%85%A7"><span class="toc-article-text">相關文章 (站內)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SRE-%E7%9B%B8%E9%97%9C"><span class="toc-article-text">SRE 相關</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%B8%AC%E8%A9%A6%E8%88%87%E8%87%AA%E5%8B%95%E5%8C%96%E7%9B%B8%E9%97%9C"><span class="toc-article-text">測試與自動化相關</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B6%AD%E9%81%8B%E3%80%81%E9%81%8B%E7%B6%AD"><span class="toc-article-text">維運、運維</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80-%E7%AB%99%E5%A4%96"><span class="toc-article-text">延伸閱讀 (站外)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Google-%E5%AE%98%E6%96%B9%E8%B3%87%E6%96%99"><span class="toc-article-text">Google 官方資料</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E8%B3%87%E6%96%99%E3%80%81%E6%9B%B8"><span class="toc-article-text">相關資料、書</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C-FB-%E7%A4%BE%E7%BE%A4"><span class="toc-article-text">相關 FB 社群</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/DevOps/" style="color: white">DevOps <span class="badge">43</span></a></span> <span class="label label-info"><a href="/categories/DevOps/SRE/" style="color: white">SRE <span class="badge">25</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Lifecycle/" style="color: white">Lifecycle <span class="badge">28</span></a></span> <span class="label label-success"><a href="/tags/SRE/" style="color: white">SRE <span class="badge">33</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">16</span></a></span> <span class="label label-success"><a href="/tags/Chaos-Engineering/" style="color: white">Chaos Engineering <span class="badge">10</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Consensus/" style="color: white">Distributed Consensus <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/DevOpsDays/" style="color: white">DevOpsDays <span class="badge">2</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+		<!-- v4 -->
+		<h4>About</h4>
+		
+			<li><a href="/2035/01/21/Index/">全站索引</a></li>
+		
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+		
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		
+			<li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+		
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		
+			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+		
+
+		<h4>著作</h4>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作：SRE實踐與開發平台指南</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作：軟體測試實務 (2023)</a></li>
+		
+			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
+		
+
+		<h4>演講</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
+		
+			<li><a href="/2023/09/09/About/2023-AWS-Career-Exploration-Day/">探索職涯、複利人生 - AWS Career Exploration Day 2023</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作 SRE 書友見面會</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">軟體測試實務 - 新書發表會</a></li>
+		
+			<li><a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">探索職涯、成就未來 - AWS Career Exploration Day 2022</a></li>
+		
+			<li><a href="/2022/08/13/SQA/Path-to-Software-Testing/">從理想、到現實的距離，開啟品味軟體測試之路</a></li>
+		
+			<li><a href="/2022/05/10/About/2022-SREConf2022/">91APP 在 AWS 上的 SRE 實踐之路</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/2020-aws-summit-aws">在矩陣型組織裡，如何有效管理 AWS 的成本結構與系統架構</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/aws-using-aws-for-disaster-recovery/">災難演練 @ AWS 實戰分享</a></li>
+		
+			<li><a href="/2019/04/27/DevOps/Introduce-to-Continuous-Delivery-2/">導讀持續交付 2.0 - 談當代軟體交付之虛實融合</a></li>
+		
+			<li><a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理</a></li>
+		
+			<li><a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">從緊急事件 談 SRE 應變能力的培養</a></li>
+		
+			<li><a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
+		
+			<li><a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">Monitoring Tools 大亂鬥 - AWS CloudWatch</a></li>
+		
+			<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></li>
+		
+			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
+		
+
+		<!-- v3 -->
+		<!--
+		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		-->
+
+		<!-- v2 -->
+		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+		<!-- v1 -->
+		<!--
+		<li>Software Developer</li>
+		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+		<li><a href="/categories/DevOps/">Operation Manager</a></li>
+		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+		<li>
+			<ol>
+				<li>Management</li>
+				<li>Cloud / Distributed Systems</li>
+				<li>DevOps / SRE / </li>
+			</ol>
+		</li>
+		-->
+
+		<!--
+		<h4>Donate</h4>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick" />
+		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
+		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
+		</form>
+		-->
+
+		<h4>Facebook</h4>
+
+		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
+
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
+				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+
+		<h4>AWS Certifications</h4>
+		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+		<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+		<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+		
+
+	</div><!-- row -->
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2022 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div>
+
+<!-- container-narrow -->
+
+<div id="gotop">
+
+  <!-- 
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-book"></i> <a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"]);">學習法則</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"]);">喝咖啡 聊音樂 (v2021)</a><br />
+   -->
+
+  <!-- <h4>About</h4> -->
+
+  
+    <li><a href="/2035/01/21/Index/">全站索引</a></li>
+  
+    <li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+  
+    <li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+  
+    <li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+  
+    <li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+  
+    <li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+  
+    <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+  
+
+  <a href="#">▲ TOP ▲ </a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

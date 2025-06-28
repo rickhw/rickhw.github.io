@@ -1,0 +1,742 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Study Notes - VPC Network in GCP | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="整理 GCP 的 Virtual Private Cloud (VPC) 的筆記，同時跟 AWS VPC 的設計比較。
+
+
+
+VPC Network 的好處這篇：Reimagining virtual private clouds 描述了 VPC Network 的強項：
+
+Global
+Shara">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="Study Notes - VPC Network in GCP"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/2017/06/22/GCP/Study-Notes_VPC-in-GCP/"/>
+  <meta property="og:image" content="/images/site_main_logo_v2-201902.png"/>
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<!--
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'G-74Y1F3F5W0']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-74Y1F3F5W0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-74Y1F3F5W0');
+</script>
+
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!-- @rickd 2022/02/24
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
+  -->
+  <!-- @ricka 2022/02/24 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!--
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="bd9r2mJp"></script>
+  -->
+
+  <!-- @ricka 2022/09/06 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="opf2Gext"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+						
+						<li><a href="/categories/About/">About <sup>29</sup></a></li>
+						
+						<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+						
+						<li><a href="/categories/經營管理/Career/">Career <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
+						
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Data/">Data <sup>2</sup></a></li>
+						
+						<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+						
+						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>20</sup></a></li>
+						
+						<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+						
+						<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+						
+						<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+						
+						<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+						
+						<li><a href="/categories/DevOps/SRE/">SRE <sup>25</sup></a></li>
+						
+						<li><a href="/categories/Software-Engineering/">Software Engineering <sup>10</sup></a></li>
+						
+						<li><a href="/categories/System-Design/">System Design <sup>2</sup></a></li>
+						
+						<li><a href="/categories/經營管理/人才管理/">人才管理 <sup>10</sup></a></li>
+						
+						<li><a href="/categories/經營管理/溝通/">溝通 <sup>9</sup></a></li>
+						
+						<li><a href="/categories/經營管理/知識管理/">知識管理 <sup>4</sup></a></li>
+						
+						<li><a href="/categories/經營管理/">經營管理 <sup>61</sup></a></li>
+						
+						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
+						
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"> <i class="fa fa-book"></i>學習法則</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂 (v2021)</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Study Notes - VPC Network in GCP</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Study Notes - VPC Network in GCP</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+		
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2017%2F06%2F22%2FGCP%2FStudy-Notes_VPC-in-GCP%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2017/06/22/GCP/Study-Notes_VPC-in-GCP/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/2017/06/22/GCP/Study-Notes_VPC-in-GCP/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<p>整理 GCP 的 Virtual Private Cloud (VPC) 的筆記，同時跟 AWS VPC 的設計比較。</p>
+<span id="more"></span>
+
+
+<h2 id="VPC-Network-的好處"><a href="#VPC-Network-的好處" class="headerlink" title="VPC Network 的好處"></a>VPC Network 的好處</h2><p>這篇：<a target="_blank" rel="noopener" href="https://cloudplatform.googleblog.com/2017/07/reimagining-virtual-private-clouds.html">Reimagining virtual private clouds</a> 描述了 VPC Network 的強項：</p>
+<ul>
+<li>Global</li>
+<li>Sharable</li>
+<li>Expandable</li>
+</ul>
+<p>這三點大概都是 AWS 比較沒有的，也是很吸引我的因素之一。</p>
+<h2 id="配置與管理"><a href="#配置與管理" class="headerlink" title="配置與管理"></a>配置與管理</h2><ul>
+<li>建立 VPC Network 有兩種方法：自動、手動<ul>
+<li>自動：會在每個 region 配置一個 subnet (相當於開一個 AWS Account, 每個 region 都會有一個 default VPC)</li>
+<li>手動：可以自己規劃 subnet 的 CIDR, 相當於自行規劃 AWS 每個 VPC 的 CIDR</li>
+</ul>
+</li>
+<li>預設自動的 VPC Network CIDR 都一樣，參見： <a target="_blank" rel="noopener" href="https://cloud.google.com/compute/docs/vpc/#subnet-ranges">Types of VPC networks</a>。所以 project 之間要透過網路互通，CIDR 要避開 Space，不然就無法串接。</li>
+<li>手動規劃 Subnet CIDR，要符合 <a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc1918">RFC1918</a> 規範。</li>
+<li>每個 subnet 都會有以下 <code>四個</code> 保留位址:<ul>
+<li>Network address (first address in the CIDR range)</li>
+<li>Default gateway address (second address in the CIDR range)</li>
+<li>Reserved address (second-to-last address in the CIDR range)</li>
+<li>Broadcast address (last address in the CIDR range)</li>
+</ul>
+</li>
+</ul>
+<h1 id="Network-Elements"><a href="#Network-Elements" class="headerlink" title="Network Elements"></a>Network Elements</h1><p>提到網路 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Software-defined_networking">SDN (Software Defined Network)</a> 一定要提到幾種角色：</p>
+<ul>
+<li>Router</li>
+<li>Gateway</li>
+<li>Firewall</li>
+<li>NAT</li>
+</ul>
+<h2 id="VPC-Network"><a href="#VPC-Network" class="headerlink" title="VPC Network"></a>VPC Network</h2><ul>
+<li><code>VPC Network</code>: a global entity spanning all GCP regions. 在這個 VPC Network 裡的 VM (不管在哪一個 Region) 都可以直接透過 Private IP 溝通.<ul>
+<li>entity spanning: 實體跨越</li>
+<li>每個 <code>Project</code> 會有一個 <code>預設</code> 的 network</li>
+<li>每個 Project 限制有 5 個 network (抄 AWS 的很徹底)</li>
+</ul>
+</li>
+<li>Subnets:<ul>
+<li>在單一的 regions 裡. 每個 region 裡可以有多個 <code>subnet</code>.</li>
+<li>在 GCP 裡，跟 <code>Subnetworks</code> 是指同一個東西。<code>gcloud</code> cli 裡會用 <code>subnetwork</code> 表示 sub command</li>
+<li>GCP 的 Subnet 概念等同於 AWS Region 裡的一個 VPC CIDR，但是 GCP 沒有類似 AWS VPC Subnet 的概念</li>
+<li>Subnet 的 CIDR Space 可以放大，但不能縮小。</li>
+</ul>
+</li>
+<li>Gateway:<ul>
+<li>每個 Subnet 會有預設的 Gateway: <code>xxx.yyy.zzz.1</code></li>
+<li>沒有 NAT 概念的節點，透過 <code>Route</code>、<code>Firewall</code> 控制</li>
+</ul>
+</li>
+</ul>
+<h2 id="Routes"><a href="#Routes" class="headerlink" title="Routes"></a>Routes</h2><ul>
+<li>Scope: Global</li>
+<li>每個 Project 都會有預設的 <code>VPC Network</code>，同時也會有預設的 <code>Route</code>、<code>Firewalls</code></li>
+</ul>
+<p>主要文件： <a target="_blank" rel="noopener" href="https://cloud.google.com/compute/docs/vpc/routes">Routes Overview</a></p>
+<h2 id="Firewall-rules"><a href="#Firewall-rules" class="headerlink" title="Firewall rules"></a>Firewall rules</h2><ul>
+<li>Scope: Global, 每個 <code>VPC Network</code> 有預設數個常用的 firewalls，像是 icmp, rdp, ssh, 還有 internal</li>
+<li>可以透過 <code>tag</code> 方式套用到不同的 VM or resources</li>
+<li>有 <code>allow</code>、<code>deny</code> 兩種，每條 <code>rule</code> 只能是一種</li>
+</ul>
+<p>主要文件： <a target="_blank" rel="noopener" href="https://cloud.google.com/compute/docs/vpc/firewalls">Firewall Rules Overview</a></p>
+<h2 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h2><p>GCP 尚無提供類似 AWS 的 NAT Gateway，所以要自己蓋 NAT Instance，然後又會衍生出其他問題，像是：</p>
+<ul>
+<li>如何做 HA for NAT Instance</li>
+<li>GCP VM 的 Network Bandwidth 是用 CPU Core 計算，算法跟 AWS 不一樣，所以應該不會有 NAT Instance 本身 Bandwidth 的問題。</li>
+</ul>
+<h1 id="Shared-VPC"><a href="#Shared-VPC" class="headerlink" title="Shared VPC"></a>Shared VPC</h1><p>不同的 Project，共享同樣的 <code>VPC Network</code>。概念與相關用語如下：</p>
+<p>主要文件：<a target="_blank" rel="noopener" href="https://cloud.google.com/compute/docs/shared-vpc/">Shared VPC Overview</a></p>
+<h2 id="Concepts-and-Terminology"><a href="#Concepts-and-Terminology" class="headerlink" title="Concepts and Terminology"></a>Concepts and Terminology</h2><ul>
+<li>Shared VPC host project:</li>
+<li>Shared VPC service project:</li>
+<li>Standalone project：獨立的 project，有自己的 VPC Network。通常是使用在需要隔離的資源，像是需要 PCI DSS 認證，存放信用卡資料的資料庫。</li>
+<li>Shared VPC network：共享的 <code>VPC Network</code>，所有專案都共用此網路的 CIDR Space。</li>
+<li>IAM roles and policies</li>
+<li>Organization：G Suite 的組織，像是研發單位、業務單位 … 等職權獨立的單位。</li>
+<li>Org admin：最上層的組織管理者，類似於 AD (Active Directory) 的 Domain Admin</li>
+<li>Shared VPC admin：負責管理 Shared VPC 的管理員</li>
+<li>Service project admin<ul>
+<li>Network admin</li>
+<li>Security admin</li>
+</ul>
+</li>
+</ul>
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p><img src="/images/GCP/VPC/Sharing-a-host-project-VPC-network.png"></p>
+<h2 id="Shared-VPC-within-an-Organization-structure"><a href="#Shared-VPC-within-an-Organization-structure" class="headerlink" title="Shared VPC within an Organization structure"></a>Shared VPC within an Organization structure</h2><p><img src="/images/GCP/VPC/Shared-VPC-Org.png"></p>
+<h2 id="Use-Case-Two-tier-web-service"><a href="#Use-Case-Two-tier-web-service" class="headerlink" title="Use Case: Two-tier web service"></a>Use Case: Two-tier web service</h2><p><img src="/images/GCP/VPC/Two-tier_web_service.png"></p>
+<p><img src="/images/GCP/VPC/Two-tier_web_service_lb.png"></p>
+<h2 id="Use-Case-Hybrid-cloud"><a href="#Use-Case-Hybrid-cloud" class="headerlink" title="Use Case: Hybrid cloud"></a>Use Case: Hybrid cloud</h2><p><img src="/images/GCP/VPC/Hybrid_cloud_scenario.png"><br><img src="/images/GCP/VPC/Shared_VPC_setup.png"></p>
+<h1 id="Global-Regional-and-Zonal-Resources"><a href="#Global-Regional-and-Zonal-Resources" class="headerlink" title="Global, Regional, and Zonal Resources"></a>Global, Regional, and Zonal Resources</h1><p>主要文件：<a target="_blank" rel="noopener" href="https://cloud.google.com/compute/docs/regions-zones/global-regional-zonal-resources">Global, Regional, and Zonal Resources</a></p>
+<ul>
+<li>Global resources: 所有 region, zone 都可以存取的資源，像是:<ul>
+<li>Images</li>
+<li>Snapshots</li>
+<li>VPC Network</li>
+<li>Firewalls</li>
+<li>Routes</li>
+<li>Global operations</li>
+</ul>
+</li>
+<li>Regional resources<ul>
+<li>Addresses</li>
+<li>Subnets</li>
+<li>Regional operations</li>
+</ul>
+</li>
+<li>Zone resources<ul>
+<li>Instances</li>
+<li>Disks</li>
+<li>Machine types</li>
+<li>Per-zone operations</li>
+</ul>
+</li>
+<li>Aggregate Lists</li>
+</ul>
+<h1 id="Advanced-VPC-Concepts"><a href="#Advanced-VPC-Concepts" class="headerlink" title="Advanced VPC Concepts"></a>Advanced VPC Concepts</h1><p>主要文件：<a target="_blank" rel="noopener" href="https://cloud.google.com/compute/docs/vpc/advanced-vpc">Advanced VPC Concepts</a></p>
+<ul>
+<li>ARP lookup</li>
+<li>Mac lookup table, IP lookup table, active connection table</li>
+<li>DNS server</li>
+<li>Packet handling between the VPC network and the outside</li>
+<li>Packets received by an instance</li>
+<li>Packets sent by an instance</li>
+<li>Measuring VPC network throughput</li>
+</ul>
+<h1 id="抱怨"><a href="#抱怨" class="headerlink" title="抱怨"></a>抱怨</h1><p>很多 developer 對 <code>網路</code> 其實都沒什麼 sense，大多都是能通就好，很多人也搞不清楚 <code>WAN</code> 跟 <code>LAN</code> 的差異，反正能通就好。。。</p>
+<p><code>Sense</code> 名詞是概念，形容詞是 <code>sensitivity</code> 靈敏度。緝毒犬聞道特殊味道就知道哪裡有毒，這叫做靈敏度。</p>
+<p>看到網路的設計，一看就知道有問題，這就叫靈敏度。我遇到的開發者幾乎靈敏度都是零。</p>
+<p>你會在乎台北市地底下的水管品質嗎？你會在乎在公司裡的封包走去哪嗎？Network Engineer 在乎。</p>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul>
+<li>GCP: <a href="/2017/04/20/GCP/Experience-GCP/">Experience GCP</a></li>
+<li>AWS: <a href="/2016/02/21/AWS/Study-Notes-VPC/">Study Notes - AWS VPC (Virtual Private Cloud)</a></li>
+<li>AWS: <a href="/2017/01/02/AWS/Deep-Dive_From-One-to-Many_Evolving-VPC-Design/">From One to Many - Evolving VPC Design</a></li>
+<li>AWS: <a href="/2016/01/05/AWS/Study-Notes-VPC-Peering/">設定 VPC Peering and Private DNS using Route53</a></li>
+</ul>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://cloud.google.com/compute/docs/vpc/">Virtual Private Cloud (VPC) Network Overview</a><ul>
+<li><a target="_blank" rel="noopener" href="https://cloud.google.com/compute/docs/vpc/routes">Routes Overview</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloud.google.com/compute/docs/shared-vpc/">Shared VPC Overview</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloud.google.com/compute/docs/vpc/firewalls">Firewall Rules Overview</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://cloud.google.com/docs/compare/aws/">Google Cloud Platform for AWS Professionals</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloudplatform.googleblog.com/2017/07/reimagining-virtual-private-clouds.html">Reimagining virtual private clouds</a></li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/2017/06/22/GCP/Study-Notes_VPC-in-GCP/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<!-- LikeCoin -->
+				<!-- @rickd 2022/09/06 -->
+				<!--
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2017/06/22/GCP/Study-Notes_VPC-in-GCP/"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+				-->
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2017/06/29/Management/KM/Why-Document/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
+  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
+  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2017/06/22/GCP/Study-Notes_VPC-in-GCP/" data-width="100%" data-numposts="10"></div>
+
+  
+
+
+</section>
+
+
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2017/06/22 19:41:58
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#VPC-Network-%E7%9A%84%E5%A5%BD%E8%99%95"><span class="toc-article-text">VPC Network 的好處</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%85%8D%E7%BD%AE%E8%88%87%E7%AE%A1%E7%90%86"><span class="toc-article-text">配置與管理</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Network-Elements"><span class="toc-article-text">Network Elements</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#VPC-Network"><span class="toc-article-text">VPC Network</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Routes"><span class="toc-article-text">Routes</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Firewall-rules"><span class="toc-article-text">Firewall rules</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#NAT"><span class="toc-article-text">NAT</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Shared-VPC"><span class="toc-article-text">Shared VPC</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Concepts-and-Terminology"><span class="toc-article-text">Concepts and Terminology</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Overview"><span class="toc-article-text">Overview</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Shared-VPC-within-an-Organization-structure"><span class="toc-article-text">Shared VPC within an Organization structure</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Use-Case-Two-tier-web-service"><span class="toc-article-text">Use Case: Two-tier web service</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Use-Case-Hybrid-cloud"><span class="toc-article-text">Use Case: Hybrid cloud</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Global-Regional-and-Zonal-Resources"><span class="toc-article-text">Global, Regional, and Zonal Resources</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Advanced-VPC-Concepts"><span class="toc-article-text">Advanced VPC Concepts</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%8A%B1%E6%80%A8"><span class="toc-article-text">抱怨</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/GCP/" style="color: white">GCP <span class="badge">8</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/VPC/" style="color: white">VPC <span class="badge">21</span></a></span> <span class="label label-success"><a href="/tags/Networking/" style="color: white">Networking <span class="badge">6</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+		<!-- v4 -->
+		<h4>About</h4>
+		
+			<li><a href="/2035/01/21/Index/">全站索引</a></li>
+		
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+		
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		
+			<li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+		
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		
+			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+		
+
+		<h4>著作</h4>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作：SRE實踐與開發平台指南</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作：軟體測試實務 (2023)</a></li>
+		
+			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
+		
+
+		<h4>演講</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
+		
+			<li><a href="/2023/09/09/About/2023-AWS-Career-Exploration-Day/">探索職涯、複利人生 - AWS Career Exploration Day 2023</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作 SRE 書友見面會</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">軟體測試實務 - 新書發表會</a></li>
+		
+			<li><a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">探索職涯、成就未來 - AWS Career Exploration Day 2022</a></li>
+		
+			<li><a href="/2022/08/13/SQA/Path-to-Software-Testing/">從理想、到現實的距離，開啟品味軟體測試之路</a></li>
+		
+			<li><a href="/2022/05/10/About/2022-SREConf2022/">91APP 在 AWS 上的 SRE 實踐之路</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/2020-aws-summit-aws">在矩陣型組織裡，如何有效管理 AWS 的成本結構與系統架構</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/aws-using-aws-for-disaster-recovery/">災難演練 @ AWS 實戰分享</a></li>
+		
+			<li><a href="/2019/04/27/DevOps/Introduce-to-Continuous-Delivery-2/">導讀持續交付 2.0 - 談當代軟體交付之虛實融合</a></li>
+		
+			<li><a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理</a></li>
+		
+			<li><a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">從緊急事件 談 SRE 應變能力的培養</a></li>
+		
+			<li><a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
+		
+			<li><a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">Monitoring Tools 大亂鬥 - AWS CloudWatch</a></li>
+		
+			<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></li>
+		
+			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
+		
+
+		<!-- v3 -->
+		<!--
+		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		-->
+
+		<!-- v2 -->
+		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+		<!-- v1 -->
+		<!--
+		<li>Software Developer</li>
+		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+		<li><a href="/categories/DevOps/">Operation Manager</a></li>
+		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+		<li>
+			<ol>
+				<li>Management</li>
+				<li>Cloud / Distributed Systems</li>
+				<li>DevOps / SRE / </li>
+			</ol>
+		</li>
+		-->
+
+		<!--
+		<h4>Donate</h4>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick" />
+		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
+		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
+		</form>
+		-->
+
+		<h4>Facebook</h4>
+
+		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
+
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
+				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+
+		<h4>AWS Certifications</h4>
+		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+		<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+		<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+		
+
+	</div><!-- row -->
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2022 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div>
+
+<!-- container-narrow -->
+
+<div id="gotop">
+
+  <!-- 
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-book"></i> <a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"]);">學習法則</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"]);">喝咖啡 聊音樂 (v2021)</a><br />
+   -->
+
+  <!-- <h4>About</h4> -->
+
+  
+    <li><a href="/2035/01/21/Index/">全站索引</a></li>
+  
+    <li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+  
+    <li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+  
+    <li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+  
+    <li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+  
+    <li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+  
+    <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+  
+
+  <a href="#">▲ TOP ▲ </a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,720 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>新書上市 - 個人著作《SRE 實踐與開發平台指南》 | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="如果你希望買一本書，照著裡面說的步驟走，事情就搞定了，那這本書一定不適合你。
+如果你希望買一本書，可以隨意翻閱，然後有種「啊！就是這樣啦！」，那這本書應該適合你。
+
+銷售通路：
+
+天瓏書局
+博客來書店
+
+
+
+
+方向規劃一開始在構思這本書，是從去年演講 “91APP 在 AWS 上的 SRE 實踐之路">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="新書上市 - 個人著作《SRE 實踐與開發平台指南》"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/2023/07/17/About/2023-SRE-Practice-and-IDP/"/>
+  <meta property="og:image" content="/images/About/2023-SRE-Practical-and-IDP/cover.jpg" />
+  
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<!--
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'G-74Y1F3F5W0']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-74Y1F3F5W0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-74Y1F3F5W0');
+</script>
+
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!-- @rickd 2022/02/24
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
+  -->
+  <!-- @ricka 2022/02/24 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!--
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="bd9r2mJp"></script>
+  -->
+
+  <!-- @ricka 2022/09/06 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="opf2Gext"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+						
+						<li><a href="/categories/About/">About <sup>29</sup></a></li>
+						
+						<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+						
+						<li><a href="/categories/經營管理/Career/">Career <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
+						
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Data/">Data <sup>2</sup></a></li>
+						
+						<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+						
+						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>20</sup></a></li>
+						
+						<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+						
+						<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+						
+						<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+						
+						<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+						
+						<li><a href="/categories/DevOps/SRE/">SRE <sup>25</sup></a></li>
+						
+						<li><a href="/categories/Software-Engineering/">Software Engineering <sup>10</sup></a></li>
+						
+						<li><a href="/categories/System-Design/">System Design <sup>2</sup></a></li>
+						
+						<li><a href="/categories/經營管理/人才管理/">人才管理 <sup>10</sup></a></li>
+						
+						<li><a href="/categories/經營管理/溝通/">溝通 <sup>9</sup></a></li>
+						
+						<li><a href="/categories/經營管理/知識管理/">知識管理 <sup>4</sup></a></li>
+						
+						<li><a href="/categories/經營管理/">經營管理 <sup>61</sup></a></li>
+						
+						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
+						
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"> <i class="fa fa-book"></i>學習法則</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂 (v2021)</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> 新書上市 - 個人著作《SRE 實踐與開發平台指南》</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> 新書上市 - 個人著作《SRE 實踐與開發平台指南》</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+		
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2023%2F07%2F17%2FAbout%2F2023-SRE-Practice-and-IDP%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2023/07/17/About/2023-SRE-Practice-and-IDP/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/2023/07/17/About/2023-SRE-Practice-and-IDP/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<p>如果你希望買一本書，照著裡面說的步驟走，事情就搞定了，那這本書一定不適合你。</p>
+<p>如果你希望買一本書，可以隨意翻閱，然後有種「啊！就是這樣啦！」，那這本書應該適合你。</p>
+<p><img src="/images/About/2023-SRE-Practical-and-IDP/cover.jpg"></p>
+<p>銷售通路：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786263334908">天瓏書局</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.books.com.tw/products/0010963275">博客來書店</a></li>
+</ul>
+<span id="more"></span>
+
+
+<h2 id="方向規劃"><a href="#方向規劃" class="headerlink" title="方向規劃"></a>方向規劃</h2><p>一開始在構思這本書，是從去年演講 “<a href="/2022/05/10/About/2022-SREConf2022/">91APP 在 AWS 上的 SRE 實踐之路</a>“ 為主幹，搜集了很多資料，但是寫到一半發現，我開始在思考一些問題：</p>
+<ol>
+<li>希望讀者花 500 (假設) 得到什麼？有什麼啟發？</li>
+<li>一本書要給讀者怎樣的內容，才值回票價？</li>
+<li>這本書可以隨意翻閱？</li>
+<li>讀者為啥要買我的書？</li>
+<li>這本書十年後會變成桌墊？還是經典？</li>
+</ol>
+<p>後來想想，大筆一揮，砍掉很多東西，更多是重新整理最真實的經驗，分享背後的 QBQ。</p>
+<p>問問我自己，拿起一本書的時候，希望得到什麼？</p>
+<blockquote>
+<p>不是希望得到答案，更多是獲得思考的機會，也就是啟發思考；不是要讀者都同意我的觀點，更多是因為我的觀點，獲得啟發與思考。</p>
+</blockquote>
+<p>這樣就達到我的目的了。</p>
+<!--
+
+## 內容與讀者的距離：實際問題切入
+
+Google 的 SRE 本身閱讀起來，是有距離的，也就是上面提的問題，如果沒有一定規模，或者自建機房，大部分遇不到。
+
+書中九成九的內容，都是我自己親自經歷、決策、，其中有不少內容，曾經共事過的同事一定不陌生，甚至會有會心一笑的。
+
+## 減法原則：本來有規劃，但後來沒寫的，
+
+本來書內容規劃很多，後來我全砍了。。。 (下一本？
+
+本來要寫這些：
+
+- Coding, 談 OOP
+- 談 Design Pattern
+
+因為遇過不少傳統 OP 要轉 DevOps or SRE，但因為沒有 coding 技能，或者不想接觸 coding
+
+
+為什麼沒有寫？怕定位混亂
+
+-->
+
+<h2 id="寫作方式"><a href="#寫作方式" class="headerlink" title="寫作方式"></a>寫作方式</h2><ul>
+<li><code>寫作原則</code>: 以降低 SRE 的距離感為原則，所以以口語化、容易閱讀、讀起來沒壓力、拿起來，隨意翻閱都可以讀。</li>
+<li><code>生活經驗</code>: 書中的概念，以生活的概念為原則，不管是技術或者方法，應該都可以在生活當中找到例子，也就是讀者透握自身的生活經歷，就可以理解裡面的想法。</li>
+<li><code>持續閱讀</code>: 身邊有在閱讀的朋友應該算多，至少上個工作，有國寶級大師 Ruddy 老師，讓大家在 <code>閱讀</code> 這件事，讓同事們都很有養分。</li>
+<li><code>章節關聯性</code>: 章節的安排，前半段盡量減少關聯性，後半段則有關聯性。</li>
+</ul>
+<h2 id="感謝"><a href="#感謝" class="headerlink" title="感謝"></a>感謝</h2><ul>
+<li>業界推坑魔人 <code>正瑋</code> 引薦出版社，讓我嘗試跟編輯討論出版的方向。</li>
+<li>感謝出版社 <code>Abby</code>、以及責任編輯 <code>Sammi</code> 的耐心與建議。</li>
+<li>感謝推薦序的幾位好朋友：<code>Andrew</code>、<code>正瑋</code>、<code>Kim</code>、<code>小城</code>，在短短的時間之內看完，然後寫推薦序，真的是很感謝他們：<ul>
+<li><a target="_blank" rel="noopener" href="https://www.facebook.com/andrew0928/posts/pfbid0kTDAuqv2EA87KJyi1aQ63FAsTqBHeA3NB2Xm6BpBxbqRmMGuCRuEXM9btEWahb8Jl">Andrew Wu 的推薦序</a></li>
+<li><a target="_blank" rel="noopener" href="https://chengweichen.com/2023/07/rick-sre-book.html">正瑋 的推薦序</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.facebook.com/kimkao.solid/posts/pfbid02KRokXvwxvcS4vdGjqEASF47Ard79AD1B7btjqRWoRY8y18rjD4J6hSGsgh65yNCpl">Kim Kao 的推薦序</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/smalltowntechblog/sre%E5%AF%A6%E8%B8%90%E8%88%87%E9%96%8B%E7%99%BC%E5%B9%B3%E5%8F%B0%E6%8C%87%E5%8D%97-%E6%8E%A8%E8%96%A6%E5%BA%8F-%E4%B8%8D%E7%94%A8n%E5%B9%B4%E7%9A%84%E5%BE%9E%E6%A5%AD%E7%B6%93%E9%A9%97-%E5%8F%AA%E9%9C%80%E9%80%8F%E9%81%8E%E6%9C%AC%E6%9B%B8-%E5%8D%B3%E5%8F%AF%E5%9C%A8%E7%B6%AD%E9%81%8B%E8%B7%AF%E4%B8%8A%E6%92%A5%E9%9B%B2%E8%A6%8B%E6%97%A5-9e9d9a4b1c9">小城的推薦序</a></li>
+</ul>
+</li>
+<li>感謝前東家 91APP 過去那麼多年舞台以及養分</li>
+<li>感謝一起成長的團隊 - <code>91APP Infra Team (原 RD5)</code>，從零到一、從一到十，一路上不離不棄，不斷地鞭策，伴我成長</li>
+</ul>
+<h2 id="書中彩蛋"><a href="#書中彩蛋" class="headerlink" title="書中彩蛋"></a>書中彩蛋</h2><p>跟我共事過的同事都知道，我很重視閱讀文件這件事情，凡事都會要求先看過文件。這樣要求的同時，我也會要求自己把文件寫清楚，Infra Team 裡起草規範、制度、規格、Guideline 寫最多的一定是我，而且就是白紙黑字。</p>
+<p>不過我很清楚，大部分的同仁不會去細看這些東西，所以我曾經在規格文件中，埋藏彩蛋，讓細心的同事有驚喜，如下圖 (<a target="_blank" rel="noopener" href="https://www.facebook.com/rick.kyhwang/posts/pfbid031dXbsA7VNKFDDnQJAUQv7huPWAcQKJnbnMS7EadVvqKfT8wXHGVTEhytmBjhipvNl">原始連結</a>)</p>
+<p><img src="/images/About/2023-SRE-Practical-and-IDP/happy-water.png"></p>
+<p>書中也有這樣的彩蛋，不過要稍微動一點腦筋。。。找到歡迎私訊我，限量兩本書送給先找到的朋友 XD</p>
+<h2 id="Q-and-A"><a href="#Q-and-A" class="headerlink" title="Q and A"></a>Q and A</h2><h3 id="Q-電子書的通路平台有哪些？"><a href="#Q-電子書的通路平台有哪些？" class="headerlink" title="Q: 電子書的通路平台有哪些？"></a>Q: 電子書的通路平台有哪些？</h3><blockquote>
+<p>目前出版社回覆有合作的電子平台如下：博碩有長期合作的十大電子書平台 (博客來、讀墨 (Readmoo)、Pubu、Kobo樂天、Googleplay、凌網 (Hyread)、UDN (聯合線上)、讀冊生活、台灣漫讀 (Bookwalker)、mybook)</p>
+</blockquote>
+<h3 id="Q-電子書上市時間？"><a href="#Q-電子書上市時間？" class="headerlink" title="Q: 電子書上市時間？"></a>Q: 電子書上市時間？</h3><blockquote>
+<p>出版社回覆：實體書上架後兩個月，實體書 08&#x2F;01 上架。</p>
+</blockquote>
+<h3 id="Q-有新書發表會或實體活動嗎？"><a href="#Q-有新書發表會或實體活動嗎？" class="headerlink" title="Q: 有新書發表會或實體活動嗎？"></a>Q: 有新書發表會或實體活動嗎？</h3><ul>
+<li>2023&#x2F;07&#x2F;22: 目前 DevOps Taiwan 協助安排，活動報名處 <a target="_blank" rel="noopener" href="https://devops.kktix.cc/events/meetup-54-rick-sre-book">KKtix</a>，其他邀約正在協調中。</li>
+<li>2023&#x2F;08&#x2F;01 Updated:<ul>
+<li>(已經結束) <a target="_blank" rel="noopener" href="https://devops.kktix.cc/events/meetup-54-rick-sre-book">08&#x2F;19 (六) 1400-1630: 天瓏書局 Coding Space, DevOps Taiwan 主辦</a></li>
+<li>(已經結束) <a target="_blank" rel="noopener" href="https://agilecommtw.kktix.cc/events/sre-book">08&#x2F;26 (六) 1400-1700: 逸空間 (Yi-Spaces), Agile Taipei 主辦</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="Q-寫作過程有用到-ChatGPT？或者參考？"><a href="#Q-寫作過程有用到-ChatGPT？或者參考？" class="headerlink" title="Q: 寫作過程有用到 ChatGPT？或者參考？"></a>Q: 寫作過程有用到 ChatGPT？或者參考？</h3><blockquote>
+<p>只有整理 IDP 時候參考一下其他人寫的想法，然後融入自己的經驗。用 ChatGPT 倒是沒有。主要是整件事情我都有想過，問題是，我的腦袋裡沒有 ChatGPT … 所以就算問 ChatGPT，答案也不是我要的。</p>
+</blockquote>
+<hr>
+<h2 id="紀錄"><a href="#紀錄" class="headerlink" title="紀錄"></a>紀錄</h2><h3 id="06-x2F-18-六-首度揭露資訊"><a href="#06-x2F-18-六-首度揭露資訊" class="headerlink" title="06&#x2F;18 (六) 首度揭露資訊"></a>06&#x2F;18 (六) 首度揭露資訊</h3><p>在 <a href="/2023/05/23/About/2023-Software-Test-Practice/">軟體測試實務 新書發表會</a> 現場首度揭露資訊，事後在 FB 發布的訊息 <a target="_blank" rel="noopener" href="https://www.facebook.com/rick.kyhwang/posts/pfbid02GyqUw7GevVSMeJYMzp7ixSfQ5cJUJWNFKT8gey2LCH8rVQhkeQrjs4Xni397qxmBl">link</a></p>
+<p><img src="/images/About/2023-SRE-Practical-and-IDP/20230618_6.png"></p>
+<h3 id="07-x2F-17-一-公開預購訊息"><a href="#07-x2F-17-一-公開預購訊息" class="headerlink" title="07&#x2F;17 (一) 公開預購訊息"></a>07&#x2F;17 (一) 公開預購訊息</h3><p>個人 FB 曝光訊息: <a target="_blank" rel="noopener" href="https://www.facebook.com/rick.kyhwang/posts/pfbid02XRUh3a63Wq9Lvkz4oF71k1DWUBhHqjCKgcycdgscRxDZD2JpxNrUMojcVAF1XuRJl">link</a></p>
+<p><img src="/images/About/2023-SRE-Practical-and-IDP/20230717_1_open.png"></p>
+<p>天龍書局的 Banner</p>
+<p><img src="/images/About/2023-SRE-Practical-and-IDP/20230717_tenlong_banner.jpg"></p>
+<h3 id="07-x2F-17-三-開放預購第三天，週銷售-Top1"><a href="#07-x2F-17-三-開放預購第三天，週銷售-Top1" class="headerlink" title="07&#x2F;17 (三) 開放預購第三天，週銷售 Top1"></a>07&#x2F;17 (三) 開放預購第三天，週銷售 Top1</h3><p><img src="/images/About/2023-SRE-Practical-and-IDP/20230719_3-weekly-top1.jpg"></p>
+<h3 id="07-x2F-21-五-開放預購第五天，月銷售-Top1"><a href="#07-x2F-21-五-開放預購第五天，月銷售-Top1" class="headerlink" title="07&#x2F;21 (五) 開放預購第五天，月銷售 Top1"></a>07&#x2F;21 (五) 開放預購第五天，月銷售 Top1</h3><p><img src="/images/About/2023-SRE-Practical-and-IDP/20230721_5-monthly-top1.jpeg"></p>
+<p>Page View: FB like 500++</p>
+<p><img src="/images/About/2023-SRE-Practical-and-IDP/20230721_5-pageview.png"></p>
+<h3 id="2024-x2F-01-x2F-02-天瓏書局-2023-百大"><a href="#2024-x2F-01-x2F-02-天瓏書局-2023-百大" class="headerlink" title="2024&#x2F;01&#x2F;02 天瓏書局 2023 百大"></a>2024&#x2F;01&#x2F;02 天瓏書局 2023 百大</h3><p><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/events/2023-top100">https://www.tenlong.com.tw/events/2023-top100</a></p>
+<p><img src="/images/About/2023-SRE-Practical-and-IDP/20240102-1.png"></p>
+<p><img src="/images/About/2023-SRE-Practical-and-IDP/20240102-2.png"></p>
+<hr>
+<h2 id="書友見面會"><a href="#書友見面會" class="headerlink" title="書友見面會"></a>書友見面會</h2><p>簡報:</p>
+<iframe src="https://www.slideshare.net/slideshow/embed_code/key/4CmibR0EfoTgjf?startSlide=1" width="597" height="486" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px;max-width: 100%;" allowfullscreen></iframe><div style="margin-bottom:5px"><strong><a href="https://www.slideshare.net/rickhwang/2023-08-sre" title="2023 08 - SRE 實踐與開發平台指南 - 書友見面會" target="_blank">2023 08 - SRE 實踐與開發平台指南 - 書友見面會</a></strong> from <strong><a href="https://www.slideshare.net/rickhwang" target="_blank">Rick Hwang</a></strong></div>
+
+<p>活動照片：</p>
+<h3 id="天瓏書局"><a href="#天瓏書局" class="headerlink" title="天瓏書局"></a>天瓏書局</h3><ul>
+<li>照片：<a target="_blank" rel="noopener" href="https://www.facebook.com/media/set/?set=a.10219080102392862&type=3">20230819_6 - SRE 書友見面會 (天瓏書局)</a></li>
+<li>現場書友的心得筆記 - <a target="_blank" rel="noopener" href="https://www.facebook.com/permalink.php?story_fbid=pfbid02wDp4A97zux4NwUHApfS5JQYv256smD59YwYTf6Q41vwBegbuqtqb1HRRjeAptE4Kl&id=100068893800768">Anna Su Notes</a></li>
+</ul>
+<p><img src="/images/About/2023-SRE-Practical-and-IDP/20230819_6-1.JPG"><br><img src="/images/About/2023-SRE-Practical-and-IDP/20230819_6-2.JPG"><br><img src="/images/About/2023-SRE-Practical-and-IDP/20230819_6-3.JPG"><br><img src="/images/About/2023-SRE-Practical-and-IDP/20230819_6-4.JPG"><br><img src="/images/About/2023-SRE-Practical-and-IDP/20230819_6-5.JPG"></p>
+<h3 id="逸空間"><a href="#逸空間" class="headerlink" title="逸空間"></a>逸空間</h3><ul>
+<li>照片：<a target="_blank" rel="noopener" href="https://www.facebook.com/media/set/?vanity=rick.kyhwang&set=a.10219114701337814">20230823_6 - SRE 書友見面會 (逸空間, Agile Taipei)</a></li>
+</ul>
+<p><img src="/images/About/2023-SRE-Practical-and-IDP/20230826_6-1.JPG"><br><img src="/images/About/2023-SRE-Practical-and-IDP/20230826_6-2.JPG"><br><img src="/images/About/2023-SRE-Practical-and-IDP/20230826_6-3.JPG"><br><img src="/images/About/2023-SRE-Practical-and-IDP/20230826_6-4.JPG"><br><img src="/images/About/2023-SRE-Practical-and-IDP/20230826_6-5.JPG"></p>
+<hr>
+<h1 id="其他資訊"><a href="#其他資訊" class="headerlink" title="其他資訊"></a>其他資訊</h1><ul>
+<li>iTHome - <a target="_blank" rel="noopener" href="https://www.ithome.com.tw/article/157902">星期五不應該部署？</a></li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/2023/07/17/About/2023-SRE-Practice-and-IDP/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<!-- LikeCoin -->
+				<!-- @rickd 2022/09/06 -->
+				<!--
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2023/07/17/About/2023-SRE-Practice-and-IDP/"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+				-->
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2023/07/29/Management/Team-Consensus-and-Talent-Development/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2023/07/11/Coding/Why-Keep-Old-Code/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
+  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
+  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2023/07/17/About/2023-SRE-Practice-and-IDP/" data-width="100%" data-numposts="10"></div>
+
+  
+
+
+</section>
+
+
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2023/07/17 21:42:30
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%96%B9%E5%90%91%E8%A6%8F%E5%8A%83"><span class="toc-article-text">方向規劃</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%AF%AB%E4%BD%9C%E6%96%B9%E5%BC%8F"><span class="toc-article-text">寫作方式</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%84%9F%E8%AC%9D"><span class="toc-article-text">感謝</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%9B%B8%E4%B8%AD%E5%BD%A9%E8%9B%8B"><span class="toc-article-text">書中彩蛋</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-and-A"><span class="toc-article-text">Q and A</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Q-%E9%9B%BB%E5%AD%90%E6%9B%B8%E7%9A%84%E9%80%9A%E8%B7%AF%E5%B9%B3%E5%8F%B0%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="toc-article-text">Q: 電子書的通路平台有哪些？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Q-%E9%9B%BB%E5%AD%90%E6%9B%B8%E4%B8%8A%E5%B8%82%E6%99%82%E9%96%93%EF%BC%9F"><span class="toc-article-text">Q: 電子書上市時間？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Q-%E6%9C%89%E6%96%B0%E6%9B%B8%E7%99%BC%E8%A1%A8%E6%9C%83%E6%88%96%E5%AF%A6%E9%AB%94%E6%B4%BB%E5%8B%95%E5%97%8E%EF%BC%9F"><span class="toc-article-text">Q: 有新書發表會或實體活動嗎？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Q-%E5%AF%AB%E4%BD%9C%E9%81%8E%E7%A8%8B%E6%9C%89%E7%94%A8%E5%88%B0-ChatGPT%EF%BC%9F%E6%88%96%E8%80%85%E5%8F%83%E8%80%83%EF%BC%9F"><span class="toc-article-text">Q: 寫作過程有用到 ChatGPT？或者參考？</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B4%80%E9%8C%84"><span class="toc-article-text">紀錄</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#06-x2F-18-%E5%85%AD-%E9%A6%96%E5%BA%A6%E6%8F%AD%E9%9C%B2%E8%B3%87%E8%A8%8A"><span class="toc-article-text">06&#x2F;18 (六) 首度揭露資訊</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#07-x2F-17-%E4%B8%80-%E5%85%AC%E9%96%8B%E9%A0%90%E8%B3%BC%E8%A8%8A%E6%81%AF"><span class="toc-article-text">07&#x2F;17 (一) 公開預購訊息</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#07-x2F-17-%E4%B8%89-%E9%96%8B%E6%94%BE%E9%A0%90%E8%B3%BC%E7%AC%AC%E4%B8%89%E5%A4%A9%EF%BC%8C%E9%80%B1%E9%8A%B7%E5%94%AE-Top1"><span class="toc-article-text">07&#x2F;17 (三) 開放預購第三天，週銷售 Top1</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#07-x2F-21-%E4%BA%94-%E9%96%8B%E6%94%BE%E9%A0%90%E8%B3%BC%E7%AC%AC%E4%BA%94%E5%A4%A9%EF%BC%8C%E6%9C%88%E9%8A%B7%E5%94%AE-Top1"><span class="toc-article-text">07&#x2F;21 (五) 開放預購第五天，月銷售 Top1</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#2024-x2F-01-x2F-02-%E5%A4%A9%E7%93%8F%E6%9B%B8%E5%B1%80-2023-%E7%99%BE%E5%A4%A7"><span class="toc-article-text">2024&#x2F;01&#x2F;02 天瓏書局 2023 百大</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%9B%B8%E5%8F%8B%E8%A6%8B%E9%9D%A2%E6%9C%83"><span class="toc-article-text">書友見面會</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%A4%A9%E7%93%8F%E6%9B%B8%E5%B1%80"><span class="toc-article-text">天瓏書局</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E9%80%B8%E7%A9%BA%E9%96%93"><span class="toc-article-text">逸空間</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%85%B6%E4%BB%96%E8%B3%87%E8%A8%8A"><span class="toc-article-text">其他資訊</span></a>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/About/" style="color: white">About <span class="badge">29</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/SRE/" style="color: white">SRE <span class="badge">33</span></a></span> <span class="label label-success"><a href="/tags/Platform-Engineering/" style="color: white">Platform Engineering <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Internal-Developer-Platform/" style="color: white">Internal Developer Platform <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Books/" style="color: white">Books <span class="badge">3</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+		<!-- v4 -->
+		<h4>About</h4>
+		
+			<li><a href="/2035/01/21/Index/">全站索引</a></li>
+		
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+		
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		
+			<li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+		
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		
+			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+		
+
+		<h4>著作</h4>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作：SRE實踐與開發平台指南</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作：軟體測試實務 (2023)</a></li>
+		
+			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
+		
+
+		<h4>演講</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
+		
+			<li><a href="/2023/09/09/About/2023-AWS-Career-Exploration-Day/">探索職涯、複利人生 - AWS Career Exploration Day 2023</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作 SRE 書友見面會</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">軟體測試實務 - 新書發表會</a></li>
+		
+			<li><a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">探索職涯、成就未來 - AWS Career Exploration Day 2022</a></li>
+		
+			<li><a href="/2022/08/13/SQA/Path-to-Software-Testing/">從理想、到現實的距離，開啟品味軟體測試之路</a></li>
+		
+			<li><a href="/2022/05/10/About/2022-SREConf2022/">91APP 在 AWS 上的 SRE 實踐之路</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/2020-aws-summit-aws">在矩陣型組織裡，如何有效管理 AWS 的成本結構與系統架構</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/aws-using-aws-for-disaster-recovery/">災難演練 @ AWS 實戰分享</a></li>
+		
+			<li><a href="/2019/04/27/DevOps/Introduce-to-Continuous-Delivery-2/">導讀持續交付 2.0 - 談當代軟體交付之虛實融合</a></li>
+		
+			<li><a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理</a></li>
+		
+			<li><a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">從緊急事件 談 SRE 應變能力的培養</a></li>
+		
+			<li><a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
+		
+			<li><a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">Monitoring Tools 大亂鬥 - AWS CloudWatch</a></li>
+		
+			<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></li>
+		
+			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
+		
+
+		<!-- v3 -->
+		<!--
+		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		-->
+
+		<!-- v2 -->
+		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+		<!-- v1 -->
+		<!--
+		<li>Software Developer</li>
+		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+		<li><a href="/categories/DevOps/">Operation Manager</a></li>
+		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+		<li>
+			<ol>
+				<li>Management</li>
+				<li>Cloud / Distributed Systems</li>
+				<li>DevOps / SRE / </li>
+			</ol>
+		</li>
+		-->
+
+		<!--
+		<h4>Donate</h4>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick" />
+		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
+		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
+		</form>
+		-->
+
+		<h4>Facebook</h4>
+
+		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
+
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
+				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+
+		<h4>AWS Certifications</h4>
+		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+		<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+		<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+		
+
+	</div><!-- row -->
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2022 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div>
+
+<!-- container-narrow -->
+
+<div id="gotop">
+
+  <!-- 
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-book"></i> <a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"]);">學習法則</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"]);">喝咖啡 聊音樂 (v2021)</a><br />
+   -->
+
+  <!-- <h4>About</h4> -->
+
+  
+    <li><a href="/2035/01/21/Index/">全站索引</a></li>
+  
+    <li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+  
+    <li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+  
+    <li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+  
+    <li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+  
+    <li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+  
+    <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+  
+
+  <a href="#">▲ TOP ▲ </a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

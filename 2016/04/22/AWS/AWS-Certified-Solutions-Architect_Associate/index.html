@@ -1,0 +1,748 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>AWS Certified Solutions Architect - Associate 準備心得 | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="NOTE 2018&amp;#x2F;08&amp;#x2F;10: 從 Aug 2018 開始，SAA 已經無法考此版內容，這篇文章算是功成身退囉～
+
+
+使用 AWS 有一段時間，但是真的認真學習相關知識，然後在實務上應用，大概才一年的時間。過程中，覺得 AWS 整個 Cloud 的技術以及 Solution 相">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="AWS Certified Solutions Architect - Associate 準備心得"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"/>
+  <meta property="og:image" content="/images/AWS/Certification/AWS_Certified_Study.JPG" />
+  
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<!--
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'G-74Y1F3F5W0']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-74Y1F3F5W0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-74Y1F3F5W0');
+</script>
+
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!-- @rickd 2022/02/24
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
+  -->
+  <!-- @ricka 2022/02/24 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!--
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="bd9r2mJp"></script>
+  -->
+
+  <!-- @ricka 2022/09/06 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="opf2Gext"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+						
+						<li><a href="/categories/About/">About <sup>29</sup></a></li>
+						
+						<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+						
+						<li><a href="/categories/經營管理/Career/">Career <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
+						
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Data/">Data <sup>2</sup></a></li>
+						
+						<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+						
+						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>20</sup></a></li>
+						
+						<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+						
+						<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+						
+						<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+						
+						<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+						
+						<li><a href="/categories/DevOps/SRE/">SRE <sup>25</sup></a></li>
+						
+						<li><a href="/categories/Software-Engineering/">Software Engineering <sup>10</sup></a></li>
+						
+						<li><a href="/categories/System-Design/">System Design <sup>2</sup></a></li>
+						
+						<li><a href="/categories/經營管理/人才管理/">人才管理 <sup>10</sup></a></li>
+						
+						<li><a href="/categories/經營管理/溝通/">溝通 <sup>9</sup></a></li>
+						
+						<li><a href="/categories/經營管理/知識管理/">知識管理 <sup>4</sup></a></li>
+						
+						<li><a href="/categories/經營管理/">經營管理 <sup>61</sup></a></li>
+						
+						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
+						
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"> <i class="fa fa-book"></i>學習法則</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂 (v2021)</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> AWS Certified Solutions Architect - Associate 準備心得</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> AWS Certified Solutions Architect - Associate 準備心得</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+		
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2016%2F04%2F22%2FAWS%2FAWS-Certified-Solutions-Architect_Associate%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<blockquote>
+<p><em>NOTE 2018&#x2F;08&#x2F;10</em>: 從 Aug 2018 開始，SAA 已經無法考此版內容，這篇文章算是功成身退囉～</p>
+</blockquote>
+<p><img src="/images/AWS/Certification/AWS_Certified_Study.JPG" alt="AWS Security Best Practices"></p>
+<p>使用 AWS 有一段時間，但是真的認真學習相關知識，然後在實務上應用，大概才一年的時間。過程中，覺得 AWS 整個 Cloud 的技術以及 Solution 相當完整，教育訓練也很有系統，加上工作的需求，於是興起考認證的念頭。</p>
+<p>剛開始準備其實有點無頭蒼蠅，讀了好幾篇 Whitepapers 和 Guide，發現東西真的是太多了，後來找了一些心得分享，發現官方有完整的 <a target="_blank" rel="noopener" href="http://aws.amazon.com/certification/certification-prep/">考試指南</a>，才開始收斂準備的方向。</p>
+<p>準備考試之前，先確認以下：</p>
+<ul>
+<li>考試的範圍：AWS 的東西 <strong>非常非常多</strong> ，範圍也是 <strong>非常非常大</strong> ，每個 Service 都有一定程度的複雜 (像 EC2, S3, VPC, CloudFront)，同時又會相互關聯、以及適當的 Practices，所以知道考試範圍，才知道接下來怎麼安排準備。</li>
+<li>實作：考試題目很活，很少記憶性的題目，大多是給予一個情境，然後問用哪些方案，或者做 trouble shooting。盡可能多練習，考試的內容很多是實務上的問題。</li>
+<li>盡可能地在實作中，想問題，然後從 User Guide &#x2F; Developer Guide &#x2F; Whitepapers &#x2F; AWS Developer Forums 找答案.</li>
+</ul>
+<p>以下是我準備時，所閱讀的東西，有些已經把重點整理在 blog。</p>
+<blockquote>
+<p><em>Updated 2018&#x2F;02&#x2F;15</em>: SAA 已經在 2018&#x2F;02&#x2F;15 更版，差異請參閱 <a href="/2018/02/15/AWS/AWS-Certified-SAA001-Update/">AWS Certified SAA-01 Update</a> 的說明</p>
+</blockquote>
+<span id="more"></span>
+
+<hr>
+<h1 id="必讀"><a href="#必讀" class="headerlink" title="必讀"></a>必讀</h1><h2 id="考試準備-Official-Certificate-Guide"><a href="#考試準備-Official-Certificate-Guide" class="headerlink" title="考試準備 (Official Certificate Guide)"></a>考試準備 (Official Certificate Guide)</h2><p>這三個 links 有詳細的考試準備資訊，包含五張 AWS Certificate 的介紹，每個認證的範圍、建議準備方式 … 等都有非常清楚的說明。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://aws.amazon.com/certification/certification-prep/">Certification Guide</a> (Web)</li>
+<li><a target="_blank" rel="noopener" href="https://d0.awsstatic.com/training-and-certification/docs/AWS_Certification_Guide_2015.pdf">AWS Certification Guide</a> (PDF)</li>
+<li><a target="_blank" rel="noopener" href="http://awstrainingandcertification.s3.amazonaws.com/production/AWS_certified_solutions_architect_associate_blueprint.pdf">AWS Certified Solutions Architect - Associate Level - BluePrint</a> (PDF)</li>
+</ul>
+<h2 id="AWS-Whitepapers"><a href="#AWS-Whitepapers" class="headerlink" title="AWS Whitepapers"></a>AWS Whitepapers</h2><p><a target="_blank" rel="noopener" href="https://aws.amazon.com/whitepapers/?nc1=f_cc">AWS Whitepaper</a> 是解決方案技術的 Best Practice (最佳實踐), Principle (原則) 的整理，每一篇大概有 20 ~ 100 頁。是實務應用經驗的累積與精華，而且經得起時間的考驗，非常值得深入閱讀與參考。</p>
+<p>以下是 Certificate Guide 提到要閱讀的 Whitepaper，每一篇都很有參考價值。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://media.amazonwebservices.com/AWS_Cloud_Best_Practices.pdf">Architecting for the AWS Cloud: Best Practices</a>: 非常經典的架構實踐原則整理, 這是我的 <a href="/2016/03/21/AWS/Whitepaper-Architecting-for-the-Cloud-AWS-Best-Practices/">重點整理</a></li>
+<li><a target="_blank" rel="noopener" href="http://media.amazonwebservices.com/AWS_Security_Best_Practices.pdf">AWS Security Best Practices</a>: 資安的最佳實踐原則，從各個角度來分析如何在 AWS 做好資安以及規劃。</li>
+<li><a target="_blank" rel="noopener" href="https://d0.awsstatic.com/whitepapers/Security/AWS_Security_Whitepaper.pdf">Amazon Web Services: Overview of Security Processes</a>: 從程序的角度來檢視 AWS Security 做法。</li>
+<li><a target="_blank" rel="noopener" href="https://media.amazonwebservices.com/AWS_Storage_Options.pdf">Storage Options in the AWS Cloud</a>: Storage 的選擇與 Best Practices, Cost, Anti-Pattern … 等</li>
+<li><a target="_blank" rel="noopener" href="http://jineshvaria.s3.amazonaws.com/public/cloudarchitectures-varia.pdf">Cloud Architectures</a>: 發表於 2008 年，講述 GrepTheWeb 設計的故事，很精彩的架構設計案例。裡面提到 Architect 設計的原則。</li>
+<li><a target="_blank" rel="noopener" href="https://media.amazonwebservices.com/AWS_Development_Test_Environments.pdf">Development and Test on AWS</a>: 開發測試的規劃，也包含部署的規劃等。</li>
+<li><a target="_blank" rel="noopener" href="https://media.amazonwebservices.com/AWS_Backup_Recovery.pdf">Backup and Recovery Approaches Using AWS</a>: 備份與還原跟系統維運有關係，維運單位要閱讀。</li>
+<li><a target="_blank" rel="noopener" href="https://d0.awsstatic.com/whitepapers/aws-amazon-vpc-connectivity-options.pdf">Amazon Virtual Private Cloud Connectivity Options</a>: 建構 VPC 與企業網路連接的選擇，非常實務的經驗。</li>
+<li><a target="_blank" rel="noopener" href="https://d0.awsstatic.com/whitepapers/aws_pricing_overview.pdf">How AWS Pricing Works</a></li>
+</ul>
+<h2 id="AWS-FAQ-Support"><a href="#AWS-FAQ-Support" class="headerlink" title="AWS FAQ (Support)"></a>AWS FAQ (Support)</h2><p><a target="_blank" rel="noopener" href="https://aws.amazon.com/faqs/?nc2=h_l2_su">AWS FAQ</a> 也是 Certificate Guide 建議要閱讀的，大部份的問題，特別是 Cost &#x2F; Security &#x2F; Permission &#x2F; Practices &#x2F; Migration 等部分，都可以在這裡找到答案。實務上遇到問題的時候，建議先到 FAQ 找，大部份的問題都可以在這裡找到答案。</p>
+<p>以下是 AWS Certified Solutions Architect - Associate 建議閱讀的範圍。</p>
+<p>因為 <strong>非常非常多</strong> ，所以我都利用瑣碎時間 (坐公車)，快速閱讀。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://aws.amazon.com/ec2/faqs/">Amazon EC2 FAQ</a>, also see <a target="_blank" rel="noopener" href="https://developer.amazonwebservices.com/connect/entry.jspa?externalID=1145">Technical FAQ</a></li>
+<li><a target="_blank" rel="noopener" href="https://aws.amazon.com/s3/faqs/">Amazon S3 FAQ</a>, also see <a target="_blank" rel="noopener" href="https://developer.amazonwebservices.com/connect/entry.jspa?externalID=1109">Technical FAQ</a></li>
+<li><a target="_blank" rel="noopener" href="https://aws.amazon.com/vpc/faqs/">Amazon VPC FAQ</a></li>
+<li><a target="_blank" rel="noopener" href="https://aws.amazon.com/route53/faqs/">Amazon Route53 FAQ</a></li>
+<li><a target="_blank" rel="noopener" href="https://aws.amazon.com/rds/faqs/">Amazon RDS FAQ</a></li>
+<li><a target="_blank" rel="noopener" href="https://aws.amazon.com/sqs/faqs/">Amazon SQS FAQ</a>, also see <a target="_blank" rel="noopener" href="https://developer.amazonwebservices.com/connect/entry.jspa?externalID=1343">Technical FAQ</a></li>
+</ul>
+<hr>
+<h1 id="建議閱讀"><a href="#建議閱讀" class="headerlink" title="建議閱讀"></a>建議閱讀</h1><h2 id="Developer-Guide-and-User-Guide"><a href="#Developer-Guide-and-User-Guide" class="headerlink" title="Developer Guide and User Guide"></a>Developer Guide and User Guide</h2><p>AWS 每個 Service 都有完整的 Guide，內容篇幅也非常 <strong>豐富</strong>，像是 EC2 就有 1600 頁，而且分 linux &#x2F; windows 兩本。每本 Guide 都有 User Scenario, 還有使用的範例。像是 VPC 有四種常見範例，這也是實務上很常見的例子。</p>
+<p>以下的 Key Services 建議都要閱讀：</p>
+<ul>
+<li>Compute:<ul>
+<li>EC2 &#x2F; EBS &#x2F; ENI &#x2F; Instance Type</li>
+<li>ELB &#x2F; ASG &#x2F; Security Group</li>
+</ul>
+</li>
+<li>Storage:<ul>
+<li>S3: S3 是 AWS 第一個 Cloud Service，看似簡單，但實際上非常非常複雜，從運作原理、設計結構、資料模型、權限設定、資安、限制 …. 等，Developer Guide 有 633 Pages …. 根本讀不完 XDD</li>
+<li>CloudFront &#x2F; EBS &#x2F; Glacier &#x2F; Storage Gateway</li>
+</ul>
+</li>
+<li>Network:<ul>
+<li>VPC: 我花最多時間在讀這塊，也整理最多筆記在 blog。</li>
+<li><a target="_blank" rel="noopener" href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html">Route53</a></li>
+</ul>
+</li>
+<li>Database: RDS &#x2F; ElasticCache</li>
+<li>Security and Management: IAM &#x2F; CloudWatch &#x2F; Cloudtrail</li>
+<li>Application: SQS &#x2F; SNS &#x2F; SES</li>
+<li>AWS CLI &#x2F; SDK</li>
+<li><a target="_blank" rel="noopener" href="http://docs.aws.amazon.com/general/latest/gr/Welcome.html">AWS General Reference</a>: 有 AWS 一般的訊息，像是 IP Range, Service Limit, ARN, Region and Endpoint … 等資訊</li>
+</ul>
+<p>上述是 Certificate Guide 中，針對 AWS Certified Solutions Architect - Associate 所建議閱讀的，但實際考試的題目，不會只在這些範圍。每個 AWS Service 的目的、用途，要有大概的概念，像是 CloudFront, API Gateway, Auto Scaling, Congnito, Workspace, Cloudtrial, Storage Gateway, ElasticCache, Direct Connect, OpsWorks, CloudHSM, Key Management Service, Kinesis, SES, SNS, SWF .. 等。</p>
+<p>這些內容非常多，我都是先看目錄，從目錄大概知道有哪一些，如果有 <code>Case Study</code> 或者 <code>Best Practice</code> 就一定要讀。</p>
+<h2 id="Blog"><a href="#Blog" class="headerlink" title="Blog"></a>Blog</h2><p>AWS 最新的功能都會透過 AWS Blog 發布，盡可能 follow 這些新功能和既有功能的狀況。</p>
+<ul>
+<li>AWS Blogs<ul>
+<li><a target="_blank" rel="noopener" href="https://aws.amazon.com/blogs/aws/">AWS Official Blog</a></li>
+<li><a target="_blank" rel="noopener" href="http://blogs.aws.amazon.com/security/">AWS Security</a></li>
+<li><a target="_blank" rel="noopener" href="https://aws.amazon.com/blogs/compute/">AWS Compute Blog</a></li>
+<li><a target="_blank" rel="noopener" href="http://blogs.aws.amazon.com/application-management">AWS DevOps Blog</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.awsarchitectureblog.com/">AWS Architecture Blog</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.csdn.net/awschina">AWS 中文博客</a> (簡中)</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://aws.amazon.com/architecture/">Solution Architecture: Architecture Center</a></li>
+</ul>
+<h2 id="AWS-re-Invent-on-Youtube-and-SlideShare"><a href="#AWS-re-Invent-on-Youtube-and-SlideShare" class="headerlink" title="AWS re:Invent on Youtube and SlideShare"></a>AWS re:Invent on Youtube and SlideShare</h2><p>這兩個來源也是我很常在看的：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/channel/UCd6MoB9NC6uYN2grvUNT-Zg">AWS Youtube Channel</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.slideshare.net/AmazonWebServices?utm_campaign=profiletracking&utm_medium=sssite&utm_source=ssslideview">AWS Slideshare</a></li>
+</ul>
+<p>很多都是 AWS re:Invent &#x2F; Summits 的簡報，都很值得閱讀，順便練聽力。整理以下是我閱讀過的：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://youtu.be/Du478i9O_mc">How to Become an IAM Policy Ninja in 60 Minutes</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.slideshare.net/AmazonWebServices/dvo401-deep-dive-into-bluegreen-deployments-on-aws">Deep Dive into Blue&#x2F;Green Deployments on AWS</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=4trGuelatMI">All You Need To Know About Auto Scaling</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=K7o5OlRLtvU">Big Data Architectural Patterns and Best Practices on AWS</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=08G9NfDETVE">Your First Big Data Application On AWS</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=U8ODkSCJpJU">The Serverless Company Using AWS Lambda</a></li>
+</ul>
+<h2 id="實作與練習"><a href="#實作與練習" class="headerlink" title="實作與練習"></a>實作與練習</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://qwiklabs.com/tags/Introductory/level">qwikLABS 實作練習</a><ul>
+<li>可以線上看 Document，付費才可以做 Lab</li>
+<li>有考試的 Package Lab</li>
+<li>可以利用免費的練習 A，做其他 B 的實驗。不過有時候會遇到 IAM 權限的限制。</li>
+<li>剛好三月中慶祝 AWS 十週年，全部免費到三月底，這過程我做了很多練習。</li>
+</ul>
+</li>
+</ul>
+<h2 id="模擬考試"><a href="#模擬考試" class="headerlink" title="模擬考試"></a>模擬考試</h2><ul>
+<li>Practice Exam: 官方的練習考試，20 USD, 20 題。</li>
+<li><a target="_blank" rel="noopener" href="http://cloudacademy.com/">CloudAcademy</a>:<ul>
+<li>有線上教材、模擬考題 (要錢)</li>
+<li>有 APP (iOS&#x2F;Android) 可以練習 (Free)，模擬考題要錢，一個月 NT 120，題庫有 150 題，都是單選。</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="http://www.cloudsolutionsbook.com/amazon-cloud-solutions/june-20th-2015">80 題 Mock</a>: 找到唯一的 Mock, 但是內容很多都過期了，但是可以知道考題大概長啥樣。<ul>
+<li><strong>Posted on 2015&#x2F;06&#x2F;22</strong></li>
+<li>題目與 Practice Exam 20 題很像</li>
+<li>答案並非都正確，注意 comment 中的討論 (我也有上去回 XD)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="考試心得"><a href="#考試心得" class="headerlink" title="考試心得"></a>考試心得</h1><p>從開始準備到考試，過程花了大概三個月，但我沒有完全唸完上述的東西，真的是跟山一樣多 … (念到眼睛都快瞎了)</p>
+<p>因為工作關係，花很多時間在 Study VPC &#x2F; EC2 &#x2F; ELB &#x2F; Route53 &#x2F; S3 &#x2F; IAM 部分，遇到不少問題，最後都是自己找 Developer Guide、跟同事討論、或者請教 AWS Consultant。以下是學習過程中，遇到很多問題後，整理的筆記：</p>
+<ul>
+<li><a href="/2016/03/21/AWS/Whitepaper-Architecting-for-the-Cloud-AWS-Best-Practices/">Whitepaper - Architecting for the Cloud (AWS Best Practices)</a></li>
+<li><a href="/2016/03/02/AWS/Study-Notes-ELB/">Study Notes - AWS ELB (Elastic Load Balance)</a></li>
+<li><a href="/2016/02/21/AWS/Study-Notes-VPC/">Study Notes - AWS VPC (Virtual Private Cloud)</a></li>
+<li><a href="/2016/04/07/AWS/Study-Notes-S3/">Study Notes - AWS S3</a></li>
+<li><a href="/2016/03/14/AWS/Study-Notes-Route53/">Study Notes - AWS Route53</a></li>
+<li><a href="/2016/02/24/AWS/SES-SMTP-Credentials/">SES SMTP Credentials</a></li>
+<li><a href="/2016/02/20/AWS/Unknown-ENI-Delete-Action-in-CloudTrail/">Unknown ENI Delete Action in CloudTrail</a></li>
+<li><a href="/2016/01/05/AWS/Study-Notes-VPC-Peering/">設定 VPC Peering and Private DNS using Route53</a></li>
+<li><a href="/2015/12/23/AWS/EC2-Secondary-NI-on-Ubuntu/">設定 EC2 Instance - Ubuntu 的第二張網卡</a></li>
+<li><a href="/2016/04/03/AWS/Study-Notes-IAM/">Study Notes - AWS Identity and Access Management (IAM)</a></li>
+</ul>
+<p>準備的過程很辛苦，因為只能利用下班時間 Study and Lab，每天持續 2~3 小時。這樣持續三個月下來，好像懂了些什麼，但也好像只懂皮毛。會讓人想到 <a target="_blank" rel="noopener" href="http://www.cw.com.tw/article/article.action?id=5001095">一萬小時</a> 的努力，才成為專家。所以三個月每天持續 3 小時，也不過才 270 小時，所以離專家還很遠！</p>
+<p>取得證照只是手段，其實準備過程的收穫才是珍貴的。</p>
+<p>考過這張覺得只是開始，還有很多要繼續努力！準備繼續挑戰 <a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/">下一張</a>！</p>
+<p><img src="/images/AWS/Solutions_Architect-Associate.jpg"></p>
+<hr>
+<h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><ul>
+<li><a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/">AWS Certified SysOps Administrator - Associate 準備心得</a> (2016&#x2F;07&#x2F;29)</li>
+<li><a href="/2016/08/20/AWS/AWS-Certified-Developer/">AWS Certified Developer - Associate 準備心得</a> (2016&#x2F;08&#x2F;20)</li>
+<li><a href="/2016/10/01/AWS-Study-Roadmap/">AWS Study Roadmap by Categories</a></li>
+<li><a href="/2018/02/15/AWS/AWS-Certified-SAA001-Update/">AWS Certified SAA-01 Update</a> (2018&#x2F;02&#x2F;15)</li>
+</ul>
+<h2 id="更新紀錄"><a href="#更新紀錄" class="headerlink" title="更新紀錄"></a>更新紀錄</h2><ul>
+<li>2018&#x2F;08&#x2F;10: 加註文章已經退休</li>
+<li>2018&#x2F;02&#x2F;15: 註記 SAA 新版的說明</li>
+<li>2016&#x2F;04&#x2F;22: 初版</li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<!-- LikeCoin -->
+				<!-- @rickd 2022/09/06 -->
+				<!--
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+				-->
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2016/04/27/AWS/IAM-EC2-Resource-Level-Permission/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2016/04/07/AWS/Study-Notes-S3/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
+  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
+  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/" data-width="100%" data-numposts="10"></div>
+
+  
+
+
+</section>
+
+
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2016/04/22 18:30:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BF%85%E8%AE%80"><span class="toc-article-text">必讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%80%83%E8%A9%A6%E6%BA%96%E5%82%99-Official-Certificate-Guide"><span class="toc-article-text">考試準備 (Official Certificate Guide)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#AWS-Whitepapers"><span class="toc-article-text">AWS Whitepapers</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#AWS-FAQ-Support"><span class="toc-article-text">AWS FAQ (Support)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%BA%E8%AD%B0%E9%96%B1%E8%AE%80"><span class="toc-article-text">建議閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Developer-Guide-and-User-Guide"><span class="toc-article-text">Developer Guide and User Guide</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Blog"><span class="toc-article-text">Blog</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#AWS-re-Invent-on-Youtube-and-SlideShare"><span class="toc-article-text">AWS re:Invent on Youtube and SlideShare</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%AF%A6%E4%BD%9C%E8%88%87%E7%B7%B4%E7%BF%92"><span class="toc-article-text">實作與練習</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%A8%A1%E6%93%AC%E8%80%83%E8%A9%A6"><span class="toc-article-text">模擬考試</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E8%80%83%E8%A9%A6%E5%BF%83%E5%BE%97"><span class="toc-article-text">考試心得</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80-%E7%AB%99%E5%85%A7"><span class="toc-article-text">延伸閱讀 (站內)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%9B%B4%E6%96%B0%E7%B4%80%E9%8C%84"><span class="toc-article-text">更新紀錄</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/AWS/" style="color: white">AWS <span class="badge">82</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/AWS-Certified/" style="color: white">AWS Certified <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/EC2/" style="color: white">EC2 <span class="badge">20</span></a></span> <span class="label label-success"><a href="/tags/S3/" style="color: white">S3 <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/Route53/" style="color: white">Route53 <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/VPC/" style="color: white">VPC <span class="badge">21</span></a></span> <span class="label label-success"><a href="/tags/ELB/" style="color: white">ELB <span class="badge">16</span></a></span> <span class="label label-success"><a href="/tags/IAM/" style="color: white">IAM <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/Architecture/" style="color: white">Architecture <span class="badge">7</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+		<!-- v4 -->
+		<h4>About</h4>
+		
+			<li><a href="/2035/01/21/Index/">全站索引</a></li>
+		
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+		
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		
+			<li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+		
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		
+			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+		
+
+		<h4>著作</h4>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作：SRE實踐與開發平台指南</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作：軟體測試實務 (2023)</a></li>
+		
+			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
+		
+
+		<h4>演講</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
+		
+			<li><a href="/2023/09/09/About/2023-AWS-Career-Exploration-Day/">探索職涯、複利人生 - AWS Career Exploration Day 2023</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作 SRE 書友見面會</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">軟體測試實務 - 新書發表會</a></li>
+		
+			<li><a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">探索職涯、成就未來 - AWS Career Exploration Day 2022</a></li>
+		
+			<li><a href="/2022/08/13/SQA/Path-to-Software-Testing/">從理想、到現實的距離，開啟品味軟體測試之路</a></li>
+		
+			<li><a href="/2022/05/10/About/2022-SREConf2022/">91APP 在 AWS 上的 SRE 實踐之路</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/2020-aws-summit-aws">在矩陣型組織裡，如何有效管理 AWS 的成本結構與系統架構</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/aws-using-aws-for-disaster-recovery/">災難演練 @ AWS 實戰分享</a></li>
+		
+			<li><a href="/2019/04/27/DevOps/Introduce-to-Continuous-Delivery-2/">導讀持續交付 2.0 - 談當代軟體交付之虛實融合</a></li>
+		
+			<li><a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理</a></li>
+		
+			<li><a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">從緊急事件 談 SRE 應變能力的培養</a></li>
+		
+			<li><a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
+		
+			<li><a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">Monitoring Tools 大亂鬥 - AWS CloudWatch</a></li>
+		
+			<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></li>
+		
+			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
+		
+
+		<!-- v3 -->
+		<!--
+		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		-->
+
+		<!-- v2 -->
+		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+		<!-- v1 -->
+		<!--
+		<li>Software Developer</li>
+		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+		<li><a href="/categories/DevOps/">Operation Manager</a></li>
+		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+		<li>
+			<ol>
+				<li>Management</li>
+				<li>Cloud / Distributed Systems</li>
+				<li>DevOps / SRE / </li>
+			</ol>
+		</li>
+		-->
+
+		<!--
+		<h4>Donate</h4>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick" />
+		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
+		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
+		</form>
+		-->
+
+		<h4>Facebook</h4>
+
+		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
+
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
+				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+
+		<h4>AWS Certifications</h4>
+		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+		<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+		<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+		
+
+	</div><!-- row -->
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2022 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div>
+
+<!-- container-narrow -->
+
+<div id="gotop">
+
+  <!-- 
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-book"></i> <a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"]);">學習法則</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"]);">喝咖啡 聊音樂 (v2021)</a><br />
+   -->
+
+  <!-- <h4>About</h4> -->
+
+  
+    <li><a href="/2035/01/21/Index/">全站索引</a></li>
+  
+    <li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+  
+    <li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+  
+    <li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+  
+    <li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+  
+    <li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+  
+    <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+  
+
+  <a href="#">▲ TOP ▲ </a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

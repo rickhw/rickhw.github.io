@@ -1,0 +1,845 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Artifacts Management | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="Artifacts 是 CI&amp;#x2F;CD 很關鍵的點，他承接著接下來整個 Development Pipeline 的樞紐因子，能否有靈活、有彈性的佈署，都仰賴於 Artifacts Management。
+Artifact 的目的就如同交付軟體給另一個陌生人，他可以透過取得一個檔案 (通常是壓">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="Artifacts Management"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/2018/07/08/DevOps/Artifacts-Management/"/>
+  <meta property="og:image" content="/images/DevOps/cover_CICD-Overview.png" />
+  
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<!--
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'G-74Y1F3F5W0']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-74Y1F3F5W0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-74Y1F3F5W0');
+</script>
+
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!-- @rickd 2022/02/24
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
+  -->
+  <!-- @ricka 2022/02/24 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!--
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="bd9r2mJp"></script>
+  -->
+
+  <!-- @ricka 2022/09/06 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="opf2Gext"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+						
+						<li><a href="/categories/About/">About <sup>29</sup></a></li>
+						
+						<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+						
+						<li><a href="/categories/經營管理/Career/">Career <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
+						
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Data/">Data <sup>2</sup></a></li>
+						
+						<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+						
+						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>20</sup></a></li>
+						
+						<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+						
+						<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+						
+						<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+						
+						<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+						
+						<li><a href="/categories/DevOps/SRE/">SRE <sup>25</sup></a></li>
+						
+						<li><a href="/categories/Software-Engineering/">Software Engineering <sup>10</sup></a></li>
+						
+						<li><a href="/categories/System-Design/">System Design <sup>2</sup></a></li>
+						
+						<li><a href="/categories/經營管理/人才管理/">人才管理 <sup>10</sup></a></li>
+						
+						<li><a href="/categories/經營管理/溝通/">溝通 <sup>9</sup></a></li>
+						
+						<li><a href="/categories/經營管理/知識管理/">知識管理 <sup>4</sup></a></li>
+						
+						<li><a href="/categories/經營管理/">經營管理 <sup>61</sup></a></li>
+						
+						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
+						
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"> <i class="fa fa-book"></i>學習法則</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂 (v2021)</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Artifacts Management</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Artifacts Management</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+		
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2018%2F07%2F08%2FDevOps%2FArtifacts-Management%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2018/07/08/DevOps/Artifacts-Management/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/2018/07/08/DevOps/Artifacts-Management/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<p>Artifacts 是 CI&#x2F;CD 很關鍵的點，他承接著接下來整個 Development Pipeline 的樞紐因子，能否有靈活、有彈性的佈署，都仰賴於 Artifacts Management。</p>
+<p>Artifact 的目的就如同交付軟體給另一個陌生人，他可以透過取得一個檔案 (通常是壓縮檔)，然後解開後，依據 <code>README.md</code> 的說明，不管手動還是自動，可以自行完成部署或者安裝。而這個過程交付的 <code>一個檔案</code> 就稱作 <code>Artifacts</code>，在 github 上來講，就是 <code>releases</code> 上的檔案，像是 <a target="_blank" rel="noopener" href="https://github.com/aws/aws-cli/releases">awscli</a></p>
+<blockquote>
+<p>Updated:</p>
+<ul>
+<li>這段整理後來的在社群 Meetup 的分享：<a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理 (Artifacts Management)</a></li>
+<li>Updated 2023&#x2F;07&#x2F;19: 本文部分內容收錄在個人著作 <a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">《SRE 實踐與開發平台指南》</a> - 2023&#x2F;08 上市</li>
+</ul>
+</blockquote>
+<span id="more"></span>
+
+
+<hr>
+<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>本文延伸 <a href="/2018/03/20/DevOps/First-Step-To-CICD/">導入 CI&#x2F;CD 的第一步</a>、<a href="/2018/05/12/SQA/Designing-Test-Architecture-and-Framework/">Designing Test Architecture and Framework</a> 提到的概念，重新整理關於 <code>Artifact Management</code> 的實踐經驗談，也就是如何從 Source Code 經過 Build or Packing 的過程，得到產出物 (Artifact)，有了此步驟之後，才有後續的持續整合 (CI)、持續部署 (CD)、各式各樣的整合與自動化測試、然後才是 <code>持續交付價值 (Continuous Delivery Values)</code> …</p>
+<p>重點是：不只是可以部署到正式環境，而是 <code>任何人</code> 可以自行決定，部署到 <code>任意環境</code>（不管手動、還是自動），目標就是底下張圖：</p>
+<p><img src="/images/DevOps/CD-Target.png"></p>
+<p>注意：</p>
+<blockquote>
+<ol>
+<li>如果這個過程只能自動，卻無法手動，當自動程序有問題的時候就完蛋了。</li>
+<li>如果只能自動部署到正式環境，但測試環境卻無法自行決定如何部署，這表示未來測試會是瓶頸。</li>
+<li>如果無法透過 Artifact 交付部署，未來業務發展會受到影響，換句話說：公司長不大</li>
+</ol>
+</blockquote>
+<h2 id="Learning-from-Open-Source-Software-OSS"><a href="#Learning-from-Open-Source-Software-OSS" class="headerlink" title="Learning from Open Source Software (OSS)"></a>Learning from Open Source Software (OSS)</h2><p>談持續交付的實踐，通常建議不要先扯一堆工具，像是 Gitlab CI、Jenkins … 等，這些很重要，但是常常會讓很多不了解的人，抓不到方向，或者陷入技術的陷阱。從怎麼用軟體開始學習交付這件事情，，底下的例子是很常見的安裝方式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 安裝 kubectl</span></span><br><span class="line"><span class="comment"># See: https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl</span></span><br><span class="line">curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl</span><br></pre></td></tr></table></figure>
+
+<p>這一段的精神就是下載 <code>最新版本的 Artifact</code>，其中：</p>
+<ul>
+<li><code>https://storage.googleapis.com/kubernetes-release/release/stable.txt</code> 取得版本名稱，像是 <code>v1.13.2</code></li>
+<li>再利用版本名稱，組合出實際下載 binary 的路徑</li>
+</ul>
+<p>再舉一個例子 kops 的安裝</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># See: https://github.com/kubernetes/kops</span></span><br><span class="line">curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | <span class="built_in">cut</span> -d <span class="string">&#x27;&quot;&#x27;</span> -f 4)/kops-linux-amd64</span><br></pre></td></tr></table></figure>
+
+<p>概念則是透過 github <a target="_blank" rel="noopener" href="https://developer.github.com/v3/repos/releases/">release api</a> 取得 Artifact Meta (後述)，然後取得關鍵的資訊，例如 tag 名稱，也就是版本。底下是取得 Release Info 的例子：</p>
+<ul>
+<li>kubernetes: <a target="_blank" rel="noopener" href="https://api.github.com/repos/kubernetes/kubernetes/releases/latest">https://api.github.com/repos/kubernetes/kubernetes/releases/latest</a></li>
+<li>vscode: <a target="_blank" rel="noopener" href="https://api.github.com/repos/microsoft/vscode/releases/latest">https://api.github.com/repos/microsoft/vscode/releases/latest</a></li>
+<li>aws-go-sdk: <a target="_blank" rel="noopener" href="https://api.github.com/repos/aws/aws-sdk-go/releases/latest">https://api.github.com/repos/aws/aws-sdk-go/releases/latest</a></li>
+</ul>
+<p>再舉一個例子是 docker 的安裝，也是一行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://get.docker.com/ | sh</span><br></pre></td></tr></table></figure>
+
+<p>這些概念基本上都是： <code>Learning from Open Source Software</code></p>
+<hr>
+<h1 id="定義"><a href="#定義" class="headerlink" title="定義"></a>定義</h1><p><code>Artifact</code> 中文翻譯成 <code>產出物</code>，在以前 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Release_engineering">Release Engineering</a> 慣稱為 Build、Image，主要就是 Source Code 經過 <code>編譯 (Compile)</code>、<code>打包 (Packing)</code> 最後的產出物。不管是什麼樣的語言，大致上都要經過這個過程。要注意的是，這個過程產出的東西，不包含 <code>Configuration</code>、<code>Settings</code> 之類的東西，有也只是 Templates、Sample。</p>
+<blockquote>
+<p>Config Management 和 Settings 的概念，有空另外整理專文。</p>
+</blockquote>
+<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>Artifact 目的就是要讓其他人、或者程式可以獨立部署。人會有以下：</p>
+<ul>
+<li>內部的人：包含測試團隊、維運團隊、研究團隊，當然也包含開發團隊自己<ul>
+<li>跨地域的團隊，像是台灣的團隊，給美國團隊部署</li>
+<li>跨團隊的權責切分，開發交付給測試的切點</li>
+</ul>
+</li>
+<li>外部的人：像是交付給其他合作夥伴自行部署<ul>
+<li>遊戲產業很常是韓國負責開發，台灣則維運。</li>
+<li>整併的組織，權責移交</li>
+<li>新業務需求部署</li>
+<li>給客戶使用的沙箱環境</li>
+</ul>
+</li>
+<li>災難還原</li>
+</ul>
+<p>在開發過程會出現的問題案例：</p>
+<blockquote>
+<p>測試測出問題，去跟開發講，開發說我找找。結果偷偷在 local 改了 code，然後跟測試說沒問題。</p>
+</blockquote>
+<p>這個現象，是實務上卻是真的發生過的，同時造成的溝通成本很高。比較切確的做法是：</p>
+<ol>
+<li>Tester 回報問題，附上 Artifact Meta 的資訊</li>
+<li>Dev 根據回報的內容復現問題</li>
+</ol>
+<p>因為 Artifact Meta 會包含像是 git hashcode, branch, version, datetime 等資訊，可以讓雙方精準溝通，而不會有雞同鴨講的狀況。詳細參閱 <a href="/2018/03/18/SQA/How-To-Report-A-Defect-or-Bug/">如何有效的回報問題 (How to Report Problems Effectively)</a></p>
+<p>所以簡單說，透過 Artifact <code>解偶 (decouple)</code> 整個 pipeline，讓需要的角色可以獨立作業。如果 pipeline 只能是一件部署，而沒有其他的選擇，那麼表示部署流水線是沒有任何彈性的，換言之，部署的主動性只有開發團隊有，其他人都無法自主，造成的現象就是 <code>強耦合 (couple)</code>，當有第二、第三環境要部署的時候，就要重新 Pull Code、Build … 實際上是沒有意義的。</p>
+<h2 id="Artifact-Types"><a href="#Artifact-Types" class="headerlink" title="Artifact Types"></a>Artifact Types</h2><p>Artifacts 類型很多，整理如下：</p>
+<ul>
+<li><code>Application Build</code>: 也就是一般開發者寫的應用程式產出物，可能是透過:<ul>
+<li>Compile: Java, C#, Golang, C, C++ ….</li>
+<li>Packing: Node.js, Webpack, PHP …</li>
+</ul>
+</li>
+<li><code>Docker Images</code>: Dockerfile 編譯出來的 Images</li>
+<li><code>App Libraries</code>:<ul>
+<li>應用程式依賴的函式庫，通常需要做資安檢測，或者考慮網路頻寬</li>
+<li>自行開發的函示庫。像是 npm, NuGet, …</li>
+</ul>
+</li>
+<li><code>VM Images</code>: 虛擬機的 Image, 像是 Vagrant, AWS Machine Image (AMI) … 等。<ul>
+<li>主要是一些中介軟體的配置管理、應用程式依賴的系統軟體、函式庫等</li>
+<li>透過 Image + Auto Scaling 快速更新 OS Patch, Security Issues.</li>
+<li>Netflix 是使用 AMI 做管理到極致的案例，參見：<a target="_blank" rel="noopener" href="https://medium.com/netflix-techblog/ami-creation-with-aminator-98d627ca37b0">AMI Creation with Aminator</a></li>
+</ul>
+</li>
+</ul>
+<p>這些 Artifacts 實際上基於一些因素，像是資安、維運效率化、一致性、部署等因素，需要納管、受控。</p>
+<blockquote>
+<p>具備一定規模的企業，都會有私有的 Artifact Repository，甚至把 Open Source 都複製一份，內部修改過後，檢查資安、安規、移除不必要的依賴，重新 Build 提供 Binary ，並規定只能使用這樣的版本。<br>Updated 2019&#x2F;12&#x2F;02: AWS 的新服務 <a target="_blank" rel="noopener" href="https://aws.amazon.com/blogs/aws/automate-os-image-build-pipelines-with-ec2-image-builder/">EC2 Image Builder</a> 就是我提到的 VM Images 層次的 Artifacts.</p>
+</blockquote>
+<h2 id="Artifact-Metadata"><a href="#Artifact-Metadata" class="headerlink" title="Artifact Metadata"></a>Artifact Metadata</h2><p>Artifact 必須包含以下這些重要的資訊 (Metadata)，讓其他人、或者程式可以串接：</p>
+<ul>
+<li><code>AppName</code>：應用程式名稱，參閱 <a href="/2018/06/08/Management/Naming-for-Products/">你的靈魂 - 談產品名稱的命名</a></li>
+<li><code>Version</code>：通常是三碼規則 (x.y.z), 詳細參閱 <a href="/2015/02/11/SoftwareEngineering/Version-Control/">Version Control</a> 或者 <a target="_blank" rel="noopener" href="https://semver.org/">Semantic Versioning</a></li>
+<li><code>Timestamp</code>：Packing 的時間，通常是像 20180701-1200 這樣的結構</li>
+<li><code>BuildId</code>：簽入 (Commit&#x2F;Checkin) 的序號：git hash or svn number</li>
+<li><code>BuildType</code>：預先為正式環境、測試環境置入的 <code>Configuration</code>，這段依照產品特性，會有不同的作法。正式版通常會有以下：<ul>
+<li>通常會有 Sign 一些東西，像是版權控管之類的</li>
+<li>會有 md5checksun，作為傳輸檢查用</li>
+<li>相依的資源都會有</li>
+</ul>
+</li>
+<li><code>Branch</code>：根據產品性質，可能會有特殊 Branch 的編號，像是客製化的版本。</li>
+<li><code>Meta</code>：其他 Build 的 Meta 資訊，可以讓 CI&#x2F;CD 串接使用。</li>
+</ul>
+<p>這些資訊是之後持續整合的關鍵資料，不管是自動化測試、還是部署、還是交付給其他單位。相關例子參閱：<a href="/2015/02/11/SoftwareEngineering/Version-Control/">Version Control</a>。如果要自動化串接，則可以提供 API，像是 github 的 <a target="_blank" rel="noopener" href="https://developer.github.com/v3/repos/releases/">Release API</a></p>
+<!-- 下圖是我過往某個專案 Artifacts 的結構： -->
+
+<blockquote>
+<p>相關參閱 <a href="/2015/02/11/SoftwareEngineering/Version-Control/">Version Control</a></p>
+</blockquote>
+<h2 id="產出物的存放"><a href="#產出物的存放" class="headerlink" title="產出物的存放"></a>產出物的存放</h2><p>Artifact 盡可能集中儲存在 Storage Services，讓需要的人透過身份驗證可以自行存取。</p>
+<p>這個存放空間通常會規劃底下結構：</p>
+<ul>
+<li>Release: 每個釋出的版本，通常會有 sign + md5 checksum，樣子大概就是一般下載 open source 時看到的目錄結構</li>
+<li>Dev: 通常會依照各個 products &#x2F; roles &#x2F; components 再細分目錄<ul>
+<li>每個目錄都會有個叫 <code>LATEST</code> 的 softlink，連結最新的 build</li>
+<li>依照產品或者 component 特性，會額外放置其他資料，像是 metadata、sample config</li>
+</ul>
+</li>
+</ul>
+<p>早期我習慣然後透過 Apache Index 方式分享出來，也曾經做過比較複雜的 console <code>一鍵部署</code>。現代作法應該就是直接提供 API，可以取得 Artifact Meta 串接自動化。</p>
+<p>底下是要注意的：</p>
+<ul>
+<li>Artifacts 會一直長，所以要有 rotation 機制。</li>
+<li>如果是放在 AWS S3 則可以透過 Lifecycle 管理。</li>
+<li>要注意是否要至少保留一定數量，避免太久沒有 build，最後全被刪光了。</li>
+</ul>
+<blockquote>
+<p>類似的產品有：<a target="_blank" rel="noopener" href="https://jfrog.com/artifactory/">Artifactory</a>, <a target="_blank" rel="noopener" href="https://www.sonatype.com/products-overview">Nexus</a></p>
+</blockquote>
+<h2 id="不同目的的部署"><a href="#不同目的的部署" class="headerlink" title="不同目的的部署"></a>不同目的的部署</h2><p>在 <a href="/2017/03/18/SQA/Stages-In-Software-Testing/">淺談軟體測試的階段與策略</a> 一文提到很多測試方法、策略，其實每種測試都有期目的性，考量的東西不一樣，需要的部署也不一樣，但是在邏輯與抽象架構概念，他們的部署、與架構方法，應該都是一致的！</p>
+<ul>
+<li>功能性測試 (FVT)：麻雀雖小，五臟俱全</li>
+<li>整合性測試 (Integration)：有彈性</li>
+<li>系統性測試 (System Test)：有彈性</li>
+</ul>
+<blockquote>
+<p>不同測試目的，有不同的架構，不同架構有不同的部署方法，他們都需要同樣的 Artifacts</p>
+</blockquote>
+<h2 id="誰來觸發自動部署？"><a href="#誰來觸發自動部署？" class="headerlink" title="誰來觸發自動部署？"></a>誰來觸發自動部署？</h2><p>這篇文章：<a target="_blank" rel="noopener" href="http://www.infoq.com/cn/articles/three-current-common-problems-about-continuous-delivery">持续交付：当前普遍存在的三个问题与解决方案</a> 最後的表格提到 Dev、Test、Acceptance、Production 四個環境，最後有部署者，其中測試是 <code>CI 自動觸發 (自動部署)</code>，這點是有問題的。</p>
+<p>真實的測試情境是這樣的，以下是簡單的過程：</p>
+<ul>
+<li>測試人員部署指定的版本到指定的環境，透過手動 or 自動跑測試</li>
+<li>測試人員發現問題，檢查系統的 Log 找問題、檢查測試資料、情境<ul>
+<li>測試人員想比較兩個版本的差異，確認問題，指定前一個版本，<code>重新部署環境</code></li>
+<li>測試人員想比較兩個版本的差異，確認問題，指定某個版本，<code>重新部署環境</code></li>
+</ul>
+</li>
+<li>測試人員確認問題的原因，開始開 Defect，整理測試步驟、蒐集問題的 Log</li>
+</ul>
+<p>這些過程是基本的，實際的可能更複雜，因為要跟 Developer or PM 確認問題，甚至要確認環境建置之類的。</p>
+<p>如果這個過程，如果測試環境被 <code>CI 自動觸發 (自動部署)</code>，整個現場就毀了！測試等於被中斷。</p>
+<hr>
+<h1 id="持續整合與部署的第一步"><a href="#持續整合與部署的第一步" class="headerlink" title="持續整合與部署的第一步"></a>持續整合與部署的第一步</h1><p>在讀書會 <code>Continuous Delivery</code> 裡，我其實都很強調這個概念：</p>
+<blockquote>
+<ol>
+<li>你平常怎麼使用別人的軟體？</li>
+<li>哪些人可以部署？</li>
+<li>Learning from Open Source Software</li>
+</ol>
+</blockquote>
+<p>我不太強調怎麼部署工具這件事情，因為技術隨時代會不斷改變，不管是 Jenkins、Gitlab CI、Drone、<a href="/2017/08/13/AWS/Study-Notes-CodeDeploy-Preparation/">AWS CodeDeploy</a> … 因為這些都做得到我想要的事。但是往往錯誤的觀念，會誤導團隊的前進，嚴重的甚至會影響整個公司的發展。</p>
+<p>我很強調要看到下面這張圖四個面向：</p>
+<p><img src="/images/DevOps/Software-Delivery_20180412.png"></p>
+<h2 id="如何實踐團隊的自主性"><a href="#如何實踐團隊的自主性" class="headerlink" title="如何實踐團隊的自主性"></a>如何實踐團隊的自主性</h2><p>底下的 Youtube 是摘錄我在內部教育訓練的影片，主要說明這段 <code>前提</code> 重要性，以及 <code>讓團隊在技術上自主性</code> 的重要性。相關的關鍵字有：自主性、DevOps, Architecture, CI&#x2F;CD, Provisioning, Infra as Code, Artifact Management</p>
+<iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/ui4qw-PLO7k?showinfo=0&amp;ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+
+
+<h2 id="捨本逐末，一步登天"><a href="#捨本逐末，一步登天" class="headerlink" title="捨本逐末，一步登天"></a>捨本逐末，一步登天</h2><p>過去，我一直覺得這應該是每個公司都會做的，所以很少提這段。最近發現，太多人都過於強調所謂 <code>自動化部署</code>，反而忽略最基本的工作：</p>
+<blockquote>
+<p>不知道應該要有 Artifact ，讓其他人可以獨立部署。</p>
+</blockquote>
+<p>這代表什麼？這代表：</p>
+<ol>
+<li>無法完整建立整個測試過程所需要的資源！沒有 <a href="/2017/02/11/DevOps/Resource-Provisioning-and-DevOps/">Resource Provisioning</a> 的概念</li>
+<li>不知道測試會因目的，而有不同的配置，但架構邏輯是一樣的。表示沒有清楚的系統架構概念！沒有看到全貌！</li>
+<li>測試人員無法自己部署！測試可能隨時被中斷！產品沒有品質</li>
+<li>無法做其他進階測試，像是整合、效能、部署驗證等。</li>
+</ol>
+<p>現代太多 CI&#x2F;CD 工具都強調一鍵佈署，但是佈署到哪卻很少提，所以當要部署不同情境的需求時，因為太自動，反而失去該要有的彈性！</p>
+<h2 id="老人當年勇"><a href="#老人當年勇" class="headerlink" title="老人當年勇"></a>老人當年勇</h2><p>為什麼我會一直強調這件事情，因為不管在 Artifacts 的建置、管理，或者在帶測試團隊的時候，Artifact 是關鍵點。底下是當年的足跡，也是 <a href="/2018/05/12/SQA/Designing-Test-Architecture-and-Framework/">Designing Test Architecture and Framework</a> 一文中沒提到的，因為我覺得這是基本功：</p>
+<p>下圖是當時自動化測試的 Artifact 管理介面 (用 ZK 寫的)，主要會自動 mirror 米國的 build，然後建立 aritfact metadata，重點：</p>
+<ul>
+<li>有分 rel &#x2F; dev 兩種</li>
+<li>每組 artifacts 的 metadata 都在資料庫</li>
+<li>由需要的人自行選擇要部署的版本 (right click)</li>
+</ul>
+<p><img src="/images/DevOps/Artifacts-Management/Deploy-Artifacts-by-User.png"></p>
+<p>底下這張圖是我在 <a href="/2015/01/06/Management/%E5%8D%94%E5%90%8C%E5%90%88%E4%BD%9C%E7%B3%BB%E7%B5%B1%E5%BB%BA%E5%88%B6%E8%88%87%E5%B0%8E%E5%85%A5-%E4%BB%A5-Redmine-%E7%82%BA%E4%BE%8B/">協同合作系統建制與導入 - 以 Redmine 為例</a> 提到的 Build，這段做得比較簡單，但是卻是最常見的做法：</p>
+<p><img src="/images/DevOps/Artifacts-Management/BuildSite.png"></p>
+<h2 id="Continuous-Delivery-–-Opening"><a href="#Continuous-Delivery-–-Opening" class="headerlink" title="Continuous Delivery – Opening"></a>Continuous Delivery – Opening</h2><p>書開宗明義第一張就講了，這段話就是核心重點：</p>
+<p><img src="/images/DevOps/CD-Auth-Team.jpg"></p>
+<p>其他公開討論：</p>
+<ul>
+<li>2018&#x2F;08&#x2F;03: <a target="_blank" rel="noopener" href="https://www.facebook.com/groups/DevOpsTaiwan/permalink/1784559398297765/">DevOps Taiwan</a><br><img src="/images/DevOps/Artifacts-Management/AM-20180803-DevOpsTaiwan.png"></li>
+<li>2018&#x2F;08&#x2F;30: <a target="_blank" rel="noopener" href="https://www.facebook.com/groups/sre.taiwan/permalink/1133317336834169/">SRE Taiwan 的討論</a><br><img src="/images/DevOps/Artifacts-Management/CD06-20180830.png"></li>
+</ul>
+<!--
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/IPwugJahD68Rau" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/rickhwang/continuous-delivery-opening-102713893" title="Continuous Delivery - Opening" target="_blank">Continuous Delivery - Opening</a> </strong> from <strong><a href="https://www.slideshare.net/rickhwang" target="_blank">Rick Hwang</a></strong> </div>
+-->
+
+
+
+<!-- AWS 相關工具，像是 [CodeDeploy][2]、CloudFormation、SAM 都可以部署，但是這些工具都有個前提：Artifact 已經完備。 -->
+
+
+<h2 id="SaaS-平台-Updated-2019-x2F-01-x2F-18"><a href="#SaaS-平台-Updated-2019-x2F-01-x2F-18" class="headerlink" title="SaaS 平台 (Updated: 2019&#x2F;01&#x2F;18)"></a>SaaS 平台 (Updated: 2019&#x2F;01&#x2F;18)</h2><p>下圖是 2018&#x2F;07&#x2F;24 我在 FB 上隨機問的小題目，這樣的條件是我定義的 <code>產品服務化</code> 的基本要素。而問這問題目的就是想了解大家對於 <code>持續交付</code> 的想像與應用，而這個題目就可直接創造出有意義的價值，交付價值的最大化，而要做到這一步的基本條件就是 Artifact Management 要做好。</p>
+<p>符合這樣的產品很多，AWS 的 SaaS 都是，像是 ElastiCache、RDS，外面的產品像是 CloudAMQP、一些 Wordpress 的 Provider 都是。</p>
+<p>PS: 圖中文字的 PaaS 應該更正為 SaaS</p>
+<p><img src="/images/DevOps/Artifacts-Management/20180724-SaaS.png"></p>
+<hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="站內文章"><a href="#站內文章" class="headerlink" title="站內文章"></a>站內文章</h2><ul>
+<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作《SRE 實踐與開發平台指南》</a> (2023&#x2F;08 上市)</li>
+<li><a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理 (Artifacts Management)</a></li>
+<li><a href="/2018/03/20/DevOps/First-Step-To-CICD/">導入 CI&#x2F;CD 的第一步</a></li>
+<li><a href="/2018/04/01/DevOps/How-To-Make-CICD-Quality/">怎樣的 CI&#x2F;CD 才夠 Quality?</a></li>
+<li><a href="/2018/05/12/SQA/Designing-Test-Architecture-and-Framework/">Designing Test Architecture and Framework</a></li>
+<li><a href="/2017/08/13/AWS/Study-Notes-CodeDeploy-Preparation/">Study Notes - CodeDeploy Preparation</a></li>
+<li><a href="/2017/09/14/SoftwareEngineering/Software-Development-Lifecycle/">Software Development Lifecycle</a></li>
+<li><a href="/2018/01/07/DevOps/Emergency-Response/">緊急應變 (Emergency Response)</a></li>
+<li><a href="/2015/02/11/SoftwareEngineering/Version-Control/">Version Control</a></li>
+<li><a href="/2017/11/14/DevOps/Go-Live/">Go Live</a></li>
+<li><a href="/2019/03/10/DevOps/Continuous-Delivery-Docs/">文件的持續交付</a></li>
+<li><a href="/2017/03/18/SQA/Stages-In-Software-Testing/">淺談軟體測試的階段與策略</a></li>
+<li><a href="/2017/02/11/DevOps/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a></li>
+<li><a href="/2018/03/18/SQA/How-To-Report-A-Defect-or-Bug/">如何有效的回報問題 (How to Report Problems Effectively)</a></li>
+<li><a href="/2017/11/12/DevOps/Gossip-Automation/">自動化帶來的問題</a></li>
+<li><a href="/2015/01/06/Management/%E5%8D%94%E5%90%8C%E5%90%88%E4%BD%9C%E7%B3%BB%E7%B5%B1%E5%BB%BA%E5%88%B6%E8%88%87%E5%B0%8E%E5%85%A5-%E4%BB%A5-Redmine-%E7%82%BA%E4%BE%8B/">協同合作系統建制與導入 - 以 Redmine 為例</a></li>
+<li><a href="/2018/11/14/DevOps/Review-Continuous-Delivery-v2.0/">心得：持續交付 2.0</a></li>
+</ul>
+<h2 id="延伸閱讀-1"><a href="#延伸閱讀-1" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/continuous-delivery-opening-102713893">Continuous Delivery - Opening</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.infoq.com/cn/articles/three-current-common-problems-about-continuous-delivery">持续交付：当前普遍存在的三个问题与解决方案</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Release_engineering">Release engineering</a></li>
+<li><a target="_blank" rel="noopener" href="https://semver.org/">Semantic Versioning</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/netflix-techblog/ami-creation-with-aminator-98d627ca37b0">AMI Creation with Aminator</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.philipphauer.de/version-numbers-continuous-delivery-maven-docker/">Version Numbers for Continuous Delivery with Maven and Docker</a></li>
+<li><a href="/2018/06/08/Management/Naming-for-Products/">你的靈魂 - 談產品名稱的命名</a></li>
+</ul>
+<h2 id="更新紀錄"><a href="#更新紀錄" class="headerlink" title="更新紀錄"></a>更新紀錄</h2><ul>
+<li>2019&#x2F;01&#x2F;18: 新增 <code>Learning from Open Source Software (OSS)</code>、 <code>SaaS 栗子的段落</code></li>
+<li>2019&#x2F;12&#x2F;02: 註記 AWS 的新服務 <a target="_blank" rel="noopener" href="https://aws.amazon.com/blogs/aws/automate-os-image-build-pipelines-with-ec2-image-builder/">EC2 Image Builder</a></li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/2018/07/08/DevOps/Artifacts-Management/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<!-- LikeCoin -->
+				<!-- @rickd 2022/09/06 -->
+				<!--
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2018/07/08/DevOps/Artifacts-Management/"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+				-->
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2018/07/18/About/20180718-API-Gateway/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2018/06/19/Management/Face-the-Real-World/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
+  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
+  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2018/07/08/DevOps/Artifacts-Management/" data-width="100%" data-numposts="10"></div>
+
+  
+
+
+</section>
+
+
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2018/07/08 23:43:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-article-text">基本概念</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Learning-from-Open-Source-Software-OSS"><span class="toc-article-text">Learning from Open Source Software (OSS)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%AE%9A%E7%BE%A9"><span class="toc-article-text">定義</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%AE%E7%9A%84"><span class="toc-article-text">目的</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Artifact-Types"><span class="toc-article-text">Artifact Types</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Artifact-Metadata"><span class="toc-article-text">Artifact Metadata</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%94%A2%E5%87%BA%E7%89%A9%E7%9A%84%E5%AD%98%E6%94%BE"><span class="toc-article-text">產出物的存放</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%8D%E5%90%8C%E7%9B%AE%E7%9A%84%E7%9A%84%E9%83%A8%E7%BD%B2"><span class="toc-article-text">不同目的的部署</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%AA%B0%E4%BE%86%E8%A7%B8%E7%99%BC%E8%87%AA%E5%8B%95%E9%83%A8%E7%BD%B2%EF%BC%9F"><span class="toc-article-text">誰來觸發自動部署？</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%8C%81%E7%BA%8C%E6%95%B4%E5%90%88%E8%88%87%E9%83%A8%E7%BD%B2%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AD%A5"><span class="toc-article-text">持續整合與部署的第一步</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%A6%82%E4%BD%95%E5%AF%A6%E8%B8%90%E5%9C%98%E9%9A%8A%E7%9A%84%E8%87%AA%E4%B8%BB%E6%80%A7"><span class="toc-article-text">如何實踐團隊的自主性</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%8D%A8%E6%9C%AC%E9%80%90%E6%9C%AB%EF%BC%8C%E4%B8%80%E6%AD%A5%E7%99%BB%E5%A4%A9"><span class="toc-article-text">捨本逐末，一步登天</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%80%81%E4%BA%BA%E7%95%B6%E5%B9%B4%E5%8B%87"><span class="toc-article-text">老人當年勇</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Continuous-Delivery-%E2%80%93-Opening"><span class="toc-article-text">Continuous Delivery – Opening</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SaaS-%E5%B9%B3%E5%8F%B0-Updated-2019-x2F-01-x2F-18"><span class="toc-article-text">SaaS 平台 (Updated: 2019&#x2F;01&#x2F;18)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80-1"><span class="toc-article-text">延伸閱讀</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%9B%B4%E6%96%B0%E7%B4%80%E9%8C%84"><span class="toc-article-text">更新紀錄</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/DevOps/" style="color: white">DevOps <span class="badge">43</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Lifecycle/" style="color: white">Lifecycle <span class="badge">28</span></a></span> <span class="label label-success"><a href="/tags/Continuous-Delivery/" style="color: white">Continuous Delivery <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/Artifact-Management/" style="color: white">Artifact Management <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/Configuration/" style="color: white">Configuration <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/Published-SRE1/" style="color: white">Published-SRE1 <span class="badge">22</span></a></span> <span class="label label-success"><a href="/tags/Continuous-Integration/" style="color: white">Continuous Integration <span class="badge">10</span></a></span> <span class="label label-success"><a href="/tags/Service-Governance/" style="color: white">Service Governance <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/服務治理/" style="color: white">服務治理 <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Build/" style="color: white">Build <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Version-Control/" style="color: white">Version Control <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/Semantic-Versioning/" style="color: white">Semantic Versioning <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/EC2-Image-Builder/" style="color: white">EC2 Image Builder <span class="badge">2</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+		<!-- v4 -->
+		<h4>About</h4>
+		
+			<li><a href="/2035/01/21/Index/">全站索引</a></li>
+		
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+		
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		
+			<li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+		
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		
+			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+		
+
+		<h4>著作</h4>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作：SRE實踐與開發平台指南</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作：軟體測試實務 (2023)</a></li>
+		
+			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
+		
+
+		<h4>演講</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
+		
+			<li><a href="/2023/09/09/About/2023-AWS-Career-Exploration-Day/">探索職涯、複利人生 - AWS Career Exploration Day 2023</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作 SRE 書友見面會</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">軟體測試實務 - 新書發表會</a></li>
+		
+			<li><a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">探索職涯、成就未來 - AWS Career Exploration Day 2022</a></li>
+		
+			<li><a href="/2022/08/13/SQA/Path-to-Software-Testing/">從理想、到現實的距離，開啟品味軟體測試之路</a></li>
+		
+			<li><a href="/2022/05/10/About/2022-SREConf2022/">91APP 在 AWS 上的 SRE 實踐之路</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/2020-aws-summit-aws">在矩陣型組織裡，如何有效管理 AWS 的成本結構與系統架構</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/aws-using-aws-for-disaster-recovery/">災難演練 @ AWS 實戰分享</a></li>
+		
+			<li><a href="/2019/04/27/DevOps/Introduce-to-Continuous-Delivery-2/">導讀持續交付 2.0 - 談當代軟體交付之虛實融合</a></li>
+		
+			<li><a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理</a></li>
+		
+			<li><a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">從緊急事件 談 SRE 應變能力的培養</a></li>
+		
+			<li><a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
+		
+			<li><a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">Monitoring Tools 大亂鬥 - AWS CloudWatch</a></li>
+		
+			<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></li>
+		
+			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
+		
+
+		<!-- v3 -->
+		<!--
+		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		-->
+
+		<!-- v2 -->
+		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+		<!-- v1 -->
+		<!--
+		<li>Software Developer</li>
+		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+		<li><a href="/categories/DevOps/">Operation Manager</a></li>
+		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+		<li>
+			<ol>
+				<li>Management</li>
+				<li>Cloud / Distributed Systems</li>
+				<li>DevOps / SRE / </li>
+			</ol>
+		</li>
+		-->
+
+		<!--
+		<h4>Donate</h4>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick" />
+		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
+		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
+		</form>
+		-->
+
+		<h4>Facebook</h4>
+
+		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
+
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
+				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+
+		<h4>AWS Certifications</h4>
+		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+		<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+		<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+		
+
+	</div><!-- row -->
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2022 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div>
+
+<!-- container-narrow -->
+
+<div id="gotop">
+
+  <!-- 
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-book"></i> <a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"]);">學習法則</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"]);">喝咖啡 聊音樂 (v2021)</a><br />
+   -->
+
+  <!-- <h4>About</h4> -->
+
+  
+    <li><a href="/2035/01/21/Index/">全站索引</a></li>
+  
+    <li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+  
+    <li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+  
+    <li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+  
+    <li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+  
+    <li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+  
+    <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+  
+
+  <a href="#">▲ TOP ▲ </a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>
