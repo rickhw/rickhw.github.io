@@ -114,9 +114,9 @@
     <link href="https://rickhw.github.io/2025/06/29/Design/R3-Model/"/>
     <id>https://rickhw.github.io/2025/06/29/Design/R3-Model/</id>
     <published>2025-06-29T05:30:00.000Z</published>
-    <updated>2025-07-30T10:35:01.563Z</updated>
+    <updated>2025-07-30T10:43:45.291Z</updated>
     
-    <content type="html"><![CDATA[<p>C4 model 是一個 2018 年之後發展出來的 架構描述方式，我在 2017 年底也在組織內部弄了類似概念的表達架構方式，很巧不巧，概念很 C4 model 很像，這段想法在我的著作 <a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">SRE實踐與開發平台指南</a> 有提到，底下用 <a href="https://www.facebook.com/rick.kyhwang/posts/pfbid03m9Fg2scvvNxH6VoFTmwDE2uVWDWoFbP5t2TZ9KZ9efGPqX5HpLFrKzrtT2sgFzNl?notif_id=1750850826246248&notif_t=feedback_reaction_generic&ref=notif">FB</a> 寫的草稿，讓 ChatGPT 幫我整理的想法～</p><span id="more"></span><hr><h1 id="R3-Model：以角色職責為核心的系統架構思維"><a href="#R3-Model：以角色職責為核心的系統架構思維" class="headerlink" title="R3 Model：以角色職責為核心的系統架構思維"></a>R3 Model：以角色職責為核心的系統架構思維</h1><p>在與朋友討論系統架構設計時，我經常提到自己多年來實務上使用的一套方法論，它與大家熟悉的 C4 model 有些類似，但核心關注點其實是從「組織職責」與「封裝邊界」出發，甚至偷偷塞了點康威定律進去。</p><p>這個方法論沒有什麼炫砲的名字，乾脆就叫它 <strong>R3 Model</strong> 吧：分為三個層次，對應 High Level View、Logical View、Physical View。R3，簡單粗暴，就代表三層。</p><hr><h2 id="🧠-背後思維：OOP、封裝與-R-amp-R"><a href="#🧠-背後思維：OOP、封裝與-R-amp-R" class="headerlink" title="🧠 背後思維：OOP、封裝與 R&amp;R"></a>🧠 背後思維：OOP、封裝與 R&amp;R</h2><p>這整套架構方法的邏輯起點來自 OOP（物件導向）與封裝概念。我把一個 Role 想像成一個 Interface，而其內部的邏輯與協作，就像是 implementation。而這個 Interface，最重要的是它代表「誰該做什麼」——也就是 <strong>Role &amp; Responsibility（R&amp;R）</strong>。</p><p>許多技術選型的討論（例如 API Gateway vs Load Balancer vs Reverse Proxy），看似在談技術，其實本質上是在問一個問題：<strong>它在這個系統裡的角色與責任是什麼？</strong></p><hr><h2 id="🔭-第一層：High-Level-View（對齊觀點的入口）"><a href="#🔭-第一層：High-Level-View（對齊觀點的入口）" class="headerlink" title="🔭 第一層：High Level View（對齊觀點的入口）"></a>🔭 第一層：High Level View（對齊觀點的入口）</h2><p>這層概念對應到 C4 model 的 <strong>Context</strong>，用來給業務單位、老闆、非技術利害關係人快速對齊共識。主要涵蓋：</p><ul><li>使用者與系統互動方式</li><li>內外部系統的整合關係</li><li>系統之間的 <strong>ACL（Access Control）</strong></li></ul><p>我這邊加入了 ACL 的設計，來呈現「可存取性與依賴性」，類似於 OOP 中的 <code>public/protected/private</code> 關鍵字，用來表達系統邊界與封裝程度。</p><blockquote><p>✅ 適合：展示整體策略面與系統邊界，快速建立系統存在的價值與關係。</p></blockquote><hr><h2 id="🧩-第二層：Logical-View（Service-Definition）"><a href="#🧩-第二層：Logical-View（Service-Definition）" class="headerlink" title="🧩 第二層：Logical View（Service Definition）"></a>🧩 第二層：Logical View（Service Definition）</h2><p>這層對應到 C4 的 <strong>Container</strong>，但我更關注的是「系統內的職責劃分」。我們從這層開始拉出具體的 Role，例如：</p><ul><li>Web &#x2F; Console &#x2F; API Gateway &#x2F; Database &#x2F; Cache &#x2F; Queue 等</li><li>每個 Role 的職責（Responsibility）與協作關係</li><li>系統間的資料流（Data Flow）：<strong>密度（吞吐量）</strong>與<strong>溫度（頻率）</strong></li></ul><p>此外，我會搭配 <strong>User Story &#x2F; Scenario</strong> 來解釋整體流程，也會引用 Scrum Team 的比喻：一個團隊需要不同角色合作，架構亦然。</p><blockquote><p>🎵 像是一個樂團需要歌手、吉他手、鼓手、鍵盤手，每個 Role 多少會決定整體架構的「複雜度」。</p></blockquote><p>這層不是要講 implementation，而是要對齊理解，讓懂技術和不懂技術的人都能站在同一張地圖上看系統。</p><hr><h2 id="🚀-第三層：Physical-View（Go-Live-構面）"><a href="#🚀-第三層：Physical-View（Go-Live-構面）" class="headerlink" title="🚀 第三層：Physical View（Go Live 構面）"></a>🚀 第三層：Physical View（Go Live 構面）</h2><p>這層我稱為 Physical View，但其實不是 C4 的 <strong>Component Layer</strong>，而是更貼近 Deployment Architecture 的思維，關注：</p><ul><li>每個 Role 在 runtime 的部署副本（對應到 Kubernetes 的 Pod&#x2F;Container）</li><li>實際的實作技術：Node.js &#x2F; Spring Boot &#x2F; FastAPI &#x2F; MySQL &#x2F; Redis &#x2F; RabbitMQ …</li><li>每個實體角色如何落地、如何部署、怎麼運維</li><li>成本、可觀測性（O11y）、高可用性設計（HA）</li></ul><p>這層的誕生也是因為我當時正需要設計一個可觀測系統，沒有這層就無法落實 Metrics、Logging、Tracing。</p><blockquote><p>🎯 若 Logical View 是系統的藍圖，那 Physical View 就是建築工地現場：誰在哪裡、在做什麼、怎麼做到、會不會倒。</p></blockquote><hr><h2 id="🔍-關於-C4-的第四層-Code"><a href="#🔍-關於-C4-的第四層-Code" class="headerlink" title="🔍 關於 C4 的第四層 Code"></a>🔍 關於 C4 的第四層 Code</h2><p>C4 有第四層是 Code Level，但我的模型並沒有這一層。主要是因為我的思考起點是從 Infra &#x2F; DevOps 面切入，而非純開發流程。不過：</p><blockquote><p>搭配 UML 的 Sequence Diagram &#x2F; State Machine，其實已經足以補足實作邏輯。</p></blockquote><hr><h2 id="🧱-小結：命名為-R3-Model-的小堅持"><a href="#🧱-小結：命名為-R3-Model-的小堅持" class="headerlink" title="🧱 小結：命名為 R3 Model 的小堅持"></a>🧱 小結：命名為 R3 Model 的小堅持</h2><p>我並不是從一開始就知道 C4 model。這套方法是我從 2017 年開始，在跑了十幾二十個系統架構實務案之後，逐步抽象與歸納出來的。後來才發現 C4 與我某些層次的定義幾乎一致，也就不打不相識。</p><p>這個模型我沒有對外正式發表過名字，只在自己整理的書裡稱呼它為：</p><ol><li><strong>High Level View</strong>（策略與邊界）</li><li><strong>Service Definition</strong>（系統角色與任務）</li><li><strong>Go Live</strong>（部署與運維視角）</li></ol><p><img src="/images/Design/R3-model/R3-model_by-ChatGPT_20250630.png"></p><p>但說真的，這世界太需要簡潔一點的術語了，那就叫它 <strong>R3 Model</strong> 吧，反正只剩我自己在用，命名權還在我手上 😆</p><p>如果你也正在設計一個跨團隊、多角色、高複雜度的系統架構，或許可以試試用 R3 Model 當起點，從角色與責任的角度開始畫起。</p><hr><h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul><li><a href="https://en.wikipedia.org/wiki/Conway%27s_law">康威定律：系統設計如何映照組織結構</a></li><li><a href="https://c4model.com/">C4 Model 官方介紹</a></li></ul>]]></content>
+    <content type="html"><![CDATA[<p>C4 model 是一個 2018 年之後發展出來的 架構描述方式，我在 2017 年底也在組織內部弄了類似概念的表達架構方式，很巧不巧，概念很 C4 model 很像，這段想法在我的著作 <a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">SRE實踐與開發平台指南</a> 有提到，底下用 <a href="https://www.facebook.com/rick.kyhwang/posts/pfbid03m9Fg2scvvNxH6VoFTmwDE2uVWDWoFbP5t2TZ9KZ9efGPqX5HpLFrKzrtT2sgFzNl?notif_id=1750850826246248&notif_t=feedback_reaction_generic&ref=notif">FB</a> 寫的草稿，讓 ChatGPT 幫我整理的想法～</p><span id="more"></span><hr><h1 id="R3-Model：以角色與責任為核心的系統架構分層模型"><a href="#R3-Model：以角色與責任為核心的系統架構分層模型" class="headerlink" title="R3 Model：以角色與責任為核心的系統架構分層模型"></a>R3 Model：以角色與責任為核心的系統架構分層模型</h1><p>在實務架構設計中，筆者長期關注的核心議題不僅僅是系統如何組合與部署，更在於這些系統元件在組織中的角色（Role）與責任（Responsibility）劃分。本文所介紹的 <strong>R3 Model</strong>，即是在此思維脈絡下逐步形成的一套架構視角，旨在協助團隊以一致的語意與責任邊界思考系統設計。</p><p>R3 Model 的核心觀點源自於物件導向設計（OOP）的封裝與介面觀念，並輔以康威定律（Conway’s Law）對組織結構與系統設計互為鏡像的洞見。模型共分為三層：</p><ol><li>High Level View（高層次視圖）</li><li>Logical View（邏輯視圖）</li><li>Physical View（實體視圖）</li></ol><p>以下針對各層做詳細說明。</p><hr><h2 id="1-High-Level-View：策略與邊界的呈現"><a href="#1-High-Level-View：策略與邊界的呈現" class="headerlink" title="1. High Level View：策略與邊界的呈現"></a>1. High Level View：策略與邊界的呈現</h2><p>High Level View 對應於 C4 Model 的 Context Layer，目的在於提供非技術利害關係人（如產品負責人、業務主管、決策者）一個宏觀且清晰的系統全貌。其主要包含：</p><ul><li>使用者角色與互動關係</li><li>系統間的整合與依賴關係</li><li>存取控制（Access Control, ACL）設計</li></ul><p>特別的是，R3 Model 在此層明確引入 ACL 的概念，靈感來自 OOP 中的 <code>public</code>、<code>protected</code>、<code>private</code> 權限修飾詞，藉以呈現不同系統元件之間的依賴強度與邊界彈性。此舉有助於促進治理層面的討論，例如系統間是否應建立明確 API 合約、資料是否應有等級存取等。</p><hr><h2 id="2-Logical-View：系統角色與責任的定義"><a href="#2-Logical-View：系統角色與責任的定義" class="headerlink" title="2. Logical View：系統角色與責任的定義"></a>2. Logical View：系統角色與責任的定義</h2><p>Logical View 對應 C4 Model 的 Container Layer，然其設計目標更偏重於揭示 <strong>系統內部職責的合理劃分</strong>，而非僅僅著眼於運行時的容器部署。其關注焦點包括：</p><ul><li>系統角色分類：Web、API Gateway、Database、Queue、Cache 等</li><li>各角色的責任範疇與 ACL 規則</li><li>搭配 User Story 或 User Scenario，描繪資料流的走向與行為密度</li></ul><p>本層設計亦受敏捷開發團隊組成啟發：如 Scrum Team 中的 PO、Dev、QA、Ops、Designer 等多元角色，系統亦應具備清晰的「誰該做什麼」配置。</p><p>此外，筆者進一步將資料流的特性定義為：</p><ul><li><strong>資料密度（Density）</strong>：代表資料處理的吞吐量需求</li><li><strong>資料溫度（Temperature）</strong>：代表資料互動的頻率或即時性</li></ul><p>透過這樣的維度，架構師與業務人員能更直觀地理解每個子系統的重要性與資源配置優先順序。</p><blockquote><p>本層的設計核心，在於<strong>建立跨部門對齊的語意圖譜</strong>，以利溝通與討論，而非立即導向實作技術。</p></blockquote><hr><h2 id="3-Physical-View：落實部署與營運觀點"><a href="#3-Physical-View：落實部署與營運觀點" class="headerlink" title="3. Physical View：落實部署與營運觀點"></a>3. Physical View：落實部署與營運觀點</h2><p>Physical View 在概念上並非完全等同於 C4 的 Component Layer，而更接近於部署層級（Deployment Architecture）與營運可行性分析。本層的設計聚焦於：</p><ul><li>各邏輯角色的部署實例數（副本）、伸縮策略與監控點配置</li><li>實作技術選型：如使用 Spring Boot、FastAPI、Node.js，資料庫採用 MySQL、PostgreSQL，訊息中介為 RabbitMQ、SQS、NATS 等</li><li>Infrastructure 與 Observability 架構的結合，例如搭配 Prometheus&#x2F;Grafana、ELK Stack、Tracing 工具等</li></ul><p>此層的設計使得系統可以與運維層有效對接，並作為 DevOps 團隊針對容量規劃、可用性分析、資安設計等核心議題的工作依據。</p><blockquote><p>R3 Model 發展初衷之一，即為解決觀測性不足所導致的部署與維運斷層問題。</p></blockquote><hr><h2 id="關於-Code-Layer-的補充"><a href="#關於-Code-Layer-的補充" class="headerlink" title="關於 Code Layer 的補充"></a>關於 Code Layer 的補充</h2><p>相較於 C4 Model 的第四層 Code Layer，R3 Model 並未進一步延伸至原始碼層級。此設計選擇源於筆者於設計本模型時，主要視角為系統架構與基礎建設層，並非針對單一服務的程式細節。然而，若需補足此層，亦可透過：</p><ul><li>Sequence Diagram（時序圖）</li><li>State Machine Diagram（狀態機）</li></ul><p>來進行行為與狀態的補充建模，支撐跨服務協作或狀態變化之設計需求。</p><hr><h2 id="命名與緣起：R3-Model-的實務脈絡"><a href="#命名與緣起：R3-Model-的實務脈絡" class="headerlink" title="命名與緣起：R3 Model 的實務脈絡"></a>命名與緣起：R3 Model 的實務脈絡</h2><p>R3 Model 並非源自於既有理論，而是在筆者於 2017 年左右，歷經多個實務系統架構案中逐步形成與歸納。直到多年後接觸到 C4 Model 時，才發現兩者前三層有高度相似性。</p><p>為求記憶與溝通方便，筆者將其命名為 R3，意指：</p><ol><li><strong>High Level View</strong> — 界定邊界與溝通語意</li><li><strong>Service Definition (Logical View)</strong> — 描述系統責任分工</li><li><strong>Go Live (Physical View)</strong> — 對應部署與營運策略</li></ol><p>目前此模型已在多個系統設計與導入中實證可行，並持續迭代中。雖未有廣泛使用者，但對於具有 Infra 或架構主導責任的工程師與架構師而言，R3 Model 可視為一套清晰的架構推演工具。</p><hr><h2 id="圖示說明"><a href="#圖示說明" class="headerlink" title="圖示說明"></a>圖示說明</h2><p>以下圖像呈現 R3 Model 的三層架構概念：</p><p><img src="/images/Design/R3-model/R3-model_by-ChatGPT_20250630.png"></p><hr><p>如果你對此模型有共鳴，或希望引入團隊實踐中，歡迎交流與討論，或協助擴充此模型在其他場景的應用。</p><hr><h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul><li><a href="https://en.wikipedia.org/wiki/Conway%27s_law">康威定律：系統設計如何映照組織結構</a></li><li><a href="https://c4model.com/">C4 Model 官方介紹</a></li></ul>]]></content>
     
     
     <summary type="html">&lt;p&gt;C4 model 是一個 2018 年之後發展出來的 架構描述方式，我在 2017 年底也在組織內部弄了類似概念的表達架構方式，很巧不巧，概念很 C4 model 很像，這段想法在我的著作 &lt;a href=&quot;/2023/07/17/About/2023-SRE-Practice-and-IDP/&quot;&gt;SRE實踐與開發平台指南&lt;/a&gt; 有提到，底下用 &lt;a href=&quot;https://www.facebook.com/rick.kyhwang/posts/pfbid03m9Fg2scvvNxH6VoFTmwDE2uVWDWoFbP5t2TZ9KZ9efGPqX5HpLFrKzrtT2sgFzNl?notif_id=1750850826246248&amp;notif_t=feedback_reaction_generic&amp;ref=notif&quot;&gt;FB&lt;/a&gt; 寫的草稿，讓 ChatGPT 幫我整理的想法～&lt;/p&gt;</summary>
@@ -159,9 +159,9 @@
     
     <category term="API Gateway" scheme="https://rickhw.github.io/tags/API-Gateway/"/>
     
-    <category term="Finite-State Machine" scheme="https://rickhw.github.io/tags/Finite-State-Machine/"/>
-    
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
+    
+    <category term="Finite-State Machine" scheme="https://rickhw.github.io/tags/Finite-State-Machine/"/>
     
     <category term="RESTful" scheme="https://rickhw.github.io/tags/RESTful/"/>
     
@@ -196,13 +196,13 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
-    <category term="Docker" scheme="https://rickhw.github.io/tags/Docker/"/>
-    
     <category term="Java" scheme="https://rickhw.github.io/tags/Java/"/>
     
     <category term="macOS" scheme="https://rickhw.github.io/tags/macOS/"/>
     
     <category term="VSCode" scheme="https://rickhw.github.io/tags/VSCode/"/>
+    
+    <category term="Docker" scheme="https://rickhw.github.io/tags/Docker/"/>
     
     <category term="Docker-Compose" scheme="https://rickhw.github.io/tags/Docker-Compose/"/>
     
@@ -231,11 +231,11 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
-    <category term="VMWare" scheme="https://rickhw.github.io/tags/VMWare/"/>
-    
     <category term="Linux" scheme="https://rickhw.github.io/tags/Linux/"/>
     
     <category term="Virtualization" scheme="https://rickhw.github.io/tags/Virtualization/"/>
+    
+    <category term="VMWare" scheme="https://rickhw.github.io/tags/VMWare/"/>
     
     <category term="Development Environment" scheme="https://rickhw.github.io/tags/Development-Environment/"/>
     
@@ -299,10 +299,6 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
-    <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
-    
-    <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
-    
     <category term="Code Generator" scheme="https://rickhw.github.io/tags/Code-Generator/"/>
     
     <category term="Template" scheme="https://rickhw.github.io/tags/Template/"/>
@@ -310,6 +306,10 @@
     <category term="Productivity" scheme="https://rickhw.github.io/tags/Productivity/"/>
     
     <category term="Quality" scheme="https://rickhw.github.io/tags/Quality/"/>
+    
+    <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
+    
+    <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
     
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
@@ -467,15 +467,15 @@
     
     <category term="Distributed Systems" scheme="https://rickhw.github.io/tags/Distributed-Systems/"/>
     
-    <category term="Design Thinking" scheme="https://rickhw.github.io/tags/Design-Thinking/"/>
-    
-    <category term="Multi-Tenancy" scheme="https://rickhw.github.io/tags/Multi-Tenancy/"/>
-    
     <category term="SaaS" scheme="https://rickhw.github.io/tags/SaaS/"/>
     
     <category term="Isolation Factor" scheme="https://rickhw.github.io/tags/Isolation-Factor/"/>
     
+    <category term="Multi-Tenancy" scheme="https://rickhw.github.io/tags/Multi-Tenancy/"/>
+    
     <category term="Multi-Tenancy Architecture" scheme="https://rickhw.github.io/tags/Multi-Tenancy-Architecture/"/>
+    
+    <category term="Design Thinking" scheme="https://rickhw.github.io/tags/Design-Thinking/"/>
     
     <category term="RBAC" scheme="https://rickhw.github.io/tags/RBAC/"/>
     
@@ -505,9 +505,9 @@
     <category term="Career" scheme="https://rickhw.github.io/categories/%E7%B6%93%E7%87%9F%E7%AE%A1%E7%90%86/Career/"/>
     
     
-    <category term="AWS" scheme="https://rickhw.github.io/tags/AWS/"/>
-    
     <category term="Career" scheme="https://rickhw.github.io/tags/Career/"/>
+    
+    <category term="AWS" scheme="https://rickhw.github.io/tags/AWS/"/>
     
     <category term="Certiciation" scheme="https://rickhw.github.io/tags/Certiciation/"/>
     
@@ -634,13 +634,13 @@
     <category term="About" scheme="https://rickhw.github.io/categories/About/"/>
     
     
-    <category term="SRE" scheme="https://rickhw.github.io/tags/SRE/"/>
-    
-    <category term="Books" scheme="https://rickhw.github.io/tags/Books/"/>
-    
     <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
     
     <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
+    
+    <category term="SRE" scheme="https://rickhw.github.io/tags/SRE/"/>
+    
+    <category term="Books" scheme="https://rickhw.github.io/tags/Books/"/>
     
   </entry>
   
