@@ -110,6 +110,29 @@
   </entry>
   
   <entry>
+    <title>R3 Model</title>
+    <link href="https://rickhw.github.io/2025/06/29/Design/R3-Model/"/>
+    <id>https://rickhw.github.io/2025/06/29/Design/R3-Model/</id>
+    <published>2025-06-29T05:30:00.000Z</published>
+    <updated>2025-07-30T10:35:01.563Z</updated>
+    
+    <content type="html"><![CDATA[<p>C4 model 是一個 2018 年之後發展出來的 架構描述方式，我在 2017 年底也在組織內部弄了類似概念的表達架構方式，很巧不巧，概念很 C4 model 很像，這段想法在我的著作 <a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">SRE實踐與開發平台指南</a> 有提到，底下用 <a href="https://www.facebook.com/rick.kyhwang/posts/pfbid03m9Fg2scvvNxH6VoFTmwDE2uVWDWoFbP5t2TZ9KZ9efGPqX5HpLFrKzrtT2sgFzNl?notif_id=1750850826246248&notif_t=feedback_reaction_generic&ref=notif">FB</a> 寫的草稿，讓 ChatGPT 幫我整理的想法～</p><span id="more"></span><hr><h1 id="R3-Model：以角色職責為核心的系統架構思維"><a href="#R3-Model：以角色職責為核心的系統架構思維" class="headerlink" title="R3 Model：以角色職責為核心的系統架構思維"></a>R3 Model：以角色職責為核心的系統架構思維</h1><p>在與朋友討論系統架構設計時，我經常提到自己多年來實務上使用的一套方法論，它與大家熟悉的 C4 model 有些類似，但核心關注點其實是從「組織職責」與「封裝邊界」出發，甚至偷偷塞了點康威定律進去。</p><p>這個方法論沒有什麼炫砲的名字，乾脆就叫它 <strong>R3 Model</strong> 吧：分為三個層次，對應 High Level View、Logical View、Physical View。R3，簡單粗暴，就代表三層。</p><hr><h2 id="🧠-背後思維：OOP、封裝與-R-amp-R"><a href="#🧠-背後思維：OOP、封裝與-R-amp-R" class="headerlink" title="🧠 背後思維：OOP、封裝與 R&amp;R"></a>🧠 背後思維：OOP、封裝與 R&amp;R</h2><p>這整套架構方法的邏輯起點來自 OOP（物件導向）與封裝概念。我把一個 Role 想像成一個 Interface，而其內部的邏輯與協作，就像是 implementation。而這個 Interface，最重要的是它代表「誰該做什麼」——也就是 <strong>Role &amp; Responsibility（R&amp;R）</strong>。</p><p>許多技術選型的討論（例如 API Gateway vs Load Balancer vs Reverse Proxy），看似在談技術，其實本質上是在問一個問題：<strong>它在這個系統裡的角色與責任是什麼？</strong></p><hr><h2 id="🔭-第一層：High-Level-View（對齊觀點的入口）"><a href="#🔭-第一層：High-Level-View（對齊觀點的入口）" class="headerlink" title="🔭 第一層：High Level View（對齊觀點的入口）"></a>🔭 第一層：High Level View（對齊觀點的入口）</h2><p>這層概念對應到 C4 model 的 <strong>Context</strong>，用來給業務單位、老闆、非技術利害關係人快速對齊共識。主要涵蓋：</p><ul><li>使用者與系統互動方式</li><li>內外部系統的整合關係</li><li>系統之間的 <strong>ACL（Access Control）</strong></li></ul><p>我這邊加入了 ACL 的設計，來呈現「可存取性與依賴性」，類似於 OOP 中的 <code>public/protected/private</code> 關鍵字，用來表達系統邊界與封裝程度。</p><blockquote><p>✅ 適合：展示整體策略面與系統邊界，快速建立系統存在的價值與關係。</p></blockquote><hr><h2 id="🧩-第二層：Logical-View（Service-Definition）"><a href="#🧩-第二層：Logical-View（Service-Definition）" class="headerlink" title="🧩 第二層：Logical View（Service Definition）"></a>🧩 第二層：Logical View（Service Definition）</h2><p>這層對應到 C4 的 <strong>Container</strong>，但我更關注的是「系統內的職責劃分」。我們從這層開始拉出具體的 Role，例如：</p><ul><li>Web &#x2F; Console &#x2F; API Gateway &#x2F; Database &#x2F; Cache &#x2F; Queue 等</li><li>每個 Role 的職責（Responsibility）與協作關係</li><li>系統間的資料流（Data Flow）：<strong>密度（吞吐量）</strong>與<strong>溫度（頻率）</strong></li></ul><p>此外，我會搭配 <strong>User Story &#x2F; Scenario</strong> 來解釋整體流程，也會引用 Scrum Team 的比喻：一個團隊需要不同角色合作，架構亦然。</p><blockquote><p>🎵 像是一個樂團需要歌手、吉他手、鼓手、鍵盤手，每個 Role 多少會決定整體架構的「複雜度」。</p></blockquote><p>這層不是要講 implementation，而是要對齊理解，讓懂技術和不懂技術的人都能站在同一張地圖上看系統。</p><hr><h2 id="🚀-第三層：Physical-View（Go-Live-構面）"><a href="#🚀-第三層：Physical-View（Go-Live-構面）" class="headerlink" title="🚀 第三層：Physical View（Go Live 構面）"></a>🚀 第三層：Physical View（Go Live 構面）</h2><p>這層我稱為 Physical View，但其實不是 C4 的 <strong>Component Layer</strong>，而是更貼近 Deployment Architecture 的思維，關注：</p><ul><li>每個 Role 在 runtime 的部署副本（對應到 Kubernetes 的 Pod&#x2F;Container）</li><li>實際的實作技術：Node.js &#x2F; Spring Boot &#x2F; FastAPI &#x2F; MySQL &#x2F; Redis &#x2F; RabbitMQ …</li><li>每個實體角色如何落地、如何部署、怎麼運維</li><li>成本、可觀測性（O11y）、高可用性設計（HA）</li></ul><p>這層的誕生也是因為我當時正需要設計一個可觀測系統，沒有這層就無法落實 Metrics、Logging、Tracing。</p><blockquote><p>🎯 若 Logical View 是系統的藍圖，那 Physical View 就是建築工地現場：誰在哪裡、在做什麼、怎麼做到、會不會倒。</p></blockquote><hr><h2 id="🔍-關於-C4-的第四層-Code"><a href="#🔍-關於-C4-的第四層-Code" class="headerlink" title="🔍 關於 C4 的第四層 Code"></a>🔍 關於 C4 的第四層 Code</h2><p>C4 有第四層是 Code Level，但我的模型並沒有這一層。主要是因為我的思考起點是從 Infra &#x2F; DevOps 面切入，而非純開發流程。不過：</p><blockquote><p>搭配 UML 的 Sequence Diagram &#x2F; State Machine，其實已經足以補足實作邏輯。</p></blockquote><hr><h2 id="🧱-小結：命名為-R3-Model-的小堅持"><a href="#🧱-小結：命名為-R3-Model-的小堅持" class="headerlink" title="🧱 小結：命名為 R3 Model 的小堅持"></a>🧱 小結：命名為 R3 Model 的小堅持</h2><p>我並不是從一開始就知道 C4 model。這套方法是我從 2017 年開始，在跑了十幾二十個系統架構實務案之後，逐步抽象與歸納出來的。後來才發現 C4 與我某些層次的定義幾乎一致，也就不打不相識。</p><p>這個模型我沒有對外正式發表過名字，只在自己整理的書裡稱呼它為：</p><ol><li><strong>High Level View</strong>（策略與邊界）</li><li><strong>Service Definition</strong>（系統角色與任務）</li><li><strong>Go Live</strong>（部署與運維視角）</li></ol><p><img src="/images/Design/R3-model/R3-model_by-ChatGPT_20250630.png"></p><p>但說真的，這世界太需要簡潔一點的術語了，那就叫它 <strong>R3 Model</strong> 吧，反正只剩我自己在用，命名權還在我手上 😆</p><p>如果你也正在設計一個跨團隊、多角色、高複雜度的系統架構，或許可以試試用 R3 Model 當起點，從角色與責任的角度開始畫起。</p><hr><h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul><li><a href="https://en.wikipedia.org/wiki/Conway%27s_law">康威定律：系統設計如何映照組織結構</a></li><li><a href="https://c4model.com/">C4 Model 官方介紹</a></li></ul>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;C4 model 是一個 2018 年之後發展出來的 架構描述方式，我在 2017 年底也在組織內部弄了類似概念的表達架構方式，很巧不巧，概念很 C4 model 很像，這段想法在我的著作 &lt;a href=&quot;/2023/07/17/About/2023-SRE-Practice-and-IDP/&quot;&gt;SRE實踐與開發平台指南&lt;/a&gt; 有提到，底下用 &lt;a href=&quot;https://www.facebook.com/rick.kyhwang/posts/pfbid03m9Fg2scvvNxH6VoFTmwDE2uVWDWoFbP5t2TZ9KZ9efGPqX5HpLFrKzrtT2sgFzNl?notif_id=1750850826246248&amp;notif_t=feedback_reaction_generic&amp;ref=notif&quot;&gt;FB&lt;/a&gt; 寫的草稿，讓 ChatGPT 幫我整理的想法～&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="System Design" scheme="https://rickhw.github.io/categories/System-Design/"/>
+    
+    
+    <category term="C4 Model" scheme="https://rickhw.github.io/tags/C4-Model/"/>
+    
+    <category term="康威定律" scheme="https://rickhw.github.io/tags/%E5%BA%B7%E5%A8%81%E5%AE%9A%E5%BE%8B/"/>
+    
+  </entry>
+  
+  <entry>
     <title>聊聊 API First 開發策略</title>
     <link href="https://rickhw.github.io/2025/03/08/Design/Gossip-API-First-Joureny/"/>
     <id>https://rickhw.github.io/2025/03/08/Design/Gossip-API-First-Joureny/</id>
@@ -136,15 +159,15 @@
     
     <category term="API Gateway" scheme="https://rickhw.github.io/tags/API-Gateway/"/>
     
-    <category term="Finite-State Machine" scheme="https://rickhw.github.io/tags/Finite-State-Machine/"/>
-    
-    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
+    <category term="RESTful" scheme="https://rickhw.github.io/tags/RESTful/"/>
     
     <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
     
+    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
+    
     <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
     
-    <category term="RESTful" scheme="https://rickhw.github.io/tags/RESTful/"/>
+    <category term="Finite-State Machine" scheme="https://rickhw.github.io/tags/Finite-State-Machine/"/>
     
     <category term="API Platform" scheme="https://rickhw.github.io/tags/API-Platform/"/>
     
@@ -276,6 +299,12 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
+    <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
+    
+    <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
+    
+    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
+    
     <category term="Code Generator" scheme="https://rickhw.github.io/tags/Code-Generator/"/>
     
     <category term="Template" scheme="https://rickhw.github.io/tags/Template/"/>
@@ -283,12 +312,6 @@
     <category term="Productivity" scheme="https://rickhw.github.io/tags/Productivity/"/>
     
     <category term="Quality" scheme="https://rickhw.github.io/tags/Quality/"/>
-    
-    <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
-    
-    <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
-    
-    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
   </entry>
   
@@ -336,7 +359,11 @@
     <category term="System Design" scheme="https://rickhw.github.io/categories/System-Design/"/>
     
     
+    <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
+    
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
+    
+    <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
     
     <category term="Identity" scheme="https://rickhw.github.io/tags/Identity/"/>
     
@@ -345,10 +372,6 @@
     <category term="Unique" scheme="https://rickhw.github.io/tags/Unique/"/>
     
     <category term="UUID" scheme="https://rickhw.github.io/tags/UUID/"/>
-    
-    <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
-    
-    <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
     
   </entry>
   
@@ -613,11 +636,11 @@
     
     <category term="SRE" scheme="https://rickhw.github.io/tags/SRE/"/>
     
+    <category term="Books" scheme="https://rickhw.github.io/tags/Books/"/>
+    
     <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
     
     <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
-    
-    <category term="Books" scheme="https://rickhw.github.io/tags/Books/"/>
     
   </entry>
   
@@ -662,54 +685,15 @@
     <category term="SRE" scheme="https://rickhw.github.io/categories/DevOps/SRE/"/>
     
     
-    <category term="SRE" scheme="https://rickhw.github.io/tags/SRE/"/>
-    
     <category term="Monitoring" scheme="https://rickhw.github.io/tags/Monitoring/"/>
+    
+    <category term="SRE" scheme="https://rickhw.github.io/tags/SRE/"/>
     
     <category term="Emergency Response" scheme="https://rickhw.github.io/tags/Emergency-Response/"/>
     
     <category term="Incident Management" scheme="https://rickhw.github.io/tags/Incident-Management/"/>
     
     <category term="Software Engineering" scheme="https://rickhw.github.io/tags/Software-Engineering/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>API 設計 - API 整合矩陣</title>
-    <link href="https://rickhw.github.io/2023/07/02/DistributedSystems/API-First_Integration-Matrix/"/>
-    <id>https://rickhw.github.io/2023/07/02/DistributedSystems/API-First_Integration-Matrix/</id>
-    <published>2023-07-02T05:30:00.000Z</published>
-    <updated>2025-06-27T12:21:44.257Z</updated>
-    
-    <content type="html"><![CDATA[<p>API 存在的目的，最早期是程式邏輯可以重複使用，例如 時間相關的工具，透過標準的介面定義，以及模組化的概念，每個人在開發應用程式的時候，都可以引用同一個函示庫，透過標準介面就可以調用。像是 Java 語言的 <code>java.util.Date</code> 這樣的標準介面，所以 API 的概念就出現了。</p><span id="more"></span><p>後來程式跟程式之間也要相互調用，像是 Java 要使用 linux ls 的資料，所以產生了 <code>Inter-Process Communication (IPC)</code>，讓 Process 跟 Process 之間可以相互調用。</p><p>但這都還是在同一個作業系統裡面，分散式系統的出現，開始出現 RPC (Remote Procedure Call)，讓跨系統之間可以相互調用，做出更複雜的功能。</p><p>類似的概念，到了 Web &#x2F; HTTP 出現之後，SOA 概念興起，跨服務之間的溝通，就變得更重要了，API 的概念又被更放大了。</p><h2 id="什麼是-API？"><a href="#什麼是-API？" class="headerlink" title="什麼是 API？"></a>什麼是 API？</h2><p><code>API (Application Programming Interface)</code> 指的是讓 <code>兩個以上</code> 的 <code>異質系統</code>，相互調用彼此功能的可程式化介面。例如：</p><blockquote><p>在 Windows (作業系統) 上有一個 行事曆 (Desktop 應用程式)，他需要取得 Windows 本身提供的時間資訊，所以調用 <code>Windows.Date()</code> 取得現在的時間。</p></blockquote><p>這個例子，Windows 和 行事曆 兩者就是異質系統，而 Windows 提供的 <code>Windows.Date()</code> 就是個 API 介面，通常這種稱為 Syscall。</p><p>API 泛指各種可以相互調用的介面，包含以下：</p><ul><li><code>Libraries</code>: 各種 C 的 .h、Java &#x2F; C# Code 的 Interface 都算是<ul><li>同一個程式語言之間，使用彼此功能的介面</li></ul></li><li><code>RPC</code>: Remote Procedure Call 遠程調用介面，技術觀點就是跨語言 &#x2F; 跨系統之間的調用，垂直整合 (系統與程式)、水平整合 (系統與系統)<ul><li><code>Web</code>: 基於 HTTP 協議的介面，也是本文的主角，屬於水平整合的 <code>系統與系統</code> 溝通</li><li><code>SSH</code>: 透過 SSH 下的 remote call</li></ul></li></ul><h2 id="API-Integration-Matrix"><a href="#API-Integration-Matrix" class="headerlink" title="API Integration Matrix"></a>API Integration Matrix</h2><p>常見的 API 整合方式，以 <code>提供者與使用者</code> 的角度，API 形式則用 <code>系統與程式</code> 區分，定義這兩者如下：</p><ul><li><code>Pub/Sub</code>：API 有 <code>提供者 (Publisher)</code> 也有 <code>使用者 (Subscriber)</code>，負責整合兩者稱為 API Platform，是個管理角色。</li><li><code>系統</code>：只作業系統、或者 Web Services</li><li><code>程式</code>：應用程式，像是 Desktop、開一個 Port 走 TCP &#x2F; UDP 的應用<ul><li>應用程式之間大多透過 <code>Inter-Process Communication (IPC)</code> 交互通訊，更多參閱 <a href="/2021/01/03/Linux/Shell-and-Bash-Concepts/">Shell and Bash Concepts</a></li></ul></li></ul><p>依照這樣的定義，整理出以下的整合矩陣：</p><p><img src="/images/DistributedSystems/API-Product-Plan-Design-Overview/API-Integration-Matrix_v20230701.png"></p><p>這四個象限分別說明如下：</p><ul><li>A: 指的是系統發布 API ，提供給程式使用<ul><li>例如：Linux 提供 Syscall 給應用程式 ls 使用。</li></ul></li><li>B: 程式跟程式之間相互調用使用，例如：<ul><li>使用 Springboot 開發 Web 應用，Springboot 是一個框架，開發者寫出自己的邏輯，背後調用框架的 API.</li><li>這裡指的程式是同一種語言，如果是不同語言，那屬於 D 象限。</li></ul></li><li>C: 與 A 相反，程式語言提供介面給系統使用，例如：<ul><li>微軟瀏覽器 Edge 的常駐程式，當需要更新版本的時候，提供介面讓 macOS 調用，並通知使用者有新版本更新</li></ul></li><li>D: 系統對系統，像是：<ul><li>Web Service 彼此之間 API 的調用</li><li>Linux 之間的溝通與調用 RPC，也是這個範圍</li><li>如果是跨作業系統溝通，例如 Linux 調用 Windows，這年代大多會封裝成 Web API 的方式調用，例如 AWS 的 microVM - <a href="https://github.com/firecracker-microvm/firecracker">FireCracker</a> 預設就有 WebAPI 可以使用</li></ul></li></ul><p>因為分散式系統的大爆炸，所以 D 象限大爆炸，特別是基於 Web &#x2F; HTTP 的 API，所以現在口語上說 API 的時候，很多時候都是泛指 Web API，特別是 RESTful API，當然也會包含其他像是 gRPC &#x2F; GraphQL 等不同的實踐技術。</p><p>實際上 D 範圍包含 A &#x2F; C &#x2F; B 三大塊，也就是為了達到 D 的目的，開發工作會橫跨另外三個。</p><hr><h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="站內相關文章"><a href="#站內相關文章" class="headerlink" title="站內相關文章"></a>站內相關文章</h2><ul><li><a href="/2023/06/24/DistributedSystems/API-Communication-Protocol/">API 設計 - 摘要 API 通訊模式與協議</a></li><li><a href="/2023/07/02/DistributedSystems/API-Integration-Matrix/">API 設計 - API 整合矩陣</a></li><li><a href="/2018/01/24/DistributedSystems/Overview-API-Gateway/">Overview API Gateway</a></li><li><a href="/2021/05/14/DistributedSystems/Service-Governance/">聊聊分散式架構的服務治理</a></li><li><a href="/2022/07/04/DistributedSystems/Inspired-Design-From-Eclipse/">摘要 Eclipse 設計的啟發：當代 SaaS 分散式架構的關鍵設計</a></li><li><a href="/2021/01/03/Linux/Shell-and-Bash-Concepts/">Shell and Bash Concepts</a></li></ul><h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul><li><a href="https://dineshchandgr.medium.com/api-things-every-software-engineer-must-know-api-integration-economy-protocols-endpoint-4649ecbc7c41">API things every Software Engineer must know — API Integration, Economy, Protocols, Endpoint, Security…</a></li></ul>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;API 存在的目的，最早期是程式邏輯可以重複使用，例如 時間相關的工具，透過標準的介面定義，以及模組化的概念，每個人在開發應用程式的時候，都可以引用同一個函示庫，透過標準介面就可以調用。像是 Java 語言的 &lt;code&gt;java.util.Date&lt;/code&gt; 這樣的標準介面，所以 API 的概念就出現了。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Distributed Systems" scheme="https://rickhw.github.io/categories/Distributed-Systems/"/>
-    
-    
-    <category term="Distributed Systems" scheme="https://rickhw.github.io/tags/Distributed-Systems/"/>
-    
-    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
-    
-    <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
-    
-    <category term="API Platform" scheme="https://rickhw.github.io/tags/API-Platform/"/>
-    
-    <category term="API Management" scheme="https://rickhw.github.io/tags/API-Management/"/>
-    
-    <category term="Distributed Communication" scheme="https://rickhw.github.io/tags/Distributed-Communication/"/>
-    
-    <category term="Contract First" scheme="https://rickhw.github.io/tags/Contract-First/"/>
-    
-    <category term="API Governance" scheme="https://rickhw.github.io/tags/API-Governance/"/>
-    
-    <category term="API Styles" scheme="https://rickhw.github.io/tags/API-Styles/"/>
-    
-    <category term="API Protocol" scheme="https://rickhw.github.io/tags/API-Protocol/"/>
     
   </entry>
   

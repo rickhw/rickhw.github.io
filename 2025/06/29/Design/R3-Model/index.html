@@ -1,0 +1,659 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>R3 Model | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="C4 model 是一個 2018 年之後發展出來的 架構描述方式，我在 2017 年底也在組織內部弄了類似概念的表達架構方式，很巧不巧，概念很 C4 model 很像，這段想法在我的著作 SRE實踐與開發平台指南 有提到，底下用 FB 寫的草稿，讓 ChatGPT 幫我整理的想法～
+
+
+
+R3 M">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="R3 Model"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/2025/06/29/Design/R3-Model/"/>
+  <meta property="og:image" content="/images/Design/Countable-Understandability-Example_v20240322.png" />
+  
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<!--
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'G-74Y1F3F5W0']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-74Y1F3F5W0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-74Y1F3F5W0');
+</script>
+
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!-- @rickd 2022/02/24
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
+  -->
+  <!-- @ricka 2022/02/24 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!--
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="bd9r2mJp"></script>
+  -->
+
+  <!-- @ricka 2022/09/06 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="opf2Gext"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+						
+						<li><a href="/categories/About/">About <sup>29</sup></a></li>
+						
+						<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+						
+						<li><a href="/categories/經營管理/Career/">Career <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
+						
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Data/">Data <sup>2</sup></a></li>
+						
+						<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+						
+						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>20</sup></a></li>
+						
+						<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+						
+						<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+						
+						<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+						
+						<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+						
+						<li><a href="/categories/DevOps/SRE/">SRE <sup>25</sup></a></li>
+						
+						<li><a href="/categories/Software-Engineering/">Software Engineering <sup>10</sup></a></li>
+						
+						<li><a href="/categories/System-Design/">System Design <sup>3</sup></a></li>
+						
+						<li><a href="/categories/經營管理/人才管理/">人才管理 <sup>10</sup></a></li>
+						
+						<li><a href="/categories/經營管理/溝通/">溝通 <sup>9</sup></a></li>
+						
+						<li><a href="/categories/經營管理/知識管理/">知識管理 <sup>4</sup></a></li>
+						
+						<li><a href="/categories/經營管理/">經營管理 <sup>61</sup></a></li>
+						
+						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
+						
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"> <i class="fa fa-book"></i>學習法則</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂 (v2021)</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> R3 Model</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> R3 Model</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+		
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2025%2F06%2F29%2FDesign%2FR3-Model%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2025/06/29/Design/R3-Model/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/2025/06/29/Design/R3-Model/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<p>C4 model 是一個 2018 年之後發展出來的 架構描述方式，我在 2017 年底也在組織內部弄了類似概念的表達架構方式，很巧不巧，概念很 C4 model 很像，這段想法在我的著作 <a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">SRE實踐與開發平台指南</a> 有提到，底下用 <a target="_blank" rel="noopener" href="https://www.facebook.com/rick.kyhwang/posts/pfbid03m9Fg2scvvNxH6VoFTmwDE2uVWDWoFbP5t2TZ9KZ9efGPqX5HpLFrKzrtT2sgFzNl?notif_id=1750850826246248&notif_t=feedback_reaction_generic&ref=notif">FB</a> 寫的草稿，讓 ChatGPT 幫我整理的想法～</p>
+<span id="more"></span>
+
+<hr>
+<h1 id="R3-Model：以角色職責為核心的系統架構思維"><a href="#R3-Model：以角色職責為核心的系統架構思維" class="headerlink" title="R3 Model：以角色職責為核心的系統架構思維"></a>R3 Model：以角色職責為核心的系統架構思維</h1><p>在與朋友討論系統架構設計時，我經常提到自己多年來實務上使用的一套方法論，它與大家熟悉的 C4 model 有些類似，但核心關注點其實是從「組織職責」與「封裝邊界」出發，甚至偷偷塞了點康威定律進去。</p>
+<p>這個方法論沒有什麼炫砲的名字，乾脆就叫它 <strong>R3 Model</strong> 吧：分為三個層次，對應 High Level View、Logical View、Physical View。R3，簡單粗暴，就代表三層。</p>
+<hr>
+<h2 id="🧠-背後思維：OOP、封裝與-R-amp-R"><a href="#🧠-背後思維：OOP、封裝與-R-amp-R" class="headerlink" title="🧠 背後思維：OOP、封裝與 R&amp;R"></a>🧠 背後思維：OOP、封裝與 R&amp;R</h2><p>這整套架構方法的邏輯起點來自 OOP（物件導向）與封裝概念。我把一個 Role 想像成一個 Interface，而其內部的邏輯與協作，就像是 implementation。而這個 Interface，最重要的是它代表「誰該做什麼」——也就是 <strong>Role &amp; Responsibility（R&amp;R）</strong>。</p>
+<p>許多技術選型的討論（例如 API Gateway vs Load Balancer vs Reverse Proxy），看似在談技術，其實本質上是在問一個問題：<strong>它在這個系統裡的角色與責任是什麼？</strong></p>
+<hr>
+<h2 id="🔭-第一層：High-Level-View（對齊觀點的入口）"><a href="#🔭-第一層：High-Level-View（對齊觀點的入口）" class="headerlink" title="🔭 第一層：High Level View（對齊觀點的入口）"></a>🔭 第一層：High Level View（對齊觀點的入口）</h2><p>這層概念對應到 C4 model 的 <strong>Context</strong>，用來給業務單位、老闆、非技術利害關係人快速對齊共識。主要涵蓋：</p>
+<ul>
+<li>使用者與系統互動方式</li>
+<li>內外部系統的整合關係</li>
+<li>系統之間的 <strong>ACL（Access Control）</strong></li>
+</ul>
+<p>我這邊加入了 ACL 的設計，來呈現「可存取性與依賴性」，類似於 OOP 中的 <code>public/protected/private</code> 關鍵字，用來表達系統邊界與封裝程度。</p>
+<blockquote>
+<p>✅ 適合：展示整體策略面與系統邊界，快速建立系統存在的價值與關係。</p>
+</blockquote>
+<hr>
+<h2 id="🧩-第二層：Logical-View（Service-Definition）"><a href="#🧩-第二層：Logical-View（Service-Definition）" class="headerlink" title="🧩 第二層：Logical View（Service Definition）"></a>🧩 第二層：Logical View（Service Definition）</h2><p>這層對應到 C4 的 <strong>Container</strong>，但我更關注的是「系統內的職責劃分」。我們從這層開始拉出具體的 Role，例如：</p>
+<ul>
+<li>Web &#x2F; Console &#x2F; API Gateway &#x2F; Database &#x2F; Cache &#x2F; Queue 等</li>
+<li>每個 Role 的職責（Responsibility）與協作關係</li>
+<li>系統間的資料流（Data Flow）：<strong>密度（吞吐量）</strong>與<strong>溫度（頻率）</strong></li>
+</ul>
+<p>此外，我會搭配 <strong>User Story &#x2F; Scenario</strong> 來解釋整體流程，也會引用 Scrum Team 的比喻：一個團隊需要不同角色合作，架構亦然。</p>
+<blockquote>
+<p>🎵 像是一個樂團需要歌手、吉他手、鼓手、鍵盤手，每個 Role 多少會決定整體架構的「複雜度」。</p>
+</blockquote>
+<p>這層不是要講 implementation，而是要對齊理解，讓懂技術和不懂技術的人都能站在同一張地圖上看系統。</p>
+<hr>
+<h2 id="🚀-第三層：Physical-View（Go-Live-構面）"><a href="#🚀-第三層：Physical-View（Go-Live-構面）" class="headerlink" title="🚀 第三層：Physical View（Go Live 構面）"></a>🚀 第三層：Physical View（Go Live 構面）</h2><p>這層我稱為 Physical View，但其實不是 C4 的 <strong>Component Layer</strong>，而是更貼近 Deployment Architecture 的思維，關注：</p>
+<ul>
+<li>每個 Role 在 runtime 的部署副本（對應到 Kubernetes 的 Pod&#x2F;Container）</li>
+<li>實際的實作技術：Node.js &#x2F; Spring Boot &#x2F; FastAPI &#x2F; MySQL &#x2F; Redis &#x2F; RabbitMQ …</li>
+<li>每個實體角色如何落地、如何部署、怎麼運維</li>
+<li>成本、可觀測性（O11y）、高可用性設計（HA）</li>
+</ul>
+<p>這層的誕生也是因為我當時正需要設計一個可觀測系統，沒有這層就無法落實 Metrics、Logging、Tracing。</p>
+<blockquote>
+<p>🎯 若 Logical View 是系統的藍圖，那 Physical View 就是建築工地現場：誰在哪裡、在做什麼、怎麼做到、會不會倒。</p>
+</blockquote>
+<hr>
+<h2 id="🔍-關於-C4-的第四層-Code"><a href="#🔍-關於-C4-的第四層-Code" class="headerlink" title="🔍 關於 C4 的第四層 Code"></a>🔍 關於 C4 的第四層 Code</h2><p>C4 有第四層是 Code Level，但我的模型並沒有這一層。主要是因為我的思考起點是從 Infra &#x2F; DevOps 面切入，而非純開發流程。不過：</p>
+<blockquote>
+<p>搭配 UML 的 Sequence Diagram &#x2F; State Machine，其實已經足以補足實作邏輯。</p>
+</blockquote>
+<hr>
+<h2 id="🧱-小結：命名為-R3-Model-的小堅持"><a href="#🧱-小結：命名為-R3-Model-的小堅持" class="headerlink" title="🧱 小結：命名為 R3 Model 的小堅持"></a>🧱 小結：命名為 R3 Model 的小堅持</h2><p>我並不是從一開始就知道 C4 model。這套方法是我從 2017 年開始，在跑了十幾二十個系統架構實務案之後，逐步抽象與歸納出來的。後來才發現 C4 與我某些層次的定義幾乎一致，也就不打不相識。</p>
+<p>這個模型我沒有對外正式發表過名字，只在自己整理的書裡稱呼它為：</p>
+<ol>
+<li><strong>High Level View</strong>（策略與邊界）</li>
+<li><strong>Service Definition</strong>（系統角色與任務）</li>
+<li><strong>Go Live</strong>（部署與運維視角）</li>
+</ol>
+<p><img src="/images/Design/R3-model/R3-model_by-ChatGPT_20250630.png"></p>
+<p>但說真的，這世界太需要簡潔一點的術語了，那就叫它 <strong>R3 Model</strong> 吧，反正只剩我自己在用，命名權還在我手上 😆</p>
+<p>如果你也正在設計一個跨團隊、多角色、高複雜度的系統架構，或許可以試試用 R3 Model 當起點，從角色與責任的角度開始畫起。</p>
+<hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Conway%27s_law">康威定律：系統設計如何映照組織結構</a></li>
+<li><a target="_blank" rel="noopener" href="https://c4model.com/">C4 Model 官方介紹</a></li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/2025/06/29/Design/R3-Model/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<!-- LikeCoin -->
+				<!-- @rickd 2022/09/06 -->
+				<!--
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2025/06/29/Design/R3-Model/"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+				-->
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2035/01/21/Updated/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2025/03/08/Design/Gossip-API-First-Joureny/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
+  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
+  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2025/06/29/Design/R3-Model/" data-width="100%" data-numposts="10"></div>
+
+  
+
+
+</section>
+
+
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2025/06/29 13:30:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#R3-Model%EF%BC%9A%E4%BB%A5%E8%A7%92%E8%89%B2%E8%81%B7%E8%B2%AC%E7%82%BA%E6%A0%B8%E5%BF%83%E7%9A%84%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B%E6%80%9D%E7%B6%AD"><span class="toc-article-text">R3 Model：以角色職責為核心的系統架構思維</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%F0%9F%A7%A0-%E8%83%8C%E5%BE%8C%E6%80%9D%E7%B6%AD%EF%BC%9AOOP%E3%80%81%E5%B0%81%E8%A3%9D%E8%88%87-R-amp-R"><span class="toc-article-text">🧠 背後思維：OOP、封裝與 R&amp;R</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%F0%9F%94%AD-%E7%AC%AC%E4%B8%80%E5%B1%A4%EF%BC%9AHigh-Level-View%EF%BC%88%E5%B0%8D%E9%BD%8A%E8%A7%80%E9%BB%9E%E7%9A%84%E5%85%A5%E5%8F%A3%EF%BC%89"><span class="toc-article-text">🔭 第一層：High Level View（對齊觀點的入口）</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%F0%9F%A7%A9-%E7%AC%AC%E4%BA%8C%E5%B1%A4%EF%BC%9ALogical-View%EF%BC%88Service-Definition%EF%BC%89"><span class="toc-article-text">🧩 第二層：Logical View（Service Definition）</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%F0%9F%9A%80-%E7%AC%AC%E4%B8%89%E5%B1%A4%EF%BC%9APhysical-View%EF%BC%88Go-Live-%E6%A7%8B%E9%9D%A2%EF%BC%89"><span class="toc-article-text">🚀 第三層：Physical View（Go Live 構面）</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%F0%9F%94%8D-%E9%97%9C%E6%96%BC-C4-%E7%9A%84%E7%AC%AC%E5%9B%9B%E5%B1%A4-Code"><span class="toc-article-text">🔍 關於 C4 的第四層 Code</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%F0%9F%A7%B1-%E5%B0%8F%E7%B5%90%EF%BC%9A%E5%91%BD%E5%90%8D%E7%82%BA-R3-Model-%E7%9A%84%E5%B0%8F%E5%A0%85%E6%8C%81"><span class="toc-article-text">🧱 小結：命名為 R3 Model 的小堅持</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/System-Design/" style="color: white">System Design <span class="badge">3</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/C4-Model/" style="color: white">C4 Model <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/康威定律/" style="color: white">康威定律 <span class="badge">2</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+		<!-- v4 -->
+		<h4>About</h4>
+		
+			<li><a href="/2035/01/21/Index/">全站索引</a></li>
+		
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+		
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		
+			<li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+		
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		
+			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+		
+
+		<h4>著作</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作：SRE實踐與開發平台指南</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作：軟體測試實務 (2023)</a></li>
+		
+			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
+		
+
+		<h4>演講</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
+		
+			<li><a href="/2023/09/09/About/2023-AWS-Career-Exploration-Day/">探索職涯、複利人生 - AWS Career Exploration Day 2023</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作 SRE 書友見面會</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">軟體測試實務 - 新書發表會</a></li>
+		
+			<li><a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">探索職涯、成就未來 - AWS Career Exploration Day 2022</a></li>
+		
+			<li><a href="/2022/08/13/SQA/Path-to-Software-Testing/">從理想、到現實的距離，開啟品味軟體測試之路</a></li>
+		
+			<li><a href="/2022/05/10/About/2022-SREConf2022/">91APP 在 AWS 上的 SRE 實踐之路</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/2020-aws-summit-aws">在矩陣型組織裡，如何有效管理 AWS 的成本結構與系統架構</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/aws-using-aws-for-disaster-recovery/">災難演練 @ AWS 實戰分享</a></li>
+		
+			<li><a href="/2019/04/27/DevOps/Introduce-to-Continuous-Delivery-2/">導讀持續交付 2.0 - 談當代軟體交付之虛實融合</a></li>
+		
+			<li><a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理</a></li>
+		
+			<li><a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">從緊急事件 談 SRE 應變能力的培養</a></li>
+		
+			<li><a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
+		
+			<li><a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">Monitoring Tools 大亂鬥 - AWS CloudWatch</a></li>
+		
+			<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></li>
+		
+			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
+		
+
+		<!-- v3 -->
+		<!--
+		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		-->
+
+		<!-- v2 -->
+		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+		<!-- v1 -->
+		<!--
+		<li>Software Developer</li>
+		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+		<li><a href="/categories/DevOps/">Operation Manager</a></li>
+		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+		<li>
+			<ol>
+				<li>Management</li>
+				<li>Cloud / Distributed Systems</li>
+				<li>DevOps / SRE / </li>
+			</ol>
+		</li>
+		-->
+
+		<!--
+		<h4>Donate</h4>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick" />
+		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
+		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
+		</form>
+		-->
+
+		<h4>Facebook</h4>
+
+		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
+
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
+				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+
+		<h4>AWS Certifications</h4>
+		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+		<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+		<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+		
+
+	</div><!-- row -->
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2022 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div>
+
+<!-- container-narrow -->
+
+<div id="gotop">
+
+  <!-- 
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-book"></i> <a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"]);">學習法則</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"]);">喝咖啡 聊音樂 (v2021)</a><br />
+   -->
+
+  <!-- <h4>About</h4> -->
+
+  
+    <li><a href="/2035/01/21/Index/">全站索引</a></li>
+  
+    <li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+  
+    <li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+  
+    <li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+  
+    <li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+  
+    <li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+  
+    <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+  
+
+  <a href="#">▲ TOP ▲ </a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>
