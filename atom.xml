@@ -159,15 +159,15 @@
     
     <category term="API Gateway" scheme="https://rickhw.github.io/tags/API-Gateway/"/>
     
-    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
-    
     <category term="Finite-State Machine" scheme="https://rickhw.github.io/tags/Finite-State-Machine/"/>
     
-    <category term="RESTful" scheme="https://rickhw.github.io/tags/RESTful/"/>
+    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
     <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
     
     <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
+    
+    <category term="RESTful" scheme="https://rickhw.github.io/tags/RESTful/"/>
     
     <category term="API Platform" scheme="https://rickhw.github.io/tags/API-Platform/"/>
     
@@ -196,13 +196,13 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
+    <category term="Docker" scheme="https://rickhw.github.io/tags/Docker/"/>
+    
     <category term="Java" scheme="https://rickhw.github.io/tags/Java/"/>
     
     <category term="macOS" scheme="https://rickhw.github.io/tags/macOS/"/>
     
     <category term="VSCode" scheme="https://rickhw.github.io/tags/VSCode/"/>
-    
-    <category term="Docker" scheme="https://rickhw.github.io/tags/Docker/"/>
     
     <category term="Docker-Compose" scheme="https://rickhw.github.io/tags/Docker-Compose/"/>
     
@@ -231,11 +231,11 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
+    <category term="VMWare" scheme="https://rickhw.github.io/tags/VMWare/"/>
+    
     <category term="Linux" scheme="https://rickhw.github.io/tags/Linux/"/>
     
     <category term="Virtualization" scheme="https://rickhw.github.io/tags/Virtualization/"/>
-    
-    <category term="VMWare" scheme="https://rickhw.github.io/tags/VMWare/"/>
     
     <category term="Development Environment" scheme="https://rickhw.github.io/tags/Development-Environment/"/>
     
@@ -299,6 +299,10 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
+    <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
+    
+    <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
+    
     <category term="Code Generator" scheme="https://rickhw.github.io/tags/Code-Generator/"/>
     
     <category term="Template" scheme="https://rickhw.github.io/tags/Template/"/>
@@ -306,10 +310,6 @@
     <category term="Productivity" scheme="https://rickhw.github.io/tags/Productivity/"/>
     
     <category term="Quality" scheme="https://rickhw.github.io/tags/Quality/"/>
-    
-    <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
-    
-    <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
     
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
@@ -361,10 +361,6 @@
     
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
-    <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
-    
-    <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
-    
     <category term="Identity" scheme="https://rickhw.github.io/tags/Identity/"/>
     
     <category term="Identifier" scheme="https://rickhw.github.io/tags/Identifier/"/>
@@ -372,6 +368,10 @@
     <category term="Unique" scheme="https://rickhw.github.io/tags/Unique/"/>
     
     <category term="UUID" scheme="https://rickhw.github.io/tags/UUID/"/>
+    
+    <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
+    
+    <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
     
   </entry>
   
@@ -467,15 +467,15 @@
     
     <category term="Distributed Systems" scheme="https://rickhw.github.io/tags/Distributed-Systems/"/>
     
+    <category term="Design Thinking" scheme="https://rickhw.github.io/tags/Design-Thinking/"/>
+    
+    <category term="Multi-Tenancy" scheme="https://rickhw.github.io/tags/Multi-Tenancy/"/>
+    
     <category term="SaaS" scheme="https://rickhw.github.io/tags/SaaS/"/>
     
     <category term="Isolation Factor" scheme="https://rickhw.github.io/tags/Isolation-Factor/"/>
     
-    <category term="Multi-Tenancy" scheme="https://rickhw.github.io/tags/Multi-Tenancy/"/>
-    
     <category term="Multi-Tenancy Architecture" scheme="https://rickhw.github.io/tags/Multi-Tenancy-Architecture/"/>
-    
-    <category term="Design Thinking" scheme="https://rickhw.github.io/tags/Design-Thinking/"/>
     
     <category term="RBAC" scheme="https://rickhw.github.io/tags/RBAC/"/>
     
@@ -505,9 +505,9 @@
     <category term="Career" scheme="https://rickhw.github.io/categories/%E7%B6%93%E7%87%9F%E7%AE%A1%E7%90%86/Career/"/>
     
     
-    <category term="Career" scheme="https://rickhw.github.io/tags/Career/"/>
-    
     <category term="AWS" scheme="https://rickhw.github.io/tags/AWS/"/>
+    
+    <category term="Career" scheme="https://rickhw.github.io/tags/Career/"/>
     
     <category term="Certiciation" scheme="https://rickhw.github.io/tags/Certiciation/"/>
     
@@ -634,13 +634,13 @@
     <category term="About" scheme="https://rickhw.github.io/categories/About/"/>
     
     
-    <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
-    
-    <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
-    
     <category term="SRE" scheme="https://rickhw.github.io/tags/SRE/"/>
     
     <category term="Books" scheme="https://rickhw.github.io/tags/Books/"/>
+    
+    <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
+    
+    <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
     
   </entry>
   
@@ -685,9 +685,9 @@
     <category term="SRE" scheme="https://rickhw.github.io/categories/DevOps/SRE/"/>
     
     
-    <category term="Monitoring" scheme="https://rickhw.github.io/tags/Monitoring/"/>
-    
     <category term="SRE" scheme="https://rickhw.github.io/tags/SRE/"/>
+    
+    <category term="Monitoring" scheme="https://rickhw.github.io/tags/Monitoring/"/>
     
     <category term="Emergency Response" scheme="https://rickhw.github.io/tags/Emergency-Response/"/>
     

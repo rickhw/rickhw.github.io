@@ -320,14 +320,12 @@
 <hr>
 <h1 id="基本編輯"><a href="#基本編輯" class="headerlink" title="基本編輯"></a>基本編輯</h1><h2 id="copy-amp-paste-line-mode"><a href="#copy-amp-paste-line-mode" class="headerlink" title="copy &amp; paste: line mode"></a>copy &amp; paste: line mode</h2><p>緩衝區複製, 貼上</p>
 <ol>
-<li><code>yy</code>: 複製目前位, 整行資料. <code>2yy</code> 複製兩行, 他配其他 cursor 定位, 做大範圍複製:</li>
-</ol>
-<ul>
+<li><code>yy</code>: 複製目前位, 整行資料. <code>2yy</code> 複製兩行, 他配其他 cursor 定位, 做大範圍複製:<ul>
 <li><code>y$</code>: 複製目前座標到行尾</li>
 <li><code>y2w</code>: 複製目前座標到兩個字的位置</li>
 <li><code>yG</code>: 複製目前座標到檔尾</li>
 </ul>
-<ol start="2">
+</li>
 <li><code>p</code>: 從目前位置貼上.</li>
 <li><code>&quot;ayy</code>:  也就是將新複製的內容, 複製到 a clipboard, 注意要先有一個 double quot, buffer name 可以自己取, 這邊的例子是 <code>a</code></li>
 <li><code>cc</code>: 剪下一行</li>
@@ -335,26 +333,22 @@
 <p>經常用的就是 <code>yy</code>, <code>p</code>, <code>cc</code> … 記住這幾個就可以做很多事了</p>
 <h2 id="copy-amp-paste-block-mode"><a href="#copy-amp-paste-block-mode" class="headerlink" title="copy &amp; paste: block mode"></a>copy &amp; paste: block mode</h2><p>透過選擇區域 (block), 然後進行複製貼上, 以下是使用步驟</p>
 <ol>
-<li><code>v</code>: visual mode, 選擇要複製的區域</li>
-</ol>
-<ul>
+<li><code>v</code>: visual mode, 選擇要複製的區域<ul>
 <li>快速選擇目前位置到某個位置, 搭配 cursor 定位使用, 像是到檔尾 <code>vG</code>, 到下段 <code>v&#125;</code></li>
 </ul>
-<ol start="2">
+</li>
 <li>用 <code>jkhl</code> 移動 cursor</li>
-<li>移動到想要複製的範圍後</li>
-</ol>
-<ul>
+<li>移動到想要複製的範圍後<ul>
 <li><code>d</code>: 剪下. d &#x3D; delete &#x3D; cut. <code>x</code> 也可以</li>
 <li><code>y</code>: 複製. y &#x3D; yank (抽出) &#x3D; copy</li>
 </ul>
-<ol start="4">
-<li>移動 cursor 到要貼上的地方, 按下 <code>p</code></li>
-</ol>
-<ul>
+</li>
+<li>移動 cursor 到要貼上的地方, 按下 <code>p</code><ul>
 <li><code>P</code>: 將內容貼在此位置之前</li>
 <li><code>p</code>: 將內容貼在此位置之後 (常用)</li>
 </ul>
+</li>
+</ol>
 <blockquote>
 <p>注意: copy 的內容不會放到系統的 clipboard, 換句話說, 切換到其他的 application (ex: chrome), 是無法貼上的.</p>
 </blockquote>
@@ -365,13 +359,13 @@
 </ol>
 <h2 id="find-and-replace"><a href="#find-and-replace" class="headerlink" title="find and replace"></a>find and replace</h2><ol>
 <li>進入 <code>e-mode</code></li>
-<li>find and replace: <code>s/keyword/replace/gi</code></li>
-</ol>
-<ul>
+<li>find and replace: <code>s/keyword/replace/gi</code><ul>
 <li><code>g</code>: global, 整篇文章的意思</li>
 <li><code>i</code>: 表示 ignore senstive, 忽略大小寫</li>
 <li><code>keyword</code> 都可以用 regular expression</li>
 </ul>
+</li>
+</ol>
 <h2 id="編輯顯示輔助"><a href="#編輯顯示輔助" class="headerlink" title="編輯顯示輔助"></a>編輯顯示輔助</h2><ul>
 <li><p><code>set nu</code>: 顯示行號</p>
 </li>
@@ -390,20 +384,16 @@
 </ul>
 <h2 id="刪除"><a href="#刪除" class="headerlink" title="刪除"></a>刪除</h2><ol>
 <li><code>x</code>: 刪除一個 character or word</li>
-<li><code>dd</code>: 刪除一整行</li>
-</ol>
-<ul>
+<li><code>dd</code>: 刪除一整行<ul>
 <li><code>x</code>, <code>dd</code> 都可以配合數字使用, 表示刪除多少單位, 像是 <code>5dd</code> 表示刪除五行, <code>5x</code> 表示刪除五個字</li>
 </ul>
-<ol start="3">
-<li>配合文章定位位置, 做大段落刪除: <code>gg</code>, <code>G</code>, <code>&#123;</code>, <code>&#125;</code></li>
-</ol>
-<ul>
+</li>
+<li>配合文章定位位置, 做大段落刪除: <code>gg</code>, <code>G</code>, <code>&#123;</code>, <code>&#125;</code><ul>
 <li><code>dG</code>: 刪除現在位置到檔尾</li>
 <li><code>d&#125;</code>: 刪除現在位置到下一段位置</li>
 <li>其他類推</li>
 </ul>
-<ol start="4">
+</li>
 <li>刪除 <code>CR</code>, <code>LF</code>, 也就是換行字元, 不管是在 M$ windows, mac or unix, 只要在行尾位置, 用 <code>J</code> 即可. 有點類似於 windows keyboard 上的 <code>del</code> 的功能..</li>
 </ol>
 <h2 id="Convert-tab-to-space"><a href="#Convert-tab-to-space" class="headerlink" title="Convert tab to space"></a>Convert tab to space</h2><p>我習慣用 space 取代 tab, 用來避免在各種環境或者 editor 顯示不一的狀況, 然後讓 code format 具備一致性.</p>
