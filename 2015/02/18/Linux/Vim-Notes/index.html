@@ -373,19 +373,15 @@
 <li>刪除多行: <code>3dd</code>, 刪除三行, <code>dd</code> 是刪除一行</li>
 <li>重複上一個動作: <code>.</code>, 如果上一個動作是 <code>3w</code>, 就可以重複執行</li>
 </ol>
-<p>常用的小技巧: 快速清空整個檔案? 或者現在位置底下的所有東西？ 我會無腦的打 <code>500dd</code> … XD</p>
+<p>常用的小技巧: 快速清空整個檔案? 或者現在位置底下的所有東西？ 我會無腦的打 <code>500dd</code> … 不過打 <code>dG</code> 刪除現在位置之後的所有東西, 更快!</p>
 <h2 id="編輯顯示輔助"><a href="#編輯顯示輔助" class="headerlink" title="編輯顯示輔助"></a>編輯顯示輔助</h2><ul>
-<li><p><code>set nu</code>: 顯示行號</p>
-</li>
-<li><p><code>set nonu</code>: 關閉行號</p>
-</li>
-<li><p><code>set nowrap</code>: 關閉自行摺行, 預設 vi 都會做 warp 動作, 我有時候習慣會關掉.</p>
-<blockquote>
+<li><code>set nu</code>: 顯示行號</li>
+<li><code>set nonu</code>: 關閉行號</li>
+<li><code>set nowrap</code>: 關閉自行摺行, 預設 vi 都會做 warp 動作, 我有時候習慣會關掉.<blockquote>
 <p>有時候會習慣直接透過滑鼠選擇範圍複製, 如果行號是打開的狀況, 那麼透過 <code>cmd + c</code> (OS X) or <code>control + c</code> (Windows), 就會複製到包含行號的內容, 這時候就需要先把行號關閉才行.</p>
 </blockquote>
 </li>
-<li><p><code>set syntax=on</code>, <code>set syntax=off</code>: 顯示或者關閉關鍵字, vim 會透過副檔名判斷對應的 <code>wordfile</code>, 顯示對應的語法和關鍵字, 常見的 lanaugae, 像是 C&#x2F;C++&#x2F;Java&#x2F;Perl&#x2F;Python&#x2F;Shell Script … 應該都是內建的.</p>
-<blockquote>
+<li><code>set syntax=on</code>, <code>set syntax=off</code>: 顯示或者關閉關鍵字, vim 會透過副檔名判斷對應的 <code>wordfile</code>, 顯示對應的語法和關鍵字, 常見的 lanaugae, 像是 C&#x2F;C++&#x2F;Java&#x2F;Perl&#x2F;Python&#x2F;Shell Script … 應該都是內建的.<blockquote>
 <p><a target="_blank" rel="noopener" href="http://www.ultraedit.com/downloads/extras/wordfiles.html">wordfile</a> 是 ultraedit 的 syntax definition 名稱, 官方網站提供很多, 使用者可以自行下載, 或者自行編輯.</p>
 </blockquote>
 </li>
