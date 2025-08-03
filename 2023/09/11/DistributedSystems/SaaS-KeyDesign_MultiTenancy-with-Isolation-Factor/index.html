@@ -482,7 +482,11 @@
 <p>這都是別人的問題，而我面對過的問題則是之前在電商工作時，曾經出現的問題，我把它稱為 <code>A-c-B event</code>，中文稱為 <code>A 店跨 B 店</code>。也就是 B 店的使用者，看到 A 店的資料，不管是商品資料、還是訂單資料。</p>
 <p>這三個例子，資安角度都是 <code>垂直權限</code> 的問題，背後實際問題就是隔離的設計與實踐。</p>
 <blockquote>
-<p>updated 2023&#x2F;09&#x2F;29: 最近發生的 <a target="_blank" rel="noopener" href="https://www.ithome.com.tw/news/159045">Google Bard臭蟲讓用戶對話出現在公開Google搜尋結果中</a> 也屬於隔離沒做好造成的。</p>
+<p>案例更新：</p>
+<ul>
+<li>2023&#x2F;09&#x2F;29: <a target="_blank" rel="noopener" href="https://www.ithome.com.tw/news/159045">Google Bard臭蟲讓用戶對話出現在公開Google搜尋結果中</a> 也屬於隔離沒做好造成的。</li>
+<li>2025&#x2F;08&#x2F;03: <a target="_blank" rel="noopener" href="https://money.udn.com/money/story/5599/8913932">ChatGPT 驚爆對話外洩 內線交易、不雅照內容全被看光光 OpenAI 急救火</a></li>
+</ul>
 </blockquote>
 <h2 id="跨租戶問題常見的做法"><a href="#跨租戶問題常見的做法" class="headerlink" title="跨租戶問題常見的做法"></a>跨租戶問題常見的做法</h2><p>雖然說跨租戶是不允許的，但是生活中還是有很多場景，需要跨租戶存取，例如我們信用卡掛失的時候，客服人員可以幫你調整信用卡的狀態。客服人員代替你調整信用卡的過程，就是個跨租戶操作，不管怎樣他要操作設定的時候，都要獲得你的允許，然後才能幫你調整狀態。這樣的過程，其實就是個身份暫時轉換，代理 (delegate) 執行的過程。</p>
 <p>類似的做法，在作業系統已經都有很成熟的做法：</p>
