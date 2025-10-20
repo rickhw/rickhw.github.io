@@ -1,0 +1,661 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>1 on 1 聊什麼 - PERMA | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="這篇整理自 2022&amp;#x2F;10&amp;#x2F;12 Software Engineering at Google 這本書的讀書會的 筆記與摘要。
+
+
+
+1 on 1 的目的？主管需要定期跟團隊同仁 1 on 1，目的除了了解同仁的工作狀況，更進一步的是了解他們遇到的困難，適度地伸出援手，協助同仁成">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="1 on 1 聊什麼 - PERMA"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/2023/08/01/Management/PERMA/"/>
+  <meta property="og:image" content="/images/Management/PERMA/PERMA.png" />
+  
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<!--
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'G-74Y1F3F5W0']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-74Y1F3F5W0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-74Y1F3F5W0');
+</script>
+
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!-- @rickd 2022/02/24
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
+  -->
+  <!-- @ricka 2022/02/24 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!--
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="bd9r2mJp"></script>
+  -->
+
+  <!-- @ricka 2022/09/06 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    nonce="opf2Gext"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+						
+						<li><a href="/categories/About/">About <sup>29</sup></a></li>
+						
+						<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+						
+						<li><a href="/categories/經營管理/Career/">Career <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Coding/">Coding <sup>11</sup></a></li>
+						
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Data/">Data <sup>2</sup></a></li>
+						
+						<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+						
+						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>20</sup></a></li>
+						
+						<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+						
+						<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+						
+						<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+						
+						<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+						
+						<li><a href="/categories/DevOps/SRE/">SRE <sup>25</sup></a></li>
+						
+						<li><a href="/categories/Software-Engineering/">Software Engineering <sup>10</sup></a></li>
+						
+						<li><a href="/categories/System-Design/">System Design <sup>3</sup></a></li>
+						
+						<li><a href="/categories/經營管理/人才管理/">人才管理 <sup>10</sup></a></li>
+						
+						<li><a href="/categories/經營管理/溝通/">溝通 <sup>9</sup></a></li>
+						
+						<li><a href="/categories/經營管理/知識管理/">知識管理 <sup>4</sup></a></li>
+						
+						<li><a href="/categories/經營管理/">經營管理 <sup>61</sup></a></li>
+						
+						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
+						
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"> <i class="fa fa-book"></i>學習法則</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂 (v2021)</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> 1 on 1 聊什麼 - PERMA</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> 1 on 1 聊什麼 - PERMA</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+		
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2023%2F08%2F01%2FManagement%2FPERMA%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2023/08/01/Management/PERMA/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/2023/08/01/Management/PERMA/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<p>這篇整理自 2022&#x2F;10&#x2F;12 <code>Software Engineering at Google</code> 這本書的讀書會的 <a target="_blank" rel="noopener" href="https://www.facebook.com/rick.kyhwang/posts/pfbid0244LFy2CbbY2GuWzL8j1aBJqWATcvqBAsnshgdW6sVrnnwTij6EdmFcC4eKYRDrPwl">筆記與摘要</a>。</p>
+<span id="more"></span>
+
+<hr>
+<h2 id="1-on-1-的目的？"><a href="#1-on-1-的目的？" class="headerlink" title="1 on 1 的目的？"></a>1 on 1 的目的？</h2><p>主管需要定期跟團隊同仁 1 on 1，目的除了了解同仁的工作狀況，更進一步的是了解他們遇到的困難，適度地伸出援手，協助同仁成長。</p>
+<p>過去 1 on 1 的經驗，有兩個題目是更多同仁需要的：</p>
+<ol>
+<li><code>工作的方向</code>: 工作方向通常會導向 <code>職涯規劃</code>，背後動機是希望大家對於現況是否滿意，如果不滿意，那滿意是什麼？這個探索過的，大多都跟職涯方向有關係。<ul>
+<li>對於主管而言，探索的動機是風險管理，如果這位同仁對於工作內容，有疑慮，甚至是在騎驢找馬，這些都是 1 on 1 過程可以觀察出來的。</li>
+<li>身為主管，應該要正面面對可能正在騎驢找馬的同仁，評估如何協助他，另外就是要做好後續的準備。如果他真的有異動，那團隊任務的調度應該如何處理，更多參閱 <a href="/2019/07/09/Management/Layoff-Fired-Resiging/">管理必經之路：資遣、解僱、辭呈</a></li>
+<li>引導職涯方向的討論，可以參閱 <a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">AWS Career Exploration Day 2022</a> </li>
+<li>組織人才佈局與管理策略，可以參閱 <a target="_blank" rel="noopener" href="https://www.facebook.com/rick.kyhwang/posts/pfbid0tWjKzm9BnagRqknGrnXfzA2DbqTCq1xCcFTdZjvRtkA2pu1rLSbpvfsYGFAe9Mtdl">人才發展策略地圖 (draft)</a></li>
+</ul>
+</li>
+<li><code>工作與生活的平衡</code>: <a href="/2022/10/15/Management/Problem-Behind-Question/">背後深層的問題</a> 我認為是 - <code>幸福感</code></li>
+</ol>
+<p>幸福感這種題目在職場上是很少被拿出來討論的，辦公室裡大多是血淋淋的廝殺，爾虞我詐，各種政治問題。但因為這些利益糾葛，卻往往讓大家忘了一個很重要的問題：</p>
+<blockquote>
+<p>工作的目的到底是什麼？</p>
+</blockquote>
+<p>不管是怎樣的目的，我覺得最終的答案應該是：</p>
+<blockquote>
+<p>讓自己生活更幸福</p>
+</blockquote>
+<p>幸福感談起來很雞湯、高大尚、甚至空泛，有時候在職場上，談這個題目可能會被誤解，或者被質疑背後的動機。</p>
+<p>動機一定是有的，就是前面提到的風險管理，這也是主管的職責。但是基於不過問個人隱私的原則，例如個人的家庭、婚姻、感情、健康 … 等，只要不影響任務，基本上主管是沒有權利過問的，過去我個人也幾乎不會過問這些問題。但這點是矛盾的，每個人難免都會因為個人因素的形況，影響工作狀況。主管用怎樣的方法，不會讓同仁不會覺得有威脅、侵入，可以建立信任，同時又可以協助彼此，找到幸福感，至一個好主管必要的能力。</p>
+<p>習慣用指標方法有效溝通，所以一次同事的介紹之下，接觸了被譽為 <code>正向心理學之父</code>，美國著名心理學家 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/%E9%A9%AC%E4%B8%81%C2%B7%E8%B5%9B%E9%87%8C%E6%A0%BC%E6%9B%BC">馬丁塞利格曼</a>，提出的方法論 PERMA，讓我有了具體探索的方式。</p>
+<p>後來我就把這個方法引入 1 on 1 的過程，底下這段是某次內部讀書會時，分享過去我怎麼 1 on 1 的紀錄。</p>
+<h2 id="職場上的幸福感"><a href="#職場上的幸福感" class="headerlink" title="職場上的幸福感"></a>職場上的幸福感</h2><p>聊到 Engineering Manager (管人) 怎麼知道同仁工作的 <code>幸福感</code> ？我常用的方法是 <a target="_blank" rel="noopener" href="https://medium.com/psychology-wonderland/perma%E5%B9%B8%E7%A6%8F%E4%BA%94%E5%85%83%E7%B4%A0-200bce958fa9">PERMA</a>，這五個字分別是以下的縮寫：</p>
+<ol>
+<li>Postive Emotions 正向情緒</li>
+<li>Engagement 全心投入</li>
+<li>Positive Relationship 正向人際關係</li>
+<li>Meaning 生命的意義</li>
+<li>Accomplishment 成就感</li>
+</ol>
+<p><img src="/images/Management/PERMA/PERMA.png"><br>詳細參閱：<a target="_blank" rel="noopener" href="https://medium.com/psychology-wonderland/perma%E5%B9%B8%E7%A6%8F%E4%BA%94%E5%85%83%E7%B4%A0-200bce958fa9">PERMA幸福五元素 - 幸福也有公式，建立這些元素讓你活得更幸福</a></p>
+<p>我會用這五個指標，加上 <code>工作</code> 與 <code>生活</code> 兩個象限，如此就有十個指標，每個指標 (bad) 1-10 (good) 分，給同仁一點時間，在白板上寫下自己過去一個月 或一季 以來的分數。如下圖是某一次跟同仁一起討論的紀錄：</p>
+<p><img src="/images/Management/PERMA/20211029.jpg"></p>
+<p>透過這個方法，討論彼此對於每個指標自己在工作或生活的定義或者理解，然後根據現在的狀況，討論分數為什麼是那樣，進而找到目前是幸福指數。</p>
+<p>這個過程，主管的身份，主要會針對工作討論，這是責任、也是權利。逐項跟同仁討論分數背後的原因，例如正向情緒是七分，怎麼是這個分數？哪個事情導致評分？那五分有可能是哪個分數？這是平均值？ … 等。一個正向情緒就可以聊很多東西，看時間狀況，可以挑著聊，像是挑分數比較低的，請對方說說分數背後的故事。這個過程往往會探索出很多問題，這些問題是身為主管要協助同仁改善與提供幫助的。</p>
+<p>工作的分數是主管需要深入了解的，個人部分就可以看同仁狀況。通常個人分數我選擇讓同仁自己保留，但如果分數很低，我大多不會直接問，而是直接說：</p>
+<blockquote>
+<p>有我幫的上的地方，就讓我知道</p>
+</blockquote>
+<p>經驗上，經過幾次工作分數的討論，大多同仁已經知道我的動機，而且知道這是加深彼此的信任。所以個人狀況比較願意跟主管討論，進而避免因為個人因素，影響工作。</p>
+<p>這個方法其實也可以當作自己跟親友評量的工具，透過這個方法更了解彼此。</p>
+<h2 id="全心投入"><a href="#全心投入" class="headerlink" title="全心投入"></a>全心投入</h2><p>其中個人最在乎的就是 <code>Engagement (全心投入)</code>，也就是工作有沒 <code>心流狀態</code>。例如跟同仁的討論設計，有沒真正意義上在討論設計內容，討論過程沒有頭銜、沒有年紀、沒有職級，彼此以客觀、專業的角度，交流想法。</p>
+<p>一個人寫程式，很容易有這種交流，但是卻是單向的，只跟機器溝通，只跟工具交流。但是跟團隊討論設計的過程，大家從各自的角度，客觀地把想法說出來，然後一起激盪出一個大家都覺得 OK 的設計，這個過程，沒有頭銜、沒有組織隔閡、不是為了 KPI，只有共同目標，這點是我覺得很難得的，也是工作中最享受的部分。</p>
+<p>在之前工作，有過很深度 <code>全心投入</code> 的感覺，還記得把產品打造出來，經歷不知道幾回合反覆驗證、找問題、討論 (包含吵架)、修正，最後東西做出來了，到工廠協助量產測試 (NPI)，確立生產測試流程、IQC，還有設計師設計的包裝彩盒。如下圖：</p>
+<p><img src="/images/Management/PERMA/oplink-prod1.jpg"><br><img src="/images/Management/PERMA/oplink-prod2.jpg"></p>
+<p>當拿到工廠生產出來的產品，彩盒開箱的那一刻，心情真的是難以言喻。這麼多年過去了，之後就很難再有那種全心投入，整個團隊一起努力好一件事情的感覺。</p>
+<blockquote>
+<p>全心投入相反的狀態就是 <a href="/2017/01/23/Management/Cost-In-Context-Switch/">Context Switch</a>.</p>
+</blockquote>
+<hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="站內文章"><a href="#站內文章" class="headerlink" title="站內文章"></a>站內文章</h2><ul>
+<li><a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">AWS Career Exploration Day 2022</a></li>
+<li><a href="/2022/10/15/Management/Problem-Behind-Question/">Problem Behind Question</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.facebook.com/rick.kyhwang/posts/pfbid0tWjKzm9BnagRqknGrnXfzA2DbqTCq1xCcFTdZjvRtkA2pu1rLSbpvfsYGFAe9Mtdl">人才發展策略地圖 (draft)</a></li>
+<li><a href="/2017/01/23/Management/Cost-In-Context-Switch/">Cost in Context Switch</a></li>
+<li><a href="/2019/07/09/Management/Layoff-Fired-Resiging/">管理必經之路：資遣、解僱、辭呈</a></li>
+</ul>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://medium.com/psychology-wonderland/perma%E5%B9%B8%E7%A6%8F%E4%BA%94%E5%85%83%E7%B4%A0-200bce958fa9">PERMA幸福五元素 - 幸福也有公式，建立這些元素讓你活得更幸福</a></li>
+<li><a target="_blank" rel="noopener" href="https://podcasts.apple.com/tw/podcast/%E5%8A%89%E8%BB%92%E7%9A%84how-to%E4%BA%BA%E7%94%9F%E5%AD%B8/id1547950387?i=1000602953940">EP198｜【讀書會】心理學從此改變的那一刻 ——《Flourish 邁向圓滿》</a></li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/2023/08/01/Management/PERMA/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<!-- LikeCoin -->
+				<!-- @rickd 2022/09/06 -->
+				<!--
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2023/08/01/Management/PERMA/"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+				-->
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2023/08/13/Management/Effective-Team-Communication/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2023/07/29/Management/Team-Consensus-and-Talent-Development/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
+  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
+  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2023/08/01/Management/PERMA/" data-width="100%" data-numposts="10"></div>
+
+  
+
+
+</section>
+
+
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2023/08/01 18:21:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#1-on-1-%E7%9A%84%E7%9B%AE%E7%9A%84%EF%BC%9F"><span class="toc-article-text">1 on 1 的目的？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%81%B7%E5%A0%B4%E4%B8%8A%E7%9A%84%E5%B9%B8%E7%A6%8F%E6%84%9F"><span class="toc-article-text">職場上的幸福感</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%85%A8%E5%BF%83%E6%8A%95%E5%85%A5"><span class="toc-article-text">全心投入</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/經營管理/" style="color: white">經營管理 <span class="badge">61</span></a></span> <span class="label label-info"><a href="/categories/經營管理/Career/" style="color: white">Career <span class="badge">6</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/溝通/" style="color: white">溝通 <span class="badge">25</span></a></span> <span class="label label-success"><a href="/tags/Bus-Memo/" style="color: white">Bus Memo <span class="badge">32</span></a></span> <span class="label label-success"><a href="/tags/主管/" style="color: white">主管 <span class="badge">45</span></a></span> <span class="label label-success"><a href="/tags/PERMA/" style="color: white">PERMA <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/正向心理學/" style="color: white">正向心理學 <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+		<!-- v4 -->
+		<h4>About</h4>
+		
+			<li><a href="/2035/01/21/Index/">全站索引</a></li>
+		
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+		
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		
+			<li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+		
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		
+			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+		
+
+		<h4>著作</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作：SRE實踐與開發平台指南</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作：軟體測試實務 (2023)</a></li>
+		
+			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
+		
+
+		<h4>演講</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
+		
+			<li><a href="/2023/09/09/About/2023-AWS-Career-Exploration-Day/">探索職涯、複利人生 - AWS Career Exploration Day 2023</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作 SRE 書友見面會</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">軟體測試實務 - 新書發表會</a></li>
+		
+			<li><a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">探索職涯、成就未來 - AWS Career Exploration Day 2022</a></li>
+		
+			<li><a href="/2022/08/13/SQA/Path-to-Software-Testing/">從理想、到現實的距離，開啟品味軟體測試之路</a></li>
+		
+			<li><a href="/2022/05/10/About/2022-SREConf2022/">91APP 在 AWS 上的 SRE 實踐之路</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/2020-aws-summit-aws">在矩陣型組織裡，如何有效管理 AWS 的成本結構與系統架構</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/aws-using-aws-for-disaster-recovery/">災難演練 @ AWS 實戰分享</a></li>
+		
+			<li><a href="/2019/04/27/DevOps/Introduce-to-Continuous-Delivery-2/">導讀持續交付 2.0 - 談當代軟體交付之虛實融合</a></li>
+		
+			<li><a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理</a></li>
+		
+			<li><a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">從緊急事件 談 SRE 應變能力的培養</a></li>
+		
+			<li><a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
+		
+			<li><a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">Monitoring Tools 大亂鬥 - AWS CloudWatch</a></li>
+		
+			<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></li>
+		
+			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
+		
+
+		<!-- v3 -->
+		<!--
+		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		-->
+
+		<!-- v2 -->
+		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+		<!-- v1 -->
+		<!--
+		<li>Software Developer</li>
+		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+		<li><a href="/categories/DevOps/">Operation Manager</a></li>
+		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+		<li>
+			<ol>
+				<li>Management</li>
+				<li>Cloud / Distributed Systems</li>
+				<li>DevOps / SRE / </li>
+			</ol>
+		</li>
+		-->
+
+		<!--
+		<h4>Donate</h4>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick" />
+		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
+		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
+		</form>
+		-->
+
+		<h4>Facebook</h4>
+
+		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
+
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
+				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+
+		<h4>AWS Certifications</h4>
+		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+		<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+		<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+		
+
+	</div><!-- row -->
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2022 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div>
+
+<!-- container-narrow -->
+
+<div id="gotop">
+
+  <!-- 
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-book"></i> <a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"]);">學習法則</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"]);">喝咖啡 聊音樂 (v2021)</a><br />
+   -->
+
+  <!-- <h4>About</h4> -->
+
+  
+    <li><a href="/2035/01/21/Index/">全站索引</a></li>
+  
+    <li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+  
+    <li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+  
+    <li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+  
+    <li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+  
+    <li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+  
+    <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+  
+
+  <a href="#">▲ TOP ▲ </a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>
