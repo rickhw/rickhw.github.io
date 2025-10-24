@@ -110,31 +110,6 @@
   </entry>
   
   <entry>
-    <title>聊聊 Code Review</title>
-    <link href="https://rickhw.github.io/2025/08/02/Coding/Code-Review/"/>
-    <id>https://rickhw.github.io/2025/08/02/Coding/Code-Review/</id>
-    <published>2025-08-02T13:33:00.000Z</published>
-    <updated>2025-08-03T09:20:50.464Z</updated>
-    
-    <content type="html"><![CDATA[<p>Code Review 是開發過程很重要的一環，要怎麼 review</p><span id="more"></span><h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><ul><li>團隊知識流動</li><li>資深帶資遣學習</li></ul><p>分成等級</p><ul><li>Merge Blocker</li><li>Suggestion &#x2F; Nice to have</li><li>Minor</li></ul><h2 id="Code-Review-常見的問題"><a href="#Code-Review-常見的問題" class="headerlink" title="Code Review 常見的問題"></a>Code Review 常見的問題</h2><ul><li>一次 MR&#x2F;PR 太大包：</li></ul><hr><h2 id="結構-x2F-架構"><a href="#結構-x2F-架構" class="headerlink" title="結構 &#x2F; 架構"></a>結構 &#x2F; 架構</h2><h3 id="Configuration-內部介面-Application-Internal-Interface"><a href="#Configuration-內部介面-Application-Internal-Interface" class="headerlink" title="Configuration: 內部介面 (Application Internal Interface)"></a>Configuration: 內部介面 (Application Internal Interface)</h3><h3 id="RESTful-API-介面-公開介面-Public-Interface"><a href="#RESTful-API-介面-公開介面-Public-Interface" class="headerlink" title="RESTful API 介面 公開介面 (Public Interface)"></a>RESTful API 介面 公開介面 (Public Interface)</h3><h3 id="程式介面-Code-Level-Interface"><a href="#程式介面-Code-Level-Interface" class="headerlink" title="程式介面 (Code Level Interface)"></a>程式介面 (Code Level Interface)</h3><hr><h2 id="Code-Quality"><a href="#Code-Quality" class="headerlink" title="Code Quality"></a>Code Quality</h2><h3 id="如何確保單一職責？"><a href="#如何確保單一職責？" class="headerlink" title="如何確保單一職責？"></a>如何確保單一職責？</h3><p>單一職責 (Single Responsiblity) 是很重要的概念，但往往</p><ul><li>Package 的依賴性</li><li>Libraries 依賴性</li></ul><h3 id="Readable-可讀性"><a href="#Readable-可讀性" class="headerlink" title="Readable 可讀性"></a>Readable 可讀性</h3><p>最常見的命名</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure><h3 id="Code-Convention-x2F-Standard"><a href="#Code-Convention-x2F-Standard" class="headerlink" title="Code Convention &#x2F; Standard"></a>Code Convention &#x2F; Standard</h3><ul><li>框架已經有命名原則</li><li>名稱的範圍</li><li>用主流的標準</li></ul><p>這篇文字內容很實用，適合整理成一篇具有個人風格、清晰脈絡又適合部落格發表的文章。我幫你重新撰寫成以下格式，保留原始語氣的親切感，同時增添結構與條列，讓讀者更容易吸收：</p><hr><h1 id="我怎麼做-Code-Review：一個-Java-開發-Lead-的觀點"><a href="#我怎麼做-Code-Review：一個-Java-開發-Lead-的觀點" class="headerlink" title="我怎麼做 Code Review：一個 Java 開發 Lead 的觀點"></a>我怎麼做 Code Review：一個 Java 開發 Lead 的觀點</h1><p>最近開始比較有系統地進行 Code Review，也順手把一些原則與流程整理下來。這篇不是照本宣科的 code review 指南，而是我自己實際帶人 review、反覆口述過後，內化出來的思路與節奏。</p><p>目的也很單純：<strong>讓 Code Review 不只是一個人能做的事，而是能傳承下去的文化與流程。</strong></p><hr><hr><h2 id="🔍-Review-的流程與重點"><a href="#🔍-Review-的流程與重點" class="headerlink" title="🔍 Review 的流程與重點"></a>🔍 Review 的流程與重點</h2><h3 id="1-設定與-Config-改動"><a href="#1-設定與-Config-改動" class="headerlink" title="1. 設定與 Config 改動"></a>1. 設定與 Config 改動</h3><ul><li>新增哪些設定？預設值是什麼？怎麼被使用？</li><li>README.md 有沒有更新？</li><li>有沒有支援 debug mode 或 CLI 模式？</li></ul><h3 id="2-第三方依賴（Dependency）"><a href="#2-第三方依賴（Dependency）" class="headerlink" title="2. 第三方依賴（Dependency）"></a>2. 第三方依賴（Dependency）</h3><ul><li>新增&#x2F;刪除了哪些 library？有必要嗎？</li><li>是否涉及安全性修補？有沒有更適合的替代品？</li><li>是否重複引入相似功能（例如多個 JSON lib）？</li></ul><h3 id="3-主要業務邏輯"><a href="#3-主要業務邏輯" class="headerlink" title="3. 主要業務邏輯"></a>3. 主要業務邏輯</h3><ul><li>根據 commit 的對應任務，確認主邏輯與需求&#x2F;Spec 是否一致。</li></ul><h3 id="4-Code-範圍掃描（局部檢查）"><a href="#4-Code-範圍掃描（局部檢查）" class="headerlink" title="4. Code 範圍掃描（局部檢查）"></a>4. Code 範圍掃描（局部檢查）</h3><ul><li>每個 class 的 import 是否合理？</li><li>有沒有出現「低層依賴高層」的反常依賴？（例如 5F 依賴 1F）</li><li>顆粒度是否過大，導致過度耦合？</li></ul><h3 id="5-結構合理性（Structure）"><a href="#5-結構合理性（Structure）" class="headerlink" title="5. 結構合理性（Structure）"></a>5. 結構合理性（Structure）</h3><ul><li><p>結構應該是<strong>樹狀</strong>，而非網狀。</p><ul><li>可以依賴底層，不應反向依賴上層。</li><li>同層可以相依。</li></ul></li><li><p>同一個業務 domain 的 code 應該放在一起，而不是依 class type（例如 controller 全部集中）。</p></li><li><p>避免不必要的抽象與複雜，才能提高可維護性。</p></li></ul><h3 id="6-命名風格（Naming）"><a href="#6-命名風格（Naming）" class="headerlink" title="6. 命名風格（Naming）"></a>6. 命名風格（Naming）</h3><ul><li>Local variable 不需過長，重點是清楚。</li><li>Class 與 package 的命名需一致、有意義。</li></ul><h3 id="7-Constants-的使用"><a href="#7-Constants-的使用" class="headerlink" title="7. Constants 的使用"></a>7. Constants 的使用</h3><ul><li>檢查常數定義的正確性與作用範圍，是否濫用或重複。</li></ul><h3 id="8-重構指標"><a href="#8-重構指標" class="headerlink" title="8. 重構指標"></a>8. 重構指標</h3><ul><li>確認是否有可重構區塊，例如重複邏輯、過長 method、神物件等。</li></ul><hr><h2 id="🤝-Review-的價值，不只在-code-本身"><a href="#🤝-Review-的價值，不只在-code-本身" class="headerlink" title="🤝 Review 的價值，不只在 code 本身"></a>🤝 Review 的價值，不只在 code 本身</h2><p>其實我認為 code review 最有趣的，不只是抓 bug 或教學，而是<strong>文化建構</strong>的過程：</p><ul><li><strong>有理的優先，不是靠年資或頭銜</strong>：review 重點是論點與邏輯，而不是誰寫的。</li><li><strong>新技術&#x2F;語法需要共識</strong>：例如 Java 的 record class，要引入之前，最好團隊先達成用法共識。</li><li><strong>透過 review，更了解團隊成員的實作習慣與盲點</strong>。</li><li><strong>對話過程中，常常可以激出更好的解法</strong>：甚至會讓 code 變得「有趣」。</li></ul><hr><h2 id="✍️-小結：從個人到團隊的傳承"><a href="#✍️-小結：從個人到團隊的傳承" class="headerlink" title="✍️ 小結：從個人到團隊的傳承"></a>✍️ 小結：從個人到團隊的傳承</h2><p>這份筆記原本只是我在帶同仁做 code review 時的口述節奏，後來覺得不該只鎖在腦袋裡，就把它寫進內部 wiki。這篇是再整理、轉成 blog 版本，也希望對其他團隊有所幫助。</p><p>雖然市面上像 Google、Microsoft 都有完整的 code review guide，但我老實說沒特別去讀，這些原則完全是來自實務經驗。也許不夠全面，但更貼近我們平常寫 Java、跑 Spring Boot、帶專案的日常。</p><hr><p>如果你也是技術 Lead，或是想建立團隊內的 code review 流程，不妨從這幾點開始思考與實踐。</p><hr><p>需要我幫你畫一張結構流程圖來補這篇文章，也可以說一聲。</p><hr><h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul><li><a href="https://tachingchen.com/tw/blog/how-to-do-a-code-review-by-google-1/">Google 如何進行 Code Review</a></li><li><a href="https://www.youtube.com/watch?v=NTgSLc8OIqA">要 Code Review 幹嘛？5招做得更好</a></li><li><a href="https://www.youtube.com/watch?v=XW-02QiiHDM">Why Software Devs Keep Burning Out</a> (YouTube)</li></ul>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;Code Review 是開發過程很重要的一環，要怎麼 review&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
-    
-    
-    <category term="Code Review" scheme="https://rickhw.github.io/tags/Code-Review/"/>
-    
-    <category term="Quality" scheme="https://rickhw.github.io/tags/Quality/"/>
-    
-    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
-    
-  </entry>
-  
-  <entry>
     <title>R3 Model</title>
     <link href="https://rickhw.github.io/2025/06/29/Design/R3-Model/"/>
     <id>https://rickhw.github.io/2025/06/29/Design/R3-Model/</id>
@@ -188,11 +163,11 @@
     
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
+    <category term="RESTful" scheme="https://rickhw.github.io/tags/RESTful/"/>
+    
     <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
     
     <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
-    
-    <category term="RESTful" scheme="https://rickhw.github.io/tags/RESTful/"/>
     
     <category term="API Platform" scheme="https://rickhw.github.io/tags/API-Platform/"/>
     
@@ -328,15 +303,15 @@
     
     <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
     
-    <category term="Quality" scheme="https://rickhw.github.io/tags/Quality/"/>
-    
-    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
-    
     <category term="Code Generator" scheme="https://rickhw.github.io/tags/Code-Generator/"/>
     
     <category term="Template" scheme="https://rickhw.github.io/tags/Template/"/>
     
     <category term="Productivity" scheme="https://rickhw.github.io/tags/Productivity/"/>
+    
+    <category term="Quality" scheme="https://rickhw.github.io/tags/Quality/"/>
+    
+    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
   </entry>
   
@@ -386,6 +361,10 @@
     
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
+    <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
+    
+    <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
+    
     <category term="Identity" scheme="https://rickhw.github.io/tags/Identity/"/>
     
     <category term="Identifier" scheme="https://rickhw.github.io/tags/Identifier/"/>
@@ -393,10 +372,6 @@
     <category term="Unique" scheme="https://rickhw.github.io/tags/Unique/"/>
     
     <category term="UUID" scheme="https://rickhw.github.io/tags/UUID/"/>
-    
-    <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
-    
-    <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
     
   </entry>
   
@@ -561,13 +536,13 @@
     
     <category term="Meetings" scheme="https://rickhw.github.io/tags/Meetings/"/>
     
+    <category term="時間管理" scheme="https://rickhw.github.io/tags/%E6%99%82%E9%96%93%E7%AE%A1%E7%90%86/"/>
+    
     <category term="會議原則" scheme="https://rickhw.github.io/tags/%E6%9C%83%E8%AD%B0%E5%8E%9F%E5%89%87/"/>
     
     <category term="會議效率" scheme="https://rickhw.github.io/tags/%E6%9C%83%E8%AD%B0%E6%95%88%E7%8E%87/"/>
     
     <category term="溝通成本" scheme="https://rickhw.github.io/tags/%E6%BA%9D%E9%80%9A%E6%88%90%E6%9C%AC/"/>
-    
-    <category term="時間管理" scheme="https://rickhw.github.io/tags/%E6%99%82%E9%96%93%E7%AE%A1%E7%90%86/"/>
     
     <category term="工作管理" scheme="https://rickhw.github.io/tags/%E5%B7%A5%E4%BD%9C%E7%AE%A1%E7%90%86/"/>
     
@@ -688,6 +663,37 @@
     
     
     <category term="Code Convension" scheme="https://rickhw.github.io/tags/Code-Convension/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SRE 常見問題 - 訪談紀錄</title>
+    <link href="https://rickhw.github.io/2023/07/06/DevOps/SRE-FAQ/"/>
+    <id>https://rickhw.github.io/2023/07/06/DevOps/SRE-FAQ/</id>
+    <published>2023-07-06T04:43:00.000Z</published>
+    <updated>2025-10-20T12:46:43.956Z</updated>
+    
+    <content type="html"><![CDATA[<p>整理一段關於 SRE 問題的訪談紀錄，歡迎大家提供不一樣的經驗與想法。</p><span id="more"></span><h2 id="Q1-企業內部的-SRE-與-DevOps-工作內容與分工？"><a href="#Q1-企業內部的-SRE-與-DevOps-工作內容與分工？" class="headerlink" title="Q1. 企業內部的 SRE 與 DevOps 工作內容與分工？"></a>Q1. 企業內部的 SRE 與 DevOps 工作內容與分工？</h2><p>這要看企業規模，而且大部分企業對於 DevOps &#x2F; SRE 的理解與定義可能都有差異。</p><p>個人經歷過大多是這樣分：</p><ul><li><code>Feature Team / DevOps</code>: 負責業務邏輯的開發團隊 (Scrum Team)，團隊裡可能有一個或多個專屬的 DevOps Engineer 負責處理所有的 CI &#x2F; CD 工作。 </li><li><code>Infra Team / SRE</code>: 負責處理 App 以外的東西，包含 Cloud &#x2F; Network &#x2F; Cost &#x2F; Provisioning &#x2F; Observability  &#x2F; Monitoring &#x2F; Architecture &#x2F; Artifact Repos &#x2F; CI&#x2F;CD 平台 &#x2F; Security …. Etc.</li></ul><p>其實很多企業，對於怎麼定義 SRE or DevOps 是沒有想法的，或者是有自己的解讀 … 所以討論這樣的題目時，通常我都會先反問對方的期待與認知，確認彼此 <code>On the same page</code>.</p><p>實務上，少於 500 人的企業，這兩個角色 (DevOps &#x2F; SRE) 對老闆來講，是沒差的；大於 500 人的企業，這兩個角色對老闆來講，還是沒差。。。</p><p>所以有時候工作上，不要太糾結自己的範圍，而是要思考，現在處在的環境，自己要怎麼做才會有貢獻 (亮點)。</p><p>換個角度想：</p><blockquote><p>你花了 5 萬塊，一個月請一個人，希望得到什麼？</p></blockquote><p>聽起來像是幹話，但很現實，因為勞雇就是一種買賣。</p><h2 id="Q2-SRE-工程師，需要具備的基礎技能有哪些？"><a href="#Q2-SRE-工程師，需要具備的基礎技能有哪些？" class="headerlink" title="Q2. SRE 工程師，需要具備的基礎技能有哪些？"></a>Q2. SRE 工程師，需要具備的基礎技能有哪些？</h2><p>依照 SRE 原文的定義，我認為的 SRE 本質是：</p><blockquote><p>用軟體工程，解決維運任務</p></blockquote><p>這句話我這樣拆解：</p><ul><li><code>專業職能</code>：軟體工程，包含程式設計&amp;開發&amp;測試 &#x2F; 系統工程＆架構<ul><li>軟體工程就是作出可以 Reusable &#x2F; Scalable 的東西，可以從 1 變成 10 的概念</li></ul></li><li><code>領域知識</code>：系統維運，包含異常處理, 事件管理, 自動化工程 … 很多，可以參閱我以前整理的 <a href="/2018/03/29/About/2018-Serverless-All-Star/">R&amp;R 分布圖</a></li></ul><p>專業技能：</p><ul><li><code>Programming</code>: Python&#x2F;Golang, Web, RDB, Cache, Queue.</li><li><code>Networking</code>: Protocol (TCP &#x2F; UDP &#x2F; HTTP &#x2F; DNS &#x2F; BGP  …), Network Devices (Switch &#x2F; Router &#x2F; AP … etc)</li><li><code>System</code>: Public Cloud, OS (Linux, OS), Storage</li><li>Observability &amp; Monitoring</li></ul><p>專業技能很粗略地寫，因為這些內容的技術過幾年就會翻一輪，實務上用人不會找 100% 符合的 (也找不到)，更多是找基礎好、可以栽培、個性積極的，當然要解釋成成本考量也是可以的。</p><p>相關用人的邏輯，可以參閱 <a href="/2018/09/18/Management/Hiring-Step2-Interview-Skills/">人力招募 - 二、見面談：招募第一關 面試</a></p><h2 id="Q3-在建置-SRE-團隊中，過程有遇到哪些痛點？"><a href="#Q3-在建置-SRE-團隊中，過程有遇到哪些痛點？" class="headerlink" title="Q3. 在建置 SRE 團隊中，過程有遇到哪些痛點？"></a>Q3. 在建置 SRE 團隊中，過程有遇到哪些痛點？</h2><p>所謂「痛點」要看用什麼角度來看，其中「政治問題」是避免不了的。</p><p>大多在業務上站上位置的角色，都是強勢的一方，也就是上位。這在任何企業都一樣，不管什麼產業都一樣，因為企業本質就是賺錢，開源單位講話大聲，成本單位大多能做的是滿足他們，這樣的供需關係，在很多企業裡都差不多，能改變關係的是少數。</p><p>所以大部分的現象 (不是問題) 都是組織結構上任務與資源不對等，更多的是 R&amp;R 不分，執行任務過程勞心、勞力、傷神又傷心，衍生的感覺就是「痛點」。(上述現象，把 SRE 換成 QA 一樣適用)</p><p>用人與人才培養也是問題，但是不能算是痛點，這方面需要耐心與信心，創造機會與耐心教導，還是可以做得好。</p><p>再來是怎麼讓 Feature Team 與 Infra &#x2F; SRE Team 能夠有效協作的「共識」，也就是制度。當遇到一件事情的時候，該怎麼區分這件事情的 ownership？官大說了算？該怎麼理性溝通？例如線上炸鍋，炸鍋解決了，因為系統資源不足，所以 Responsiblity 就是在 SRE &#x2F; Infra？大多是，實務上很多就是「政治」角力，讓這件事情正確的 R&amp;R 歪掉。</p><p>這個案例，大概是實務上的痛點，因為資源不足，更多時候是程式改善可以解決，但有時候「用錢能解決的問題不是問題」，就蓋過真正的問題了，那個問題幾年後通常會再爆出來，但已經沒人知道為什麼了 (省略一本書的故事 ….</p><p>可能的解法：建立一個可以跟 Feature Team 協作的制度，概念類似 AWS 的 Shared Responsibility。但建立這個「雙方」的智度，要有「自己」的制度，讓自己的制度動起來，站穩腳步。然後再去跟 Feature team 討論雙方的制度。大概的概念可以參閱我在 <a href="/2022/05/10/About/2022-SREConf2022/">SRE Conf 2022 分享</a> 的 P58.</p><h2 id="Q4-過去是怎麼進行內部-SRE-人才培訓？"><a href="#Q4-過去是怎麼進行內部-SRE-人才培訓？" class="headerlink" title="Q4. 過去是怎麼進行內部 SRE 人才培訓？"></a>Q4. 過去是怎麼進行內部 SRE 人才培訓？</h2><p>針對傳統 OP (管系統, 管設備, 不寫 Code) 的訓練，務實面的方式以及過程摘要如下：</p><ol><li>手把手教，以 Python &#x2F; Cloud 為主，像是 Python runs on Lambda (AWS)，Export as API。<ul><li>從他們本來就熟悉的領域切入，不要弄太難或者太多觀念 (ex: OOP, Framework)，重心擺在領域問題能用簡單的 Code &amp; Cloud 解決</li><li>從簡單的日常維運開始，像是備份、檢查 DNS &#x2F; SSL 過期 &#x2F; Health Check，可以玩 Cloud + Programming，不會太難，又有成就感。</li></ul></li><li>訓練開發 API 封裝 Public Cloud &#x2F; SaaS 的功能，提供給 CI &#x2F; CD 整合時、維運時使用<ul><li>減少 Feature Team 接觸 Cloud 的面積，因為大部分的 Public Cloud 的功能只能用到 20%，很容易讓人有選擇困難，透過 API 封裝，簡化 Feature team 的使用難度，又可以讓 SRE 設計 API &#x2F; Coding，雙贏。</li><li>更多參閱 <a href="/2022/05/10/About/2022-SREConf2022/">SRE Conf 2022 分享</a> 的 P47.</li></ul></li><li>資深一點的：透過 GitOps 的方法，設計較複雜的架構，像是非同步排程任務，只要 commit 就可以發動任務.<ul><li>這是長期策略，也就是未來雙方協作都是透過 GitOps 驅動</li><li>Policy as Code 的第一步。</li><li>看到 Code 一翻兩瞪眼，雙方容易聚焦，減少爭議</li></ul></li><li>訓練處理異常：從異常中學習架構是怎麼一回事，系統是怎麼運作的<ul><li>一個 Request 第一次跟第二次 Latency 不一樣，這是怎麼一回事？</li><li>就像醫生看到症狀，就可以大概知道問題在哪。但前提是醫生是了解人體結構與運作原理的，SRE 了解架構，才有辦法隔空抓藥。</li></ul></li></ol><p>管理角度，可以參閱我寫的 <a href="https://www.facebook.com/rick.kyhwang/posts/pfbid0tWjKzm9BnagRqknGrnXfzA2DbqTCq1xCcFTdZjvRtkA2pu1rLSbpvfsYGFAe9Mtdl">人才發展策略地圖 (草稿)</a>，這份草稿不止 SRE，只要是軟體開發團隊都適用。</p><h2 id="Q5-在-SRE-人才的培育上，應該要上哪些課程？"><a href="#Q5-在-SRE-人才的培育上，應該要上哪些課程？" class="headerlink" title="Q5. 在 SRE 人才的培育上，應該要上哪些課程？"></a>Q5. 在 SRE 人才的培育上，應該要上哪些課程？</h2><p>如果我有機會規劃學程，快速摘要一些想法，不見得可行，但是要先有一版出來 (先有再求好)。</p><p>3 + 3 代表三學分，兩個學期，如果是專職課程，3 &#x3D; 6 個月</p><ul><li>API 開發 (3 + 3): Python &#x2F; Golang, Cache, Queue, OpenAPI</li><li>網路基礎 (3 + 3)</li><li>軟體交付實務 (3 + 3)</li><li>監控 實務 (3 + 3)</li><li>架構 (3 + 3 + 3): Public Cloud &#x2F; K8s</li><li>分散式系統 (3 + 3): 可以參閱最近 <a href="https://sre.google/classroom/imageserver/?fbclid=IwAR1ncyFGKq7Kv3EVLl3REJun5xMp29Wntan3ZaqPRuC2xmei2hQ_hAKmAuY">Google 出的課程</a></li></ul><p>CS 有以下:</p><ul><li>OS &#x2F; Compute Architecture</li><li>Networking</li><li>Database</li><li>Programming (3+3) &#x2F; Data structure &#x2F; Algorithm</li></ul><p>是否一定要 CS (計算機科學 &#x2F; 資工 &#x2F; 資管) 背景？我個人希望要有，最好是數學相關背景的。當然，這是我個人的偏好而已。我也用過不是這樣背景，但表現也非常優秀的人。</p><hr><h2 id="聽歌"><a href="#聽歌" class="headerlink" title="聽歌"></a>聽歌</h2><p>聽著 <a href="https://www.youtube.com/watch?v=qna0SwJtoU4&list=RDEM0c_-4xca83hAcgJgn1Y86g&index=4">李玟 (Coco)</a> 的精選，寫文章。</p><hr><h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="站內文章"><a href="#站內文章" class="headerlink" title="站內文章"></a>站內文章</h2><ul><li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作《SRE 實踐與開發平台指南》</a> (2023&#x2F;08 上市)</li><li>推薦：<a href="/2018/08/03/DevOps/An-Introduction-to-SRE/">Site Reliability Engineering (SRE, 網站可靠性工程)</a></li><li>演講：<a href="/2022/05/10/About/2022-SREConf2022/">SRE Conference 2022 - 91APP 在 AWS 上的 SRE 實踐之路</a></li><li>演講：<a href="/2018/03/29/About/2018-Serverless-All-Star/">Serverless All-Star - Ops as Code using Serverless</a></li><li>演講：<a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li><li>演講：<a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">Monitoring Tools 大亂鬥 - AWS CloudWatch</a></li><li><a href="/2018/01/07/DevOps/Emergency-Response/">緊急應變 (Emergency Response)</a></li></ul><h2 id="其它參考"><a href="#其它參考" class="headerlink" title="其它參考"></a>其它參考</h2><ul><li><a href="https://sre.google/classroom/imageserver/?fbclid=IwAR1ncyFGKq7Kv3EVLl3REJun5xMp29Wntan3ZaqPRuC2xmei2hQ_hAKmAuY">SRE Classroom: Distributed ImageServer</a></li><li><a href="https://www.facebook.com/rick.kyhwang/posts/pfbid0tWjKzm9BnagRqknGrnXfzA2DbqTCq1xCcFTdZjvRtkA2pu1rLSbpvfsYGFAe9Mtdl">人才發展策略</a> (draft, 2022&#x2F;10&#x2F;26)</li></ul>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;整理一段關於 SRE 問題的訪談紀錄，歡迎大家提供不一樣的經驗與想法。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="DevOps" scheme="https://rickhw.github.io/categories/DevOps/"/>
+    
+    <category term="SRE" scheme="https://rickhw.github.io/categories/DevOps/SRE/"/>
+    
+    
+    <category term="SRE" scheme="https://rickhw.github.io/tags/SRE/"/>
+    
+    <category term="Monitoring" scheme="https://rickhw.github.io/tags/Monitoring/"/>
+    
+    <category term="Emergency Response" scheme="https://rickhw.github.io/tags/Emergency-Response/"/>
+    
+    <category term="Incident Management" scheme="https://rickhw.github.io/tags/Incident-Management/"/>
+    
+    <category term="Software Engineering" scheme="https://rickhw.github.io/tags/Software-Engineering/"/>
     
   </entry>
   
