@@ -161,11 +161,11 @@
     
     <category term="Finite-State Machine" scheme="https://rickhw.github.io/tags/Finite-State-Machine/"/>
     
-    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
-    
     <category term="RESTful" scheme="https://rickhw.github.io/tags/RESTful/"/>
     
     <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
+    
+    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
     <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
     
@@ -231,15 +231,15 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
+    <category term="Linux" scheme="https://rickhw.github.io/tags/Linux/"/>
+    
     <category term="VMWare" scheme="https://rickhw.github.io/tags/VMWare/"/>
     
-    <category term="Linux" scheme="https://rickhw.github.io/tags/Linux/"/>
+    <category term="Benchmark" scheme="https://rickhw.github.io/tags/Benchmark/"/>
     
     <category term="Virtualization" scheme="https://rickhw.github.io/tags/Virtualization/"/>
     
     <category term="Development Environment" scheme="https://rickhw.github.io/tags/Development-Environment/"/>
-    
-    <category term="Benchmark" scheme="https://rickhw.github.io/tags/Benchmark/"/>
     
   </entry>
   
@@ -303,6 +303,8 @@
     
     <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
     
+    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
+    
     <category term="Code Generator" scheme="https://rickhw.github.io/tags/Code-Generator/"/>
     
     <category term="Template" scheme="https://rickhw.github.io/tags/Template/"/>
@@ -310,8 +312,6 @@
     <category term="Productivity" scheme="https://rickhw.github.io/tags/Productivity/"/>
     
     <category term="Quality" scheme="https://rickhw.github.io/tags/Quality/"/>
-    
-    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
   </entry>
   
@@ -359,9 +359,9 @@
     <category term="System Design" scheme="https://rickhw.github.io/categories/System-Design/"/>
     
     
-    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
-    
     <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
+    
+    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
     <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
     
@@ -685,9 +685,9 @@
     <category term="SRE" scheme="https://rickhw.github.io/categories/DevOps/SRE/"/>
     
     
-    <category term="SRE" scheme="https://rickhw.github.io/tags/SRE/"/>
-    
     <category term="Monitoring" scheme="https://rickhw.github.io/tags/Monitoring/"/>
+    
+    <category term="SRE" scheme="https://rickhw.github.io/tags/SRE/"/>
     
     <category term="Emergency Response" scheme="https://rickhw.github.io/tags/Emergency-Response/"/>
     
