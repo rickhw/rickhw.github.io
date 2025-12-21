@@ -6,7 +6,7 @@
   <link href="https://rickhw.github.io/atom.xml" rel="self"/>
   
   <link href="https://rickhw.github.io/"/>
-  <updated>2025-06-27T12:21:44.305Z</updated>
+  <updated>2025-10-20T12:58:24.853Z</updated>
   <id>https://rickhw.github.io/</id>
   
   <author>
@@ -15,36 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>置頂 - 全站索引</title>
-    <link href="https://rickhw.github.io/2035/01/21/Index/"/>
-    <id>https://rickhw.github.io/2035/01/21/Index/</id>
-    <published>2035-01-21T02:30:00.000Z</published>
-    <updated>2025-06-27T12:21:44.305Z</updated>
-    
-    <content type="html"><![CDATA[<p>這篇是整個 Blog 的全站索引，如果您是第一次來這裡，可以先看看這篇索引，大概知道 Blog 的全貌：</p><ul><li>[理念] <a href="/2017/11/26/Thinking-in-Essence/">思考本質、實踐、抽象、想像力、教育</a></li><li>[目錄] <a href="/2017/07/01/Index-Management/">經營管理</a>: 整理管理經驗談、管理哲學、經營、領導、用人之道、學習方法、專案管理</li><li>[目錄] <a href="/2017/07/01/Index-Software-Engineering-In-Practice/">軟體工程實踐</a>: 包含軟體架構、開發、測試、維運等 … 實踐的心得。</li><li>[目錄] <a href="/categories/Distributed-Systems">分散式系統</a>，包含分散式系統理論、Cloud Native - <a href="/tags/Kubernetes/">Kubernetes</a>、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a>。</li><li>[參考] <a href="/2017/07/01/Reference/Books/">參考書</a>、<a href="/2017/07/01/Reference/Tech-Terms/">資訊技術與工程專有名詞</a>、<a href="/2017/07/01/Reference/SC-Terms/">計算機科學專有名詞</a>、<a href="/2017/07/01/Reference/Mgmt-Terms/">經營管理專有名詞</a></li><li>[系列文] <a href="/tags/Bus-Memo/">公車隨筆</a>、<a href="/tags/Learning-Approaches/">寫作與閱讀系列文</a>、<a href="/tags/%E6%BA%9D%E9%80%9A/">溝通</a>、<a href="/tags/Meetings/">會議效率</a></li><li>[關於] <a href="/2017/09/20/About/Learning-Approaches/">學習法則</a>、<a href="/2014/12/27/Management/%E7%B6%93%E7%87%9F%E4%B9%8B%E9%81%93/">經營之道</a>、<a href="/2017/12/02/About/Epiphany/">一些領悟</a>、<a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li><li>[站內記事]: <a href="/2035/01/21/Updated/">文章更新紀錄</a>, <a href="/2013/11/26/Stats/">點閱率統計</a></li></ul><blockquote><p>不管是程式、文章、資料、還是房間，我都會定期重新整理 &#x2F; 重構，核心概念來自於 <a href="/2014/10/26/Management/Classified-Philosophy/">分類的哲學</a></p></blockquote><span id="more"></span>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;這篇是整個 Blog 的全站索引，如果您是第一次來這裡，可以先看看這篇索引，大概知道 Blog 的全貌：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;[理念] &lt;a href=&quot;/2017/11/26/Thinking-in-Essence/&quot;&gt;思考本質、實踐、抽象、想像力、教育&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;[目錄] &lt;a href=&quot;/2017/07/01/Index-Management/&quot;&gt;經營管理&lt;/a&gt;: 整理管理經驗談、管理哲學、經營、領導、用人之道、學習方法、專案管理&lt;/li&gt;
-&lt;li&gt;[目錄] &lt;a href=&quot;/2017/07/01/Index-Software-Engineering-In-Practice/&quot;&gt;軟體工程實踐&lt;/a&gt;: 包含軟體架構、開發、測試、維運等 … 實踐的心得。&lt;/li&gt;
-&lt;li&gt;[目錄] &lt;a href=&quot;/categories/Distributed-Systems&quot;&gt;分散式系統&lt;/a&gt;，包含分散式系統理論、Cloud Native - &lt;a href=&quot;/tags/Kubernetes/&quot;&gt;Kubernetes&lt;/a&gt;、&lt;a href=&quot;/2016/10/01/AWS-Study-Roadmap/&quot;&gt;AWS&lt;/a&gt;。&lt;/li&gt;
-&lt;li&gt;[參考] &lt;a href=&quot;/2017/07/01/Reference/Books/&quot;&gt;參考書&lt;/a&gt;、&lt;a href=&quot;/2017/07/01/Reference/Tech-Terms/&quot;&gt;資訊技術與工程專有名詞&lt;/a&gt;、&lt;a href=&quot;/2017/07/01/Reference/SC-Terms/&quot;&gt;計算機科學專有名詞&lt;/a&gt;、&lt;a href=&quot;/2017/07/01/Reference/Mgmt-Terms/&quot;&gt;經營管理專有名詞&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;[系列文] &lt;a href=&quot;/tags/Bus-Memo/&quot;&gt;公車隨筆&lt;/a&gt;、&lt;a href=&quot;/tags/Learning-Approaches/&quot;&gt;寫作與閱讀系列文&lt;/a&gt;、&lt;a href=&quot;/tags/%E6%BA%9D%E9%80%9A/&quot;&gt;溝通&lt;/a&gt;、&lt;a href=&quot;/tags/Meetings/&quot;&gt;會議效率&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;[關於] &lt;a href=&quot;/2017/09/20/About/Learning-Approaches/&quot;&gt;學習法則&lt;/a&gt;、&lt;a href=&quot;/2014/12/27/Management/%E7%B6%93%E7%87%9F%E4%B9%8B%E9%81%93/&quot;&gt;經營之道&lt;/a&gt;、&lt;a href=&quot;/2017/12/02/About/Epiphany/&quot;&gt;一些領悟&lt;/a&gt;、&lt;a href=&quot;/2014/10/26/Management/Classified-Philosophy/&quot;&gt;分類哲學&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;[站內記事]: &lt;a href=&quot;/2035/01/21/Updated/&quot;&gt;文章更新紀錄&lt;/a&gt;, &lt;a href=&quot;/2013/11/26/Stats/&quot;&gt;點閱率統計&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;不管是程式、文章、資料、還是房間，我都會定期重新整理 &amp;#x2F; 重構，核心概念來自於 &lt;a href=&quot;/2014/10/26/Management/Classified-Philosophy/&quot;&gt;分類的哲學&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    
-  </entry>
   
   <entry>
     <title>置頂 - 更新文章</title>
@@ -110,6 +80,55 @@
   </entry>
   
   <entry>
+    <title>置頂 - 全站索引</title>
+    <link href="https://rickhw.github.io/2035/01/21/Index/"/>
+    <id>https://rickhw.github.io/2035/01/21/Index/</id>
+    <published>2035-01-21T02:30:00.000Z</published>
+    <updated>2025-06-27T12:21:44.305Z</updated>
+    
+    <content type="html"><![CDATA[<p>這篇是整個 Blog 的全站索引，如果您是第一次來這裡，可以先看看這篇索引，大概知道 Blog 的全貌：</p><ul><li>[理念] <a href="/2017/11/26/Thinking-in-Essence/">思考本質、實踐、抽象、想像力、教育</a></li><li>[目錄] <a href="/2017/07/01/Index-Management/">經營管理</a>: 整理管理經驗談、管理哲學、經營、領導、用人之道、學習方法、專案管理</li><li>[目錄] <a href="/2017/07/01/Index-Software-Engineering-In-Practice/">軟體工程實踐</a>: 包含軟體架構、開發、測試、維運等 … 實踐的心得。</li><li>[目錄] <a href="/categories/Distributed-Systems">分散式系統</a>，包含分散式系統理論、Cloud Native - <a href="/tags/Kubernetes/">Kubernetes</a>、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a>。</li><li>[參考] <a href="/2017/07/01/Reference/Books/">參考書</a>、<a href="/2017/07/01/Reference/Tech-Terms/">資訊技術與工程專有名詞</a>、<a href="/2017/07/01/Reference/SC-Terms/">計算機科學專有名詞</a>、<a href="/2017/07/01/Reference/Mgmt-Terms/">經營管理專有名詞</a></li><li>[系列文] <a href="/tags/Bus-Memo/">公車隨筆</a>、<a href="/tags/Learning-Approaches/">寫作與閱讀系列文</a>、<a href="/tags/%E6%BA%9D%E9%80%9A/">溝通</a>、<a href="/tags/Meetings/">會議效率</a></li><li>[關於] <a href="/2017/09/20/About/Learning-Approaches/">學習法則</a>、<a href="/2014/12/27/Management/%E7%B6%93%E7%87%9F%E4%B9%8B%E9%81%93/">經營之道</a>、<a href="/2017/12/02/About/Epiphany/">一些領悟</a>、<a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li><li>[站內記事]: <a href="/2035/01/21/Updated/">文章更新紀錄</a>, <a href="/2013/11/26/Stats/">點閱率統計</a></li></ul><blockquote><p>不管是程式、文章、資料、還是房間，我都會定期重新整理 &#x2F; 重構，核心概念來自於 <a href="/2014/10/26/Management/Classified-Philosophy/">分類的哲學</a></p></blockquote><span id="more"></span>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;這篇是整個 Blog 的全站索引，如果您是第一次來這裡，可以先看看這篇索引，大概知道 Blog 的全貌：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[理念] &lt;a href=&quot;/2017/11/26/Thinking-in-Essence/&quot;&gt;思考本質、實踐、抽象、想像力、教育&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[目錄] &lt;a href=&quot;/2017/07/01/Index-Management/&quot;&gt;經營管理&lt;/a&gt;: 整理管理經驗談、管理哲學、經營、領導、用人之道、學習方法、專案管理&lt;/li&gt;
+&lt;li&gt;[目錄] &lt;a href=&quot;/2017/07/01/Index-Software-Engineering-In-Practice/&quot;&gt;軟體工程實踐&lt;/a&gt;: 包含軟體架構、開發、測試、維運等 … 實踐的心得。&lt;/li&gt;
+&lt;li&gt;[目錄] &lt;a href=&quot;/categories/Distributed-Systems&quot;&gt;分散式系統&lt;/a&gt;，包含分散式系統理論、Cloud Native - &lt;a href=&quot;/tags/Kubernetes/&quot;&gt;Kubernetes&lt;/a&gt;、&lt;a href=&quot;/2016/10/01/AWS-Study-Roadmap/&quot;&gt;AWS&lt;/a&gt;。&lt;/li&gt;
+&lt;li&gt;[參考] &lt;a href=&quot;/2017/07/01/Reference/Books/&quot;&gt;參考書&lt;/a&gt;、&lt;a href=&quot;/2017/07/01/Reference/Tech-Terms/&quot;&gt;資訊技術與工程專有名詞&lt;/a&gt;、&lt;a href=&quot;/2017/07/01/Reference/SC-Terms/&quot;&gt;計算機科學專有名詞&lt;/a&gt;、&lt;a href=&quot;/2017/07/01/Reference/Mgmt-Terms/&quot;&gt;經營管理專有名詞&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[系列文] &lt;a href=&quot;/tags/Bus-Memo/&quot;&gt;公車隨筆&lt;/a&gt;、&lt;a href=&quot;/tags/Learning-Approaches/&quot;&gt;寫作與閱讀系列文&lt;/a&gt;、&lt;a href=&quot;/tags/%E6%BA%9D%E9%80%9A/&quot;&gt;溝通&lt;/a&gt;、&lt;a href=&quot;/tags/Meetings/&quot;&gt;會議效率&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[關於] &lt;a href=&quot;/2017/09/20/About/Learning-Approaches/&quot;&gt;學習法則&lt;/a&gt;、&lt;a href=&quot;/2014/12/27/Management/%E7%B6%93%E7%87%9F%E4%B9%8B%E9%81%93/&quot;&gt;經營之道&lt;/a&gt;、&lt;a href=&quot;/2017/12/02/About/Epiphany/&quot;&gt;一些領悟&lt;/a&gt;、&lt;a href=&quot;/2014/10/26/Management/Classified-Philosophy/&quot;&gt;分類哲學&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[站內記事]: &lt;a href=&quot;/2035/01/21/Updated/&quot;&gt;文章更新紀錄&lt;/a&gt;, &lt;a href=&quot;/2013/11/26/Stats/&quot;&gt;點閱率統計&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;不管是程式、文章、資料、還是房間，我都會定期重新整理 &amp;#x2F; 重構，核心概念來自於 &lt;a href=&quot;/2014/10/26/Management/Classified-Philosophy/&quot;&gt;分類的哲學&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>純手工的 遊戲開發 Java 2D RPG Game</title>
+    <link href="https://rickhw.github.io/2025/12/19/About/Java-2D-RPG-Game/"/>
+    <id>https://rickhw.github.io/2025/12/19/About/Java-2D-RPG-Game/</id>
+    <published>2025-12-19T04:39:00.000Z</published>
+    <updated>2025-12-21T01:39:01.560Z</updated>
+    
+    <content type="html"><![CDATA[<p>紀錄從 RyiSnow 的 <a href="https://www.youtube.com/playlist?list=PL_QPQmz5C6WUF-pOQDsbsKbaBZqXj4qSq">Java 2D Game</a> 課程，手工完成 Java 2D RPG Game 的開發歷程與心得，相關紀錄放在 Youtube 播放清單: <a href="https://www.youtube.com/playlist?list=PL63J1r2PBvogQ2Un01ytl2bQ1OIrlrnLO">Game Learning and DevLog</a>、以及 <a href="https://github.com/rickhw/java-2d-rpg-game">Source Code</a>。</p><span id="more"></span><hr><h2 id="關於角色扮演遊戲-RPG-Game"><a href="#關於角色扮演遊戲-RPG-Game" class="headerlink" title="關於角色扮演遊戲 (RPG Game)"></a>關於角色扮演遊戲 (RPG Game)</h2><p>寫 RPG Game 一直是從小時候就有的夢想。小時候家裡還沒有電腦，只有紅白機可以玩 <a href="https://zh.wikipedia.org/zh-tw/%E5%90%9E%E9%A3%9F%E5%A4%A9%E5%9C%B0_(%E7%BA%A2%E7%99%BD%E6%9C%BA)">吞食天地</a> 的時候，就在想以後能不能自己寫類似的遊戲。後來因緣際會玩到了 <a href="https://zh.wikipedia.org/zh-tw/%E6%9C%80%E7%BB%88%E5%B9%BB%E6%83%B3III">Final Fantasy 3 (FF3，台灣當時翻譯：太空戰士)</a>，對整個遊戲的玩法、音樂、畫面震撼到不行，尤其是音樂。永遠忘不了駕著飛空艇，從空浮大陸飛出去的音樂與畫面，那感覺深深烙印在腦海裡，而整個故事的安排與起伏，至今都難以忘懷。從那個時候 (應該是小五？)，我就拿起紙筆寫一些天馬行空的劇本，然後幻想有一天可以寫寫自己的遊戲。</p><p>後來國二的時候，因緣機會玩到超任上的 <a href="https://zh.wikipedia.org/zh-tw/%E6%9C%80%E7%BB%88%E5%B9%BB%E6%83%B3V">Final Fantasy 5 (FF5)</a> ，又再一次的被音樂、故事震撼，國三畢業後，終於買到自己的超任，那時候超任上好像就只玩 FF5 了，其他遊戲玩得很少。</p><p>再往下就是第一次接觸電腦的時候了，學習了 QBasic，才知道這東西是可以寫出可以用的工具，或者遊戲。</p><p>之後唸書，到工作，一直都在寫商用應用程式、大型的 SaaS 系統，但「寫遊戲」一直都是在心裡的深處。</p><h2 id="為什麼要手刻遊戲？"><a href="#為什麼要手刻遊戲？" class="headerlink" title="為什麼要手刻遊戲？"></a>為什麼要手刻遊戲？</h2><p>為什麼純手工？沒考慮過使用 Game Engine？像是Unity、Unreal、RPG Maker … etc.</p><p>Unity 有研究過，但是太複雜，或者說花的時間太少，也抓不到重點。Unreal 更複雜，而且我沒有想做那麼「擬真」的遊戲。相對比較好上手的則是 Godot，所以有稍微研究過。RPG Maker 很久以前就研究過，但他做了我想做的事。</p><p>為什麼想自己刻遊戲？最核心的目的是：</p><ol><li>了解遊戲運作原理</li><li>計算機科學的應用</li><li>我本身就很喜歡研究科學與應用，也就是 1) + 2)</li></ol><p><code>遊戲運作原理</code> 像是底下的東西：</p><ol><li>GameLoop, FPS</li><li>TileMap (瓦片地圖), 座標系統</li><li>2D 繪圖</li><li>Collision 碰撞偵測</li><li>PathFinding 路徑規劃</li><li>Particle 粒子效果</li></ol><p>還有其他更多就不列了，但這些在 2D RPG 裡算是很重要的概念，而且也是很有趣的東西。</p><p>其實寫遊戲的過程，對我來說就是享受，甚至比玩遊戲還有趣～</p><h2 id="術語"><a href="#術語" class="headerlink" title="術語"></a>術語</h2><p>除了學到技術，最有趣的是學到一些 <code>單字</code> 或者說 <code>術語</code>，整理如下：</p><ul><li>Sprites: 精靈</li><li>Tiles: 磚塊, Interactive Tile: 互動式磚塊</li><li>Game Loop</li><li>Projectile: 拋射物</li><li>Particle: 粒子效果</li><li>Scene: 場景</li><li>CutSense: 轉場</li><li>Mana: 魔力值</li><li>Dungeon: 地下城</li><li>Orc: 獸人</li><li>Invincible: 無敵狀態</li><li>Knock Back: 擊退</li></ul><h2 id="遊戲製作的四個面向"><a href="#遊戲製作的四個面向" class="headerlink" title="遊戲製作的四個面向"></a>遊戲製作的四個面向</h2><p>撇除營運面的，像是銷售、行銷 … 等，這次的學習歷程，我很粗淺的分析遊戲製作 (開發) 可以分成以下四個部分：</p><ol><li><code>技術 / 遊戲性</code>：包含前面提到的遊戲機制衍生的遊戲系統，以及遊戲種類<ul><li>遊戲系統：遊戲機制、物理系統、角色系統、敵人設計、地圖系統、對話系統、操作系統、地圖系統、鏡頭控制 … etc</li><li>種類像是打擊、動作、角色、戰棋、養成 … etc 不同領域的遊戲性</li></ul></li><li><code>故事 / 劇本</code>：大部分的遊戲都會有個背景設定，像是 CyberPunk 2077 科幻背景、FF 系列的水晶系列、薩爾達傳說 … 等，故事是整個「玩」的理由與動機。</li><li><code>美術 / 視覺</code>：呈現出遊戲的視覺風格，2D 像素 (Pixel)、像宮崎駿的風格、3D 寫實風格 … etc</li><li><code>音樂 / 氛圍</code>：讓玩家最有帶入感的音樂，跟電影配樂一樣，針對角色、劇情事件、主題曲等角度而設計的音樂，都是影響遊戲體驗的關鍵。</li></ol><p>而這次學習的部分，主要是 1) 的部分。</p><p>也就是，有趣的部分，除了技術面的，還有很多可以玩，而這四個面向之中的 1) &#x2F; 2) &#x2F; 4) 都是我本來就有在涉略的領域，3) 美術則是我小時候很喜歡的，所以做遊戲需要參與的面向，都是我喜歡且有興趣的。</p><h2 id="原始碼"><a href="#原始碼" class="headerlink" title="原始碼"></a>原始碼</h2><p>我把學習的歷程放在 GitHub 上，大部分的 Coding Style 都保留 RyiSnow 的寫法，我很少把個人的想法置入，保留純粹感，避免一些技術炫技污染。</p><p>程式主要開發環境是在 MacOS Tahoe &#x2F; VSCode，Java 環境則是 Java 17 &#x2F; 21 以及 Gradle。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">❯ java -version</span><br><span class="line">openjdk version <span class="string">&quot;21.0.2&quot;</span> 2024-01-16</span><br><span class="line">OpenJDK Runtime Environment GraalVM CE 21.0.2+13.1 (build 21.0.2+13-jvmci-23.1-b30)</span><br><span class="line">OpenJDK 64-Bit Server VM GraalVM CE 21.0.2+13.1 (build 21.0.2+13-jvmci-23.1-b30, mixed mode, sharing)</span><br><span class="line"></span><br><span class="line">❯ java -version</span><br><span class="line">openjdk version <span class="string">&quot;17.0.9&quot;</span> 2023-10-17</span><br><span class="line">OpenJDK Runtime Environment GraalVM CE 17.0.9+9.1 (build 17.0.9+9-jvmci-23.0-b22)</span><br><span class="line">OpenJDK 64-Bit Server VM GraalVM CE 17.0.9+9.1 (build 17.0.9+9-jvmci-23.0-b22, mixed mode, sharing)</span><br></pre></td></tr></table></figure><h3 id="執行"><a href="#執行" class="headerlink" title="執行"></a>執行</h3><p>需要 Gradle 8.x 以上才可以跑，可以參考 <a href="https://rickhw.github.io/2019/04/07/Coding/Java-Version-Manager/">SDKMan</a> 的介紹，準備 Java 生態系的工具。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 初始 config </span></span><br><span class="line"><span class="built_in">cp</span> config.sample.txt config.txt</span><br><span class="line"></span><br><span class="line"><span class="comment">## 編譯</span></span><br><span class="line">❯ gradle clean build</span><br><span class="line"></span><br><span class="line"><span class="comment">## 啟動遊戲</span></span><br><span class="line">❯ gradle run</span><br><span class="line"></span><br><span class="line">$ Task :run</span><br><span class="line">[TileManager<span class="comment">#loadMap] finished to load map: [World1], index: [0]</span></span><br><span class="line">[TileManager<span class="comment">#loadMap] finished to load map: [Store], index: [1]</span></span><br><span class="line">[TileManager<span class="comment">#loadMap] finished to load map: [Dungeon01], index: [2]</span></span><br><span class="line">[TileManager<span class="comment">#loadMap] finished to load map: [Dungeon02], index: [3]</span></span><br><span class="line">[TileManager<span class="comment">#loadMap] finished to load map: [World1], index: [0]</span></span><br><span class="line">[TileManager<span class="comment">#loadMap] finished to load map: [Store], index: [1]</span></span><br><span class="line">[TileManager<span class="comment">#loadMap] finished to load map: [Dungeon01], index: [2]</span></span><br><span class="line">[TileManager<span class="comment">#loadMap] finished to load map: [Dungeon02], index: [3]</span></span><br><span class="line">18:46:32.001 [GameLoop] FPS: [60], Remaining Percent: [92.83], State: [Title Screen], Map: [World1], Position: [23,21]</span><br><span class="line">18:46:33.000 [GameLoop] FPS: [60], Remaining Percent: [93.98], State: [Title Screen], Map: [World1], Position: [23,21]</span><br><span class="line">18:46:34.000 [GameLoop] FPS: [60], Remaining Percent: [94.12], State: [Title Screen], Map: [World1], Position: [23,21]</span><br></pre></td></tr></table></figure><h3 id="Key-Event"><a href="#Key-Event" class="headerlink" title="Key Event"></a>Key Event</h3><ul><li>W&#x2F;A&#x2F;S&#x2F;D&#x2F;UP&#x2F;DOWN&#x2F;LEFT&#x2F;RIGHT: 移動</li><li>Enter: 攻擊</li><li>Space: 防禦</li><li>F&#x2F;J: Projectiles</li><li>V: 顯示 MiniMap</li><li>M: 顯示 Current Map</li><li>ESC: Options, 音量&#x2F;音效&#x2F;全螢幕</li></ul><h3 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h3><ul><li>T: Debug Mode, 顯示座標</li><li>X: God Mode</li><li>Z: Reset Monster</li></ul><h3 id="Branch"><a href="#Branch" class="headerlink" title="Branch"></a>Branch</h3><p>整個課程過程，在 Branch 有保留所有的紀錄，對應到 RyiSnow 的內容，學習上比較好查閱與理解。</p><p>其中有透過 gemini 幫忙重構 (branch: day57_refactor-by-gemini_ui-class, day57_refactor-by-antigravity)，但效果沒有預期得好。</p><h2 id="用-AI-重寫-Remake-Java-to-Godot"><a href="#用-AI-重寫-Remake-Java-to-Godot" class="headerlink" title="用 AI 重寫: Remake - Java to Godot"></a>用 AI 重寫: Remake - Java to Godot</h2><p>整個課程完成後，我嘗試在 Antigravity (Google 的 AI IDE) 做類似復刻版 (Remake) 的事情，使用不同的 LLM，讓他們從理解現在的 Java 程式，然後在 Godot 做完整的 Remake，不過目前為止都還沒有讓我感到很滿意的結果。</p><p>有興趣可以看看底下的 Branch:</p><ul><li>day57_java-to-godot-by-antigravity-claude-opus-4.5-thinking</li><li>day57_to-godot-by-antigravity-claude-sonnet-4.5-thinking</li></ul><p>底下是 prompt:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">請了解現在的程式碼的架構與功能，了解之後，使用原本的素材，包含圖檔、音效、字型等資源 (放在 resources 目錄裡)，用 godot 復刻一模一樣功能的遊戲出來。</span><br><span class="line"></span><br><span class="line">復刻的時候，要利用 godot v4.5 遊戲引擎的特性，避免使用原本自己圖形計算的方法，像是原本 Java 有很多計算座標、縮放比例 (Scale)、計算碰撞 ... 等邏輯，這我想像應該是使用 Godot 有現成的 <span class="string">&quot;機制&quot;</span> 即可。幾個注意事項：</span><br><span class="line"></span><br><span class="line">1. Tile Size 是 16x16，實作地圖的時候，請處理等比放大效果，Tile 之間應該緊鄰。</span><br><span class="line">2. 大地圖應該有 Camera 功能</span><br><span class="line">3. 提供 Debug 功能：按下 T 的時候，用紅色顯示顯示 Tile 的邊 (Border)、以及座標 (col, row)</span><br><span class="line"></span><br><span class="line">請建立一個 godot 目錄，將復刻的程式碼以及素材放在 godot 目錄中。</span><br><span class="line"></span><br><span class="line">請分析完之後，展開工作階段計劃、以及每個階段的驗收流程，把這些文件放在 godot 目錄裡。</span><br><span class="line"></span><br><span class="line">沒問題後我們就開始。</span><br></pre></td></tr></table></figure><p>測試 AI 模型在以下 5 個關鍵維度 的指標能力：</p><ol><li>跨語言與跨範式的「語義翻譯」能力 (Semantic Translation)</li><li>架構重構能力 (Architectural Refactoring)</li><li>API 映射與領域知識 (Domain Knowledge Mapping)</li><li>知識庫的時效性與幻覺 (Knowledge Cutoff &amp; Hallucination)</li><li>長文本上下文關聯 (Long Context Reasoning)</li></ol><blockquote><p>驗證模型在軟體開發上，必須是是「工程師思維」而非單純的「翻譯機功能」。</p></blockquote><p>底下這兩個則是相對單純的重構，但效果也沒有覺得很好：</p><ul><li>day57_refactor-by-antigravity</li><li>day57_refactor-by-gemini_ui-class</li></ul><hr><h1 id="總要有個開始"><a href="#總要有個開始" class="headerlink" title="總要有個開始"></a>總要有個開始</h1><p>學生時代我的唸書讀完了的標準，就是自己出一份考卷，出完了考卷就讀完了 (自我感覺良好?)。工作後，大部分的人寫程式總要用 IDE，但我做的一些案子，卻是在開發 IDE。讀了很多經典小說 (金庸、艾希莫夫、朱少麟 …)，就想寫寫小說。玩了經典遊戲 (FF、Zelda)，寫個遊戲應該也是理所當然了，但這只能算入門而已。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;紀錄從 RyiSnow 的 &lt;a href=&quot;https://www.youtube.com/playlist?list=PL_QPQmz5C6WUF-pOQDsbsKbaBZqXj4qSq&quot;&gt;Java 2D Game&lt;/a&gt; 課程，手工完成 Java 2D RPG Game 的開發歷程與心得，相關紀錄放在 Youtube 播放清單: &lt;a href=&quot;https://www.youtube.com/playlist?list=PL63J1r2PBvogQ2Un01ytl2bQ1OIrlrnLO&quot;&gt;Game Learning and DevLog&lt;/a&gt;、以及 &lt;a href=&quot;https://github.com/rickhw/java-2d-rpg-game&quot;&gt;Source Code&lt;/a&gt;。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="About" scheme="https://rickhw.github.io/categories/About/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>R3 Model</title>
     <link href="https://rickhw.github.io/2025/06/29/Design/R3-Model/"/>
     <id>https://rickhw.github.io/2025/06/29/Design/R3-Model/</id>
@@ -161,13 +180,13 @@
     
     <category term="Finite-State Machine" scheme="https://rickhw.github.io/tags/Finite-State-Machine/"/>
     
-    <category term="RESTful" scheme="https://rickhw.github.io/tags/RESTful/"/>
+    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
     <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
     
-    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
-    
     <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
+    
+    <category term="RESTful" scheme="https://rickhw.github.io/tags/RESTful/"/>
     
     <category term="API Platform" scheme="https://rickhw.github.io/tags/API-Platform/"/>
     
@@ -231,15 +250,15 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
-    <category term="Linux" scheme="https://rickhw.github.io/tags/Linux/"/>
-    
     <category term="VMWare" scheme="https://rickhw.github.io/tags/VMWare/"/>
     
-    <category term="Benchmark" scheme="https://rickhw.github.io/tags/Benchmark/"/>
+    <category term="Linux" scheme="https://rickhw.github.io/tags/Linux/"/>
     
     <category term="Virtualization" scheme="https://rickhw.github.io/tags/Virtualization/"/>
     
     <category term="Development Environment" scheme="https://rickhw.github.io/tags/Development-Environment/"/>
+    
+    <category term="Benchmark" scheme="https://rickhw.github.io/tags/Benchmark/"/>
     
   </entry>
   
@@ -303,8 +322,6 @@
     
     <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
     
-    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
-    
     <category term="Code Generator" scheme="https://rickhw.github.io/tags/Code-Generator/"/>
     
     <category term="Template" scheme="https://rickhw.github.io/tags/Template/"/>
@@ -312,6 +329,8 @@
     <category term="Productivity" scheme="https://rickhw.github.io/tags/Productivity/"/>
     
     <category term="Quality" scheme="https://rickhw.github.io/tags/Quality/"/>
+    
+    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
   </entry>
   
@@ -359,11 +378,7 @@
     <category term="System Design" scheme="https://rickhw.github.io/categories/System-Design/"/>
     
     
-    <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
-    
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
-    
-    <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
     
     <category term="Identity" scheme="https://rickhw.github.io/tags/Identity/"/>
     
@@ -372,6 +387,10 @@
     <category term="Unique" scheme="https://rickhw.github.io/tags/Unique/"/>
     
     <category term="UUID" scheme="https://rickhw.github.io/tags/UUID/"/>
+    
+    <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
+    
+    <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
     
   </entry>
   
@@ -663,37 +682,6 @@
     
     
     <category term="Code Convension" scheme="https://rickhw.github.io/tags/Code-Convension/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SRE 常見問題 - 訪談紀錄</title>
-    <link href="https://rickhw.github.io/2023/07/06/DevOps/SRE-FAQ/"/>
-    <id>https://rickhw.github.io/2023/07/06/DevOps/SRE-FAQ/</id>
-    <published>2023-07-06T04:43:00.000Z</published>
-    <updated>2025-10-20T12:46:43.956Z</updated>
-    
-    <content type="html"><![CDATA[<p>整理一段關於 SRE 問題的訪談紀錄，歡迎大家提供不一樣的經驗與想法。</p><span id="more"></span><h2 id="Q1-企業內部的-SRE-與-DevOps-工作內容與分工？"><a href="#Q1-企業內部的-SRE-與-DevOps-工作內容與分工？" class="headerlink" title="Q1. 企業內部的 SRE 與 DevOps 工作內容與分工？"></a>Q1. 企業內部的 SRE 與 DevOps 工作內容與分工？</h2><p>這要看企業規模，而且大部分企業對於 DevOps &#x2F; SRE 的理解與定義可能都有差異。</p><p>個人經歷過大多是這樣分：</p><ul><li><code>Feature Team / DevOps</code>: 負責業務邏輯的開發團隊 (Scrum Team)，團隊裡可能有一個或多個專屬的 DevOps Engineer 負責處理所有的 CI &#x2F; CD 工作。 </li><li><code>Infra Team / SRE</code>: 負責處理 App 以外的東西，包含 Cloud &#x2F; Network &#x2F; Cost &#x2F; Provisioning &#x2F; Observability  &#x2F; Monitoring &#x2F; Architecture &#x2F; Artifact Repos &#x2F; CI&#x2F;CD 平台 &#x2F; Security …. Etc.</li></ul><p>其實很多企業，對於怎麼定義 SRE or DevOps 是沒有想法的，或者是有自己的解讀 … 所以討論這樣的題目時，通常我都會先反問對方的期待與認知，確認彼此 <code>On the same page</code>.</p><p>實務上，少於 500 人的企業，這兩個角色 (DevOps &#x2F; SRE) 對老闆來講，是沒差的；大於 500 人的企業，這兩個角色對老闆來講，還是沒差。。。</p><p>所以有時候工作上，不要太糾結自己的範圍，而是要思考，現在處在的環境，自己要怎麼做才會有貢獻 (亮點)。</p><p>換個角度想：</p><blockquote><p>你花了 5 萬塊，一個月請一個人，希望得到什麼？</p></blockquote><p>聽起來像是幹話，但很現實，因為勞雇就是一種買賣。</p><h2 id="Q2-SRE-工程師，需要具備的基礎技能有哪些？"><a href="#Q2-SRE-工程師，需要具備的基礎技能有哪些？" class="headerlink" title="Q2. SRE 工程師，需要具備的基礎技能有哪些？"></a>Q2. SRE 工程師，需要具備的基礎技能有哪些？</h2><p>依照 SRE 原文的定義，我認為的 SRE 本質是：</p><blockquote><p>用軟體工程，解決維運任務</p></blockquote><p>這句話我這樣拆解：</p><ul><li><code>專業職能</code>：軟體工程，包含程式設計&amp;開發&amp;測試 &#x2F; 系統工程＆架構<ul><li>軟體工程就是作出可以 Reusable &#x2F; Scalable 的東西，可以從 1 變成 10 的概念</li></ul></li><li><code>領域知識</code>：系統維運，包含異常處理, 事件管理, 自動化工程 … 很多，可以參閱我以前整理的 <a href="/2018/03/29/About/2018-Serverless-All-Star/">R&amp;R 分布圖</a></li></ul><p>專業技能：</p><ul><li><code>Programming</code>: Python&#x2F;Golang, Web, RDB, Cache, Queue.</li><li><code>Networking</code>: Protocol (TCP &#x2F; UDP &#x2F; HTTP &#x2F; DNS &#x2F; BGP  …), Network Devices (Switch &#x2F; Router &#x2F; AP … etc)</li><li><code>System</code>: Public Cloud, OS (Linux, OS), Storage</li><li>Observability &amp; Monitoring</li></ul><p>專業技能很粗略地寫，因為這些內容的技術過幾年就會翻一輪，實務上用人不會找 100% 符合的 (也找不到)，更多是找基礎好、可以栽培、個性積極的，當然要解釋成成本考量也是可以的。</p><p>相關用人的邏輯，可以參閱 <a href="/2018/09/18/Management/Hiring-Step2-Interview-Skills/">人力招募 - 二、見面談：招募第一關 面試</a></p><h2 id="Q3-在建置-SRE-團隊中，過程有遇到哪些痛點？"><a href="#Q3-在建置-SRE-團隊中，過程有遇到哪些痛點？" class="headerlink" title="Q3. 在建置 SRE 團隊中，過程有遇到哪些痛點？"></a>Q3. 在建置 SRE 團隊中，過程有遇到哪些痛點？</h2><p>所謂「痛點」要看用什麼角度來看，其中「政治問題」是避免不了的。</p><p>大多在業務上站上位置的角色，都是強勢的一方，也就是上位。這在任何企業都一樣，不管什麼產業都一樣，因為企業本質就是賺錢，開源單位講話大聲，成本單位大多能做的是滿足他們，這樣的供需關係，在很多企業裡都差不多，能改變關係的是少數。</p><p>所以大部分的現象 (不是問題) 都是組織結構上任務與資源不對等，更多的是 R&amp;R 不分，執行任務過程勞心、勞力、傷神又傷心，衍生的感覺就是「痛點」。(上述現象，把 SRE 換成 QA 一樣適用)</p><p>用人與人才培養也是問題，但是不能算是痛點，這方面需要耐心與信心，創造機會與耐心教導，還是可以做得好。</p><p>再來是怎麼讓 Feature Team 與 Infra &#x2F; SRE Team 能夠有效協作的「共識」，也就是制度。當遇到一件事情的時候，該怎麼區分這件事情的 ownership？官大說了算？該怎麼理性溝通？例如線上炸鍋，炸鍋解決了，因為系統資源不足，所以 Responsiblity 就是在 SRE &#x2F; Infra？大多是，實務上很多就是「政治」角力，讓這件事情正確的 R&amp;R 歪掉。</p><p>這個案例，大概是實務上的痛點，因為資源不足，更多時候是程式改善可以解決，但有時候「用錢能解決的問題不是問題」，就蓋過真正的問題了，那個問題幾年後通常會再爆出來，但已經沒人知道為什麼了 (省略一本書的故事 ….</p><p>可能的解法：建立一個可以跟 Feature Team 協作的制度，概念類似 AWS 的 Shared Responsibility。但建立這個「雙方」的智度，要有「自己」的制度，讓自己的制度動起來，站穩腳步。然後再去跟 Feature team 討論雙方的制度。大概的概念可以參閱我在 <a href="/2022/05/10/About/2022-SREConf2022/">SRE Conf 2022 分享</a> 的 P58.</p><h2 id="Q4-過去是怎麼進行內部-SRE-人才培訓？"><a href="#Q4-過去是怎麼進行內部-SRE-人才培訓？" class="headerlink" title="Q4. 過去是怎麼進行內部 SRE 人才培訓？"></a>Q4. 過去是怎麼進行內部 SRE 人才培訓？</h2><p>針對傳統 OP (管系統, 管設備, 不寫 Code) 的訓練，務實面的方式以及過程摘要如下：</p><ol><li>手把手教，以 Python &#x2F; Cloud 為主，像是 Python runs on Lambda (AWS)，Export as API。<ul><li>從他們本來就熟悉的領域切入，不要弄太難或者太多觀念 (ex: OOP, Framework)，重心擺在領域問題能用簡單的 Code &amp; Cloud 解決</li><li>從簡單的日常維運開始，像是備份、檢查 DNS &#x2F; SSL 過期 &#x2F; Health Check，可以玩 Cloud + Programming，不會太難，又有成就感。</li></ul></li><li>訓練開發 API 封裝 Public Cloud &#x2F; SaaS 的功能，提供給 CI &#x2F; CD 整合時、維運時使用<ul><li>減少 Feature Team 接觸 Cloud 的面積，因為大部分的 Public Cloud 的功能只能用到 20%，很容易讓人有選擇困難，透過 API 封裝，簡化 Feature team 的使用難度，又可以讓 SRE 設計 API &#x2F; Coding，雙贏。</li><li>更多參閱 <a href="/2022/05/10/About/2022-SREConf2022/">SRE Conf 2022 分享</a> 的 P47.</li></ul></li><li>資深一點的：透過 GitOps 的方法，設計較複雜的架構，像是非同步排程任務，只要 commit 就可以發動任務.<ul><li>這是長期策略，也就是未來雙方協作都是透過 GitOps 驅動</li><li>Policy as Code 的第一步。</li><li>看到 Code 一翻兩瞪眼，雙方容易聚焦，減少爭議</li></ul></li><li>訓練處理異常：從異常中學習架構是怎麼一回事，系統是怎麼運作的<ul><li>一個 Request 第一次跟第二次 Latency 不一樣，這是怎麼一回事？</li><li>就像醫生看到症狀，就可以大概知道問題在哪。但前提是醫生是了解人體結構與運作原理的，SRE 了解架構，才有辦法隔空抓藥。</li></ul></li></ol><p>管理角度，可以參閱我寫的 <a href="https://www.facebook.com/rick.kyhwang/posts/pfbid0tWjKzm9BnagRqknGrnXfzA2DbqTCq1xCcFTdZjvRtkA2pu1rLSbpvfsYGFAe9Mtdl">人才發展策略地圖 (草稿)</a>，這份草稿不止 SRE，只要是軟體開發團隊都適用。</p><h2 id="Q5-在-SRE-人才的培育上，應該要上哪些課程？"><a href="#Q5-在-SRE-人才的培育上，應該要上哪些課程？" class="headerlink" title="Q5. 在 SRE 人才的培育上，應該要上哪些課程？"></a>Q5. 在 SRE 人才的培育上，應該要上哪些課程？</h2><p>如果我有機會規劃學程，快速摘要一些想法，不見得可行，但是要先有一版出來 (先有再求好)。</p><p>3 + 3 代表三學分，兩個學期，如果是專職課程，3 &#x3D; 6 個月</p><ul><li>API 開發 (3 + 3): Python &#x2F; Golang, Cache, Queue, OpenAPI</li><li>網路基礎 (3 + 3)</li><li>軟體交付實務 (3 + 3)</li><li>監控 實務 (3 + 3)</li><li>架構 (3 + 3 + 3): Public Cloud &#x2F; K8s</li><li>分散式系統 (3 + 3): 可以參閱最近 <a href="https://sre.google/classroom/imageserver/?fbclid=IwAR1ncyFGKq7Kv3EVLl3REJun5xMp29Wntan3ZaqPRuC2xmei2hQ_hAKmAuY">Google 出的課程</a></li></ul><p>CS 有以下:</p><ul><li>OS &#x2F; Compute Architecture</li><li>Networking</li><li>Database</li><li>Programming (3+3) &#x2F; Data structure &#x2F; Algorithm</li></ul><p>是否一定要 CS (計算機科學 &#x2F; 資工 &#x2F; 資管) 背景？我個人希望要有，最好是數學相關背景的。當然，這是我個人的偏好而已。我也用過不是這樣背景，但表現也非常優秀的人。</p><hr><h2 id="聽歌"><a href="#聽歌" class="headerlink" title="聽歌"></a>聽歌</h2><p>聽著 <a href="https://www.youtube.com/watch?v=qna0SwJtoU4&list=RDEM0c_-4xca83hAcgJgn1Y86g&index=4">李玟 (Coco)</a> 的精選，寫文章。</p><hr><h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="站內文章"><a href="#站內文章" class="headerlink" title="站內文章"></a>站內文章</h2><ul><li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作《SRE 實踐與開發平台指南》</a> (2023&#x2F;08 上市)</li><li>推薦：<a href="/2018/08/03/DevOps/An-Introduction-to-SRE/">Site Reliability Engineering (SRE, 網站可靠性工程)</a></li><li>演講：<a href="/2022/05/10/About/2022-SREConf2022/">SRE Conference 2022 - 91APP 在 AWS 上的 SRE 實踐之路</a></li><li>演講：<a href="/2018/03/29/About/2018-Serverless-All-Star/">Serverless All-Star - Ops as Code using Serverless</a></li><li>演講：<a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li><li>演講：<a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">Monitoring Tools 大亂鬥 - AWS CloudWatch</a></li><li><a href="/2018/01/07/DevOps/Emergency-Response/">緊急應變 (Emergency Response)</a></li></ul><h2 id="其它參考"><a href="#其它參考" class="headerlink" title="其它參考"></a>其它參考</h2><ul><li><a href="https://sre.google/classroom/imageserver/?fbclid=IwAR1ncyFGKq7Kv3EVLl3REJun5xMp29Wntan3ZaqPRuC2xmei2hQ_hAKmAuY">SRE Classroom: Distributed ImageServer</a></li><li><a href="https://www.facebook.com/rick.kyhwang/posts/pfbid0tWjKzm9BnagRqknGrnXfzA2DbqTCq1xCcFTdZjvRtkA2pu1rLSbpvfsYGFAe9Mtdl">人才發展策略</a> (draft, 2022&#x2F;10&#x2F;26)</li></ul>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;整理一段關於 SRE 問題的訪談紀錄，歡迎大家提供不一樣的經驗與想法。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="DevOps" scheme="https://rickhw.github.io/categories/DevOps/"/>
-    
-    <category term="SRE" scheme="https://rickhw.github.io/categories/DevOps/SRE/"/>
-    
-    
-    <category term="Monitoring" scheme="https://rickhw.github.io/tags/Monitoring/"/>
-    
-    <category term="SRE" scheme="https://rickhw.github.io/tags/SRE/"/>
-    
-    <category term="Emergency Response" scheme="https://rickhw.github.io/tags/Emergency-Response/"/>
-    
-    <category term="Incident Management" scheme="https://rickhw.github.io/tags/Incident-Management/"/>
-    
-    <category term="Software Engineering" scheme="https://rickhw.github.io/tags/Software-Engineering/"/>
     
   </entry>
   
