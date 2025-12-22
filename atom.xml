@@ -191,9 +191,9 @@
     
     <category term="API Gateway" scheme="https://rickhw.github.io/tags/API-Gateway/"/>
     
-    <category term="Finite-State Machine" scheme="https://rickhw.github.io/tags/Finite-State-Machine/"/>
-    
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
+    
+    <category term="Finite-State Machine" scheme="https://rickhw.github.io/tags/Finite-State-Machine/"/>
     
     <category term="RESTful" scheme="https://rickhw.github.io/tags/RESTful/"/>
     
@@ -228,13 +228,13 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
-    <category term="Docker" scheme="https://rickhw.github.io/tags/Docker/"/>
-    
     <category term="Java" scheme="https://rickhw.github.io/tags/Java/"/>
     
     <category term="macOS" scheme="https://rickhw.github.io/tags/macOS/"/>
     
     <category term="VSCode" scheme="https://rickhw.github.io/tags/VSCode/"/>
+    
+    <category term="Docker" scheme="https://rickhw.github.io/tags/Docker/"/>
     
     <category term="Docker-Compose" scheme="https://rickhw.github.io/tags/Docker-Compose/"/>
     
@@ -263,11 +263,11 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
-    <category term="VMWare" scheme="https://rickhw.github.io/tags/VMWare/"/>
-    
     <category term="Linux" scheme="https://rickhw.github.io/tags/Linux/"/>
     
     <category term="Virtualization" scheme="https://rickhw.github.io/tags/Virtualization/"/>
+    
+    <category term="VMWare" scheme="https://rickhw.github.io/tags/VMWare/"/>
     
     <category term="Development Environment" scheme="https://rickhw.github.io/tags/Development-Environment/"/>
     
@@ -666,11 +666,11 @@
     <category term="About" scheme="https://rickhw.github.io/categories/About/"/>
     
     
-    <category term="SRE" scheme="https://rickhw.github.io/tags/SRE/"/>
-    
     <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
     
     <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
+    
+    <category term="SRE" scheme="https://rickhw.github.io/tags/SRE/"/>
     
     <category term="Books" scheme="https://rickhw.github.io/tags/Books/"/>
     
