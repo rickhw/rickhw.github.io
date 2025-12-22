@@ -6,7 +6,7 @@
   <link href="https://rickhw.github.io/atom.xml" rel="self"/>
   
   <link href="https://rickhw.github.io/"/>
-  <updated>2025-10-20T12:58:24.853Z</updated>
+  <updated>2025-06-27T12:21:44.305Z</updated>
   <id>https://rickhw.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>置頂 - 全站索引</title>
+    <link href="https://rickhw.github.io/2035/01/21/Index/"/>
+    <id>https://rickhw.github.io/2035/01/21/Index/</id>
+    <published>2035-01-21T02:30:00.000Z</published>
+    <updated>2025-06-27T12:21:44.305Z</updated>
+    
+    <content type="html"><![CDATA[<p>這篇是整個 Blog 的全站索引，如果您是第一次來這裡，可以先看看這篇索引，大概知道 Blog 的全貌：</p><ul><li>[理念] <a href="/2017/11/26/Thinking-in-Essence/">思考本質、實踐、抽象、想像力、教育</a></li><li>[目錄] <a href="/2017/07/01/Index-Management/">經營管理</a>: 整理管理經驗談、管理哲學、經營、領導、用人之道、學習方法、專案管理</li><li>[目錄] <a href="/2017/07/01/Index-Software-Engineering-In-Practice/">軟體工程實踐</a>: 包含軟體架構、開發、測試、維運等 … 實踐的心得。</li><li>[目錄] <a href="/categories/Distributed-Systems">分散式系統</a>，包含分散式系統理論、Cloud Native - <a href="/tags/Kubernetes/">Kubernetes</a>、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a>。</li><li>[參考] <a href="/2017/07/01/Reference/Books/">參考書</a>、<a href="/2017/07/01/Reference/Tech-Terms/">資訊技術與工程專有名詞</a>、<a href="/2017/07/01/Reference/SC-Terms/">計算機科學專有名詞</a>、<a href="/2017/07/01/Reference/Mgmt-Terms/">經營管理專有名詞</a></li><li>[系列文] <a href="/tags/Bus-Memo/">公車隨筆</a>、<a href="/tags/Learning-Approaches/">寫作與閱讀系列文</a>、<a href="/tags/%E6%BA%9D%E9%80%9A/">溝通</a>、<a href="/tags/Meetings/">會議效率</a></li><li>[關於] <a href="/2017/09/20/About/Learning-Approaches/">學習法則</a>、<a href="/2014/12/27/Management/%E7%B6%93%E7%87%9F%E4%B9%8B%E9%81%93/">經營之道</a>、<a href="/2017/12/02/About/Epiphany/">一些領悟</a>、<a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li><li>[站內記事]: <a href="/2035/01/21/Updated/">文章更新紀錄</a>, <a href="/2013/11/26/Stats/">點閱率統計</a></li></ul><blockquote><p>不管是程式、文章、資料、還是房間，我都會定期重新整理 &#x2F; 重構，核心概念來自於 <a href="/2014/10/26/Management/Classified-Philosophy/">分類的哲學</a></p></blockquote><span id="more"></span>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;這篇是整個 Blog 的全站索引，如果您是第一次來這裡，可以先看看這篇索引，大概知道 Blog 的全貌：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[理念] &lt;a href=&quot;/2017/11/26/Thinking-in-Essence/&quot;&gt;思考本質、實踐、抽象、想像力、教育&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[目錄] &lt;a href=&quot;/2017/07/01/Index-Management/&quot;&gt;經營管理&lt;/a&gt;: 整理管理經驗談、管理哲學、經營、領導、用人之道、學習方法、專案管理&lt;/li&gt;
+&lt;li&gt;[目錄] &lt;a href=&quot;/2017/07/01/Index-Software-Engineering-In-Practice/&quot;&gt;軟體工程實踐&lt;/a&gt;: 包含軟體架構、開發、測試、維運等 … 實踐的心得。&lt;/li&gt;
+&lt;li&gt;[目錄] &lt;a href=&quot;/categories/Distributed-Systems&quot;&gt;分散式系統&lt;/a&gt;，包含分散式系統理論、Cloud Native - &lt;a href=&quot;/tags/Kubernetes/&quot;&gt;Kubernetes&lt;/a&gt;、&lt;a href=&quot;/2016/10/01/AWS-Study-Roadmap/&quot;&gt;AWS&lt;/a&gt;。&lt;/li&gt;
+&lt;li&gt;[參考] &lt;a href=&quot;/2017/07/01/Reference/Books/&quot;&gt;參考書&lt;/a&gt;、&lt;a href=&quot;/2017/07/01/Reference/Tech-Terms/&quot;&gt;資訊技術與工程專有名詞&lt;/a&gt;、&lt;a href=&quot;/2017/07/01/Reference/SC-Terms/&quot;&gt;計算機科學專有名詞&lt;/a&gt;、&lt;a href=&quot;/2017/07/01/Reference/Mgmt-Terms/&quot;&gt;經營管理專有名詞&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[系列文] &lt;a href=&quot;/tags/Bus-Memo/&quot;&gt;公車隨筆&lt;/a&gt;、&lt;a href=&quot;/tags/Learning-Approaches/&quot;&gt;寫作與閱讀系列文&lt;/a&gt;、&lt;a href=&quot;/tags/%E6%BA%9D%E9%80%9A/&quot;&gt;溝通&lt;/a&gt;、&lt;a href=&quot;/tags/Meetings/&quot;&gt;會議效率&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[關於] &lt;a href=&quot;/2017/09/20/About/Learning-Approaches/&quot;&gt;學習法則&lt;/a&gt;、&lt;a href=&quot;/2014/12/27/Management/%E7%B6%93%E7%87%9F%E4%B9%8B%E9%81%93/&quot;&gt;經營之道&lt;/a&gt;、&lt;a href=&quot;/2017/12/02/About/Epiphany/&quot;&gt;一些領悟&lt;/a&gt;、&lt;a href=&quot;/2014/10/26/Management/Classified-Philosophy/&quot;&gt;分類哲學&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[站內記事]: &lt;a href=&quot;/2035/01/21/Updated/&quot;&gt;文章更新紀錄&lt;/a&gt;, &lt;a href=&quot;/2013/11/26/Stats/&quot;&gt;點閱率統計&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;不管是程式、文章、資料、還是房間，我都會定期重新整理 &amp;#x2F; 重構，核心概念來自於 &lt;a href=&quot;/2014/10/26/Management/Classified-Philosophy/&quot;&gt;分類的哲學&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>置頂 - 更新文章</title>
@@ -73,36 +103,6 @@
 &lt;td align=&quot;left&quot;&gt;2019&amp;#x2F;10&amp;#x2F;30&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;&lt;/table&gt;</summary>
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>置頂 - 全站索引</title>
-    <link href="https://rickhw.github.io/2035/01/21/Index/"/>
-    <id>https://rickhw.github.io/2035/01/21/Index/</id>
-    <published>2035-01-21T02:30:00.000Z</published>
-    <updated>2025-06-27T12:21:44.305Z</updated>
-    
-    <content type="html"><![CDATA[<p>這篇是整個 Blog 的全站索引，如果您是第一次來這裡，可以先看看這篇索引，大概知道 Blog 的全貌：</p><ul><li>[理念] <a href="/2017/11/26/Thinking-in-Essence/">思考本質、實踐、抽象、想像力、教育</a></li><li>[目錄] <a href="/2017/07/01/Index-Management/">經營管理</a>: 整理管理經驗談、管理哲學、經營、領導、用人之道、學習方法、專案管理</li><li>[目錄] <a href="/2017/07/01/Index-Software-Engineering-In-Practice/">軟體工程實踐</a>: 包含軟體架構、開發、測試、維運等 … 實踐的心得。</li><li>[目錄] <a href="/categories/Distributed-Systems">分散式系統</a>，包含分散式系統理論、Cloud Native - <a href="/tags/Kubernetes/">Kubernetes</a>、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a>。</li><li>[參考] <a href="/2017/07/01/Reference/Books/">參考書</a>、<a href="/2017/07/01/Reference/Tech-Terms/">資訊技術與工程專有名詞</a>、<a href="/2017/07/01/Reference/SC-Terms/">計算機科學專有名詞</a>、<a href="/2017/07/01/Reference/Mgmt-Terms/">經營管理專有名詞</a></li><li>[系列文] <a href="/tags/Bus-Memo/">公車隨筆</a>、<a href="/tags/Learning-Approaches/">寫作與閱讀系列文</a>、<a href="/tags/%E6%BA%9D%E9%80%9A/">溝通</a>、<a href="/tags/Meetings/">會議效率</a></li><li>[關於] <a href="/2017/09/20/About/Learning-Approaches/">學習法則</a>、<a href="/2014/12/27/Management/%E7%B6%93%E7%87%9F%E4%B9%8B%E9%81%93/">經營之道</a>、<a href="/2017/12/02/About/Epiphany/">一些領悟</a>、<a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li><li>[站內記事]: <a href="/2035/01/21/Updated/">文章更新紀錄</a>, <a href="/2013/11/26/Stats/">點閱率統計</a></li></ul><blockquote><p>不管是程式、文章、資料、還是房間，我都會定期重新整理 &#x2F; 重構，核心概念來自於 <a href="/2014/10/26/Management/Classified-Philosophy/">分類的哲學</a></p></blockquote><span id="more"></span>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;這篇是整個 Blog 的全站索引，如果您是第一次來這裡，可以先看看這篇索引，大概知道 Blog 的全貌：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;[理念] &lt;a href=&quot;/2017/11/26/Thinking-in-Essence/&quot;&gt;思考本質、實踐、抽象、想像力、教育&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;[目錄] &lt;a href=&quot;/2017/07/01/Index-Management/&quot;&gt;經營管理&lt;/a&gt;: 整理管理經驗談、管理哲學、經營、領導、用人之道、學習方法、專案管理&lt;/li&gt;
-&lt;li&gt;[目錄] &lt;a href=&quot;/2017/07/01/Index-Software-Engineering-In-Practice/&quot;&gt;軟體工程實踐&lt;/a&gt;: 包含軟體架構、開發、測試、維運等 … 實踐的心得。&lt;/li&gt;
-&lt;li&gt;[目錄] &lt;a href=&quot;/categories/Distributed-Systems&quot;&gt;分散式系統&lt;/a&gt;，包含分散式系統理論、Cloud Native - &lt;a href=&quot;/tags/Kubernetes/&quot;&gt;Kubernetes&lt;/a&gt;、&lt;a href=&quot;/2016/10/01/AWS-Study-Roadmap/&quot;&gt;AWS&lt;/a&gt;。&lt;/li&gt;
-&lt;li&gt;[參考] &lt;a href=&quot;/2017/07/01/Reference/Books/&quot;&gt;參考書&lt;/a&gt;、&lt;a href=&quot;/2017/07/01/Reference/Tech-Terms/&quot;&gt;資訊技術與工程專有名詞&lt;/a&gt;、&lt;a href=&quot;/2017/07/01/Reference/SC-Terms/&quot;&gt;計算機科學專有名詞&lt;/a&gt;、&lt;a href=&quot;/2017/07/01/Reference/Mgmt-Terms/&quot;&gt;經營管理專有名詞&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;[系列文] &lt;a href=&quot;/tags/Bus-Memo/&quot;&gt;公車隨筆&lt;/a&gt;、&lt;a href=&quot;/tags/Learning-Approaches/&quot;&gt;寫作與閱讀系列文&lt;/a&gt;、&lt;a href=&quot;/tags/%E6%BA%9D%E9%80%9A/&quot;&gt;溝通&lt;/a&gt;、&lt;a href=&quot;/tags/Meetings/&quot;&gt;會議效率&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;[關於] &lt;a href=&quot;/2017/09/20/About/Learning-Approaches/&quot;&gt;學習法則&lt;/a&gt;、&lt;a href=&quot;/2014/12/27/Management/%E7%B6%93%E7%87%9F%E4%B9%8B%E9%81%93/&quot;&gt;經營之道&lt;/a&gt;、&lt;a href=&quot;/2017/12/02/About/Epiphany/&quot;&gt;一些領悟&lt;/a&gt;、&lt;a href=&quot;/2014/10/26/Management/Classified-Philosophy/&quot;&gt;分類哲學&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;[站內記事]: &lt;a href=&quot;/2035/01/21/Updated/&quot;&gt;文章更新紀錄&lt;/a&gt;, &lt;a href=&quot;/2013/11/26/Stats/&quot;&gt;點閱率統計&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;不管是程式、文章、資料、還是房間，我都會定期重新整理 &amp;#x2F; 重構，核心概念來自於 &lt;a href=&quot;/2014/10/26/Management/Classified-Philosophy/&quot;&gt;分類的哲學&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
     
     
     
@@ -182,11 +182,11 @@
     
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
+    <category term="RESTful" scheme="https://rickhw.github.io/tags/RESTful/"/>
+    
     <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
     
     <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
-    
-    <category term="RESTful" scheme="https://rickhw.github.io/tags/RESTful/"/>
     
     <category term="API Platform" scheme="https://rickhw.github.io/tags/API-Platform/"/>
     
@@ -380,6 +380,10 @@
     
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
+    <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
+    
+    <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
+    
     <category term="Identity" scheme="https://rickhw.github.io/tags/Identity/"/>
     
     <category term="Identifier" scheme="https://rickhw.github.io/tags/Identifier/"/>
@@ -387,10 +391,6 @@
     <category term="Unique" scheme="https://rickhw.github.io/tags/Unique/"/>
     
     <category term="UUID" scheme="https://rickhw.github.io/tags/UUID/"/>
-    
-    <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
-    
-    <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
     
   </entry>
   
