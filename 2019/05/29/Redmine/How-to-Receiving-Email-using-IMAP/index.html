@@ -269,7 +269,7 @@
 
 <hr>
 <h1 id="準備"><a href="#準備" class="headerlink" title="準備"></a>準備</h1><ul>
-<li><code>客服信箱</code>：準備一個信箱，通常是 客服專用的，例如 <a href="mailto:&#x73;&#x75;&#x70;&#112;&#x6f;&#114;&#116;&#64;&#x61;&#x62;&#99;&#46;&#99;&#111;&#109;">&#x73;&#x75;&#x70;&#112;&#x6f;&#114;&#116;&#64;&#x61;&#x62;&#99;&#46;&#99;&#111;&#109;</a><ul>
+<li><code>客服信箱</code>：準備一個信箱，通常是 客服專用的，例如 <a href="mailto:&#115;&#x75;&#112;&#x70;&#x6f;&#x72;&#x74;&#x40;&#97;&#98;&#99;&#x2e;&#x63;&#x6f;&#109;">&#115;&#x75;&#112;&#x70;&#x6f;&#x72;&#x74;&#x40;&#97;&#98;&#99;&#x2e;&#x63;&#x6f;&#109;</a><ul>
 <li>範例使用 IMAP 協議，所以這個信箱必須是 <code>使用者帳戶</code>，而不是 <code>群組帳戶</code></li>
 <li>使用 GMail 做範例，設定 IMAP 請參閱 <a target="_blank" rel="noopener" href="https://support.google.com/mail/answer/7126229?hl=zh-Hant">GMail IMAP 設定</a></li>
 <li>建立兩個 LABEL：<code>ACCEPTED</code>、<code>REJECTED</code></li>
@@ -291,7 +291,7 @@
 </li>
 <li>都事先準備好這些參數：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RAKEFILE=<span class="string">&quot;[REDMINE_HOME]/Rakefile&quot;</span></span><br><span class="line">IMAP_HOST=<span class="string">&quot;imap.gmail.com&quot;</span></span><br><span class="line">USERNAME=<span class="string">&quot;&lt;EMAIL&gt;&quot;</span></span><br><span class="line">PASSWORD=<span class="string">&quot;&lt;PASSWORD&gt;&quot;</span></span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="一、確認可以收信"><a href="#一、確認可以收信" class="headerlink" title="一、確認可以收信"></a>一、確認可以收信</h2><p>送一封測試信 (標題: test 1)，到客服信箱 (<a href="mailto:&#115;&#117;&#x70;&#112;&#x6f;&#x72;&#x74;&#64;&#97;&#98;&#x63;&#x2e;&#99;&#111;&#x6d;">&#115;&#117;&#x70;&#112;&#x6f;&#x72;&#x74;&#64;&#97;&#98;&#x63;&#x2e;&#99;&#111;&#x6d;</a>)，到 GMail 確認已經收到。然後使用 redmine 身份，執行以下：</p>
+<h2 id="一、確認可以收信"><a href="#一、確認可以收信" class="headerlink" title="一、確認可以收信"></a>一、確認可以收信</h2><p>送一封測試信 (標題: test 1)，到客服信箱 (<a href="mailto:&#x73;&#117;&#112;&#x70;&#x6f;&#x72;&#116;&#x40;&#97;&#98;&#x63;&#46;&#x63;&#x6f;&#x6d;">&#x73;&#117;&#112;&#x70;&#x6f;&#x72;&#116;&#x40;&#97;&#98;&#x63;&#46;&#x63;&#x6f;&#x6d;</a>)，到 GMail 確認已經收到。然後使用 redmine 身份，執行以下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rake -f <span class="variable">$&#123;RAKEFILE&#125;</span> redmine:email:receive_imap \</span><br><span class="line">    RAILS_ENV=production \</span><br><span class="line">    host=<span class="variable">$&#123;IMAP_HOST&#125;</span> port=993 ssl=<span class="literal">true</span> \</span><br><span class="line">    username=<span class="variable">$&#123;USERNAME&#125;</span> \</span><br><span class="line">    password=<span class="variable">$&#123;PASSWORD&#125;</span> \</span><br><span class="line">    folder=Inbox \</span><br><span class="line">    --trace</span><br></pre></td></tr></table></figure>
 
 <p>順利的話，檢查 <code>[REDMINE_HOME]/log/production.log</code> 會看到以下訊息：</p>
