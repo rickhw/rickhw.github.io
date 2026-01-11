@@ -143,9 +143,9 @@
     
     <category term="Hiring" scheme="https://rickhw.github.io/tags/Hiring/"/>
     
-    <category term="Job Description" scheme="https://rickhw.github.io/tags/Job-Description/"/>
-    
     <category term="Interview" scheme="https://rickhw.github.io/tags/Interview/"/>
+    
+    <category term="Job Description" scheme="https://rickhw.github.io/tags/Job-Description/"/>
     
   </entry>
   
@@ -227,13 +227,13 @@
     
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
+    <category term="Finite-State Machine" scheme="https://rickhw.github.io/tags/Finite-State-Machine/"/>
+    
     <category term="RESTful" scheme="https://rickhw.github.io/tags/RESTful/"/>
     
     <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
     
     <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
-    
-    <category term="Finite-State Machine" scheme="https://rickhw.github.io/tags/Finite-State-Machine/"/>
     
     <category term="API Platform" scheme="https://rickhw.github.io/tags/API-Platform/"/>
     
@@ -533,15 +533,15 @@
     
     <category term="Distributed Systems" scheme="https://rickhw.github.io/tags/Distributed-Systems/"/>
     
-    <category term="Design Thinking" scheme="https://rickhw.github.io/tags/Design-Thinking/"/>
-    
-    <category term="Multi-Tenancy" scheme="https://rickhw.github.io/tags/Multi-Tenancy/"/>
-    
     <category term="SaaS" scheme="https://rickhw.github.io/tags/SaaS/"/>
     
     <category term="Isolation Factor" scheme="https://rickhw.github.io/tags/Isolation-Factor/"/>
     
+    <category term="Multi-Tenancy" scheme="https://rickhw.github.io/tags/Multi-Tenancy/"/>
+    
     <category term="Multi-Tenancy Architecture" scheme="https://rickhw.github.io/tags/Multi-Tenancy-Architecture/"/>
+    
+    <category term="Design Thinking" scheme="https://rickhw.github.io/tags/Design-Thinking/"/>
     
     <category term="RBAC" scheme="https://rickhw.github.io/tags/RBAC/"/>
     
@@ -664,9 +664,9 @@
     
     <category term="溝通" scheme="https://rickhw.github.io/tags/%E6%BA%9D%E9%80%9A/"/>
     
-    <category term="主管" scheme="https://rickhw.github.io/tags/%E4%B8%BB%E7%AE%A1/"/>
-    
     <category term="Awareness" scheme="https://rickhw.github.io/tags/Awareness/"/>
+    
+    <category term="主管" scheme="https://rickhw.github.io/tags/%E4%B8%BB%E7%AE%A1/"/>
     
     <category term="Consensus" scheme="https://rickhw.github.io/tags/Consensus/"/>
     
