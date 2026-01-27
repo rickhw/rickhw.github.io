@@ -150,9 +150,9 @@
     
     <category term="Hiring" scheme="https://rickhw.github.io/tags/Hiring/"/>
     
-    <category term="Job Description" scheme="https://rickhw.github.io/tags/Job-Description/"/>
-    
     <category term="Interview" scheme="https://rickhw.github.io/tags/Interview/"/>
+    
+    <category term="Job Description" scheme="https://rickhw.github.io/tags/Job-Description/"/>
     
   </entry>
   
@@ -372,10 +372,6 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
-    <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
-    
-    <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
-    
     <category term="Code Generator" scheme="https://rickhw.github.io/tags/Code-Generator/"/>
     
     <category term="Template" scheme="https://rickhw.github.io/tags/Template/"/>
@@ -383,6 +379,10 @@
     <category term="Productivity" scheme="https://rickhw.github.io/tags/Productivity/"/>
     
     <category term="Quality" scheme="https://rickhw.github.io/tags/Quality/"/>
+    
+    <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
+    
+    <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
     
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
@@ -671,9 +671,9 @@
     
     <category term="溝通" scheme="https://rickhw.github.io/tags/%E6%BA%9D%E9%80%9A/"/>
     
-    <category term="Awareness" scheme="https://rickhw.github.io/tags/Awareness/"/>
-    
     <category term="主管" scheme="https://rickhw.github.io/tags/%E4%B8%BB%E7%AE%A1/"/>
+    
+    <category term="Awareness" scheme="https://rickhw.github.io/tags/Awareness/"/>
     
     <category term="Consensus" scheme="https://rickhw.github.io/tags/Consensus/"/>
     
@@ -707,13 +707,13 @@
     <category term="About" scheme="https://rickhw.github.io/categories/About/"/>
     
     
-    <category term="SRE" scheme="https://rickhw.github.io/tags/SRE/"/>
-    
-    <category term="Books" scheme="https://rickhw.github.io/tags/Books/"/>
-    
     <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
     
     <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
+    
+    <category term="SRE" scheme="https://rickhw.github.io/tags/SRE/"/>
+    
+    <category term="Books" scheme="https://rickhw.github.io/tags/Books/"/>
     
   </entry>
   
