@@ -143,9 +143,9 @@
     <category term="人才管理" scheme="https://rickhw.github.io/categories/%E7%B6%93%E7%87%9F%E7%AE%A1%E7%90%86/%E4%BA%BA%E6%89%8D%E7%AE%A1%E7%90%86/"/>
     
     
-    <category term="主管" scheme="https://rickhw.github.io/tags/%E4%B8%BB%E7%AE%A1/"/>
-    
     <category term="用人之道" scheme="https://rickhw.github.io/tags/%E7%94%A8%E4%BA%BA%E4%B9%8B%E9%81%93/"/>
+    
+    <category term="主管" scheme="https://rickhw.github.io/tags/%E4%B8%BB%E7%AE%A1/"/>
     
     <category term="Job Description" scheme="https://rickhw.github.io/tags/Job-Description/"/>
     
@@ -229,8 +229,6 @@
     
     <category term="API Gateway" scheme="https://rickhw.github.io/tags/API-Gateway/"/>
     
-    <category term="Finite-State Machine" scheme="https://rickhw.github.io/tags/Finite-State-Machine/"/>
-    
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
     <category term="RESTful" scheme="https://rickhw.github.io/tags/RESTful/"/>
@@ -238,6 +236,8 @@
     <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
     
     <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
+    
+    <category term="Finite-State Machine" scheme="https://rickhw.github.io/tags/Finite-State-Machine/"/>
     
     <category term="API Platform" scheme="https://rickhw.github.io/tags/API-Platform/"/>
     
