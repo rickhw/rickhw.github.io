@@ -147,9 +147,9 @@
     
     <category term="用人之道" scheme="https://rickhw.github.io/tags/%E7%94%A8%E4%BA%BA%E4%B9%8B%E9%81%93/"/>
     
-    <category term="Job Description" scheme="https://rickhw.github.io/tags/Job-Description/"/>
-    
     <category term="Interview" scheme="https://rickhw.github.io/tags/Interview/"/>
+    
+    <category term="Job Description" scheme="https://rickhw.github.io/tags/Job-Description/"/>
     
   </entry>
   
@@ -233,17 +233,17 @@
     
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
-    <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
-    
-    <category term="API Platform" scheme="https://rickhw.github.io/tags/API-Platform/"/>
-    
-    <category term="API Management" scheme="https://rickhw.github.io/tags/API-Management/"/>
-    
     <category term="RESTful" scheme="https://rickhw.github.io/tags/RESTful/"/>
     
     <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
     
+    <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
+    
+    <category term="API Platform" scheme="https://rickhw.github.io/tags/API-Platform/"/>
+    
     <category term="API Architecture" scheme="https://rickhw.github.io/tags/API-Architecture/"/>
+    
+    <category term="API Management" scheme="https://rickhw.github.io/tags/API-Management/"/>
     
     <category term="Headless" scheme="https://rickhw.github.io/tags/Headless/"/>
     
@@ -266,9 +266,9 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
-    <category term="Java" scheme="https://rickhw.github.io/tags/Java/"/>
-    
     <category term="Docker" scheme="https://rickhw.github.io/tags/Docker/"/>
+    
+    <category term="Java" scheme="https://rickhw.github.io/tags/Java/"/>
     
     <category term="macOS" scheme="https://rickhw.github.io/tags/macOS/"/>
     
@@ -431,9 +431,9 @@
     
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
-    <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
-    
     <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
+    
+    <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
     
     <category term="Identity" scheme="https://rickhw.github.io/tags/Identity/"/>
     
@@ -668,9 +668,9 @@
     
     <category term="溝通" scheme="https://rickhw.github.io/tags/%E6%BA%9D%E9%80%9A/"/>
     
-    <category term="主管" scheme="https://rickhw.github.io/tags/%E4%B8%BB%E7%AE%A1/"/>
-    
     <category term="Awareness" scheme="https://rickhw.github.io/tags/Awareness/"/>
+    
+    <category term="主管" scheme="https://rickhw.github.io/tags/%E4%B8%BB%E7%AE%A1/"/>
     
     <category term="Consensus" scheme="https://rickhw.github.io/tags/Consensus/"/>
     
