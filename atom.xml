@@ -254,15 +254,15 @@
     
     <category term="API Gateway" scheme="https://rickhw.github.io/tags/API-Gateway/"/>
     
+    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
+    
     <category term="Finite-State Machine" scheme="https://rickhw.github.io/tags/Finite-State-Machine/"/>
     
-    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
+    <category term="RESTful" scheme="https://rickhw.github.io/tags/RESTful/"/>
     
     <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
     
     <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
-    
-    <category term="RESTful" scheme="https://rickhw.github.io/tags/RESTful/"/>
     
     <category term="API Platform" scheme="https://rickhw.github.io/tags/API-Platform/"/>
     
@@ -293,11 +293,11 @@
     
     <category term="Java" scheme="https://rickhw.github.io/tags/Java/"/>
     
-    <category term="Docker" scheme="https://rickhw.github.io/tags/Docker/"/>
-    
     <category term="macOS" scheme="https://rickhw.github.io/tags/macOS/"/>
     
     <category term="VSCode" scheme="https://rickhw.github.io/tags/VSCode/"/>
+    
+    <category term="Docker" scheme="https://rickhw.github.io/tags/Docker/"/>
     
     <category term="Docker-Compose" scheme="https://rickhw.github.io/tags/Docker-Compose/"/>
     
@@ -326,11 +326,11 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
-    <category term="VMWare" scheme="https://rickhw.github.io/tags/VMWare/"/>
-    
     <category term="Linux" scheme="https://rickhw.github.io/tags/Linux/"/>
     
     <category term="Virtualization" scheme="https://rickhw.github.io/tags/Virtualization/"/>
+    
+    <category term="VMWare" scheme="https://rickhw.github.io/tags/VMWare/"/>
     
     <category term="Development Environment" scheme="https://rickhw.github.io/tags/Development-Environment/"/>
     
@@ -394,10 +394,6 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
-    <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
-    
-    <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
-    
     <category term="Code Generator" scheme="https://rickhw.github.io/tags/Code-Generator/"/>
     
     <category term="Template" scheme="https://rickhw.github.io/tags/Template/"/>
@@ -405,6 +401,10 @@
     <category term="Productivity" scheme="https://rickhw.github.io/tags/Productivity/"/>
     
     <category term="Quality" scheme="https://rickhw.github.io/tags/Quality/"/>
+    
+    <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
+    
+    <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
     
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
@@ -456,6 +456,10 @@
     
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
+    <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
+    
+    <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
+    
     <category term="Identity" scheme="https://rickhw.github.io/tags/Identity/"/>
     
     <category term="Identifier" scheme="https://rickhw.github.io/tags/Identifier/"/>
@@ -463,10 +467,6 @@
     <category term="Unique" scheme="https://rickhw.github.io/tags/Unique/"/>
     
     <category term="UUID" scheme="https://rickhw.github.io/tags/UUID/"/>
-    
-    <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
-    
-    <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
     
   </entry>
   
