@@ -275,7 +275,7 @@
 <ul>
 <li>ELB 自身 ASG (Auto-Scale Group) 的機器數 (EC2 Qty)，跟 Backend 註冊 (Register) 的數量不是等比關係</li>
 <li>ELB 自身 ASG 的應該有不同的 Launch Configuration (LG)，然後依據狀況自動選擇適當的 LG 執行。每個 LG 都指定不同的 Instance Type.</li>
-<li>ELB 的機器 (EC2) 不是 CPU &#x2F; Memory &#x2F; IO bound, 而是 Network bound，AWS 並沒有提供類似的 Instance Type, 所以應該是利用 EC2 裡面的 <code>Placement Group</code> 實作。與 VPC 的 NAT Gateway 實作應該類似 (參閱 <a href="/2016/02/20/AWS/Unknown-ENI-Delete-Action-in-CloudTrail/">Unknown ENI Delete Action in CloudTrial</a> 的描述).</li>
+<li>ELB 的機器 (EC2) 不是 CPU &#x2F; Memory &#x2F; IO bound, 而是 Network bound，AWS 並沒有提供類似的 Instance Type, 所以應該是利用 EC2 裡面的 <code>Placement Group</code> 實作。與 VPC 的 NAT Gateway 實作應該類似 (參閱 <a href="/2016/02/20/AWS/Unknown-ENI-Delete-Action-in-CloudTrail/">Unknown ENI Delete Action in CloudTrail</a> 的描述).</li>
 </ul>
 <h1 id="ELB-的-CloudWatch-Metric"><a href="#ELB-的-CloudWatch-Metric" class="headerlink" title="ELB 的 CloudWatch Metric"></a>ELB 的 CloudWatch Metric</h1><p>ELB 的監控有很多數值，其中有兩個要注意的：</p>
 <ul>
@@ -285,7 +285,7 @@
 </ul>
 <p>通常在搶購的時候，瞬間衝進來的量會非常大，這時候就要注意這些。正常的 <code>Surge Queue</code> 和 <code>Spillovers</code> 都是 0，只跳起來就表示有問題，可能就是機器不健康了，要去檢查機器狀態。</p>
 <h1 id="延伸閱讀-站內"><a href="#延伸閱讀-站內" class="headerlink" title="延伸閱讀 (站內)"></a>延伸閱讀 (站內)</h1><ul>
-<li><a href="/2016/02/20/AWS/Unknown-ENI-Delete-Action-in-CloudTrail/">Unknown ENI Delete Action in CloudTrial</a></li>
+<li><a href="/2016/02/20/AWS/Unknown-ENI-Delete-Action-in-CloudTrail/">Unknown ENI Delete Action in CloudTrail</a></li>
 <li><a href="/2016/03/02/AWS/Study-Notes-ELB/">Study Notes - AWS ELB (Elastic Load Balance)</a></li>
 <li><a href="/2016/08/29/AWS/Lambda-Network-Traffic-Test-in-VPC-with-Endpoint/">Lambda Network Traffic Test in VPC with Endpoint</a></li>
 <li><a href="/2017/02/04/AWS/Study-Notes-EC2-Auto-ScalingGroup_Basic-Concept/">Study Notes - EC2 Auto Scaling Group Group</a></li>

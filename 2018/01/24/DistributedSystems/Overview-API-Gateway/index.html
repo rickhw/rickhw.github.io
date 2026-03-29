@@ -336,7 +336,7 @@ API Gateway 具備 Networking Device 特性 (AWS 分類也放在 Networking)，�
 <li>Synchronous: 常用的方法是透過 Load Balancing, Reverse Proxy, or API Gateway … 等實作技術，形成 <code>Push Mode</code></li>
 <li>Asynchronous: 常用的是透過 Queue，形成 <code>Pull Mode</code></li>
 </ul>
-<p>內部服務之間的通訊，技術面對的問題與 API Gateway 類似，但是實作面試有一些差異的，參閱 <a href="/2018/02/06/Architecture/Service-Mesh/">Service Mesh</a> 的整理</p>
+<p>內部服務之間的通訊，技術面對的問題與 API Gateway 類似，但是實作面試有一些差異的，參閱 <a href="/2018/02/06/DistributedSystems/Service-Mesh/">Service Mesh</a> 的整理</p>
 </blockquote>
 <p><code>商務應用</code> 著重的是靈活度議題，如何透過 API Gateway 靈活調度背後的系統，滿足 <code>商業需求</code> 的改變與 <code>系統架構</code> 的異動。不管是商業需求還是系統架構，放到 <code>現場 (Production, Go Live)</code> 就是要能面對廣域網路，連帶的就要面對安全、效能、容錯、擴展、開發、維運 … 等議題了。</p>
 <h2 id="Design-Pattern-Facade"><a href="#Design-Pattern-Facade" class="headerlink" title="Design Pattern - Facade"></a>Design Pattern - Facade</h2><p>API Gateway 相當於 Design Pattern 的 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Facade_pattern">Facade pattern</a>。想像把一些東西，經過重新包裝後，然後只提供需要的接口可以存取、使用。</p>
@@ -510,7 +510,7 @@ API Gateway 具備 Networking Device 特性 (AWS 分類也放在 Networking)，�
 <h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="站內延伸"><a href="#站內延伸" class="headerlink" title="站內延伸"></a>站內延伸</h2><ul>
 <li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 <li><a href="/2017/03/02/AWS/Study-Notes-CloudWatch/">Study Notes - CloudWatch</a></li>
-<li><a href="/2018/02/06/Architecture/Service-Mesh/">Service Mesh</a></li>
+<li><a href="/2018/02/06/DistributedSystems/Service-Mesh/">Service Mesh</a></li>
 <li><a href="/2019/05/17/About/DDS-zh_TW/">分散式系統設計 - 正體中文版翻譯記事</a></li>
 </ul>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>

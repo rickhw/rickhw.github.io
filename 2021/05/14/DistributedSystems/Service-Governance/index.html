@@ -275,7 +275,7 @@
 <blockquote>
 <p>Hello Rick</p>
 <p>問個問題一下，你們在玩 k8s 的過程中，有沒有發現從軟體功能角度看服務治理這件事情有缺一塊？就我的感受上來說，k8s 雖然提供了基於 DNS 的服務註冊與查找的機制，但是從軟體端的服務之間的相互呼叫，應該是以 SDK or API 層次來作動。意味著，我們不太會想要自己去乖乖 query DNS，或者手動再去配置 <code>xxservice.cluster.local</code> 這些對應。我一直覺得缺一個類似 JNDI 的列表清單，或者是得自己手動寫一些 service list &#x2F; enumeration 來動態完成自動對應 註冊在 kube-dns &#x2F; coreDNS 上的那些 services。</p>
-<p>有一個最後一哩路需要所有團隊都搭配要做。就是每一次的版本發布時都要能很好標明版號，已經可以做出支援不同版本的 Service API Call，這部分必須決定是從不同的 runtime 來支持，還是要從程式碼實際的 feature 上支持（在同一個版本發佈裡）。</p>
+<p>有一個最後一哩路需要所有團隊都搭配要做。就是每一次的版本發佈時都要能很好標明版號，已經可以做出支援不同版本的 Service API Call，這部分必須決定是從不同的 runtime 來支持，還是要從程式碼實際的 feature 上支持（在同一個版本發佈裡）。</p>
 </blockquote>
 <p>Rick:</p>
 <blockquote>

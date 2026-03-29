@@ -397,7 +397,7 @@ source: https://docs.google.com/presentation/d/1RYkfxwCMhCTqzgoWLlxHNJHbVL19pttP
 <p>適合的場景： Snowflake ID 適用於需要大量且分佈式生成的 ID，例如分佈式系統中的數據庫主鍵、消息隊列的消息 ID 等場景。</p>
 <h2 id="Auto-Increment"><a href="#Auto-Increment" class="headerlink" title="Auto-Increment"></a>Auto-Increment</h2><p>設計考量： 自增 ID 是由資料庫管理系統（如 MySQL、PostgreSQL）自動生成的，每次插入一條新記錄時，ID 會自動加一。這樣的設計簡單且高效，但僅限於單機系統或資料庫範圍內的唯一性。</p>
 <p>適合的場景： 自增 ID 適用於單機系統或者資料庫範圍內的唯一性要求不高的場景，例如小型網站的用戶 ID、文章 ID 等。</p>
-<h2 id="KGS-Key-Generation-Service"><a href="#KGS-Key-Generation-Service" class="headerlink" title="KGS (Key Generation Service)"></a>KGS (Key Generation Service)</h2><p>設計考量： KGS 是一種由中央服務器生成的 ID，並使用了分佈式的生成機制，確保全局唯一性。它可以採用類似於 Snowflake 的方法，但由中央服務器統一管理 ID 的生成，以防止 ID 的重複和衝突。</p>
+<h2 id="KGS-Key-Generation-Service"><a href="#KGS-Key-Generation-Service" class="headerlink" title="KGS (Key Generation Service)"></a>KGS (Key Generation Service)</h2><p>設計考量： KGS 是一種由中央伺服器生成的 ID，並使用了分佈式的生成機制，確保全局唯一性。它可以採用類似於 Snowflake 的方法，但由中央伺服器統一管理 ID 的生成，以防止 ID 的重複和衝突。</p>
 <p>適合的場景： KGS 適用於需要強大唯一性保證和集中管理的分佈式系統，例如大型企業應用系統中的全局唯一標識符、金融交易系統中的訂單 ID 等。</p>
 <hr>
 <h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>Id 設計背後要思考用途、未來性、實作的選擇，上述還有很多沒有整理：</p>
