@@ -320,7 +320,7 @@
 <p>如果現在不缺錢與資源，那你想做什麼？或者給你最強的 AI 你想做什麼？</p>
 <p>如果都沒有，那你能做什麼？</p>
 <hr>
-<h2 id="實作內容"><a href="#實作內容" class="headerlink" title="實作內容"></a>實作內容</h2><p>整個實作大概分成底下六大部分：</p>
+<h2 id="實作內容"><a href="#實作內容" class="headerlink" title="實作內容"></a>實作內容</h2><p>整個實作大概分成底下幾個部分：</p>
 <ol>
 <li><strong>環境與中斷實作</strong>：透過組合語言從 Bootloader 開始，實作 GDT &#x2F; IDT，控制 IRQ 處理鍵盤中斷。</li>
 <li><strong>存儲系統</strong>：實作 MBR 解析與簡易檔案系統 (FileSystem)。</li>
@@ -328,10 +328,10 @@
 <li><strong>記憶體與行程</strong>：實作 MMU Paging，實現記憶體隔離、<code>fork</code>&#x2F;<code>exec</code> 機制、<code>Shell</code> 的誕生，以及 IPC (進程間通訊) 與 Mutex 機制。</li>
 <li><strong>使用者空間 (User Space)</strong> ：開發 C Library，包含 <code>malloc</code>&#x2F;<code>free</code>&#x2F;<code>printf</code> 等基礎函式。透過 Syscall 打造基礎指令（<code>ls</code>&#x2F;<code>mkdir</code>&#x2F;<code>cat</code>&#x2F;<code>touch</code>&#x2F;<code>rm</code>）及內建指令（<code>cd</code>&#x2F;<code>pwd</code>&#x2F;<code>exit</code>）。</li>
 <li><strong>圖形介面 (GUI)</strong> ：實作簡單的視窗介面，包含滑鼠 I&#x2F;O、Double Buffering（雙重緩衝）機制、字型渲染，並實作基礎的 Window Manager。</li>
+<li><strong>行程管理 (Process Manager)</strong> ：實作 top、ps、kill 等行程管理</li>
+<li><strong>視窗多工 GUI 生態系</strong> ：實作 File Manager、Task Manager、Event Routing、讀圖 … 等。</li>
 </ol>
-<p>這可以想像成六個 Sprint，每個部分都有約 10 個核心功能需要達成。</p>
-<p>底下是完整的課程大綱：</p>
-<p><img src="/images/ComputerScience/SimpleOS/Course-Overview1.png"><br><img src="/images/ComputerScience/SimpleOS/Course-Overview2.png"></p>
+<p>這可以想像成幾個 Sprint，每個部分都有約 10 個核心功能需要達成。</p>
 <h3 id="學習過程"><a href="#學習過程" class="headerlink" title="學習過程"></a>學習過程</h3><p>全程都在 <a target="_blank" rel="noopener" href="https://gemini.google.com/app/18b8fcafe3a7592b">Google Gemini</a> 上同一個 Session 裡面，以問答的方式完成。遇到 Assembly 或者 C 的問題，則開另一個 Session 當「助教」，然後在那邊問細節。</p>
 <p>過程常常遇到 Core Dump 和 Debug 的問題，寫作業系統不像一般的 Application，是連 <code>printf</code> 都沒得用的，所以常常需要透過 Core Dump 找問題。這時候 AI 就非常有幫助，反正整坨都丟給他就好，這比我第一次寫 bootloader 在除錯時，在 Google 找個半死方便多了 XDD</p>
 <p>Core Dump 大概如下，這不知道怎麼看的話，真的會發轟 XD</p>
