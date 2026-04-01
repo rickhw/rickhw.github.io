@@ -165,11 +165,11 @@
     <category term="Computer Science" scheme="https://rickhw.github.io/categories/Computer-Science/"/>
     
     
-    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
-    
     <category term="Operating Systems" scheme="https://rickhw.github.io/tags/Operating-Systems/"/>
     
     <category term="Star Trak" scheme="https://rickhw.github.io/tags/Star-Trak/"/>
+    
+    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
     
   </entry>
   
@@ -223,11 +223,11 @@
     
     <category term="Java" scheme="https://rickhw.github.io/tags/Java/"/>
     
+    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
+    
     <category term="RPG Game" scheme="https://rickhw.github.io/tags/RPG-Game/"/>
     
     <category term="Godot" scheme="https://rickhw.github.io/tags/Godot/"/>
-    
-    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
     
   </entry>
   
@@ -281,9 +281,9 @@
     
     <category term="API Gateway" scheme="https://rickhw.github.io/tags/API-Gateway/"/>
     
-    <category term="Finite-State Machine" scheme="https://rickhw.github.io/tags/Finite-State-Machine/"/>
-    
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
+    
+    <category term="Finite-State Machine" scheme="https://rickhw.github.io/tags/Finite-State-Machine/"/>
     
     <category term="RESTful" scheme="https://rickhw.github.io/tags/RESTful/"/>
     
@@ -320,11 +320,11 @@
     
     <category term="Java" scheme="https://rickhw.github.io/tags/Java/"/>
     
-    <category term="Docker" scheme="https://rickhw.github.io/tags/Docker/"/>
-    
     <category term="macOS" scheme="https://rickhw.github.io/tags/macOS/"/>
     
     <category term="VSCode" scheme="https://rickhw.github.io/tags/VSCode/"/>
+    
+    <category term="Docker" scheme="https://rickhw.github.io/tags/Docker/"/>
     
     <category term="Docker-Compose" scheme="https://rickhw.github.io/tags/Docker-Compose/"/>
     
@@ -353,11 +353,11 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
-    <category term="VMWare" scheme="https://rickhw.github.io/tags/VMWare/"/>
-    
     <category term="Linux" scheme="https://rickhw.github.io/tags/Linux/"/>
     
     <category term="Virtualization" scheme="https://rickhw.github.io/tags/Virtualization/"/>
+    
+    <category term="VMWare" scheme="https://rickhw.github.io/tags/VMWare/"/>
     
     <category term="Development Environment" scheme="https://rickhw.github.io/tags/Development-Environment/"/>
     
@@ -421,10 +421,6 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
-    <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
-    
-    <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
-    
     <category term="Code Generator" scheme="https://rickhw.github.io/tags/Code-Generator/"/>
     
     <category term="Template" scheme="https://rickhw.github.io/tags/Template/"/>
@@ -432,6 +428,10 @@
     <category term="Productivity" scheme="https://rickhw.github.io/tags/Productivity/"/>
     
     <category term="Quality" scheme="https://rickhw.github.io/tags/Quality/"/>
+    
+    <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
+    
+    <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
     
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
@@ -658,13 +658,13 @@
     
     <category term="Meetings" scheme="https://rickhw.github.io/tags/Meetings/"/>
     
-    <category term="時間管理" scheme="https://rickhw.github.io/tags/%E6%99%82%E9%96%93%E7%AE%A1%E7%90%86/"/>
-    
     <category term="會議原則" scheme="https://rickhw.github.io/tags/%E6%9C%83%E8%AD%B0%E5%8E%9F%E5%89%87/"/>
     
     <category term="會議效率" scheme="https://rickhw.github.io/tags/%E6%9C%83%E8%AD%B0%E6%95%88%E7%8E%87/"/>
     
     <category term="溝通成本" scheme="https://rickhw.github.io/tags/%E6%BA%9D%E9%80%9A%E6%88%90%E6%9C%AC/"/>
+    
+    <category term="時間管理" scheme="https://rickhw.github.io/tags/%E6%99%82%E9%96%93%E7%AE%A1%E7%90%86/"/>
     
     <category term="工作管理" scheme="https://rickhw.github.io/tags/%E5%B7%A5%E4%BD%9C%E7%AE%A1%E7%90%86/"/>
     
