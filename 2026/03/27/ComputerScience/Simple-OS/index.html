@@ -350,18 +350,20 @@
 <li>memory: free, segfault</li>
 <li>network: ping</li>
 </ul>
-<p>底下則是 Window App</p>
+<p>底下則是 Window App 的實作:</p>
 <ul>
 <li>clock, notepad (筆記本), paint, viewer, </li>
 <li>explorer, taskmgr, status</li>
 <li>tictactoe (圈圈叉叉)</li>
 </ul>
-<p>網路實作：</p>
+<p>上述簡單的 window app，驗證 desktop 底層的機制沒問題，包含 event routing, gui event (IPC), window dragging, ui toolkit … 等 graphic 底層必要的機制, 像是 double buffering, window event. 其實這塊，跟我去年在做 手工開發遊戲 很像, 不過機制要自己實作, 挑戰更高. 有這些機制與 toolkit, 就可實作常用的 window app, 這次實作的有 clock, notepad (筆記本), paint (動態繪圖), viewer (讀 bitmap), explorer (簡易檔案總管), taskmgr, status, tictactoe (小遊戲. 圈圈叉叉) …</p>
+<p>網路實作包含以下：</p>
 <ul>
 <li>驅動 RTL8139 (Kernel Space)</li>
 <li>實作 Ethernet Layer, ARP, ICMP (Kernel Space)</li>
 <li>封裝 Ping (User Space)</li>
 </ul>
+<p>網路功能, 用 ping 來驗收. 用結果論來看沒啥, 但實作的內容卻超過前面 windows app 全部做的, 就是增加網路的部分. 包含了網卡驅動程式 (rtl8139), 底層協議 ethernet layer, 通訊協議實作 (ARP, ARP Cache, ICMP, Ping) 等實作. 這部分的難度遠超過 前面一堆看起來花俏的 window app, 而且 debug 不太容易, 要搭配 wireshark 才能搞定.</p>
 <p><img src="/images/ComputerScience/SimpleOS/net_rtl8139-arp-icmp-ping_20260403.png"><br><img src="/images/ComputerScience/SimpleOS/net_icmp-wireshark_20260403.png"></p>
 <h3 id="Binary-amp-原始碼"><a href="#Binary-amp-原始碼" class="headerlink" title="Binary &amp; 原始碼"></a>Binary &amp; 原始碼</h3><p>整個作業系統 binary (<code>myos.bin</code>) 大小僅約 62 KB。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">❯ <span class="built_in">ls</span> -lh</span><br><span class="line">total 128</span><br><span class="line">drwxr-xr-x@ 11 rickhwang  staff   352B Apr  2 22:46 kernel</span><br><span class="line">-rwxr-xr-x   1 rickhwang  staff    62K Apr  3 13:54 myos.bin</span><br><span class="line">drwxr-xr-x@  6 rickhwang  staff   192B Mar 26 21:10 user</span><br></pre></td></tr></table></figure>
@@ -515,7 +517,7 @@
 <ul class="pagination">
 	 
 				
-    	<li class="prev"><a href="/2035/01/21/Index/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+    	<li class="prev"><a href="/2035/01/21/Updated/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
   		
 
         <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
