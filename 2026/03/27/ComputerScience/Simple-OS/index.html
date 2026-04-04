@@ -354,9 +354,9 @@
 <ul>
 <li>clock, notepad (筆記本), paint, viewer, </li>
 <li>explorer, taskmgr, status</li>
-<li>tictactoe (圈圈叉叉)</li>
+<li>tictactoe (井字遊戲)</li>
 </ul>
-<p>上述簡單的 window app，驗證 desktop 底層的機制沒問題，包含 event routing, gui event (IPC), window dragging, ui toolkit … 等 graphic 底層必要的機制, 像是 double buffering, window event. 其實這塊，跟我去年在做 手工開發遊戲 很像, 不過機制要自己實作, 挑戰更高. 有這些機制與 toolkit, 就可實作常用的 window app, 這次實作的有 clock, notepad (筆記本), paint (動態繪圖), viewer (讀 bitmap), explorer (簡易檔案總管), taskmgr, status, tictactoe (小遊戲. 圈圈叉叉) …</p>
+<p>過實作一些簡單的 window app，驗證 desktop 底層的機制沒問題，包含 double buffering, window event, event routing, gui event (IPC), window dragging, ui toolkit … 等 graphic 底層必要的機制. 其實這塊，跟我去年在做 手工開發遊戲 很像, 不過機制要自己實作, 挑戰更高. 有這些機制與 toolkit, 就可實作常用的 window app, 這次實作的有 clock, notepad (筆記本), paint (動態繪圖), viewer (讀 bitmap), explorer (簡易檔案總管), taskmgr, status, tictactoe (井字遊戲) …</p>
 <p>網路實作包含以下：</p>
 <ul>
 <li>驅動 RTL8139 (Kernel Space)</li>
@@ -375,7 +375,7 @@
 <p>核心原始碼 (src&#x2F;kernel&#x2F;)：核心程式碼採用功能模組化分類，實現高度解耦：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">src/kernel/</span><br><span class="line">├── <span class="built_in">arch</span>/x86/          <span class="comment"># 處理器架構相關實作</span></span><br><span class="line">├── drivers/           <span class="comment"># 硬體驅動程式</span></span><br><span class="line">├── fs/                <span class="comment"># 檔案系統層</span></span><br><span class="line">├── init/              <span class="comment"># 系統引導與入口</span></span><br><span class="line">│   └── main.c         <span class="comment"># 核心主程式 (初始化所有次系統)</span></span><br><span class="line">├── kernel/            <span class="comment"># 核心邏輯層</span></span><br><span class="line">├── mm/                <span class="comment"># 記憶體管理</span></span><br><span class="line">├── net/               <span class="comment"># 網路協定棧</span></span><br><span class="line">├── lib/               <span class="comment"># 核心基礎函式庫 (utils, string, memory)</span></span><br><span class="line">└── include/           <span class="comment"># 核心標頭檔 (.h)</span></span><br></pre></td></tr></table></figure>
 
-<p>使用者空間 (src&#x2F;user&#x2F;)：包含應用程式、函式庫與系統呼叫介面：</p>
+<p>User Space (src&#x2F;user&#x2F;)：包含應用程式、函式庫與系統呼叫介面：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">src/user/</span><br><span class="line">├── bin/               <span class="comment"># 應用程式原始碼</span></span><br><span class="line">│   ├── shell/         <span class="comment"># 命令列介面</span></span><br><span class="line">│   ├── explorer/      <span class="comment"># 檔案管理器</span></span><br><span class="line">│   ├── clock/         <span class="comment"># 數位時鐘</span></span><br><span class="line">│   └── ...            <span class="comment"># 其他 GUI/CLI 應用</span></span><br><span class="line">├── lib/               <span class="comment"># 使用者端函式庫 (libc)</span></span><br><span class="line">├── asm/               <span class="comment"># User-mode 引導組合語言 (crt0.S)</span></span><br><span class="line">└── include/       </span><br></pre></td></tr></table></figure>
 
 <p>用 Branch 分開每個階段的內容：</p>
@@ -390,9 +390,9 @@
 </ul>
 <h3 id="課前知識與準備"><a href="#課前知識與準備" class="headerlink" title="課前知識與準備"></a>課前知識與準備</h3><ol>
 <li>C 語言, 組合語言</li>
-<li>對計算機組織有基本認識: 記憶體</li>
-<li>在 macOS &#x2F; Ubuntu 24.04 都可以正常編譯</li>
-<li>Docker (推薦 OrbStack) 與 QEMU</li>
+<li>對計算機組織有基本認識</li>
+<li>一台 macOS or Ubuntu 24.04</li>
+<li>Docker (macOS 推薦 OrbStack) 與 QEMU</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">❯ qemu-system-i386 -version</span><br><span class="line">QEMU emulator version 10.2.2</span><br><span class="line">Copyright (c) 2003-2025 Fabrice Bellard and the QEMU Project developers</span><br></pre></td></tr></table></figure>
 
