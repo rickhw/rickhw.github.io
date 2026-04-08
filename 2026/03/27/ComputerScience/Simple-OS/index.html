@@ -366,7 +366,7 @@
 <li>封裝 (User Space) Ping, UDP&#x2F;TCP test, Socket API between Kernel and User Space, DNS, wget, HTTP</li>
 </ul>
 <p>下圖是大概的內容：</p>
-<p><img src="/images/ComputerScience/SimpleOS/NetworkOverview.png"></p>
+<p><img src="/images/ComputerScience/SimpleOS/NetworkOverview_20260408.png"></p>
 <p>網路功能, 用 ping (UDP) 來驗收. 用結果論來看沒啥, 但實作的內容卻超過前面 windows app 全部做的, 就是增加網路的部分. 包含了網卡驅動程式 (rtl8139), 底層協議 ethernet layer, 通訊協議實作 (ARP, ARP Cache, IPv4, ICMP, Ping, UDP, Socket API) 等實作. 這部分的難度遠超過 前面一堆看起來花俏的 window app, 而且 debug 不太容易, 要搭配 wireshark 才能搞定.</p>
 <p><img src="/images/ComputerScience/SimpleOS/net_rtl8139-arp-icmp-ping_20260403.png"><br><img src="/images/ComputerScience/SimpleOS/net_icmp-wireshark_20260403.png"></p>
 <h3 id="Binary-amp-原始碼"><a href="#Binary-amp-原始碼" class="headerlink" title="Binary &amp; 原始碼"></a>Binary &amp; 原始碼</h3><p>整個作業系統 binary (<code>myos.bin</code>) 大小僅約 62 KB。</p>
