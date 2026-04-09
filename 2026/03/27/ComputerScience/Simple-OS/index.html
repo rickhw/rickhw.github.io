@@ -128,7 +128,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>7</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>8</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -365,10 +365,8 @@
 <li>實作 (Kernel Space) Ethernet Layer, IPv4, ARP, ICMP, UDP, TCP</li>
 <li>封裝 (User Space) Ping, UDP&#x2F;TCP test, Socket API between Kernel and User Space, DNS, wget, HTTP</li>
 </ul>
-<p>下圖是大概的內容：</p>
+<p>下圖是大概的內容，完整說明 <a href="/2026/04/09/ComputerScience/Simple-OS-Networking/">點這裡</a></p>
 <p><img src="/images/ComputerScience/SimpleOS/NetworkOverview_20260408.png"></p>
-<p>網路功能, 用 ping (UDP) 來驗收. 用結果論來看沒啥, 但實作的內容卻超過前面 windows app 全部做的, 就是增加網路的部分. 包含了網卡驅動程式 (rtl8139), 底層協議 ethernet layer, 通訊協議實作 (ARP, ARP Cache, IPv4, ICMP, Ping, UDP, Socket API) 等實作. 這部分的難度遠超過 前面一堆看起來花俏的 window app, 而且 debug 不太容易, 要搭配 wireshark 才能搞定.</p>
-<p><img src="/images/ComputerScience/SimpleOS/net_rtl8139-arp-icmp-ping_20260403.png"><br><img src="/images/ComputerScience/SimpleOS/net_icmp-wireshark_20260403.png"></p>
 <h3 id="Binary-amp-原始碼"><a href="#Binary-amp-原始碼" class="headerlink" title="Binary &amp; 原始碼"></a>Binary &amp; 原始碼</h3><p>整個作業系統 binary (<code>myos.bin</code>) 大小僅約 62 KB。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">❯ <span class="built_in">ls</span> -lh</span><br><span class="line">total 128</span><br><span class="line">drwxr-xr-x@ 11 rickhwang  staff   352B Apr  2 22:46 kernel</span><br><span class="line">-rwxr-xr-x   1 rickhwang  staff    62K Apr  3 13:54 myos.bin</span><br><span class="line">drwxr-xr-x@  6 rickhwang  staff   192B Mar 26 21:10 user</span><br></pre></td></tr></table></figure>
 
@@ -487,7 +485,8 @@
 <li><a href="/2019/03/30/Management/How-do-Manager-Keep-Learning/">管理者如何持續學習技術？</a></li>
 <li><a target="_blank" rel="noopener" href="https://speakerdeck.com/rickhwang/zai-sheng-ming-zhuan-wan-de-di-fang-cong-ruan-ti-kai-fa-zhi-ya-tan-suo-ren-sheng-20231201-5">在生命轉彎的地方 - 從軟體開發職涯，探索人生</a> - 成功大學 資工所 20231201_5</li>
 <li><a href="/2019/09/11/SoftwareEngineering/Great-Software/">什麼是好軟體？</a></li>
-<li><a href="/2017/11/26/Thinking-in-Essence/">置頂 - 思考本質、實踐、抽象、想像力、教育</a></li>
+<li><a href="/2017/11/26/Thinking-in-Essence/">思考本質、實踐、抽象、想像力、教育</a></li>
+<li><a href="/2026/04/09/ComputerScience/Simple-OS-Networking/">自幹作業系統 - Networking</a></li>
 </ul>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=m6R1mFpifa4">COSCUP 2012 第一次自幹作業系統核心就上手 - Jserv</a></li>
@@ -521,7 +520,7 @@
 <ul class="pagination">
 	 
 				
-    	<li class="prev"><a href="/2035/01/21/Updated/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+    	<li class="prev"><a href="/2026/04/09/ComputerScience/Simple-OS-Networking/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
   		
 
         <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
@@ -596,7 +595,7 @@
     <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
       <div>
   <!--<li>-->
-    <span class="label label-info"><a href="/categories/Computer-Science/" style="color: white">Computer Science <span class="badge">7</span></a></span>
+    <span class="label label-info"><a href="/categories/Computer-Science/" style="color: white">Computer Science <span class="badge">8</span></a></span>
   <!--</li>-->
 </div>
     <!--</ul>-->
@@ -612,7 +611,7 @@
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Just-for-Fun/" style="color: white">Just for Fun <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Operating-Systems/" style="color: white">Operating Systems <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Star-Trak/" style="color: white">Star Trak <span class="badge">1</span></a></span>
+  <span class="label label-success"><a href="/tags/Operating-Systems/" style="color: white">Operating Systems <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Just-for-Fun/" style="color: white">Just for Fun <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Star-Trak/" style="color: white">Star Trak <span class="badge">1</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
