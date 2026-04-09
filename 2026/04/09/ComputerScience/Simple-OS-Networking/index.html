@@ -309,6 +309,9 @@
 <p><img src="/images/ComputerScience/SimpleOS/Networking/09-receive-in-sos.png"></p>
 <h3 id="Day93-95-TCP-3-Way-Handshake-Connection"><a href="#Day93-95-TCP-3-Way-Handshake-Connection" class="headerlink" title="Day93-95: TCP, 3-Way Handshake, Connection"></a>Day93-95: TCP, 3-Way Handshake, Connection</h3><p>建立 TCP 封包，然後建立 SYN, ACK 三項交握，狀態為 <code>ESTABLISHED</code></p>
 <p><img src="/images/ComputerScience/SimpleOS/Networking/11-tcp-3way-handshake.png"></p>
+<p>這段錄影則是用動畫展示 三項交握的過程：</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/eFi-fxMuvS8?si=aizTf88j7_mECkmS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 <p>底下兩張是用 <code>tcptest</code> 這個應用程式送出 <code>TCP_PSH</code> flag，把資料送透過 QEMU router 轉送給 Host Machine 的 nc 接收到資料 <code>Hello macOS, ...</code>，最後則是結束對話 <code>TCP_FIN</code> flag，完成整個交握。</p>
 <p><img src="/images/ComputerScience/SimpleOS/Networking/12-tcp-push-data.png"></p>
 <p><img src="/images/ComputerScience/SimpleOS/Networking/13-recv-data-over-tcp.png"></p>
@@ -520,7 +523,7 @@
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/DNS/" style="color: white">DNS <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Operating-Systems/" style="color: white">Operating Systems <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Just-for-Fun/" style="color: white">Just for Fun <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Networking/" style="color: white">Networking <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/Mac-Address/" style="color: white">Mac Address <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/IPv4/" style="color: white">IPv4 <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/TCP/" style="color: white">TCP <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/ARP/" style="color: white">ARP <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/HTTP/" style="color: white">HTTP <span class="badge">2</span></a></span>
+  <span class="label label-success"><a href="/tags/Just-for-Fun/" style="color: white">Just for Fun <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/DNS/" style="color: white">DNS <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Operating-Systems/" style="color: white">Operating Systems <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Networking/" style="color: white">Networking <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/IPv4/" style="color: white">IPv4 <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Mac-Address/" style="color: white">Mac Address <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/TCP/" style="color: white">TCP <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/ARP/" style="color: white">ARP <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/HTTP/" style="color: white">HTTP <span class="badge">2</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
