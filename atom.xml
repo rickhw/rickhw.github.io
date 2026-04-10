@@ -171,13 +171,13 @@
     
     <category term="DNS" scheme="https://rickhw.github.io/tags/DNS/"/>
     
-    <category term="Operating Systems" scheme="https://rickhw.github.io/tags/Operating-Systems/"/>
-    
     <category term="Networking" scheme="https://rickhw.github.io/tags/Networking/"/>
     
-    <category term="Mac Address" scheme="https://rickhw.github.io/tags/Mac-Address/"/>
-    
     <category term="IPv4" scheme="https://rickhw.github.io/tags/IPv4/"/>
+    
+    <category term="Operating Systems" scheme="https://rickhw.github.io/tags/Operating-Systems/"/>
+    
+    <category term="Mac Address" scheme="https://rickhw.github.io/tags/Mac-Address/"/>
     
     <category term="TCP" scheme="https://rickhw.github.io/tags/TCP/"/>
     
@@ -240,13 +240,13 @@
     <category term="人才管理" scheme="https://rickhw.github.io/categories/%E7%B6%93%E7%87%9F%E7%AE%A1%E7%90%86/%E4%BA%BA%E6%89%8D%E7%AE%A1%E7%90%86/"/>
     
     
-    <category term="用人之道" scheme="https://rickhw.github.io/tags/%E7%94%A8%E4%BA%BA%E4%B9%8B%E9%81%93/"/>
-    
     <category term="主管" scheme="https://rickhw.github.io/tags/%E4%B8%BB%E7%AE%A1/"/>
     
-    <category term="Interview" scheme="https://rickhw.github.io/tags/Interview/"/>
+    <category term="用人之道" scheme="https://rickhw.github.io/tags/%E7%94%A8%E4%BA%BA%E4%B9%8B%E9%81%93/"/>
     
     <category term="Job Description" scheme="https://rickhw.github.io/tags/Job-Description/"/>
+    
+    <category term="Interview" scheme="https://rickhw.github.io/tags/Interview/"/>
     
   </entry>
   
@@ -468,6 +468,10 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
+    <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
+    
+    <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
+    
     <category term="Code Generator" scheme="https://rickhw.github.io/tags/Code-Generator/"/>
     
     <category term="Template" scheme="https://rickhw.github.io/tags/Template/"/>
@@ -475,10 +479,6 @@
     <category term="Productivity" scheme="https://rickhw.github.io/tags/Productivity/"/>
     
     <category term="Quality" scheme="https://rickhw.github.io/tags/Quality/"/>
-    
-    <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
-    
-    <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
     
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
@@ -530,10 +530,6 @@
     
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
-    <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
-    
-    <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
-    
     <category term="Identity" scheme="https://rickhw.github.io/tags/Identity/"/>
     
     <category term="Identifier" scheme="https://rickhw.github.io/tags/Identifier/"/>
@@ -541,6 +537,10 @@
     <category term="Unique" scheme="https://rickhw.github.io/tags/Unique/"/>
     
     <category term="UUID" scheme="https://rickhw.github.io/tags/UUID/"/>
+    
+    <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
+    
+    <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
     
   </entry>
   
