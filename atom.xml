@@ -402,9 +402,9 @@
     
     <category term="Linux" scheme="https://rickhw.github.io/tags/Linux/"/>
     
-    <category term="Virtualization" scheme="https://rickhw.github.io/tags/Virtualization/"/>
-    
     <category term="VMWare" scheme="https://rickhw.github.io/tags/VMWare/"/>
+    
+    <category term="Virtualization" scheme="https://rickhw.github.io/tags/Virtualization/"/>
     
     <category term="Development Environment" scheme="https://rickhw.github.io/tags/Development-Environment/"/>
     
@@ -530,6 +530,10 @@
     
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
+    <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
+    
+    <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
+    
     <category term="Identity" scheme="https://rickhw.github.io/tags/Identity/"/>
     
     <category term="Identifier" scheme="https://rickhw.github.io/tags/Identifier/"/>
@@ -537,10 +541,6 @@
     <category term="Unique" scheme="https://rickhw.github.io/tags/Unique/"/>
     
     <category term="UUID" scheme="https://rickhw.github.io/tags/UUID/"/>
-    
-    <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
-    
-    <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
     
   </entry>
   
