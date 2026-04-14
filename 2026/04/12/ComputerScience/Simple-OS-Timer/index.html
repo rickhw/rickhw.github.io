@@ -318,11 +318,16 @@
 <p>完成告知之後，OS 就可以做所謂的 Context Switch，把 CPU 的使用權讓出去給其他的 Task，這個過程則是透過 Scheduler 執行。在 SimpleOS 的實作，是在 <code>timer_handler()</code> 裡面最後調用 <code>schedule()</code>，實踐 <code>搶佔式多工 (Preemptive Multitasking)</code>，強行切換任務，達成「每個程式都在同時執行」的假象。</p>
 <hr>
 <h2 id="timer-c-init-timer-初始節拍器最小單位：Tick"><a href="#timer-c-init-timer-初始節拍器最小單位：Tick" class="headerlink" title="timer.c#init_timer() - 初始節拍器最小單位：Tick"></a><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/feature/sleep/src/kernel/arch/x86/timer.c">timer.c#init_timer()</a> - 初始節拍器最小單位：Tick</h2><p><code>tick (狀聲詞, 滴答聲)</code> 用來記錄 作業系統 的 <code>節拍數</code>、<code>虛擬時間</code>，定義作業系統的節奏感，從開機就開始計算，每次的累加，都代表著作業系統時間的流逝。</p>
-<p>實際的運作原理是利用 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Intel_8253">INTEL 8254</a> 的基頻 - <code>1,193,180 Hz</code>，我們想在每秒產生 <code>100 次中斷</code> &#x2F; <code>100 個 tick</code>，在 <a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/feature/sleep/src/kernel/arch/x86/timer.c">timer.c#init_timer()</a> 計算方式如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">init_timer</span><span class="params">(<span class="type">uint32_t</span> frequency)</span> &#123;</span><br><span class="line">    <span class="comment">// divisor = 1,193,180 / 100 = 1,193.180</span></span><br><span class="line">    <span class="type">uint32_t</span> divisor = PIT_CLOCK_RATE / frequency;</span><br></pre></td></tr></table></figure>
+<p>實際的運作原理是利用 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Intel_8253">INTEL 8254</a> 的基頻 - <code>1,193,180 Hz</code>，我們想在每秒產生 <code>100 次中斷</code> &#x2F; <code>100 個 tick</code>，在 <a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/feature/sleep/src/kernel/arch/x86/timer.c">timer.c#init_timer()</a> 計算方式以及初始 PIT 流程如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">volatile</span> <span class="type">uint32_t</span> tick = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">init_timer</span><span class="params">(<span class="type">uint32_t</span> frequency)</span> &#123;</span><br><span class="line">    <span class="comment">/*  1. divisor 表示震盪 N 次，就發出一次中斷。 */</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="comment">// 用 frequency 當基數，如果想要每秒中斷 100 次，frequency=100，</span></span><br><span class="line">    <span class="comment">// 則晶片每數 (PIT8254_BASE_FREQ / frequency = 11931 次訊號，</span></span><br><span class="line">    <span class="comment">// 就發出一次中斷。</span></span><br><span class="line">    <span class="type">uint32_t</span> divisor = PIT_CLOCK_RATE / frequency;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 2. 設定 PIT 的 模式控制 */</span></span><br><span class="line">    <span class="comment">// 0x43: PIT 的 模式控制 暫存器 埠號。 </span></span><br><span class="line">    <span class="comment">// 0x36 (00110110b): 這是控制字組（Control Word）。</span></span><br><span class="line">    <span class="comment">//  - 00: 選擇通道 0（接在 IRQ0，負責系統時鐘）。</span></span><br><span class="line">    <span class="comment">//  - 11: 存取模式 (LOBYTE/HIBYTE)，先寫低八位元，再寫高八位元</span></span><br><span class="line">    <span class="comment">//  - 011: 選擇模式 3（方波產生器，最適合當作時鐘）。</span></span><br><span class="line">    <span class="comment">//         它會自動重新加載計數器，適合產生週期性心跳。</span></span><br><span class="line">    outb(<span class="number">0x43</span>, <span class="number">0x36</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 3. 把 divisor 值塞到 8254 暫存器. */</span></span><br><span class="line">    <span class="comment">// 8254 是 8bit 匯流排</span></span><br><span class="line">    <span class="comment">// 先取得 divisor 的低 8 位元 (low byte) 和 高八位元 (high byte)</span></span><br><span class="line">    <span class="type">uint8_t</span> l = (<span class="type">uint8_t</span>)(divisor &amp; <span class="number">0xFF</span>);</span><br><span class="line">    <span class="type">uint8_t</span> h = (<span class="type">uint8_t</span>)((divisor &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xFF</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 分成兩次, 把高低位原 依序「餵」進去</span></span><br><span class="line">    <span class="comment">// 0x40: 這是通道 0 的 資料暫存器</span></span><br><span class="line">    outb(<span class="number">0x40</span>, l); <span class="comment">// low byte</span></span><br><span class="line">    outb(<span class="number">0x40</span>, h); <span class="comment">// high byte</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>PIT 每經過 1193.18 個震盪週期，就是一個 tick (一拍)，每秒則有 100 個 tick。</p>
-<p>這是一個 <code>原子操作</code> 或受 <code>中斷保護</code> 的操作，確保所有依賴時間的 SysCall (如 sleep) 都有統一的參考。所以 tick 在 c 語言裡需要宣告 <code>volatile</code>，保證 tick 可見性 (Visibility)。如果沒有它，在多工或編譯器優化下，一個 while(tick &lt; target) 的無窮迴圈可能會因為編譯器認為 tick 在迴圈內沒被修改，而將其優化為死循環，永遠不重新讀取記憶體中的新值。</p>
+<p>整個流程有三個步驟：</p>
+<ol>
+<li>計算 divisor：表示震盪 N 次，就發出一次中斷。freq&#x3D;100 標示 PIT 每經過 1193.18 個震盪週期，就是一個 tick (一拍)，每秒則有 100 個 tick。</li>
+<li>設定 PIT 模式控制：包含選擇通道、存取模式、選擇訊號產生的方式。</li>
+<li>把 divisor 寫入 PIT：把 1193 這個數字跟 PIT 講，之後這個頻率就發出中斷訊號。</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/feature/sleep/src/kernel/arch/x86/timer.c">timer.c</a> 的 <code>tick</code> 值是一個 <code>原子操作</code> 或受 <code>中斷保護</code> 的操作，確保所有依賴時間的 SysCall (如 sleep) 都有統一的參考。所以 tick 在 c 語言裡需要宣告 <code>volatile</code>，保證 tick 可見性 (Visibility)。如果沒有它，在多工或編譯器優化下，一個 while(tick &lt; target) 的無窮迴圈可能會因為編譯器認為 tick 在迴圈內沒被修改，而將其優化為死循環，永遠不重新讀取記憶體中的新值。</p>
 <blockquote>
 <p>題外話：編曲軟體 (Digial Audio Workstation, DAW) 中常用的 Piano Roll 畫面，為了要可以紀錄更自然、更真實的演奏時間，每個拍子的單位不是只有固定在節奏數，而是有個單位稱為 <code>PPQ (Pulses Per Quarter Note)</code>，例如 PPQ&#x3D;360，代表一拍可以再細分 360 個等分，透過這樣的方式可以紀錄演奏更細緻的表情，像是琶音這種技巧。現代的 DAW 像是 Logic Pro、FL Studio 預設為 960 PPQ。下圖由 <a target="_blank" rel="noopener" href="https://share.google/aimode/VH12N984H6EfIsT44">Google 產生</a></p>
 <p><img src="/images/ComputerScience/SimpleOS/Timer/DAW_PianoRoll-PPQ-ticks.png"></p>
@@ -336,21 +341,22 @@
 </ol>
 <p>整個 Timer 運作流程如下：</p>
 <p><img src="/images/ComputerScience/SimpleOS/Timer/Timer_flow-chart.png"></p>
-<p>timer_handler() 是透過 PIC 固定週期就被調用一次，概念類似於 <a target="_blank" rel="noopener" href="https://github.com/rickhw/java-2d-rpg-game/blob/main/src/main/java/gtcafe/rpg/GamePanel.java#L217">Game Loop</a> 裡的 FPS。但不同的是：</p>
-<blockquote>
-<p>Game Loop 會因為 Update 處理的效能 (通常是 2D&#x2F;3D 圖形渲染)，因而影響 FPS 的大小。</p>
-</blockquote>
-<p>底下是我在 <a href="/2025/12/19/About/Java-2D-RPG-Game/">純手工遊戲開發 - Java 2D RPG Game</a> 的 <a target="_blank" rel="noopener" href="https://github.com/rickhw/java-2d-rpg-game/blob/main/src/main/java/gtcafe/rpg/GamePanel.java#L217">Game Loop</a> 精簡過後的片段邏輯：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">double</span> <span class="variable">drawInterval</span> <span class="operator">=</span> <span class="number">1000000000</span> / FPS; <span class="comment">// 0.016666 seconds per frame</span></span><br><span class="line">    <span class="type">double</span> <span class="variable">delta</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">long</span> <span class="variable">lastTime</span> <span class="operator">=</span> System.nanoTime();</span><br><span class="line">    <span class="type">long</span> currentTime;</span><br><span class="line">    <span class="type">long</span> <span class="variable">timer</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">drawCount</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(gameThread != <span class="literal">null</span>) &#123;</span><br><span class="line">        currentTime = System.nanoTime();</span><br><span class="line">        delta += (currentTime - lastTime) / drawInterval;</span><br><span class="line">        timer += currentTime - lastTime;</span><br><span class="line">        lastTime = currentTime;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(delta &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">            update();</span><br><span class="line">            delta--;</span><br><span class="line">            drawCount++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (timer &gt;= <span class="number">1000000000</span>) &#123;</span><br><span class="line">            drawCount = <span class="number">0</span>;</span><br><span class="line">            timer = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">update</span><span class="params">()</span> &#123;  <span class="comment">// 類似 timer_handler</span></span><br><span class="line">     player.update();</span><br><span class="line">     npc.update();</span><br><span class="line">     monster.update();</span><br><span class="line">     <span class="comment">// ... ooxx.update();</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>timer_handler() 是透過 PIC 固定週期就被調用一次，概念類似於 <a target="_blank" rel="noopener" href="https://github.com/rickhw/java-2d-rpg-game/blob/main/src/main/java/gtcafe/rpg/GamePanel.java#L217">Game Loop</a> 裡的 FPS。底下是我在 <a href="/2025/12/19/About/Java-2D-RPG-Game/">純手工遊戲開發 - Java 2D RPG Game</a> 的 <a target="_blank" rel="noopener" href="https://github.com/rickhw/java-2d-rpg-game/blob/main/src/main/java/gtcafe/rpg/GamePanel.java#L217">Game Loop</a> 精簡過後的片段邏輯：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">double</span> <span class="variable">drawInterval</span> <span class="operator">=</span> <span class="number">1000000000</span> / FPS; <span class="comment">// 0.016666 seconds per frame</span></span><br><span class="line">    <span class="type">double</span> <span class="variable">delta</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">long</span> <span class="variable">lastTime</span> <span class="operator">=</span> System.nanoTime();</span><br><span class="line">    <span class="type">long</span> currentTime;</span><br><span class="line">    <span class="type">long</span> <span class="variable">timer</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">drawCount</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(gameThread != <span class="literal">null</span>) &#123;</span><br><span class="line">        currentTime = System.nanoTime();</span><br><span class="line">        delta += (currentTime - lastTime) / drawInterval;</span><br><span class="line">        timer += currentTime - lastTime;</span><br><span class="line">        lastTime = currentTime;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(delta &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">            update();</span><br><span class="line">            delta--;</span><br><span class="line">            drawCount++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (timer &gt;= <span class="number">1000000000</span>) &#123;</span><br><span class="line">            drawCount = <span class="number">0</span>;</span><br><span class="line">            timer = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">update</span><span class="params">()</span> &#123;  <span class="comment">// 類似 timer_handler</span></span><br><span class="line">     player.update();</span><br><span class="line">     npc.update();</span><br><span class="line">     monster.update();</span><br><span class="line">     <span class="comment">// ... ooxx.update(); </span></span><br><span class="line">     <span class="comment">// ex: particles, projectiles, interactive tiles, inventory ... etc.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>OS 不能因為 task 慢了，tick 計數就停下來，這在電腦科學中稱為 <code>不可屏蔽性</code> 或 <code>強制性 (Preemption)</code>。遊戲中的 Update() 是協作式的 (前一個跑完下一個才跑）；OS 的 timer_handler 是侵入式的（管你跑完沒，硬體訊號強行插隊）。</p>
+<p>兩者都是有一個 <code>while(true) &#123;&#125;</code> 的 loop，然後固定調用 function - <code>timer_handler()</code> and <code>update()</code>但不同的是：</p>
+<ol>
+<li>Game Loop 會因為 Update 處理的效能 (通常是 2D&#x2F;3D 圖形渲染)，因而影響 FPS 的大小。</li>
+<li>Game Loop 裡 <code>update()</code> 更新的每一個 Frame，前後彼此之間是有關聯的。如果計算錯誤、或者計算延遲，就會產生卡頓、掉幀的感覺。</li>
+<li>OS 不能因為 task 慢了，tick 計數就停下來，這在電腦科學中稱為 <code>不可屏蔽性</code> 或 <code>搶佔 (Preemption)</code>。Game Loop 中的 <code>update()</code> 是協作式的 (前一個跑完下一個才跑)；OS 的 timer_handler 是侵入式的 (管你跑完沒，硬體訊號強行插隊)。</li>
+</ol>
 <p>底下我整理了我自己的理解的差異：</p>
 <table>
 <thead>
 <tr>
 <th align="left">特性</th>
-<th align="left">Game Loop (遊戲)</th>
-<th align="left">OS Tick (Simple OS)</th>
+<th align="left">Java 2D RPG Game - Game Loop</th>
+<th align="left">Simple OS - Timer</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -360,7 +366,7 @@
 </tr>
 <tr>
 <td align="left"><strong>頻率控制</strong></td>
-<td align="left">軟體自行計算 <code>dt</code> 並 Sleep</td>
+<td align="left">軟體自行計算 <code>delta</code> 並 Sleep</td>
 <td align="left">硬體晶片固定發送電氣訊號</td>
 </tr>
 <tr>
@@ -374,7 +380,11 @@
 <td align="left">計時、統計 CPU 佔用、強制換人 (<code>schedule</code>)</td>
 </tr>
 </tbody></table>
-<p>Game Loop：主動式。跑者自己看手錶，跑太快就 Sleep。<br>OS Tick：被動式。硬體監工每隔一段時間「啪」地拍桌子，強制 CPU 停下工作，執行 OS 的家務事。</p>
+<p>簡單說：</p>
+<ul>
+<li><code>Game Loop</code>：主動式。跑者自己看手錶，跑太快就 Sleep。</li>
+<li><code>OS Tick</code>：被動式。硬體監工每隔一段時間「啪」地拍桌子，強制 CPU 停下工作，執行 OS 的家務事。</li>
+</ul>
 <!--
 ## 實作 sleep(1000) - User Space
 
@@ -401,9 +411,58 @@
 
 
 <hr>
-<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>在 Linux 面前，我的知識是匱乏的、無知的，我在看到 Linux Kernel 是尊敬的，他是人類智慧與文明的精華。開啟 Simple OS 自幹的初衷，就是覺得我自己知識匱乏的緊，即使我已經工作數十餘載，但常常還是覺得自己懂的太少。</p>
+<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>在 Linux 面前，我的知識是匱乏的、無知的，我在看到 Linux Kernel 是尊敬的，他是人類智慧與文明的精華，經過千錘百鍊的結果。開啟 Simple OS 自幹的初衷，就是覺得我自己知識匱乏的緊，即使我已經工作數十餘載，但常常還是覺得自己懂的太少，有時候會有 <code>一曝十寒</code> 之感。</p>
 <p>洋蔥是學習是我的方法，一圈一圈的扒開，逐漸明朗，好玩又有趣！再配合很多既有的課程，像是 <a target="_blank" rel="noopener" href="https://hackmd.io/@sysprog/linux-timer">Linux 核心設計: Timer 及其管理機制</a>、以前在研究 <a href="/2018/06/18/DistributedSystems/Gossip-in-Distributed-Systems/">分散式系統</a> 讀過的論文 <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/359545.359563">Time, clocks, and the ordering of events in a distributed system – Leslie Lamport (1978)</a>，利用幫我 AI 探索，這個過程是有趣且豐富的！</p>
 <p>但如果只是把這一切都交給 AI Agent，那最後我將得到一個能用的東西，但我依舊停在原點，呈現 <code>淺薄思考</code> 與 <code>知識匱乏</code> 的狀態。</p>
+<h3 id="知識飛輪的推與拉-知識複利"><a href="#知識飛輪的推與拉-知識複利" class="headerlink" title="知識飛輪的推與拉 - 知識複利"></a>知識飛輪的推與拉 - 知識複利</h3><p>AI 的發展飛速，最近大部分的人都可以用 Agentic 方式快速寫出應用程式。有程式背景的人，在使用上的生產力更是 10x 倍速的成長。也出現 <a target="_blank" rel="noopener" href="https://x.com/karpathy">Andrej Karpathy</a> 用 <a target="_blank" rel="noopener" href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f">LLM-Wiki</a> 做 <a target="_blank" rel="noopener" href="https://x.com/karpathy/status/2039805659525644595">知識管理</a> 概念的方法，有人把想法快速用 Agentic 方法做出來 - 像是 <a target="_blank" rel="noopener" href="https://graphify.net/">Graphify</a>。</p>
+<blockquote>
+<p>我先不提軟體工程或 SRE 等議題。</p>
+</blockquote>
+<p>AI 我定位是個高效能工具，創意協作工具，依舊是工具。使用的人才是 <code>主要</code>、主要的，AI 是 <code>次要的</code>。 <strong>再次強調，人是主要的，工具是次要的。</strong></p>
+<p>使用的人可以透過 AI 推進產品的開發、推進工作產能提升。同時也可以透過 AI 拉動自己，提升自己的本職學能、知識、啟發創意。</p>
+<p>我在 <code>自幹作業系統</code> 這件事情上定位是 - <code>Just for Fun &amp; Learning</code>。也就是目標是充實我腦袋裡的知識，在學習與實踐過程中，<code>把片段的知識補齊、把這些學習的知識連結起來</code>。注意我這句話：</p>
+<blockquote>
+<p>把片段的知識補齊、把這些學習的知識連結起來</p>
+</blockquote>
+<p>主詞是誰？主動的是誰？</p>
+<p>答案是我自己。</p>
+<ol>
+<li>我自己把知識放到腦袋裡</li>
+<li>我自己把知識點連結起來</li>
+</ol>
+<p>這個過程，我腦袋裡會建立屬於自己的知識連結，做深度思考、深度連結。也就是我們常說的：</p>
+<blockquote>
+<p>資料 -&gt; 資訊 -&gt; 知識 -&gt; 智慧</p>
+</blockquote>
+<p>這個循環又稱為 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/DIKW_pyramid">DIKW 體系</a>，我在以前學習音樂就很常在用這概念。</p>
+<p>我在 <a href="/2018/06/18/DistributedSystems/Gossip-in-Distributed-Systems/">聊聊分散式系統</a> 最後提到人類大腦運作的原理，當時是用分散式系統在解讀。底下是簡單摘要：</p>
+<blockquote>
+<p>人類大腦由 140 億個神經元組成，神經元又由細胞體、神經纖維組成，其中細胞體想像成計算機，神經纖維想像成網路。生命的演化，正是因為神經元不斷地增長，最後才演化出智慧生命體：人類。人類大腦的 <code>灰質</code> 相當於 <code>計算機 (細胞體)</code>，<code>白質</code> 相當於 <code>連結系統 (神經纖維)</code> 的網路。表示人腦約有 140 億台計算機 (灰質、細胞體) 同時在運作，計算機之間透過網路連結 (白質、神經纖維)。</p>
+<p>研究顯示註，人與人之間的區別，不在灰質，在於白質。例如鋼琴家的白質，遠比普通人發達的多。人與人之間腦袋裡的運算能力其實大同小異，但是相差很大的是腦袋裡的網路的連線方式不同。</p>
+</blockquote>
+<p>其實我用來解讀知識管理也是通的。也就是知識管理的重點不在搜集或者整理，重點在於 <code>連結</code>，然後形成的體系。關鍵在於 <code>連結</code>，誰來做連結？要把知識放到腦袋裡的人，也就是你自已。</p>
+<p>換言之，AI LLM 可以很快速的整理出所有資料，畫出一個漂亮的關聯拓樸，這表示什麼？使用知識的人，從頭到尾都沒有在自己的腦袋裡建立連結，換言之，你依舊停在原地。</p>
+<p>我在 <a href="/2022/09/05/About/Blog-Practice/">聊聊寫 Blog 的想法</a> 最後也寫到，我每寫一篇文章的過程，就會把過去寫的東西串起來，這個過程的思路都是我自己連結的。經過幾次的複利效應之後，文章就會成為一個體系，最後就會形成我個人的知識。所以知識管理這個議題，只要有持續寫文章，持續重構、組織的人，看到用 LLM 整理文章，我的直覺反應就是：</p>
+<blockquote>
+<p>他是他，你是你。</p>
+</blockquote>
+<p>文章關聯快速建立起來，但你並沒有因此真的獲得知識。</p>
+<p>回到段落標題，<code>知識飛輪的推與拉</code>，我引用的是 Amazon 的 <a target="_blank" rel="noopener" href="https://www.books.com.tw/products/0010876380?srsltid=AfmBOoqKtgdqSxkupx_sPMNBlgtcZ7BIzlbremvq-7DMEtsSUoWYKjHC">飛輪效應</a> 概念，利用 <code>推與拉做知識管理</code>，飛輪效應之下的知識管理帶來的 <a target="_blank" rel="noopener" href="https://www.books.com.tw/products/0010814286?srsltid=AfmBOopcsH-mFnqLwT40ZStIHfxjpd1EODDBn8OorJeH9OsJYk-i7f93">複利效應</a>。</p>
+<p>如果你有耐心看到這裡，應該不難發現，這段整個過程我都在串聯我過去寫的文章，以及想法。這個過程就是連結知識，創造 <code>知識複利</code>。</p>
+<p>底下我先留白，一些很現實的問題，未來可以探討的：</p>
+<ol>
+<li>大家 (80%) 都可以用 Agenitc 寫出應用，那彼此的差異是什麼？公司為什麼要用你？</li>
+<li>用 AI 提升工作生產力，薪水有變多了？時間有變多了？生活更有餘裕了？</li>
+<li>大家 (80%) 都可以用 LLM KM 創造出自己的第二大腦，所以這些人都變得有知識了？有智慧了？有創造力？</li>
+<li>很多人都可以用 AI 快速寫出應用，然後呢？因此創造 Income，往 FIRE 走？或者滿街的人都往 FIRE 前進？</li>
+<li>承上，稍微提一下 <code>軟體工程</code>，這些被快速創造的應用：<ul>
+<li>個人用的：過了半年後還有在用？功能都滿足了？</li>
+<li>企業：過了半年有多少應用還在記憶體裡運行的？多少人在用？都沒有 Bug？</li>
+<li>上述應用的維護成本 –&gt; 簡單帶入 SRE …</li>
+</ul>
+</li>
+</ol>
+<p>收筆。</p>
 <h3 id="未完"><a href="#未完" class="headerlink" title="未完"></a>未完</h3><p>本來還有還有很多想寫，不過再寫下去篇幅太長了，先做個紀錄，之後慢慢來補。</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/feature/sleep/src/kernel/arch/x86/timer.c#L83">timer.c</a> 概念，那麼 User Space 的 <code>sleep()</code> 是怎麼被實作出來的？<ul>
@@ -421,6 +480,7 @@
 <li><a href="/2026/04/09/ComputerScience/Simple-OS-Networking/">自幹作業系統 - Networking Fundamentals</a></li>
 <li><a href="/2025/12/19/About/Java-2D-RPG-Game/">純手工遊戲開發心得紀錄 - Java 2D RPG Game</a></li>
 <li><a href="/2018/06/18/DistributedSystems/Gossip-in-Distributed-Systems/">聊聊分散式系統</a></li>
+<li><a href="/2022/09/05/About/Blog-Practice/">聊聊寫 Blog 的想法</a></li>
 </ul>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://hackmd.io/@sysprog/linux-timer">Linux 核心設計: Timer 及其管理機制</a></li>
@@ -516,7 +576,7 @@
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Timer-in-SimpleOS"><span class="toc-article-text">Timer in SimpleOS</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#PIT-INTEL-8254"><span class="toc-article-text">PIT - INTEL 8254</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#PIC-INTEL-8259"><span class="toc-article-text">PIC - INTEL 8259</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#timer-c-init-timer-%E5%88%9D%E5%A7%8B%E7%AF%80%E6%8B%8D%E5%99%A8%E6%9C%80%E5%B0%8F%E5%96%AE%E4%BD%8D%EF%BC%9ATick"><span class="toc-article-text">timer.c#init_timer() - 初始節拍器最小單位：Tick</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#timer-c-timer-handler-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1%E7%9A%84-Game-Loop"><span class="toc-article-text">timer.c#timer_handler() - 作業系統的 Game Loop</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-article-text">小結</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%9C%AA%E5%AE%8C"><span class="toc-article-text">未完</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Timer-in-SimpleOS"><span class="toc-article-text">Timer in SimpleOS</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#PIT-INTEL-8254"><span class="toc-article-text">PIT - INTEL 8254</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#PIC-INTEL-8259"><span class="toc-article-text">PIC - INTEL 8259</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#timer-c-init-timer-%E5%88%9D%E5%A7%8B%E7%AF%80%E6%8B%8D%E5%99%A8%E6%9C%80%E5%B0%8F%E5%96%AE%E4%BD%8D%EF%BC%9ATick"><span class="toc-article-text">timer.c#init_timer() - 初始節拍器最小單位：Tick</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#timer-c-timer-handler-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1%E7%9A%84-Game-Loop"><span class="toc-article-text">timer.c#timer_handler() - 作業系統的 Game Loop</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-article-text">小結</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%9F%A5%E8%AD%98%E9%A3%9B%E8%BC%AA%E7%9A%84%E6%8E%A8%E8%88%87%E6%8B%89-%E7%9F%A5%E8%AD%98%E8%A4%87%E5%88%A9"><span class="toc-article-text">知識飛輪的推與拉 - 知識複利</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%9C%AA%E5%AE%8C"><span class="toc-article-text">未完</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol>
 		</div>
 	
 	</div>
