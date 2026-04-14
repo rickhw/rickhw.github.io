@@ -331,6 +331,8 @@
 <blockquote>
 <p>題外話：編曲軟體 (Digial Audio Workstation, DAW) 中常用的 Piano Roll 畫面，為了要可以紀錄更自然、更真實的演奏時間，每個拍子的單位不是只有固定在節奏數，而是有個單位稱為 <code>PPQ (Pulses Per Quarter Note)</code>，例如 PPQ&#x3D;360，代表一拍可以再細分 360 個等分，透過這樣的方式可以紀錄演奏更細緻的表情，像是琶音這種技巧。現代的 DAW 像是 Logic Pro、FL Studio 預設為 960 PPQ。下圖由 <a target="_blank" rel="noopener" href="https://share.google/aimode/VH12N984H6EfIsT44">Google 產生</a></p>
 <p><img src="/images/ComputerScience/SimpleOS/Timer/DAW_PianoRoll-PPQ-ticks.png"></p>
+<p>另一個例子，是電影 <code>頭文字 D</code> 裡面的對話，描述對時間體感越來越慢的時候，其實背後就是類似的概念，代表 tick 數越來越高了！</p>
+<p>「幾年前，他說看東西不清楚，我帶他去配眼鏡。誰知道驗過眼睛以後，一點事也沒有。……他對我說，最近不知道為什麼，開車的時候看東西越來越慢，那時候，我才知道，他越來越快了。」</p>
 </blockquote>
 <hr>
 <h2 id="timer-c-timer-handler-作業系統的-Game-Loop"><a href="#timer-c-timer-handler-作業系統的-Game-Loop" class="headerlink" title="timer.c#timer_handler() - 作業系統的 Game Loop"></a><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/feature/sleep/src/kernel/arch/x86/timer.c">timer.c#timer_handler()</a> - 作業系統的 Game Loop</h2><p><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/feature/sleep/src/kernel/arch/x86/timer.c">timer.c#timer_handler()</a> 每一個週期會被 IRQ32 中斷 <a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/feature/sleep/src/kernel/arch/x86/interrupts.S">interrupts.S</a> 呼叫一次，整個內容最重要的幾件事：</p>
@@ -522,7 +524,7 @@
 <ul class="pagination">
 	 
 				
-    	<li class="prev"><a href="/2035/01/21/Index/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+    	<li class="prev"><a href="/2035/01/21/Updated/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
   		
 
         <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
