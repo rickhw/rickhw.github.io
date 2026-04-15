@@ -416,10 +416,10 @@
 <h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>在 Linux 面前，我的知識是匱乏的、無知的，我在看待 Linux Kernel 時是尊敬的，因為他是人類智慧與文明的精華，經過千錘百鍊的結果。開啟 Simple OS 自幹的初衷，就是覺得我自己知識匱乏的緊，即使我已經工作數十餘載，但常常還是覺得自己懂的太少，有時候會有 <code>一曝十寒</code> 之感。</p>
 <p>洋蔥是學習是我的方法，一圈一圈的扒開，逐漸明朗，好玩又有趣！再配合很多既有的課程，像是 <a target="_blank" rel="noopener" href="https://hackmd.io/@sysprog/linux-timer">Linux 核心設計: Timer 及其管理機制</a>、以前在研究 <a href="/2018/06/18/DistributedSystems/Gossip-in-Distributed-Systems/">分散式系統</a> 讀過的論文 <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/359545.359563">Time, clocks, and the ordering of events in a distributed system – Leslie Lamport (1978)</a>，利用幫我 AI 探索，這個過程是有趣且豐富的！</p>
 <p>但如果只是把這一切都交給 AI Agent，那最後我將得到一個能用的東西，但我依舊停在原點，呈現 <code>淺薄思考</code> 與 <code>知識匱乏</code> 的狀態。</p>
-<h3 id="未完"><a href="#未完" class="headerlink" title="未完"></a>未完</h3><p>timer.c 延伸議題還有很多想寫，不過再寫下去篇幅太長了，先做個紀錄，之後慢慢來補。</p>
+<h3 id="未完"><a href="#未完" class="headerlink" title="未完"></a>未完</h3><p>timer.c 延伸議題還有很多想寫，不過再寫下去篇幅太長了，相關題目先做個紀錄，之後慢慢來補。</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/feature/sleep/src/kernel/arch/x86/timer.c#L83">timer.c</a> 概念，那麼 User Space 的 <code>sleep()</code> 是怎麼被實作出來的？<ul>
-<li>已經完成實作，不過內容篇福有點多，加上要講到 Task Scheduler 會有點複雜，需要放到獨立的一篇來講。</li>
+<li>已經完成實作，不過內容篇福有點多，加上要講到 <code>Process Control Block</code>、<code>Task Scheduler</code> 會有點複雜，需要放到獨立的一篇來講。</li>
 </ul>
 </li>
 <li>實務上曾經遇過跟時間有關的想法，包含 <code>sleep()</code>, <code>ntp</code>、<code>k8s cpu=100m</code> 的意思</li>
@@ -427,8 +427,7 @@
 <li>探索程式語言 Java 21 sleep() 的實作</li>
 <li>以前在研究 <a href="/2018/06/18/DistributedSystems/Gossip-in-Distributed-Systems/">分散式系統</a> 讀過的論文 <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/359545.359563">Time, clocks, and the ordering of events in a distributed system – Leslie Lamport (1978)</a> 的一些想法</li>
 </ul>
-<p>最後。。。還是要提一下 AI … XD</p>
-<p>字很多，不想看，就別看了。</p>
+<p>最後。。。還是要提一下 AI，字很多，但其實只有寫 30%。</p>
 <h3 id="知識飛輪的推與拉-知識複利"><a href="#知識飛輪的推與拉-知識複利" class="headerlink" title="知識飛輪的推與拉 - 知識複利"></a>知識飛輪的推與拉 - 知識複利</h3><p>AI 的發展飛速，最近大部分的人都可以用 Agentic 方式快速寫出應用程式。有程式背景的人，在使用上的生產力更是 10x 倍速的成長。也出現 <a target="_blank" rel="noopener" href="https://x.com/karpathy">Andrej Karpathy</a> 用 <a target="_blank" rel="noopener" href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f">LLM-Wiki</a> 做 <a target="_blank" rel="noopener" href="https://x.com/karpathy/status/2039805659525644595">知識管理</a> 概念的方法，有人把想法快速用 Agentic 方法做出來 - 像是 <a target="_blank" rel="noopener" href="https://graphify.net/">Graphify</a>。</p>
 <blockquote>
 <p>我先不提軟體工程或 SRE 等議題。</p>
@@ -537,7 +536,7 @@
 <ul class="pagination">
 	 
 				
-    	<li class="prev"><a href="/2035/01/21/Index/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+    	<li class="prev"><a href="/2035/01/21/Updated/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
   		
 
         <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
