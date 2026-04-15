@@ -416,6 +416,19 @@
 <h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>在 Linux 面前，我的知識是匱乏的、無知的，我在看待 Linux Kernel 時是尊敬的，因為他是人類智慧與文明的精華，經過千錘百鍊的結果。開啟 Simple OS 自幹的初衷，就是覺得我自己知識匱乏的緊，即使我已經工作數十餘載，但常常還是覺得自己懂的太少，有時候會有 <code>一曝十寒</code> 之感。</p>
 <p>洋蔥是學習是我的方法，一圈一圈的扒開，逐漸明朗，好玩又有趣！再配合很多既有的課程，像是 <a target="_blank" rel="noopener" href="https://hackmd.io/@sysprog/linux-timer">Linux 核心設計: Timer 及其管理機制</a>、以前在研究 <a href="/2018/06/18/DistributedSystems/Gossip-in-Distributed-Systems/">分散式系統</a> 讀過的論文 <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/359545.359563">Time, clocks, and the ordering of events in a distributed system – Leslie Lamport (1978)</a>，利用幫我 AI 探索，這個過程是有趣且豐富的！</p>
 <p>但如果只是把這一切都交給 AI Agent，那最後我將得到一個能用的東西，但我依舊停在原點，呈現 <code>淺薄思考</code> 與 <code>知識匱乏</code> 的狀態。</p>
+<h3 id="未完"><a href="#未完" class="headerlink" title="未完"></a>未完</h3><p>timer.c 延伸議題還有很多想寫，不過再寫下去篇幅太長了，先做個紀錄，之後慢慢來補。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/feature/sleep/src/kernel/arch/x86/timer.c#L83">timer.c</a> 概念，那麼 User Space 的 <code>sleep()</code> 是怎麼被實作出來的？<ul>
+<li>已經完成實作，不過內容篇福有點多，加上要講到 Task Scheduler 會有點複雜，需要放到獨立的一篇來講。</li>
+</ul>
+</li>
+<li>實務上曾經遇過跟時間有關的想法，包含 <code>sleep()</code>, <code>ntp</code>、<code>k8s cpu=100m</code> 的意思</li>
+<li>摘要現代 Linux Kernel 跟 timer &#x2F; tick 相關的資訊</li>
+<li>探索程式語言 Java 21 sleep() 的實作</li>
+<li>以前在研究 <a href="/2018/06/18/DistributedSystems/Gossip-in-Distributed-Systems/">分散式系統</a> 讀過的論文 <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/359545.359563">Time, clocks, and the ordering of events in a distributed system – Leslie Lamport (1978)</a> 的一些想法</li>
+</ul>
+<p>最後。。。還是要提一下 AI … XD</p>
+<p>字很多，不想看，就別看了。</p>
 <h3 id="知識飛輪的推與拉-知識複利"><a href="#知識飛輪的推與拉-知識複利" class="headerlink" title="知識飛輪的推與拉 - 知識複利"></a>知識飛輪的推與拉 - 知識複利</h3><p>AI 的發展飛速，最近大部分的人都可以用 Agentic 方式快速寫出應用程式。有程式背景的人，在使用上的生產力更是 10x 倍速的成長。也出現 <a target="_blank" rel="noopener" href="https://x.com/karpathy">Andrej Karpathy</a> 用 <a target="_blank" rel="noopener" href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f">LLM-Wiki</a> 做 <a target="_blank" rel="noopener" href="https://x.com/karpathy/status/2039805659525644595">知識管理</a> 概念的方法，有人把想法快速用 Agentic 方法做出來 - 像是 <a target="_blank" rel="noopener" href="https://graphify.net/">Graphify</a>。</p>
 <blockquote>
 <p>我先不提軟體工程或 SRE 等議題。</p>
@@ -451,9 +464,13 @@
 <p>文章關聯快速建立起來，但你並沒有因此真的獲得知識。</p>
 <p>回到段落標題，<code>知識飛輪的推與拉</code>，我引用的是 Amazon 的 <a target="_blank" rel="noopener" href="https://www.books.com.tw/products/0010876380?srsltid=AfmBOoqKtgdqSxkupx_sPMNBlgtcZ7BIzlbremvq-7DMEtsSUoWYKjHC">飛輪效應</a> 概念，利用 <code>推與拉做知識管理</code>，飛輪效應之下的知識管理帶來的 <a target="_blank" rel="noopener" href="https://www.books.com.tw/products/0010814286?srsltid=AfmBOopcsH-mFnqLwT40ZStIHfxjpd1EODDBn8OorJeH9OsJYk-i7f93">複利效應</a>。</p>
 <p>如果你有耐心看到這裡，應該不難發現，這段整個過程我都在串聯我過去寫的文章，以及想法。這個過程就是連結知識，創造 <code>知識複利</code>。</p>
-<p>底下我先留白，一些很現實的問題，未來可以探討的：</p>
+<p>底下問題我先留白，一些很現實的問題，未來可以探討的：</p>
 <ol>
 <li>大家 (80%) 都可以用 Agenitc 寫出應用，那彼此的差異是什麼？公司為什麼要用你？</li>
+<li>Vibe Coding 可以很快做出應用程式，不會寫程式的人很快做出一個類似 <a target="_blank" rel="noopener" href="https://www.threads.com/@showyochen/post/DXGv3QgEX1C">591 的租賃網站</a>，他做得出來？你做得出來？<ul>
+<li>這個有機會可以說說十幾年前，我在電商服務時，承接一些 3rd-party 遺留下來的東西 …</li>
+</ul>
+</li>
 <li>用 AI 提升工作生產力，薪水有變多了？時間有變多了？生活更有餘裕了？</li>
 <li>大家 (80%) 都可以用 LLM KM 創造出自己的第二大腦，所以這些人都變得有知識了？有智慧了？有創造力？</li>
 <li>很多人都可以用 AI 快速寫出應用，然後呢？因此創造 Income，往 FIRE 走？或者滿街的人都往 FIRE 前進？</li>
@@ -464,7 +481,14 @@
 </ul>
 </li>
 </ol>
-<p>我不是反對 AI 的一些方法，我自己也用很兇 (燒很多錢)。而是要提醒我自己 (其實別人怎樣不關我的事)，不要因為這些工具太強大，因而帶來 <code>淺薄思考</code> 與 <code>知識幻覺</code>，反而要善用他們來強大自己，讓生活更豐富更有想像，帶來更多探索的樂趣。</p>
+<p>我不是反對 AI 的一些方法，我自己也用很兇 (燒很多錢)。而是要提醒我自己 (其實別人怎樣不關我的事)，不要因為這些工具太強大，因而帶來 <code>淺薄思考</code> 與 <code>知識幻覺</code>，反而要善用他們來強大自己，讓生活更豐富更有想像，帶來更多探索的樂趣。但要認清的事實是：</p>
+<blockquote>
+<ol>
+<li>AI 建立的只是資料的拓樸，你在腦袋裡建立的資料網路才能形成「知識」。</li>
+<li>看懶人包，學不到知識；寫懶人包，才真正擁有知識。</li>
+<li>只有透過深度思考，才能真的學習。</li>
+</ol>
+</blockquote>
 <p>幾個名詞，我自己亂掰的：</p>
 <ul>
 <li><code>知識幻覺</code>: 大概類似 <code>達克效應</code> 的概念。很叫 AI 做事，誤以為自己很厲害，其實一曝十寒。</li>
@@ -472,17 +496,6 @@
 <li><code>複利知識</code>: 跟知識飛輪類似的想法，集合知識管理與複利效應這兩個詞，重點在於知識是可以透過連結不斷堆疊，產生複利效應的。最好的方法就是寫 Blog，然後要連結他們。寫流水帳的沒用。</li>
 </ul>
 <p>收筆。</p>
-<h3 id="未完"><a href="#未完" class="headerlink" title="未完"></a>未完</h3><p>timer.c 延伸議題還有很多想寫，不過再寫下去篇幅太長了，先做個紀錄，之後慢慢來補。</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/feature/sleep/src/kernel/arch/x86/timer.c#L83">timer.c</a> 概念，那麼 User Space 的 <code>sleep()</code> 是怎麼被實作出來的？<ul>
-<li>已經完成實作，不過內容篇福有點多，加上要講到 Task Scheduler 會有點複雜，需要放到獨立的一篇來講。</li>
-</ul>
-</li>
-<li>實務上曾經遇過跟時間有關的想法，包含 <code>sleep()</code>, <code>ntp</code>、<code>k8s cpu=100m</code> 的意思</li>
-<li>摘要現代 Linux Kernel 跟 timer &#x2F; tick 相關的資訊</li>
-<li>探索程式語言 Java 21 sleep() 的實作</li>
-<li>以前在研究 <a href="/2018/06/18/DistributedSystems/Gossip-in-Distributed-Systems/">分散式系統</a> 讀過的論文 <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/359545.359563">Time, clocks, and the ordering of events in a distributed system – Leslie Lamport (1978)</a> 的一些想法</li>
-</ul>
 <hr>
 <h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="站內文章"><a href="#站內文章" class="headerlink" title="站內文章"></a>站內文章</h2><ul>
 <li><a href="/2026/03/27/ComputerScience/Simple-OS/">自幹作業系統 - SimpleOS</a></li>
@@ -524,7 +537,7 @@
 <ul class="pagination">
 	 
 				
-    	<li class="prev"><a href="/2035/01/21/Updated/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+    	<li class="prev"><a href="/2035/01/21/Index/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
   		
 
         <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
@@ -585,7 +598,7 @@
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Timer-in-SimpleOS"><span class="toc-article-text">Timer in SimpleOS</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#PIT-INTEL-8254"><span class="toc-article-text">PIT - INTEL 8254</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#PIC-INTEL-8259"><span class="toc-article-text">PIC - INTEL 8259</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#timer-c-init-timer-%E5%88%9D%E5%A7%8B%E7%AF%80%E6%8B%8D%E5%99%A8%E6%9C%80%E5%B0%8F%E5%96%AE%E4%BD%8D%EF%BC%9ATick"><span class="toc-article-text">timer.c#init_timer() - 初始節拍器最小單位：Tick</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#timer-c-timer-handler-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1%E7%9A%84-Game-Loop"><span class="toc-article-text">timer.c#timer_handler() - 作業系統的 Game Loop</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-article-text">小結</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%9F%A5%E8%AD%98%E9%A3%9B%E8%BC%AA%E7%9A%84%E6%8E%A8%E8%88%87%E6%8B%89-%E7%9F%A5%E8%AD%98%E8%A4%87%E5%88%A9"><span class="toc-article-text">知識飛輪的推與拉 - 知識複利</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%9C%AA%E5%AE%8C"><span class="toc-article-text">未完</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Timer-in-SimpleOS"><span class="toc-article-text">Timer in SimpleOS</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#PIT-INTEL-8254"><span class="toc-article-text">PIT - INTEL 8254</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#PIC-INTEL-8259"><span class="toc-article-text">PIC - INTEL 8259</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#timer-c-init-timer-%E5%88%9D%E5%A7%8B%E7%AF%80%E6%8B%8D%E5%99%A8%E6%9C%80%E5%B0%8F%E5%96%AE%E4%BD%8D%EF%BC%9ATick"><span class="toc-article-text">timer.c#init_timer() - 初始節拍器最小單位：Tick</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#timer-c-timer-handler-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1%E7%9A%84-Game-Loop"><span class="toc-article-text">timer.c#timer_handler() - 作業系統的 Game Loop</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-article-text">小結</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%9C%AA%E5%AE%8C"><span class="toc-article-text">未完</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%9F%A5%E8%AD%98%E9%A3%9B%E8%BC%AA%E7%9A%84%E6%8E%A8%E8%88%87%E6%8B%89-%E7%9F%A5%E8%AD%98%E8%A4%87%E5%88%A9"><span class="toc-article-text">知識飛輪的推與拉 - 知識複利</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol>
 		</div>
 	
 	</div>
