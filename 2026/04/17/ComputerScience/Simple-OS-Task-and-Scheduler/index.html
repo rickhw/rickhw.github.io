@@ -498,7 +498,7 @@ Task 資料結構">
 <li>排年度計劃時，放在 Q2&#x2F;Q3 的，就會像是 FCFS，先搶到時間點，先做了。這些通常也都會是大的工作事項。</li>
 </ul>
 <hr>
-<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>Task and Scheduler 一直是我很有興趣的部分，重點是過程是自己從無到有探索、實作類似概念的東西，後來才知道原來這在作業系統裡本來就有。這一切可以追溯到我職涯很有成就感的作品之一： <a href="/2018/05/12/SQA/Designing-Test-Architecture-and-Framework/">Designing Test Architecture and Framework</a>。當年這個架構就是在設計一個 <code>動態分配</code> 資源，然後 <code>執行自動化測試</code> 的架構與框架，把每個自動化測試案例當作 Task，根據現在機器的資源狀況，動態分配到對應的機器上開始運行測試，最後結果全部匯總。整個過程的起點，就是像作業系統的 Task and Scheduler 在跑。熟悉 K8s 的人，大概就會感覺到上述的過程，大概就是 K8s 如何分配 Pod 在哪個 Node 上跑的過程。</p>
+<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>作業系統的 Task and Scheduler 一直是我很有興趣的部分，因為我自己曾經從無到有探索、實作類似概念的東西，後來才知道原來這在作業系統裡本來就有。這一切可以追溯到我職涯很有成就感的作品之一： <a href="/2018/05/12/SQA/Designing-Test-Architecture-and-Framework/">Designing Test Architecture and Framework</a>。當年這個架構就是在設計一個 <code>動態分配</code> 資源，然後把 <code>自動化測試程式</code> 部署到對應的資源，開始測試的的架構與框架。把每個自動化測試案例當作 Task，根據現在機器的資源狀況，動態分配到對應的機器上開始運行測試，最後結果全部匯總。整個過程的起點，就是像作業系統的 Task and Scheduler 在跑。熟悉 K8s 的人，大概就會感覺到上述的過程，大概就是 K8s 如何分配 Pod 在哪個 Node 上跑的過程。</p>
 <p>2022 年，我在幫 <a href="/2022/11/19/About/Gitlab-Recommand/">朋友的書</a> 寫 <a href="/2022/11/19/About/Gitlab-Recommand/">推薦序</a> 時，書中針對 GitLab 寫下以下四件核心概念：</p>
 <ol>
 <li>任務 (Task) </li>
@@ -661,7 +661,7 @@ Task 資料結構">
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Finite-State-Machine/" style="color: white">Finite-State Machine <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Operating-Systems/" style="color: white">Operating Systems <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Just-for-Fun/" style="color: white">Just for Fun <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Task/" style="color: white">Task <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Scheduler/" style="color: white">Scheduler <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Process/" style="color: white">Process <span class="badge">4</span></a></span>
+  <span class="label label-success"><a href="/tags/Just-for-Fun/" style="color: white">Just for Fun <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Finite-State-Machine/" style="color: white">Finite-State Machine <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Operating-Systems/" style="color: white">Operating Systems <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Task/" style="color: white">Task <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Scheduler/" style="color: white">Scheduler <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Process/" style="color: white">Process <span class="badge">4</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
