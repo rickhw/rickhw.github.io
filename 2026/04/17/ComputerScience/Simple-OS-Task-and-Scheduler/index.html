@@ -475,7 +475,7 @@ Task 資料結構">
 <ol>
 <li><code>Linux 核心排程器 (CFS/EEVDF)</code><ul>
 <li><code>CFS (Completely Fair Scheduler)</code>：Linux 目前主流排程器，強調任務間的「完全公平性」，利用紅黑樹結構來管理行程，讓每個工作都能獲得適當的執行比例。</li>
-<li><code>EEVDF (Earliest Eligible Virtual Deadline First)</code>：最新演化方向，旨在處理即時性要求（Latency-sensitive）更高的工作負載。</li>
+<li><code>EEVDF (Earliest Eligible Virtual Deadline First)</code>：最新演化方向，旨在處理即時性要求（Latency-sensitive）更高的工作負載。更多參閱 <a target="_blank" rel="noopener" href="https://hackmd.io/@sysprog/SyG4t5u1a">Linux 核心設計: Scheduler(5): EEVDF Scheduler&#x2F;1</a></li>
 </ul>
 </li>
 <li><code>雲端服務與容器化 (Cloud &amp; Docker)</code>：在公有雲的虛擬機 (像是 EC2)，排程器會感知 CPU Burst，在突發流量時臨時提供額外資源，避免因嚴格限制 (Throttled) 導致應用程式延遲。或者反過來，利用感知 CPU 的使用狀況，做到資源調度彈性的產品，像是 AWS t 系列的 EC2 就是這種產品。</li>
@@ -541,6 +541,7 @@ Task 資料結構">
 <h3 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://hackmd.io/@sysprog/linux-process">Linux 核心設計: 不只是執行單元的 process</a></li>
 <li><a target="_blank" rel="noopener" href="https://hackmd.io/@sysprog/linux-scheduler/%2F%40sysprog%2Flinux-scheduler-2">Linux 核心設計: Scheduler(2): 概述 CFS Scheduler</a></li>
+<li><a target="_blank" rel="noopener" href="https://hackmd.io/@sysprog/SyG4t5u1a">Linux 核心設計: Scheduler(5): EEVDF Scheduler&#x2F;1</a></li>
 </ul>
 
 
@@ -660,7 +661,7 @@ Task 資料結構">
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Finite-State-Machine/" style="color: white">Finite-State Machine <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Just-for-Fun/" style="color: white">Just for Fun <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Operating-Systems/" style="color: white">Operating Systems <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Task/" style="color: white">Task <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Scheduler/" style="color: white">Scheduler <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Process/" style="color: white">Process <span class="badge">4</span></a></span>
+  <span class="label label-success"><a href="/tags/Just-for-Fun/" style="color: white">Just for Fun <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Finite-State-Machine/" style="color: white">Finite-State Machine <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Operating-Systems/" style="color: white">Operating Systems <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Task/" style="color: white">Task <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Scheduler/" style="color: white">Scheduler <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Process/" style="color: white">Process <span class="badge">4</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
