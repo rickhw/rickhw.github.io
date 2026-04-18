@@ -463,6 +463,40 @@ Task 資料結構">
 -->
 
 
+
+<h2 id="排程演算法與專案管理"><a href="#排程演算法與專案管理" class="headerlink" title="排程演算法與專案管理"></a>排程演算法與專案管理</h2><p>作業系統的 <code>排程演算法（Scheduling Algorithms)</code> 目的是面對多個行程 (Process) 時，如何有效的分配有限的 CPU 資源，<code>分配</code> 這件事情背後考慮的有： <code>最佳的系統效能</code>、<code>公平性</code> 以及 <code>反應速度</code> 這三個切入點，不同的演算法，有不同的特性以及適用場景，底下整理常見的演算法的特性與優缺點：</p>
+<ol>
+<li><code>先來先服務 (First-Come, First-Served, FCFS)</code>: 按照行程抵達的順序執行，不可搶佔 (Non-preemptive)、不可插隊。優點是簡單、且實作容易。缺點則是會產生 <code>護送效應 (Convoy Effect)</code>，大工作可能卡住後方所有小工作。</li>
+<li><code>最短工作優先 (Shortest-Job-First, SJF)</code>: 優先執行預估執行時間（CPU Burst）最短的工作。理論上平均等待時間最短，但是實務上難以預知程式實際執行的長度，且長工作容易產生 <code>飢餓現象 (Starvation)</code>，也就是有些 任務永遠沒機會執行。</li>
+<li><code>循環分時 (Round Robin)</code>: 每個行程分配固定的 <code>時間片 (Time Quantum)</code>，用完後換下一個。具備公平性，適合互動式系統。時間片設定太短會增加 <code>Context Switch</code> 負擔，因為需要反覆啟動以及回收記憶體、磁碟等資源，造成太大的 Overhead；時間片太長則退化成 FCFS。</li>
+<li><code>多層回饋隊列 (Multilevel Feedback Queue Scheduling, MLFQ)</code>: 將行程按優先權分類，並根據行為自動調整優先權（如：I&#x2F;O Bound 的調高優先序，耗 CPU 者降級)。優點兼顧反應速度與系統吞吐量。缺點則是實作邏輯最為複雜。</li>
+</ol>
+<p>在現實世界的作業系統中，排程器通常會根據不同的應用場景進行優化： </p>
+<ol>
+<li><code>Linux 核心排程器 (CFS/EEVDF)</code><ul>
+<li><code>CFS (Completely Fair Scheduler)</code>：Linux 目前主流排程器，強調任務間的「完全公平性」，利用紅黑樹結構來管理行程，讓每個工作都能獲得適當的執行比例。</li>
+<li><code>EEVDF (Earliest Eligible Virtual Deadline First)</code>：最新演化方向，旨在處理即時性要求（Latency-sensitive）更高的工作負載。</li>
+</ul>
+</li>
+<li><code>雲端服務與容器化 (Cloud &amp; Docker)</code>：在公有雲的虛擬機 (像是 EC2)，排程器會感知 CPU Burst，在突發流量時臨時提供額外資源，避免因嚴格限制 (Throttled) 導致應用程式延遲。或者反過來，利用感知 CPU 的使用狀況，做到資源調度彈性的產品，像是 AWS t 系列的 EC2 就是這種產品。</li>
+<li><code>多核處理器與負載平衡</code>：<ul>
+<li>現代作業系統 (如 Windows, macOS) 會考慮 <code>Processor Affinity</code>，盡量讓同一個行程在同一個核心執行以利用 Cache，並動態平衡各核心的負載。</li>
+</ul>
+</li>
+<li><code>即時系統 (Real-Time OS, RTOS)</code>：<ul>
+<li><code>硬即時 (Hard Real-Time)</code>：要求任務必須在 Deadline 前絕對完成，常見於導航系統或醫療設備。</li>
+<li><code>軟即時 (Soft Real-Time)</code>：優先執行關鍵任務，但不保證絕對死線。例如 Linux 中的 SCHED_FIFO 或 SCHED_RR 策略。</li>
+</ul>
+</li>
+</ol>
+<p>大概了解這些演算法的特性與實務上的應用，其實某種程度這些跟專案管理有著類似的想法。</p>
+<p>有在使用專案管理系統 (JIRA, Redmine, Azure DevOps) 可能都曾經有以下狀況：</p>
+<ul>
+<li>有些任務萬年沒機會做，像是架構改善、或者重構、測試自動化 … 跟 SJF 會出現的 Starvation 一樣。</li>
+<li>所有的任務幾乎都是 MLFQ 模式，也就是根據優先序調整，但是優先序的權重，老闆每天都在調整。所以整個專案的狀況，很複雜</li>
+<li>有些組織內部任務分工的性質就是 RR，像是客服、SRE、資安 … 等</li>
+<li>排年度計劃時，放在 Q2&#x2F;Q3 的，就會像是 FCFS，先搶到時間點，先做了。這些通常也都會是大的工作事項。</li>
+</ul>
 <hr>
 <h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>我對於作業系統的 Task and Scheduler 是很有興趣的，重點是過程是自己探索過的。這一切可以追溯到我職涯很有成就感的作品之一： <a href="/2018/05/12/SQA/Designing-Test-Architecture-and-Framework/">Designing Test Architecture and Framework</a>。當年這個架構就是在設計一個 <code>動態分配</code> 資源，然後 <code>執行自動化測試</code> 的架構與框架，把每個自動化測試案例當作 Task，根據現在機器的資源狀況，動態分配到對應的機器上開始運行測試，最後結果全部匯總。整個過程的起點，就是像作業系統的 Task and Scheduler 在跑。熟悉 K8s 的人，大概就會感覺到上述的過程，大概就是 K8s 如何分配 Pod 在哪個 Node 上跑的過程。</p>
 <p>2022 年，我在幫 <a href="/2022/11/19/About/Gitlab-Recommand/">朋友的書</a> 寫 <a href="/2022/11/19/About/Gitlab-Recommand/">推薦序</a> 時，書中針對 GitLab 寫下以下四件核心概念：</p>
@@ -596,7 +630,7 @@ Task 資料結構">
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Task-%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B"><span class="toc-article-text">Task 資料結構</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Task-State-Machine"><span class="toc-article-text">Task State Machine</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Scheduler"><span class="toc-article-text">Scheduler</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%88%9D%E5%A7%8B-kernel-main-Task"><span class="toc-article-text">初始 [kernel_main] Task</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Preemptive-Round-Robin-Scheduling"><span class="toc-article-text">Preemptive Round-Robin Scheduling</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%95%8F%E9%A1%8C"><span class="toc-article-text">問題</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Q1-%E7%95%B6-Timer-%E7%9A%84%E9%A0%BB%E7%8E%87%E7%82%BA-100Hz%EF%BC%8C%E4%B8%8B%E8%B7%91-100-%E5%80%8B%E4%BB%BB%E5%8B%99%EF%BC%8COS-%E6%9C%83%E4%B8%8D%E6%9C%83%E5%8D%A1%E9%A0%93%EF%BC%9F"><span class="toc-article-text">Q1: 當 Timer 的頻率為 100Hz，下跑 100 個任務，OS 會不會卡頓？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Q2-task-c-ready-queue-%E7%9A%84%E7%94%A8%E9%80%94%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F"><span class="toc-article-text">Q2: task.c#ready_queue 的用途是什麼？</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-article-text">小結</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E8%87%AA%E5%B9%B9%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1-%E7%B3%BB%E5%88%97"><span class="toc-article-text">自幹作業系統 系列</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Task-%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B"><span class="toc-article-text">Task 資料結構</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Task-State-Machine"><span class="toc-article-text">Task State Machine</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Scheduler"><span class="toc-article-text">Scheduler</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%88%9D%E5%A7%8B-kernel-main-Task"><span class="toc-article-text">初始 [kernel_main] Task</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Preemptive-Round-Robin-Scheduling"><span class="toc-article-text">Preemptive Round-Robin Scheduling</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%95%8F%E9%A1%8C"><span class="toc-article-text">問題</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Q1-%E7%95%B6-Timer-%E7%9A%84%E9%A0%BB%E7%8E%87%E7%82%BA-100Hz%EF%BC%8C%E4%B8%8B%E8%B7%91-100-%E5%80%8B%E4%BB%BB%E5%8B%99%EF%BC%8COS-%E6%9C%83%E4%B8%8D%E6%9C%83%E5%8D%A1%E9%A0%93%EF%BC%9F"><span class="toc-article-text">Q1: 當 Timer 的頻率為 100Hz，下跑 100 個任務，OS 會不會卡頓？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Q2-task-c-ready-queue-%E7%9A%84%E7%94%A8%E9%80%94%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F"><span class="toc-article-text">Q2: task.c#ready_queue 的用途是什麼？</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%8E%92%E7%A8%8B%E6%BC%94%E7%AE%97%E6%B3%95%E8%88%87%E5%B0%88%E6%A1%88%E7%AE%A1%E7%90%86"><span class="toc-article-text">排程演算法與專案管理</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-article-text">小結</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E8%87%AA%E5%B9%B9%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1-%E7%B3%BB%E5%88%97"><span class="toc-article-text">自幹作業系統 系列</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -626,7 +660,7 @@ Task 資料結構">
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Finite-State-Machine/" style="color: white">Finite-State Machine <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Operating-Systems/" style="color: white">Operating Systems <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Just-for-Fun/" style="color: white">Just for Fun <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Task/" style="color: white">Task <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Scheduler/" style="color: white">Scheduler <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Process/" style="color: white">Process <span class="badge">4</span></a></span>
+  <span class="label label-success"><a href="/tags/Finite-State-Machine/" style="color: white">Finite-State Machine <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Just-for-Fun/" style="color: white">Just for Fun <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Operating-Systems/" style="color: white">Operating Systems <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Task/" style="color: white">Task <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Scheduler/" style="color: white">Scheduler <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Process/" style="color: white">Process <span class="badge">4</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
