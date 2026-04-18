@@ -463,11 +463,18 @@ Task 資料結構">
 -->
 
 
+<hr>
+<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>我對於作業系統的 Task and Scheduler 是很有興趣的，重點是過程是自己探索過的。這一切可以追溯到我職涯很有成就感的作品之一： <a href="/2018/05/12/SQA/Designing-Test-Architecture-and-Framework/">Designing Test Architecture and Framework</a>。當年這個架構就是在設計一個 <code>動態分配</code> 資源，然後 <code>執行自動化測試</code> 的架構與框架，把每個自動化測試案例當作 Task，根據現在機器的資源狀況，動態分配到對應的機器上開始運行測試，最後結果全部匯總。整個過程的起點，就是像作業系統的 Task and Scheduler 在跑。熟悉 K8s 的人，大概就會感覺到上述的過程，大概就是 K8s 如何分配 Pod 在哪個 Node 上跑的過程。</p>
+<p>2022 年，我在幫 <a href="/2022/11/19/About/Gitlab-Recommand/">朋友的書</a> 寫 <a href="/2022/11/19/About/Gitlab-Recommand/">推薦序</a> 時，書中針對 GitLab 寫下以下四件核心概念：</p>
+<ol>
+<li>任務 (Task) </li>
+<li>流程控制 (Flow Control) </li>
+<li>事件驅動 (Event Driven) </li>
+<li>分散式運算 (Distributed Computing) ，因此會帶來 分散式架構 議題</li>
+</ol>
+<p>前面 1), 2) 就是在描述 作業系統的 Task and Scheduler 的概念，只是應用在軟體工程的 Pipeline。</p>
+<p>到這裡，不難感覺到， <a href="/2025/03/08/Design/Gossip-API-First-Joureny/">自幹作業系統</a> 一開始我一直反覆強調：<strong>資源分配與調度</strong>。其他像是 電商的非同步任務系統 或者各種工作流系統 更是如此。</p>
 <!--
-
-## 小結
-
-
 ### 未完
 
 
@@ -494,6 +501,8 @@ Task 資料結構">
 </ul>
 <h3 id="站內文章"><a href="#站內文章" class="headerlink" title="站內文章"></a>站內文章</h3><ul>
 <li><a href="/2025/03/08/Design/Gossip-API-First-Joureny/">聊聊 API First 開發策略</a></li>
+<li><a href="/2018/05/12/SQA/Designing-Test-Architecture-and-Framework/">Designing Test Architecture and Framework</a></li>
+<li><a href="/2022/11/19/About/Gitlab-Recommand/">和艦長一起 30 天玩轉 GitLab【第二版】- 推薦序完整版</a></li>
 </ul>
 <h3 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://hackmd.io/@sysprog/linux-process">Linux 核心設計: 不只是執行單元的 process</a></li>
@@ -587,7 +596,7 @@ Task 資料結構">
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Task-%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B"><span class="toc-article-text">Task 資料結構</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Task-State-Machine"><span class="toc-article-text">Task State Machine</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Scheduler"><span class="toc-article-text">Scheduler</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%88%9D%E5%A7%8B-kernel-main-Task"><span class="toc-article-text">初始 [kernel_main] Task</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Preemptive-Round-Robin-Scheduling"><span class="toc-article-text">Preemptive Round-Robin Scheduling</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%95%8F%E9%A1%8C"><span class="toc-article-text">問題</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Q1-%E7%95%B6-Timer-%E7%9A%84%E9%A0%BB%E7%8E%87%E7%82%BA-100Hz%EF%BC%8C%E4%B8%8B%E8%B7%91-100-%E5%80%8B%E4%BB%BB%E5%8B%99%EF%BC%8COS-%E6%9C%83%E4%B8%8D%E6%9C%83%E5%8D%A1%E9%A0%93%EF%BC%9F"><span class="toc-article-text">Q1: 當 Timer 的頻率為 100Hz，下跑 100 個任務，OS 會不會卡頓？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Q2-task-c-ready-queue-%E7%9A%84%E7%94%A8%E9%80%94%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F"><span class="toc-article-text">Q2: task.c#ready_queue 的用途是什麼？</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E8%87%AA%E5%B9%B9%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1-%E7%B3%BB%E5%88%97"><span class="toc-article-text">自幹作業系統 系列</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Task-%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B"><span class="toc-article-text">Task 資料結構</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Task-State-Machine"><span class="toc-article-text">Task State Machine</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Scheduler"><span class="toc-article-text">Scheduler</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%88%9D%E5%A7%8B-kernel-main-Task"><span class="toc-article-text">初始 [kernel_main] Task</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Preemptive-Round-Robin-Scheduling"><span class="toc-article-text">Preemptive Round-Robin Scheduling</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%95%8F%E9%A1%8C"><span class="toc-article-text">問題</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Q1-%E7%95%B6-Timer-%E7%9A%84%E9%A0%BB%E7%8E%87%E7%82%BA-100Hz%EF%BC%8C%E4%B8%8B%E8%B7%91-100-%E5%80%8B%E4%BB%BB%E5%8B%99%EF%BC%8COS-%E6%9C%83%E4%B8%8D%E6%9C%83%E5%8D%A1%E9%A0%93%EF%BC%9F"><span class="toc-article-text">Q1: 當 Timer 的頻率為 100Hz，下跑 100 個任務，OS 會不會卡頓？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Q2-task-c-ready-queue-%E7%9A%84%E7%94%A8%E9%80%94%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F"><span class="toc-article-text">Q2: task.c#ready_queue 的用途是什麼？</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-article-text">小結</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E8%87%AA%E5%B9%B9%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1-%E7%B3%BB%E5%88%97"><span class="toc-article-text">自幹作業系統 系列</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -617,7 +626,7 @@ Task 資料結構">
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Just-for-Fun/" style="color: white">Just for Fun <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Finite-State-Machine/" style="color: white">Finite-State Machine <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Operating-Systems/" style="color: white">Operating Systems <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Task/" style="color: white">Task <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Scheduler/" style="color: white">Scheduler <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Process/" style="color: white">Process <span class="badge">4</span></a></span>
+  <span class="label label-success"><a href="/tags/Finite-State-Machine/" style="color: white">Finite-State Machine <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Operating-Systems/" style="color: white">Operating Systems <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Just-for-Fun/" style="color: white">Just for Fun <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Task/" style="color: white">Task <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Scheduler/" style="color: white">Scheduler <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Process/" style="color: white">Process <span class="badge">4</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
