@@ -5,7 +5,8 @@
   <title>Finite-State Machine (有限狀態機) | Complete Think</title>
 
   <meta name="author" content="Rick Hwang">
-  <meta name="description" content="我很常用 FSM (Finite-State Machine, 有限狀態機) 做 系統設計 (System Design) 或者 流程規劃 (Business Flow)。系統設計最常用的是 API Design、自幹作業系統的 task 分析，流程規劃則是專案管理 (Redmine &amp;#x2F; ">
+  <meta name="description" content="我很常用 FSM (Finite-State Machine, 有限狀態機) 做 系統設計 (System Design) 或者 流程規劃 (Business Flow)。因為 FSM 具備有限性，容易收斂問題邊界，同時在實作上也更容易聚焦。所以從設計角度，我覺得是個非常好的設計方法。
+系統設計最常">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -263,7 +264,8 @@
 
 				<hr />
 
-				<p>我很常用 <code>FSM (Finite-State Machine, 有限狀態機)</code> 做 <code>系統設計 (System Design)</code> 或者 <code>流程規劃 (Business Flow)</code>。系統設計最常用的是 <a href="/2025/03/08/Design/Gossip-API-First-Joureny/">API Design</a>、<a href="/2026/04/17/ComputerScience/Simple-OS-Task-and-Scheduler/">自幹作業系統的 task 分析</a>，流程規劃則是專案管理 (Redmine &#x2F; JIRA)、或者內部系統 (資產、人事) 等。也在工作時針對這部分整理過不少教育訓練素材以及相關概念解說，但好像沒有專注整理 FSM 的資料。</p>
+				<p>我很常用 <code>FSM (Finite-State Machine, 有限狀態機)</code> 做 <code>系統設計 (System Design)</code> 或者 <code>流程規劃 (Business Flow)</code>。因為 FSM 具備有限性，容易收斂問題邊界，同時在實作上也更容易聚焦。所以從設計角度，我覺得是個非常好的設計方法。</p>
+<p>系統設計最常用的是 <a href="/2025/03/08/Design/Gossip-API-First-Joureny/">API Design</a>、<a href="/2026/04/17/ComputerScience/Simple-OS-Task-and-Scheduler/">自幹作業系統的 task 分析</a>，流程規劃則是 <a href="/2015/01/06/Management/%E5%8D%94%E5%90%8C%E5%90%88%E4%BD%9C%E7%B3%BB%E7%B5%B1%E5%BB%BA%E5%88%B6%E8%88%87%E5%B0%8E%E5%85%A5-%E4%BB%A5-Redmine-%E7%82%BA%E4%BE%8B/">專案管理 (Redmine &#x2F; JIRA)</a>、或者內部系統 (資產、人事) 等。也在工作時針對這部分整理過不少教育訓練素材以及相關概念解說，但好像沒有專注整理 FSM 的資料。</p>
 <p>這篇從我在 <a target="_blank" rel="noopener" href="https://www.facebook.com/rick.kyhwang/posts/pfbid0m87JffxLCbDqicqgHnwHcJgtkcigUL2zJrnwhQvaf2x6P2fzEvqTatabnU1XKSh1l">FB</a> 整理的資料開始，加上 Blog 已經寫過類似的資訊做個彙整。如果有在使用 AI 設計，這篇大概就是一個 SKILL.md 的整理。</p>
 <span id="more"></span>
 
@@ -280,7 +282,7 @@
 <ul>
 <li>狀態名稱都是 <code>名詞</code> 或 <code>形容詞</code>，狀態都是 <code>單一</code> 字彙組成</li>
 <li>狀態的數量控制在 <code>十個以內 (不含頭尾)</code>，最好是 <code>五個</code>，超過都算複雜</li>
-<li>如果狀態數量很多，就要拆解狀態機，變成 <code>有限巢狀狀態機 (Nested Finite State Machine, NFSM)</code>，又稱 <code>Hierarchical State Machines (HSM)</code>，背後精神就是 <code>分而治之</code>。</li>
+<li>如果狀態數量很多，就要拆解狀態機，變成 <code>有限巢狀狀態機 (Nested Finite State Machine, NFSM)</code>，又稱 <code>Hierarchical State Machines (HSM)</code>，背後精神就是 <code>分而治之</code>。<br><img src="/images/Design/RESTful-API/ec2-state-machine_v20250308.png"></li>
 </ul>
 <h3 id="二、狀態的頭尾-Start-x2F-End"><a href="#二、狀態的頭尾-Start-x2F-End" class="headerlink" title="二、狀態的頭尾 (Start &#x2F; End)"></a>二、狀態的頭尾 (Start &#x2F; End)</h3><ul>
 <li>只能有一種 <code>初始狀態</code>，注意，只能 <code>一個</code></li>
@@ -290,6 +292,7 @@
 <h3 id="三、狀態移轉-Transitions"><a href="#三、狀態移轉-Transitions" class="headerlink" title="三、狀態移轉 (Transitions)"></a>三、狀態移轉 (Transitions)</h3><ul>
 <li><code>狀態移轉 (Transition)</code> 是動詞，通常可以透過程式串接。</li>
 <li>RPC Style 慣用動詞起手，那就是狀態移轉在用的詞</li>
+<li>狀態之間的移轉，可以透過狀態表 (State Table) 表示，如下是一個 EC2 的移轉：<br><img src="/images/Design/RESTful-API/ec2-restful-api_state-table_v20250308.png"></li>
 </ul>
 <h3 id="四、狀態移轉事件-Events"><a href="#四、狀態移轉事件-Events" class="headerlink" title="四、狀態移轉事件 (Events)"></a>四、狀態移轉事件 (Events)</h3><ul>
 <li>狀態移轉的前後，都可以有事件</li>
@@ -299,16 +302,21 @@
 <li>每個角色能夠執行的狀態移轉不一樣，需要個別定義</li>
 <li>每個角色都要考慮事件</li>
 </ul>
-<hr>
-<h2 id="狀態機的複雜度"><a href="#狀態機的複雜度" class="headerlink" title="狀態機的複雜度"></a>狀態機的複雜度</h2><ul>
-<li>狀態數量 (S)</li>
-<li>轉換數量 (T)</li>
-<li>角色數量 (R)</li>
-</ul>
-<p>最大複雜度：</p>
-<blockquote>
-<p>((S + 2) ^ 2 - S ) * R</p>
-</blockquote>
+<!--
+
+## 狀態機的複雜度
+
+* 狀態數量 (S)
+* 轉換數量 (T)
+* 角色數量 (R)
+
+最大複雜度：
+
+> ((S + 2) ^ 2 - S ) * R
+
+
+-->
+
 <hr>
 <h2 id="範例"><a href="#範例" class="headerlink" title="範例"></a>範例</h2><h3 id="軟體開發流程中的-Bug-流程"><a href="#軟體開發流程中的-Bug-流程" class="headerlink" title="軟體開發流程中的 Bug 流程"></a>軟體開發流程中的 Bug 流程</h3><ul>
 <li>資源：Bug </li>
@@ -333,11 +341,41 @@
 <p><img src="/images/Design/FSM/Tcp_state_diagram.png"><br>source: <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/File:Tcp_state_diagram.png">https://en.wikipedia.org/wiki/File:Tcp_state_diagram.png</a></p>
 <p>這篇 TCP 原始論文: “<a target="_blank" rel="noopener" href="https://www.medianet.cs.kent.edu/techreports/TR2005-07-22-tcp-EFSM.pdf">EFSM&#x2F;SDL modeling of the original TCP standard (RFC793) and the Congestion Control Mechanism of TCP Reno</a>“ ，整理了所有相關的 TCP 狀態圖，共有 38 張。下圖是用 NotebookLM 整理的狀態機，一共有 11 states.</p>
 <p><img src="/images/Design/FSM/tcp-state.png"></p>
+<h3 id="Q-使用-FSM-作為設計的相關論述？以及實際應用？"><a href="#Q-使用-FSM-作為設計的相關論述？以及實際應用？" class="headerlink" title="Q: 使用 FSM 作為設計的相關論述？以及實際應用？"></a>Q: 使用 FSM 作為設計的相關論述？以及實際應用？</h3><p>相關理論：</p>
+<ul>
+<li>Mealy Machine (1955): <code>A Method for Synthesizing Sequential Circuits</code> by George H. Mealy.<ul>
+<li>輸出取決於「目前狀態」與「輸入信號」。在實務中，這意味著它能比 Moore 機器以更少的狀態達成目的，且反應更迅速。</li>
+</ul>
+</li>
+<li>Moore Machine (1956): <code>Gedanken-experiments on Sequential Machines</code> by Edward F. Moore.<ul>
+<li>輸出僅取決於「目前狀態」。優點是輸出信號穩定，不受輸入信號的突波（glitch）影響，對同步電路設計非常友好。</li>
+</ul>
+</li>
+<li>Raft 演算法 (2014): <code>In Search of an Understandable Consensus Algorithm</code> by Diego Ongaro and John Ousterhout.<ul>
+<li>提出了 <code>Replicated State Machine (RSM)</code> 的概念。核心思想是：如果多個伺服器從相同的初始狀態開始，並以相同的順序執行相同的指令（Log），則它們最終會達到一致的狀態。</li>
+</ul>
+</li>
+<li>Data-Parallel FSMs (2014): <code>Data-Parallel Finite-State Machines</code> (Microsoft Research).<ul>
+<li>探討 FSM 在並行運算（如 SIMD、多核）中的難題，提出如何利用「狀態收斂」特性來並行處理傳統上被認為是序列任務的 FSM 運算。</li>
+</ul>
+</li>
+</ul>
+<p>實務應用：</p>
+<ul>
+<li>NPC AI 與 動畫控制：我在開發 <a href="/2025/12/19/About/Java-2D-RPG-Game/">Java 2D RPG Game</a>，角色的「巡邏、追逐、攻擊」邏輯通常會使用 <code>Hierarchical FSM (HFSM)</code>，這能有效減少狀態爆炸問題。</li>
+<li>前端 UI 狀態管理的 <code>XState</code> - 一個基於 Statecharts (Harel, 1987) 理論的工具</li>
+<li><code>分散式事務 (2PC/3PC)</code>：兩階段提交協定使用 FSM 來決定節點該 Commit 還是 Abort。</li>
+<li>服務發現與健康檢查：如 HashiCorp Consul 或 Go-kit 中的熔斷器（Circuit Breaker）邏輯（Closed, Open, Half-Open）</li>
+<li>作業系統的中斷處理與排程：管理進程生命週期（Ready, Running, Waiting, Terminated）本質上就是一個大型 FSM。</li>
+</ul>
 <hr>
 <h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="相關文章"><a href="#相關文章" class="headerlink" title="相關文章"></a>相關文章</h2><ul>
 <li><a href="/2015/01/06/Management/%E5%8D%94%E5%90%8C%E5%90%88%E4%BD%9C%E7%B3%BB%E7%B5%B1%E5%BB%BA%E5%88%B6%E8%88%87%E5%B0%8E%E5%85%A5-%E4%BB%A5-Redmine-%E7%82%BA%E4%BE%8B/">協同合作系統建制與導入 - 以 Redmine 為例</a></li>
 <li><a href="/2019/05/21/AWS/Study-Notes-Step-Functions/">Study Notes - Step Functions</a></li>
 <li><a href="/2017/08/19/Redmine/Issue-Tracking_in_Redmine/">Issue Tracking in Redmine</a></li>
+<li><a href="/2026/04/17/ComputerScience/Simple-OS-Task-and-Scheduler/">自幹作業系統 - Task and Scheduler</a></li>
+<li><a href="/2025/03/08/Design/Gossip-API-First-Joureny/">聊聊 API First 開發策略</a></li>
+<li><a href="/2025/12/19/About/Java-2D-RPG-Game/">純手工遊戲開發心得紀錄 - Java 2D RPG Game</a></li>
 </ul>
 
 
@@ -427,7 +465,7 @@
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%A8%AD%E8%A8%88-%E7%8B%80%E6%85%8B%E6%A9%9F-%E7%9A%84%E8%A6%8F%E5%89%87"><span class="toc-article-text">設計 狀態機 的規則</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E9%9B%B6%E3%80%81%E5%AE%9A%E7%BE%A9%E7%8B%80%E6%85%8B%E6%A9%9F%E7%9A%84%E6%8E%A7%E5%88%B6%E5%B0%8D%E8%B1%A1%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F"><span class="toc-article-text">零、定義狀態機的控制對象是什麼？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E4%B8%80%E3%80%81%E6%9C%89%E9%99%90%E7%9A%84%E7%8B%80%E6%85%8B-States"><span class="toc-article-text">一、有限的狀態 (States)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E4%BA%8C%E3%80%81%E7%8B%80%E6%85%8B%E7%9A%84%E9%A0%AD%E5%B0%BE-Start-x2F-End"><span class="toc-article-text">二、狀態的頭尾 (Start &#x2F; End)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E4%B8%89%E3%80%81%E7%8B%80%E6%85%8B%E7%A7%BB%E8%BD%89-Transitions"><span class="toc-article-text">三、狀態移轉 (Transitions)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%9B%9B%E3%80%81%E7%8B%80%E6%85%8B%E7%A7%BB%E8%BD%89%E4%BA%8B%E4%BB%B6-Events"><span class="toc-article-text">四、狀態移轉事件 (Events)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E4%BA%94%E3%80%81%E5%B8%B6%E5%85%A5%E8%A7%92%E8%89%B2-Roles-%E7%9A%84%E6%B5%81%E5%8B%95"><span class="toc-article-text">五、帶入角色 (Roles) 的流動</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%8B%80%E6%85%8B%E6%A9%9F%E7%9A%84%E8%A4%87%E9%9B%9C%E5%BA%A6"><span class="toc-article-text">狀態機的複雜度</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AF%84%E4%BE%8B"><span class="toc-article-text">範例</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E8%BB%9F%E9%AB%94%E9%96%8B%E7%99%BC%E6%B5%81%E7%A8%8B%E4%B8%AD%E7%9A%84-Bug-%E6%B5%81%E7%A8%8B"><span class="toc-article-text">軟體開發流程中的 Bug 流程</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-and-A"><span class="toc-article-text">Q and A</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Q-%E4%B8%B2%E8%B5%B7-CI-x2F-CD-%E7%9A%84-Pipeline-script-or-gitlab-ci-%E7%AE%97%E4%B8%8D%E7%AE%97%E7%8B%80%E6%85%8B%E6%A9%9F%EF%BC%9F"><span class="toc-article-text">Q: 串起 CI &#x2F; CD 的 Pipeline script (or gitlab-ci) 算不算狀態機？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Q-State-%E5%92%8C-Status-%E9%80%99%E5%85%A9%E7%9A%84%E5%AD%97%E6%9C%89%E5%95%A5%E5%B7%AE%E5%88%A5%EF%BC%9F"><span class="toc-article-text">Q: State 和 Status 這兩的字有啥差別？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Q-%E5%A6%82%E6%9E%9C%E7%8B%80%E6%85%8B%E8%B6%85%E9%81%8E%E5%8D%81%E5%80%8B%E6%9C%83%E6%80%8E%E6%A8%A3%EF%BC%9F"><span class="toc-article-text">Q: 如果狀態超過十個會怎樣？</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E6%96%87%E7%AB%A0"><span class="toc-article-text">相關文章</span></a></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%A8%AD%E8%A8%88-%E7%8B%80%E6%85%8B%E6%A9%9F-%E7%9A%84%E8%A6%8F%E5%89%87"><span class="toc-article-text">設計 狀態機 的規則</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E9%9B%B6%E3%80%81%E5%AE%9A%E7%BE%A9%E7%8B%80%E6%85%8B%E6%A9%9F%E7%9A%84%E6%8E%A7%E5%88%B6%E5%B0%8D%E8%B1%A1%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F"><span class="toc-article-text">零、定義狀態機的控制對象是什麼？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E4%B8%80%E3%80%81%E6%9C%89%E9%99%90%E7%9A%84%E7%8B%80%E6%85%8B-States"><span class="toc-article-text">一、有限的狀態 (States)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E4%BA%8C%E3%80%81%E7%8B%80%E6%85%8B%E7%9A%84%E9%A0%AD%E5%B0%BE-Start-x2F-End"><span class="toc-article-text">二、狀態的頭尾 (Start &#x2F; End)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E4%B8%89%E3%80%81%E7%8B%80%E6%85%8B%E7%A7%BB%E8%BD%89-Transitions"><span class="toc-article-text">三、狀態移轉 (Transitions)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%9B%9B%E3%80%81%E7%8B%80%E6%85%8B%E7%A7%BB%E8%BD%89%E4%BA%8B%E4%BB%B6-Events"><span class="toc-article-text">四、狀態移轉事件 (Events)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E4%BA%94%E3%80%81%E5%B8%B6%E5%85%A5%E8%A7%92%E8%89%B2-Roles-%E7%9A%84%E6%B5%81%E5%8B%95"><span class="toc-article-text">五、帶入角色 (Roles) 的流動</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AF%84%E4%BE%8B"><span class="toc-article-text">範例</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E8%BB%9F%E9%AB%94%E9%96%8B%E7%99%BC%E6%B5%81%E7%A8%8B%E4%B8%AD%E7%9A%84-Bug-%E6%B5%81%E7%A8%8B"><span class="toc-article-text">軟體開發流程中的 Bug 流程</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-and-A"><span class="toc-article-text">Q and A</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Q-%E4%B8%B2%E8%B5%B7-CI-x2F-CD-%E7%9A%84-Pipeline-script-or-gitlab-ci-%E7%AE%97%E4%B8%8D%E7%AE%97%E7%8B%80%E6%85%8B%E6%A9%9F%EF%BC%9F"><span class="toc-article-text">Q: 串起 CI &#x2F; CD 的 Pipeline script (or gitlab-ci) 算不算狀態機？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Q-State-%E5%92%8C-Status-%E9%80%99%E5%85%A9%E7%9A%84%E5%AD%97%E6%9C%89%E5%95%A5%E5%B7%AE%E5%88%A5%EF%BC%9F"><span class="toc-article-text">Q: State 和 Status 這兩的字有啥差別？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Q-%E5%A6%82%E6%9E%9C%E7%8B%80%E6%85%8B%E8%B6%85%E9%81%8E%E5%8D%81%E5%80%8B%E6%9C%83%E6%80%8E%E6%A8%A3%EF%BC%9F"><span class="toc-article-text">Q: 如果狀態超過十個會怎樣？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Q-%E4%BD%BF%E7%94%A8-FSM-%E4%BD%9C%E7%82%BA%E8%A8%AD%E8%A8%88%E7%9A%84%E7%9B%B8%E9%97%9C%E8%AB%96%E8%BF%B0%EF%BC%9F%E4%BB%A5%E5%8F%8A%E5%AF%A6%E9%9A%9B%E6%87%89%E7%94%A8%EF%BC%9F"><span class="toc-article-text">Q: 使用 FSM 作為設計的相關論述？以及實際應用？</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E6%96%87%E7%AB%A0"><span class="toc-article-text">相關文章</span></a></li></ol>
 		</div>
 	
 	</div>
@@ -457,7 +495,7 @@
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Finite-State-Machine/" style="color: white">Finite-State Machine <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/RESTful/" style="color: white">RESTful <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/API-Design/" style="color: white">API Design <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/System-Design/" style="color: white">System Design <span class="badge">2</span></a></span>
+  <span class="label label-success"><a href="/tags/Finite-State-Machine/" style="color: white">Finite-State Machine <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/API-Design/" style="color: white">API Design <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/RESTful/" style="color: white">RESTful <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/System-Design/" style="color: white">System Design <span class="badge">2</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
