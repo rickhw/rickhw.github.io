@@ -5,7 +5,7 @@
   <title>Finite-State Machine (有限狀態機) | Complete Think</title>
 
   <meta name="author" content="Rick Hwang">
-  <meta name="description" content="我很常用 FSM (Finite-State Machine, 有限狀態機) 做 系統設計 (System Design) 或者 流程規劃 (Business Flow)。因為 FSM 具備有限性，容易收斂問題邊界，同時在實作上也更容易聚焦。所以從設計角度，我覺得是個非常好的設計方法。當在 Reiv">
+  <meta name="description" content="我很常用 FSM (Finite-State Machine, 有限狀態機) 做 系統設計 (System Design) 或者 流程規劃 (Business Flow)。因為 FSM 的 有限性，容易 收斂邊界，同時在實作上也更容易聚焦。所以從設計角度，我覺得是個非常好的設計方法。當在 Reive">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -263,7 +263,7 @@
 
 				<hr />
 
-				<p>我很常用 <code>FSM (Finite-State Machine, 有限狀態機)</code> 做 <code>系統設計 (System Design)</code> 或者 <code>流程規劃 (Business Flow)</code>。因為 FSM 具備有限性，容易收斂問題邊界，同時在實作上也更容易聚焦。所以從設計角度，我覺得是個非常好的設計方法。當在 Reivew 別人的系統設計時，通常我也會觀察是否有類似 FSM 概念存在，缺乏有限性的邊界，通常系統的可靠與穩定都不容易控制。</p>
+				<p>我很常用 <code>FSM (Finite-State Machine, 有限狀態機)</code> 做 <code>系統設計 (System Design)</code> 或者 <code>流程規劃 (Business Flow)</code>。因為 FSM 的 <strong>有限性</strong>，容易 <strong>收斂邊界</strong>，同時在實作上也更容易聚焦。所以從設計角度，我覺得是個非常好的設計方法。當在 Reivew 別人的系統設計時，通常我也會觀察是否有類似 FSM 概念存在，缺乏有限性的邊界，通常系統的 <strong>可靠性</strong> 與 <strong>穩定性</strong> 都不容易達成。</p>
 <p>系統設計最常用的是 <a href="/2025/03/08/Design/Gossip-API-First-Joureny/">API Design</a>、<a href="/2026/04/17/ComputerScience/Simple-OS-Task-and-Scheduler/">自幹作業系統的 task 分析</a>，流程規劃則是 <a href="/2015/01/06/Management/%E5%8D%94%E5%90%8C%E5%90%88%E4%BD%9C%E7%B3%BB%E7%B5%B1%E5%BB%BA%E5%88%B6%E8%88%87%E5%B0%8E%E5%85%A5-%E4%BB%A5-Redmine-%E7%82%BA%E4%BE%8B/">專案管理 (Redmine &#x2F; JIRA)</a>、或者內部系統 (資產、人事) 等。也在工作時針對這部分整理過不少教育訓練素材以及相關概念解說，但好像沒有專注整理 FSM 的資料。</p>
 <p>這篇從我在 <a target="_blank" rel="noopener" href="https://www.facebook.com/rick.kyhwang/posts/pfbid0m87JffxLCbDqicqgHnwHcJgtkcigUL2zJrnwhQvaf2x6P2fzEvqTatabnU1XKSh1l">FB</a> 整理的資料開始，加上 Blog 已經寫過類似的資訊做個彙整。如果有在使用 AI 設計，這篇大概就是一個 SKILL.md 的整理。</p>
 <span id="more"></span>
@@ -305,6 +305,10 @@
 
 ## 狀態機的複雜度
 
+
+從 `狀態規模 (State Complexity)` 與 `結構拓撲 (Structural Complexity)` 兩個層次來定義與計算。
+
+
 * 狀態數量 (S)
 * 轉換數量 (T)
 * 角色數量 (R)
@@ -313,8 +317,84 @@
 
 > ((S + 2) ^ 2 - S ) * R
 
+---
+by Gemini
 
--->
+在理論電腦科學與軟體工程中，有限狀態機（FSM）的複雜度並非只有單一指標。通常我們會從 **狀態規模（State Complexity）** 與 **結構拓撲（Structural Complexity）** 兩個層次來定義與計算。
+
+以下為你整理的定義方式與數學公式：
+
+---
+
+## 1. 狀態複雜度 (State Complexity, SC)
+
+這是最常見的理論定義，主要針對「正規語言（Regular Language）」所對應的最小自動機。
+
+### 數學定義：$SC(L)$
+對於一個正規語言 $L$，其**狀態複雜度** $SC(L)$ 定義為：能夠識別該語言的**最小化確定有限狀態自動機（DFA）** 的狀態數量。
+
+* **Myhill-Nerode 定理**：這是計算狀態複雜度的理論基礎。它指出一個語言的狀態數量等於其「等價類（Equivalence Classes）」的數量。
+* **公式表達**：若一個語言 $L$ 劃分出的等價關係 $R_L$ 有 $n$ 個等價類，則 $SC(L) = n$。
+
+### NFA 與 DFA 的爆炸關係
+當我們從非確定性有限自動機（NFA）轉換為 DFA 時，複雜度會發生指數級增長：
+* 若一個 NFA 有 $n$ 個狀態，其對應的等價 DFA 在最壞情況下的狀態數為：
+    $$2^n$$
+    這被稱為**冪集構造（Power Set Construction）** 複雜度。
+
+
+
+---
+
+## 2. 轉換複雜度 (Transition Complexity)
+
+有時候狀態數少，但狀態間的連線（Transition）極其複雜。
+* **定義**：FSM 中所有轉移邊的總數。
+* 對於一個擁有 $n$ 個狀態、輸入字母表大小為 $|\Sigma|$ 的 DFA，其轉換複雜度固定為：
+    $$n \times |\Sigma|$$
+    （因為每個狀態針對每個輸入符號都必須有一個確定的去向）。
+
+---
+
+## 3. 結構複雜度：循環複雜度 (Cyclomatic Complexity)
+
+在實務的軟體工程（如代碼審查或系統架構）中，我們常用 **McCabe 循環複雜度** 來衡量狀態機圖形的混亂程度。
+
+將 FSM 視為一個有向圖 $G$：
+* **$V$**：狀態（頂點）數量。
+* **$E$**：轉換（邊）數量。
+* **$P$**：連通分量數量（通常為 1）。
+
+**公式：**
+$$M = E - V + 2P$$
+
+* **意義**：$M$ 代表了狀態機中「線性獨立路徑」的數量。如果 $M$ 過高（例如超過 10 或 15），代表該狀態機的邏輯路徑過於複雜，極難進行全路徑覆蓋測試。
+
+---
+
+## 4. 統計學維度：密度與扇入/扇出
+
+在大型系統架構中，還會參考以下指標：
+* **轉移密度 (Transition Density)**：$\frac{E}{V}$。密度越高，代表狀態間的耦合度越強。
+* **平均扇出 (Average Fan-out)**：單個狀態平均觸發多少種不同的轉換。
+
+---
+
+## 💡 總結對比表
+
+| 指標類型 | 定義對象 | 數學核心 | 應用場景 |
+| :--- | :--- | :--- | :--- |
+| **狀態複雜度** | 正規語言 | $SC(L) = n$ | 理論驗證、編譯器優化 |
+| **冪集複雜度** | NFA $\rightarrow$ DFA | $2^n$ | 預測硬體/記憶體佔用空間 |
+| **循環複雜度** | 狀態機圖形 | $E - V + 2$ | 代碼維護性、測試覆蓋率 |
+
+
+
+從架構師的角度來看，當一個 FSM 的狀態複雜度 $SC(L)$ 超過人類大腦能輕易理解的範疇（通常是 7±2 個狀態）時，我們就會引入 **層級狀態機 (Hierarchical FSM, HFSM)**。透過將狀態封裝在父狀態中，可以強行將視覺上的 $V$ 降低，進而控制 $M$（循環複雜度）。
+
+在你的實務經驗中，面對邏輯爆炸的狀態機，你是傾向於將其拆解成多個獨立的子狀態機（Sub-FSM），還是使用層級（Nested）結構來管理？
+
+--->
 
 <hr>
 <h2 id="範例"><a href="#範例" class="headerlink" title="範例"></a>範例</h2><h3 id="軟體開發流程中的-Bug-流程"><a href="#軟體開發流程中的-Bug-流程" class="headerlink" title="軟體開發流程中的 Bug 流程"></a>軟體開發流程中的 Bug 流程</h3><ul>
