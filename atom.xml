@@ -6,7 +6,7 @@
   <link href="https://rickhw.github.io/atom.xml" rel="self"/>
   
   <link href="https://rickhw.github.io/"/>
-  <updated>2026-03-29T06:44:50.829Z</updated>
+  <updated>2025-06-27T12:21:44.305Z</updated>
   <id>https://rickhw.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>置頂 - 全站索引</title>
+    <link href="https://rickhw.github.io/2035/01/21/Index/"/>
+    <id>https://rickhw.github.io/2035/01/21/Index/</id>
+    <published>2035-01-21T02:30:00.000Z</published>
+    <updated>2025-06-27T12:21:44.305Z</updated>
+    
+    <content type="html"><![CDATA[<p>這篇是整個 Blog 的全站索引，如果您是第一次來這裡，可以先看看這篇索引，大概知道 Blog 的全貌：</p><ul><li>[理念] <a href="/2017/11/26/Thinking-in-Essence/">思考本質、實踐、抽象、想像力、教育</a></li><li>[目錄] <a href="/2017/07/01/Index-Management/">經營管理</a>: 整理管理經驗談、管理哲學、經營、領導、用人之道、學習方法、專案管理</li><li>[目錄] <a href="/2017/07/01/Index-Software-Engineering-In-Practice/">軟體工程實踐</a>: 包含軟體架構、開發、測試、維運等 … 實踐的心得。</li><li>[目錄] <a href="/categories/Distributed-Systems">分散式系統</a>，包含分散式系統理論、Cloud Native - <a href="/tags/Kubernetes/">Kubernetes</a>、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a>。</li><li>[參考] <a href="/2017/07/01/Reference/Books/">參考書</a>、<a href="/2017/07/01/Reference/Tech-Terms/">資訊技術與工程專有名詞</a>、<a href="/2017/07/01/Reference/SC-Terms/">計算機科學專有名詞</a>、<a href="/2017/07/01/Reference/Mgmt-Terms/">經營管理專有名詞</a></li><li>[系列文] <a href="/tags/Bus-Memo/">公車隨筆</a>、<a href="/tags/Learning-Approaches/">寫作與閱讀系列文</a>、<a href="/tags/%E6%BA%9D%E9%80%9A/">溝通</a>、<a href="/tags/Meetings/">會議效率</a></li><li>[關於] <a href="/2017/09/20/About/Learning-Approaches/">學習法則</a>、<a href="/2014/12/27/Management/%E7%B6%93%E7%87%9F%E4%B9%8B%E9%81%93/">經營之道</a>、<a href="/2017/12/02/About/Epiphany/">一些領悟</a>、<a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li><li>[站內記事]: <a href="/2035/01/21/Updated/">文章更新紀錄</a>, <a href="/2013/11/26/Stats/">點閱率統計</a></li></ul><blockquote><p>不管是程式、文章、資料、還是房間，我都會定期重新整理 &#x2F; 重構，核心概念來自於 <a href="/2014/10/26/Management/Classified-Philosophy/">分類的哲學</a></p></blockquote><span id="more"></span>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;這篇是整個 Blog 的全站索引，如果您是第一次來這裡，可以先看看這篇索引，大概知道 Blog 的全貌：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[理念] &lt;a href=&quot;/2017/11/26/Thinking-in-Essence/&quot;&gt;思考本質、實踐、抽象、想像力、教育&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[目錄] &lt;a href=&quot;/2017/07/01/Index-Management/&quot;&gt;經營管理&lt;/a&gt;: 整理管理經驗談、管理哲學、經營、領導、用人之道、學習方法、專案管理&lt;/li&gt;
+&lt;li&gt;[目錄] &lt;a href=&quot;/2017/07/01/Index-Software-Engineering-In-Practice/&quot;&gt;軟體工程實踐&lt;/a&gt;: 包含軟體架構、開發、測試、維運等 … 實踐的心得。&lt;/li&gt;
+&lt;li&gt;[目錄] &lt;a href=&quot;/categories/Distributed-Systems&quot;&gt;分散式系統&lt;/a&gt;，包含分散式系統理論、Cloud Native - &lt;a href=&quot;/tags/Kubernetes/&quot;&gt;Kubernetes&lt;/a&gt;、&lt;a href=&quot;/2016/10/01/AWS-Study-Roadmap/&quot;&gt;AWS&lt;/a&gt;。&lt;/li&gt;
+&lt;li&gt;[參考] &lt;a href=&quot;/2017/07/01/Reference/Books/&quot;&gt;參考書&lt;/a&gt;、&lt;a href=&quot;/2017/07/01/Reference/Tech-Terms/&quot;&gt;資訊技術與工程專有名詞&lt;/a&gt;、&lt;a href=&quot;/2017/07/01/Reference/SC-Terms/&quot;&gt;計算機科學專有名詞&lt;/a&gt;、&lt;a href=&quot;/2017/07/01/Reference/Mgmt-Terms/&quot;&gt;經營管理專有名詞&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[系列文] &lt;a href=&quot;/tags/Bus-Memo/&quot;&gt;公車隨筆&lt;/a&gt;、&lt;a href=&quot;/tags/Learning-Approaches/&quot;&gt;寫作與閱讀系列文&lt;/a&gt;、&lt;a href=&quot;/tags/%E6%BA%9D%E9%80%9A/&quot;&gt;溝通&lt;/a&gt;、&lt;a href=&quot;/tags/Meetings/&quot;&gt;會議效率&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[關於] &lt;a href=&quot;/2017/09/20/About/Learning-Approaches/&quot;&gt;學習法則&lt;/a&gt;、&lt;a href=&quot;/2014/12/27/Management/%E7%B6%93%E7%87%9F%E4%B9%8B%E9%81%93/&quot;&gt;經營之道&lt;/a&gt;、&lt;a href=&quot;/2017/12/02/About/Epiphany/&quot;&gt;一些領悟&lt;/a&gt;、&lt;a href=&quot;/2014/10/26/Management/Classified-Philosophy/&quot;&gt;分類哲學&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[站內記事]: &lt;a href=&quot;/2035/01/21/Updated/&quot;&gt;文章更新紀錄&lt;/a&gt;, &lt;a href=&quot;/2013/11/26/Stats/&quot;&gt;點閱率統計&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;不管是程式、文章、資料、還是房間，我都會定期重新整理 &amp;#x2F; 重構，核心概念來自於 &lt;a href=&quot;/2014/10/26/Management/Classified-Philosophy/&quot;&gt;分類的哲學&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>置頂 - 更新文章</title>
@@ -115,43 +145,13 @@
   </entry>
   
   <entry>
-    <title>置頂 - 全站索引</title>
-    <link href="https://rickhw.github.io/2035/01/21/Index/"/>
-    <id>https://rickhw.github.io/2035/01/21/Index/</id>
-    <published>2035-01-21T02:30:00.000Z</published>
-    <updated>2025-06-27T12:21:44.305Z</updated>
-    
-    <content type="html"><![CDATA[<p>這篇是整個 Blog 的全站索引，如果您是第一次來這裡，可以先看看這篇索引，大概知道 Blog 的全貌：</p><ul><li>[理念] <a href="/2017/11/26/Thinking-in-Essence/">思考本質、實踐、抽象、想像力、教育</a></li><li>[目錄] <a href="/2017/07/01/Index-Management/">經營管理</a>: 整理管理經驗談、管理哲學、經營、領導、用人之道、學習方法、專案管理</li><li>[目錄] <a href="/2017/07/01/Index-Software-Engineering-In-Practice/">軟體工程實踐</a>: 包含軟體架構、開發、測試、維運等 … 實踐的心得。</li><li>[目錄] <a href="/categories/Distributed-Systems">分散式系統</a>，包含分散式系統理論、Cloud Native - <a href="/tags/Kubernetes/">Kubernetes</a>、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a>。</li><li>[參考] <a href="/2017/07/01/Reference/Books/">參考書</a>、<a href="/2017/07/01/Reference/Tech-Terms/">資訊技術與工程專有名詞</a>、<a href="/2017/07/01/Reference/SC-Terms/">計算機科學專有名詞</a>、<a href="/2017/07/01/Reference/Mgmt-Terms/">經營管理專有名詞</a></li><li>[系列文] <a href="/tags/Bus-Memo/">公車隨筆</a>、<a href="/tags/Learning-Approaches/">寫作與閱讀系列文</a>、<a href="/tags/%E6%BA%9D%E9%80%9A/">溝通</a>、<a href="/tags/Meetings/">會議效率</a></li><li>[關於] <a href="/2017/09/20/About/Learning-Approaches/">學習法則</a>、<a href="/2014/12/27/Management/%E7%B6%93%E7%87%9F%E4%B9%8B%E9%81%93/">經營之道</a>、<a href="/2017/12/02/About/Epiphany/">一些領悟</a>、<a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li><li>[站內記事]: <a href="/2035/01/21/Updated/">文章更新紀錄</a>, <a href="/2013/11/26/Stats/">點閱率統計</a></li></ul><blockquote><p>不管是程式、文章、資料、還是房間，我都會定期重新整理 &#x2F; 重構，核心概念來自於 <a href="/2014/10/26/Management/Classified-Philosophy/">分類的哲學</a></p></blockquote><span id="more"></span>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;這篇是整個 Blog 的全站索引，如果您是第一次來這裡，可以先看看這篇索引，大概知道 Blog 的全貌：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;[理念] &lt;a href=&quot;/2017/11/26/Thinking-in-Essence/&quot;&gt;思考本質、實踐、抽象、想像力、教育&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;[目錄] &lt;a href=&quot;/2017/07/01/Index-Management/&quot;&gt;經營管理&lt;/a&gt;: 整理管理經驗談、管理哲學、經營、領導、用人之道、學習方法、專案管理&lt;/li&gt;
-&lt;li&gt;[目錄] &lt;a href=&quot;/2017/07/01/Index-Software-Engineering-In-Practice/&quot;&gt;軟體工程實踐&lt;/a&gt;: 包含軟體架構、開發、測試、維運等 … 實踐的心得。&lt;/li&gt;
-&lt;li&gt;[目錄] &lt;a href=&quot;/categories/Distributed-Systems&quot;&gt;分散式系統&lt;/a&gt;，包含分散式系統理論、Cloud Native - &lt;a href=&quot;/tags/Kubernetes/&quot;&gt;Kubernetes&lt;/a&gt;、&lt;a href=&quot;/2016/10/01/AWS-Study-Roadmap/&quot;&gt;AWS&lt;/a&gt;。&lt;/li&gt;
-&lt;li&gt;[參考] &lt;a href=&quot;/2017/07/01/Reference/Books/&quot;&gt;參考書&lt;/a&gt;、&lt;a href=&quot;/2017/07/01/Reference/Tech-Terms/&quot;&gt;資訊技術與工程專有名詞&lt;/a&gt;、&lt;a href=&quot;/2017/07/01/Reference/SC-Terms/&quot;&gt;計算機科學專有名詞&lt;/a&gt;、&lt;a href=&quot;/2017/07/01/Reference/Mgmt-Terms/&quot;&gt;經營管理專有名詞&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;[系列文] &lt;a href=&quot;/tags/Bus-Memo/&quot;&gt;公車隨筆&lt;/a&gt;、&lt;a href=&quot;/tags/Learning-Approaches/&quot;&gt;寫作與閱讀系列文&lt;/a&gt;、&lt;a href=&quot;/tags/%E6%BA%9D%E9%80%9A/&quot;&gt;溝通&lt;/a&gt;、&lt;a href=&quot;/tags/Meetings/&quot;&gt;會議效率&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;[關於] &lt;a href=&quot;/2017/09/20/About/Learning-Approaches/&quot;&gt;學習法則&lt;/a&gt;、&lt;a href=&quot;/2014/12/27/Management/%E7%B6%93%E7%87%9F%E4%B9%8B%E9%81%93/&quot;&gt;經營之道&lt;/a&gt;、&lt;a href=&quot;/2017/12/02/About/Epiphany/&quot;&gt;一些領悟&lt;/a&gt;、&lt;a href=&quot;/2014/10/26/Management/Classified-Philosophy/&quot;&gt;分類哲學&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;[站內記事]: &lt;a href=&quot;/2035/01/21/Updated/&quot;&gt;文章更新紀錄&lt;/a&gt;, &lt;a href=&quot;/2013/11/26/Stats/&quot;&gt;點閱率統計&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;不管是程式、文章、資料、還是房間，我都會定期重新整理 &amp;#x2F; 重構，核心概念來自於 &lt;a href=&quot;/2014/10/26/Management/Classified-Philosophy/&quot;&gt;分類的哲學&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>Finite-State Machine (有限狀態機)</title>
     <link href="https://rickhw.github.io/2026/04/20/Design/Finite-State-Machine/"/>
     <id>https://rickhw.github.io/2026/04/20/Design/Finite-State-Machine/</id>
     <published>2026-04-20T05:30:00.000Z</published>
-    <updated>2026-04-20T02:33:11.984Z</updated>
+    <updated>2026-04-20T02:50:12.270Z</updated>
     
-    <content type="html"><![CDATA[<p>我很常用 <code>FSM (Finite-State Machine, 有限狀態機)</code> 做 <code>系統設計 (System Design)</code> 或者 <code>流程規劃 (Business Flow)</code>。系統設計最常用的是 <a href="/2025/03/08/Design/Gossip-API-First-Joureny/">API Design</a>、<a href="/2026/04/17/ComputerScience/Simple-OS-Task-and-Scheduler/">自幹作業系統的 task 分析</a>，流程規劃則是專案管理 (Redmine &#x2F; JIRA)、或者內部系統 (資產、人事) 等。也在工作時針對這部分整理過不少教育訓練素材以及相關概念解說，但好像沒有專注整理 FSM 的資料。</p><p>這篇從我在 <a href="https://www.facebook.com/rick.kyhwang/posts/pfbid0m87JffxLCbDqicqgHnwHcJgtkcigUL2zJrnwhQvaf2x6P2fzEvqTatabnU1XKSh1l">FB</a> 整理的資料開始，加上 Blog 已經寫過類似的資訊做個彙整。如果有在使用 AI 設計，這篇大概就是一個 SKILL.md 的整理。</p><span id="more"></span><hr><h2 id="設計-狀態機-的規則"><a href="#設計-狀態機-的規則" class="headerlink" title="設計 狀態機 的規則"></a>設計 狀態機 的規則</h2><p><img src="/images/Design/FSM/fsm-rule.jpg"></p><h3 id="零、定義狀態機的控制對象是什麼？"><a href="#零、定義狀態機的控制對象是什麼？" class="headerlink" title="零、定義狀態機的控制對象是什麼？"></a>零、定義狀態機的控制對象是什麼？</h3><p>設計一個狀態機起手勢要先定義 <code>對象</code> 是什麼？通常是一個 <code>名詞</code>，舉例：</p><ul><li>API 的 Resource？</li><li>工單：像是 Redmine 裡的 Tracker 本身就是控制對象，VSTS 叫做 WorkItem Type. </li><li>領域知識 的 業務名詞 &#x2F; 專有名詞，像是 <code>訂單 (Order)</code>、<code>BOM 表</code>、<code>Defect</code>、<code>Feature</code> … etc.</li></ul><p>如果分不清楚，就會亂成一團。</p><h3 id="一、有限的狀態-States"><a href="#一、有限的狀態-States" class="headerlink" title="一、有限的狀態 (States)"></a>一、有限的狀態 (States)</h3><p>針對控制的對象，設計他的 <code>狀態 (State)</code>，而狀態的規則如下：</p><ul><li>狀態名稱都是 <code>名詞</code> 或 <code>形容詞</code>，狀態都是 <code>單一</code> 字彙組成</li><li>狀態的數量控制在 <code>十個以內 (不含頭尾)</code>，最好是 <code>五個</code>，超過都算複雜</li><li>如果狀態數量很多，就要拆解狀態機，變成 <code>有限巢狀狀態機 (Nested Finite State Machine, NFSM)</code>，又稱 <code>Hierarchical State Machines (HSM)</code>，背後精神就是 <code>分而治之</code>。</li></ul><h3 id="二、狀態的頭尾-Start-x2F-End"><a href="#二、狀態的頭尾-Start-x2F-End" class="headerlink" title="二、狀態的頭尾 (Start &#x2F; End)"></a>二、狀態的頭尾 (Start &#x2F; End)</h3><ul><li>只能有一種 <code>初始狀態</code>，注意，只能 <code>一個</code></li><li>但可以有多種 <code>結束狀態</code>，可以有 <code>多個</code></li><li>設計狀態機的起手式：先把頭尾抓好</li></ul><h3 id="三、狀態移轉-Transitions"><a href="#三、狀態移轉-Transitions" class="headerlink" title="三、狀態移轉 (Transitions)"></a>三、狀態移轉 (Transitions)</h3><ul><li><code>狀態移轉 (Transition)</code> 是動詞，通常可以透過程式串接。</li><li>RPC Style 慣用動詞起手，那就是狀態移轉在用的詞</li></ul><h3 id="四、狀態移轉事件-Events"><a href="#四、狀態移轉事件-Events" class="headerlink" title="四、狀態移轉事件 (Events)"></a>四、狀態移轉事件 (Events)</h3><ul><li>狀態移轉的前後，都可以有事件</li></ul><h3 id="五、帶入角色-Roles-的流動"><a href="#五、帶入角色-Roles-的流動" class="headerlink" title="五、帶入角色 (Roles) 的流動"></a>五、帶入角色 (Roles) 的流動</h3><ul><li>角色 (Role) 像是管理者、開發者、PM、QA … 等職能 (Functional) 別</li><li>每個角色能夠執行的狀態移轉不一樣，需要個別定義</li><li>每個角色都要考慮事件</li></ul><hr><h2 id="狀態機的複雜度"><a href="#狀態機的複雜度" class="headerlink" title="狀態機的複雜度"></a>狀態機的複雜度</h2><ul><li>狀態數量 (S)</li><li>轉換數量 (T)</li><li>角色數量 (R)</li></ul><p>最大複雜度：</p><blockquote><p>((S + 2) ^ 2 - S ) * R</p></blockquote><hr><h2 id="範例"><a href="#範例" class="headerlink" title="範例"></a>範例</h2><h3 id="軟體開發流程中的-Bug-流程"><a href="#軟體開發流程中的-Bug-流程" class="headerlink" title="軟體開發流程中的 Bug 流程"></a>軟體開發流程中的 Bug 流程</h3><ul><li>資源：Bug </li><li>頭尾：New &#x2F; Closed &#x2F; Canceled &#x2F; Limitation</li><li>Roles 有 Developer &#x2F; Team Leader &#x2F; Reporter (QA&#x2F;Tester)</li><li>Transition: 依照角色做限制</li></ul><p><img src="/images/Design/FSM/sdlc-bug-developer.jpg"></p><hr><h2 id="Q-and-A"><a href="#Q-and-A" class="headerlink" title="Q and A"></a>Q and A</h2><h3 id="Q-串起-CI-x2F-CD-的-Pipeline-script-or-gitlab-ci-算不算狀態機？"><a href="#Q-串起-CI-x2F-CD-的-Pipeline-script-or-gitlab-ci-算不算狀態機？" class="headerlink" title="Q: 串起 CI &#x2F; CD 的 Pipeline script (or gitlab-ci) 算不算狀態機？"></a>Q: 串起 CI &#x2F; CD 的 Pipeline script (or gitlab-ci) 算不算狀態機？</h3><p>Build 的過程可以有個 FSM、Deploy 的過程可以有個 FSM，除了這兩個，還有其他像是串接 UnitTest、Code Scan 都可以有自己的 FSM，整個串起來的流程可以用 NFSM 巢狀狀態機控制。</p><p>好像可以是一種 FSM ，但是大家知道，10 個專案，通常會有 100 種串法，這已經不是有限狀態機啦，而是無限發散機 XDD</p><p>實踐軟體工程基本的精神就是：<code>分而治之 (Divide and Conquer)</code>、<code>高內聚底耦合</code>。前面提到的五個設計原則，都遵循這兩個基本精神。</p><h3 id="Q-State-和-Status-這兩的字有啥差別？"><a href="#Q-State-和-Status-這兩的字有啥差別？" class="headerlink" title="Q: State 和 Status 這兩的字有啥差別？"></a>Q: State 和 Status 這兩的字有啥差別？</h3><ul><li>State: 有限、可列舉的、可數的，<code>紅綠燈</code> 屬於於這種，只有三個，或者掛掉 XD<ul><li>電商訂單的狀態就是有限。</li></ul></li><li>Status: 不確定、不可數，大概是 loop 中的 iterate 的概念，像是 HTTP 的 <code>Status Code</code> 屬於這種，提款機的故障代碼屬於 Status (故障原因有百百種 QQ</li></ul><h3 id="Q-如果狀態超過十個會怎樣？"><a href="#Q-如果狀態超過十個會怎樣？" class="headerlink" title="Q: 如果狀態超過十個會怎樣？"></a>Q: 如果狀態超過十個會怎樣？</h3><p>會很難懂，複雜度很高。</p><p>底下是是 TCP 的狀態機</p><p><img src="/images/Design/FSM/Tcp_state_diagram.png"><br>source: <a href="https://en.wikipedia.org/wiki/File:Tcp_state_diagram.png">https://en.wikipedia.org/wiki/File:Tcp_state_diagram.png</a></p><p>這篇 TCP 原始論文: “<a href="https://www.medianet.cs.kent.edu/techreports/TR2005-07-22-tcp-EFSM.pdf">EFSM&#x2F;SDL modeling of the original TCP standard (RFC793) and the Congestion Control Mechanism of TCP Reno</a>“ ，整理了所有相關的 TCP 狀態圖，共有 38 張。</p><hr><h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="相關文章"><a href="#相關文章" class="headerlink" title="相關文章"></a>相關文章</h2><ul><li><a href="/2015/01/06/Management/%E5%8D%94%E5%90%8C%E5%90%88%E4%BD%9C%E7%B3%BB%E7%B5%B1%E5%BB%BA%E5%88%B6%E8%88%87%E5%B0%8E%E5%85%A5-%E4%BB%A5-Redmine-%E7%82%BA%E4%BE%8B/">協同合作系統建制與導入 - 以 Redmine 為例</a></li><li><a href="/2019/05/21/AWS/Study-Notes-Step-Functions/">Study Notes - Step Functions</a></li><li><a href="/2017/08/19/Redmine/Issue-Tracking_in_Redmine/">Issue Tracking in Redmine</a></li></ul>]]></content>
+    <content type="html"><![CDATA[<p>我很常用 <code>FSM (Finite-State Machine, 有限狀態機)</code> 做 <code>系統設計 (System Design)</code> 或者 <code>流程規劃 (Business Flow)</code>。系統設計最常用的是 <a href="/2025/03/08/Design/Gossip-API-First-Joureny/">API Design</a>、<a href="/2026/04/17/ComputerScience/Simple-OS-Task-and-Scheduler/">自幹作業系統的 task 分析</a>，流程規劃則是專案管理 (Redmine &#x2F; JIRA)、或者內部系統 (資產、人事) 等。也在工作時針對這部分整理過不少教育訓練素材以及相關概念解說，但好像沒有專注整理 FSM 的資料。</p><p>這篇從我在 <a href="https://www.facebook.com/rick.kyhwang/posts/pfbid0m87JffxLCbDqicqgHnwHcJgtkcigUL2zJrnwhQvaf2x6P2fzEvqTatabnU1XKSh1l">FB</a> 整理的資料開始，加上 Blog 已經寫過類似的資訊做個彙整。如果有在使用 AI 設計，這篇大概就是一個 SKILL.md 的整理。</p><span id="more"></span><hr><h2 id="設計-狀態機-的規則"><a href="#設計-狀態機-的規則" class="headerlink" title="設計 狀態機 的規則"></a>設計 狀態機 的規則</h2><p><img src="/images/Design/FSM/fsm-rule.jpg"></p><h3 id="零、定義狀態機的控制對象是什麼？"><a href="#零、定義狀態機的控制對象是什麼？" class="headerlink" title="零、定義狀態機的控制對象是什麼？"></a>零、定義狀態機的控制對象是什麼？</h3><p>設計一個狀態機起手勢要先定義 <code>對象</code> 是什麼？通常是一個 <code>名詞</code>，舉例：</p><ul><li>API 的 Resource？</li><li>工單：像是 Redmine 裡的 Tracker 本身就是控制對象，VSTS 叫做 WorkItem Type. </li><li>領域知識 的 業務名詞 &#x2F; 專有名詞，像是 <code>訂單 (Order)</code>、<code>BOM 表</code>、<code>Defect</code>、<code>Feature</code> … etc.</li></ul><p>如果分不清楚，就會亂成一團。</p><h3 id="一、有限的狀態-States"><a href="#一、有限的狀態-States" class="headerlink" title="一、有限的狀態 (States)"></a>一、有限的狀態 (States)</h3><p>針對控制的對象，設計他的 <code>狀態 (State)</code>，而狀態的規則如下：</p><ul><li>狀態名稱都是 <code>名詞</code> 或 <code>形容詞</code>，狀態都是 <code>單一</code> 字彙組成</li><li>狀態的數量控制在 <code>十個以內 (不含頭尾)</code>，最好是 <code>五個</code>，超過都算複雜</li><li>如果狀態數量很多，就要拆解狀態機，變成 <code>有限巢狀狀態機 (Nested Finite State Machine, NFSM)</code>，又稱 <code>Hierarchical State Machines (HSM)</code>，背後精神就是 <code>分而治之</code>。</li></ul><h3 id="二、狀態的頭尾-Start-x2F-End"><a href="#二、狀態的頭尾-Start-x2F-End" class="headerlink" title="二、狀態的頭尾 (Start &#x2F; End)"></a>二、狀態的頭尾 (Start &#x2F; End)</h3><ul><li>只能有一種 <code>初始狀態</code>，注意，只能 <code>一個</code></li><li>但可以有多種 <code>結束狀態</code>，可以有 <code>多個</code></li><li>設計狀態機的起手式：先把頭尾抓好</li></ul><h3 id="三、狀態移轉-Transitions"><a href="#三、狀態移轉-Transitions" class="headerlink" title="三、狀態移轉 (Transitions)"></a>三、狀態移轉 (Transitions)</h3><ul><li><code>狀態移轉 (Transition)</code> 是動詞，通常可以透過程式串接。</li><li>RPC Style 慣用動詞起手，那就是狀態移轉在用的詞</li></ul><h3 id="四、狀態移轉事件-Events"><a href="#四、狀態移轉事件-Events" class="headerlink" title="四、狀態移轉事件 (Events)"></a>四、狀態移轉事件 (Events)</h3><ul><li>狀態移轉的前後，都可以有事件</li></ul><h3 id="五、帶入角色-Roles-的流動"><a href="#五、帶入角色-Roles-的流動" class="headerlink" title="五、帶入角色 (Roles) 的流動"></a>五、帶入角色 (Roles) 的流動</h3><ul><li>角色 (Role) 像是管理者、開發者、PM、QA … 等職能 (Functional) 別</li><li>每個角色能夠執行的狀態移轉不一樣，需要個別定義</li><li>每個角色都要考慮事件</li></ul><hr><h2 id="狀態機的複雜度"><a href="#狀態機的複雜度" class="headerlink" title="狀態機的複雜度"></a>狀態機的複雜度</h2><ul><li>狀態數量 (S)</li><li>轉換數量 (T)</li><li>角色數量 (R)</li></ul><p>最大複雜度：</p><blockquote><p>((S + 2) ^ 2 - S ) * R</p></blockquote><hr><h2 id="範例"><a href="#範例" class="headerlink" title="範例"></a>範例</h2><h3 id="軟體開發流程中的-Bug-流程"><a href="#軟體開發流程中的-Bug-流程" class="headerlink" title="軟體開發流程中的 Bug 流程"></a>軟體開發流程中的 Bug 流程</h3><ul><li>資源：Bug </li><li>頭尾：New &#x2F; Closed &#x2F; Canceled &#x2F; Limitation</li><li>Roles 有 Developer &#x2F; Team Leader &#x2F; Reporter (QA&#x2F;Tester)</li><li>Transition: 依照角色做限制</li></ul><p><img src="/images/Design/FSM/sdlc-bug-developer.jpg"></p><hr><h2 id="Q-and-A"><a href="#Q-and-A" class="headerlink" title="Q and A"></a>Q and A</h2><h3 id="Q-串起-CI-x2F-CD-的-Pipeline-script-or-gitlab-ci-算不算狀態機？"><a href="#Q-串起-CI-x2F-CD-的-Pipeline-script-or-gitlab-ci-算不算狀態機？" class="headerlink" title="Q: 串起 CI &#x2F; CD 的 Pipeline script (or gitlab-ci) 算不算狀態機？"></a>Q: 串起 CI &#x2F; CD 的 Pipeline script (or gitlab-ci) 算不算狀態機？</h3><p>Build 的過程可以有個 FSM、Deploy 的過程可以有個 FSM，除了這兩個，還有其他像是串接 UnitTest、Code Scan 都可以有自己的 FSM，整個串起來的流程可以用 NFSM 巢狀狀態機控制。</p><p>好像可以是一種 FSM ，但是大家知道，10 個專案，通常會有 100 種串法，這已經不是有限狀態機啦，而是無限發散機 XDD</p><p>實踐軟體工程基本的精神就是：<code>分而治之 (Divide and Conquer)</code>、<code>高內聚底耦合</code>。前面提到的五個設計原則，都遵循這兩個基本精神。</p><h3 id="Q-State-和-Status-這兩的字有啥差別？"><a href="#Q-State-和-Status-這兩的字有啥差別？" class="headerlink" title="Q: State 和 Status 這兩的字有啥差別？"></a>Q: State 和 Status 這兩的字有啥差別？</h3><ul><li>State: 有限、可列舉的、可數的，<code>紅綠燈</code> 屬於於這種，只有三個，或者掛掉 XD<ul><li>電商訂單的狀態就是有限。</li></ul></li><li>Status: 不確定、不可數，大概是 loop 中的 iterate 的概念，像是 HTTP 的 <code>Status Code</code> 屬於這種，提款機的故障代碼屬於 Status (故障原因有百百種 QQ</li></ul><h3 id="Q-如果狀態超過十個會怎樣？"><a href="#Q-如果狀態超過十個會怎樣？" class="headerlink" title="Q: 如果狀態超過十個會怎樣？"></a>Q: 如果狀態超過十個會怎樣？</h3><p>會很難懂，複雜度很高。</p><p>底下是是 TCP 的狀態機</p><p><img src="/images/Design/FSM/Tcp_state_diagram.png"><br>source: <a href="https://en.wikipedia.org/wiki/File:Tcp_state_diagram.png">https://en.wikipedia.org/wiki/File:Tcp_state_diagram.png</a></p><p>這篇 TCP 原始論文: “<a href="https://www.medianet.cs.kent.edu/techreports/TR2005-07-22-tcp-EFSM.pdf">EFSM&#x2F;SDL modeling of the original TCP standard (RFC793) and the Congestion Control Mechanism of TCP Reno</a>“ ，整理了所有相關的 TCP 狀態圖，共有 38 張。下圖是用 NotebookLM 整理的狀態機，一共有 11 states.</p><p><img src="/images/Design/FSM/tcp-state.png"></p><hr><h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="相關文章"><a href="#相關文章" class="headerlink" title="相關文章"></a>相關文章</h2><ul><li><a href="/2015/01/06/Management/%E5%8D%94%E5%90%8C%E5%90%88%E4%BD%9C%E7%B3%BB%E7%B5%B1%E5%BB%BA%E5%88%B6%E8%88%87%E5%B0%8E%E5%85%A5-%E4%BB%A5-Redmine-%E7%82%BA%E4%BE%8B/">協同合作系統建制與導入 - 以 Redmine 為例</a></li><li><a href="/2019/05/21/AWS/Study-Notes-Step-Functions/">Study Notes - Step Functions</a></li><li><a href="/2017/08/19/Redmine/Issue-Tracking_in_Redmine/">Issue Tracking in Redmine</a></li></ul>]]></content>
     
     
     <summary type="html">&lt;p&gt;我很常用 &lt;code&gt;FSM (Finite-State Machine, 有限狀態機)&lt;/code&gt; 做 &lt;code&gt;系統設計 (System Design)&lt;/code&gt; 或者 &lt;code&gt;流程規劃 (Business Flow)&lt;/code&gt;。系統設計最常用的是 &lt;a href=&quot;/2025/03/08/Design/Gossip-API-First-Joureny/&quot;&gt;API Design&lt;/a&gt;、&lt;a href=&quot;/2026/04/17/ComputerScience/Simple-OS-Task-and-Scheduler/&quot;&gt;自幹作業系統的 task 分析&lt;/a&gt;，流程規劃則是專案管理 (Redmine &amp;#x2F; JIRA)、或者內部系統 (資產、人事) 等。也在工作時針對這部分整理過不少教育訓練素材以及相關概念解說，但好像沒有專注整理 FSM 的資料。&lt;/p&gt;
@@ -312,13 +312,13 @@
     
     <category term="DNS" scheme="https://rickhw.github.io/tags/DNS/"/>
     
-    <category term="Networking" scheme="https://rickhw.github.io/tags/Networking/"/>
-    
-    <category term="IPv4" scheme="https://rickhw.github.io/tags/IPv4/"/>
-    
     <category term="Operating Systems" scheme="https://rickhw.github.io/tags/Operating-Systems/"/>
     
+    <category term="Networking" scheme="https://rickhw.github.io/tags/Networking/"/>
+    
     <category term="Mac Address" scheme="https://rickhw.github.io/tags/Mac-Address/"/>
+    
+    <category term="IPv4" scheme="https://rickhw.github.io/tags/IPv4/"/>
     
     <category term="TCP" scheme="https://rickhw.github.io/tags/TCP/"/>
     
@@ -394,9 +394,9 @@
     
     <category term="用人之道" scheme="https://rickhw.github.io/tags/%E7%94%A8%E4%BA%BA%E4%B9%8B%E9%81%93/"/>
     
-    <category term="Job Description" scheme="https://rickhw.github.io/tags/Job-Description/"/>
-    
     <category term="Interview" scheme="https://rickhw.github.io/tags/Interview/"/>
+    
+    <category term="Job Description" scheme="https://rickhw.github.io/tags/Job-Description/"/>
     
   </entry>
   
@@ -480,11 +480,11 @@
     
     <category term="Finite-State Machine" scheme="https://rickhw.github.io/tags/Finite-State-Machine/"/>
     
+    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
+    
     <category term="RESTful" scheme="https://rickhw.github.io/tags/RESTful/"/>
     
     <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
-    
-    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
     <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
     
@@ -517,11 +517,11 @@
     
     <category term="Java" scheme="https://rickhw.github.io/tags/Java/"/>
     
-    <category term="Docker" scheme="https://rickhw.github.io/tags/Docker/"/>
-    
     <category term="macOS" scheme="https://rickhw.github.io/tags/macOS/"/>
     
     <category term="VSCode" scheme="https://rickhw.github.io/tags/VSCode/"/>
+    
+    <category term="Docker" scheme="https://rickhw.github.io/tags/Docker/"/>
     
     <category term="Docker-Compose" scheme="https://rickhw.github.io/tags/Docker-Compose/"/>
     
@@ -550,11 +550,11 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
-    <category term="VMWare" scheme="https://rickhw.github.io/tags/VMWare/"/>
-    
     <category term="Linux" scheme="https://rickhw.github.io/tags/Linux/"/>
     
     <category term="Virtualization" scheme="https://rickhw.github.io/tags/Virtualization/"/>
+    
+    <category term="VMWare" scheme="https://rickhw.github.io/tags/VMWare/"/>
     
     <category term="Development Environment" scheme="https://rickhw.github.io/tags/Development-Environment/"/>
     
@@ -622,8 +622,6 @@
     
     <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
     
-    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
-    
     <category term="Code Generator" scheme="https://rickhw.github.io/tags/Code-Generator/"/>
     
     <category term="Template" scheme="https://rickhw.github.io/tags/Template/"/>
@@ -631,6 +629,8 @@
     <category term="Productivity" scheme="https://rickhw.github.io/tags/Productivity/"/>
     
     <category term="Quality" scheme="https://rickhw.github.io/tags/Quality/"/>
+    
+    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
   </entry>
   
@@ -655,9 +655,9 @@
     <category term="經營管理" scheme="https://rickhw.github.io/categories/%E7%B6%93%E7%87%9F%E7%AE%A1%E7%90%86/"/>
     
     
-    <category term="System Thinking" scheme="https://rickhw.github.io/tags/System-Thinking/"/>
-    
     <category term="系統思維" scheme="https://rickhw.github.io/tags/%E7%B3%BB%E7%B5%B1%E6%80%9D%E7%B6%AD/"/>
+    
+    <category term="System Thinking" scheme="https://rickhw.github.io/tags/System-Thinking/"/>
     
   </entry>
   
@@ -678,9 +678,9 @@
     <category term="System Design" scheme="https://rickhw.github.io/categories/System-Design/"/>
     
     
-    <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
-    
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
+    
+    <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
     
     <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
     
