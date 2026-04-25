@@ -149,9 +149,9 @@
     <link href="https://rickhw.github.io/2026/04/25/Management/Turn-Complain-to-Motivation/"/>
     <id>https://rickhw.github.io/2026/04/25/Management/Turn-Complain-to-Motivation/</id>
     <published>2026-04-25T02:30:00.000Z</published>
-    <updated>2026-04-25T07:18:13.519Z</updated>
+    <updated>2026-04-25T07:26:05.052Z</updated>
     
-    <content type="html"><![CDATA[<p>最近幫一些朋友做 職涯健診，透過 1 on 1 深度對談，我總結 <a href="https://www.facebook.com/rick.kyhwang/posts/pfbid02Jbzjpir2VJ6KAuVgqW9rfgRuAsTvvzsojE8L3Gy5KorGU1n3NQnoPpxL2pMPbrL9l">十點摘要</a>，給大家做參考。下圖是朋友幫忙用 AI 產生出來的摘要圖：</p><p><img src="/images/Carrer/2026-carrer-review-top10-detail.jpg"></p><p>重點在於：</p><blockquote><p>心態轉換，找到內在動能，佈自己人生的局。</p></blockquote><p>本文針對第二點「抱怨的內容背後，往往就藏著獨特的觀點」整理深度的分析與觀點，以及經驗分享。</p><blockquote><p>註：我在整理文字內容時，用 Claude 幫忙潤稿，但 Claude 會把文字改的比較溫和，我跟他說，文章是希望給予的是更真實世界的第一性原理，而不是太過包裝的用詞。簡單說，我希望講真話大於安慰性質的內容。</p></blockquote><span id="more"></span><hr><h2 id="抱怨的內容背後，往往就藏著獨特的觀點"><a href="#抱怨的內容背後，往往就藏著獨特的觀點" class="headerlink" title="抱怨的內容背後，往往就藏著獨特的觀點"></a>抱怨的內容背後，往往就藏著獨特的觀點</h2><p>工作邁入第三到第五年，你對業務最熟，但抱怨也最多。日常專案像在記流水帳，每天處理瑣碎維運、四處填補系統漏洞、應付老闆和客戶的雜事，沒有一件能寫進 KPI 或履歷裡。多數人在這個階段陷入倦怠，覺得自己只是在消耗。</p><p>但這些抱怨不能丟掉。因為：</p><blockquote><p>抱怨的內容背後，往往就藏著獨特的 <strong>觀點 (Insight)</strong></p></blockquote><h3 id="為什麼抱怨會是洞察的入口"><a href="#為什麼抱怨會是洞察的入口" class="headerlink" title="為什麼抱怨會是洞察的入口"></a>為什麼抱怨會是洞察的入口</h3><p>當你對現有流程不滿、對組織分工覺得不公、對缺乏制度或工程文化感到無奈，<code>這些情緒不是憑空冒出來的</code>。它們會出現，是因為你心裡已經有了一個「應該長什麼樣」的版本，並且看出了現況跟那個版本之間的落差。</p><p>換句話說，<code>抱怨是診斷能力的副產品</code>。你能抱怨某件事不對，代表你看得出它哪裡不對。對系統痛點無感的人，是不會有這些抱怨的。</p><p>而且抱怨的點通常很準。它往往就是你所在的系統或組織最核心的缺陷——只是從老闆的角度，這些問題不見得是當下最急、最重要的，所以不會被排進優先序。但從你的角度，它就是一個機會：你比任何人都更清楚這個痛點長什麼樣、影響有多深。</p><p>不過要先把話講清楚：<code>抱怨本身沒有價值</code>。情緒留在情緒層次，它就只是消耗。要讓它變成東西，得做翻譯的工。</p><h3 id="怎麼把抱怨翻譯成洞察"><a href="#怎麼把抱怨翻譯成洞察" class="headerlink" title="怎麼把抱怨翻譯成洞察"></a>怎麼把抱怨翻譯成洞察</h3><p><code>第一，把「現況」跟「理想」攤開來對比。</code> 你抱怨的是什麼？對應的理想狀態是什麼？兩者的差距是什麼造成的——技術債、組織分工、流程設計、還是客觀條件不足？把它寫下來、攤開來看，模糊的不滿就會變成具體的問題清單。</p><p><code>第二，往下挖技術或流程的根因。</code> 抱怨「系統老是卡頓」，背後可能是 I&#x2F;O blocking、併發規劃不良、或架構選型問題。抱怨「手動處理太繁瑣」，背後是 CI&#x2F;CD 缺失或資料管線斷掉。表層的煩躁要追到底層的成因，洞察才會出現。</p><p><code>第三，問自己「如果重來一次，我會怎麼做」。</code> 抱怨常伴隨挫折——專案失敗、團隊解散、被排擠、部門被砍。這些經歷單看是負面的，但只要你能覆盤「問題出在哪」、「哪些是環境沒 ready」、「如果再來一次我會怎麼設計」，抱怨就升級成了管理層級的判斷力。能提出替代方案的人，跟只會抱怨的人，是兩種人。</p><p><code>第四，寫下來。</code> 不是想想就好，是真的寫下來。寫下來才能具體分析、反覆推敲，把模糊的感覺逼成清晰的論述。<code>人類的記憶是不可靠的，沒寫下來的洞察，過幾個月就忘了</code>，呼應到十點摘要的第四點：「你是自己的讀者」。</p><h3 id="洞察要變成籌碼，得靠量化"><a href="#洞察要變成籌碼，得靠量化" class="headerlink" title="洞察要變成籌碼，得靠量化"></a>洞察要變成籌碼，得靠量化</h3><p>翻譯完之後，下一步是把它變成可以拿出去交易的東西。這裡要講一個職場的第一性原理：</p><blockquote><p>面試的本質是交易。你出價值 N 的能力，老闆出 N 的薪資換結果。</p></blockquote><p>用我自己的類比是：</p><blockquote><p>你花一千萬買一間房，跟花三千萬買一間房，看屋的標準會完全不一樣。地段、格局、採光、建商、屋況，每一項你都會用更挑剔的眼睛去檢查。價格越高，期待越高，這是常理。</p></blockquote><p>老闆看你也是同一套邏輯。他出 N 的薪資，就會用 N 的標準來看你。這意味著一件事：</p><blockquote><p>沒有被量化的洞察，在交易桌上是沒有重量的</p></blockquote><p>你可以講「我覺得我很懂系統痛點」，但這種話換不到任何東西。你要講的是：</p><ul><li><code>那個被你優化掉的維運瓶頸</code>：處理時間從兩分鐘壓到二十秒、運算資源降到原本的十分之一。</li><li><code>那段失敗的專案</code>：運作了幾個月、燒了多少資源；換算下來，前公司花了三百萬讓你買到這段實戰教訓，而你帶走了什麼具體的判斷。</li><li><code>那次團隊解散</code>：你在那段時間看出了什麼組織病灶、換個立場，如果你來做主管會怎麼處理。</li></ul><p>這些數字和判斷，就是你的籌碼。沒有它們，你的經歷在面試官眼裡就只是流水帳；有了它們，同樣一段經歷的重量會差好幾倍。</p><h3 id="最後一步：濃縮成-One-Page，這是一場淬煉"><a href="#最後一步：濃縮成-One-Page，這是一場淬煉" class="headerlink" title="最後一步：濃縮成 One-Page，這是一場淬煉"></a>最後一步：濃縮成 One-Page，這是一場淬煉</h3><p>把上面所有翻譯出來的洞察、量化過的成就、覆盤過的失敗，<strong>收斂成一頁 (One-Page) 的精華</strong>。</p><p>但「一頁式」不是格式問題，是淬煉問題。</p><p>職場是一個高度競爭的市場。同一個職缺，面試官桌上可能擺著幾十份履歷；就算你進了面試間，他能分給你的注意力也只有那關鍵的幾十秒。在這幾十秒內，你要讓對方一眼看出你的亮點在哪、跟其他人有什麼不一樣——這件事沒有捷徑，<strong>只能靠不斷地去蕪存菁</strong>。</p><p>去蕪存菁的過程是痛的。你會發現自己過去三五年很多引以為傲的事情，其實放在一頁的尺度下根本擠不進去；你會被迫面對「這件事到底夠不夠格寫上去」的拷問；你會一次又一次地刪掉自己捨不得刪的東西，只為了讓真正有重量的那幾項能浮出來。</p><p>但這個淬煉的過程，本身就是在重新認識自己。<strong>寫得出一頁式的人，不是因為他經歷比別人精彩，而是因為他比別人更清楚自己手上有什麼、什麼才是真的值錢的</strong>。多數人寫不出來，不是因為沒料，是因為沒做過這個收斂的工。</p><p>而當你真的把它收斂完，這一頁還會幫你做另一件事——<strong>主動引導對話</strong>。面試官看到具體的數字和結果，會自然往下問「你怎麼做到的」「當時為什麼這樣判斷」，這時候你前面所有的覆盤和量化就有了用武之地，整場面試的節奏會在你手上，而不是在他手上。</p><blockquote><p>註：這個邏輯在十點摘要的第十點：<strong>「先有舖光、才有考績」</strong>也適用。</p></blockquote><hr><h2 id="把抱怨變成動力的經驗分享"><a href="#把抱怨變成動力的經驗分享" class="headerlink" title="把抱怨變成動力的經驗分享"></a>把抱怨變成動力的經驗分享</h2><p>底下都是我自己過去的 <code>抱怨</code> 轉化成動力例子，也就是把抱怨的內容寫下來，在過程中，不斷的反思與自問自答。</p><p>像是維運的工作內容龐雜，我就把系統維運、SRE 工作期間的抱怨都寫下來，以下是其中一部分。</p><p>2017&#x2F;12&#x2F;02: <a href="/2017/12/02/DevOps/Spirit-In-SysOps/">系統維運的精神</a><br>2017&#x2F;11&#x2F;27: <a href="/2017/11/27/DevOps/What-is-Ops/">What is Ops？</a><br>2017&#x2F;11&#x2F;12: <a href="/2017/11/12/DevOps/Gossip-Automation/">自動化帶來的問題</a><br>2017&#x2F;08&#x2F;30: <a href="/2017/08/30/DevOps/Automation-or-Process/">自動化 XXX 的陷阱</a><br>2017&#x2F;01&#x2F;23: <a href="/2017/01/23/Management/Cost-In-Context-Switch/">Cost in Context Switch</a><br>2019&#x2F;10&#x2F;04: <a href="/2019/10/04/DevOps/How-to-Figure-out-the-RootCause-for-an-AbnormalSystem-In-ZeroTime/">系統發生異常時，第一時間如何快速止血？</a><br>2019&#x2F;12&#x2F;28: <a href="/2019/12/28/Management/Awareness-and-Deep-Thinking/">如何意識到問題的存在</a></p><p>我擔任主管時，寫過一篇文章：<a href="/2019/03/30/Management/How-do-Manager-Keep-Learning/">管理者如何持續學習技術？</a>，內容大概也是類似的經歷，因為主管要處理的「雜事」更多，很多工程師升官成 Leader 就常常適應不良，真的當主管會更慘。</p><p>還有經常在組織溝通上遇到很多問題，最常見的是跨部門的開會，遇到的不是會議內容，而是基本開會原則，然後我就一路靠北，但不斷反思，一路寫了一下文章：</p><p>2014&#x2F;11&#x2F;26: <a href="/2014/11/26/Management/%E9%96%8B%E6%9C%83%E5%8E%9F%E5%89%87/">開會原則</a><br>2019&#x2F;08&#x2F;25: <a href="/2019/08/25/Management/Problems-of-Meeting/">會議的普遍現象</a><br>2020&#x2F;10&#x2F;11: <a href="/2020/10/11/Management/Effective-Meetings/">一場有效的會議</a><br>2020&#x2F;08&#x2F;01: <a href="/2020/08/01/Management/Expression-and-Communication/">表達與溝通的差異</a><br>2020&#x2F;03&#x2F;23: <a href="/2020/03/24/Management/Principles-of-Communication/">溝通的原理</a><br>2019&#x2F;12&#x2F;28: <a href="/2019/12/28/Management/Awareness-and-Deep-Thinking/">如何意識到問題的存在</a><br>2019&#x2F;11&#x2F;19: <a href="/2019/11/19/Management/Objectives-Key-Results-Executions/">有效定義目標與執行、落地</a><br>2014&#x2F;05&#x2F;09: <a href="/2014/05/09/Management/%E5%80%8B%E4%BA%BA%E5%B7%A5%E4%BD%9C%E7%AE%A1%E7%90%86/">個人工作管理</a><br>2014&#x2F;12&#x2F;10: <a href="/2014/12/10/Management/Cost-of-Communication/">溝通 &#x3D; 成本</a></p><p>還有其他，像是招募工作，也是一邊做一邊無奈，後來寫了整個 <a href="/2018/08/20/Management/Overview-Hiring/">招募系列文</a></p><p>用人的抱怨文，像是：</p><ul><li><a href="https://www.facebook.com/rick.kyhwang/posts/pfbid0hqsKsGgdraXHJNgcoviT6xh8QhSs6NQGA8gv9n9vAgNBfUWMNx87QRTuqqHFi7S5l">標準太高</a></li><li><a href="https://www.facebook.com/rick.kyhwang/posts/pfbid02dwoVzXUzhaCG5neaB82ShxkHx3TJiyYu6XKXJEom7mGuYDhzgxE7TzEZS6SJ6YuRl">IT 行業的詭異現象</a></li><li><a href="https://www.facebook.com/rick.kyhwang/posts/pfbid0FoPCJAwmaW1xdDTNVd7iT7RyPgud69TYXVyza5a5UeqZyieiuqcpHaGwBxHSr6TEl">啥都做不來的人才？</a></li><li><a href="https://www.facebook.com/rick.kyhwang/posts/pfbid0zuXiqr6JjxJ8CVDjQHWrwpz5GYVPwFppCaKCSH61ZqpUDHHpLJg4gJS7qtYzjt2Yl">軟體架構師 - 貝多芬</a></li></ul><p>… 還有更多可以舉例，我的 Blog 有不少這種 <code>累積</code> XDD</p><p>其實背後也都是在抱怨，或者看到一些覺得有問題的，最後寫下來的想法。</p><p><strong>認識我的朋友，會看到我更多在 FB 上的抱怨，大概是這些數量的十倍吧 XDDDD</strong></p><hr><h2 id="認清自己的不足，在抱怨中，獲得沉潛的力量"><a href="#認清自己的不足，在抱怨中，獲得沉潛的力量" class="headerlink" title="認清自己的不足，在抱怨中，獲得沉潛的力量"></a>認清自己的不足，在抱怨中，獲得沉潛的力量</h2><p>我自己有過不少這樣的經驗與經歷，被嫌棄、被抱怨這些都是外在的都有過。但而內在的呢？我真心覺得自己在能力有很多欠缺，所以大部分 (80%) 的時間都在 <code>探索自己</code>，然後 <code>沉潛</code>、<code>蟄伏</code>，也就是不斷地充實自己、看清自己不足的地方，安排時間去補充知識，時間不夠就想辦法做時間管理、做精力管理。</p><p>2023 的 <a href="/2023/09/09/About/2023-AWS-Career-Exploration-Day/">探索職涯、複利人生</a> 分享一路走來的心路歷能，認清自己的不足，然後踏實的提升自己才是真正要努力的方向。</p><p><img src="/images/About/2023-AWSCareerExplorationDay/Slide3.png"></p><p><img src="/images/About/2023-AWSCareerExplorationDay/Slide5.png"></p><hr><h2 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h2><h3 id="站內文章"><a href="#站內文章" class="headerlink" title="站內文章"></a>站內文章</h3><ul><li><a href="/2019/03/30/Management/How-do-Manager-Keep-Learning/">管理者如何持續學習技術？</a></li><li><a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">探索職涯、成就未來 - AWS Career Exploration Day 2022</a></li><li><a href="/2023/09/09/About/2023-AWS-Career-Exploration-Day/">探索職涯、複利人生 - AWS Career Exploration Day 2023</a></li><li><a href="/2019/10/04/DevOps/How-to-Figure-out-the-RootCause-for-an-AbnormalSystem-In-ZeroTime/">系統發生異常時，第一時間如何快速止血？</a></li><li><a href="/2019/12/28/Management/Awareness-and-Deep-Thinking/">如何意識到問題的存在</a></li></ul>]]></content>
+    <content type="html"><![CDATA[<p>最近幫一些朋友做 職涯健診，透過 1 on 1 深度對談，我總結 <a href="https://www.facebook.com/rick.kyhwang/posts/pfbid02Jbzjpir2VJ6KAuVgqW9rfgRuAsTvvzsojE8L3Gy5KorGU1n3NQnoPpxL2pMPbrL9l">十點摘要</a>，給大家做參考。下圖是朋友幫忙用 AI 產生出來的摘要圖：</p><p><img src="/images/Carrer/2026-carrer-review-top10-detail.jpg"></p><p>重點在於：</p><blockquote><p>心態轉換，找到內在動能，佈自己人生的局。</p></blockquote><p>本文針對第二點「抱怨的內容背後，往往就藏著獨特的觀點」整理深度的分析與觀點，以及經驗分享。</p><blockquote><p>註：我在整理文字內容時，用 Claude 幫忙潤稿，但 Claude 會把文字改的比較溫和，但我希望給予讀者的是更真實世界的 <strong>第一性原理</strong> ，而不是包裝過的用詞。簡單說，我希望 <strong>講真話</strong> 大於安慰性質的內容。都在做 <strong>健診</strong> 了，解讀報告就是要面對現實。當然醫療上會有比較微婉的用詞，因為那畢竟是生死交關。但自己的職涯，我覺得早點面對現實，早點爭取時間提升自己才是重點。</p></blockquote><span id="more"></span><hr><h2 id="抱怨的內容背後，往往就藏著獨特的觀點"><a href="#抱怨的內容背後，往往就藏著獨特的觀點" class="headerlink" title="抱怨的內容背後，往往就藏著獨特的觀點"></a>抱怨的內容背後，往往就藏著獨特的觀點</h2><p>工作邁入第三到第五年，你對業務最熟，但抱怨也最多。日常專案像在記流水帳，每天處理瑣碎維運、四處填補系統漏洞、應付老闆和客戶的雜事，沒有一件能寫進 KPI 或履歷裡。多數人在這個階段陷入倦怠，覺得自己只是在消耗。</p><p>但這些抱怨不能丟掉。因為：</p><blockquote><p>抱怨的內容背後，往往就藏著獨特的 <strong>觀點 (Insight)</strong></p></blockquote><h3 id="為什麼抱怨會是洞察的入口"><a href="#為什麼抱怨會是洞察的入口" class="headerlink" title="為什麼抱怨會是洞察的入口"></a>為什麼抱怨會是洞察的入口</h3><p>當你對現有流程不滿、對組織分工覺得不公、對缺乏制度或工程文化感到無奈，<code>這些情緒不是憑空冒出來的</code>。它們會出現，是因為你心裡已經有了一個「應該長什麼樣」的版本，並且看出了現況跟那個版本之間的落差。</p><p>換句話說，<code>抱怨是診斷能力的副產品</code>。你能抱怨某件事不對，代表你看得出它哪裡不對。對系統痛點無感的人，是不會有這些抱怨的。</p><p>而且抱怨的點通常很準。它往往就是你所在的系統或組織最核心的缺陷——只是從老闆的角度，這些問題不見得是當下最急、最重要的，所以不會被排進優先序。但從你的角度，它就是一個機會：你比任何人都更清楚這個痛點長什麼樣、影響有多深。</p><p>不過要先把話講清楚：<code>抱怨本身沒有價值</code>。情緒留在情緒層次，它就只是消耗。要讓它變成東西，得做翻譯的工。</p><h3 id="怎麼把抱怨翻譯成洞察"><a href="#怎麼把抱怨翻譯成洞察" class="headerlink" title="怎麼把抱怨翻譯成洞察"></a>怎麼把抱怨翻譯成洞察</h3><p><code>第一，把「現況」跟「理想」攤開來對比。</code> 你抱怨的是什麼？對應的理想狀態是什麼？兩者的差距是什麼造成的——技術債、組織分工、流程設計、還是客觀條件不足？把它寫下來、攤開來看，模糊的不滿就會變成具體的問題清單。</p><p><code>第二，往下挖技術或流程的根因。</code> 抱怨「系統老是卡頓」，背後可能是 I&#x2F;O blocking、併發規劃不良、或架構選型問題。抱怨「手動處理太繁瑣」，背後是 CI&#x2F;CD 缺失或資料管線斷掉。表層的煩躁要追到底層的成因，洞察才會出現。</p><p><code>第三，問自己「如果重來一次，我會怎麼做」。</code> 抱怨常伴隨挫折——專案失敗、團隊解散、被排擠、部門被砍。這些經歷單看是負面的，但只要你能覆盤「問題出在哪」、「哪些是環境沒 ready」、「如果再來一次我會怎麼設計」，抱怨就升級成了管理層級的判斷力。能提出替代方案的人，跟只會抱怨的人，是兩種人。</p><p><code>第四，寫下來。</code> 不是想想就好，是真的寫下來。寫下來才能具體分析、反覆推敲，把模糊的感覺逼成清晰的論述。<code>人類的記憶是不可靠的，沒寫下來的洞察，過幾個月就忘了</code>，呼應到十點摘要的第四點：「你是自己的讀者」。</p><h3 id="洞察要變成籌碼，得靠量化"><a href="#洞察要變成籌碼，得靠量化" class="headerlink" title="洞察要變成籌碼，得靠量化"></a>洞察要變成籌碼，得靠量化</h3><p>翻譯完之後，下一步是把它變成可以拿出去交易的東西。這裡要講一個 <strong>職場的第一性原理</strong>：</p><blockquote><p>面試的本質是交易。你出價值 N 的能力，老闆出 N 的薪資換結果。</p></blockquote><p>用我自己的類比是：</p><blockquote><p>你花一千萬買一間房，跟花三千萬買一間房，看屋的標準會完全不一樣。地段、格局、採光、建商、屋況，每一項你都會用更挑剔的眼睛去檢查。價格越高，期待越高，這是常理。</p></blockquote><p>老闆看你也是同一套邏輯。他出 N 的薪資，就會用 N 的標準來看你。這意味著一件事：</p><blockquote><p>沒有被量化的洞察，在交易桌上是沒有重量的</p></blockquote><p>你可以講「我覺得我很懂系統痛點」，但這種話換不到任何東西。你要講的是：</p><ul><li><code>那個被你優化掉的維運瓶頸</code>：處理時間從兩分鐘壓到二十秒、運算資源降到原本的十分之一。</li><li><code>那段失敗的專案</code>：運作了幾個月、燒了多少資源；換算下來，前公司花了三百萬讓你買到這段實戰教訓，而你帶走了什麼具體的判斷。</li><li><code>那次團隊解散</code>：你在那段時間看出了什麼組織病灶、換個立場，如果你來做主管會怎麼處理。</li></ul><p>這些數字和判斷，就是你的籌碼。沒有它們，你的經歷在面試官眼裡就只是流水帳；有了它們，同樣一段經歷的重量會差好幾倍。</p><h3 id="最後一步：濃縮成-One-Page，這是一場淬煉"><a href="#最後一步：濃縮成-One-Page，這是一場淬煉" class="headerlink" title="最後一步：濃縮成 One-Page，這是一場淬煉"></a>最後一步：濃縮成 One-Page，這是一場淬煉</h3><p>把上面所有翻譯出來的洞察、量化過的成就、覆盤過的失敗，<strong>收斂成一頁 (One-Page) 的精華</strong>。</p><p>但「一頁式」不是格式問題，是淬煉問題。</p><p>職場是一個高度競爭的市場。同一個職缺，面試官桌上可能擺著幾十份履歷；就算你進了面試間，他能分給你的注意力也只有那關鍵的幾十秒。在這幾十秒內，你要讓對方一眼看出你的亮點在哪、跟其他人有什麼不一樣——這件事沒有捷徑，<strong>只能靠不斷地去蕪存菁</strong>。</p><p>去蕪存菁的過程是痛的。你會發現自己過去三五年很多引以為傲的事情，其實放在一頁的尺度下根本擠不進去；你會被迫面對「這件事到底夠不夠格寫上去」的拷問；你會一次又一次地刪掉自己捨不得刪的東西，只為了讓真正有重量的那幾項能浮出來。</p><p>但這個淬煉的過程，本身就是在重新認識自己。</p><blockquote><p>寫得出一頁式的人，不是因為他經歷比別人精彩，而是因為他比別人更清楚自己手上有什麼、什麼才是真的值錢的。</p></blockquote><p>多數人寫不出來，不是因為沒料，是因為沒做過這個收斂的工。現在用 Agentic AI 寫程式，懂的人會很清楚做的事情，不懂的人 One Page 只能寫很膚淺的東西ㄡ</p><p>而當你真的把它收斂完，這一頁還會幫你做另一件事：<code>主動引導對話</code>。面試官看到具體的數字和結果，會自然往下問「你怎麼做到的」「當時為什麼這樣判斷」，這時候你前面所有的覆盤和量化就有了用武之地，整場面試的節奏會在你手上，而不是在他手上。</p><blockquote><p>註：這個邏輯在十點摘要的第十點：<strong>「先有舖光、才有考績」</strong>也適用。</p></blockquote><hr><h2 id="把抱怨變成動力的經驗分享"><a href="#把抱怨變成動力的經驗分享" class="headerlink" title="把抱怨變成動力的經驗分享"></a>把抱怨變成動力的經驗分享</h2><p>底下都是我自己過去的 <code>抱怨</code> 轉化成動力例子，也就是把抱怨的內容寫下來，在過程中，不斷的反思與自問自答。</p><p>像是維運的工作內容龐雜，我就把系統維運、SRE 工作期間的抱怨都寫下來，以下是其中一部分。</p><p>2017&#x2F;12&#x2F;02: <a href="/2017/12/02/DevOps/Spirit-In-SysOps/">系統維運的精神</a><br>2017&#x2F;11&#x2F;27: <a href="/2017/11/27/DevOps/What-is-Ops/">What is Ops？</a><br>2017&#x2F;11&#x2F;12: <a href="/2017/11/12/DevOps/Gossip-Automation/">自動化帶來的問題</a><br>2017&#x2F;08&#x2F;30: <a href="/2017/08/30/DevOps/Automation-or-Process/">自動化 XXX 的陷阱</a><br>2017&#x2F;01&#x2F;23: <a href="/2017/01/23/Management/Cost-In-Context-Switch/">Cost in Context Switch</a><br>2019&#x2F;10&#x2F;04: <a href="/2019/10/04/DevOps/How-to-Figure-out-the-RootCause-for-an-AbnormalSystem-In-ZeroTime/">系統發生異常時，第一時間如何快速止血？</a><br>2019&#x2F;12&#x2F;28: <a href="/2019/12/28/Management/Awareness-and-Deep-Thinking/">如何意識到問題的存在</a></p><p>我擔任主管時，寫過一篇文章：<a href="/2019/03/30/Management/How-do-Manager-Keep-Learning/">管理者如何持續學習技術？</a>，內容大概也是類似的經歷，因為主管要處理的「雜事」更多，很多工程師升官成 Leader 就常常適應不良，真的當主管會更慘。</p><p>還有經常在組織溝通上遇到很多問題，最常見的是跨部門的開會，遇到的不是會議內容，而是基本開會原則，然後我就一路靠北，但不斷反思，一路寫了一下文章：</p><p>2014&#x2F;11&#x2F;26: <a href="/2014/11/26/Management/%E9%96%8B%E6%9C%83%E5%8E%9F%E5%89%87/">開會原則</a><br>2019&#x2F;08&#x2F;25: <a href="/2019/08/25/Management/Problems-of-Meeting/">會議的普遍現象</a><br>2020&#x2F;10&#x2F;11: <a href="/2020/10/11/Management/Effective-Meetings/">一場有效的會議</a><br>2020&#x2F;08&#x2F;01: <a href="/2020/08/01/Management/Expression-and-Communication/">表達與溝通的差異</a><br>2020&#x2F;03&#x2F;23: <a href="/2020/03/24/Management/Principles-of-Communication/">溝通的原理</a><br>2019&#x2F;12&#x2F;28: <a href="/2019/12/28/Management/Awareness-and-Deep-Thinking/">如何意識到問題的存在</a><br>2019&#x2F;11&#x2F;19: <a href="/2019/11/19/Management/Objectives-Key-Results-Executions/">有效定義目標與執行、落地</a><br>2014&#x2F;05&#x2F;09: <a href="/2014/05/09/Management/%E5%80%8B%E4%BA%BA%E5%B7%A5%E4%BD%9C%E7%AE%A1%E7%90%86/">個人工作管理</a><br>2014&#x2F;12&#x2F;10: <a href="/2014/12/10/Management/Cost-of-Communication/">溝通 &#x3D; 成本</a></p><p>還有其他，像是招募工作，也是一邊做一邊無奈，後來寫了整個 <a href="/2018/08/20/Management/Overview-Hiring/">招募系列文</a></p><p>用人的抱怨文，像是：</p><ul><li><a href="https://www.facebook.com/rick.kyhwang/posts/pfbid0hqsKsGgdraXHJNgcoviT6xh8QhSs6NQGA8gv9n9vAgNBfUWMNx87QRTuqqHFi7S5l">標準太高</a></li><li><a href="https://www.facebook.com/rick.kyhwang/posts/pfbid02dwoVzXUzhaCG5neaB82ShxkHx3TJiyYu6XKXJEom7mGuYDhzgxE7TzEZS6SJ6YuRl">IT 行業的詭異現象</a></li><li><a href="https://www.facebook.com/rick.kyhwang/posts/pfbid0FoPCJAwmaW1xdDTNVd7iT7RyPgud69TYXVyza5a5UeqZyieiuqcpHaGwBxHSr6TEl">啥都做不來的人才？</a></li><li><a href="https://www.facebook.com/rick.kyhwang/posts/pfbid0zuXiqr6JjxJ8CVDjQHWrwpz5GYVPwFppCaKCSH61ZqpUDHHpLJg4gJS7qtYzjt2Yl">軟體架構師 - 貝多芬</a></li></ul><p>… 還有更多可以舉例，我的 Blog 有不少這種 <code>累積</code> XDD</p><p>其實背後也都是在抱怨，或者看到一些覺得有問題的，最後寫下來的想法。</p><p><strong>認識我的朋友，會看到我更多在 FB 上的抱怨，大概是這些數量的十倍吧 XDDDD</strong></p><hr><h2 id="認清自己的不足，在抱怨中，獲得沉潛的力量"><a href="#認清自己的不足，在抱怨中，獲得沉潛的力量" class="headerlink" title="認清自己的不足，在抱怨中，獲得沉潛的力量"></a>認清自己的不足，在抱怨中，獲得沉潛的力量</h2><p>我自己有過不少這樣的經驗與經歷，被嫌棄、被抱怨這些都是外在的都有過。但而內在的呢？我真心覺得自己在能力有很多欠缺，所以大部分 (80%) 的時間都在 <code>探索自己</code>，然後 <code>沉潛</code>、<code>蟄伏</code>，也就是不斷地充實自己、看清自己不足的地方，安排時間去補充知識，時間不夠就想辦法做時間管理、做精力管理。</p><p>2023 的 <a href="/2023/09/09/About/2023-AWS-Career-Exploration-Day/">探索職涯、複利人生</a> 分享一路走來的心路歷能，認清自己的不足，然後踏實的提升自己才是真正要努力的方向。</p><p><img src="/images/About/2023-AWSCareerExplorationDay/Slide3.png"></p><p><img src="/images/About/2023-AWSCareerExplorationDay/Slide5.png"></p><hr><h2 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h2><h3 id="站內文章"><a href="#站內文章" class="headerlink" title="站內文章"></a>站內文章</h3><ul><li><a href="/2019/03/30/Management/How-do-Manager-Keep-Learning/">管理者如何持續學習技術？</a></li><li><a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">探索職涯、成就未來 - AWS Career Exploration Day 2022</a></li><li><a href="/2023/09/09/About/2023-AWS-Career-Exploration-Day/">探索職涯、複利人生 - AWS Career Exploration Day 2023</a></li><li><a href="/2019/10/04/DevOps/How-to-Figure-out-the-RootCause-for-an-AbnormalSystem-In-ZeroTime/">系統發生異常時，第一時間如何快速止血？</a></li><li><a href="/2019/12/28/Management/Awareness-and-Deep-Thinking/">如何意識到問題的存在</a></li></ul>]]></content>
     
     
     <summary type="html">&lt;p&gt;最近幫一些朋友做 職涯健診，透過 1 on 1 深度對談，我總結 &lt;a href=&quot;https://www.facebook.com/rick.kyhwang/posts/pfbid02Jbzjpir2VJ6KAuVgqW9rfgRuAsTvvzsojE8L3Gy5KorGU1n3NQnoPpxL2pMPbrL9l&quot;&gt;十點摘要&lt;/a&gt;，給大家做參考。下圖是朋友幫忙用 AI 產生出來的摘要圖：&lt;/p&gt;
@@ -162,7 +162,7 @@
 &lt;/blockquote&gt;
 &lt;p&gt;本文針對第二點「抱怨的內容背後，往往就藏著獨特的觀點」整理深度的分析與觀點，以及經驗分享。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;註：我在整理文字內容時，用 Claude 幫忙潤稿，但 Claude 會把文字改的比較溫和，我跟他說，文章是希望給予的是更真實世界的第一性原理，而不是太過包裝的用詞。簡單說，我希望講真話大於安慰性質的內容。&lt;/p&gt;
+&lt;p&gt;註：我在整理文字內容時，用 Claude 幫忙潤稿，但 Claude 會把文字改的比較溫和，但我希望給予讀者的是更真實世界的 &lt;strong&gt;第一性原理&lt;/strong&gt; ，而不是包裝過的用詞。簡單說，我希望 &lt;strong&gt;講真話&lt;/strong&gt; 大於安慰性質的內容。都在做 &lt;strong&gt;健診&lt;/strong&gt; 了，解讀報告就是要面對現實。當然醫療上會有比較微婉的用詞，因為那畢竟是生死交關。但自己的職涯，我覺得早點面對現實，早點爭取時間提升自己才是重點。&lt;/p&gt;
 &lt;/blockquote&gt;</summary>
     
     
@@ -172,13 +172,13 @@
     <category term="Career" scheme="https://rickhw.github.io/categories/%E7%B6%93%E7%87%9F%E7%AE%A1%E7%90%86/Career/"/>
     
     
-    <category term="SRE" scheme="https://rickhw.github.io/tags/SRE/"/>
-    
     <category term="Career" scheme="https://rickhw.github.io/tags/Career/"/>
     
-    <category term="Developer" scheme="https://rickhw.github.io/tags/Developer/"/>
+    <category term="第一性原理" scheme="https://rickhw.github.io/tags/%E7%AC%AC%E4%B8%80%E6%80%A7%E5%8E%9F%E7%90%86/"/>
     
-    <category term="Engineer" scheme="https://rickhw.github.io/tags/Engineer/"/>
+    <category term="Insight" scheme="https://rickhw.github.io/tags/Insight/"/>
+    
+    <category term="One Page" scheme="https://rickhw.github.io/tags/One-Page/"/>
     
   </entry>
   
@@ -247,9 +247,9 @@
     <category term="Computer Science" scheme="https://rickhw.github.io/categories/Computer-Science/"/>
     
     
-    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
-    
     <category term="Finite-State Machine" scheme="https://rickhw.github.io/tags/Finite-State-Machine/"/>
+    
+    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
     
     <category term="Operating Systems" scheme="https://rickhw.github.io/tags/Operating-Systems/"/>
     
@@ -347,9 +347,9 @@
     <category term="Computer Science" scheme="https://rickhw.github.io/categories/Computer-Science/"/>
     
     
-    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
-    
     <category term="DNS" scheme="https://rickhw.github.io/tags/DNS/"/>
+    
+    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
     
     <category term="Operating Systems" scheme="https://rickhw.github.io/tags/Operating-Systems/"/>
     
@@ -519,9 +519,9 @@
     
     <category term="API Gateway" scheme="https://rickhw.github.io/tags/API-Gateway/"/>
     
-    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
-    
     <category term="Finite-State Machine" scheme="https://rickhw.github.io/tags/Finite-State-Machine/"/>
+    
+    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
     <category term="RESTful" scheme="https://rickhw.github.io/tags/RESTful/"/>
     
@@ -558,13 +558,13 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
+    <category term="Docker" scheme="https://rickhw.github.io/tags/Docker/"/>
+    
     <category term="Java" scheme="https://rickhw.github.io/tags/Java/"/>
     
     <category term="macOS" scheme="https://rickhw.github.io/tags/macOS/"/>
     
     <category term="VSCode" scheme="https://rickhw.github.io/tags/VSCode/"/>
-    
-    <category term="Docker" scheme="https://rickhw.github.io/tags/Docker/"/>
     
     <category term="Docker-Compose" scheme="https://rickhw.github.io/tags/Docker-Compose/"/>
     
@@ -593,11 +593,11 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
+    <category term="VMWare" scheme="https://rickhw.github.io/tags/VMWare/"/>
+    
     <category term="Linux" scheme="https://rickhw.github.io/tags/Linux/"/>
     
     <category term="Virtualization" scheme="https://rickhw.github.io/tags/Virtualization/"/>
-    
-    <category term="VMWare" scheme="https://rickhw.github.io/tags/VMWare/"/>
     
     <category term="Development Environment" scheme="https://rickhw.github.io/tags/Development-Environment/"/>
     
@@ -661,10 +661,6 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
-    <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
-    
-    <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
-    
     <category term="Code Generator" scheme="https://rickhw.github.io/tags/Code-Generator/"/>
     
     <category term="Template" scheme="https://rickhw.github.io/tags/Template/"/>
@@ -672,6 +668,10 @@
     <category term="Productivity" scheme="https://rickhw.github.io/tags/Productivity/"/>
     
     <category term="Quality" scheme="https://rickhw.github.io/tags/Quality/"/>
+    
+    <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
+    
+    <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
     
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
