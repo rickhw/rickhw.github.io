@@ -5,7 +5,7 @@
   <title>自幹作業系統 - Context Switch | Complete Think</title>
 
   <meta name="author" content="Rick Hwang">
-  <meta name="description" content="自幹作業系統 - Simple OS 學習筆記來到第五篇，上一篇整理了 Task 的定義、排程器概念、以及排程演算法，順著這樣的思路，往下深挖一個很重要的概念：Context Switch，中文翻譯成 上下文切換、內容轉換、環境切換，我自己習慣上下文切換。對應到 課程大綱 大約在 day31 ~ 3">
+  <meta name="description" content="自幹作業系統 - Simple OS 學習筆記來到第五篇，上一篇整理了 Task 的定義、排程器概念、以及排程演算法，順著這樣的思路，往下深挖一個很重要的概念：Context Switch，中文翻譯成 上下文切換、內容轉換、環境切換，我自己習慣翻譯 上下文切換 。對應到 課程大綱 大約在 day31">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -263,7 +263,7 @@
 
 				<hr />
 
-				<p><a href="/2026/03/27/ComputerScience/Simple-OS/">自幹作業系統 - Simple OS</a> 學習筆記來到第五篇，上一篇整理了 <a href="/2026/04/17/ComputerScience/Simple-OS-Task-and-Scheduler/">Task 的定義、排程器概念、以及排程演算法</a>，順著這樣的思路，往下深挖一個很重要的概念：<code>Context Switch</code>，中文翻譯成 <strong>上下文切換</strong>、<strong>內容轉換</strong>、<strong>環境切換</strong>，我自己習慣上下文切換。對應到 <a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/main/course/README.md">課程大綱</a> 大約在 day31 ~ 36 的範圍。</p>
+				<p><a href="/2026/03/27/ComputerScience/Simple-OS/">自幹作業系統 - Simple OS</a> 學習筆記來到第五篇，上一篇整理了 <a href="/2026/04/17/ComputerScience/Simple-OS-Task-and-Scheduler/">Task 的定義、排程器概念、以及排程演算法</a>，順著這樣的思路，往下深挖一個很重要的概念：<code>Context Switch</code>，中文翻譯成 <strong>上下文切換</strong>、<strong>內容轉換</strong>、<strong>環境切換</strong>，我自己習慣翻譯 <code>上下文切換</code> 。對應到 <a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/main/course/README.md">課程大綱</a> 大約在 day31 ~ 36 的範圍。</p>
 <p>本文將整理以下內容：</p>
 <ol>
 <li>什麼是 Context Switch？它帶來的成本 <strong>負擔 (Overhead)</strong> 是什麼？</li>
@@ -271,7 +271,9 @@
 <li>SimpleOS 是怎麼實作 <strong>Context Switch</strong> 的？</li>
 </ol>
 <p>除了在作業系統裡，Context Switch 也可以用在人身上，代表人處於同時在很多任務之間切換，因而無法專注的現象，背後隱含著成本很高的意思。我很久以前寫的 <a href="/2017/01/23/Management/Cost-In-Context-Switch/">Cost in Context Switch</a> 就是在描述工作頻繁被干擾，造成無法專注，這種極端現象帶來的影響，以及可能的解決方法。類似概念在 <a target="_blank" rel="noopener" href="https://www.books.com.tw/products/0010872982">Peopleware：腦力密集產業的人才管理之道</a> 以及 <a target="_blank" rel="noopener" href="https://www.books.com.tw/products/0011046863">心流:高手都在研究的最優體驗心理學</a> 這些書裡也有提到。</p>
-<p>最後再來聊聊 AI 話題，這次整理 關於 Harness Engineering 的想法與相關資料，因為概念跟我在自幹作業系統實在太像了。</p>
+<p>最後再來聊聊 AI 話題，這次整理 關於 <code>Harness Engineering</code> 的想法與相關資料，因為概念跟我在自幹作業系統實在太像了。</p>
+<span id="more"></span>
+
 <blockquote>
 <p>自幹作業系統 系列:</p>
 <ul>
@@ -286,8 +288,6 @@
 <blockquote>
 <p>註：內容僅是自學的一些筆記，如果有發現資訊不正確，或者描述錯誤，請不令給予指教，感謝。</p>
 </blockquote>
-<span id="more"></span>
-
 <hr>
 <h2 id="一、什麼是-Context-Switch？它帶來的成本-負擔-Overhead-是什麼？"><a href="#一、什麼是-Context-Switch？它帶來的成本-負擔-Overhead-是什麼？" class="headerlink" title="一、什麼是 Context Switch？它帶來的成本 負擔 (Overhead) 是什麼？"></a>一、什麼是 Context Switch？它帶來的成本 <strong>負擔 (Overhead)</strong> 是什麼？</h2><h3 id="定義"><a href="#定義" class="headerlink" title="定義"></a>定義</h3><p>Context Switch (上下文切換) 是作業系統實現多工 (Multitasking) 的核心機制。它的本質是：</p>
 <blockquote>
@@ -508,7 +508,7 @@ switch_task(prev_esp, next_esp, next_cr3)   ← 跳入組合語言
 <p><strong>CrewAI 與 AutoGen (微軟)<strong>：兩個走不同路線。CrewAI 主打</strong>基於角色的多 Agent 協作</strong> — 像是組一個團隊，有 PM、有 engineer、有 reviewer，適合需要分工的場景。AutoGen 則是<strong>對話驅動的協作協議</strong> — Agents 之間透過對話達成共識，適合開放式互動。</p>
 <p><strong>Manus 與 Vercel 內部系統</strong>：這兩個團隊實踐了 Harness Engineering 中很反直覺的原則 — <strong>「為刪除而建 (Build for Deletion)」</strong>。Manus 在半年內<strong>重構五次 Harness</strong> 來移除剛性假設；Vercel 砍掉 80% 的手工工具。結果反而是 token 消耗更少、任務成功率更高。這個現象其實跟我做作業系統研究的觀察一樣 — 好的抽象往往是「拿掉了什麼」，而不是「加了什麼」。</p>
 <h3 id="小結-1"><a href="#小結-1" class="headerlink" title="小結"></a>小結</h3><p>整體看下來，Harness Engineering 還在很早期的階段，現在大家在做的事情，比較像是 1970 年代各家在探索作業系統該長什麼樣子。等到這個領域成熟，可能會出現類似 POSIX 那樣的標準介面，讓不同 Harness 之間可以互通。但在那之前，每個團隊都還在用自己的方式試，這也是這個領域目前最有趣的地方。</p>
-<p>我正在整理 <a href="/2026/03/27/ComputerScience/Simple-OS/">自幹作業系統</a> 的相關學習筆記時，也剛好在思考，是否要把 POSIX 標準加入，其實也是同樣的過程。寫 OS 的人，學的是「怎麼建立穩定可靠的執行環境」這套思維。而 Harness Engineering 本質上就是把這套思維搬到 LLM 上：</p>
+<p>我正在整理 <a href="/2026/03/27/ComputerScience/Simple-OS/">自幹作業系統</a> 的相關學習筆記時，也剛好在思考，是否要把 POSIX 標準加入 (真的只是想想而已 XD)，其實也是同樣的過程。寫 OS 的人，學的是「怎麼建立穩定可靠的執行環境」這套思維。而 Harness Engineering 本質上就是把這套思維搬到 LLM 上：</p>
 <blockquote>
 <p>scheduler -&gt; 編排循環<br>memory hierarchy -&gt; 分層記憶<br>process checkpoint -&gt; 任務檢查點<br>syscall -&gt; tool calling<br>IPC -&gt; multi-agent 通訊</p>
 </blockquote>
