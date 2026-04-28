@@ -510,7 +510,7 @@ switch_task(prev_esp, next_esp, next_cr3)   ← 跳入組合語言
 <h3 id="小結-1"><a href="#小結-1" class="headerlink" title="小結"></a>小結</h3><p>整體看下來，Harness Engineering 還在很早期的階段，現在大家在做的事情，比較像是 1970 年代各家在探索作業系統該長什麼樣子。等到這個領域成熟，可能會出現類似 POSIX 那樣的標準介面，讓不同 Harness 之間可以互通。但在那之前，每個團隊都還在用自己的方式試，這也是這個領域目前最有趣的地方。</p>
 <p>我正在整理 <a href="/2026/03/27/ComputerScience/Simple-OS/">自幹作業系統</a> 的相關學習筆記時，也剛好在思考，是否要把 POSIX 標準加入，其實也是同樣的過程。寫 OS 的人，學的是「怎麼建立穩定可靠的執行環境」這套思維。而 Harness Engineering 本質上就是把這套思維搬到 LLM 上：</p>
 <blockquote>
-<p>scheduler → 編排循環<br>memory hierarchy → 分層記憶<br>process checkpoint → 任務檢查點<br>syscall → tool calling<br>IPC → multi-agent 通訊</p>
+<p>scheduler -&gt; 編排循環<br>memory hierarchy -&gt; 分層記憶<br>process checkpoint -&gt; 任務檢查點<br>syscall -&gt; tool calling<br>IPC -&gt; multi-agent 通訊</p>
 </blockquote>
 <p>所以我 <strong>剛好</strong> 等於同時在做這兩件事？</p>
 <blockquote>
