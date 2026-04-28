@@ -476,15 +476,7 @@ switch_task(prev_esp, next_esp, next_cr3)   ← 跳入組合語言
 <blockquote>
 <p><code>玩具級 Demo</code> 與 <code>生產級應用</code> 的落差</p>
 </blockquote>
-<p>裸的 LLM 就像沒有記憶體、硬碟、設備驅動的 CPU，只會輸出文字而且容易出錯。要落地到真實世界，缺的不是模型本身的能力，而是穩定性、持久運行、錯誤恢復、安全管控這些<strong>基礎設施</strong>。Harness Engineering 就是在補這塊。</p>
-<p>我正在整理自幹作業系統的相關學習筆記時，也剛好在思考，是否要把 POSIX 標準加入，其實也是同樣的過程。寫 OS 的人，學的是「怎麼建立穩定可靠的執行環境」這套思維。而 Harness Engineering 本質上就是把這套思維搬到 LLM 上：</p>
-<blockquote>
-<p>scheduler → 編排循環，memory hierarchy → 分層記憶，process checkpoint → 任務檢查點，syscall → tool calling，IPC → multi-agent 通訊。</p>
-</blockquote>
-<p>所以我等於同時在做這兩件事？</p>
-<blockquote>
-<p>一邊在「最底層」用手親自把這些概念刻出來，一邊在「最上層」觀察這些概念怎麼被重新發明來服務 AI。</p>
-</blockquote>
+<p>裸奔的 LLM 就像沒有記憶體、硬碟、設備驅動的 CPU，只會輸出文字而且容易出錯。要落地到真實世界，缺的不是模型本身的能力，而是穩定性、持久運行、錯誤恢復、安全管控這些<strong>基礎設施</strong>。Harness Engineering 就是在補這塊。</p>
 <h3 id="2-它如何解決？"><a href="#2-它如何解決？" class="headerlink" title="2) 它如何解決？"></a>2) 它如何解決？</h3><p>簡單講就是 <strong>打造 AI 專屬的「作業系統」</strong>：</p>
 <blockquote>
 <p>把模型當 CPU，Harness 自己當 OS，負責資源調度、記憶體 (上下文) 管理、設備驅動 (工具集成)，提供穩定的執行環境給上層 Agent 用。</p>
@@ -516,6 +508,14 @@ switch_task(prev_esp, next_esp, next_cr3)   ← 跳入組合語言
 <p><strong>CrewAI 與 AutoGen (微軟)<strong>：兩個走不同路線。CrewAI 主打</strong>基於角色的多 Agent 協作</strong> — 像是組一個團隊，有 PM、有 engineer、有 reviewer，適合需要分工的場景。AutoGen 則是<strong>對話驅動的協作協議</strong> — Agents 之間透過對話達成共識，適合開放式互動。</p>
 <p><strong>Manus 與 Vercel 內部系統</strong>：這兩個團隊實踐了 Harness Engineering 中很反直覺的原則 — <strong>「為刪除而建 (Build for Deletion)」</strong>。Manus 在半年內<strong>重構五次 Harness</strong> 來移除剛性假設；Vercel 砍掉 80% 的手工工具。結果反而是 token 消耗更少、任務成功率更高。這個現象其實跟我做作業系統研究的觀察一樣 — 好的抽象往往是「拿掉了什麼」，而不是「加了什麼」。</p>
 <h3 id="小結-1"><a href="#小結-1" class="headerlink" title="小結"></a>小結</h3><p>整體看下來，Harness Engineering 還在很早期的階段，現在大家在做的事情，比較像是 1970 年代各家在探索作業系統該長什麼樣子。等到這個領域成熟，可能會出現類似 POSIX 那樣的標準介面，讓不同 Harness 之間可以互通。但在那之前，每個團隊都還在用自己的方式試，這也是這個領域目前最有趣的地方。</p>
+<p>我正在整理 <a href="/2026/03/27/ComputerScience/Simple-OS/">自幹作業系統</a> 的相關學習筆記時，也剛好在思考，是否要把 POSIX 標準加入，其實也是同樣的過程。寫 OS 的人，學的是「怎麼建立穩定可靠的執行環境」這套思維。而 Harness Engineering 本質上就是把這套思維搬到 LLM 上：</p>
+<blockquote>
+<p>scheduler → 編排循環<br>memory hierarchy → 分層記憶<br>process checkpoint → 任務檢查點<br>syscall → tool calling<br>IPC → multi-agent 通訊</p>
+</blockquote>
+<p>所以我 <strong>剛好</strong> 等於同時在做這兩件事？</p>
+<blockquote>
+<p>一邊在「最底層」用手親自把這些概念刻出來，一邊在「最上層」觀察這些概念怎麼被重新發明來服務 AI。</p>
+</blockquote>
 <!--
 
 ### LLM vs World Model
