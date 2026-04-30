@@ -146,15 +146,16 @@
   
   <entry>
     <title>從《美麗新世界》看 AI 的發展</title>
-    <link href="https://rickhw.github.io/2026/04/30/AI/Thinking-in-AI/"/>
-    <id>https://rickhw.github.io/2026/04/30/AI/Thinking-in-AI/</id>
+    <link href="https://rickhw.github.io/2026/04/30/AI/Brave-New-World/"/>
+    <id>https://rickhw.github.io/2026/04/30/AI/Brave-New-World/</id>
     <published>2026-04-30T01:50:30.000Z</published>
-    <updated>2026-04-30T06:41:41.797Z</updated>
+    <updated>2026-04-30T06:46:11.802Z</updated>
     
-    <content type="html"><![CDATA[<p>四月初我買了一台電子閱讀器，第一本讀的是赫胥黎的反烏托邦小說《美麗新世界》。</p><p><img src="/images/AI/Brave-New-World.jpeg"></p><span id="more"></span><p>赫胥黎寫這本書是 1932 年，他想像的 2540 年未來世界裡，人類從試管中被批量製造，從出生就被安排好階級與職業，活著不需要思考，因為一切都已經為你安排妥當。沒有戰爭、沒有孤獨；沒有信仰、沒有家庭。在這裡，「每個人都屬於每個人」。性愛被徹底去除了情感與生殖的意義，變成一種像握手一樣普遍且必要的社交禮儀；社會鼓勵頻繁地更換性伴侶，排斥專一的愛戀，因為強烈的情緒被視為社會動盪的根源。在這個穩定、舒適、幸福的世界，你不需要為愛情而苦，因為這裡只有慾望的即時滿足；煩惱的時候有 Soma (翻譯成：索麻) 藥丸，讓這個社會運轉得天衣無縫。難過了，吞一顆；對現狀感到一絲懷疑，也吞一顆。半小時後，世界又變得光滑、溫柔、毫無稜角。</p><p>讀到一半，我闔上機器，忽然覺得：</p><blockquote><p>現在，我們也有自己的 Soma 了。</p></blockquote><p>它不是藥丸，是一個對話框、一個代理 (Agent)。你把問題、想法、痛苦、困惑、卡關的句子丟進去，幾秒之後，一份乾淨的答案回來，一段完美無瑕的程式碼躺在磁碟裡，不管是作業系統、虛擬機、記帳程式、股票交易、動作遊戲 …，像魔法一樣。沒有學習的摩擦，磨練的卡頓感消失了，順帶消失的，是某種叫做「深刻」的東西。</p><p>赫胥黎的新世界沒有酷刑、沒有飢荒、沒有戰爭，人人快樂，人人滿足，人人幸福。他筆下的烏托邦世界，建立「舒服」這個地獄裡。因為想要的慾望，都會被滿足，而得不到的，也不會想要。</p><p>我不是要反對 AI，我每天都在用。我只是想問自己一個問題：</p><blockquote><p>當一切都變得這麼快、這麼舒服，我還剩下什麼，是慢慢長出來的？是深刻在記憶裡與體驗中的？</p></blockquote><hr><p>《美麗新世界》裡有一個角色叫約翰。他在故事中被稱為「野蠻人」——因為他是在保留區長大的，沒被制約過，沒吃過 Soma，讀著一本破舊的莎士比亞全集長大。他會為了愛情痛苦，會為了母親的死流淚，會對著鏡子質問自己是誰。</p><p>當他被帶進那個完美的新世界，所有人都覺得他古怪、落伍、沒必要地讓自己受苦。有人好心遞給他 Soma，他拒絕了。他說了一句話，大意是：「我不要舒適，我要詩，我要真正的危險，我要自由，我要善良，我要罪惡。」</p><p>他要的，是一個會痛的人生。</p><p>赫胥黎設計這個角色，是因為他知道，一個社會最後會不會變成反烏托邦，不取決於技術有多進步，而取決於：</p><blockquote><p>還有沒有人記得，痛苦本身是有意義的。</p></blockquote><p>還有沒有人願意，為了某些更深的東西，拒絕那顆隨手可得的藥丸。 </p><p>我有點擔心，AI 發展到最後，人類對知識的追求會悄悄變質。以前我們讀書，是因為不懂，想懂。現在很多時候我們「查」AI，是因為要交差，要產出，要趕快把這件事處理掉往下一件去。懂不懂，其實沒那麼重要了——反正下次需要，再查一次就好。這個過程，就像 LLM 其實也不知道自己在做什麼一樣。人類也往機器趨向了。</p><p>可是那個「想懂」的慾望，才是把一個人慢慢變深的東西。它一旦鬆掉，人就會變得很薄。薄到像新世界裡那些永遠快樂、永遠滿足、永遠說不出自己為什麼活著的人。</p><p>有時候，我們應該像個野蠻人，笨拙地、費力地、用自己的腦袋去撞一個問題，直到它在我身上留下形狀。</p>]]></content>
+    <content type="html"><![CDATA[<p>四月初我買了一台電子閱讀器，讓我用閱讀方式慢下來。</p><p>第一本讀的是赫胥黎的反烏托邦小說《美麗新世界》。</p><p><img src="/images/AI/Brave-New-World.jpeg"></p><span id="more"></span><p>赫胥黎寫這本書是 1932 年，他想像的 2540 年未來世界裡，人類從試管中被批量製造，從出生就被安排好階級與職業，活著不需要思考，因為一切都已經為你安排妥當。沒有戰爭、沒有孤獨；沒有信仰、沒有家庭。在這裡，「每個人都屬於每個人」。性愛被徹底去除了情感與生殖的意義，變成一種像握手一樣普遍且必要的社交禮儀；社會鼓勵頻繁地更換性伴侶，排斥專一的愛戀，因為強烈的情緒被視為社會動盪的根源。在這個穩定、舒適、幸福的世界，你不需要為愛情而苦，因為這裡只有慾望的即時滿足；煩惱的時候有 Soma (翻譯成：索麻) 藥丸，讓這個社會運轉得天衣無縫。難過了，吞一顆；對現狀感到一絲懷疑，也吞一顆。半小時後，世界又變得光滑、溫柔、毫無稜角。</p><p>讀到一半，我闔上機器，忽然覺得：</p><blockquote><p>現在，我們也有自己的 Soma 了。</p></blockquote><p>它不是藥丸，是一個對話框、一個代理 (Agent)。你把問題、想法、痛苦、困惑、卡關的句子丟進去，幾秒之後，一份乾淨的答案回來，一段完美無瑕的程式碼躺在磁碟裡，不管是作業系統、虛擬機、記帳程式、股票交易、動作遊戲 …，像魔法一樣。沒有學習的摩擦，磨練的卡頓感消失了，順帶消失的，是某種叫做「深刻」的東西。</p><p>赫胥黎的新世界沒有酷刑、沒有飢荒、沒有戰爭，人人快樂，人人滿足，人人幸福。他筆下的烏托邦世界，建立「舒服」這個地獄裡。因為想要的慾望，都會被滿足，而得不到的，也不會想要。</p><p>我不是要反對 AI，我每天都在用。我只是想問自己一個問題：</p><blockquote><p>當一切都變得這麼快、這麼舒服，我還剩下什麼，是慢慢長出來的？是深刻在記憶裡與體驗中的？</p></blockquote><hr><p>《美麗新世界》裡有一個角色叫約翰。他在故事中被稱為「野蠻人」——因為他是在保留區長大的，沒被制約過，沒吃過 Soma，讀著一本破舊的莎士比亞全集長大。他會為了愛情痛苦，會為了母親的死流淚，會對著鏡子質問自己是誰。</p><p>當他被帶進那個完美的新世界，所有人都覺得他古怪、落伍、沒必要地讓自己受苦。有人好心遞給他 Soma，他拒絕了。他說了一句話，大意是：「我不要舒適，我要詩，我要真正的危險，我要自由，我要善良，我要罪惡。」</p><p>他要的，是一個會痛的人生。</p><p>赫胥黎設計這個角色，是因為他知道，一個社會最後會不會變成反烏托邦，不取決於技術有多進步，而取決於：</p><blockquote><p>還有沒有人記得，痛苦本身是有意義的。</p></blockquote><p>還有沒有人願意，為了某些更深的東西，拒絕那顆隨手可得的藥丸。 </p><p>我有點擔心，AI 發展到最後，人類對知識的追求會悄悄變質。以前我們讀書，是因為不懂，想懂。現在很多時候我們「查」AI，是因為要交差，要產出，要趕快把這件事處理掉往下一件去。懂不懂，其實沒那麼重要了——反正下次需要，再查一次就好。這個過程，就像 LLM 其實也不知道自己在做什麼一樣。人類也往機器趨向了。</p><p>可是那個「想懂」的慾望，才是把一個人慢慢變深的東西。它一旦鬆掉，人就會變得很薄。薄到像新世界裡那些永遠快樂、永遠滿足、永遠說不出自己為什麼活著的人。</p><p>有時候，我們應該像個野蠻人，笨拙地、費力地、用自己的腦袋去撞一個問題，直到它在我身上留下形狀。</p>]]></content>
     
     
-    <summary type="html">&lt;p&gt;四月初我買了一台電子閱讀器，第一本讀的是赫胥黎的反烏托邦小說《美麗新世界》。&lt;/p&gt;
+    <summary type="html">&lt;p&gt;四月初我買了一台電子閱讀器，讓我用閱讀方式慢下來。&lt;/p&gt;
+&lt;p&gt;第一本讀的是赫胥黎的反烏托邦小說《美麗新世界》。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/images/AI/Brave-New-World.jpeg&quot;&gt;&lt;/p&gt;</summary>
     
     
@@ -191,9 +192,9 @@
     <category term="Computer Science" scheme="https://rickhw.github.io/categories/Computer-Science/"/>
     
     
-    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
-    
     <category term="Operating Systems" scheme="https://rickhw.github.io/tags/Operating-Systems/"/>
+    
+    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
     
     <category term="Task" scheme="https://rickhw.github.io/tags/Task/"/>
     
@@ -303,9 +304,9 @@
     <category term="Computer Science" scheme="https://rickhw.github.io/categories/Computer-Science/"/>
     
     
-    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
-    
     <category term="Operating Systems" scheme="https://rickhw.github.io/tags/Operating-Systems/"/>
+    
+    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
     
     <category term="Task" scheme="https://rickhw.github.io/tags/Task/"/>
     
@@ -340,9 +341,9 @@
     <category term="Computer Science" scheme="https://rickhw.github.io/categories/Computer-Science/"/>
     
     
-    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
-    
     <category term="Operating Systems" scheme="https://rickhw.github.io/tags/Operating-Systems/"/>
+    
+    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
     
     <category term="Timer" scheme="https://rickhw.github.io/tags/Timer/"/>
     
@@ -377,17 +378,17 @@
     <category term="Computer Science" scheme="https://rickhw.github.io/categories/Computer-Science/"/>
     
     
-    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
-    
     <category term="DNS" scheme="https://rickhw.github.io/tags/DNS/"/>
     
     <category term="Operating Systems" scheme="https://rickhw.github.io/tags/Operating-Systems/"/>
     
+    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
+    
     <category term="Networking" scheme="https://rickhw.github.io/tags/Networking/"/>
     
-    <category term="Mac Address" scheme="https://rickhw.github.io/tags/Mac-Address/"/>
-    
     <category term="IPv4" scheme="https://rickhw.github.io/tags/IPv4/"/>
+    
+    <category term="Mac Address" scheme="https://rickhw.github.io/tags/Mac-Address/"/>
     
     <category term="TCP" scheme="https://rickhw.github.io/tags/TCP/"/>
     
@@ -432,9 +433,9 @@
     <category term="Computer Science" scheme="https://rickhw.github.io/categories/Computer-Science/"/>
     
     
-    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
-    
     <category term="Operating Systems" scheme="https://rickhw.github.io/tags/Operating-Systems/"/>
+    
+    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
     
     <category term="Star Trak" scheme="https://rickhw.github.io/tags/Star-Trak/"/>
     
@@ -464,9 +465,9 @@
     
     <category term="用人之道" scheme="https://rickhw.github.io/tags/%E7%94%A8%E4%BA%BA%E4%B9%8B%E9%81%93/"/>
     
-    <category term="Job Description" scheme="https://rickhw.github.io/tags/Job-Description/"/>
-    
     <category term="Interview" scheme="https://rickhw.github.io/tags/Interview/"/>
+    
+    <category term="Job Description" scheme="https://rickhw.github.io/tags/Job-Description/"/>
     
   </entry>
   
@@ -490,11 +491,11 @@
     
     <category term="Java" scheme="https://rickhw.github.io/tags/Java/"/>
     
+    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
+    
     <category term="RPG Game" scheme="https://rickhw.github.io/tags/RPG-Game/"/>
     
     <category term="Godot" scheme="https://rickhw.github.io/tags/Godot/"/>
-    
-    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
     
   </entry>
   
@@ -624,11 +625,11 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
+    <category term="Linux" scheme="https://rickhw.github.io/tags/Linux/"/>
+    
     <category term="Virtualization" scheme="https://rickhw.github.io/tags/Virtualization/"/>
     
     <category term="VMWare" scheme="https://rickhw.github.io/tags/VMWare/"/>
-    
-    <category term="Linux" scheme="https://rickhw.github.io/tags/Linux/"/>
     
     <category term="Development Environment" scheme="https://rickhw.github.io/tags/Development-Environment/"/>
     
@@ -692,10 +693,6 @@
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
     
     
-    <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
-    
-    <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
-    
     <category term="Code Generator" scheme="https://rickhw.github.io/tags/Code-Generator/"/>
     
     <category term="Template" scheme="https://rickhw.github.io/tags/Template/"/>
@@ -703,6 +700,10 @@
     <category term="Productivity" scheme="https://rickhw.github.io/tags/Productivity/"/>
     
     <category term="Quality" scheme="https://rickhw.github.io/tags/Quality/"/>
+    
+    <category term="Platform Engineering" scheme="https://rickhw.github.io/tags/Platform-Engineering/"/>
+    
+    <category term="Internal Developer Platform" scheme="https://rickhw.github.io/tags/Internal-Developer-Platform/"/>
     
     <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     
