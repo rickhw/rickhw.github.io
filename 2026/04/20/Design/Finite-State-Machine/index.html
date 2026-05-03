@@ -1,0 +1,787 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Finite-State Machine (有限狀態機) | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="我很常用 FSM (Finite-State Machine, 有限狀態機) 做 系統設計 (System Design) 或者 流程規劃 (Business Flow)。因為 FSM 的 有限性，容易 收斂邊界，同時在實作上也更容易聚焦。所以從設計角度，我覺得是個非常好的設計方法。當在 Reive">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="Finite-State Machine (有限狀態機)"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/2026/04/20/Design/Finite-State-Machine/"/>
+  <meta property="og:image" content="/images/Design/FSM/fsm-rule.jpg" />
+  
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<!--
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'G-74Y1F3F5W0']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-74Y1F3F5W0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-74Y1F3F5W0');
+</script>
+
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!-- @rickd 2022/02/24
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=&autoLogAppEvents=1"></script>
+  -->
+  <!-- @ricka 2022/02/24 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!--
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=&autoLogAppEvents=1"
+    nonce="bd9r2mJp"></script>
+  -->
+
+  <!-- @ricka 2022/09/06 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=&autoLogAppEvents=1"
+    nonce="opf2Gext"></script>
+
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						
+						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+						
+						<li><a href="/categories/About/">About <sup>30</sup></a></li>
+						
+						<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+						
+						<li><a href="/categories/經營管理/Career/">Career <sup>7</sup></a></li>
+						
+						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
+						
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						
+						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Data/">Data <sup>2</sup></a></li>
+						
+						<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+						
+						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>20</sup></a></li>
+						
+						<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+						
+						<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+						
+						<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+						
+						<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+						
+						<li><a href="/categories/DevOps/SRE/">SRE <sup>25</sup></a></li>
+						
+						<li><a href="/categories/Software-Engineering/">Software Engineering <sup>10</sup></a></li>
+						
+						<li><a href="/categories/System-Design/">System Design <sup>4</sup></a></li>
+						
+						<li><a href="/categories/經營管理/人才管理/">人才管理 <sup>11</sup></a></li>
+						
+						<li><a href="/categories/經營管理/溝通/">溝通 <sup>9</sup></a></li>
+						
+						<li><a href="/categories/經營管理/知識管理/">知識管理 <sup>4</sup></a></li>
+						
+						<li><a href="/categories/經營管理/">經營管理 <sup>63</sup></a></li>
+						
+						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
+						
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"> <i class="fa fa-book"></i>學習法則</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂 (v2021)</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> Finite-State Machine (有限狀態機)</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> Finite-State Machine (有限狀態機)</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+		
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2026%2F04%2F20%2FDesign%2FFinite-State-Machine%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2026/04/20/Design/Finite-State-Machine/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/2026/04/20/Design/Finite-State-Machine/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<p>我很常用 <code>FSM (Finite-State Machine, 有限狀態機)</code> 做 <code>系統設計 (System Design)</code> 或者 <code>流程規劃 (Business Flow)</code>。因為 FSM 的 <strong>有限性</strong>，容易 <strong>收斂邊界</strong>，同時在實作上也更容易聚焦。所以從設計角度，我覺得是個非常好的設計方法。當在 Reivew 別人的系統設計時，通常我也會觀察是否有類似 FSM 概念存在，缺乏有限性的邊界，通常系統的 <strong>可靠性</strong> 與 <strong>穩定性</strong> 都不容易達成。</p>
+<p>系統設計最常用的是 <a href="/2025/03/08/Design/Gossip-API-First-Joureny/">API Design</a>、<a href="/2026/04/17/ComputerScience/Simple-OS-Task-and-Scheduler/">自幹作業系統的 task 分析</a>，流程規劃則是 <a href="/2015/01/06/Management/%E5%8D%94%E5%90%8C%E5%90%88%E4%BD%9C%E7%B3%BB%E7%B5%B1%E5%BB%BA%E5%88%B6%E8%88%87%E5%B0%8E%E5%85%A5-%E4%BB%A5-Redmine-%E7%82%BA%E4%BE%8B/">專案管理 (Redmine &#x2F; JIRA)</a>、或者內部系統 (資產、人事) 等。也在工作時針對這部分整理過不少教育訓練素材以及相關概念解說，但好像沒有專注整理 FSM 的資料。</p>
+<p>這篇從我在 <a target="_blank" rel="noopener" href="https://www.facebook.com/rick.kyhwang/posts/pfbid0m87JffxLCbDqicqgHnwHcJgtkcigUL2zJrnwhQvaf2x6P2fzEvqTatabnU1XKSh1l">FB</a> 整理的資料開始，加上 Blog 已經寫過類似的資訊做個彙整。如果有在使用 AI 設計，這篇大概就是一個 SKILL.md 的整理。</p>
+<span id="more"></span>
+
+<hr>
+<h2 id="設計-狀態機-的規則"><a href="#設計-狀態機-的規則" class="headerlink" title="設計 狀態機 的規則"></a>設計 狀態機 的規則</h2><p><img src="/images/Design/FSM/fsm-rule.jpg"></p>
+<h3 id="零、定義狀態機的控制對象是什麼？"><a href="#零、定義狀態機的控制對象是什麼？" class="headerlink" title="零、定義狀態機的控制對象是什麼？"></a>零、定義狀態機的控制對象是什麼？</h3><p>設計一個狀態機起手勢要先定義 <code>對象</code> 是什麼？通常是一個 <code>名詞</code>，舉例：</p>
+<ul>
+<li>API 的 Resource？</li>
+<li>工單：像是 Redmine 裡的 Tracker 本身就是控制對象，VSTS 叫做 WorkItem Type. </li>
+<li>領域知識 的 業務名詞 &#x2F; 專有名詞，像是 <code>訂單 (Order)</code>、<code>BOM 表</code>、<code>Defect</code>、<code>Feature</code> … etc.</li>
+</ul>
+<p>如果分不清楚，就會亂成一團。</p>
+<h3 id="一、有限的狀態-States"><a href="#一、有限的狀態-States" class="headerlink" title="一、有限的狀態 (States)"></a>一、有限的狀態 (States)</h3><p>針對控制的對象，設計他的 <code>狀態 (State)</code>，而狀態的規則如下：</p>
+<ul>
+<li>狀態名稱都是 <code>名詞</code> 或 <code>形容詞</code>，狀態都是 <code>單一</code> 字彙組成</li>
+<li>狀態的數量控制在 <code>十個以內 (不含頭尾)</code>，最好是 <code>五個</code>，超過都算複雜</li>
+<li>如果狀態數量很多，就要拆解狀態機，變成 <code>有限巢狀狀態機 (Nested Finite State Machine, NFSM)</code>，又稱 <code>Hierarchical State Machines (HSM)</code>，背後精神就是 <code>分而治之</code>。<br><img src="/images/Design/RESTful-API/ec2-state-machine_v20250308.png"></li>
+</ul>
+<h3 id="二、狀態的頭尾-Start-End"><a href="#二、狀態的頭尾-Start-End" class="headerlink" title="二、狀態的頭尾 (Start &#x2F; End)"></a>二、狀態的頭尾 (Start &#x2F; End)</h3><ul>
+<li>只能有一種 <code>初始狀態</code>，注意，只能 <code>一個</code></li>
+<li>但可以有多種 <code>結束狀態</code>，可以有 <code>多個</code></li>
+<li>設計狀態機的起手式：先把頭尾抓好</li>
+</ul>
+<h3 id="三、狀態移轉-Transitions"><a href="#三、狀態移轉-Transitions" class="headerlink" title="三、狀態移轉 (Transitions)"></a>三、狀態移轉 (Transitions)</h3><ul>
+<li><code>狀態移轉 (Transition)</code> 是動詞，通常可以透過程式串接。</li>
+<li>RPC Style 慣用動詞起手，那就是狀態移轉在用的詞</li>
+<li>狀態之間的移轉，可以透過狀態表 (State Table) 表示，如下是一個 EC2 的移轉：<br><img src="/images/Design/RESTful-API/ec2-restful-api_state-table_v20250308.png"></li>
+</ul>
+<h3 id="四、狀態移轉事件-Events"><a href="#四、狀態移轉事件-Events" class="headerlink" title="四、狀態移轉事件 (Events)"></a>四、狀態移轉事件 (Events)</h3><ul>
+<li>狀態移轉的前後，都可以有事件</li>
+</ul>
+<h3 id="五、帶入角色-Roles-的流動"><a href="#五、帶入角色-Roles-的流動" class="headerlink" title="五、帶入角色 (Roles) 的流動"></a>五、帶入角色 (Roles) 的流動</h3><ul>
+<li>角色 (Role) 像是管理者、開發者、PM、QA … 等職能 (Functional) 別</li>
+<li>每個角色能夠執行的狀態移轉不一樣，需要個別定義</li>
+<li>每個角色都要考慮事件</li>
+</ul>
+<!--
+
+## 狀態機的複雜度
+
+
+從 `狀態規模 (State Complexity)` 與 `結構拓撲 (Structural Complexity)` 兩個層次來定義與計算。
+
+
+* 狀態數量 (S)
+* 轉換數量 (T)
+* 角色數量 (R)
+
+最大複雜度：
+
+> ((S + 2) ^ 2 - S ) * R
+
+---
+by Gemini
+
+在理論電腦科學與軟體工程中，有限狀態機（FSM）的複雜度並非只有單一指標。通常我們會從 **狀態規模（State Complexity）** 與 **結構拓撲（Structural Complexity）** 兩個層次來定義與計算。
+
+以下為你整理的定義方式與數學公式：
+
+---
+
+## 1. 狀態複雜度 (State Complexity, SC)
+
+這是最常見的理論定義，主要針對「正規語言（Regular Language）」所對應的最小自動機。
+
+### 數學定義：$SC(L)$
+對於一個正規語言 $L$，其**狀態複雜度** $SC(L)$ 定義為：能夠識別該語言的**最小化確定有限狀態自動機（DFA）** 的狀態數量。
+
+* **Myhill-Nerode 定理**：這是計算狀態複雜度的理論基礎。它指出一個語言的狀態數量等於其「等價類（Equivalence Classes）」的數量。
+* **公式表達**：若一個語言 $L$ 劃分出的等價關係 $R_L$ 有 $n$ 個等價類，則 $SC(L) = n$。
+
+### NFA 與 DFA 的爆炸關係
+當我們從非確定性有限自動機（NFA）轉換為 DFA 時，複雜度會發生指數級增長：
+* 若一個 NFA 有 $n$ 個狀態，其對應的等價 DFA 在最壞情況下的狀態數為：
+    $$2^n$$
+    這被稱為**冪集構造（Power Set Construction）** 複雜度。
+
+
+
+---
+
+## 2. 轉換複雜度 (Transition Complexity)
+
+有時候狀態數少，但狀態間的連線（Transition）極其複雜。
+* **定義**：FSM 中所有轉移邊的總數。
+* 對於一個擁有 $n$ 個狀態、輸入字母表大小為 $|\Sigma|$ 的 DFA，其轉換複雜度固定為：
+    $$n \times |\Sigma|$$
+    （因為每個狀態針對每個輸入符號都必須有一個確定的去向）。
+
+---
+
+## 3. 結構複雜度：循環複雜度 (Cyclomatic Complexity)
+
+在實務的軟體工程（如代碼審查或系統架構）中，我們常用 **McCabe 循環複雜度** 來衡量狀態機圖形的混亂程度。
+
+將 FSM 視為一個有向圖 $G$：
+* **$V$**：狀態（頂點）數量。
+* **$E$**：轉換（邊）數量。
+* **$P$**：連通分量數量（通常為 1）。
+
+**公式：**
+$$M = E - V + 2P$$
+
+* **意義**：$M$ 代表了狀態機中「線性獨立路徑」的數量。如果 $M$ 過高（例如超過 10 或 15），代表該狀態機的邏輯路徑過於複雜，極難進行全路徑覆蓋測試。
+
+---
+
+## 4. 統計學維度：密度與扇入/扇出
+
+在大型系統架構中，還會參考以下指標：
+* **轉移密度 (Transition Density)**：$\frac{E}{V}$。密度越高，代表狀態間的耦合度越強。
+* **平均扇出 (Average Fan-out)**：單個狀態平均觸發多少種不同的轉換。
+
+---
+
+## 💡 總結對比表
+
+| 指標類型 | 定義對象 | 數學核心 | 應用場景 |
+| :--- | :--- | :--- | :--- |
+| **狀態複雜度** | 正規語言 | $SC(L) = n$ | 理論驗證、編譯器優化 |
+| **冪集複雜度** | NFA $\rightarrow$ DFA | $2^n$ | 預測硬體/記憶體佔用空間 |
+| **循環複雜度** | 狀態機圖形 | $E - V + 2$ | 代碼維護性、測試覆蓋率 |
+
+
+
+從架構師的角度來看，當一個 FSM 的狀態複雜度 $SC(L)$ 超過人類大腦能輕易理解的範疇（通常是 7±2 個狀態）時，我們就會引入 **層級狀態機 (Hierarchical FSM, HFSM)**。透過將狀態封裝在父狀態中，可以強行將視覺上的 $V$ 降低，進而控制 $M$（循環複雜度）。
+
+在你的實務經驗中，面對邏輯爆炸的狀態機，你是傾向於將其拆解成多個獨立的子狀態機（Sub-FSM），還是使用層級（Nested）結構來管理？
+
+--->
+
+<hr>
+<h2 id="範例"><a href="#範例" class="headerlink" title="範例"></a>範例</h2><h3 id="軟體開發流程中的-Bug-流程"><a href="#軟體開發流程中的-Bug-流程" class="headerlink" title="軟體開發流程中的 Bug 流程"></a>軟體開發流程中的 Bug 流程</h3><ul>
+<li>資源：Bug </li>
+<li>頭尾：New &#x2F; Closed &#x2F; Canceled &#x2F; Limitation</li>
+<li>Roles 有 Developer &#x2F; Team Leader &#x2F; Reporter (QA&#x2F;Tester)</li>
+<li>Transition: 依照角色做限制</li>
+</ul>
+<p><img src="/images/Design/FSM/sdlc-bug-developer.jpg"></p>
+<hr>
+<h2 id="Q-and-A"><a href="#Q-and-A" class="headerlink" title="Q and A"></a>Q and A</h2><h3 id="Q-串起-CI-CD-的-Pipeline-script-or-gitlab-ci-算不算狀態機？"><a href="#Q-串起-CI-CD-的-Pipeline-script-or-gitlab-ci-算不算狀態機？" class="headerlink" title="Q: 串起 CI &#x2F; CD 的 Pipeline script (or gitlab-ci) 算不算狀態機？"></a>Q: 串起 CI &#x2F; CD 的 Pipeline script (or gitlab-ci) 算不算狀態機？</h3><p>Build 的過程可以有個 FSM、Deploy 的過程可以有個 FSM，除了這兩個，還有其他像是串接 UnitTest、Code Scan 都可以有自己的 FSM，整個串起來的流程可以用 NFSM 巢狀狀態機控制。</p>
+<p>好像可以是一種 FSM ，但是大家知道，10 個專案，通常會有 100 種串法，這已經不是有限狀態機啦，而是無限發散機 XDD</p>
+<p>實踐軟體工程基本的精神就是：<code>分而治之 (Divide and Conquer)</code>、<code>高內聚底耦合</code>。前面提到的五個設計原則，都遵循這兩個基本精神。</p>
+<h3 id="Q-State-和-Status-這兩的字有啥差別？"><a href="#Q-State-和-Status-這兩的字有啥差別？" class="headerlink" title="Q: State 和 Status 這兩的字有啥差別？"></a>Q: State 和 Status 這兩的字有啥差別？</h3><ul>
+<li>State: 有限、可列舉的、可數的，<code>紅綠燈</code> 屬於於這種，只有三個，或者掛掉 XD<ul>
+<li>電商訂單的狀態就是有限。</li>
+</ul>
+</li>
+<li>Status: 不確定、不可數，大概是 loop 中的 iterate 的概念，像是 HTTP 的 <code>Status Code</code> 屬於這種，提款機的故障代碼屬於 Status (故障原因有百百種 QQ</li>
+</ul>
+<h3 id="Q-如果狀態超過十個會怎樣？"><a href="#Q-如果狀態超過十個會怎樣？" class="headerlink" title="Q: 如果狀態超過十個會怎樣？"></a>Q: 如果狀態超過十個會怎樣？</h3><p>會很難懂，複雜度很高。</p>
+<p>底下是是 TCP 的狀態機</p>
+<p><img src="/images/Design/FSM/Tcp_state_diagram.png"><br>source: <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/File:Tcp_state_diagram.png">https://en.wikipedia.org/wiki/File:Tcp_state_diagram.png</a></p>
+<p>這篇 TCP 原始論文: “<a target="_blank" rel="noopener" href="https://www.medianet.cs.kent.edu/techreports/TR2005-07-22-tcp-EFSM.pdf">EFSM&#x2F;SDL modeling of the original TCP standard (RFC793) and the Congestion Control Mechanism of TCP Reno</a>“ ，整理了所有相關的 TCP 狀態圖，共有 38 張。下圖是用 NotebookLM 整理的狀態機，一共有 11 states.</p>
+<p><img src="/images/Design/FSM/tcp-state.png"></p>
+<h3 id="Q-使用-FSM-作為設計的相關論述？以及實際應用？"><a href="#Q-使用-FSM-作為設計的相關論述？以及實際應用？" class="headerlink" title="Q: 使用 FSM 作為設計的相關論述？以及實際應用？"></a>Q: 使用 FSM 作為設計的相關論述？以及實際應用？</h3><p>相關理論：</p>
+<ul>
+<li>Mealy Machine (1955): <code>A Method for Synthesizing Sequential Circuits</code> by George H. Mealy.<ul>
+<li>輸出取決於「目前狀態」與「輸入信號」。在實務中，這意味著它能比 Moore 機器以更少的狀態達成目的，且反應更迅速。</li>
+</ul>
+</li>
+<li>Moore Machine (1956): <code>Gedanken-experiments on Sequential Machines</code> by Edward F. Moore.<ul>
+<li>輸出僅取決於「目前狀態」。優點是輸出信號穩定，不受輸入信號的突波（glitch）影響，對同步電路設計非常友好。</li>
+</ul>
+</li>
+<li>Raft 演算法 (2014): <code>In Search of an Understandable Consensus Algorithm</code> by Diego Ongaro and John Ousterhout.<ul>
+<li>提出了 <code>Replicated State Machine (RSM)</code> 的概念。核心思想是：如果多個伺服器從相同的初始狀態開始，並以相同的順序執行相同的指令（Log），則它們最終會達到一致的狀態。</li>
+</ul>
+</li>
+<li>Data-Parallel FSMs (2014): <code>Data-Parallel Finite-State Machines</code> (Microsoft Research).<ul>
+<li>探討 FSM 在並行運算（如 SIMD、多核）中的難題，提出如何利用「狀態收斂」特性來並行處理傳統上被認為是序列任務的 FSM 運算。</li>
+</ul>
+</li>
+</ul>
+<p>實務應用：</p>
+<ul>
+<li>NPC AI 與 動畫控制：我在開發 <a href="/2025/12/19/About/Java-2D-RPG-Game/">Java 2D RPG Game</a>，角色的「巡邏、追逐、攻擊」邏輯通常會使用 <code>Hierarchical FSM (HFSM)</code>，這能有效減少狀態爆炸問題。</li>
+<li>前端 UI 狀態管理的 <code>XState</code> - 一個基於 Statecharts (Harel, 1987) 理論的工具</li>
+<li><code>分散式事務 (2PC/3PC)</code>：兩階段提交協定使用 FSM 來決定節點該 Commit 還是 Abort。</li>
+<li>服務發現與健康檢查：如 HashiCorp Consul 或 Go-kit 中的熔斷器（Circuit Breaker）邏輯（Closed, Open, Half-Open）</li>
+<li>作業系統的中斷處理與排程：管理進程生命週期（Ready, Running, Waiting, Terminated）本質上就是一個大型 FSM。</li>
+</ul>
+<hr>
+<h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="相關文章"><a href="#相關文章" class="headerlink" title="相關文章"></a>相關文章</h2><ul>
+<li><a href="/2015/01/06/Management/%E5%8D%94%E5%90%8C%E5%90%88%E4%BD%9C%E7%B3%BB%E7%B5%B1%E5%BB%BA%E5%88%B6%E8%88%87%E5%B0%8E%E5%85%A5-%E4%BB%A5-Redmine-%E7%82%BA%E4%BE%8B/">協同合作系統建制與導入 - 以 Redmine 為例</a></li>
+<li><a href="/2019/05/21/AWS/Study-Notes-Step-Functions/">Study Notes - Step Functions</a></li>
+<li><a href="/2017/08/19/Redmine/Issue-Tracking_in_Redmine/">Issue Tracking in Redmine</a></li>
+<li><a href="/2026/04/17/ComputerScience/Simple-OS-Task-and-Scheduler/">自幹作業系統 - Task and Scheduler</a></li>
+<li><a href="/2025/03/08/Design/Gossip-API-First-Joureny/">聊聊 API First 開發策略</a></li>
+<li><a href="/2025/12/19/About/Java-2D-RPG-Game/">純手工遊戲開發心得紀錄 - Java 2D RPG Game</a></li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/2026/04/20/Design/Finite-State-Machine/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<!-- LikeCoin -->
+				<!-- @rickd 2022/09/06 -->
+				<!--
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2026/04/20/Design/Finite-State-Machine/"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+				-->
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2026/04/25/Management/Turn-Complain-into-Motivation/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2026/04/17/ComputerScience/Simple-OS-Task-and-Scheduler/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
+  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
+  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2026/04/20/Design/Finite-State-Machine/" data-width="100%" data-numposts="10"></div>
+
+  
+
+
+</section>
+
+
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2026/04/20 13:30:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%A8%AD%E8%A8%88-%E7%8B%80%E6%85%8B%E6%A9%9F-%E7%9A%84%E8%A6%8F%E5%89%87"><span class="toc-article-text">設計 狀態機 的規則</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E9%9B%B6%E3%80%81%E5%AE%9A%E7%BE%A9%E7%8B%80%E6%85%8B%E6%A9%9F%E7%9A%84%E6%8E%A7%E5%88%B6%E5%B0%8D%E8%B1%A1%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F"><span class="toc-article-text">零、定義狀態機的控制對象是什麼？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E4%B8%80%E3%80%81%E6%9C%89%E9%99%90%E7%9A%84%E7%8B%80%E6%85%8B-States"><span class="toc-article-text">一、有限的狀態 (States)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E4%BA%8C%E3%80%81%E7%8B%80%E6%85%8B%E7%9A%84%E9%A0%AD%E5%B0%BE-Start-End"><span class="toc-article-text">二、狀態的頭尾 (Start &#x2F; End)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E4%B8%89%E3%80%81%E7%8B%80%E6%85%8B%E7%A7%BB%E8%BD%89-Transitions"><span class="toc-article-text">三、狀態移轉 (Transitions)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%9B%9B%E3%80%81%E7%8B%80%E6%85%8B%E7%A7%BB%E8%BD%89%E4%BA%8B%E4%BB%B6-Events"><span class="toc-article-text">四、狀態移轉事件 (Events)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E4%BA%94%E3%80%81%E5%B8%B6%E5%85%A5%E8%A7%92%E8%89%B2-Roles-%E7%9A%84%E6%B5%81%E5%8B%95"><span class="toc-article-text">五、帶入角色 (Roles) 的流動</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AF%84%E4%BE%8B"><span class="toc-article-text">範例</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E8%BB%9F%E9%AB%94%E9%96%8B%E7%99%BC%E6%B5%81%E7%A8%8B%E4%B8%AD%E7%9A%84-Bug-%E6%B5%81%E7%A8%8B"><span class="toc-article-text">軟體開發流程中的 Bug 流程</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-and-A"><span class="toc-article-text">Q and A</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Q-%E4%B8%B2%E8%B5%B7-CI-CD-%E7%9A%84-Pipeline-script-or-gitlab-ci-%E7%AE%97%E4%B8%8D%E7%AE%97%E7%8B%80%E6%85%8B%E6%A9%9F%EF%BC%9F"><span class="toc-article-text">Q: 串起 CI &#x2F; CD 的 Pipeline script (or gitlab-ci) 算不算狀態機？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Q-State-%E5%92%8C-Status-%E9%80%99%E5%85%A9%E7%9A%84%E5%AD%97%E6%9C%89%E5%95%A5%E5%B7%AE%E5%88%A5%EF%BC%9F"><span class="toc-article-text">Q: State 和 Status 這兩的字有啥差別？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Q-%E5%A6%82%E6%9E%9C%E7%8B%80%E6%85%8B%E8%B6%85%E9%81%8E%E5%8D%81%E5%80%8B%E6%9C%83%E6%80%8E%E6%A8%A3%EF%BC%9F"><span class="toc-article-text">Q: 如果狀態超過十個會怎樣？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Q-%E4%BD%BF%E7%94%A8-FSM-%E4%BD%9C%E7%82%BA%E8%A8%AD%E8%A8%88%E7%9A%84%E7%9B%B8%E9%97%9C%E8%AB%96%E8%BF%B0%EF%BC%9F%E4%BB%A5%E5%8F%8A%E5%AF%A6%E9%9A%9B%E6%87%89%E7%94%A8%EF%BC%9F"><span class="toc-article-text">Q: 使用 FSM 作為設計的相關論述？以及實際應用？</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E6%96%87%E7%AB%A0"><span class="toc-article-text">相關文章</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/System-Design/" style="color: white">System Design <span class="badge">4</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Finite-State-Machine/" style="color: white">Finite-State Machine <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/System-Design/" style="color: white">System Design <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/API-Design/" style="color: white">API Design <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/RESTful/" style="color: white">RESTful <span class="badge">3</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+		<!-- v4 -->
+		<h4>About</h4>
+		
+			<li><a href="/2035/01/21/Index/">全站索引</a></li>
+		
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+		
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		
+			<li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+		
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		
+			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+		
+
+		<h4>著作</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作：SRE實踐與開發平台指南</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作：軟體測試實務 (2023)</a></li>
+		
+			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
+		
+
+		<h4>演講</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
+		
+			<li><a href="/2023/09/09/About/2023-AWS-Career-Exploration-Day/">探索職涯、複利人生 - AWS Career Exploration Day 2023</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作 SRE 書友見面會</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">軟體測試實務 - 新書發表會</a></li>
+		
+			<li><a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">探索職涯、成就未來 - AWS Career Exploration Day 2022</a></li>
+		
+			<li><a href="/2022/08/13/SQA/Path-to-Software-Testing/">從理想、到現實的距離，開啟品味軟體測試之路</a></li>
+		
+			<li><a href="/2022/05/10/About/2022-SREConf2022/">91APP 在 AWS 上的 SRE 實踐之路</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/2020-aws-summit-aws">在矩陣型組織裡，如何有效管理 AWS 的成本結構與系統架構</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/aws-using-aws-for-disaster-recovery/">災難演練 @ AWS 實戰分享</a></li>
+		
+			<li><a href="/2019/04/27/DevOps/Introduce-to-Continuous-Delivery-2/">導讀持續交付 2.0 - 談當代軟體交付之虛實融合</a></li>
+		
+			<li><a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理</a></li>
+		
+			<li><a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">從緊急事件 談 SRE 應變能力的培養</a></li>
+		
+			<li><a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
+		
+			<li><a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">Monitoring Tools 大亂鬥 - AWS CloudWatch</a></li>
+		
+			<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></li>
+		
+			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
+		
+
+		<!-- v3 -->
+		<!--
+		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		-->
+
+		<!-- v2 -->
+		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+		<!-- v1 -->
+		<!--
+		<li>Software Developer</li>
+		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+		<li><a href="/categories/DevOps/">Operation Manager</a></li>
+		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+		<li>
+			<ol>
+				<li>Management</li>
+				<li>Cloud / Distributed Systems</li>
+				<li>DevOps / SRE / </li>
+			</ol>
+		</li>
+		-->
+
+		<!--
+		<h4>Donate</h4>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick" />
+		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
+		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
+		</form>
+		-->
+
+		<h4>Facebook</h4>
+
+		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
+
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
+				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+
+		<h4>AWS Certifications</h4>
+		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+		<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+		<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+		
+
+	</div><!-- row -->
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2022 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div>
+
+<!-- container-narrow -->
+
+<div id="gotop">
+
+  <!-- 
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-book"></i> <a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"]);">學習法則</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"]);">喝咖啡 聊音樂 (v2021)</a><br />
+   -->
+
+  <!-- <h4>About</h4> -->
+
+  <ul>
+  
+    <li><a href="/2035/01/21/Index/">全站索引</a></li>
+  
+    <li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+  
+    <li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+  
+    <li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+  
+    <li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+  
+    <li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+  
+    <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+  
+  </ul>
+
+  <a href="#">▲ TOP ▲ </a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

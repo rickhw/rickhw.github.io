@@ -1,0 +1,61 @@
+sequenceDiagram
+    autonumber
+    participant HW as Hardware (Oscillator)
+    participant PIT as PIT (8254)
+    participant PIC as PIC (8259)
+    participant CPU as CPU
+    participant OS_Timer as OS (timer.c)
+    participant OS_Sched as OS (scheduler)
+
+    Note over OS_Timer: volatile uint32_t tick = 0&#59;
+
+    Note over HW,OS_Sched: Phase 1&#58; Initialization (init_timer)
+    Note over CPU, OS_Timer: Kernel Boot calls init_timer(100)
+    CPU->>OS_Timer: init_timer(frequency=100)
+    activate OS_Timer
+    OS_Timer->>OS_Timer: Calculate divisor = 1193180 / 100
+    OS_Timer->>PIT: outb(0x43, 0x36) (Set Mode 3)
+    OS_Timer->>PIT: outb(0x40, low_byte)
+    OS_Timer->>PIT: outb(0x40, high_byte)
+    deactivate OS_Timer
+    Note over PIT: PIT begins counting down divisor
+
+    Note over HW,OS_Sched: Phase 2&#58; The Tick Loop (Cyclical)
+    loop Every ~10ms (100Hz)
+        HW->>PIT: Crystal Pulse (1.19318 MHz)
+        PIT->>PIT: Decrement Internal Counter
+        alt Counter reaches 0
+            PIT->>PIC: Raise IRQ0 (Interrupt Request)
+            activate PIC
+            Note right of PIC: PIC latches IRQ0, waits for CPU
+            PIC->>CPU: INTR (Interrupt Signal)
+            activate CPU
+            Note right of CPU: CPU finishes current instruction
+            CPU->>PIC: Interrupt Acknowledge (INTA)
+            PIC->>CPU: Deliver Interrupt Vector (e.g., 0x20)
+            deactivate PIC
+
+            Note over CPU: Context Switch to ISR
+            CPU->>OS_Timer: Call timer_handler()
+            activate OS_Timer
+
+            rect rgb(240, 248, 255)
+                Note right of OS_Timer: [timer.c logic]
+                OS_Timer->>OS_Timer: tick++ (Advance OS Time)
+                OS_Timer->>OS_Timer: Perform CPU Accounting (current_task->ticks++)
+                OS_Timer->>OS_Timer: Call gui_handle_timer()
+            end
+
+            OS_Timer->>PIC: outb(0x20, 0x20) (Send EOI)
+            Note right of PIC: PIC can now accept new interrupts
+
+            OS_Timer->>OS_Sched: Call schedule() (Preemptive Multitasking)
+            activate OS_Sched
+            Note over OS_Sched: Context Switch to Next Task
+            deactivate OS_Sched
+
+            deactivate OS_Timer
+            deactivate CPU
+        end
+        Note over PIT: Wait for next Pulse (if counter > 0)
+    end

@@ -1,0 +1,75 @@
+sequenceDiagram
+    autonumber
+
+    box rgb(230, 240, 255) User Space (Ring 3)
+    participant App as sleep.c (App)
+    participant Lib as unistd.c (libc)
+    end
+
+    box rgb(255, 240, 230) Kernel Space (Ring 0)
+    participant Sys as syscall.c
+    participant Task as task.c (Scheduler)
+    participant ASM as task_switch.S
+    participant Tim as timer.c (IRQ0)
+    end
+
+    %% 階段一：進入睡眠
+    rect rgb(240, 255, 240)
+    Note over App, Tim: 階段一：發起系統呼叫與進入睡眠 (Sleep)
+    App->>Lib: msleep(1000)
+    Lib->>Sys: 觸發中斷 int 0x80 (EAX=SYS_SLEEP)
+    Sys->>Task: call sys_sleep(1000)
+
+    Note over Task: 1. ticks_to_sleep = 1000 / 10<br/>2. wake_up_tick = tick + 100<br/>3. 狀態改為 TASK_SLEEPING
+
+    Task->>Task: 呼叫 schedule()
+    Note over Task: 執行 pushfl; cli (保存並關閉中斷)
+    Task->>ASM: call switch_task(current, next)
+    Note over ASM: 保存目前任務現場，切換 ESP 與 CR3
+    ASM-->>Task: 降落到下一個任務 (如 idle_task)
+    Note over Task: 執行 popfl (恢復新任務的中斷狀態)
+    end
+
+    %% 階段二：背景計時
+    rect rgb(255, 250, 240)
+    Note over App, Tim: 階段二：硬體持續觸發中斷 (系統空轉或執行其他任務)
+    loop 每 10ms (100Hz) 觸發一次
+        Tim->>Tim: 硬體觸發 IRQ0，執行 timer_handler<br/>tick++
+        Tim->>Task: 呼叫 schedule()
+        Note over Task: pushfl; cli
+
+        Note over Task: 掃描 ready_queue，檢查睡眠任務
+        alt tick < wake_up_tick
+            Note over Task: 時間未到，任務保持 TASK_SLEEPING
+            Task->>ASM: 切換/保持目前的任務
+            ASM-->>Task:
+        end
+        Note over Task: popfl
+    end
+    end
+
+    %% 階段三：喚醒與返回
+    rect rgb(255, 240, 240)
+    Note over App, Tim: 階段三：時間到達，喚醒任務 (Wake up)
+
+    Tim->>Tim: 第 100 次 tick 觸發 (經過了 1 秒)
+    Tim->>Task: 呼叫 schedule()
+    Note over Task: pushfl; cli
+
+    Note over Task: 掃描 ready_queue
+    Task->>Task: 發現 tick >= wake_up_tick !
+    Note over Task: 將任務狀態改回 TASK_RUNNING
+
+    Note over Task: 尋找下一個要跑的任務 (找到剛被喚醒的任務)
+    Task->>ASM: call switch_task(idle_task, sleep_task)
+    Note over ASM: 恢復睡眠任務的 ESP 與 CR3
+    ASM-->>Task: 從當初呼叫 switch_task 的下一行醒來！
+
+    Note over Task: 執行 popfl (完美恢復呼叫 sleep 時的 IF 狀態)
+
+    Task-->>Sys: 返回 0 (sys_sleep 結束)
+    Sys-->>Lib: 系統呼叫返回
+    Lib-->>App: msleep() 執行完畢
+
+    App->>App: printf("Wake up!\n")
+    end

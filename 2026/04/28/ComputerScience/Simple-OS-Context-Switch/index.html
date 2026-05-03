@@ -1,0 +1,895 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>自幹作業系統 - Context Switch | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="自幹作業系統 - Simple OS 學習筆記來到第五篇，上一篇整理了 Task 的定義、排程器概念、以及排程演算法，順著這樣的思路，往下深挖一個很重要的概念：Context Switch，中文翻譯成 上下文切換、內容轉換、環境切換，我自己習慣翻譯 上下文切換 。對應到 課程大綱 大約在 day31">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="自幹作業系統 - Context Switch"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/2026/04/28/ComputerScience/Simple-OS-Context-Switch/"/>
+  <meta property="og:image" content="/images/ComputerScience/SimpleOS/Context-Switch/Context-Switch-Overview.png" />
+  
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<!--
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'G-74Y1F3F5W0']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-74Y1F3F5W0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-74Y1F3F5W0');
+</script>
+
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!-- @rickd 2022/02/24
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=&autoLogAppEvents=1"></script>
+  -->
+  <!-- @ricka 2022/02/24 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!--
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=&autoLogAppEvents=1"
+    nonce="bd9r2mJp"></script>
+  -->
+
+  <!-- @ricka 2022/09/06 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=&autoLogAppEvents=1"
+    nonce="opf2Gext"></script>
+
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						
+						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+						
+						<li><a href="/categories/About/">About <sup>30</sup></a></li>
+						
+						<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+						
+						<li><a href="/categories/經營管理/Career/">Career <sup>7</sup></a></li>
+						
+						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
+						
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						
+						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Data/">Data <sup>2</sup></a></li>
+						
+						<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+						
+						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>20</sup></a></li>
+						
+						<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+						
+						<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+						
+						<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+						
+						<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+						
+						<li><a href="/categories/DevOps/SRE/">SRE <sup>25</sup></a></li>
+						
+						<li><a href="/categories/Software-Engineering/">Software Engineering <sup>10</sup></a></li>
+						
+						<li><a href="/categories/System-Design/">System Design <sup>4</sup></a></li>
+						
+						<li><a href="/categories/經營管理/人才管理/">人才管理 <sup>11</sup></a></li>
+						
+						<li><a href="/categories/經營管理/溝通/">溝通 <sup>9</sup></a></li>
+						
+						<li><a href="/categories/經營管理/知識管理/">知識管理 <sup>4</sup></a></li>
+						
+						<li><a href="/categories/經營管理/">經營管理 <sup>63</sup></a></li>
+						
+						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
+						
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"> <i class="fa fa-book"></i>學習法則</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂 (v2021)</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> 自幹作業系統 - Context Switch</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> 自幹作業系統 - Context Switch</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+		
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2026%2F04%2F28%2FComputerScience%2FSimple-OS-Context-Switch%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2026/04/28/ComputerScience/Simple-OS-Context-Switch/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/2026/04/28/ComputerScience/Simple-OS-Context-Switch/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<p><a href="/2026/03/27/ComputerScience/Simple-OS/">自幹作業系統 - Simple OS</a> 學習筆記來到第五篇，上一篇整理了 <a href="/2026/04/17/ComputerScience/Simple-OS-Task-and-Scheduler/">Task 的定義、排程器概念、以及排程演算法</a>，順著這樣的思路，往下深挖一個很重要的概念：<code>Context Switch</code>，中文翻譯成 <strong>上下文切換</strong>、<strong>內容轉換</strong>、<strong>環境切換</strong>，我自己習慣翻譯 <code>上下文切換</code> 。對應到 <a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/main/course/README.md">課程大綱</a> 大約在 day31 ~ 36 的範圍。</p>
+<p>本文將整理以下內容：</p>
+<ol>
+<li>什麼是 Context Switch？它帶來的成本 <strong>負擔 (Overhead)</strong> 是什麼？</li>
+<li>Scheduler 怎麼決定 <strong>Switch</strong> 的？</li>
+<li>SimpleOS 是怎麼實作 <strong>Context Switch</strong> 的？</li>
+</ol>
+<p>除了在作業系統裡，Context Switch 也可以用在人身上，代表人處於同時在很多任務之間切換，因而無法專注的現象，背後隱含著成本很高的意思。我很久以前寫的 <a href="/2017/01/23/Management/Cost-In-Context-Switch/">Cost in Context Switch</a> 就是在描述工作頻繁被干擾，造成無法專注，這種極端現象帶來的影響，以及可能的解決方法。類似概念在 <a target="_blank" rel="noopener" href="https://www.books.com.tw/products/0010872982">Peopleware：腦力密集產業的人才管理之道</a> 以及 <a target="_blank" rel="noopener" href="https://www.books.com.tw/products/0011046863">心流:高手都在研究的最優體驗心理學</a> 這些書裡也有提到。</p>
+<p>最後再來聊聊 AI 話題，這次整理 關於 <code>Harness Engineering</code> 的想法與相關資料，因為概念跟我在自幹作業系統實在太像了。</p>
+<span id="more"></span>
+
+<blockquote>
+<p>自幹作業系統 系列:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems">Source Code</a>, <a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/main/course/Terms.md">專有名詞對照表</a>, <a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvojs-N7OLM6jo6IYKEIizK1P">Demo&#x2F;錄影</a></li>
+<li><a href="/2026/03/27/ComputerScience/Simple-OS/">自幹作業系統 - Simple OS</a></li>
+<li><a href="/2026/04/09/ComputerScience/Simple-OS-Networking/">自幹作業系統 - Networking Fundamentals</a></li>
+<li><a href="/2026/04/12/ComputerScience/Simple-OS-Timer/">自幹作業系統 - 初探 Timer 原理</a></li>
+<li><a href="/2026/04/17/ComputerScience/Simple-OS-Task-and-Scheduler/">自幹作業系統 - Task and Scheduler</a></li>
+<li><a href="/2026/04/28/ComputerScience/Simple-OS-Context-Switch/">自幹作業系統 - Context Switch</a></li>
+</ul>
+</blockquote>
+<blockquote>
+<p>註：內容僅是自學的一些筆記，如果有發現資訊不正確，或者描述錯誤，請不令給予指教，感謝。</p>
+</blockquote>
+<hr>
+<h2 id="一、什麼是-Context-Switch？它帶來的成本-負擔-Overhead-是什麼？"><a href="#一、什麼是-Context-Switch？它帶來的成本-負擔-Overhead-是什麼？" class="headerlink" title="一、什麼是 Context Switch？它帶來的成本 負擔 (Overhead) 是什麼？"></a>一、什麼是 Context Switch？它帶來的成本 <strong>負擔 (Overhead)</strong> 是什麼？</h2><h3 id="定義"><a href="#定義" class="headerlink" title="定義"></a>定義</h3><p>Context Switch (上下文切換) 是作業系統實現多工 (Multitasking) 的核心機制。它的本質是：</p>
+<blockquote>
+<p>把 CPU 從一個行程「借走」，交給另一個行程使用，並讓雙方都以為自己一直在跑。</p>
+</blockquote>
+<p>「Context (上下文) 」指的是一個行程在某個時間點的完整執行狀態，包含：</p>
+<ul>
+<li><code>通用暫存器</code>：EAX、EBX、ECX、EDX、ESI、EDI、EBP</li>
+<li><code>程式計數器 (EIP)</code> ：下一條要執行的指令在哪</li>
+<li><code>旗標暫存器 (EFLAGS, Extended Flags Register)</code> ：運算結果與中斷開關狀態</li>
+<li><code>堆疊指標 (ESP, Extended Stack Pointer)</code> ：目前的呼叫堆疊深度</li>
+<li><code>記憶體空間 (CR3, Control Register 3)</code> ：存放 Page Directory 實體位址。虛擬位址對應到哪塊實體記憶體</li>
+</ul>
+<p>這些資訊加起來，就是一個行程「靈魂」的全部。Context Switch 就是把靈魂從一個殼換到另一個殼。</p>
+<blockquote>
+<p>通用暫存器名稱對照表參閱 Source Code 的 <a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/main/course/Terms.md">Terms.md</a> 整理</p>
+</blockquote>
+<h3 id="觸發時機"><a href="#觸發時機" class="headerlink" title="觸發時機"></a>觸發時機</h3><p>在 Simple OS 裡，Context Switch 有兩種觸發方式：</p>
+<ol>
+<li><strong>搶佔式 (Preemptive)</strong> ：由 <a href="/2026/04/12/ComputerScience/Simple-OS-Timer/">PIT (可程式化間隔計時器，8254 晶片)</a> 每 10ms 產生一次 IRQ0 中斷，強制叫醒 <code>排程器 (Scheduler)</code>。這讓任何一個行程 (Process) 都不能霸佔 CPU，即使它是個無限迴圈如下 <a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/main/src/kernel/arch/x86/timer.c#L87">timer.c</a>，更多參閱 <a href="/2026/04/12/ComputerScience/Simple-OS-Timer/">自幹作業系統 - 初探 Timer 原理</a> 的詳細介紹。</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// timer.c — 每一個 tick (10ms) 就強制執行一次排程</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">timer_handler</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    tick++;</span><br><span class="line">    <span class="comment">// ... 略 ...</span></span><br><span class="line">    outb(<span class="number">0x20</span>, <span class="number">0x20</span>); <span class="comment">// 通知 PIC：中斷處理完畢 (EOI) </span></span><br><span class="line">    schedule();       <span class="comment">// 強制切換，實現搶佔式多工</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><strong>主動讓出 (Voluntary)</strong> ：行程呼叫 <a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/main/src/kernel/kernel/task.c#L547">sys_wait()</a>、<a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/main/src/kernel/kernel/task.c#L654">sys_sleep()</a> 等 syscall，自願放棄 CPU 使用權。</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">sys_sleep</span><span class="params">(<span class="type">uint32_t</span> ms)</span> &#123;</span><br><span class="line">    <span class="comment">// ... 略 ...</span></span><br><span class="line">    current_task-&gt;wake_up_tick = tick + ticks_to_sleep;</span><br><span class="line">    current_task-&gt;state = TASK_SLEEPING;</span><br><span class="line"></span><br><span class="line">    schedule();       <span class="comment">// 讓出 CPU，schedule 處理 cli/sti</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="成本分析"><a href="#成本分析" class="headerlink" title="成本分析"></a>成本分析</h3><p>Context Switch 不是免費的，它的代價主要來自三個層面：</p>
+<ol>
+<li><strong>暫存器存取</strong>: <code>pusha</code> &#x2F; <code>popa</code> 指令需要讀寫 8 個通用暫存器，加上 <code>EFLAGS</code></li>
+<li><strong>TLB 失效</strong>: 切換 <code>CR3 (分頁目錄)</code> 會清空 <code>TLB (Translation Lookaside Buffer)</code>，導致後續記憶體存取全部 Page Miss，要重新走一遍 Page Table</li>
+<li><strong>快取污染</strong>: 新行程的 <code>工作資料集 (Working Set)</code> 和舊行程完全不同，L1&#x2F;L2 Cache 大量失效</li>
+</ol>
+<p>TLB 是 Context Switch 最昂貴的部分。TLB 是 CPU 用來快取 <code>虛擬 / 實體</code> 位址對應的硬體，容量很小 (通常 64–1024 條) 。一旦切換到不同位址空間，整個 TLB 失效，接下來幾百條記憶體存取都得重新查 Page Table，速度驟降。</p>
+<p>這也是為什麼現代 OS 盡量減少不必要的 Context Switch，帶表 <code>每次切換都是一筆看不見的效能稅</code>。</p>
+<hr>
+<h2 id="二、排程器如何決定「切換給誰」？"><a href="#二、排程器如何決定「切換給誰」？" class="headerlink" title="二、排程器如何決定「切換給誰」？"></a>二、排程器如何決定「切換給誰」？</h2><p><code>schedule()</code> 是 Context Switch 的大腦，在每一個 timer tick 或行程主動讓出時被呼叫。它的工作分三步：</p>
+<h3 id="步驟-1：垃圾回收-喚醒睡眠任務"><a href="#步驟-1：垃圾回收-喚醒睡眠任務" class="headerlink" title="步驟 1：垃圾回收 + 喚醒睡眠任務"></a>步驟 1：垃圾回收 + 喚醒睡眠任務</h3><p>在真正排程之前，先清理戰場：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">schedule</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 關閉中斷，避免 Race Condition</span></span><br><span class="line">    __asm__ <span class="title function_">volatile</span><span class="params">(<span class="string">&quot;cli&quot;</span>)</span>;</span><br><span class="line"></span><br><span class="line">    task_gc();  <span class="comment">// 釋放已標記為 TASK_DEAD 的 PCB 與 Kernel Stack</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 掃描睡眠任務，時間到了就喚醒</span></span><br><span class="line">    <span class="keyword">if</span> (ready_queue) &#123;</span><br><span class="line">        <span class="type">task_t</span> *iter = (<span class="type">task_t</span>*)ready_queue;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (iter-&gt;state == TASK_SLEEPING &amp;&amp; tick &gt;= iter-&gt;wake_up_tick) &#123;</span><br><span class="line">                iter-&gt;state = TASK_RUNNING;</span><br><span class="line">            &#125;</span><br><span class="line">            iter = iter-&gt;next;</span><br><span class="line">        &#125; <span class="keyword">while</span> (iter != first &amp;&amp; iter != <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="步驟-2：Round-Robin-輪轉找下一個行程"><a href="#步驟-2：Round-Robin-輪轉找下一個行程" class="headerlink" title="步驟 2：Round-Robin 輪轉找下一個行程"></a>步驟 2：Round-Robin 輪轉找下一個行程</h3><p>所有行程串成一個環狀鏈結串列 (Circular Linked List) 。排程器從當前行程的「下一個」開始掃，找到第一個 <code>TASK_RUNNING</code> 的就選它：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 從當前行程的 next 開始找，公平輪轉</span></span><br><span class="line"><span class="type">task_t</span> *start_node = (current_task == idle_task)</span><br><span class="line">    ? (<span class="type">task_t</span>*)ready_queue</span><br><span class="line">    : current_task-&gt;next;</span><br><span class="line"></span><br><span class="line"><span class="type">task_t</span> *iter = start_node;</span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (iter-&gt;state == TASK_RUNNING) &#123;</span><br><span class="line">        next_run = iter;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    iter = iter-&gt;next;</span><br><span class="line">&#125; <span class="keyword">while</span> (iter != start_node);</span><br></pre></td></tr></table></figure>
+
+<p>如果沒有任何行程可以跑，就切換到 <code>idle_task</code> (PID 9999) ，它只會執行 <code>sti; hlt</code>，讓 CPU 省電等待下一個中斷。</p>
+<h3 id="步驟-3：執行-Context-Switch"><a href="#步驟-3：執行-Context-Switch" class="headerlink" title="步驟 3：執行 Context Switch"></a>步驟 3：執行 Context Switch</h3><p>找到目標行程後，更新 <code>Task State Segment (TSS)</code> 的 kernel stack 指標，然後把控制權交給組合語言：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">task_t</span> *prev = (<span class="type">task_t</span>*)current_task;</span><br><span class="line">current_task = next_run;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (current_task != prev) &#123;</span><br><span class="line">    <span class="comment">// 更新 TSS.esp0</span></span><br><span class="line">    <span class="comment">// @ref: src/kernel/lib/gdt.h#set_kernel_stack</span></span><br><span class="line">    set_kernel_stack(current_task-&gt;kernel_stack); </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// switch_task() 由組合語言處理</span></span><br><span class="line">    <span class="comment">// @ref: src/kernel/arch/x86/switch_task.S</span></span><br><span class="line">    switch_task(</span><br><span class="line">        (<span class="type">uint32_t</span>*)&amp;prev-&gt;esp,          <span class="comment">// 儲存舊行程的 ESP</span></span><br><span class="line">        (<span class="type">uint32_t</span>*)&amp;current_task-&gt;esp,  <span class="comment">// 載入新行程的 ESP</span></span><br><span class="line">        current_task-&gt;page_directory    <span class="comment">// 新行程的 CR3</span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>set_kernel_stack()</code> 的作用是更新 <code>TSS (Task State Segment)</code> 裡的 <code>esp0</code> 欄位。當新行程從 Ring 3 觸發系統呼叫進入 Ring 0 時，CPU 會用這個值來設定 Kernel Stack，確保每個行程都有自己獨立的核心堆疊空間。</p>
+<hr>
+<h2 id="三、組合語言如何完成最後一步切換？"><a href="#三、組合語言如何完成最後一步切換？" class="headerlink" title="三、組合語言如何完成最後一步切換？"></a>三、組合語言如何完成最後一步切換？</h2><h3 id="為什麼需要組合語言？"><a href="#為什麼需要組合語言？" class="headerlink" title="為什麼需要組合語言？"></a>為什麼需要組合語言？</h3><p>這是核心問題。理論上，C 語言可以操作大部分硬體，但有幾件事 C 語言做不到或做了會出問題：</p>
+<ol>
+<li><strong>直接操作 ESP (堆疊指標)</strong> ：一旦 C 函式修改了 <code>esp (堆疊指標暫存器)</code>，整個呼叫堆疊就垮了——區域變數找不到、返回位址不見了。這件事只能用組合語言在 C 的呼叫慣例之外完成。</li>
+<li><strong>直接寫入 CR3</strong>：CR3 是分頁目錄的實體位址，寫入 CR3 會立即切換虛擬位址空間並清空 TLB。這是特權指令 (只有 Ring 0 能執行) ，且必須在正確時序下操作，中間不能有任何 C 的堆疊假設。</li>
+<li><strong>精確控制暫存器</strong>：<code>pusha</code>&#x2F;<code>popa</code> 一次存取 8 個暫存器，語意清晰、不帶副作用。C 語言的 <code>inline asm</code> 雖然也能操作暫存器，但要在 C 函式「外部」保存&#x2F;恢復全部暫存器，只有純組合語言才能確保不汙染任何狀態。</li>
+</ol>
+<h3 id="switch-task-S-逐行解析"><a href="#switch-task-S-逐行解析" class="headerlink" title="switch_task.S 逐行解析"></a><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/main/src/kernel/arch/x86/switch_task.S">switch_task.S</a> 逐行解析</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">; extern void switch_task(uint32_t *current_esp, uint32_t *next_esp, uint32_t next_cr3);</span><br><span class="line">switch_task:</span><br><span class="line">    pusha           ; 一次壓入 8 個通用暫存器 (EAX, ECX, EDX, EBX, ESP, EBP, ESI, EDI) </span><br><span class="line">    pushf           ; 壓入 EFLAGS (包含中斷開關狀態 IF) </span><br></pre></td></tr></table></figure>
+
+<p>此時舊行程的完整 CPU 狀態已全部壓在它的 Kernel Stack 上。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">; 在換掉 ESP 之前，先把第三個參數 (next_cr3) 存到 EDX</span><br><span class="line">; 換掉 ESP 之後就再也找不到舊堆疊上的參數了！</span><br><span class="line">mov edx, [esp + OFFSET_NEXT_CR3]  ; OFFSET = 40(pusha) + 4(pushf) + 4(return EIP) = 48</span><br></pre></td></tr></table></figure>
+
+<p>這是整個函式最微妙的地方。函式參數是放在「呼叫時的舊堆疊」上，一旦 ESP 切換到新行程的堆疊，就再也讀不到這些參數了。所以必須在切換 ESP <strong>之前</strong>把 <code>next_cr3</code> 偷渡到暫存器 EDX 裡。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">; 把當前 ESP 值存入 prev-&gt;esp (第一個參數是指向 prev-&gt;esp 的指標) </span><br><span class="line">mov eax, [esp + OFFSET_CURRENT_ESP]</span><br><span class="line">mov [eax], esp</span><br><span class="line"></span><br><span class="line">; 載入 next-&gt;esp (切換到新行程的 Kernel Stack) </span><br><span class="line">mov eax, [esp + OFFSET_NEXT_ESP]</span><br><span class="line">mov esp, [eax]          ; ← 這一行過後，我們已經在新行程的堆疊上了</span><br></pre></td></tr></table></figure>
+
+<p><code>mov esp, [eax]</code> 這一行是整個切換的「宇宙奇點」。執行前是舊行程，執行後 CPU 就活在新行程的堆疊裡了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">; 現在把暫存的 next_cr3 寫入 CR3，切換虛擬位址空間</span><br><span class="line">mov cr3, edx            ; ← TLB 全部失效，位址空間正式切換</span><br><span class="line"></span><br><span class="line">popf                    ; 恢復新行程的 EFLAGS</span><br><span class="line">popa                    ; 恢復新行程的 8 個通用暫存器</span><br><span class="line"></span><br><span class="line">ret                     ; 返回到新行程上次被中斷的位置</span><br></pre></td></tr></table></figure>
+
+<p><code>ret</code> 指令從堆疊彈出返回位址 (EIP) ，而這個 EIP 是新行程上次被 <code>switch_task</code> 呼叫時壓入的，所以 CPU 就這樣神不知鬼不覺地回到了新行程「上次停下來的地方」，繼續執行。</p>
+<h3 id="新行程第一次被排程：child-ret-stub"><a href="#新行程第一次被排程：child-ret-stub" class="headerlink" title="新行程第一次被排程：child_ret_stub"></a>新行程第一次被排程：<code>child_ret_stub</code></h3><p>對於一個剛被 <code>fork()</code> 或 <code>create_user_task()</code> 建立、從未執行過的行程，它的 Kernel Stack 上沒有真實的歷史返回位址，需要手動偽造。</p>
+<p>在建立行程時，task.c#<a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/main/src/kernel/kernel/task.c#L160">create_user_task()</a>, <a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/main/src/kernel/kernel/task.c#L326">fork()</a> 會在 Kernel Stack 上手工佈置一個完整的堆疊幀：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// create_user_task() / sys_fork() 中的堆疊佈置</span></span><br><span class="line">*(--kstack) = USER_DS;           <span class="comment">// User SS (iret 用) </span></span><br><span class="line">*(--kstack) = (<span class="type">uint32_t</span>)ustack;  <span class="comment">// User ESP (iret 用) </span></span><br><span class="line">*(--kstack) = EFLAGS_DEFAULT;    <span class="comment">// EFLAGS (iret 用) </span></span><br><span class="line">*(--kstack) = USER_CS;           <span class="comment">// User CS (iret 用) </span></span><br><span class="line">*(--kstack) = entry_point;       <span class="comment">// User EIP (iret 用) </span></span><br><span class="line"></span><br><span class="line">*(--kstack) = <span class="number">0</span>; <span class="comment">// EBP (child_ret_stub 會 pop 這些) </span></span><br><span class="line">*(--kstack) = <span class="number">0</span>; <span class="comment">// EBX</span></span><br><span class="line">*(--kstack) = <span class="number">0</span>; <span class="comment">// ESI</span></span><br><span class="line">*(--kstack) = <span class="number">0</span>; <span class="comment">// EDI</span></span><br><span class="line"></span><br><span class="line">*(--kstack) = (<span class="type">uint32_t</span>) child_ret_stub;  <span class="comment">// ← switch_task 的 ret 跳到這裡</span></span><br></pre></td></tr></table></figure>
+
+<p>當 <code>switch_task</code> 的 <code>ret</code> 彈出返回位址時，CPU 就跳進 <code>child_ret_stub</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">child_ret_stub:</span><br><span class="line">    pop edi                 ; 彈出手工放的暫存器初始值</span><br><span class="line">    pop esi</span><br><span class="line">    pop ebx</span><br><span class="line">    pop ebp</span><br><span class="line"></span><br><span class="line">    ; 換上 User Data Segment (Ring 3 的資料段) </span><br><span class="line">    mov cx, 0x23</span><br><span class="line">    mov ds, cx</span><br><span class="line">    mov es, cx</span><br><span class="line">    mov fs, cx</span><br><span class="line">    mov gs, cx</span><br><span class="line"></span><br><span class="line">    mov eax, 0              ; 子行程 fork() 返回值 = 0</span><br><span class="line"></span><br><span class="line">    ; [很重要的關鍵]</span><br><span class="line">    ; iret：從 Ring 0 跳回 Ring 3</span><br><span class="line">    ; CPU 從 Stack 取出 EIP, CS, EFLAGS, ESP, SS</span><br><span class="line">    ; 完成 Kernel → User Space 的特權降級</span><br><span class="line">    iret</span><br></pre></td></tr></table></figure>
+
+<p><code>iret</code> 是降級的魔法咒語。它一次從堆疊彈出 EIP、CS、EFLAGS (以及跨特權時的 ESP 和 SS) ，讓 CPU 從 Ring 0 飛回 Ring 3 的程式碼，開始執行使用者程式。</p>
+<hr>
+<h2 id="整體流程回顧"><a href="#整體流程回顧" class="headerlink" title="整體流程回顧"></a>整體流程回顧</h2><p>Context Switch 最神奇的地方在於：</p>
+<blockquote>
+<p>對每一個行程來說，它從未「感覺」自己被暫停過：它只是**「從 <code>switch_task</code> 的呼叫點返回了」**，而這個返回，可能已經過了幾十個 tick、幾百個毫秒。</p>
+</blockquote>
+<p>下圖是用 ChatGPT 整理的整體流程：</p>
+<p><img src="/images/ComputerScience/SimpleOS/Context-Switch/Context-Switch-Flow.png"></p>
+<!--
+
+PIT IRQ0 (每 10ms) 
+    │
+    ▼
+timer_handler()        ← 組合語言呼叫 (interrupts.S) 
+    │
+    ▼
+schedule()             ← C 語言排程邏輯
+    │  Round-Robin 選出下一個 TASK_RUNNING 行程
+    ▼
+switch_task(prev_esp, next_esp, next_cr3)   ← 跳入組合語言
+    │
+    ├─ pusha / pushf    → 把舊行程的 CPU 狀態壓入舊 Kernel Stack
+    ├─ mov [prev->esp], esp  → 記住舊行程的 Kernel Stack 位置
+    ├─ mov esp, [next->esp]  → 跳到新行程的 Kernel Stack  ← 宇宙奇點
+    ├─ mov cr3, edx     → 切換虛擬位址空間 (TLB 失效) 
+    └─ popf / popa / ret → 恢復新行程的 CPU 狀態，跳回執行點
+
+-->
+
+<hr>
+<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><!--
+| 層次 | 角色 | 關鍵程式碼 |
+|-----|------|-----------|
+| 硬體 (PIT 8254) | 提供時間基準，每 10ms 觸發 IRQ0 | `timer.c#init_timer()` |
+| C 語言排程器 | 決定切換給誰 (Round-Robin) | `task.c#schedule()` |
+| 組合語言 | 完成 ESP / CR3 的實際切換 | `switch_task.S#switch_task` |
+| 偽造堆疊幀 | 讓全新行程第一次被排程時能正確返回 User Space | `task.c#create_user_task()` + `switch_task.S#child_ret_stub` |
+-->
+
+<p>Context Switch 是作業系統裡 C 與組合語言最精密的合作：C 語言負責「想清楚」，組合語言負責「做乾淨」。理解這個界線，就理解了為什麼作業系統必須從最底層開始寫起。</p>
+<p>下圖用 ChatGPT 整理硬體、排程器、組合語言、偽造堆疊幀四個層次彼此之間的角色以及關鍵程式碼：</p>
+<p><img src="/images/ComputerScience/SimpleOS/Context-Switch/Context-Switch-Layers.png"></p>
+<h3 id="心得筆記"><a href="#心得筆記" class="headerlink" title="心得筆記"></a>心得筆記</h3><p>越到底層，整理相關資訊越是辛苦。即使已經有 AI 幫忙，但有不少概念看了好幾次還是不太懂，特別是那一堆通用暫存器，如 EIP、ESP、EFLAGS … 等。但有趣的是這些正式研究作業系統背後的主要動機，看到不懂的，或者反覆出現的，代表後面越是有故事可以說。挖下去就一堆東西出來 XD</p>
+<p>然後整理探索筆記一開始只是想了解一下 sleep 實作，然後就越挖約多，越挖越有趣。sleep 已經實作好了，但是 sleep 其實站在很多基礎點上，這些點如果沒搞清楚，這個實作意義就不大了。反正 AI 瞬間就可以寫出一個類似的東西。</p>
+<p>回到我自己的動機：<code>用 AI 輔助我學習</code>。我也在 Gemini CLI &#x2F; Claude Code &#x2F; Codex 這三個主流的 Agentic 來回嘗試，當遇到問題 Gemini 回答得不好、或者我看不懂，就把問題或者回答結果，丟給 ChatGPT &#x2F; Claude，如此反覆，從而探索到更多有趣的知識。最後 ChatGPT 幫忙畫圖 (剛好趕上 Image2 出來)，我在文字與圖反覆調整與更正，從而對整個作業系統更有感。</p>
+<p>下一篇終於可以整理 sleep 的實作了 XDD</p>
+<h3 id="用-AI-學習的過程，有沒遇到幻覺問題？"><a href="#用-AI-學習的過程，有沒遇到幻覺問題？" class="headerlink" title="用 AI 學習的過程，有沒遇到幻覺問題？"></a>用 AI 學習的過程，有沒遇到幻覺問題？</h3><p>自幹作業系統到現在，已經一個多月，我整個過程都是在 Gemini (Web) 上，同一個對話，以 Prompt 的方式學習。同一個對話匡的對話內容，從 Day1 ~ Day99 所有的課程內容，包含 Debug 的過程、章節總結、段落總結 … 等。那過程中有沒出現幻覺？</p>
+<p>其實是有，但嚴格來講，對我來講，影響不大。我的方法是，過程中我會反覆把現在程式碼、課程的學習重點與目標、在我本機測試的結果與截圖，反覆貼給 Gemini，反覆強化他上下文的資料，其實也在加深我自己的記憶與理解。因為這樣反覆地貼 Source Code 給他，反覆地餵他最新的資料與現況，所以我並沒有遇到最近 (2026&#x2F;02~04) 很多人在 Complain Gemini 一直出現幻覺的問題。</p>
+<p>另外過程中，我全程都是使用 Gemini Pro 的模式，每個問題都讓他做深度的思考與應對。過程也有過不小心點到快捷的模式，就會出現亂答的現象，只要切過去，然後同樣問題讓他重答就可以了。</p>
+<p>底下截圖是 <a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/tree/main/course/p4_preemtive-multitasking-and-process-management/day34_fork/result">day34_fork</a> 課程內容的 debug 截圖，有興趣可以店點進去看看當時我怎麼跟他對話的：</p>
+<p><img src="/images/ComputerScience/SimpleOS/Context-Switch/day34_fork.png"></p>
+<hr>
+<h2 id="閒聊-AI-Harness-Engineering"><a href="#閒聊-AI-Harness-Engineering" class="headerlink" title="閒聊 AI - Harness Engineering"></a>閒聊 AI - Harness Engineering</h2><p>最近除了自己持續研究作業系統實作相關議題，跟 AI 趨勢的概念也是沒有停下來。<code>Harness Engineering</code> 是最近我持續在關注的課題，相關的技術也是持續在爆炸的生出來。</p>
+<p>知道 <code>Harness (馬具)</code> 這個字，是在我 <a href="/2018/05/12/SQA/Designing-Test-Architecture-and-Framework/">Designing Test Architecture and Framework</a> 時期，就有整合一個叫做 <code>CLI Harness</code> 自動化程序，他主要負責測試 <code>網路防火牆路由器 (待測產品)</code> 的所有 CLI 指令是否正常運作，我記得有 400+ 的 Test Cases，全部透過 ssh &#x2F; telnet 方式，透過比對輸出文字的方式驗證功能是否正常。這是每個版本出貨前都要測試的，當時有 4 個 LTS branch + main version (Trunk-Based) + 40+ 多個客戶版，所以只要改動 (feature or bug fix) 有影響的範圍都要跑，而這個產品的客戶都是歐美日各大銀行。所以這產品的 Regression Test 是非常重要的。</p>
+<p>映像很深刻的是當時團隊的工作流程，用現在的眼光來看，其實就是一種 TDD 的概念，但在當時團隊的結構，是由開發者實作功能邏輯，由 QA 團隊實作自動化測試 (BlackBox)，透過 CLI Harness 方式驗收功能是否正常。當時團隊開發與測試是同步作業，所以大家其實平常工作都是一起進行的。這個經驗放到現在來看更有意思 — 現在 Agent 系統幾乎都在強調 <strong>Eval-Driven Development (EDD, 評估集驅動開發)</strong> ，本質上就是把當年我們做 BlackBox 測試的思維，直接內建到 Agent 的執行循環裡。</p>
+<p>回到現在 AI 時代的 Harness Engineering，會跑出這樣的概念從整個歷史趨勢來看，一點都不意外。因為 Prompt Engineering、Context Engineering，都缺乏了一個可以控制 AI 能夠穩定的、持續輸出可靠品質的方法。最核心的 LLM 每個月都會有新的突破，誰又超越誰了。下圖整理過去 2023 - 2026 相關 AI 發展演進的時間點：</p>
+<p><img src="/images/AI/LLM-Timeline-2023-2026.png"></p>
+<p>寫這篇文章的時間點是 2026&#x2F;04&#x2F;27，我相信很快地又會有誰超越誰，誰是 OOXX 之王的稱號 (媒體炒作)。同時，Open Source &#x2F; Local LLM (Gemma4, Qwen, MiniMax, DeepSeek) 也同步在嘗試能否改變，兩邊整天打來打去。</p>
+<blockquote>
+<p>所以，然後呢？？？</p>
+</blockquote>
+<p>其實大家慢慢都發現了，<strong>單純擴大模型參數帶來的邊際效益正在遞減</strong> — 注意，這不等於 LLM 整體能力觸頂，重點是已經轉移到別的地方：</p>
+<ul>
+<li><code>推理時計算 (test-time compute)</code>：讓模型在回答前多想一下，像是 <code>延長思考鏈</code>、self-consistency&#96; 那種做法。OpenAI o1&#x2F;o3 系列就是這條路線的代表。</li>
+<li><code>工具使用與 Agent 化</code>：讓模型不只「回答」，而是真的「動手做」 — 呼叫 API、跑程式碼、操作檔案系統。</li>
+<li><code>後訓練階段的 RL (Post-training RL)</code>：這是個關鍵變化。LLM 訓練分兩階段，先是 <code>Pre-training (預訓練)</code> 用海量網路文本學會「下一個 token 是什麼」，再來是 <code>Post-training</code> 用 RL 把模型雕琢成能聽指令、會推理、夠安全的樣子。常見手法包含：<ul>
+<li><code>RLHF (Reinforcement Learning from Human Feedback)</code>：人類標註員對模型多個回答排序，訓練 reward model，再用 PPO 把 LLM 往「人類偏好」推。ChatGPT 早期就是靠這套紅起來的。</li>
+<li><code>RLVR (Reinforcement Learning with Verifiable Rewards)</code>：reward 不靠人標，而是靠「可驗證的答案」 — 數學題對不對、程式碼能不能跑過測試。OpenAI o1&#x2F;o3、DeepSeek-R1 這些「推理模型」能突飛猛進就是靠這個。</li>
+<li><code>DPO (Direct Preference Optimization)</code>：跳過訓練 reward model，直接從偏好資料學，實作更簡單、迭代更快。</li>
+</ul>
+</li>
+</ul>
+<p>也就是說，現在 LLM 的能力提升主軸，已經從 <strong>「pre-training 加大模型」</strong> 轉移到 <strong>「post-training 用 RL 雕琢推理與工具使用」</strong> 。這也是為什麼模型參數沒變多少，但 Agent 表現一直在跳。</p>
+<p>同時不管是哪一個 LLM 用久了，就開始會有幻覺、記憶力短缺，所以出現了 <code>Context Engineering</code>，試圖要處理這些問題，出現了一堆工具，像是 OpenClaw。特別是 Cloud 版本的 LLM，幻覺問題越來越嚴重，像是 Opus 4.6 在 2026&#x2F;02 開始被一堆工程師靠北一直前後文不對。</p>
+<p>來來回回，現在的狀況大概就是：</p>
+<ol>
+<li>有個聰明的大腦 (LLM, Ph.D)，不管這顆腦是在雲上、還是在本機 &#x2F; 移動端</li>
+<li>LLM 只要用一段時間，就開始忘東忘西，跟老年癡呆沒啥兩樣</li>
+<li>大家發現「把模型包好」帶來的效益，可能比「再訓練一個更大的模型」還高</li>
+</ol>
+<blockquote>
+<p>LangChain 團隊就有個經典案例：固定使用 GPT-5.2-Codex 模型不動，只調整 Harness 三個變數 (system prompt、tools、middleware hooks)，就讓 deepagents-cli 在 TerminalBench 2.0 從 52.8% 提升到 66.5% (+13.7 個百分點)，名次從 30 名外飆升到第 5 名。最有趣的是他們發現的失敗模式很「人性」 — Agent 寫完 code 自己 review 一下覺得 OK 就停手，所以解法是強迫 Agent 對著原始 spec 驗證，而不是 self-review。詳細參閱 LangChain Blog - <a target="_blank" rel="noopener" href="https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering">Improving Deep Agents with harness engineering</a></p>
+</blockquote>
+<p>Harness Engineering 就是要嘗試解決類似的問題，而比喻的概念就是像 作業系統，如下圖：</p>
+<p><img src="/images/AI/OS-Agent-Harness.png"><br>source: <a target="_blank" rel="noopener" href="https://youtu.be/S36ri23-l60?si=Z1DoZx_0IC2dGY-J&t=117">Agent Harness十二大模块完全解析</a></p>
+<p>這個「Harness 像作業系統」的比喻其實不只是「資源調度」這麼簡單，作業系統真正的核心價值在於 <code>抽象化與隔離</code>：</p>
+<blockquote>
+<p>把不可靠、無狀態、會幻覺的模型，包裝成一個對外看起來穩定可預測的系統。</p>
+</blockquote>
+<p>回頭看我當年做的 CLI Harness 也是同樣思路：</p>
+<blockquote>
+<p>把待測產品的不確定行為，透過 SSH&#x2F;Telnet 的標準介面包起來，讓上層測試案例可以穩定執行。</p>
+</blockquote>
+<p>本質上都是在處理「不確定性的封裝」。</p>
+<p>我想了三個問題，來思考 Harness Engineering：</p>
+<ol>
+<li>Harness Engineering 解決的問題是什麼？</li>
+<li>它如何解決？</li>
+<li>現在有哪些用 Harness Engineering 實作的系統？</li>
+</ol>
+<p>這三個問題，只要丟到任何一個 AI 或者利用 NotebookLM 就可以整理出很多資料了。底下是我搜集讀過的資料之後，透過 NotebookLM &#x2F; Claude 討論後的整理：</p>
+<h3 id="1-Harness-Engineering-解決的問題是什麼？"><a href="#1-Harness-Engineering-解決的問題是什麼？" class="headerlink" title="1) Harness Engineering 解決的問題是什麼？"></a>1) Harness Engineering 解決的問題是什麼？</h3><p>核心就一句話：<strong>讓 LLM 從「玩具級 Demo」變成「生產級應用」</strong>，也就是讓 Jarvis 成真。</p>
+<p>要拆開來看的話，主要是三個痛點：</p>
+<blockquote>
+<p>長時任務的「模型漂移」與累積錯誤</p>
+</blockquote>
+<p>LLM 在單次問答、靜態排行榜上看起來很厲害，但只要任務拉長到幾百次工具調用的多步驟流程，就會在過程中慢慢走鐘。這是個簡單的數學問題 — 一個 10 步的任務，即便每步有 99% 的成功率，端到端的成功率也只剩 90.4%；如果是 100 步的任務，那只剩 36.6%。這就跟我當年做網通產品 Regression Test 一樣，單一 test case 通過不代表什麼，400+ 個全部跑過才是出貨標準。</p>
+<blockquote>
+<p><code>Lost in the Middle (迷失在中間)</code> 與 <code>Context Rot (上下文腐爛)</code></p>
+</blockquote>
+<p>這兩個概念相關但不完全相同，常常被混在一起：</p>
+<ul>
+<li><strong>Lost in the Middle (迷失在中間)</strong> (Liu et al., 2023 提出的學術名稱)：單次長 context 內，落在開頭和結尾的資訊模型記得很清楚，但<strong>中間位置</strong>的關鍵資訊會被忽略，推理準確率與指令遵循能力會大幅暴跌（超過 30%）。這是個架構層面的限制。</li>
+<li><strong>Context Rot (上下文腐爛)</strong> ：多輪對話累積之後的延伸現象 — context 塞了太多雜訊、過時資訊、矛盾指令，模型表現逐漸劣化。這比較像是「使用上的退化」。</li>
+</ul>
+<p>兩個合在一起就是為什麼 Opus 4.6 在 2026&#x2F;02 開始一堆人靠北前後文對不上 — 不是模型笨了，是 context 管理出問題。</p>
+<blockquote>
+<p><code>玩具級 Demo</code> 與 <code>生產級應用</code> 的落差</p>
+</blockquote>
+<p>裸奔的 LLM 就像沒有記憶體、硬碟、設備驅動的 CPU，只會輸出文字而且容易出錯。要落地到真實世界，缺的不是模型本身的能力，而是穩定性、持久運行、錯誤恢復、安全管控這些<strong>基礎設施</strong>。Harness Engineering 就是在補這塊。</p>
+<h3 id="2-它如何解決？"><a href="#2-它如何解決？" class="headerlink" title="2) 它如何解決？"></a>2) 它如何解決？</h3><p>簡單講就是 <strong>打造 AI 專屬的「作業系統」</strong>：</p>
+<blockquote>
+<p>把模型當 CPU，Harness 自己當 OS，負責資源調度、記憶體 (上下文) 管理、設備驅動 (工具集成)，提供穩定的執行環境給上層 Agent 用。</p>
+</blockquote>
+<p>實際上有幾個關鍵機制：</p>
+<p><strong>編排循環與工具調用</strong>：這是核心引擎，推動 Agent 的「思考 → 行動 → 觀察」循環。標準化的 Tool Schema 讓模型能精準呼叫外部能力 (檔案、API、資料庫) 跟現實世界互動。</p>
+<p><strong>分層記憶系統</strong>：業界目前比較成熟的分法是三到四層，這個分法很像 OS 的記憶體階層 (cache &#x2F; RAM &#x2F; disk)：</p>
+<ul>
+<li><strong>Working memory</strong> — 當前對話窗口，類比 CPU cache</li>
+<li><strong>Episodic memory</strong> — 這次任務的歷史與檢查點，類比 process memory</li>
+<li><strong>Semantic memory</strong> — 跨會話的知識與偏好，類比持久化儲存</li>
+<li><strong>Procedural memory</strong> — 學會的工作流、技能 (例如 Anthropic 的 Skills、OpenAI 的 GPTs)，類比可載入的 module</li>
+</ul>
+<p>搭配壓縮摘要、觀察屏蔽、動態檢索、委派子 Agent 等策略，把 context 維持在「最小但高信噪比」的狀態，避免資訊過載。</p>
+<p><strong>狀態保存與錯誤處理</strong>：設立檢查點 (Checkpointing) 讓長週期任務崩潰後可以斷點續跑，這個概念跟 OS 的 process snapshot &#x2F; VM 的 checkpoint 完全一樣。錯誤分類 (瞬時錯誤、邏輯錯誤、不可恢復錯誤) 後分別用退避重試、回傳模型自主修復、人工介入等策略處理，避免錯誤滾雪球。</p>
+<p><strong>護欄與驗證回饋</strong>：三層安全紅線 (輸入、輸出、工具) 防範越權；多重驗證 (規則測試、視覺截圖比對、AI judge) 大幅提升輸出準確率。LangChain 那個案例的關鍵發現就在這裡 — 強制 Agent 對著<strong>原始 spec</strong> 驗證而不是自己 review 自己。</p>
+<p><strong>確定性約束 + AI 彈性</strong>：這點蠻有意思。Harness 為 AI 劃定明確的架構邊界 (硬規則)，同時部署「巡檢 Agent」做垃圾回收 — 自動掃描修復系統中的不一致 (彈性處理)。這個搭配讓 Agent 既不會亂跑，又能應對沒寫死的狀況。</p>
+<p>更進一步看，Harness Engineering 不只是「補 LLM 的弱點」，而是<strong>把軟體工程的三個傳統強項重新引入到 AI 系統</strong>：</p>
+<ul>
+<li><strong>可觀測性 (Observability)</strong> — 每一步工具呼叫、每一次 context 變化都可追蹤</li>
+<li><strong>可重現性 (Reproducibility)</strong> — checkpoint + 確定性約束讓任務可重跑、可除錯</li>
+<li><strong>可驗證性 (Verifiability)</strong> — 規則測試 + AI judge + 人類 review 多層把關</li>
+</ul>
+<p>這也是為什麼我覺得有過 Regression Test 經驗的工程師，理解 Harness Engineering 反而比較快。銀行客戶不能容忍出錯，所以當年我們的 400+ test case 不是裝飾，是出貨保險。現在 Agent 系統如果要進企業生產環境，Harness 就是那個讓它「可以被信任」的基礎建設。</p>
+<h3 id="3-現在有哪些用-Harness-Engineering-實作的系統？"><a href="#3-現在有哪些用-Harness-Engineering-實作的系統？" class="headerlink" title="3) 現在有哪些用 Harness Engineering 實作的系統？"></a>3) 現在有哪些用 Harness Engineering 實作的系統？</h3><p>現在百花齊放，各種大亂鬥的年代，我整理幾個比較有能見度與代表性的：</p>
+<p><strong>Anthropic Claude Code (Claude Agent SDK)</strong> ：通用型 Harness 的標竿代表，採用極簡的信任模型哲學。提供三級記憶層級、Git-based 的檢查點回溯機制，內建檔案操作、終端機指令、程式碼修改等生產級工具。最讓人驚艷的是 checkpoint 機制，寫到一半發現方向錯了可以直接 git revert，Agent 不會迷失。</p>
+<p><strong>OpenAI Agents SDK &#x2F; 內部 Codex 管控框架</strong> ：採用程式碼優先設計，支援多種狀態儲存與運行模式。OpenAI 內部用同一套理念，<strong>5-7 名工程師、5 個月內、用 AI 生成與維護超過百萬行程式碼</strong>的大型應用。這個數字蠻誇張的，等於每人每月平均產出 25,000+ 行有效程式碼。</p>
+<p><strong>LangChain LangGraph 與 DeepAgents</strong> ：把 Harness 建模為明確的<strong>狀態圖結構</strong>，支援中斷後恢復甚至「時光倒流」式除錯。前面提過他們在 TerminalBench 2.0 純靠 Harness 優化從 30 名外衝到第 5 名，這就是最直接的證據。</p>
+<p><strong>CrewAI 與 AutoGen (微軟)</strong>：兩個走不同路線。CrewAI 主打<strong>基於角色的多 Agent 協作</strong> — 像是組一個團隊，有 PM、有 engineer、有 reviewer，適合需要分工的場景。AutoGen 則是<strong>對話驅動的協作協議</strong> — Agents 之間透過對話達成共識，適合開放式互動。</p>
+<p><strong>Manus 與 Vercel 內部系統</strong>：這兩個團隊實踐了 Harness Engineering 中很反直覺的原則 — <strong>「為刪除而建 (Build for Deletion)」</strong>。Manus 在半年內<strong>重構五次 Harness</strong> 來移除剛性假設；Vercel 砍掉 80% 的手工工具。結果反而是 token 消耗更少、任務成功率更高。這個現象其實跟我做作業系統研究的觀察一樣 — 好的抽象往往是「拿掉了什麼」，而不是「加了什麼」。</p>
+<h3 id="小結-1"><a href="#小結-1" class="headerlink" title="小結"></a>小結</h3><p>整體看下來，Harness Engineering 還在很早期的階段，現在大家在做的事情，比較像是 1970 年代各家在探索作業系統該長什麼樣子。等到這個領域成熟，可能會出現類似 POSIX 那樣的標準介面，讓不同 Harness 之間可以互通。但在那之前，每個團隊都還在用自己的方式試，這也是這個領域目前最有趣的地方。</p>
+<p>我正在整理 <a href="/2026/03/27/ComputerScience/Simple-OS/">自幹作業系統</a> 的相關學習筆記時，也剛好在思考，是否要把 POSIX 標準加入 (真的只是想想而已 XD)，其實也是同樣的過程。寫 OS 的人，學的是「怎麼建立穩定可靠的執行環境」這套思維。而 Harness Engineering 本質上就是把這套思維搬到 LLM 上：</p>
+<blockquote>
+<p>scheduler -&gt; 編排循環<br>memory hierarchy -&gt; 分層記憶<br>process checkpoint -&gt; 任務檢查點<br>syscall -&gt; tool calling<br>IPC -&gt; multi-agent 通訊</p>
+</blockquote>
+<p>所以我 <strong>剛好</strong> 等於同時在做這兩件事？</p>
+<blockquote>
+<p>一邊在「最底層」用手親自把這些概念刻出來，一邊在「最上層」觀察這些概念怎麼被重新發明來服務 AI。</p>
+</blockquote>
+<!--
+
+### LLM vs World Model
+
+我對現今 LLM 的理解，是基於人類過去累積的知識與資料，像是 Wikipedia、開源資料或是各種科學論文的研究成果。LLM 是一個 Language Model，理論基礎建立在文字或符號上，透過數學方法進行向量運算。語言本身就是一種符號，符號在數學上可以轉換成數字，進而做運算。所以 LLM 的核心就是「新的資料加上數學算力」。當知識不夠的時候，像是特定領域知識 (醫學、科學、文學 ...)，就可以透過類似外掛的技術 (像是 RAG、Skills ... 等) 的方法進行擴充。
+
+另一個概念是 World Model，它是基於圖形與物理規則，而不是基於文字。就像人類嬰兒誕生後，會接收外界的刺激與物理訊號，自然而然學到技能。小孩放在英語環境，耳濡目染長大就會說英文；看到有山、有海、綠色的植物，自然就會懂什麼叫山、海、車子或牛馬。它是基於視覺圖像與物理規則發展的。目前 World Model 還沒成為主流，發展相對較慢，我覺得未來可能會需要透過 LLM 去反推輔助。LLM 很簡單，資料都有了，主要缺算力去把它訓練出來；現在算力大幅提升，雖然還不夠，但也比以前大很多了。
+
+World Model 這派學說的代表人物楊立昆 (Yann LeCun, 2018年圖靈獎)，原本是 Meta AI 部門的主管，2025/11/20 離開了（好像是 Zuckerberg 把他給 fire 了），自己開公司搞這個，但目前還沒看到太多具體成果。
+
+不過另一個更實際應用 World Model 的例子，就是特斯拉的 FSD（全自動駕駛）。特斯拉跟 Google 投資的 Waymo 剛好是兩個極端：Waymo 的概念比較像 LLM；而特斯拉的 FSD 則是完全透過車子學習，將接收到的資訊轉化為處理經驗，還能複製到每一臺車上互相學習、隨機應變。所以我蠻看好 FSD 的。
+
+這有點像我以前在比較「SOP」跟「系統化理解」這兩種思維。在軟體設計的思考裡，像是 SRE 或者系統設計，我認為 SOP 很重要，他能夠讓沒經驗的工程師根據 Runbook 去處理一些日常維運，但無法進階去思考整個系統動態到底是怎麼一回事。搞懂系統動態的底層邏輯，遇到突發狀況時，沒有 SOP 才知道要怎麼解決，大概是這個概念。電影薩利機長劇情中，發生鳥擊事件，副機長翻遍手冊，都無法處理眼前狀況，最後靠機長的直覺才順利迫降。這雖然是個極端案例，但卻完整體現出SOP 不是萬能這件事情。所以 World Model 比較符合我的思路，但它還是有前提——你必須先具備 LLM 的一些基礎常識與理解，兩者結合才有用。
+
+在音樂的創作與即興的學習途徑大概也是分成兩種：模仿和思考。模仿，像是樂手為了即興演奏，往往會練很多 Licks (句子)，累積自己腦袋裡的 Lick 資料庫，透過堆疊這些句子，配合和弦進行的走向，達到創作或者即興的目的。另一種 則是腦袋思考自主學習，自己去創造句子，根據和弦進行思考排列組合，思考情緒曲線、思考節奏的律動 ... 從自己創造出樂曲或者即興。這兩種學習途徑大約在五年之後，就會漸漸地融合，因為不太可能只模仿 Lick 來創作，也不太可以一直創造自己的句子。
+
+人類學習語言也是同樣的方式，像是英文的學習，非母語者就是透過模仿，學習子句、句型、單字、文法，然後慢慢練習組合出可以表達敘事的句子。但如果單字、句子的量太少，就會講出台式英文、或者辭不達意的狀況，這現象跟 LLM 有時候無言亂語很像；而從小在英語環境長大的，也就是母語，day by day，透過「演化」方式自然而然學會英語。
+
+我在玩編曲時「音色」來源的概念也很類似，一般來講創造一個音色的方法有兩種：第一種是取樣音源 (Simpling)、另一種則是物理模型 (Physical Model)、類比合成 (Anolog Synth)、調變合成 (FM)。前者是透過取樣真實聲音，像是把鋼琴聲錄下來，然後播放出來，錄音的方法技術，決定品質，像是我 2008 年買的琴 Yamaha MOTIF XS 取樣音源大小為 355MB，音色有 1700+ 個，最新 Yamaha 的琴 MODX M 系列取樣音源則 11.29 GB，音色有 3,487 個。後者則是完全透過數學模型計算出來，像是由史丹佛大學 John Chowning 教授發現的 FM 演算法，然後產生的 FM 合成音色 (Frequency Modulation Synthesis)；而類比音色則是完全透過類比電路製造出來。兩者發展到現在半個世紀以來，取樣音源聲音也已經細緻到不可思議，但是物理模型與類比合成兩者也一直是很多人無法忘懷的記憶。這我會另外寫一篇文章，配合我剛買的琴 Yamaha MODX M6 的 FM-X 頻率調變合成，來介紹背後的原理以及有哪些歌曲。
+
+我認為 LLM 正在過度中，幾年內就會遇到瓶頸。而真正的 AGI 需要 LLM 與 World Model 兩者結合。單有物理邏輯（World Model），可能缺乏人類累積的文明常識（LLM）；單有語言能力（LLM），則會產生不符現實的幻覺。AGI 會是 LLM 跟 World Model 的交集，如大腦的左腦和右腦，一個處理圖形，一個處理語言，最後像 #太極 的動態立體圖一樣，互相融合發展、相互推動前進。
+
+-->
+
+<hr>
+<h2 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h2><h3 id="自幹作業系統-系列"><a href="#自幹作業系統-系列" class="headerlink" title="自幹作業系統 系列"></a>自幹作業系統 系列</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems">Source Code</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvojs-N7OLM6jo6IYKEIizK1P">Demo&#x2F;錄影</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/main/course/Terms.md">專有名詞對照表</a></li>
+<li><a href="/2026/03/27/ComputerScience/Simple-OS/">自幹作業系統 - Simple OS</a></li>
+<li><a href="/2026/04/09/ComputerScience/Simple-OS-Networking/">自幹作業系統 - Networking Fundamentals</a></li>
+<li><a href="/2026/04/12/ComputerScience/Simple-OS-Timer/">自幹作業系統 - 初探 Timer 原理</a></li>
+<li><a href="/2026/04/17/ComputerScience/Simple-OS-Task-and-Scheduler/">自幹作業系統 - Task and Scheduler</a></li>
+<li><a href="/2026/04/28/ComputerScience/Simple-OS-Context-Switch/">自幹作業系統 - Context Switch</a></li>
+</ul>
+<h3 id="站內文章"><a href="#站內文章" class="headerlink" title="站內文章"></a>站內文章</h3><ul>
+<li><a href="/2017/01/23/Management/Cost-In-Context-Switch/">Cost in Context Switch</a></li>
+<li><a href="/2018/05/12/SQA/Designing-Test-Architecture-and-Framework/">Designing Test Architecture and Framework</a></li>
+</ul>
+<h3 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering">Improving Deep Agents with harness engineering</a></li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/2026/04/28/ComputerScience/Simple-OS-Context-Switch/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<!-- LikeCoin -->
+				<!-- @rickd 2022/09/06 -->
+				<!--
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2026/04/28/ComputerScience/Simple-OS-Context-Switch/"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+				-->
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2026/04/30/AI/Brave-New-World/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2026/04/25/Management/Turn-Complain-into-Motivation/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
+  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
+  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2026/04/28/ComputerScience/Simple-OS-Context-Switch/" data-width="100%" data-numposts="10"></div>
+
+  
+
+
+</section>
+
+
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2026/04/28 10:30:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%80%E3%80%81%E4%BB%80%E9%BA%BC%E6%98%AF-Context-Switch%EF%BC%9F%E5%AE%83%E5%B8%B6%E4%BE%86%E7%9A%84%E6%88%90%E6%9C%AC-%E8%B2%A0%E6%93%94-Overhead-%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F"><span class="toc-article-text">一、什麼是 Context Switch？它帶來的成本 負擔 (Overhead) 是什麼？</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%AE%9A%E7%BE%A9"><span class="toc-article-text">定義</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E8%A7%B8%E7%99%BC%E6%99%82%E6%A9%9F"><span class="toc-article-text">觸發時機</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%88%90%E6%9C%AC%E5%88%86%E6%9E%90"><span class="toc-article-text">成本分析</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BA%8C%E3%80%81%E6%8E%92%E7%A8%8B%E5%99%A8%E5%A6%82%E4%BD%95%E6%B1%BA%E5%AE%9A%E3%80%8C%E5%88%87%E6%8F%9B%E7%B5%A6%E8%AA%B0%E3%80%8D%EF%BC%9F"><span class="toc-article-text">二、排程器如何決定「切換給誰」？</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%AD%A5%E9%A9%9F-1%EF%BC%9A%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6-%E5%96%9A%E9%86%92%E7%9D%A1%E7%9C%A0%E4%BB%BB%E5%8B%99"><span class="toc-article-text">步驟 1：垃圾回收 + 喚醒睡眠任務</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%AD%A5%E9%A9%9F-2%EF%BC%9ARound-Robin-%E8%BC%AA%E8%BD%89%E6%89%BE%E4%B8%8B%E4%B8%80%E5%80%8B%E8%A1%8C%E7%A8%8B"><span class="toc-article-text">步驟 2：Round-Robin 輪轉找下一個行程</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%AD%A5%E9%A9%9F-3%EF%BC%9A%E5%9F%B7%E8%A1%8C-Context-Switch"><span class="toc-article-text">步驟 3：執行 Context Switch</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%89%E3%80%81%E7%B5%84%E5%90%88%E8%AA%9E%E8%A8%80%E5%A6%82%E4%BD%95%E5%AE%8C%E6%88%90%E6%9C%80%E5%BE%8C%E4%B8%80%E6%AD%A5%E5%88%87%E6%8F%9B%EF%BC%9F"><span class="toc-article-text">三、組合語言如何完成最後一步切換？</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E9%9C%80%E8%A6%81%E7%B5%84%E5%90%88%E8%AA%9E%E8%A8%80%EF%BC%9F"><span class="toc-article-text">為什麼需要組合語言？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#switch-task-S-%E9%80%90%E8%A1%8C%E8%A7%A3%E6%9E%90"><span class="toc-article-text">switch_task.S 逐行解析</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%96%B0%E8%A1%8C%E7%A8%8B%E7%AC%AC%E4%B8%80%E6%AC%A1%E8%A2%AB%E6%8E%92%E7%A8%8B%EF%BC%9Achild-ret-stub"><span class="toc-article-text">新行程第一次被排程：child_ret_stub</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%95%B4%E9%AB%94%E6%B5%81%E7%A8%8B%E5%9B%9E%E9%A1%A7"><span class="toc-article-text">整體流程回顧</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-article-text">小結</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%BF%83%E5%BE%97%E7%AD%86%E8%A8%98"><span class="toc-article-text">心得筆記</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%94%A8-AI-%E5%AD%B8%E7%BF%92%E7%9A%84%E9%81%8E%E7%A8%8B%EF%BC%8C%E6%9C%89%E6%B2%92%E9%81%87%E5%88%B0%E5%B9%BB%E8%A6%BA%E5%95%8F%E9%A1%8C%EF%BC%9F"><span class="toc-article-text">用 AI 學習的過程，有沒遇到幻覺問題？</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%96%92%E8%81%8A-AI-Harness-Engineering"><span class="toc-article-text">閒聊 AI - Harness Engineering</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#1-Harness-Engineering-%E8%A7%A3%E6%B1%BA%E7%9A%84%E5%95%8F%E9%A1%8C%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F"><span class="toc-article-text">1) Harness Engineering 解決的問題是什麼？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#2-%E5%AE%83%E5%A6%82%E4%BD%95%E8%A7%A3%E6%B1%BA%EF%BC%9F"><span class="toc-article-text">2) 它如何解決？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#3-%E7%8F%BE%E5%9C%A8%E6%9C%89%E5%93%AA%E4%BA%9B%E7%94%A8-Harness-Engineering-%E5%AF%A6%E4%BD%9C%E7%9A%84%E7%B3%BB%E7%B5%B1%EF%BC%9F"><span class="toc-article-text">3) 現在有哪些用 Harness Engineering 實作的系統？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90-1"><span class="toc-article-text">小結</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E8%87%AA%E5%B9%B9%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1-%E7%B3%BB%E5%88%97"><span class="toc-article-text">自幹作業系統 系列</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/Computer-Science/" style="color: white">Computer Science <span class="badge">11</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Just-for-Fun/" style="color: white">Just for Fun <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Operating-Systems/" style="color: white">Operating Systems <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Task/" style="color: white">Task <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Scheduler/" style="color: white">Scheduler <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Process/" style="color: white">Process <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Context-Switch/" style="color: white">Context Switch <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Harness-Engineering/" style="color: white">Harness Engineering <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/World-Model/" style="color: white">World Model <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+		<!-- v4 -->
+		<h4>About</h4>
+		
+			<li><a href="/2035/01/21/Index/">全站索引</a></li>
+		
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+		
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		
+			<li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+		
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		
+			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+		
+
+		<h4>著作</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作：SRE實踐與開發平台指南</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作：軟體測試實務 (2023)</a></li>
+		
+			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
+		
+
+		<h4>演講</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
+		
+			<li><a href="/2023/09/09/About/2023-AWS-Career-Exploration-Day/">探索職涯、複利人生 - AWS Career Exploration Day 2023</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作 SRE 書友見面會</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">軟體測試實務 - 新書發表會</a></li>
+		
+			<li><a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">探索職涯、成就未來 - AWS Career Exploration Day 2022</a></li>
+		
+			<li><a href="/2022/08/13/SQA/Path-to-Software-Testing/">從理想、到現實的距離，開啟品味軟體測試之路</a></li>
+		
+			<li><a href="/2022/05/10/About/2022-SREConf2022/">91APP 在 AWS 上的 SRE 實踐之路</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/2020-aws-summit-aws">在矩陣型組織裡，如何有效管理 AWS 的成本結構與系統架構</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/aws-using-aws-for-disaster-recovery/">災難演練 @ AWS 實戰分享</a></li>
+		
+			<li><a href="/2019/04/27/DevOps/Introduce-to-Continuous-Delivery-2/">導讀持續交付 2.0 - 談當代軟體交付之虛實融合</a></li>
+		
+			<li><a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理</a></li>
+		
+			<li><a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">從緊急事件 談 SRE 應變能力的培養</a></li>
+		
+			<li><a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
+		
+			<li><a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">Monitoring Tools 大亂鬥 - AWS CloudWatch</a></li>
+		
+			<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></li>
+		
+			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
+		
+
+		<!-- v3 -->
+		<!--
+		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		-->
+
+		<!-- v2 -->
+		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+		<!-- v1 -->
+		<!--
+		<li>Software Developer</li>
+		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+		<li><a href="/categories/DevOps/">Operation Manager</a></li>
+		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+		<li>
+			<ol>
+				<li>Management</li>
+				<li>Cloud / Distributed Systems</li>
+				<li>DevOps / SRE / </li>
+			</ol>
+		</li>
+		-->
+
+		<!--
+		<h4>Donate</h4>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick" />
+		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
+		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
+		</form>
+		-->
+
+		<h4>Facebook</h4>
+
+		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
+
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
+				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+
+		<h4>AWS Certifications</h4>
+		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+		<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+		<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+		
+
+	</div><!-- row -->
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2022 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div>
+
+<!-- container-narrow -->
+
+<div id="gotop">
+
+  <!-- 
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-book"></i> <a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"]);">學習法則</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"]);">喝咖啡 聊音樂 (v2021)</a><br />
+   -->
+
+  <!-- <h4>About</h4> -->
+
+  <ul>
+  
+    <li><a href="/2035/01/21/Index/">全站索引</a></li>
+  
+    <li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+  
+    <li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+  
+    <li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+  
+    <li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+  
+    <li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+  
+    <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+  
+  </ul>
+
+  <a href="#">▲ TOP ▲ </a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>

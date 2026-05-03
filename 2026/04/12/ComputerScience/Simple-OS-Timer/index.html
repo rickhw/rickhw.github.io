@@ -1,0 +1,859 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  
+  <title>自幹作業系統 - 初探 Timer 原理 | Complete Think</title>
+
+  <meta name="author" content="Rick Hwang">
+  <meta name="description" content="在 自幹作業系統 - Simple OS 的過程中，我的學習方法是快速的先取得成就感，透過與 AI 協作過程，快速刻出能動的、完整的，只用了三週就完成實作 (03&amp;#x2F;12 - 03&amp;#x2F;27)，但是非常古早味的作業系統，說白話：先能動再說，好聽的就是 麻雀雖小，五臟俱全。但往下探索，很">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- properties -->
+  <meta property="og:title" content="自幹作業系統 - 初探 Timer 原理"/>
+  <meta property="og:site_name" content="Complete Think"/>
+  <meta property="og:type"      content="website" />
+  <meta property="og:url" content="https://rickhw.github.io/2026/04/12/ComputerScience/Simple-OS-Timer/"/>
+  <meta property="og:image" content="/images/ComputerScience/SimpleOS/Timer/SimpleOS-Timer_20260412_by-gemini.png" />
+  
+
+  <!-- links -->
+  <link rel="alternative" href="/atom.xml" title="Complete Think" type="application/atom+xml">
+  <link href="/favicon.png" rel="icon">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  -->
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<!--
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'G-74Y1F3F5W0']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-74Y1F3F5W0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-74Y1F3F5W0');
+</script>
+
+
+
+  <!-- Facebook SDK -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!-- @rickd 2022/02/24
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=&autoLogAppEvents=1"></script>
+  -->
+  <!-- @ricka 2022/02/24 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <!--
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=&autoLogAppEvents=1"
+    nonce="bd9r2mJp"></script>
+  -->
+
+  <!-- @ricka 2022/09/06 -->
+  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=&autoLogAppEvents=1"
+    nonce="opf2Gext"></script>
+
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+
+  
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand active" href="/">Complete Think</a>
+
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  	
+		  		
+					<li class='dropdown'>
+						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
+		            	<ul class='dropdown-menu' role='menu'>
+		            	
+						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						
+						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
+						
+						<li><a href="/categories/About/">About <sup>30</sup></a></li>
+						
+						<li><a href="/categories/Blog/">Blog <sup>5</sup></a></li>
+						
+						<li><a href="/categories/經營管理/Career/">Career <sup>7</sup></a></li>
+						
+						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
+						
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						
+						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Data/">Data <sup>2</sup></a></li>
+						
+						<li><a href="/categories/DevOps/">DevOps <sup>43</sup></a></li>
+						
+						<li><a href="/categories/Distributed-Systems/">Distributed Systems <sup>20</sup></a></li>
+						
+						<li><a href="/categories/GCP/">GCP <sup>8</sup></a></li>
+						
+						<li><a href="/categories/Linux/">Linux <sup>9</sup></a></li>
+						
+						<li><a href="/categories/Misc/">Misc <sup>3</sup></a></li>
+						
+						<li><a href="/categories/OS-X/">OS X <sup>4</sup></a></li>
+						
+						<li><a href="/categories/Redmine/">Redmine <sup>6</sup></a></li>
+						
+						<li><a href="/categories/Reference/">Reference <sup>5</sup></a></li>
+						
+						<li><a href="/categories/DevOps/SRE/">SRE <sup>25</sup></a></li>
+						
+						<li><a href="/categories/Software-Engineering/">Software Engineering <sup>10</sup></a></li>
+						
+						<li><a href="/categories/System-Design/">System Design <sup>4</sup></a></li>
+						
+						<li><a href="/categories/經營管理/人才管理/">人才管理 <sup>11</sup></a></li>
+						
+						<li><a href="/categories/經營管理/溝通/">溝通 <sup>9</sup></a></li>
+						
+						<li><a href="/categories/經營管理/知識管理/">知識管理 <sup>4</sup></a></li>
+						
+						<li><a href="/categories/經營管理/">經營管理 <sup>63</sup></a></li>
+						
+						<li><a href="/categories/軟體測試/">軟體測試 <sup>14</sup></a></li>
+						
+						</ul>
+					</li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2016/10/01/AWS-Study-Roadmap/" title="AWS Study Notes."><i class="fa fa-cloud"></i>AWS</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/DevOps/" title="DevOps / SRE"><i class="fa fa-crosshairs"></i>DevOps</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Software-Engineering-In-Practice/" title="設計、開發、測試、維運"><i class="fa fa-cogs"></i>軟體工程</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/2017/07/01/Index-Management/" title="經營、管理、領導、教練、產品"><i class="fa fa-users"></i>經營管理</a></li>
+		  		
+		  	
+		  		
+		  			<li><a href="/categories/Reference/" title="參考書、名詞對照表"><i class="fa fa-folder"></i>字典工具</a></li>
+		  		
+		  	
+			</ul>
+
+			<!-- @ricka: menu in right -->
+			<ul class='nav navbar-nav navbar-right'>
+				<li class='dropdown'>
+					<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>About<span class='caret'/></span></a>
+					<ul class='dropdown-menu' role='menu'>
+					
+						<li><a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"> <i class="fa fa-sitemap"></i>關於這裡</a></li>
+					
+						<li><a href="/2017/12/29/About/About-Author/" title="" target="_blank"> <i class="fa fa-user"></i>關於作者</a></li>
+					
+						<li><a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"> <i class="fa fa-book"></i>學習法則</a></li>
+					
+						<li><a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"> <i class="fa fa-coffee"></i>GTCafe Studio</a></li>
+					
+						<li><a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"> <i class="fa fa-music"></i>喝咖啡 聊音樂 (v2021)</a></li>
+					
+					</ul>
+				</li>
+			</ul>
+			<!-- @ricka end -->
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+    <div class="content" style="background-color: white;">
+       
+
+
+
+
+	
+		<!-- @rick, header of article -->
+		<!-- original
+		<div class="page-header">
+			<h1> 自幹作業系統 - 初探 Timer 原理</h1>
+		</div>
+		-->
+
+		<div class="panel article_title">
+			<div class="panel-heading">
+    		<h1> 自幹作業系統 - 初探 Timer 原理</h1>
+  		</div>
+		</div>
+
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+		
+
+			
+
+			<!-- content -->
+			<div class="mypage">
+				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
+				<!-- Facebook in front of page -->
+				<!--
+				<iframe
+					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2026%2F04%2F12%2FComputerScience%2FSimple-OS-Timer%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
+					width="450" height="80"
+					style="border:none;overflow:hidden"
+					scrolling="no" frameborder="0"
+					allowTransparency="true" allow="encrypted-media"></iframe>
+				-->
+
+				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2026/04/12/ComputerScience/Simple-OS-Timer/" data-layout="standard"
+					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
+
+				<div class="fb-like" data-href="https://rickhw.github.io/2026/04/12/ComputerScience/Simple-OS-Timer/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<p>在 <a href="/2026/03/27/ComputerScience/Simple-OS/">自幹作業系統 - Simple OS</a> 的過程中，我的學習方法是快速的先取得成就感，透過與 AI 協作過程，快速刻出能動的、完整的，只用了三週就完成實作 (03&#x2F;12 - 03&#x2F;27)，但是非常古早味的作業系統，說白話：<code>先能動再說</code>，好聽的就是 <code>麻雀雖小，五臟俱全</code>。但往下探索，很容易暴露一個現實：<code>知其然，不知所以然</code>，有些東西就是沒有透測的理解。但也是這份好奇心停留在心裡，我開始往下了解與深究背後的原理以及知識，同時也連結到以前的經驗與知識 (或者資訊)。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/v1.0.0_b20260412/course/p2_memory-management-and-privilege-isolation/day11_programmable-interval-timer/Course.md">Day12</a> - Timer&#x2F;PIT (Programmable Interval Timer) 是我開始深究的題目，底下是我好奇的幾個點：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/feature/sleep/src/kernel/arch/x86/timer.c">timer.c</a> 中出現的狀聲詞 <code>tick</code> 以及 Magic Number <code>1,193,180</code> 覺得很好奇</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/feature/sleep/src/kernel/arch/x86/timer.c#L83">timer.c</a> 裡的 <code>timer_handler()</code> 跟 <a target="_blank" rel="noopener" href="https://github.com/rickhw/java-2d-rpg-game/blob/main/src/main/java/gtcafe/rpg/GamePanel.java#L217">Game Loop</a> 有點像</li>
+</ul>
+<p>整理一下探索過程學習到的資料，以及自問自答相關資料。</p>
+<span id="more"></span>
+
+<blockquote>
+<p>自幹作業系統 系列:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems">Source Code</a>, <a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/main/course/Terms.md">專有名詞對照表</a>, <a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvojs-N7OLM6jo6IYKEIizK1P">Demo&#x2F;錄影</a></li>
+<li><a href="/2026/03/27/ComputerScience/Simple-OS/">自幹作業系統 - Simple OS</a></li>
+<li><a href="/2026/04/09/ComputerScience/Simple-OS-Networking/">自幹作業系統 - Networking Fundamentals</a></li>
+<li><a href="/2026/04/12/ComputerScience/Simple-OS-Timer/">自幹作業系統 - 初探 Timer 原理</a></li>
+<li><a href="/2026/04/17/ComputerScience/Simple-OS-Task-and-Scheduler/">自幹作業系統 - Task and Scheduler</a></li>
+<li><a href="/2026/04/28/ComputerScience/Simple-OS-Context-Switch/">自幹作業系統 - Context Switch</a></li>
+</ul>
+</blockquote>
+<blockquote>
+<p>註：內容僅是自學的一些筆記，如果有發現資訊不正確，或者描述錯誤，請不令給予指教，感謝。</p>
+</blockquote>
+<hr>
+<h2 id="Timer-in-SimpleOS"><a href="#Timer-in-SimpleOS" class="headerlink" title="Timer in SimpleOS"></a>Timer in SimpleOS</h2><p>計算機構成 Timer (計時器) 整個工作的角色有以下：</p>
+<ol>
+<li><code>CPU</code>: 中央處理單元，負責計算資料</li>
+<li><code>PIT</code>: Programmable Interval Timer (可程式化間隔計時器)，負責產生固定的頻率為 <code>1,193,180 Hz</code>，通常是 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Intel_8253">INTEL 8253&#x2F;8254</a> 晶片，背後的物理原理是透過 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Crystal_oscillator">石英振盪器 (Crystal Oscillator)</a> 輸出固定的頻率</li>
+<li><code>PIC</code>: Programmable Interrupt Control (可程式化中斷控制器)，當外部硬體 (PIT、鍵盤、滑鼠、網卡) 發出中斷訊號時，負責執行仲裁角色，通常是 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Intel_8259">INTEL 8259</a> 晶片</li>
+<li><code>OS</code>: 作業系統，介於硬體與應用層之間的軟體。</li>
+</ol>
+<blockquote>
+<p>註：PIT, PIC 這兩顆晶片在現代計算機裡，會被整合在主機板上的 <code>南橋晶片</code> 組內，但邏輯與職責上還是分開的。</p>
+</blockquote>
+<p>用一個例子來說明，這三個角色的運作：</p>
+<ul>
+<li>主管 (CPU) 在負責對外溝通與協調，正在忙著開會中；而團隊成員 (其他硬體: 滑鼠、鍵盤) 有事要找他；秘書 (PIC) 則負責管理誰可以去敲老闆的門；行事曆 (PIT) 則是一個時間軸。</li>
+<li>當整點時間到了 (PIT)，秘書 (PIC) 會根據 來敲門的團隊成員 (滑鼠與鍵盤) 優先序，安排跟老闆 (CPU) 碰面。</li>
+<li>PIT 就是個固定計數器，一直在數數 (tick)，一個單位時間的數值到了，就會跟 PIC 講，由 PIC 根據次序安排硬體跟 CPU 溝通。</li>
+</ul>
+<p>SimpleOS 的 <a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/feature/sleep/src/kernel/arch/x86/timer.c">timer.c</a>  有以下介面：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">init_timer</span><span class="params">(<span class="type">uint32_t</span> frequency)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">timer_handler</span><span class="params">(<span class="type">void</span>)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>其中 <a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/feature/sleep/src/kernel/arch/x86/timer.c">init_timer()</a> 負責出根據 PIT 的工作頻率與目標中斷次數 (frequency)，計算出 tick 的最小單位，然後把 tick 最小單位的值寫到 PIT。而 <a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/feature/sleep/src/kernel/arch/x86/timer.c#L83">timer_handler()</a> 則是負責記錄每次中斷的 tick 累加。</p>
+<p>整個 Timer 概念在 <code>Simple OS</code> 裡大概如下：</p>
+<p><img src="/images/ComputerScience/SimpleOS/Timer/SimpleOS-Timer_20260412_by-gemini.png"></p>
+<h3 id="PIT-INTEL-8254"><a href="#PIT-INTEL-8254" class="headerlink" title="PIT - INTEL 8254"></a>PIT - INTEL 8254</h3><p>計數器晶片 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Intel_8253">INTEL 8254</a> 負責產生的規律電子訊號，他的基礎頻率是 <code>1.19318 MHz (1,193,180 Hz)</code>，頻率則透過 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Crystal_oscillator">石英振蕩器生成 (Crystal Oscillator)</a>。<code>1,193,180</code> 這個數字緣由是彩色電視 NTSC 的副載波頻率（14.31818 MHz）經過 12 分頻計算得來。在電子工程中，「分頻 (Frequency Division)」指的是將一個高頻率的訊號，轉換成較低頻率訊號的過程。簡單說「12 分頻」就是把原始頻率除以 12。</p>
+<blockquote>
+<p>14.31818 MHz &#x2F; 12 &#x3D; 1,193,181 Hz</p>
+</blockquote>
+<p>作業系統約定成俗的會使用 1,193,180 或 1,193,182 當常數</p>
+<p>80 年代 (IBM PC 誕生初期) 工程師為了省錢，不想在主機板上插滿各種不同頻率的石英鐘，於是採用了「一魚多吃」策略：</p>
+<ul>
+<li>主頻源：只買一個最便宜、大量生產的 14.31818 MHz 石英震盪器 (當時因為彩色電視普及，這種零件極度便宜)。</li>
+<li>給顯卡用：這個頻率直接給彩色顯示卡使用，因為它剛好是 NTSC 電視訊號的 4 倍。</li>
+<li>給 CPU 用：經過 3 分頻 (14.318 MHz &#x2F; 3 &#x3D; 4.77 MHz)，這就是初代 IBM PC 處理器的時脈。</li>
+<li>給計時器用：經過 12 分頻 (14.318 MHz &#x2F; 12 &#x3D; 1.19 MHz)，這就是 8254 PIT 晶片拿到的工作頻率。</li>
+</ul>
+<h3 id="PIC-INTEL-8259"><a href="#PIC-INTEL-8259" class="headerlink" title="PIC - INTEL 8259"></a>PIC - INTEL 8259</h3><p><code>中斷控制器 (Programmable Interrupt Controller, PIC)</code> 通常是 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Intel_8259">Intel 8259</a> 這顆晶片，是介於所有硬體設備（如 PIT、鍵盤、滑鼠）與 CPU 之間的「通訊官」。PIC 的角色如同警衛，在 PIC 向 CPU 發出中斷訊號後，會自動擋住後續的所有硬體中斷訊號。如果 OS 不回覆 <code>EOI (End of Interrupt)</code> 指令給 PIC，PIC 會判定 CPU 仍在處理舊的中斷，導致 PIC 停止發送任何新的中斷訊號給 CPU，最終造成 OS 無法接收新的 Tick 或硬體事件，系統表現如同「當機」。</p>
+<p>OS 透過發送 EOI (End of Interrupt) 指令告訴 PIC：</p>
+<blockquote>
+<p>OS 已經處理完當前的中斷請求，PIC 可以發送下一個中斷訊號給 CPU 了。</p>
+</blockquote>
+<p>完成告知之後，OS 就可以做所謂的 Context Switch，把 CPU 的使用權讓出去給其他的 Task，這個過程則是透過 Scheduler 執行。在 SimpleOS 的實作，是在 <code>timer_handler()</code> 裡面最後調用 <code>schedule()</code>，實踐 <code>搶佔式多工 (Preemptive Multitasking)</code>，強行切換任務，達成「每個程式都在同時執行」的假象。</p>
+<hr>
+<h2 id="timer-c-init-timer-初始節拍器最小單位：Tick"><a href="#timer-c-init-timer-初始節拍器最小單位：Tick" class="headerlink" title="timer.c#init_timer() - 初始節拍器最小單位：Tick"></a><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/feature/sleep/src/kernel/arch/x86/timer.c">timer.c#init_timer()</a> - 初始節拍器最小單位：Tick</h2><p><code>tick (狀聲詞, 滴答聲)</code> 用來記錄 作業系統 的 <code>節拍數</code>、<code>虛擬時間</code>，定義作業系統的節奏感，從開機就開始計算，每次的累加，都代表著作業系統時間的流逝。</p>
+<p>實際的運作原理是利用 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Intel_8253">INTEL 8254</a> 的基頻 - <code>1,193,180 Hz</code>，我們想在每秒產生 <code>100 次中斷</code> &#x2F; <code>100 個 tick</code>，在 <a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/feature/sleep/src/kernel/arch/x86/timer.c">timer.c#init_timer()</a> 計算方式以及初始 PIT 流程如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">volatile</span> <span class="type">uint32_t</span> tick = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">init_timer</span><span class="params">(<span class="type">uint32_t</span> frequency)</span> &#123;</span><br><span class="line">    <span class="comment">/*  1. divisor 表示震盪 N 次，就發出一次中斷。 */</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="comment">// 用 frequency 當基數，如果想要每秒中斷 100 次，frequency=100，</span></span><br><span class="line">    <span class="comment">// 則晶片每數 (PIT8254_BASE_FREQ / frequency = 11931 次訊號，</span></span><br><span class="line">    <span class="comment">// 就發出一次中斷。</span></span><br><span class="line">    <span class="type">uint32_t</span> divisor = PIT_CLOCK_RATE / frequency;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 2. 設定 PIT 的 模式控制 */</span></span><br><span class="line">    <span class="comment">// 0x43: PIT 的 模式控制 暫存器 埠號。 </span></span><br><span class="line">    <span class="comment">// 0x36 (00110110b): 這是控制字組（Control Word）。</span></span><br><span class="line">    <span class="comment">//  - 00: 選擇通道 0（接在 IRQ0，負責系統時鐘）。</span></span><br><span class="line">    <span class="comment">//  - 11: 存取模式 (LOBYTE/HIBYTE)，先寫低八位元，再寫高八位元</span></span><br><span class="line">    <span class="comment">//  - 011: 選擇模式 3（方波產生器，最適合當作時鐘）。</span></span><br><span class="line">    <span class="comment">//         它會自動重新加載計數器，適合產生週期性心跳。</span></span><br><span class="line">    outb(<span class="number">0x43</span>, <span class="number">0x36</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 3. 把 divisor 值塞到 8254 暫存器. */</span></span><br><span class="line">    <span class="comment">// 8254 是 8bit 匯流排</span></span><br><span class="line">    <span class="comment">// 先取得 divisor 的低 8 位元 (low byte) 和 高八位元 (high byte)</span></span><br><span class="line">    <span class="type">uint8_t</span> l = (<span class="type">uint8_t</span>)(divisor &amp; <span class="number">0xFF</span>);</span><br><span class="line">    <span class="type">uint8_t</span> h = (<span class="type">uint8_t</span>)((divisor &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xFF</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 分成兩次, 把高低位原 依序「餵」進去</span></span><br><span class="line">    <span class="comment">// 0x40: 這是通道 0 的 資料暫存器</span></span><br><span class="line">    outb(<span class="number">0x40</span>, l); <span class="comment">// low byte</span></span><br><span class="line">    outb(<span class="number">0x40</span>, h); <span class="comment">// high byte</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>整個流程有三個步驟：</p>
+<ol>
+<li>計算 divisor：表示震盪 N 次，就發出一次中斷。freq&#x3D;100 標示 PIT 每經過 1193.18 個震盪週期，就是一個 tick (一拍)，每秒則有 100 個 tick。</li>
+<li>設定 PIT 模式控制：包含選擇通道、存取模式、選擇訊號產生的方式。</li>
+<li>把 divisor 寫入 PIT：把 1193 這個數字跟 PIT 講，之後這個頻率就發出中斷訊號。</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/feature/sleep/src/kernel/arch/x86/timer.c">timer.c</a> 的 <code>tick</code> 值是一個 <code>原子操作</code> 或受 <code>中斷保護</code> 的操作，確保所有依賴時間的 SysCall (如 sleep) 都有統一的參考。所以 tick 在 c 語言裡需要宣告 <code>volatile</code>，保證 tick 可見性 (Visibility)。如果沒有它，在多工或編譯器優化下，一個 while(tick &lt; target) 的無窮迴圈可能會因為編譯器認為 tick 在迴圈內沒被修改，而將其優化為死循環，永遠不重新讀取記憶體中的新值。</p>
+<blockquote>
+<p>題外話：編曲軟體 (Digial Audio Workstation, DAW) 中常用的 Piano Roll 畫面，為了要可以紀錄更自然、更真實的演奏時間，每個拍子的單位不是只有固定在節奏數，而是有個單位稱為 <code>PPQ (Pulses Per Quarter Note)</code>，例如 PPQ&#x3D;360，代表一拍可以再細分 360 個等分，透過這樣的方式可以紀錄演奏更細緻的表情，像是琶音這種技巧。現代的 DAW 像是 Logic Pro、FL Studio 預設為 960 PPQ。下圖由 <a target="_blank" rel="noopener" href="https://share.google/aimode/VH12N984H6EfIsT44">Google 產生</a></p>
+<p><img src="/images/ComputerScience/SimpleOS/Timer/DAW_PianoRoll-PPQ-ticks.png"></p>
+<p>另一個例子，是電影 <code>頭文字 D</code> 裡面的對話，描述對時間體感越來越慢的時候，其實背後就是類似的概念，代表 tick 數越來越高了！</p>
+<p>「幾年前，他說看東西不清楚，我帶他去配眼鏡。誰知道驗過眼睛以後，一點事也沒有。……他對我說，最近不知道為什麼，開車的時候看東西越來越慢，那時候，我才知道，他越來越快了。」</p>
+</blockquote>
+<hr>
+<h2 id="timer-c-timer-handler-作業系統的-Game-Loop"><a href="#timer-c-timer-handler-作業系統的-Game-Loop" class="headerlink" title="timer.c#timer_handler() - 作業系統的 Game Loop"></a><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/feature/sleep/src/kernel/arch/x86/timer.c">timer.c#timer_handler()</a> - 作業系統的 Game Loop</h2><p><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/feature/sleep/src/kernel/arch/x86/timer.c">timer.c#timer_handler()</a> 每一個週期會被 IRQ32 中斷 <a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/feature/sleep/src/kernel/arch/x86/interrupts.S">interrupts.S</a> 呼叫一次，整個內容最重要的幾件事：</p>
+<ol>
+<li>累加 Tick，也就是現在是第幾個 Clock</li>
+<li>告訴 中斷控制器，這個 Tick 結束，請重新分配 Task</li>
+<li>讓 OS 透過 Task Scheduler 執行 Context Switch，重新分配 CPU</li>
+</ol>
+<p>整個 Timer 運作流程如下：</p>
+<p><img src="/images/ComputerScience/SimpleOS/Timer/Timer_flow-chart.png"></p>
+<p>timer_handler() 是透過 PIC 固定週期就被調用一次，概念類似於 <a target="_blank" rel="noopener" href="https://github.com/rickhw/java-2d-rpg-game/blob/main/src/main/java/gtcafe/rpg/GamePanel.java#L217">Game Loop</a> 裡的 FPS。底下是我在 <a href="/2025/12/19/About/Java-2D-RPG-Game/">純手工遊戲開發 - Java 2D RPG Game</a> 的 <a target="_blank" rel="noopener" href="https://github.com/rickhw/java-2d-rpg-game/blob/main/src/main/java/gtcafe/rpg/GamePanel.java#L217">Game Loop</a> 精簡過後的片段邏輯：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">double</span> <span class="variable">drawInterval</span> <span class="operator">=</span> <span class="number">1000000000</span> / FPS; <span class="comment">// 0.016666 seconds per frame</span></span><br><span class="line">    <span class="type">double</span> <span class="variable">delta</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">long</span> <span class="variable">lastTime</span> <span class="operator">=</span> System.nanoTime();</span><br><span class="line">    <span class="type">long</span> currentTime;</span><br><span class="line">    <span class="type">long</span> <span class="variable">timer</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">drawCount</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(gameThread != <span class="literal">null</span>) &#123;</span><br><span class="line">        currentTime = System.nanoTime();</span><br><span class="line">        delta += (currentTime - lastTime) / drawInterval;</span><br><span class="line">        timer += currentTime - lastTime;</span><br><span class="line">        lastTime = currentTime;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(delta &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">            update();</span><br><span class="line">            delta--;</span><br><span class="line">            drawCount++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (timer &gt;= <span class="number">1000000000</span>) &#123;</span><br><span class="line">            drawCount = <span class="number">0</span>;</span><br><span class="line">            timer = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">update</span><span class="params">()</span> &#123;  <span class="comment">// 類似 timer_handler</span></span><br><span class="line">     player.update();</span><br><span class="line">     npc.update();</span><br><span class="line">     monster.update();</span><br><span class="line">     <span class="comment">// ... ooxx.update(); </span></span><br><span class="line">     <span class="comment">// ex: particles, projectiles, interactive tiles, inventory ... etc.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>兩者都是有一個 <code>while(true) {}</code> 的 loop，然後固定調用 function - <code>timer_handler()</code> and <code>update()</code>但不同的是：</p>
+<ol>
+<li>Game Loop 會因為 Update 處理的效能 (通常是 2D&#x2F;3D 圖形渲染)，因而影響 FPS 的大小。</li>
+<li>Game Loop 裡 <code>update()</code> 更新的每一個 Frame，前後彼此之間是有關聯的。如果計算錯誤、或者計算延遲，就會產生卡頓、掉幀的感覺。</li>
+<li>OS 不能因為 task 慢了，tick 計數就停下來，這在電腦科學中稱為 <code>不可屏蔽性</code> 或 <code>搶佔 (Preemption)</code>。Game Loop 中的 <code>update()</code> 是協作式的 (前一個跑完下一個才跑)；OS 的 timer_handler 是侵入式的 (管你跑完沒，硬體訊號強行插隊)。</li>
+</ol>
+<p>底下我整理了我自己的理解的差異：</p>
+<table>
+<thead>
+<tr>
+<th align="left">特性</th>
+<th align="left">Java 2D RPG Game - Game Loop</th>
+<th align="left">Simple OS - Timer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>迴圈本體</strong></td>
+<td align="left"><code>while(running) { ... }</code></td>
+<td align="left"><code>isr32:</code> -&gt; <code>call timer_handler</code></td>
+</tr>
+<tr>
+<td align="left"><strong>頻率控制</strong></td>
+<td align="left">軟體自行計算 <code>delta</code> 並 Sleep</td>
+<td align="left">硬體晶片固定發送電氣訊號</td>
+</tr>
+<tr>
+<td align="left"><strong>執行保證</strong></td>
+<td align="left">若卡住，下一影格就順延</td>
+<td align="left">若卡住，硬體訊號會強制插隊 (或遺失)</td>
+</tr>
+<tr>
+<td align="left"><strong>主要任務</strong></td>
+<td align="left">更新遊戲邏輯、渲染畫面</td>
+<td align="left">計時、統計 CPU 佔用、強制換人 (<code>schedule</code>)</td>
+</tr>
+</tbody></table>
+<p>簡單說：</p>
+<ul>
+<li><code>Game Loop</code>：主動式。跑者自己看手錶，跑太快就 Sleep。</li>
+<li><code>OS Tick</code>：被動式。硬體監工每隔一段時間「啪」地拍桌子，強制 CPU 停下工作，執行 OS 的家務事。</li>
+</ul>
+<!--
+## 實作 sleep(1000) - User Space
+
+
+這張圖將整個過程拆解為三個階段：**進入睡眠 (Sleep) -> 背景計時 (Tick) -> 喚醒恢復 (Wake up)**。
+
+![](/images/ComputerScience/SimpleOS/Timer/sleep_impl-flow-chart.png)
+
+
+1. **跨越時空的 `switch_task` (步驟 8 到 18)**：
+   這張圖最魔幻的地方在於，步驟 8 呼叫了 `switch_task`，但它是**經過了一整秒鐘，在步驟 18 才「返回」的**！對於寫 `sys_sleep` 的這段 C 語言程式碼來說，它感覺只是呼叫了一個普通的函式，完全不知道自己其實被「冷凍」了一秒鐘。
+2. **中斷開關的對稱性 (`pushfl` / `popfl`)**：
+   在 `schedule()` 的起點和終點，保護中斷狀態的指令是成對的。這確保了無論任務是從 User Space 還是中斷處理常式被切換走，醒來時都能無縫接軌。
+3. **全域時鐘 (`tick`) 的權威性**：
+   睡眠任務不需要自己倒數計時，它只需要在睡前把鬧鐘（`wake_up_tick`）設好。巡邏的排程器（`schedule`）每次經過時，只要對一下牆上的大時鐘（`tick`），就知道該不該叫醒它。
+
+
+
+### 驗證 一秒
+
+1. 計算 tick 差異
+2. 取得主機板上 CMOS RTC 時間
+-->
+
+
+<hr>
+<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>在 Linux 面前，我的知識是匱乏的、無知的，我在看待 Linux Kernel 時是尊敬的，因為他是人類智慧與文明的精華，經過千錘百鍊的結果。開啟 Simple OS 自幹的初衷，就是覺得我自己知識匱乏的緊，即使我已經工作數十餘載，但常常還是覺得自己懂的太少，有時候會有 <code>一曝十寒</code> 之感。</p>
+<p>洋蔥是學習是我的方法，一圈一圈的扒開，逐漸明朗，好玩又有趣！再配合很多既有的課程，像是 <a target="_blank" rel="noopener" href="https://hackmd.io/@sysprog/linux-timer">Linux 核心設計: Timer 及其管理機制</a>、以前在研究 <a href="/2018/06/18/DistributedSystems/Gossip-in-Distributed-Systems/">分散式系統</a> 讀過的論文 <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/359545.359563">Time, clocks, and the ordering of events in a distributed system – Leslie Lamport (1978)</a>，利用幫我 AI 探索，這個過程是有趣且豐富的！</p>
+<p>但如果只是把這一切都交給 AI Agent，那最後我將得到一個能用的東西，但我依舊停在原點，呈現 <code>淺薄思考</code> 與 <code>知識匱乏</code> 的狀態。</p>
+<h3 id="未完"><a href="#未完" class="headerlink" title="未完"></a>未完</h3><p>timer.c 延伸議題還有很多想寫，不過再寫下去篇幅太長了，相關題目先做個紀錄，之後慢慢來補。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/feature/sleep/src/kernel/arch/x86/timer.c#L83">timer.c</a> 概念，那麼 User Space 的 <code>sleep()</code> 是怎麼被實作出來的？<ul>
+<li>已經完成實作，不過內容篇福有點多，加上要講到 <code>Process Control Block</code>、<code>Task Scheduler</code> 會有點複雜，需要放到獨立的一篇來講。</li>
+</ul>
+</li>
+<li>實務上曾經遇過跟時間有關的想法，包含 <code>sleep()</code>, <code>ntp</code>、<code>k8s cpu=100m</code> 的意思</li>
+<li>摘要現代 Linux Kernel 跟 timer &#x2F; tick 相關的資訊</li>
+<li>探索程式語言 Java 21 sleep() 的實作</li>
+<li>以前在研究 <a href="/2018/06/18/DistributedSystems/Gossip-in-Distributed-Systems/">分散式系統</a> 讀過的論文 <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/359545.359563">Time, clocks, and the ordering of events in a distributed system – Leslie Lamport (1978)</a> 的一些想法</li>
+</ul>
+<p>最後。。。還是要提一下 AI，字很多，但其實只有寫 30%。</p>
+<h3 id="知識飛輪的推與拉-知識複利"><a href="#知識飛輪的推與拉-知識複利" class="headerlink" title="知識飛輪的推與拉 - 知識複利"></a>知識飛輪的推與拉 - 知識複利</h3><p>AI 的發展飛速，最近大部分的人都可以用 Agentic 方式快速寫出應用程式。有程式背景的人，在使用上的生產力更是 10x 倍速的成長。也出現 <a target="_blank" rel="noopener" href="https://x.com/karpathy">Andrej Karpathy</a> 用 <a target="_blank" rel="noopener" href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f">LLM-Wiki</a> 做 <a target="_blank" rel="noopener" href="https://x.com/karpathy/status/2039805659525644595">知識管理</a> 概念的方法，有人把想法快速用 Agentic 方法做出來 - 像是 <a target="_blank" rel="noopener" href="https://graphify.net/">Graphify</a>。</p>
+<blockquote>
+<p>我先不提軟體工程或 SRE 等議題。</p>
+</blockquote>
+<p>AI 我定位是個高效能工具，創意協作工具，依舊是工具。使用的人才是 <code>主要</code>、主要的，AI 是 <code>次要的</code>。 <strong>再次強調，人是主要的，工具是次要的。</strong></p>
+<p>使用的人可以透過 AI 推進產品的開發、推進工作產能提升。同時也可以透過 AI 拉動自己，提升自己的本職學能、知識、啟發創意。</p>
+<p>我在 <code>自幹作業系統</code> 這件事情上定位是 - <code>Just for Fun &amp; Learning</code>。也就是目標是充實我腦袋裡的知識，在學習與實踐過程中，<code>把片段的知識補齊、把這些學習的知識連結起來</code>。注意我這句話：</p>
+<blockquote>
+<p>把片段的知識補齊、把這些學習的知識連結起來</p>
+</blockquote>
+<p>主詞是誰？主動的是誰？</p>
+<p>答案是我自己。</p>
+<ol>
+<li>我自己把知識放到腦袋裡</li>
+<li>我自己把知識點連結起來</li>
+</ol>
+<p>這個過程，我腦袋裡會建立屬於自己的知識連結，做深度思考、深度連結。也就是我們常說的：</p>
+<blockquote>
+<p>資料 -&gt; 資訊 -&gt; 知識 -&gt; 智慧</p>
+</blockquote>
+<p>這個循環又稱為 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/DIKW_pyramid">DIKW 體系</a>，我在以前學習音樂就很常在用這概念。</p>
+<p>我在 <a href="/2018/06/18/DistributedSystems/Gossip-in-Distributed-Systems/">聊聊分散式系統</a> 最後提到人類大腦運作的原理，當時是用分散式系統在解讀。底下是簡單摘要：</p>
+<blockquote>
+<p>人類大腦由 140 億個神經元組成，神經元又由細胞體、神經纖維組成，其中細胞體想像成計算機，神經纖維想像成網路。生命的演化，正是因為神經元不斷地增長，最後才演化出智慧生命體：人類。人類大腦的 <code>灰質</code> 相當於 <code>計算機 (細胞體)</code>，<code>白質</code> 相當於 <code>連結系統 (神經纖維)</code> 的網路。表示人腦約有 140 億台計算機 (灰質、細胞體) 同時在運作，計算機之間透過網路連結 (白質、神經纖維)。</p>
+<p>研究顯示註，人與人之間的區別，不在灰質，在於白質。例如鋼琴家的白質，遠比普通人發達的多。人與人之間腦袋裡的運算能力其實大同小異，但是相差很大的是腦袋裡的網路的連線方式不同。</p>
+</blockquote>
+<p>其實我用來解讀知識管理也是通的。也就是知識管理的重點不在搜集或者整理，重點在於 <code>連結</code>，然後形成的體系。關鍵在於 <code>連結</code>，誰來做連結？要把知識放到腦袋裡的人，也就是你自已。</p>
+<p>換言之，AI LLM 可以很快速的整理出所有資料，畫出一個漂亮的關聯拓樸，這表示什麼？使用知識的人，從頭到尾都沒有在自己的腦袋裡建立連結，換言之，你依舊停在原地。</p>
+<p>我在 <a href="/2022/09/05/About/Blog-Practice/">聊聊寫 Blog 的想法</a> 最後也寫到，我每寫一篇文章的過程，就會把過去寫的東西串起來，這個過程的思路都是我自己連結的。經過幾次的複利效應之後，文章就會成為一個體系，最後就會形成我個人的知識，我稱為 <code>複利知識</code>。所以知識管理這個議題，只要有持續寫文章，持續重構、組織的人，看到用 LLM 整理文章，我的直覺反應就是：</p>
+<blockquote>
+<p>他是他，你是你。</p>
+</blockquote>
+<p>文章關聯快速建立起來，但你並沒有因此真的獲得知識。</p>
+<p>回到段落標題，<code>知識飛輪的推與拉</code>，我引用的是 Amazon 的 <a target="_blank" rel="noopener" href="https://www.books.com.tw/products/0010876380?srsltid=AfmBOoqKtgdqSxkupx_sPMNBlgtcZ7BIzlbremvq-7DMEtsSUoWYKjHC">飛輪效應</a> 概念，利用 <code>推與拉做知識管理</code>，飛輪效應之下的知識管理帶來的 <a target="_blank" rel="noopener" href="https://www.books.com.tw/products/0010814286?srsltid=AfmBOopcsH-mFnqLwT40ZStIHfxjpd1EODDBn8OorJeH9OsJYk-i7f93">複利效應</a>。</p>
+<p>如果你有耐心看到這裡，應該不難發現，這段整個過程我都在串聯我過去寫的文章，以及想法。這個過程就是連結知識，創造 <code>知識複利</code>。</p>
+<p>底下問題我先留白，一些很現實的問題，未來可以探討的：</p>
+<ol>
+<li>大家 (80%) 都可以用 Agenitc 寫出應用，那彼此的差異是什麼？公司為什麼要用你？</li>
+<li>Vibe Coding 可以很快做出應用程式，不會寫程式的人很快做出一個類似 <a target="_blank" rel="noopener" href="https://www.threads.com/@showyochen/post/DXGv3QgEX1C">591 的租賃網站</a>，他做得出來？你做得出來？<ul>
+<li>這個有機會可以說說十幾年前，我在電商服務時，承接一些 3rd-party 遺留下來的東西 …</li>
+</ul>
+</li>
+<li>用 AI 提升工作生產力，薪水有變多了？時間有變多了？生活更有餘裕了？</li>
+<li>大家 (80%) 都可以用 LLM KM 創造出自己的第二大腦，所以這些人都變得有知識了？有智慧了？有創造力？</li>
+<li>很多人都可以用 AI 快速寫出應用，然後呢？因此創造 Income，往 FIRE 走？或者滿街的人都往 FIRE 前進？</li>
+<li>承上，稍微提一下 <code>軟體工程</code>，這些被快速創造的應用：<ul>
+<li>個人用的：過了半年後還有在用？功能都滿足了？</li>
+<li>企業：過了半年有多少應用還在記憶體裡運行的？多少人在用？都沒有 Bug？</li>
+<li>上述應用的維護成本 –&gt; 簡單帶入 SRE …</li>
+</ul>
+</li>
+</ol>
+<p>我不是反對 AI 的一些方法，我自己也用很兇 (燒很多錢)。而是要提醒我自己 (其實別人怎樣不關我的事)，不要因為這些工具太強大，因而帶來 <code>淺薄思考</code> 與 <code>知識幻覺</code>，反而要善用他們來強大自己，讓生活更豐富更有想像，帶來更多探索的樂趣。但要認清的事實是：</p>
+<blockquote>
+<ol>
+<li>AI 建立的只是資料的拓樸，你在腦袋裡建立的資料網路才能形成「知識」。</li>
+<li>看懶人包，學不到知識；寫懶人包，才真正擁有知識。</li>
+<li>只有透過深度思考，才能真的學習。</li>
+</ol>
+</blockquote>
+<p>幾個名詞，我自己亂掰的：</p>
+<ul>
+<li><code>知識幻覺</code>: 大概類似 <code>達克效應</code> 的概念。很叫 AI 做事，誤以為自己很厲害，其實一曝十寒。</li>
+<li><code>知識飛輪</code>: 從飛輪效應和知識管理結合而來，形容建立腦袋知識體系的方法，就是 <code>推與拉</code></li>
+<li><code>複利知識</code>: 跟知識飛輪類似的想法，集合知識管理與複利效應這兩個詞，重點在於知識是可以透過連結不斷堆疊，產生複利效應的。最好的方法就是寫 Blog，然後要連結他們。寫流水帳的沒用。</li>
+</ul>
+<p>收筆。</p>
+<hr>
+<h2 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h2><h3 id="自幹作業系統-系列"><a href="#自幹作業系統-系列" class="headerlink" title="自幹作業系統 系列"></a>自幹作業系統 系列</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems">Source Code</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvojs-N7OLM6jo6IYKEIizK1P">Demo&#x2F;錄影</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/main/course/Terms.md">專有名詞對照表</a></li>
+<li><a href="/2026/03/27/ComputerScience/Simple-OS/">自幹作業系統 - Simple OS</a></li>
+<li><a href="/2026/04/09/ComputerScience/Simple-OS-Networking/">自幹作業系統 - Networking Fundamentals</a></li>
+<li><a href="/2026/04/12/ComputerScience/Simple-OS-Timer/">自幹作業系統 - 初探 Timer 原理</a></li>
+<li><a href="/2026/04/17/ComputerScience/Simple-OS-Task-and-Scheduler/">自幹作業系統 - Task and Scheduler</a></li>
+<li><a href="/2026/04/28/ComputerScience/Simple-OS-Context-Switch/">自幹作業系統 - Context Switch</a></li>
+</ul>
+<h3 id="站內文章"><a href="#站內文章" class="headerlink" title="站內文章"></a>站內文章</h3><ul>
+<li><a href="/2025/12/19/About/Java-2D-RPG-Game/">純手工遊戲開發心得紀錄 - Java 2D RPG Game</a></li>
+<li><a href="/2018/06/18/DistributedSystems/Gossip-in-Distributed-Systems/">聊聊分散式系統</a></li>
+<li><a href="/2022/09/05/About/Blog-Practice/">聊聊寫 Blog 的想法</a></li>
+</ul>
+<h3 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://hackmd.io/@sysprog/linux-timer">Linux 核心設計: Timer 及其管理機制</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Intel_8253">Intel 8253 &#x2F; 8254</a> - programmable interval timers (PITs)</li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Intel_8259">Intel 8259</a> - programmable interrupt controller (PIC)</li>
+<li><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/359545.359563">Time, clocks, and the ordering of events in a distributed system</a> - Leslie Lamport (1978)</li>
+</ul>
+
+
+				<hr />
+
+				<!-- Facebook in bend of page -->
+				<div class="fb-like" data-href="https://rickhw.github.io/2026/04/12/ComputerScience/Simple-OS-Timer/" data-width="" data-layout="button_count"
+					data-action="like" data-size="small" data-share="true"></div>
+
+				<hr />
+
+				<!-- LikeCoin -->
+				<!-- @rickd 2022/09/06 -->
+				<!--
+				<iframe data-v-b66e9a5a=""
+					src="https://button.like.co/in/embed/rick_kyhwang/button?referrer=https://rickhw.github.io/2026/04/12/ComputerScience/Simple-OS-Timer/"
+					frameborder="0" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile">
+				</iframe>
+				<br />
+				-->
+
+				<div>
+					<center>
+						
+<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2026/04/17/ComputerScience/Simple-OS-Task-and-Scheduler/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2026/04/09/ComputerScience/Simple-OS-Networking/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+					</center>
+				</div>
+
+
+				<!-- comment -->
+				
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+	<!-- @rick add for facebook -->
+	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
+  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
+  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2026/04/12/ComputerScience/Simple-OS-Timer/" data-width="100%" data-numposts="10"></div>
+
+  
+
+
+</section>
+
+
+
+
+
+
+			</div>
+
+
+
+		</div> <!-- col-md-9/col-md-12 -->
+
+		
+		<!-- meta in right -->
+		<div class="col-md-3">
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+		<i class="fa fa-clock-o"></i>
+		2026/04/12 10:30:00
+	</div>
+	
+
+	<hr />
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
+	   <div id="toc" class="toc collapse in">
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Timer-in-SimpleOS"><span class="toc-article-text">Timer in SimpleOS</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#PIT-INTEL-8254"><span class="toc-article-text">PIT - INTEL 8254</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#PIC-INTEL-8259"><span class="toc-article-text">PIC - INTEL 8259</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#timer-c-init-timer-%E5%88%9D%E5%A7%8B%E7%AF%80%E6%8B%8D%E5%99%A8%E6%9C%80%E5%B0%8F%E5%96%AE%E4%BD%8D%EF%BC%9ATick"><span class="toc-article-text">timer.c#init_timer() - 初始節拍器最小單位：Tick</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#timer-c-timer-handler-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1%E7%9A%84-Game-Loop"><span class="toc-article-text">timer.c#timer_handler() - 作業系統的 Game Loop</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-article-text">小結</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%9C%AA%E5%AE%8C"><span class="toc-article-text">未完</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%9F%A5%E8%AD%98%E9%A3%9B%E8%BC%AA%E7%9A%84%E6%8E%A8%E8%88%87%E6%8B%89-%E7%9F%A5%E8%AD%98%E8%A4%87%E5%88%A9"><span class="toc-article-text">知識飛輪的推與拉 - 知識複利</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E8%87%AA%E5%B9%B9%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1-%E7%B3%BB%E5%88%97"><span class="toc-article-text">自幹作業系統 系列</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+
+	<hr />
+
+	<!-- categories -->
+  
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
+    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
+      <div>
+  <!--<li>-->
+    <span class="label label-info"><a href="/categories/Computer-Science/" style="color: white">Computer Science <span class="badge">11</span></a></span>
+  <!--</li>-->
+</div>
+    <!--</ul>-->
+	</div>
+	
+
+	<hr />
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
+    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
+    <div>
+	  	
+  <span class="label label-success"><a href="/tags/Just-for-Fun/" style="color: white">Just for Fun <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Operating-Systems/" style="color: white">Operating Systems <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Timer/" style="color: white">Timer <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Sleep/" style="color: white">Sleep <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Game-Loop/" style="color: white">Game Loop <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/複利知識/" style="color: white">複利知識 <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/知識幻覺/" style="color: white">知識幻覺 <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/知識飛輪/" style="color: white">知識飛輪 <span class="badge">1</span></a></span>
+	  </div>
+    <!--</ul>-->
+	</div>
+	
+
+
+  <hr />
+
+	<div class="meta-widget">
+		<!-- v4 -->
+		<h4>About</h4>
+		
+			<li><a href="/2035/01/21/Index/">全站索引</a></li>
+		
+			<li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+		
+			<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		
+			<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		
+			<li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+		
+			<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		
+			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+		
+
+		<h4>著作</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作：SRE實踐與開發平台指南</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">共同著作：軟體測試實務 (2023)</a></li>
+		
+			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
+		
+
+		<h4>演講</h4>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
+		
+			<li><a href="/2023/09/09/About/2023-AWS-Career-Exploration-Day/">探索職涯、複利人生 - AWS Career Exploration Day 2023</a></li>
+		
+			<li><a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">個人著作 SRE 書友見面會</a></li>
+		
+			<li><a href="/2023/05/23/About/2023-Software-Test-Practice/">軟體測試實務 - 新書發表會</a></li>
+		
+			<li><a href="/2022/12/21/About/2022-AWS-Career-Exploration-Day/">探索職涯、成就未來 - AWS Career Exploration Day 2022</a></li>
+		
+			<li><a href="/2022/08/13/SQA/Path-to-Software-Testing/">從理想、到現實的距離，開啟品味軟體測試之路</a></li>
+		
+			<li><a href="/2022/05/10/About/2022-SREConf2022/">91APP 在 AWS 上的 SRE 實踐之路</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/2020-aws-summit-aws">在矩陣型組織裡，如何有效管理 AWS 的成本結構與系統架構</a></li>
+		
+			<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/rickhwang/aws-using-aws-for-disaster-recovery/">災難演練 @ AWS 實戰分享</a></li>
+		
+			<li><a href="/2019/04/27/DevOps/Introduce-to-Continuous-Delivery-2/">導讀持續交付 2.0 - 談當代軟體交付之虛實融合</a></li>
+		
+			<li><a href="/2019/03/28/DevOps/DevOpsTaiwan-Meetup-Beginning-in-Artifacts-Management/">聊聊軟體交付的濫觴 談產出物管理</a></li>
+		
+			<li><a href="/2018/09/12/DevOps/DevOpsDaysTaipei2018-Emergency-And-Incident-Management/">從緊急事件 談 SRE 應變能力的培養</a></li>
+		
+			<li><a href="/2018/07/18/About/20180718-API-Gateway/">邁向 API 經濟 - API Gateway 導入之旅</a></li>
+		
+			<li><a href="/2018/05/26/About/201805-Monitoring-Tools-CloudWatch/">Monitoring Tools 大亂鬥 - AWS CloudWatch</a></li>
+		
+			<li><a href="/2018/03/29/About/2018-Serverless-All-Star/">Ops as Code using Serverless</a></li>
+		
+			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
+		
+
+		<!-- v3 -->
+		<!--
+		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
+		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
+		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
+		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+		-->
+
+		<!-- v2 -->
+		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
+
+		<!-- v1 -->
+		<!--
+		<li>Software Developer</li>
+		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
+		<li><a href="/categories/DevOps/">Operation Manager</a></li>
+		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
+		<li>
+			<ol>
+				<li>Management</li>
+				<li>Cloud / Distributed Systems</li>
+				<li>DevOps / SRE / </li>
+			</ol>
+		</li>
+		-->
+
+		<!--
+		<h4>Donate</h4>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick" />
+		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
+		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
+		</form>
+		-->
+
+		<h4>Facebook</h4>
+
+		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
+
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
+				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+
+		<h4>AWS Certifications</h4>
+		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
+		<a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/"><img src="/images/About/SysOps-Administrator-Associate.png"></a>
+		<a href="/2016/08/20/AWS/AWS-Certified-Developer/"><img src="/images/About/Developer-Associate.png"></a>
+	</div>
+
+	<hr />
+</div><!-- col-md-3 -->
+
+		
+
+	</div><!-- row -->
+
+
+    </div>
+  </div>
+
+
+<div class="container-narrow">
+    <footer> <p>
+  &copy; 2015-2022 Rick Hwang
+  
+      with help from <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme base on <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.
+</p> </footer>
+</div>
+
+<!-- container-narrow -->
+
+<div id="gotop">
+
+  <!-- 
+    <i class="fa fa-sitemap"></i> <a href="/2017/12/29/About/About-This-Blog/" title="About this blog" target="_blank"]);">關於這裡</a><br />
+  
+    <i class="fa fa-user"></i> <a href="/2017/12/29/About/About-Author/" title="" target="_blank"]);">關於作者</a><br />
+  
+    <i class="fa fa-book"></i> <a href="/2017/09/20/About/Learning-Approaches/" title="" target="_blank"]);">學習法則</a><br />
+  
+    <i class="fa fa-coffee"></i> <a href="https://www.gtcafe.com" title="GTCafe Studio" target="_blank"]);">GTCafe Studio</a><br />
+  
+    <i class="fa fa-music"></i> <a href="https://www.gtcafe.com/rickmidi/" title="喝咖啡 聊音樂 (v2021)" target="_blank"]);">喝咖啡 聊音樂 (v2021)</a><br />
+   -->
+
+  <!-- <h4>About</h4> -->
+
+  <ul>
+  
+    <li><a href="/2035/01/21/Index/">全站索引</a></li>
+  
+    <li><a href="/2017/12/29/About/About-This-Blog/">關於這裏</a></li>
+  
+    <li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
+  
+    <li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
+  
+    <li><a href="/2017/11/26/Thinking-in-Essence/">思考本質</a></li>
+  
+    <li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
+  
+    <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
+  
+  </ul>
+
+  <a href="#">▲ TOP ▲ </a>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/gtcafe-tracking.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+
+// GTCafe API: completet
+tracking_update();
+</script>
+
+
+
+</body>
+</html>
