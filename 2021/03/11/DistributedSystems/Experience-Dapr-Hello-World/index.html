@@ -62,29 +62,6 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=&autoLogAppEvents=1"
-    nonce="opf2Gext"></script>
-
 
 <meta name="generator" content="Hexo 8.1.1"></head>
 
@@ -246,25 +223,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2021%2F03%2F11%2FDistributedSystems%2FExperience-Dapr-Hello-World%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2021/03/11/DistributedSystems/Experience-Dapr-Hello-World/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2021/03/11/DistributedSystems/Experience-Dapr-Hello-World/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p><a target="_blank" rel="noopener" href="https://dapr.io/">Dapr</a> 是微軟開發的 Distributed Application Framework。核心概念是 Sidecar 模式，搭配 <a target="_blank" rel="noopener" href="https://docs.dapr.io/concepts/building-blocks-concept/">Building Blocks</a>、<a target="_blank" rel="noopener" href="https://docs.dapr.io/concepts/components-concept/">Components</a> 等類似 Middleware &#x2F; Pipeline 的概念，以及 <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/">K8s CRD (Custom Resource Definition)</a> 的 擴充 Extensions &#x2F; Plugins 的機制，以這些為主要設計的結構，然後完善大部分分散式系統 (或者說 Microservice) 所必要的基礎建設、開發體驗、維運考量、及架構擴展的需求。</p>
 <p>這些概念與特性疊加起來實在是非常吸引我，加上 Dapr 本身很輕量，版本也已經到了 1.0 版，官方宣稱 production ready，可以一試了！底下是探索性的整理使用體驗。</p>
 <blockquote>
@@ -448,11 +406,6 @@
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2021/03/11/DistributedSystems/Experience-Dapr-Hello-World/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -491,11 +444,6 @@
 				
 <section id="comment">
   <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2021/03/11/DistributedSystems/Experience-Dapr-Hello-World/" data-width="100%" data-numposts="10"></div>
 
   
 

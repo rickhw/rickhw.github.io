@@ -61,29 +61,6 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=&autoLogAppEvents=1"
-    nonce="opf2Gext"></script>
-
 
 <meta name="generator" content="Hexo 8.1.1"></head>
 
@@ -245,25 +222,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2018%2F03%2F03%2FAWS%2FStudy-Notes-API-Gateway-Custom-Domain-Names%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2018/03/03/AWS/Study-Notes-API-Gateway-Custom-Domain-Names/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2018/03/03/AWS/Study-Notes-API-Gateway-Custom-Domain-Names/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>API Gateway 是直接面對使用者的，所以除了 API 本身的描述，面對 Client 的 Endpoint &#x2F; URL Path 的規劃也很重要，相對應的就會帶出 DNS、SSL、CDN … 等議題，而這些問題，通常上線後都才會注意到。但實際上規劃的不好，不只門面不好看，同時也會造成開發、測試、管理、溝通 … 等成本。</p>
 <p>本文整理如何使用 <a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html">Amazon API Gateway</a> 和 AWS 的 Certificate Manager (ACM)、Route53 設定 Custom Domain Name，還有更重要的是規劃完整的 Service 與 Endpoint 要注意的事情。</p>
 <span id="more"></span>
@@ -422,11 +380,6 @@
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2018/03/03/AWS/Study-Notes-API-Gateway-Custom-Domain-Names/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -465,11 +418,6 @@
 				
 <section id="comment">
   <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2018/03/03/AWS/Study-Notes-API-Gateway-Custom-Domain-Names/" data-width="100%" data-numposts="10"></div>
 
   
 
@@ -536,7 +484,7 @@
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/API-Gateway/" style="color: white">API Gateway <span class="badge">18</span></a></span> <span class="label label-success"><a href="/tags/Route53/" style="color: white">Route53 <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/Microservices/" style="color: white">Microservices <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/CloudFront/" style="color: white">CloudFront <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/SSL/" style="color: white">SSL <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/ACM/" style="color: white">ACM <span class="badge">3</span></a></span>
+  <span class="label label-success"><a href="/tags/API-Gateway/" style="color: white">API Gateway <span class="badge">18</span></a></span> <span class="label label-success"><a href="/tags/Route53/" style="color: white">Route53 <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/CloudFront/" style="color: white">CloudFront <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/SSL/" style="color: white">SSL <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/ACM/" style="color: white">ACM <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Microservices/" style="color: white">Microservices <span class="badge">12</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>

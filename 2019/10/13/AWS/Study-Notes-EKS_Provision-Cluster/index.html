@@ -61,29 +61,6 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=&autoLogAppEvents=1"
-    nonce="opf2Gext"></script>
-
 
 <meta name="generator" content="Hexo 8.1.1"></head>
 
@@ -245,25 +222,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2019%2F10%2F13%2FAWS%2FStudy-Notes-EKS_Provision-Cluster%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2019/10/13/AWS/Study-Notes-EKS_Provision-Cluster/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2019/10/13/AWS/Study-Notes-EKS_Provision-Cluster/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p><a href="/2019/03/17/Container/Install-K8s-with-Kubeadm/">上一篇</a> 整理了使用 kubeadm 安裝 K8s Cluster &#x2F; Worker Nodes &#x2F; CNI … 等，同樣的，本文整理使用 AWS EKS 安裝 K8s <code>v1.14</code> 的筆記，安裝過程則以 AWS CLI 為主，同樣方式也可以使用 eksctl、AWS Console、CloudFormation 執行。</p>
 <p>如同之前提及，雖然 EKS 是 Managed Service，但是實際上只有針對 Master Nodes，而 Worker Nodes 還是需要自行管理以及維護的，另外針對 Ingress、使用者權限、Log 蒐集、資源監控、網路 (CNI 相關) … 等，還是需要額外規劃。</p>
 <p>筆記內容：</p>
@@ -446,11 +404,6 @@
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2019/10/13/AWS/Study-Notes-EKS_Provision-Cluster/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -489,11 +442,6 @@
 				
 <section id="comment">
   <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2019/10/13/AWS/Study-Notes-EKS_Provision-Cluster/" data-width="100%" data-numposts="10"></div>
 
   
 
@@ -560,7 +508,7 @@
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Kubernetes/" style="color: white">Kubernetes <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/kubeadm/" style="color: white">kubeadm <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/kubelet/" style="color: white">kubelet <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CNI/" style="color: white">CNI <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CRI/" style="color: white">CRI <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/EKS/" style="color: white">EKS <span class="badge">4</span></a></span>
+  <span class="label label-success"><a href="/tags/EKS/" style="color: white">EKS <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Kubernetes/" style="color: white">Kubernetes <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/kubeadm/" style="color: white">kubeadm <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/kubelet/" style="color: white">kubelet <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CNI/" style="color: white">CNI <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CRI/" style="color: white">CRI <span class="badge">6</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>

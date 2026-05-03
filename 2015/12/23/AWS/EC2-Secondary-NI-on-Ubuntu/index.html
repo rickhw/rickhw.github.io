@@ -61,29 +61,6 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=&autoLogAppEvents=1"
-    nonce="opf2Gext"></script>
-
 
 <meta name="generator" content="Hexo 8.1.1"></head>
 
@@ -245,25 +222,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2015%2F12%2F23%2FAWS%2FEC2-Secondary-NI-on-Ubuntu%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2015/12/23/AWS/EC2-Secondary-NI-on-Ubuntu/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2015/12/23/AWS/EC2-Secondary-NI-on-Ubuntu/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>因為 <a href="/2015/12/22/Linux/Config-Secure-Apache-with-Lets-Encrypt-on-Ubuntu14.04/">這個</a> 需求，我先在自己的機器實驗成功後，到公司 AWS EC2 設定。公司 AWS 架構比較複雜，所有的機器都在 VPC 裡面，如果要能夠讓外面進來，只有兩個選擇：ELB 或者是 加掛 EIP。 要讓 EIP 可以出去，就必須走 Internet Gateway (IGW)，如果 EC2 Instance 放在 VPC 裡，那麼預設都是走 VGW (Virtual Gateway)。要讓這台機器可以同時在 VGW &#x2F; IGW 兩端游走，後來想到的方法就是加掛另一張網卡 ENI，只是這張網卡的 CIDR 是在 IGW 的 Subnet。他們的關係大概長這樣：</p>
 <span id="more"></span>
 
@@ -303,11 +261,6 @@
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2015/12/23/AWS/EC2-Secondary-NI-on-Ubuntu/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -346,11 +299,6 @@
 				
 <section id="comment">
   <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2015/12/23/AWS/EC2-Secondary-NI-on-Ubuntu/" data-width="100%" data-numposts="10"></div>
 
   
 

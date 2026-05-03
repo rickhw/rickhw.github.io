@@ -62,29 +62,6 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=&autoLogAppEvents=1"
-    nonce="opf2Gext"></script>
-
 
 <meta name="generator" content="Hexo 8.1.1"></head>
 
@@ -246,25 +223,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2019%2F05%2F30%2FAWS%2FFederated-SSO-to-AWS-using-GSuite%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2019/05/30/AWS/Federated-SSO-to-AWS-using-GSuite/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2019/05/30/AWS/Federated-SSO-to-AWS-using-GSuite/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>整理如何設定 AWS SSO 的流程，主要參考： <a target="_blank" rel="noopener" href="https://aws.amazon.com/blogs/security/how-to-set-up-federated-single-sign-on-to-aws-using-google-apps/">How to Set Up Federated Single Sign-On to AWS Using Google Apps</a> 這篇文章，用 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%AE%89%E5%85%A8%E6%96%AD%E8%A8%80%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80">SAML 2.0 (Security Assertion Markup Language)</a> 協議做使用者的 <code>認證管理 (Authentication)</code>，並且延伸管理上實際遇到的問題。</p>
 <span id="more"></span>
 
@@ -290,7 +248,7 @@
 <h1 id="前提與主要流程"><a href="#前提與主要流程" class="headerlink" title="前提與主要流程"></a>前提與主要流程</h1><p>設定之前，先要有以下的條件：</p>
 <ul>
 <li>有 G Guite Admin 的權限<ul>
-<li>準備幾個可使用帳號 (非群組)，像是 <a href="mailto:&#x72;&#105;&#99;&#x6b;&#64;&#97;&#x62;&#99;&#46;&#99;&#111;&#x6d;">rick@abc.com</a>, <a href="mailto:&#x6a;&#97;&#99;&#107;&#64;&#97;&#x62;&#x63;&#46;&#99;&#x6f;&#x6d;">jack@abc.com</a></li>
+<li>準備幾個可使用帳號 (非群組)，像是 <a href="mailto:&#114;&#105;&#x63;&#x6b;&#64;&#97;&#x62;&#99;&#46;&#x63;&#111;&#x6d;">rick@abc.com</a>, <a href="mailto:&#106;&#x61;&#x63;&#107;&#x40;&#x61;&#x62;&#x63;&#x2e;&#x63;&#111;&#x6d;">jack@abc.com</a></li>
 <li>這些帳號模擬不同角色，像是團隊、Tech leader、Read Only … etc.</li>
 </ul>
 </li>
@@ -573,11 +531,6 @@ Q: 可以隨意進出已知的 AWS 帳號與角色？
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2019/05/30/AWS/Federated-SSO-to-AWS-using-GSuite/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -616,11 +569,6 @@ Q: 可以隨意進出已知的 AWS 帳號與角色？
 				
 <section id="comment">
   <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2019/05/30/AWS/Federated-SSO-to-AWS-using-GSuite/" data-width="100%" data-numposts="10"></div>
 
   
 

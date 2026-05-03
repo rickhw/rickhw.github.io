@@ -63,29 +63,6 @@ Log catalina.err 出現類似以下的 exception, 然後 application 就掛了 �
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=&autoLogAppEvents=1"
-    nonce="opf2Gext"></script>
-
 
 <meta name="generator" content="Hexo 8.1.1"></head>
 
@@ -247,25 +224,6 @@ Log catalina.err 出現類似以下的 exception, 然後 application 就掛了 �
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2016%2F02%2F20%2FLinux%2FOpen-File-Limit%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2016/02/20/Linux/Open-File-Limit/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2016/02/20/Linux/Open-File-Limit/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>Tomcat Log 出現 “Too many open files”</p>
 <p>Log catalina.err 出現類似以下的 exception, 然後 application 就掛了 …</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">INFO: Deployment of web application archive /usr/tomcat/webapps/app.war has finished in 378,373 ms</span><br><span class="line">Sep 2, 2014 10:46:54 AM org.apache.tomcat.util.net.JIoEndpoint$Acceptor run</span><br><span class="line">SEVERE: Socket accept failed</span><br><span class="line">java.net.SocketException: Too many open files</span><br><span class="line">        at java.net.PlainSocketImpl.socketAccept(Native Method)</span><br><span class="line">        at java.net.AbstractPlainSocketImpl.accept(AbstractPlainSocketImpl.java:375)</span><br><span class="line">        at java.net.ServerSocket.implAccept(ServerSocket.java:478)</span><br><span class="line">        at java.net.ServerSocket.accept(ServerSocket.java:446)</span><br><span class="line">        at org.apache.tomcat.util.net.DefaultServerSocketFactory.acceptSocket(DefaultServerSocketFactory.java:60)</span><br><span class="line">        at org.apache.tomcat.util.net.JIoEndpoint$Acceptor.run(JIoEndpoint.java:220)</span><br><span class="line">        at java.lang.Thread.run(Thread.java:701)</span><br><span class="line">Sep 2, 2014 10:46:55 AM org.apache.tomcat.util.net.JIoEndpoint$Acceptor run</span><br></pre></td></tr></table></figure>
@@ -297,11 +255,6 @@ Log catalina.err 出現類似以下的 exception, 然後 application 就掛了 �
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2016/02/20/Linux/Open-File-Limit/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -340,11 +293,6 @@ Log catalina.err 出現類似以下的 exception, 然後 application 就掛了 �
 				
 <section id="comment">
   <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2016/02/20/Linux/Open-File-Limit/" data-width="100%" data-numposts="10"></div>
 
   
 
