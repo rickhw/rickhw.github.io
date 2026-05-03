@@ -65,6 +65,11 @@
 
 
 
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
+    nonce="opf2Gext"></script>
 
 <meta name="generator" content="Hexo 8.1.1"></head>
 
@@ -1180,21 +1185,6 @@ https://docs.aws.amazon.com/AmazonS3/latest/dev/LoggingWebsiteTraffic.html
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -1204,6 +1194,7 @@ https://docs.aws.amazon.com/AmazonS3/latest/dev/LoggingWebsiteTraffic.html
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -1250,7 +1241,7 @@ https://docs.aws.amazon.com/AmazonS3/latest/dev/LoggingWebsiteTraffic.html
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/EC2/" style="color: white">EC2 <span class="badge">20</span></a></span> <span class="label label-success"><a href="/tags/S3/" style="color: white">S3 <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/IAM/" style="color: white">IAM <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">33</span></a></span> <span class="label label-success"><a href="/tags/Lifecycle/" style="color: white">Lifecycle <span class="badge">28</span></a></span> <span class="label label-success"><a href="/tags/Lambda/" style="color: white">Lambda <span class="badge">17</span></a></span> <span class="label label-success"><a href="/tags/SQS/" style="color: white">SQS <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CloudFront/" style="color: white">CloudFront <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/ACM/" style="color: white">ACM <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Athena/" style="color: white">Athena <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/SNS/" style="color: white">SNS <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Eventually-Consistent/" style="color: white">Eventually Consistent <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/KMS/" style="color: white">KMS <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Storage-Gateway/" style="color: white">Storage Gateway <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/QuickSight/" style="color: white">QuickSight <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/AES/" style="color: white">AES <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/read-after-write/" style="color: white">read-after-write <span class="badge">1</span></a></span>
+  <span class="label label-success"><a href="/tags/EC2/" style="color: white">EC2 <span class="badge">20</span></a></span> <span class="label label-success"><a href="/tags/S3/" style="color: white">S3 <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/IAM/" style="color: white">IAM <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">33</span></a></span> <span class="label label-success"><a href="/tags/Lifecycle/" style="color: white">Lifecycle <span class="badge">28</span></a></span> <span class="label label-success"><a href="/tags/Lambda/" style="color: white">Lambda <span class="badge">17</span></a></span> <span class="label label-success"><a href="/tags/SQS/" style="color: white">SQS <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CloudFront/" style="color: white">CloudFront <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/ACM/" style="color: white">ACM <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/SNS/" style="color: white">SNS <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Athena/" style="color: white">Athena <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Eventually-Consistent/" style="color: white">Eventually Consistent <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/KMS/" style="color: white">KMS <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Storage-Gateway/" style="color: white">Storage Gateway <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/QuickSight/" style="color: white">QuickSight <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/AES/" style="color: white">AES <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/read-after-write/" style="color: white">read-after-write <span class="badge">1</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -1262,6 +1253,7 @@ https://docs.aws.amazon.com/AmazonS3/latest/dev/LoggingWebsiteTraffic.html
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -1277,8 +1269,10 @@ https://docs.aws.amazon.com/AmazonS3/latest/dev/LoggingWebsiteTraffic.html
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -1288,8 +1282,10 @@ https://docs.aws.amazon.com/AmazonS3/latest/dev/LoggingWebsiteTraffic.html
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -1323,6 +1319,7 @@ https://docs.aws.amazon.com/AmazonS3/latest/dev/LoggingWebsiteTraffic.html
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -1376,6 +1373,7 @@ https://docs.aws.amazon.com/AmazonS3/latest/dev/LoggingWebsiteTraffic.html
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
