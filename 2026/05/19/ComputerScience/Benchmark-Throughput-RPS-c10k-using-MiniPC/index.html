@@ -427,7 +427,7 @@
 <tr>
 <th align="right">Payload Size</th>
 <th align="right">RPS</th>
-<th align="right">CPU Utilzation</th>
+<th align="right">CPU Utilzation (16core)</th>
 <th>Latency</th>
 </tr>
 </thead>
@@ -577,7 +577,7 @@ Go benchmark client:
 </blockquote>
 <p>當吞吐量是固定的，那麼 RPS 跟 Payload Size 成反比。</p>
 <blockquote>
-<p>Payload 越小，S 越小，R_required 越大。<br>Payload 越大，S 越大，R_required 越小。</p>
+<p>Payload 越小，RPS 越大。<br>Payload 越大，RPS 越小。</p>
 </blockquote>
 <p>Connection 與 Latency 的關係，則可以用 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Little%27s_law">Little’s Law (利特爾法則)</a> 表示：</p>
 <blockquote>
@@ -595,7 +595,7 @@ Go benchmark client:
 <ul>
 <li>Payload Size 是每個 <code>包裹大小</code>，</li>
 <li>RPS 是 <code>每秒完成出貨的包裹數</code>。</li>
-<li>Throughput 是每秒真正送到 B 的總貨量，因此：<ul>
+<li>Throughput 是每秒真正送到 B 的 <code>總貨量</code>，因此：<ul>
 <li>Throughput &#x3D; RPS × Payload Size</li>
 </ul>
 </li>
@@ -854,7 +854,7 @@ Go benchmark client:
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Benchmark/" style="color: white">Benchmark <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">17</span></a></span> <span class="label label-success"><a href="/tags/Rate-Limit/" style="color: white">Rate Limit <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Throughput/" style="color: white">Throughput <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/RPS/" style="color: white">RPS <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/c10k/" style="color: white">c10k <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Concurrency/" style="color: white">Concurrency <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Blocking/" style="color: white">Blocking <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/TCP-Connection/" style="color: white">TCP Connection <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Latency/" style="color: white">Latency <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/HomeLab/" style="color: white">HomeLab <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/利特爾法則/" style="color: white">利特爾法則 <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Little-s-Law/" style="color: white">Little's Law <span class="badge">1</span></a></span>
+  <span class="label label-success"><a href="/tags/Benchmark/" style="color: white">Benchmark <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Throughput/" style="color: white">Throughput <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/RPS/" style="color: white">RPS <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/c10k/" style="color: white">c10k <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Concurrency/" style="color: white">Concurrency <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Blocking/" style="color: white">Blocking <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/TCP-Connection/" style="color: white">TCP Connection <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Latency/" style="color: white">Latency <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/HomeLab/" style="color: white">HomeLab <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Rate-Limit/" style="color: white">Rate Limit <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">17</span></a></span> <span class="label label-success"><a href="/tags/利特爾法則/" style="color: white">利特爾法則 <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Little-s-Law/" style="color: white">Little's Law <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/第一性原理/" style="color: white">第一性原理 <span class="badge">2</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
