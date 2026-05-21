@@ -580,13 +580,20 @@ Go benchmark client:
 <hr>
 <h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>這個測試，我主要的目的是要思考幾件事：</p>
 <ol>
-<li>這兩台機器的成本約 新台幣 50,000 元 (28k + 20k)，撇除硬體可靠性問題，他們能否真的當 Server 使用？</li>
+<li>這兩台機器的成本約 新台幣 50,000 元 (28k + 20k)，撇除硬體可靠性問題，他們能否真的當 Server 使用？<ul>
+<li>28K 那台現在已經漲到 <a target="_blank" rel="noopener" href="https://24h.pchome.com.tw/prod/DSAAOR-A900IGSXL">68K</a> 了 …</li>
+</ul>
+</li>
 <li>實際的流量跟業務價值有個對價關係，業務價值則跟收入有個關係</li>
 </ol>
-<p>價值 5 萬塊錢的基本算力，在最單純的條件之下，不包含網路成本、網路設備成本、人力成本，大概可以處理多少東西 (價值)。</p>
+<p>價值 5 萬塊錢的基本算力，在最單純的條件之下，不包含網路成本、網路設備成本、人力成本，大概可以處理多少 <code>價值</code>。</p>
 <p>當然實際上在業務場景，這樣的考慮實際上是不夠的。但是用同心圓的思路，工程要考慮的事情，就是讓現有資源做到資源利用率的最佳化 (Optimization)，這才是真正的價值！</p>
 <p>如果是完整的 Backend Stack (API Server + RDB + Cache)，那麼極限值其實已經知道了。</p>
-<p>這就是我常說窮和尚與富和尚的故事，如何用最少資源，做到最大的價值！</p>
+<p>這就是我常說 <code>窮和尚與富和尚</code> 的故事：</p>
+<blockquote>
+<p>四川的邊遠地區有兩個和尚，一個窮，一個富。有一天，窮和尚對富和尚說：「我想到佛教聖地南海去朝拜，你說行不行？」<br>富和尚問：「來回好幾千里地，你靠什麼去呢？」<br>窮和尚說：「我只要有一個喝水的瓶子，一個吃飯的泥盆就行了。」<br>富和尚聽了哈哈大笑，說：「幾年以前，我就下決心要租條船到南海去朝聖，但是，憑我的條件，到現在還沒能辦到。<br>你靠一隻破瓶子、一個泥瓦盆就要到南海去？真是白日做夢！」<br>一年以後，富和尚還在為祖賃船隻籌錢，窮和尚卻已經從南海朝聖回來了。</p>
+</blockquote>
+<p>用最少資源，做到最大的價值！</p>
 <h3 id="延伸問題"><a href="#延伸問題" class="headerlink" title="延伸問題"></a>延伸問題</h3><p>礙於篇幅與長度，底下問題先保留，簡單整理問題的想法，之後有空再整理。</p>
 <ul>
 <li>Q1: 只用這兩台 Mini PC 可否突破 C10K？例如 C1M，如果可以，為什麼？要怎麼做？<ul>
@@ -740,7 +747,7 @@ Go benchmark client:
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Rate-Limit/" style="color: white">Rate Limit <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">17</span></a></span> <span class="label label-success"><a href="/tags/Benchmark/" style="color: white">Benchmark <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Throughput/" style="color: white">Throughput <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/RPS/" style="color: white">RPS <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/c10k/" style="color: white">c10k <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Concurrency/" style="color: white">Concurrency <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Latency/" style="color: white">Latency <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/HomeLab/" style="color: white">HomeLab <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/利特爾法則/" style="color: white">利特爾法則 <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Little-s-Law/" style="color: white">Little's Law <span class="badge">1</span></a></span>
+  <span class="label label-success"><a href="/tags/Benchmark/" style="color: white">Benchmark <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">17</span></a></span> <span class="label label-success"><a href="/tags/Rate-Limit/" style="color: white">Rate Limit <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Throughput/" style="color: white">Throughput <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/RPS/" style="color: white">RPS <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/c10k/" style="color: white">c10k <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Concurrency/" style="color: white">Concurrency <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Latency/" style="color: white">Latency <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/HomeLab/" style="color: white">HomeLab <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/利特爾法則/" style="color: white">利特爾法則 <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Little-s-Law/" style="color: white">Little's Law <span class="badge">1</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
