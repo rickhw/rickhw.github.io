@@ -62,31 +62,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -110,7 +92,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -122,7 +104,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -246,25 +228,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2017%2F09%2F14%2FSoftwareEngineering%2FSoftware-Development-Lifecycle%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2017/09/14/SoftwareEngineering/Software-Development-Lifecycle/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2017/09/14/SoftwareEngineering/Software-Development-Lifecycle/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>軟體開發生命週期 (Software Development Lifecycle, SDLC) 是軟體工程裡很重要的概念，不同的角色 (PM, Developer, Test, Operator) 會有不同看法，從不同方法論 (CMMI、RUP、LEAN、XP、Agile、Scrum、DevOps) 也會有不同階段定義，Google 可以找到很多類似的圖。</p>
 <p>類似的東西聽了不少，但是往往講者會因為個人經驗，會偏重在某一方面。像是現在經常提自動化測試，很多都是開發人員在喊，卻鮮少聽到從 QA 端的聲音；經常聽到開發人員在喊 DevOps，但實際現場調查很少 Operator 加入討論，更別提資安相關角色。最有趣的是，我還沒遇過有 PM 懂這些流程的，PMP 那又是另一個世界。</p>
 <blockquote>
@@ -277,10 +240,10 @@
 <span id="more"></span>
 
 <hr>
-<h2 id="2012-x2F-12-從-SQA-角度的流程"><a href="#2012-x2F-12-從-SQA-角度的流程" class="headerlink" title="2012&#x2F;12: 從 SQA 角度的流程"></a>2012&#x2F;12: 從 SQA 角度的流程</h2><p>這個階段主要考慮從老闆的 <a href="/2017/03/11/Management/Requirements-Management/">需求</a> 到 Developer 和 SQA 的協作，部分的 Release Engineer (潮一點的說法 DevOps Engineer)。考慮 <code>開發</code> 跟 <code>測試</code> 在每個時間點對應的工作，以及協作方式。</p>
+<h2 id="2012-12-從-SQA-角度的流程"><a href="#2012-12-從-SQA-角度的流程" class="headerlink" title="2012&#x2F;12: 從 SQA 角度的流程"></a>2012&#x2F;12: 從 SQA 角度的流程</h2><p>這個階段主要考慮從老闆的 <a href="/2017/03/11/Management/Requirements-Management/">需求</a> 到 Developer 和 SQA 的協作，部分的 Release Engineer (潮一點的說法 DevOps Engineer)。考慮 <code>開發</code> 跟 <code>測試</code> 在每個時間點對應的工作，以及協作方式。</p>
 <p><img src="/images/Management/SDLC.png"></p>
 <p>這段在 Startup 的過程請參閱這篇的描述：<a href="/2015/01/06/Management/%E5%8D%94%E5%90%8C%E5%90%88%E4%BD%9C%E7%B3%BB%E7%B5%B1%E5%BB%BA%E5%88%B6%E8%88%87%E5%B0%8E%E5%85%A5-%E4%BB%A5-Redmine-%E7%82%BA%E4%BE%8B/">協同合作系統建制與導入 - 以 Redmine 為例</a>。開發流程沒有什麼很潮、很鮮的敏捷開發，而是很傳統的 Waterfull，但是主軸就是要讓大家彈性的做事。</p>
-<h3 id="完整-Slide-Updated-2019-x2F-08-x2F-03"><a href="#完整-Slide-Updated-2019-x2F-08-x2F-03" class="headerlink" title="完整 Slide (Updated: 2019&#x2F;08&#x2F;03)"></a>完整 Slide (Updated: 2019&#x2F;08&#x2F;03)</h3><p>最近跟朋友聊到這幾年軟體開發的份圍與方法 <code>敏捷開發</code> 的看法。聊到一些想法與概念，主要的問題還是一樣：</p>
+<h3 id="完整-Slide-Updated-2019-08-03"><a href="#完整-Slide-Updated-2019-08-03" class="headerlink" title="完整 Slide (Updated: 2019&#x2F;08&#x2F;03)"></a>完整 Slide (Updated: 2019&#x2F;08&#x2F;03)</h3><p>最近跟朋友聊到這幾年軟體開發的份圍與方法 <code>敏捷開發</code> 的看法。聊到一些想法與概念，主要的問題還是一樣：</p>
 <blockquote>
 <ul>
 <li>不知道有哪一些是重要、不急的事，特別是工程領域，沒看到全貌，說直白的：領域技能不足</li>
@@ -342,11 +305,11 @@
 </ul>
 </blockquote>
 <hr>
-<h2 id="2016-x2F-01-從開發者角度的流程"><a href="#2016-x2F-01-從開發者角度的流程" class="headerlink" title="2016&#x2F;01: 從開發者角度的流程"></a>2016&#x2F;01: 從開發者角度的流程</h2><p>這張圖比較聚焦在開發者的角度，同時也包含上線後的議題處理。開發重點沿用 IBM 的 <code>DCUT</code>，也就是 <code>Design, Coding, and Unit Test</code>，我只是做了一些調整。</p>
+<h2 id="2016-01-從開發者角度的流程"><a href="#2016-01-從開發者角度的流程" class="headerlink" title="2016&#x2F;01: 從開發者角度的流程"></a>2016&#x2F;01: 從開發者角度的流程</h2><p>這張圖比較聚焦在開發者的角度，同時也包含上線後的議題處理。開發重點沿用 IBM 的 <code>DCUT</code>，也就是 <code>Design, Coding, and Unit Test</code>，我只是做了一些調整。</p>
 <p>圖中 <code>Suggestion</code> 是我很常用的 Feedback 方法，也就是開發過程中，大家透過建議的方式，Feedback 給團隊、或者是 PM，讓開發過程溝通更好，產品自然而然就會好。</p>
 <p><img src="/images/Management/SDLC/SDLC-20160105.png"></p>
 <hr>
-<h2 id="2016-x2F-06-系統維運角度"><a href="#2016-x2F-06-系統維運角度" class="headerlink" title="2016&#x2F;06: 系統維運角度"></a>2016&#x2F;06: 系統維運角度</h2><p>以 <a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/">系統維運和管理 (System Operation and Administration)</a> 角度出發，與各個單位，包含決策單位、管理單位、開發單位 … 等在各個時間應該要面對的任務。</p>
+<h2 id="2016-06-系統維運角度"><a href="#2016-06-系統維運角度" class="headerlink" title="2016&#x2F;06: 系統維運角度"></a>2016&#x2F;06: 系統維運角度</h2><p>以 <a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/">系統維運和管理 (System Operation and Administration)</a> 角度出發，與各個單位，包含決策單位、管理單位、開發單位 … 等在各個時間應該要面對的任務。</p>
 <p>這張的角度比較偏向 IT 與公司營運出發了，少了很多軟體開發，但是基本精神依舊是那四個：</p>
 <ol>
 <li>Plan</li>
@@ -367,7 +330,7 @@
 </ul>
 </blockquote>
 <hr>
-<h2 id="2016-x2F-06-從整個軟體開發團隊，看見全貌"><a href="#2016-x2F-06-從整個軟體開發團隊，看見全貌" class="headerlink" title="2016&#x2F;06: 從整個軟體開發團隊，看見全貌"></a>2016&#x2F;06: 從整個軟體開發團隊，看見全貌</h2><p>最終，我還是覺得要聚焦在整個開發團隊的 <a href="/2015/03/31/Management/Perspective-in-Your-Life/">視野</a>，每個區塊，都有期對應的職責，甚至是組織。</p>
+<h2 id="2016-06-從整個軟體開發團隊，看見全貌"><a href="#2016-06-從整個軟體開發團隊，看見全貌" class="headerlink" title="2016&#x2F;06: 從整個軟體開發團隊，看見全貌"></a>2016&#x2F;06: 從整個軟體開發團隊，看見全貌</h2><p>最終，我還是覺得要聚焦在整個開發團隊的 <a href="/2015/03/31/Management/Perspective-in-Your-Life/">視野</a>，每個區塊，都有期對應的職責，甚至是組織。</p>
 <p><img src="/images/Management/SDLC/SDLC-2019008-Overall.png" alt="v1.5 201908"></p>
 <p>Updated:</p>
 <ul>
@@ -381,11 +344,11 @@
 
 
 <hr>
-<h2 id="2018-x2F-03-深談維運"><a href="#2018-x2F-03-深談維運" class="headerlink" title="2018&#x2F;03: 深談維運"></a>2018&#x2F;03: 深談維運</h2><p>這張圖是針對 <code>維運</code> 的想法，圖中表達了 <code>人</code>、<code>事</code> 的維度，人包含職場上各種常見角色的分佈，事則是具體執行的工作內容。</p>
+<h2 id="2018-03-深談維運"><a href="#2018-03-深談維運" class="headerlink" title="2018&#x2F;03: 深談維運"></a>2018&#x2F;03: 深談維運</h2><p>這張圖是針對 <code>維運</code> 的想法，圖中表達了 <code>人</code>、<code>事</code> 的維度，人包含職場上各種常見角色的分佈，事則是具體執行的工作內容。</p>
 <p>圖上面灰底、橘底代表兩個面向：<code>節流</code>、<code>開源</code></p>
 <p><img src="/images/DevOps/What-is-Ops_20180325.png"></p>
 <p>完整的 Slide 整理在：<a href="/2018/03/29/About/2018-Serverless-All-Star/">Serverless All-Star - Ops as Code using Serverless</a></p>
-<h2 id="2022-x2F-09-x2F-17-談-Development-Experience-for-Team"><a href="#2022-x2F-09-x2F-17-談-Development-Experience-for-Team" class="headerlink" title="2022&#x2F;09&#x2F;17: 談 Development Experience for Team"></a>2022&#x2F;09&#x2F;17: 談 Development Experience for Team</h2><p><a href="/2022/09/17/Management/Development-Experience-For-Team/">Development Experience for Team</a> 一文整理開發週期對於各種角色的定義，呼應本文的想法，重新定義名稱如下：</p>
+<h2 id="2022-09-17-談-Development-Experience-for-Team"><a href="#2022-09-17-談-Development-Experience-for-Team" class="headerlink" title="2022&#x2F;09&#x2F;17: 談 Development Experience for Team"></a>2022&#x2F;09&#x2F;17: 談 Development Experience for Team</h2><p><a href="/2022/09/17/Management/Development-Experience-For-Team/">Development Experience for Team</a> 一文整理開發週期對於各種角色的定義，呼應本文的想法，重新定義名稱如下：</p>
 <ol>
 <li><code>Planner</code>: PO &#x2F; PM &#x2F; UI&#x2F;UX &#x2F; SA &#x2F; Architect &#x2F; Developer</li>
 <li><code>Executor</code>: SWE &#x2F; Developer &#x2F; Programmer &#x2F; Coder</li>
@@ -488,11 +451,6 @@
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2017/09/14/SoftwareEngineering/Software-Development-Lifecycle/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -527,26 +485,6 @@
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2017/09/14/SoftwareEngineering/Software-Development-Lifecycle/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -556,6 +494,7 @@
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -572,7 +511,7 @@
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2012-x2F-12-%E5%BE%9E-SQA-%E8%A7%92%E5%BA%A6%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="toc-article-text">2012&#x2F;12: 從 SQA 角度的流程</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%AE%8C%E6%95%B4-Slide-Updated-2019-x2F-08-x2F-03"><span class="toc-article-text">完整 Slide (Updated: 2019&#x2F;08&#x2F;03)</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2016-x2F-01-%E5%BE%9E%E9%96%8B%E7%99%BC%E8%80%85%E8%A7%92%E5%BA%A6%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="toc-article-text">2016&#x2F;01: 從開發者角度的流程</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2016-x2F-06-%E7%B3%BB%E7%B5%B1%E7%B6%AD%E9%81%8B%E8%A7%92%E5%BA%A6"><span class="toc-article-text">2016&#x2F;06: 系統維運角度</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2016-x2F-06-%E5%BE%9E%E6%95%B4%E5%80%8B%E8%BB%9F%E9%AB%94%E9%96%8B%E7%99%BC%E5%9C%98%E9%9A%8A%EF%BC%8C%E7%9C%8B%E8%A6%8B%E5%85%A8%E8%B2%8C"><span class="toc-article-text">2016&#x2F;06: 從整個軟體開發團隊，看見全貌</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2018-x2F-03-%E6%B7%B1%E8%AB%87%E7%B6%AD%E9%81%8B"><span class="toc-article-text">2018&#x2F;03: 深談維運</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2022-x2F-09-x2F-17-%E8%AB%87-Development-Experience-for-Team"><span class="toc-article-text">2022&#x2F;09&#x2F;17: 談 Development Experience for Team</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#P-E-A-G"><span class="toc-article-text">P.E.A.G</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E8%B3%87%E6%96%99"><span class="toc-article-text">相關資料</span></a></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2012-12-%E5%BE%9E-SQA-%E8%A7%92%E5%BA%A6%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="toc-article-text">2012&#x2F;12: 從 SQA 角度的流程</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%AE%8C%E6%95%B4-Slide-Updated-2019-08-03"><span class="toc-article-text">完整 Slide (Updated: 2019&#x2F;08&#x2F;03)</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2016-01-%E5%BE%9E%E9%96%8B%E7%99%BC%E8%80%85%E8%A7%92%E5%BA%A6%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="toc-article-text">2016&#x2F;01: 從開發者角度的流程</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2016-06-%E7%B3%BB%E7%B5%B1%E7%B6%AD%E9%81%8B%E8%A7%92%E5%BA%A6"><span class="toc-article-text">2016&#x2F;06: 系統維運角度</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2016-06-%E5%BE%9E%E6%95%B4%E5%80%8B%E8%BB%9F%E9%AB%94%E9%96%8B%E7%99%BC%E5%9C%98%E9%9A%8A%EF%BC%8C%E7%9C%8B%E8%A6%8B%E5%85%A8%E8%B2%8C"><span class="toc-article-text">2016&#x2F;06: 從整個軟體開發團隊，看見全貌</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2018-03-%E6%B7%B1%E8%AB%87%E7%B6%AD%E9%81%8B"><span class="toc-article-text">2018&#x2F;03: 深談維運</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2022-09-17-%E8%AB%87-Development-Experience-for-Team"><span class="toc-article-text">2022&#x2F;09&#x2F;17: 談 Development Experience for Team</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#P-E-A-G"><span class="toc-article-text">P.E.A.G</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E8%B3%87%E6%96%99"><span class="toc-article-text">相關資料</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -614,6 +553,7 @@
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -629,8 +569,10 @@
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -640,8 +582,10 @@
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -675,6 +619,7 @@
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -728,6 +673,7 @@
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -765,6 +711,7 @@
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -780,6 +727,7 @@
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

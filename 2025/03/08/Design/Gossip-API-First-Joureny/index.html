@@ -66,31 +66,13 @@ API 治理與管理：版本控管、導入策略 (API ">
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -114,7 +96,7 @@ API 治理與管理：版本控管、導入策略 (API ">
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -126,7 +108,7 @@ API 治理與管理：版本控管、導入策略 (API ">
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -250,25 +232,6 @@ API 治理與管理：版本控管、導入策略 (API ">
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2025%2F03%2F08%2FDesign%2FGossip-API-First-Joureny%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2025/03/08/Design/Gossip-API-First-Joureny/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2025/03/08/Design/Gossip-API-First-Joureny/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>整理我個人這幾年來 (Since 2017) 接觸 API 有關的議題，共分成以下的大議題：</p>
 <ol>
 <li><code>API 設計</code>：重點在於滿足業務需求、控制範圍，包含資料模型、設計方法、流程與驗證</li>
@@ -325,7 +288,7 @@ API 治理與管理：版本控管、導入策略 (API ">
 <p>那麼整頓內部的 API 標準化與設計是必要的，而 API 的品質則會體現出上述的反面問題。</p>
 <hr>
 <h1 id="二、設計方法論"><a href="#二、設計方法論" class="headerlink" title="二、設計方法論"></a>二、設計方法論</h1><p>這裡指的是 RESTful API 的設計，不會涉及實作。</p>
-<h2 id="貧血型模型，API-x3D-CRUD？"><a href="#貧血型模型，API-x3D-CRUD？" class="headerlink" title="貧血型模型，API &#x3D; CRUD？"></a>貧血型模型，API &#x3D; CRUD？</h2><p>API 開發經常會被很多鄉民這樣說：</p>
+<h2 id="貧血型模型，API-CRUD？"><a href="#貧血型模型，API-CRUD？" class="headerlink" title="貧血型模型，API &#x3D; CRUD？"></a>貧血型模型，API &#x3D; CRUD？</h2><p>API 開發經常會被很多鄉民這樣說：</p>
 <blockquote>
 <p>整天就是在 CRUD，每天上班都在懷疑人生</p>
 </blockquote>
@@ -365,11 +328,11 @@ API 治理與管理：版本控管、導入策略 (API ">
 <p>上圖中根據動作展開對應的 API，主要的有如下 (這不是全部)：</p>
 <ul>
 <li><code>POST /instances</code>: 建立 (launch) Instance</li>
-<li><code>GET /instances/&#123;id&#125;</code>: 獲取 (retrieve) 指定的 Instance 資訊</li>
-<li><code>DELETE /instances/&#123;id&#125;</code>: 刪除 (terminate) 指定的 Instance</li>
-<li><code>PATCH /instances/&#123;id&#125;:start</code>: 啟動 (start) 指定的 Instance</li>
-<li><code>PATCH /instances/&#123;id&#125;:stop</code> 關閉 (stop) 指定的 Instance</li>
-<li><code>PATCH /instances/&#123;id&#125;:reboot</code> 重啟 (reboot) 指定的 Instance</li>
+<li><code>GET /instances/{id}</code>: 獲取 (retrieve) 指定的 Instance 資訊</li>
+<li><code>DELETE /instances/{id}</code>: 刪除 (terminate) 指定的 Instance</li>
+<li><code>PATCH /instances/{id}:start</code>: 啟動 (start) 指定的 Instance</li>
+<li><code>PATCH /instances/{id}:stop</code> 關閉 (stop) 指定的 Instance</li>
+<li><code>PATCH /instances/{id}:reboot</code> 重啟 (reboot) 指定的 Instance</li>
 </ul>
 <p>其中依據不同的實作技術，動作可能更多。</p>
 <p>從這裡開始可以很明顯的感覺到，這已經不是 CRUD 概念的設計，而是以領域為核心的設計。其中在技術上使用了 <code>Standard Methods</code> 和 <code>Custom Methods</code> 這兩個概念。Standard Methods 表示 HTTP 幾個標準的 Methods，包含 GET &#x2F; POST &#x2F; PUT &#x2F; DELETE &#x2F; PATCH … 等，而 Custom Methods 則是透過 URI 的結構定義 CRUD 以外的 動詞，也就是圖中紫色底的動作。</p>
@@ -411,7 +374,7 @@ API 治理與管理：版本控管、導入策略 (API ">
 <p>State 與 Status 的差異：Status 沒有數量限制、沒有先後次序、也沒有起始、終止等狀態，像是 HTTP Status Code</p>
 </blockquote>
 <p>狀態機在實作上，可以透過 State Table 的方式控制，也可以利用既有的框架，像是 <a target="_blank" rel="noopener" href="https://spring.io/projects/spring-statemachine">Spring State Machine</a> 。</p>
-<h2 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><p>Q: 狀態機不見得適合所有的 resource 吧？</p>
+<h2 id="Q-A"><a href="#Q-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><p>Q: 狀態機不見得適合所有的 resource 吧？</p>
 <blockquote>
 <p>經驗上來看，大部分的資源分成幾種：resource-based, record-based, request-based。resource-based 就是本文中提到的 VM，他有個實際的資源佔用，而 API 本身的資料庫算是另一份副本，來控制狀態。第二種是 record-based，也就是純粹的資訊紀錄，像是電商常見的訂單。第三種則是重點在處理程序 (time-bound)，通常不會被長時間保留的，像是 push &#x2F; sms 這種東西。但實際上無論哪一種，實際上都還是有個狀態，會比較容易理解。</p>
 </blockquote>
@@ -538,11 +501,6 @@ API 治理與管理：版本控管、導入策略 (API ">
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2025/03/08/Design/Gossip-API-First-Joureny/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -577,26 +535,6 @@ API 治理與管理：版本控管、導入策略 (API ">
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2025/03/08/Design/Gossip-API-First-Joureny/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -606,6 +544,7 @@ API 治理與管理：版本控管、導入策略 (API ">
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -622,7 +561,7 @@ API 治理與管理：版本控管、導入策略 (API ">
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%B8%80%E3%80%81API-%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7"><span class="toc-article-text">一、API 的重要性</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#AWS-%E7%9A%84%E5%9F%BA%E5%9B%A0-%E6%A8%99%E6%BA%96%E9%80%9A%E8%A8%8A%E4%BB%8B%E9%9D%A2-API"><span class="toc-article-text">AWS 的基因 - 標準通訊介面 API</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#MACH-Architecture"><span class="toc-article-text">MACH Architecture</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Kubernetes-isn%E2%80%99t-about-containers"><span class="toc-article-text">Kubernetes isn’t about containers</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-article-text">小結</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%BA%8C%E3%80%81%E8%A8%AD%E8%A8%88%E6%96%B9%E6%B3%95%E8%AB%96"><span class="toc-article-text">二、設計方法論</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%B2%A7%E8%A1%80%E5%9E%8B%E6%A8%A1%E5%9E%8B%EF%BC%8CAPI-x3D-CRUD%EF%BC%9F"><span class="toc-article-text">貧血型模型，API &#x3D; CRUD？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BB%A5-Domain-%E7%82%BA%E6%A0%B8%E5%BF%83%E7%9A%84%E8%A8%AD%E8%A8%88%E5%87%BA%E7%99%BC%E9%BB%9E%EF%BC%8C%E4%BB%A5-AWS-EC2-Instance-%E7%82%BA%E4%BE%8B"><span class="toc-article-text">以 Domain 為核心的設計出發點，以 AWS EC2 Instance 為例</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BD%BF%E7%94%A8%E7%8B%80%E6%85%8B%E6%A9%9F%E6%8F%8F%E8%BF%B0%E7%9A%84-RESTful-API-%E8%A8%AD%E8%A8%88%E6%96%B9%E6%B3%95%E8%AB%96"><span class="toc-article-text">使用狀態機描述的 RESTful API 設計方法論</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%8B%80%E6%85%8B%E6%A9%9F%EF%BC%9A%E7%8B%80%E6%85%8B%E6%8E%A7%E5%88%B6"><span class="toc-article-text">狀態機：狀態控制</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-amp-A"><span class="toc-article-text">Q&amp;A</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90-1"><span class="toc-article-text">小結</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%B8%89%E3%80%81API-First-%E5%B0%8E%E5%85%A5%E7%B6%93%E9%A9%97%E8%AB%87"><span class="toc-article-text">三、API First 導入經驗談</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%A8%AD%E8%A8%88%E6%96%B9%E6%B3%95%E8%AB%96%E7%9A%84%E7%99%BC%E6%83%B3%E8%83%8C%E6%99%AF"><span class="toc-article-text">設計方法論的發想背景</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E6%96%87%E7%AB%A0"><span class="toc-article-text">相關文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%99%BC%E6%83%B3"><span class="toc-article-text">發想</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%8E%A8%E8%96%A6%E9%96%B1%E8%AE%80"><span class="toc-article-text">推薦閱讀</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%B8%80%E3%80%81API-%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7"><span class="toc-article-text">一、API 的重要性</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#AWS-%E7%9A%84%E5%9F%BA%E5%9B%A0-%E6%A8%99%E6%BA%96%E9%80%9A%E8%A8%8A%E4%BB%8B%E9%9D%A2-API"><span class="toc-article-text">AWS 的基因 - 標準通訊介面 API</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#MACH-Architecture"><span class="toc-article-text">MACH Architecture</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Kubernetes-isn%E2%80%99t-about-containers"><span class="toc-article-text">Kubernetes isn’t about containers</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-article-text">小結</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%BA%8C%E3%80%81%E8%A8%AD%E8%A8%88%E6%96%B9%E6%B3%95%E8%AB%96"><span class="toc-article-text">二、設計方法論</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%B2%A7%E8%A1%80%E5%9E%8B%E6%A8%A1%E5%9E%8B%EF%BC%8CAPI-CRUD%EF%BC%9F"><span class="toc-article-text">貧血型模型，API &#x3D; CRUD？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BB%A5-Domain-%E7%82%BA%E6%A0%B8%E5%BF%83%E7%9A%84%E8%A8%AD%E8%A8%88%E5%87%BA%E7%99%BC%E9%BB%9E%EF%BC%8C%E4%BB%A5-AWS-EC2-Instance-%E7%82%BA%E4%BE%8B"><span class="toc-article-text">以 Domain 為核心的設計出發點，以 AWS EC2 Instance 為例</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BD%BF%E7%94%A8%E7%8B%80%E6%85%8B%E6%A9%9F%E6%8F%8F%E8%BF%B0%E7%9A%84-RESTful-API-%E8%A8%AD%E8%A8%88%E6%96%B9%E6%B3%95%E8%AB%96"><span class="toc-article-text">使用狀態機描述的 RESTful API 設計方法論</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%8B%80%E6%85%8B%E6%A9%9F%EF%BC%9A%E7%8B%80%E6%85%8B%E6%8E%A7%E5%88%B6"><span class="toc-article-text">狀態機：狀態控制</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-A"><span class="toc-article-text">Q&amp;A</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90-1"><span class="toc-article-text">小結</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%B8%89%E3%80%81API-First-%E5%B0%8E%E5%85%A5%E7%B6%93%E9%A9%97%E8%AB%87"><span class="toc-article-text">三、API First 導入經驗談</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%A8%AD%E8%A8%88%E6%96%B9%E6%B3%95%E8%AB%96%E7%9A%84%E7%99%BC%E6%83%B3%E8%83%8C%E6%99%AF"><span class="toc-article-text">設計方法論的發想背景</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E6%96%87%E7%AB%A0"><span class="toc-article-text">相關文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%99%BC%E6%83%B3"><span class="toc-article-text">發想</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%8E%A8%E8%96%A6%E9%96%B1%E8%AE%80"><span class="toc-article-text">推薦閱讀</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -652,7 +591,7 @@ API 治理與管理：版本控管、導入策略 (API ">
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/API-Gateway/" style="color: white">API Gateway <span class="badge">18</span></a></span> <span class="label label-success"><a href="/tags/API-First/" style="color: white">API First <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Finite-State-Machine/" style="color: white">Finite-State Machine <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/RESTful/" style="color: white">RESTful <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/API-Design/" style="color: white">API Design <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/System-Design/" style="color: white">System Design <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/API/" style="color: white">API <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/API-Platform/" style="color: white">API Platform <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/API-Architecture/" style="color: white">API Architecture <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/API-Management/" style="color: white">API Management <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Headless/" style="color: white">Headless <span class="badge">1</span></a></span>
+  <span class="label label-success"><a href="/tags/API-Gateway/" style="color: white">API Gateway <span class="badge">18</span></a></span> <span class="label label-success"><a href="/tags/API-First/" style="color: white">API First <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Finite-State-Machine/" style="color: white">Finite-State Machine <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/API/" style="color: white">API <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/API-Design/" style="color: white">API Design <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/System-Design/" style="color: white">System Design <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/RESTful/" style="color: white">RESTful <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/API-Platform/" style="color: white">API Platform <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/API-Architecture/" style="color: white">API Architecture <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/API-Management/" style="color: white">API Management <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Headless/" style="color: white">Headless <span class="badge">1</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -664,6 +603,7 @@ API 治理與管理：版本控管、導入策略 (API ">
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -679,8 +619,10 @@ API 治理與管理：版本控管、導入策略 (API ">
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -690,8 +632,10 @@ API 治理與管理：版本控管、導入策略 (API ">
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -725,6 +669,7 @@ API 治理與管理：版本控管、導入策略 (API ">
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -778,6 +723,7 @@ API 治理與管理：版本控管、導入策略 (API ">
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -815,6 +761,7 @@ API 治理與管理：版本控管、導入策略 (API ">
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -830,6 +777,7 @@ API 治理與管理：版本控管、導入策略 (API ">
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

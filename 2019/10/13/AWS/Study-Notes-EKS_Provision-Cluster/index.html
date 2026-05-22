@@ -61,31 +61,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -109,7 +91,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -121,7 +103,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -245,25 +227,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2019%2F10%2F13%2FAWS%2FStudy-Notes-EKS_Provision-Cluster%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2019/10/13/AWS/Study-Notes-EKS_Provision-Cluster/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2019/10/13/AWS/Study-Notes-EKS_Provision-Cluster/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p><a href="/2019/03/17/Container/Install-K8s-with-Kubeadm/">上一篇</a> 整理了使用 kubeadm 安裝 K8s Cluster &#x2F; Worker Nodes &#x2F; CNI … 等，同樣的，本文整理使用 AWS EKS 安裝 K8s <code>v1.14</code> 的筆記，安裝過程則以 AWS CLI 為主，同樣方式也可以使用 eksctl、AWS Console、CloudFormation 執行。</p>
 <p>如同之前提及，雖然 EKS 是 Managed Service，但是實際上只有針對 Master Nodes，而 Worker Nodes 還是需要自行管理以及維護的，另外針對 Ingress、使用者權限、Log 蒐集、資源監控、網路 (CNI 相關) … 等，還是需要額外規劃。</p>
 <p>筆記內容：</p>
@@ -283,7 +246,7 @@
 <li><code>aws-iam-authenticator</code> (optional): 非必要, 如果 awscli 版本在 1.16.232 以下，那就需要</li>
 </ol>
 <p>底下筆記安裝過程，建議開一台乾淨的 Linux 安裝，避免本機環境不乾淨，造成後續安裝問題：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 1. 安裝 awscli</span></span><br><span class="line">pip install awscli</span><br><span class="line"></span><br><span class="line">~$ aws --version</span><br><span class="line">aws-cli/1.16.253 Python/3.5.2 Linux/4.4.0-1095-aws botocore/1.12.243</span><br><span class="line"></span><br><span class="line"><span class="comment">## 2. 安裝 kubectl: for linux</span></span><br><span class="line">~$ curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl</span><br><span class="line">~$ <span class="built_in">chmod</span> +x ./kubectl</span><br><span class="line">~$ <span class="built_in">mv</span> ./kubectl /usr/local/bin/kubectl</span><br><span class="line">~$ kubectl version --short --client</span><br><span class="line">Client Version: v1.16.1</span><br><span class="line"></span><br><span class="line"><span class="comment">## 安裝 kubectl: for macOS</span></span><br><span class="line"><span class="comment">#curl -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/darwin/amd64/kubectl</span></span><br><span class="line"><span class="comment">#~$ kubectl version --short --client</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 3. 安裝 aws-iam-authenticator</span></span><br><span class="line"><span class="comment">## see: https://github.com/kubernetes-sigs/aws-iam-authenticator</span></span><br><span class="line">~$ curl -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/aws-iam-authenticator</span><br><span class="line">~$ <span class="built_in">chmod</span> +x ./aws-iam-authenticator</span><br><span class="line">~$ sudo <span class="built_in">mv</span> aws-iam-authenticator /usr/local/bin</span><br><span class="line">~$ aws-iam-authenticator version --short</span><br><span class="line">Version: v0.4.0</span><br><span class="line">Commit: c141eda34ad1b6b4d71056810951801348f8c367</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 1. 安裝 awscli</span></span><br><span class="line">pip install awscli</span><br><span class="line"></span><br><span class="line">~$ aws --version</span><br><span class="line">aws-cli/1.16.253 Python/3.5.2 Linux/4.4.0-1095-aws botocore/1.12.243</span><br><span class="line"></span><br><span class="line"><span class="comment">## 2. 安裝 kubectl: for linux</span></span><br><span class="line">~$ curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl</span><br><span class="line">~$ <span class="built_in">chmod</span> +x ./kubectl</span><br><span class="line">~$ <span class="built_in">mv</span> ./kubectl /usr/local/bin/kubectl</span><br><span class="line">~$ kubectl version --short --client</span><br><span class="line">Client Version: v1.16.1</span><br><span class="line"></span><br><span class="line"><span class="comment">## 安裝 kubectl: for macOS</span></span><br><span class="line"><span class="comment">#curl -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/darwin/amd64/kubectl</span></span><br><span class="line"><span class="comment">#~$ kubectl version --short --client</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 3. 安裝 aws-iam-authenticator</span></span><br><span class="line"><span class="comment">## see: https://github.com/kubernetes-sigs/aws-iam-authenticator</span></span><br><span class="line">~$ curl -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/aws-iam-authenticator</span><br><span class="line">~$ <span class="built_in">chmod</span> +x ./aws-iam-authenticator</span><br><span class="line">~$ <span class="built_in">sudo</span> <span class="built_in">mv</span> aws-iam-authenticator /usr/local/bin</span><br><span class="line">~$ aws-iam-authenticator version --short</span><br><span class="line">Version: v0.4.0</span><br><span class="line">Commit: c141eda34ad1b6b4d71056810951801348f8c367</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 <h2 id="VPC-Consideration"><a href="#VPC-Consideration" class="headerlink" title="VPC Consideration"></a>VPC Consideration</h2><p>相關 VPC 規劃的考量，參閱：<a href="/2019/10/19/AWS/Study-Notes-EKS_Networking/">EKS 學習筆記 - 網路規劃與管理篇</a></p>
@@ -320,7 +283,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 1. 建立 EKS Cluster</span></span><br><span class="line">aws eks create-cluster \</span><br><span class="line">    --name <span class="variable">$&#123;K8S_CLUSTER_NAME&#125;</span> \</span><br><span class="line">    --role-arn <span class="variable">$&#123;K8S_MASTER_NODE_ROLE_ARN&#125;</span> \</span><br><span class="line">    --resources-vpc-config subnetIds=<span class="variable">$&#123;K8S_WORKER_SUBNETS&#125;</span>,securityGroupIds=<span class="variable">$&#123;K8S_WORKER_SECURITY_GROUPS&#125;</span>,endpointPublicAccess=<span class="literal">true</span>,endpointPrivateAccess=<span class="literal">true</span> \</span><br><span class="line">    --kubernetes-version <span class="variable">$&#123;K8S_VERSION&#125;</span> \</span><br><span class="line">    --region <span class="variable">$&#123;AWS_DEFAULT_REGION&#125;</span> \</span><br><span class="line">    --profile <span class="variable">$&#123;AWS_DEFAULT_PROFILE&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>執行下去會看到以下的輸出：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;cluster&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;eks-v114-20191006&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.14&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;roleArn&quot;</span><span class="punctuation">:</span> <span class="string">&quot;arn:aws:iam::123456789012:role/K8S_MASTER_NODE_ROLE_ARN&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;certificateAuthority&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;createdAt&quot;</span><span class="punctuation">:</span> <span class="number">1570342594.516</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;status&quot;</span><span class="punctuation">:</span> <span class="string">&quot;CREATING&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;arn&quot;</span><span class="punctuation">:</span> <span class="string">&quot;arn:aws:eks:us-west-2:123456789012:cluster/eks-v114-20191013&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;platformVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;eks.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;resourcesVpcConfig&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;endpointPublicAccess&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;subnetIds&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;subnet-12345678&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;subnet-12345679&quot;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;vpcId&quot;</span><span class="punctuation">:</span> <span class="string">&quot;vpc-1234567&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;securityGroupIds&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;sg-1234567890123456&quot;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;endpointPrivateAccess&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;cluster&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;eks-v114-20191006&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.14&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;roleArn&quot;</span><span class="punctuation">:</span> <span class="string">&quot;arn:aws:iam::123456789012:role/K8S_MASTER_NODE_ROLE_ARN&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;certificateAuthority&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;createdAt&quot;</span><span class="punctuation">:</span> <span class="number">1570342594.516</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;status&quot;</span><span class="punctuation">:</span> <span class="string">&quot;CREATING&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;arn&quot;</span><span class="punctuation">:</span> <span class="string">&quot;arn:aws:eks:us-west-2:123456789012:cluster/eks-v114-20191013&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;platformVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;eks.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;resourcesVpcConfig&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;endpointPublicAccess&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;subnetIds&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;subnet-12345678&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;subnet-12345679&quot;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;vpcId&quot;</span><span class="punctuation">:</span> <span class="string">&quot;vpc-1234567&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;securityGroupIds&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;sg-1234567890123456&quot;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;endpointPrivateAccess&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>接下來要等待大約十分鐘的時間，可以透過以下 CLI 取得 Cluster 狀態：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Status</span></span><br><span class="line">aws eks describe-cluster \</span><br><span class="line">    --region <span class="variable">$&#123;AWS_DEFAULT_REGION&#125;</span> \</span><br><span class="line">    --name <span class="variable">$&#123;K8S_CLUSTER_NAME&#125;</span> \</span><br><span class="line">    --query cluster.status</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;CREATING&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 大約等十到十五分鐘</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;ACTIVE&quot;</span></span><br></pre></td></tr></table></figure>
@@ -329,7 +292,7 @@
 <h3 id="配置-kubeconfig"><a href="#配置-kubeconfig" class="headerlink" title="配置 kubeconfig"></a>配置 kubeconfig</h3><p>使用以下 cli 產生 kubeconfig：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">aws eks update-kubeconfig \</span><br><span class="line">    --role-arn <span class="variable">$&#123;K8S_MASTER_NODE_ROLE_ARN&#125;</span> \</span><br><span class="line">    --name <span class="variable">$&#123;K8S_CLUSTER_NAME&#125;</span> \</span><br><span class="line">    --region <span class="variable">$&#123;AWS_DEFAULT_REGION&#125;</span> \</span><br><span class="line">    --profile <span class="variable">$&#123;AWS_DEFAULT_PROFILE&#125;</span> \</span><br><span class="line">    --kubeconfig <span class="string">&quot;<span class="variable">$&#123;HOME&#125;</span>/.kube/config_<span class="variable">$&#123;K8S_CLUSTER_NAME&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;copy and paste following to export KUBECONFIG:&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;    export KUBECONFIG=<span class="variable">$&#123;HOME&#125;</span>/.kube/config_<span class="variable">$&#123;K8S_CLUSTER_NAME&#125;</span>&quot;</span></span><br></pre></td></tr></table></figure>
 
-<p>請把 <code>$&#123;HOME&#125;/.kube/config_$&#123;K8S_CLUSTER_NAME&#125;</code> 檔案裡的 <code>env</code>、<code>role</code> 部份都註解掉，如下：</p>
+<p>請把 <code>${HOME}/.kube/config_${K8S_CLUSTER_NAME}</code> 檔案裡的 <code>env</code>、<code>role</code> 部份都註解掉，如下：</p>
 <p>新版的 awscli 產生如下：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">users:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">arn:aws:eks:us-west-2:123456789012:cluster/eks-v114-20191013</span></span><br><span class="line">  <span class="attr">user:</span></span><br><span class="line">    <span class="attr">exec:</span></span><br><span class="line">      <span class="attr">apiVersion:</span> <span class="string">client.authentication.k8s.io/v1alpha1</span></span><br><span class="line">      <span class="attr">args:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">--region</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">us-west-2</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">eks</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">get-token</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">--cluster-name</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">eks-v114-20191013</span></span><br><span class="line"><span class="comment">#      - --role</span></span><br><span class="line"><span class="comment">#      - arn:aws:iam::123456789012:role/K8S-Master-Node-Role</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">aws</span></span><br><span class="line"><span class="comment">#      env:</span></span><br><span class="line"><span class="comment">#      - name: AWS_PROFILE</span></span><br><span class="line"><span class="comment">#        value: gtcafe-dev.au-eks-admin</span></span><br></pre></td></tr></table></figure>
 
@@ -446,11 +409,6 @@
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2019/10/13/AWS/Study-Notes-EKS_Provision-Cluster/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -485,26 +443,6 @@
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2019/10/13/AWS/Study-Notes-EKS_Provision-Cluster/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -514,6 +452,7 @@
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -560,7 +499,7 @@
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Kubernetes/" style="color: white">Kubernetes <span class="badge">14</span></a></span> <span class="label label-success"><a href="/tags/kubeadm/" style="color: white">kubeadm <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/kubelet/" style="color: white">kubelet <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CNI/" style="color: white">CNI <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CRI/" style="color: white">CRI <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/EKS/" style="color: white">EKS <span class="badge">4</span></a></span>
+  <span class="label label-success"><a href="/tags/Kubernetes/" style="color: white">Kubernetes <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/EKS/" style="color: white">EKS <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/kubeadm/" style="color: white">kubeadm <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/kubelet/" style="color: white">kubelet <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CNI/" style="color: white">CNI <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CRI/" style="color: white">CRI <span class="badge">6</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -572,6 +511,7 @@
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -587,8 +527,10 @@
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -598,8 +540,10 @@
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -633,6 +577,7 @@
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -686,6 +631,7 @@
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -723,6 +669,7 @@
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -738,6 +685,7 @@
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

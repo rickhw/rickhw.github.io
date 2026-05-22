@@ -62,31 +62,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -110,7 +92,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -122,7 +104,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -246,25 +228,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2026%2F04%2F12%2FComputerScience%2FSimple-OS-Timer%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2026/04/12/ComputerScience/Simple-OS-Timer/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2026/04/12/ComputerScience/Simple-OS-Timer/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>在 <a href="/2026/03/27/ComputerScience/Simple-OS/">自幹作業系統 - Simple OS</a> 的過程中，我的學習方法是快速的先取得成就感，透過與 AI 協作過程，快速刻出能動的、完整的，只用了三週就完成實作 (03&#x2F;12 - 03&#x2F;27)，但是非常古早味的作業系統，說白話：<code>先能動再說</code>，好聽的就是 <code>麻雀雖小，五臟俱全</code>。但往下探索，很容易暴露一個現實：<code>知其然，不知所以然</code>，有些東西就是沒有透測的理解。但也是這份好奇心停留在心裡，我開始往下了解與深究背後的原理以及知識，同時也連結到以前的經驗與知識 (或者資訊)。</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/v1.0.0_b20260412/course/p2_memory-management-and-privilege-isolation/day11_programmable-interval-timer/Course.md">Day12</a> - Timer&#x2F;PIT (Programmable Interval Timer) 是我開始深究的題目，底下是我好奇的幾個點：</p>
 <ul>
@@ -359,7 +322,7 @@
 <p>timer_handler() 是透過 PIC 固定週期就被調用一次，概念類似於 <a target="_blank" rel="noopener" href="https://github.com/rickhw/java-2d-rpg-game/blob/main/src/main/java/gtcafe/rpg/GamePanel.java#L217">Game Loop</a> 裡的 FPS。底下是我在 <a href="/2025/12/19/About/Java-2D-RPG-Game/">純手工遊戲開發 - Java 2D RPG Game</a> 的 <a target="_blank" rel="noopener" href="https://github.com/rickhw/java-2d-rpg-game/blob/main/src/main/java/gtcafe/rpg/GamePanel.java#L217">Game Loop</a> 精簡過後的片段邏輯：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">double</span> <span class="variable">drawInterval</span> <span class="operator">=</span> <span class="number">1000000000</span> / FPS; <span class="comment">// 0.016666 seconds per frame</span></span><br><span class="line">    <span class="type">double</span> <span class="variable">delta</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">long</span> <span class="variable">lastTime</span> <span class="operator">=</span> System.nanoTime();</span><br><span class="line">    <span class="type">long</span> currentTime;</span><br><span class="line">    <span class="type">long</span> <span class="variable">timer</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">drawCount</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(gameThread != <span class="literal">null</span>) &#123;</span><br><span class="line">        currentTime = System.nanoTime();</span><br><span class="line">        delta += (currentTime - lastTime) / drawInterval;</span><br><span class="line">        timer += currentTime - lastTime;</span><br><span class="line">        lastTime = currentTime;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(delta &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">            update();</span><br><span class="line">            delta--;</span><br><span class="line">            drawCount++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (timer &gt;= <span class="number">1000000000</span>) &#123;</span><br><span class="line">            drawCount = <span class="number">0</span>;</span><br><span class="line">            timer = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">update</span><span class="params">()</span> &#123;  <span class="comment">// 類似 timer_handler</span></span><br><span class="line">     player.update();</span><br><span class="line">     npc.update();</span><br><span class="line">     monster.update();</span><br><span class="line">     <span class="comment">// ... ooxx.update(); </span></span><br><span class="line">     <span class="comment">// ex: particles, projectiles, interactive tiles, inventory ... etc.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>兩者都是有一個 <code>while(true) &#123;&#125;</code> 的 loop，然後固定調用 function - <code>timer_handler()</code> and <code>update()</code>但不同的是：</p>
+<p>兩者都是有一個 <code>while(true) {}</code> 的 loop，然後固定調用 function - <code>timer_handler()</code> and <code>update()</code>但不同的是：</p>
 <ol>
 <li>Game Loop 會因為 Update 處理的效能 (通常是 2D&#x2F;3D 圖形渲染)，因而影響 FPS 的大小。</li>
 <li>Game Loop 裡 <code>update()</code> 更新的每一個 Frame，前後彼此之間是有關聯的。如果計算錯誤、或者計算延遲，就會產生卡頓、掉幀的感覺。</li>
@@ -376,7 +339,7 @@
 </thead>
 <tbody><tr>
 <td align="left"><strong>迴圈本體</strong></td>
-<td align="left"><code>while(running) &#123; ... &#125;</code></td>
+<td align="left"><code>while(running) { ... }</code></td>
 <td align="left"><code>isr32:</code> -&gt; <code>call timer_handler</code></td>
 </tr>
 <tr>
@@ -534,11 +497,6 @@
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2026/04/12/ComputerScience/Simple-OS-Timer/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -573,26 +531,6 @@
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2026/04/12/ComputerScience/Simple-OS-Timer/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -602,6 +540,7 @@
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -632,7 +571,7 @@
     <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
       <div>
   <!--<li>-->
-    <span class="label label-info"><a href="/categories/Computer-Science/" style="color: white">Computer Science <span class="badge">11</span></a></span>
+    <span class="label label-info"><a href="/categories/Computer-Science/" style="color: white">Computer Science <span class="badge">12</span></a></span>
   <!--</li>-->
 </div>
     <!--</ul>-->
@@ -648,7 +587,7 @@
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Just-for-Fun/" style="color: white">Just for Fun <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Operating-Systems/" style="color: white">Operating Systems <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Timer/" style="color: white">Timer <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Sleep/" style="color: white">Sleep <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Game-Loop/" style="color: white">Game Loop <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/複利知識/" style="color: white">複利知識 <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/知識幻覺/" style="color: white">知識幻覺 <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/知識飛輪/" style="color: white">知識飛輪 <span class="badge">1</span></a></span>
+  <span class="label label-success"><a href="/tags/知識幻覺/" style="color: white">知識幻覺 <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Operating-Systems/" style="color: white">Operating Systems <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/Just-for-Fun/" style="color: white">Just for Fun <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Timer/" style="color: white">Timer <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Sleep/" style="color: white">Sleep <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Game-Loop/" style="color: white">Game Loop <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/複利知識/" style="color: white">複利知識 <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/知識飛輪/" style="color: white">知識飛輪 <span class="badge">1</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -660,6 +599,7 @@
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -675,8 +615,10 @@
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -686,8 +628,10 @@
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -721,6 +665,7 @@
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -774,6 +719,7 @@
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -811,6 +757,7 @@
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -826,6 +773,7 @@
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

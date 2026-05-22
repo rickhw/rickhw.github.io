@@ -66,31 +66,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -114,7 +96,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -126,7 +108,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -250,25 +232,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2021%2F05%2F08%2FDistributedSystems%2FExperience-Dapr-Secret-Store%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2021/05/08/DistributedSystems/Experience-Dapr-Secret-Store/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2021/05/08/DistributedSystems/Experience-Dapr-Secret-Store/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>在這年代不管是開發單體應用架構、還是分散式系統，不管怎樣的語言、平台，都要處理這個問題：</p>
 <blockquote>
 <p>機敏性資料，如 <code>資料庫連線</code>、第三方串接的 <code>API Token</code> …</p>
@@ -316,7 +279,7 @@
 
 <p><a target="_blank" rel="noopener" href="https://docs.dapr.io/reference/api/secrets_api/">Dapr Secrets API</a> 的結構是這樣的：</p>
 <blockquote>
-<p>單一: GET <a href="http://localhost:&lt;daprPort&gt;/v1.0/secrets/&lt;secret-store-name&gt;/&lt;name&gt;">http://localhost:&lt;daprPort&gt;/v1.0/secrets/&lt;secret-store-name&gt;/&lt;name&gt;</a><br>全部: GET <a href="http://localhost:&lt;daprPort&gt;/v1.0/secrets/&lt;secret-store-name&gt;/bulk">http://localhost:&lt;daprPort&gt;/v1.0/secrets/&lt;secret-store-name&gt;/bulk</a></p>
+<p>單一: GET <a href="http://localhost:&lt;daprPort>/v1.0/secrets/&lt;secret-store-name>/&lt;name>">http://localhost:&lt;daprPort&gt;/v1.0/secrets/&lt;secret-store-name&gt;/&lt;name&gt;</a><br>全部: GET <a href="http://localhost:&lt;daprPort>/v1.0/secrets/&lt;secret-store-name>/bulk">http://localhost:&lt;daprPort&gt;/v1.0/secrets/&lt;secret-store-name&gt;/bulk</a></p>
 </blockquote>
 <p>詳細規格參閱 Dapr API: <a target="_blank" rel="noopener" href="https://docs.dapr.io/reference/api/secrets_api/">Secrets API Reference</a></p>
 <h2 id="Secret-Scoping"><a href="#Secret-Scoping" class="headerlink" title="Secret Scoping"></a><a target="_blank" rel="noopener" href="https://docs.dapr.io/developing-applications/building-blocks/secrets/secrets-scopes/">Secret Scoping</a></h2><p>幾個常見的使用情境 (Scenarios):</p>
@@ -362,7 +325,7 @@
 <li><a target="_blank" rel="noopener" href="https://github.com/dapr/components-contrib/blob/master/secretstores/aws/secretmanager/secretmanager.go">AWS Secret Management</a></li>
 </ul>
 <p>從 Code 不難了解，其實是每次都會直接操作的。了解這要做什麼？往下看。</p>
-<h2 id="TBD-成本問題：如何降低對外部-Secret-Store-x2F-Manager-的存取次數"><a href="#TBD-成本問題：如何降低對外部-Secret-Store-x2F-Manager-的存取次數" class="headerlink" title="[TBD] 成本問題：如何降低對外部 Secret Store &#x2F; Manager 的存取次數"></a>[TBD] 成本問題：如何降低對外部 Secret Store &#x2F; Manager 的存取次數</h2><p>上一個思考，要帶出的問題：</p>
+<h2 id="TBD-成本問題：如何降低對外部-Secret-Store-Manager-的存取次數"><a href="#TBD-成本問題：如何降低對外部-Secret-Store-Manager-的存取次數" class="headerlink" title="[TBD] 成本問題：如何降低對外部 Secret Store &#x2F; Manager 的存取次數"></a>[TBD] 成本問題：如何降低對外部 Secret Store &#x2F; Manager 的存取次數</h2><p>上一個思考，要帶出的問題：</p>
 <blockquote>
 <p>每個 pod 起來時，至少 Dapr Sidecar 就要對 secret store 存取一次，所以大量啟動 pod 時都會對 secret store 多次存取？</p>
 </blockquote>
@@ -403,7 +366,7 @@
 <p><img src="/images/DistributedSystems/dapr/secret-store/warning_local-env.png"></p>
 <p>我個人建議就是不要使用，方便的代價很高，試著打這個 API 就可以拿到所有 env vars:</p>
 <blockquote>
-<p><a href="http://localhost:&lt;daprPort&gt;/v1.0/secrets/&lt;secret-store-name&gt;/bulk">http://localhost:&lt;daprPort&gt;/v1.0/secrets/&lt;secret-store-name&gt;/bulk</a></p>
+<p><a href="http://localhost:&lt;daprPort>/v1.0/secrets/&lt;secret-store-name>/bulk">http://localhost:&lt;daprPort&gt;/v1.0/secrets/&lt;secret-store-name&gt;/bulk</a></p>
 </blockquote>
 <h2 id="Building-Block-怎麼使用-Secret-Store"><a href="#Building-Block-怎麼使用-Secret-Store" class="headerlink" title="Building Block 怎麼使用 Secret Store?"></a>Building Block 怎麼使用 Secret Store?</h2><p>Secret Store 可以儲存像是 database connection string 這種機敏性資訊，但是其他的 Dapr components 也都有機敏性資料，像是 state store, binding 都是需要這些資訊才能建立連線，那要怎麼使用 secret store 呢？</p>
 <p>參閱官方文件：<a target="_blank" rel="noopener" href="https://docs.dapr.io/operations/components/component-secrets/">How-To: Reference secrets in components</a>，下一篇筆記會整理實際的心得。</p>
@@ -447,11 +410,6 @@
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2021/05/08/DistributedSystems/Experience-Dapr-Secret-Store/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -486,26 +444,6 @@
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2021/05/08/DistributedSystems/Experience-Dapr-Secret-Store/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -515,6 +453,7 @@
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -531,7 +470,7 @@
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-article-text">基本概念</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%BD%BF%E7%94%A8-Secret-Store"><span class="toc-article-text">使用 Secret Store</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9C%A8%E6%9C%AC%E6%A9%9F-%E9%96%8B%E7%99%BC%E9%9A%8E%E6%AE%B5"><span class="toc-article-text">在本機: 開發階段</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Secret-Scoping"><span class="toc-article-text">Secret Scoping</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%95%8F%E9%A1%8C%E8%88%87%E6%80%9D%E8%80%83"><span class="toc-article-text">問題與思考</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%80%9D%E8%80%83%E5%8F%96%E5%BE%97-Secret-%E7%9A%84%E9%80%94%E5%BE%91"><span class="toc-article-text">思考取得 Secret 的途徑</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#TBD-%E6%88%90%E6%9C%AC%E5%95%8F%E9%A1%8C%EF%BC%9A%E5%A6%82%E4%BD%95%E9%99%8D%E4%BD%8E%E5%B0%8D%E5%A4%96%E9%83%A8-Secret-Store-x2F-Manager-%E7%9A%84%E5%AD%98%E5%8F%96%E6%AC%A1%E6%95%B8"><span class="toc-article-text">[TBD] 成本問題：如何降低對外部 Secret Store &#x2F; Manager 的存取次數</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Dapr-%E5%9C%A8-AWS-%E4%BD%BF%E7%94%A8%E4%B8%8A%E7%9A%84%E6%95%B4%E5%90%88"><span class="toc-article-text">Dapr 在 AWS 使用上的整合</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Audit-Log"><span class="toc-article-text">Audit Log</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%96%B9%E4%BE%BF%E7%9A%84%E4%BB%A3%E5%83%B9%EF%BC%9A%E6%94%AF%E6%8F%B4-local-environment-variables-%E5%BE%88%E6%96%B9%E4%BE%BF%EF%BC%8C%E9%83%BD%E4%BD%BF%E7%94%A8%E9%80%99%E5%80%8B%E5%B0%B1%E5%A5%BD%E4%BA%86%EF%BC%9F"><span class="toc-article-text">方便的代價：支援 local environment variables 很方便，都使用這個就好了？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Building-Block-%E6%80%8E%E9%BA%BC%E4%BD%BF%E7%94%A8-Secret-Store"><span class="toc-article-text">Building Block 怎麼使用 Secret Store?</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-article-text">結語</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Dapr-%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0"><span class="toc-article-text">Dapr 系列文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%88%86%E6%95%A3%E5%BC%8F%E7%B3%BB%E7%B5%B1%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0"><span class="toc-article-text">分散式系統系列文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Dapr-%E5%AE%98%E6%96%B9%E6%96%87%E4%BB%B6"><span class="toc-article-text">Dapr 官方文件</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-article-text">基本概念</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%BD%BF%E7%94%A8-Secret-Store"><span class="toc-article-text">使用 Secret Store</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9C%A8%E6%9C%AC%E6%A9%9F-%E9%96%8B%E7%99%BC%E9%9A%8E%E6%AE%B5"><span class="toc-article-text">在本機: 開發階段</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Secret-Scoping"><span class="toc-article-text">Secret Scoping</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%95%8F%E9%A1%8C%E8%88%87%E6%80%9D%E8%80%83"><span class="toc-article-text">問題與思考</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%80%9D%E8%80%83%E5%8F%96%E5%BE%97-Secret-%E7%9A%84%E9%80%94%E5%BE%91"><span class="toc-article-text">思考取得 Secret 的途徑</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#TBD-%E6%88%90%E6%9C%AC%E5%95%8F%E9%A1%8C%EF%BC%9A%E5%A6%82%E4%BD%95%E9%99%8D%E4%BD%8E%E5%B0%8D%E5%A4%96%E9%83%A8-Secret-Store-Manager-%E7%9A%84%E5%AD%98%E5%8F%96%E6%AC%A1%E6%95%B8"><span class="toc-article-text">[TBD] 成本問題：如何降低對外部 Secret Store &#x2F; Manager 的存取次數</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Dapr-%E5%9C%A8-AWS-%E4%BD%BF%E7%94%A8%E4%B8%8A%E7%9A%84%E6%95%B4%E5%90%88"><span class="toc-article-text">Dapr 在 AWS 使用上的整合</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Audit-Log"><span class="toc-article-text">Audit Log</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%96%B9%E4%BE%BF%E7%9A%84%E4%BB%A3%E5%83%B9%EF%BC%9A%E6%94%AF%E6%8F%B4-local-environment-variables-%E5%BE%88%E6%96%B9%E4%BE%BF%EF%BC%8C%E9%83%BD%E4%BD%BF%E7%94%A8%E9%80%99%E5%80%8B%E5%B0%B1%E5%A5%BD%E4%BA%86%EF%BC%9F"><span class="toc-article-text">方便的代價：支援 local environment variables 很方便，都使用這個就好了？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Building-Block-%E6%80%8E%E9%BA%BC%E4%BD%BF%E7%94%A8-Secret-Store"><span class="toc-article-text">Building Block 怎麼使用 Secret Store?</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-article-text">結語</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Dapr-%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0"><span class="toc-article-text">Dapr 系列文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%88%86%E6%95%A3%E5%BC%8F%E7%B3%BB%E7%B5%B1%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0"><span class="toc-article-text">分散式系統系列文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Dapr-%E5%AE%98%E6%96%B9%E6%96%87%E4%BB%B6"><span class="toc-article-text">Dapr 官方文件</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -573,6 +512,7 @@
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -588,8 +528,10 @@
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -599,8 +541,10 @@
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -634,6 +578,7 @@
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -687,6 +632,7 @@
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -724,6 +670,7 @@
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -739,6 +686,7 @@
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

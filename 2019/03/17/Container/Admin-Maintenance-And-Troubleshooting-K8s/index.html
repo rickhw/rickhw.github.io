@@ -69,31 +69,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -117,7 +99,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -129,7 +111,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -253,25 +235,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2019%2F03%2F17%2FContainer%2FAdmin-Maintenance-And-Troubleshooting-K8s%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2019/03/17/Container/Admin-Maintenance-And-Troubleshooting-K8s/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2019/03/17/Container/Admin-Maintenance-And-Troubleshooting-K8s/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>延續 <a href="/2019/03/17/Container/Install-K8s-with-Kubeadm/">K8s 學習筆記 - kubeadm 手動安裝</a> 的整理，本文整理 K8s Cluster 安裝或者維護過程遇到的問題。</p>
 <span id="more"></span>
 
@@ -281,14 +244,14 @@
 <li>了解刪除過程中會發生的事情</li>
 </ul>
 <p>打算刪除 <code>k8s14-worker02-u1604</code> 這個 worker node，先檢查現況</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 確認現在的 node</span></span><br><span class="line">~$ k get no</span><br><span class="line">NAME                   STATUS   ROLES    AGE     VERSION</span><br><span class="line">k8s14-master01-u1604   Ready    master   10d     v1.14.0</span><br><span class="line">k8s14-worker02-u1604   Ready    &lt;none&gt;   4m31s   v1.14.0</span><br><span class="line">k8s14-worker03-u1604   Ready    &lt;none&gt;   32m     v1.14.0</span><br><span class="line">k8s14-worker04-u1604   Ready    &lt;none&gt;   24m     v1.14.0</span><br><span class="line"></span><br><span class="line"><span class="comment">## 檢查有哪些 pod 跑在 worker02</span></span><br><span class="line">~$ k get po -o wide | grep worker02</span><br><span class="line">kube-proxy-zx6fn   1/1     Running   0    3m53s   192.168.2.16   k8s14-worker02-u1604</span><br><span class="line">weave-net-fkb5w    2/2     Running   1    3m53s   192.168.2.16   k8s14-worker02-u1604</span><br><span class="line"></span><br><span class="line"><span class="comment">## 2. 到 worker02 裡面，檢查 docker ps</span></span><br><span class="line">root@k8s14-worker02-u1604:~<span class="comment"># docker ps</span></span><br><span class="line">CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS               NAMES</span><br><span class="line">239c836beb6a        047e0878ff14           <span class="string">&quot;/tini -- /usr/local…&quot;</span>   3 minutes ago       Up 3 minutes                            k8s_rook-ceph-agent_rook-ceph-agent-bsgqk_rook-ceph_71d9fc74-605e-11e9-a972-92cde7b04430_1</span><br><span class="line">fe68d8f88ed1        1f394ae9e226           <span class="string">&quot;/home/weave/launch.…&quot;</span>   3 minutes ago       Up 3 minutes                            k8s_weave_weave-net-fkb5w_kube-system_6bd4a2fa-605e-11e9-a972-92cde7b04430_1</span><br><span class="line">ae00e498728f        789b7f496034           <span class="string">&quot;/usr/bin/weave-npc&quot;</span>     4 minutes ago       Up 4 minutes                            k8s_weave-npc_weave-net-fkb5w_kube-system_6bd4a2fa-605e-11e9-a972-92cde7b04430_0</span><br><span class="line">... 略 ...</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 確認現在的 node</span></span><br><span class="line">~$ k get no</span><br><span class="line">NAME                   STATUS   ROLES    AGE     VERSION</span><br><span class="line">k8s14-master01-u1604   Ready    master   10d     v1.14.0</span><br><span class="line">k8s14-worker02-u1604   Ready    &lt;none&gt;   4m31s   v1.14.0</span><br><span class="line">k8s14-worker03-u1604   Ready    &lt;none&gt;   32m     v1.14.0</span><br><span class="line">k8s14-worker04-u1604   Ready    &lt;none&gt;   24m     v1.14.0</span><br><span class="line"></span><br><span class="line"><span class="comment">## 檢查有哪些 pod 跑在 worker02</span></span><br><span class="line">~$ k get po -o wide | grep worker02</span><br><span class="line">kube-proxy-zx6fn   1/1     Running   0    3m53s   192.168.2.16   k8s14-worker02-u1604</span><br><span class="line">weave-net-fkb5w    2/2     Running   1    3m53s   192.168.2.16   k8s14-worker02-u1604</span><br><span class="line"></span><br><span class="line"><span class="comment">## 2. 到 worker02 裡面，檢查 docker ps</span></span><br><span class="line">root@k8s14-worker02-u1604:~# docker ps</span><br><span class="line">CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS               NAMES</span><br><span class="line">239c836beb6a        047e0878ff14           <span class="string">&quot;/tini -- /usr/local…&quot;</span>   3 minutes ago       Up 3 minutes                            k8s_rook-ceph-agent_rook-ceph-agent-bsgqk_rook-ceph_71d9fc74-605e-11e9-a972-92cde7b04430_1</span><br><span class="line">fe68d8f88ed1        1f394ae9e226           <span class="string">&quot;/home/weave/launch.…&quot;</span>   3 minutes ago       Up 3 minutes                            k8s_weave_weave-net-fkb5w_kube-system_6bd4a2fa-605e-11e9-a972-92cde7b04430_1</span><br><span class="line">ae00e498728f        789b7f496034           <span class="string">&quot;/usr/bin/weave-npc&quot;</span>     4 minutes ago       Up 4 minutes                            k8s_weave-npc_weave-net-fkb5w_kube-system_6bd4a2fa-605e-11e9-a972-92cde7b04430_0</span><br><span class="line">... 略 ...</span><br></pre></td></tr></table></figure>
 
 <p>開始執行刪除 worker node，主要步驟如下：</p>
 <ol>
 <li>Drain Node</li>
 <li>Delete Node</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. Drain Node, 同時刪除一些資料</span></span><br><span class="line">~$ kubectl drain k8s14-worker02-u1604 --delete-local-data --force --ignore-daemonsets</span><br><span class="line">node/k8s14-worker02-u1604 cordoned</span><br><span class="line">WARNING: Ignoring DaemonSet-managed pods: kube-proxy-zx6fn, weave-net-fkb5w, rook-ceph-agent-bsgqk, rook-discover-p5ptq, weave-scope-agent-wsmd2</span><br><span class="line">pod/rook-ceph-mon-b-775ff945c5-rzzt6 evicted</span><br><span class="line"></span><br><span class="line"><span class="comment">## 1-1. 確認狀態</span></span><br><span class="line">~$ kubectl get no</span><br><span class="line">NAME                   STATUS                     ROLES    AGE     VERSION</span><br><span class="line">k8s14-master01-u1604   Ready                      master   10d     v1.14.0</span><br><span class="line">k8s14-worker02-u1604   Ready,SchedulingDisabled   &lt;none&gt;   8m36s   v1.14.0</span><br><span class="line">k8s14-worker03-u1604   Ready                      &lt;none&gt;   36m     v1.14.0</span><br><span class="line">k8s14-worker04-u1604   Ready                      &lt;none&gt;   28m     v1.14.0</span><br><span class="line"></span><br><span class="line"><span class="comment">## 1-2. Begin of Checking: 沒啥變化</span></span><br><span class="line"><span class="comment">### 檢查跑在 worker02 上的 pod</span></span><br><span class="line">~$ k get po -o wide | grep worker02</span><br><span class="line">kube-proxy-zx6fn       1/1     Running   0    8m56s   192.168.2.16   k8s14-worker02-u1604</span><br><span class="line">weave-net-fkb5w        2/2     Running   1    8m56s   192.168.2.16   k8s14-worker02-u1604</span><br><span class="line"></span><br><span class="line"><span class="comment">### 到 worker02 裡面，檢查 docker ps</span></span><br><span class="line">root@k8s14-worker02-u1604:~<span class="comment"># docker ps</span></span><br><span class="line">CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS               NAMES</span><br><span class="line">239c836beb6a        047e0878ff14           <span class="string">&quot;/tini -- /usr/local…&quot;</span>   3 minutes ago       Up 3 minutes                            k8s_rook-ceph-agent_rook-ceph-agent-bsgqk_rook-ceph_71d9fc74-605e-11e9-a972-92cde7b04430_1</span><br><span class="line">fe68d8f88ed1        1f394ae9e226           <span class="string">&quot;/home/weave/launch.…&quot;</span>   3 minutes ago       Up 3 minutes                            k8s_weave_weave-net-fkb5w_kube-system_6bd4a2fa-605e-11e9-a972-92cde7b04430_1</span><br><span class="line">ae00e498728f        789b7f496034           <span class="string">&quot;/usr/bin/weave-npc&quot;</span>     4 minutes ago       Up 4 minutes                            k8s_weave-npc_weave-net-fkb5w_kube-system_6bd4a2fa-605e-11e9-a972-92cde7b04430_0</span><br><span class="line">... 略 ...</span><br><span class="line"><span class="comment">## End of Checking: 沒啥變化</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 刪除 worker01 node</span></span><br><span class="line">~$ kubectl delete node k8s14-worker02-u1604</span><br><span class="line">node <span class="string">&quot;k8s14-worker02-u1604&quot;</span> deleted</span><br><span class="line"></span><br><span class="line"><span class="comment">## 2-1. 檢查 node</span></span><br><span class="line">~$ k get no</span><br><span class="line">NAME                   STATUS   ROLES    AGE   VERSION</span><br><span class="line">k8s14-master01-u1604   Ready    master   10d   v1.14.0</span><br><span class="line">k8s14-worker03-u1604   Ready    &lt;none&gt;   42m   v1.14.0</span><br><span class="line">k8s14-worker04-u1604   Ready    &lt;none&gt;   33m   v1.14.0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 2-2. 到 worker02 裡執行 kubeadm reset 清除資料, 如下:</span></span><br><span class="line">root@k8s14-worker02-u1604:~<span class="comment"># kubeadm reset</span></span><br><span class="line">[reset] WARNING: Changes made to this host by <span class="string">&#x27;kubeadm init&#x27;</span> or <span class="string">&#x27;kubeadm join&#x27;</span> will be reverted.</span><br><span class="line">[reset] Are you sure you want to proceed? [y/N]: y</span><br><span class="line">[preflight] Running pre-flight checks</span><br><span class="line">W0416 23:57:25.138327   18457 reset.go:234] [reset] No kubeadm config, using etcd pod spec to get data directory</span><br><span class="line">[reset] No etcd config found. Assuming external etcd</span><br><span class="line">[reset] Please manually reset etcd to prevent further issues</span><br><span class="line">[reset] Stopping the kubelet service</span><br><span class="line">[reset] unmounting mounted directories <span class="keyword">in</span> <span class="string">&quot;/var/lib/kubelet&quot;</span></span><br><span class="line">[reset] Deleting contents of stateful directories: [/var/lib/kubelet /etc/cni/net.d /var/lib/dockershim /var/run/kubernetes]</span><br><span class="line">[reset] Deleting contents of config directories: [/etc/kubernetes/manifests /etc/kubernetes/pki]</span><br><span class="line">[reset] Deleting files: [/etc/kubernetes/admin.conf /etc/kubernetes/kubelet.conf /etc/kubernetes/bootstrap-kubelet.conf /etc/kubernetes/controller-manager.conf /etc/kubernetes/scheduler.conf]</span><br><span class="line"></span><br><span class="line">The reset process does not reset or clean up iptables rules or IPVS tables.</span><br><span class="line">If you wish to reset iptables, you must <span class="keyword">do</span> so manually.</span><br><span class="line">For example:</span><br><span class="line">iptables -F &amp;&amp; iptables -t nat -F &amp;&amp; iptables -t mangle -F &amp;&amp; iptables -X</span><br><span class="line"></span><br><span class="line">If your cluster was setup to utilize IPVS, run ipvsadm --clear (or similar)</span><br><span class="line">to reset your systems IPVS tables.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">### (optional) 到 worker02 機器裡面看看 docker ps, container 很快就刪完了，沒有 container 再跑了</span></span><br><span class="line">root@k8s14-worker02-u1604:~<span class="comment"># docker ps</span></span><br><span class="line">CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS               NAMES</span><br><span class="line">bf7310c8d3c6        d9ece03f45e7           <span class="string">&quot;/home/weave/entrypo…&quot;</span>   9 minutes ago       Up 9 minutes                            k8s_scope-agent_weave-scope-agent-wsmd2_weave_6bd48236-605e-11e9-a972-92cde7b04430_0</span><br><span class="line">79d7b777a525        k8s.gcr.io/pause:3.1   <span class="string">&quot;/pause&quot;</span>                 9 minutes ago       Up 9 minutes                            k8s_POD_weave-scope-agent-wsmd2_weave_6bd48236-605e-11e9-a972-92cde7b04430_0</span><br><span class="line"></span><br><span class="line">root@k8s14-worker02-u1604:~<span class="comment"># docker ps</span></span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line">root@k8s14-worker02-u1604:~<span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### (optional) docker images 還在</span></span><br><span class="line">root@k8s14-worker02-u1604:~<span class="comment"># docker images</span></span><br><span class="line">REPOSITORY                                          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">rook/ceph                                           master              047e0878ff14        3 days ago          698MB</span><br><span class="line">wordpress                                           latest              837092bc87de        5 days ago          421MB</span><br><span class="line">istio/proxyv2                                       1.1.2               c7fb421f087e        12 days ago         378MB</span><br><span class="line">... 略 ...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. Drain Node, 同時刪除一些資料</span></span><br><span class="line">~$ kubectl drain k8s14-worker02-u1604 --delete-local-data --force --ignore-daemonsets</span><br><span class="line">node/k8s14-worker02-u1604 cordoned</span><br><span class="line">WARNING: Ignoring DaemonSet-managed pods: kube-proxy-zx6fn, weave-net-fkb5w, rook-ceph-agent-bsgqk, rook-discover-p5ptq, weave-scope-agent-wsmd2</span><br><span class="line">pod/rook-ceph-mon-b-775ff945c5-rzzt6 evicted</span><br><span class="line"></span><br><span class="line"><span class="comment">## 1-1. 確認狀態</span></span><br><span class="line">~$ kubectl get no</span><br><span class="line">NAME                   STATUS                     ROLES    AGE     VERSION</span><br><span class="line">k8s14-master01-u1604   Ready                      master   10d     v1.14.0</span><br><span class="line">k8s14-worker02-u1604   Ready,SchedulingDisabled   &lt;none&gt;   8m36s   v1.14.0</span><br><span class="line">k8s14-worker03-u1604   Ready                      &lt;none&gt;   36m     v1.14.0</span><br><span class="line">k8s14-worker04-u1604   Ready                      &lt;none&gt;   28m     v1.14.0</span><br><span class="line"></span><br><span class="line"><span class="comment">## 1-2. Begin of Checking: 沒啥變化</span></span><br><span class="line"><span class="comment">### 檢查跑在 worker02 上的 pod</span></span><br><span class="line">~$ k get po -o wide | grep worker02</span><br><span class="line">kube-proxy-zx6fn       1/1     Running   0    8m56s   192.168.2.16   k8s14-worker02-u1604</span><br><span class="line">weave-net-fkb5w        2/2     Running   1    8m56s   192.168.2.16   k8s14-worker02-u1604</span><br><span class="line"></span><br><span class="line"><span class="comment">### 到 worker02 裡面，檢查 docker ps</span></span><br><span class="line">root@k8s14-worker02-u1604:~# docker ps</span><br><span class="line">CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS               NAMES</span><br><span class="line">239c836beb6a        047e0878ff14           <span class="string">&quot;/tini -- /usr/local…&quot;</span>   3 minutes ago       Up 3 minutes                            k8s_rook-ceph-agent_rook-ceph-agent-bsgqk_rook-ceph_71d9fc74-605e-11e9-a972-92cde7b04430_1</span><br><span class="line">fe68d8f88ed1        1f394ae9e226           <span class="string">&quot;/home/weave/launch.…&quot;</span>   3 minutes ago       Up 3 minutes                            k8s_weave_weave-net-fkb5w_kube-system_6bd4a2fa-605e-11e9-a972-92cde7b04430_1</span><br><span class="line">ae00e498728f        789b7f496034           <span class="string">&quot;/usr/bin/weave-npc&quot;</span>     4 minutes ago       Up 4 minutes                            k8s_weave-npc_weave-net-fkb5w_kube-system_6bd4a2fa-605e-11e9-a972-92cde7b04430_0</span><br><span class="line">... 略 ...</span><br><span class="line"><span class="comment">## End of Checking: 沒啥變化</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 刪除 worker01 node</span></span><br><span class="line">~$ kubectl delete node k8s14-worker02-u1604</span><br><span class="line">node <span class="string">&quot;k8s14-worker02-u1604&quot;</span> deleted</span><br><span class="line"></span><br><span class="line"><span class="comment">## 2-1. 檢查 node</span></span><br><span class="line">~$ k get no</span><br><span class="line">NAME                   STATUS   ROLES    AGE   VERSION</span><br><span class="line">k8s14-master01-u1604   Ready    master   10d   v1.14.0</span><br><span class="line">k8s14-worker03-u1604   Ready    &lt;none&gt;   42m   v1.14.0</span><br><span class="line">k8s14-worker04-u1604   Ready    &lt;none&gt;   33m   v1.14.0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 2-2. 到 worker02 裡執行 kubeadm reset 清除資料, 如下:</span></span><br><span class="line">root@k8s14-worker02-u1604:~# kubeadm reset</span><br><span class="line">[reset] WARNING: Changes made to this host by <span class="string">&#x27;kubeadm init&#x27;</span> or <span class="string">&#x27;kubeadm join&#x27;</span> will be reverted.</span><br><span class="line">[reset] Are you sure you want to proceed? [y/N]: y</span><br><span class="line">[preflight] Running pre-flight checks</span><br><span class="line">W0416 23:57:25.138327   18457 reset.go:234] [reset] No kubeadm config, using etcd pod spec to get data directory</span><br><span class="line">[reset] No etcd config found. Assuming external etcd</span><br><span class="line">[reset] Please manually reset etcd to prevent further issues</span><br><span class="line">[reset] Stopping the kubelet service</span><br><span class="line">[reset] unmounting mounted directories <span class="keyword">in</span> <span class="string">&quot;/var/lib/kubelet&quot;</span></span><br><span class="line">[reset] Deleting contents of stateful directories: [/var/lib/kubelet /etc/cni/net.d /var/lib/dockershim /var/run/kubernetes]</span><br><span class="line">[reset] Deleting contents of config directories: [/etc/kubernetes/manifests /etc/kubernetes/pki]</span><br><span class="line">[reset] Deleting files: [/etc/kubernetes/admin.conf /etc/kubernetes/kubelet.conf /etc/kubernetes/bootstrap-kubelet.conf /etc/kubernetes/controller-manager.conf /etc/kubernetes/scheduler.conf]</span><br><span class="line"></span><br><span class="line">The reset process does not reset or clean up iptables rules or IPVS tables.</span><br><span class="line">If you wish to reset iptables, you must <span class="keyword">do</span> so manually.</span><br><span class="line">For example:</span><br><span class="line">iptables -F &amp;&amp; iptables -t nat -F &amp;&amp; iptables -t mangle -F &amp;&amp; iptables -X</span><br><span class="line"></span><br><span class="line">If your cluster was setup to utilize IPVS, run ipvsadm --clear (or similar)</span><br><span class="line">to reset your systems IPVS tables.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">### (optional) 到 worker02 機器裡面看看 docker ps, container 很快就刪完了，沒有 container 再跑了</span></span><br><span class="line">root@k8s14-worker02-u1604:~# docker ps</span><br><span class="line">CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS               NAMES</span><br><span class="line">bf7310c8d3c6        d9ece03f45e7           <span class="string">&quot;/home/weave/entrypo…&quot;</span>   9 minutes ago       Up 9 minutes                            k8s_scope-agent_weave-scope-agent-wsmd2_weave_6bd48236-605e-11e9-a972-92cde7b04430_0</span><br><span class="line">79d7b777a525        k8s.gcr.io/pause:3.1   <span class="string">&quot;/pause&quot;</span>                 9 minutes ago       Up 9 minutes                            k8s_POD_weave-scope-agent-wsmd2_weave_6bd48236-605e-11e9-a972-92cde7b04430_0</span><br><span class="line"></span><br><span class="line">root@k8s14-worker02-u1604:~# docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line">root@k8s14-worker02-u1604:~#</span><br><span class="line"></span><br><span class="line"><span class="comment">### (optional) docker images 還在</span></span><br><span class="line">root@k8s14-worker02-u1604:~# docker images</span><br><span class="line">REPOSITORY                                          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">rook/ceph                                           master              047e0878ff14        3 days ago          698MB</span><br><span class="line">wordpress                                           latest              837092bc87de        5 days ago          421MB</span><br><span class="line">istio/proxyv2                                       1.1.2               c7fb421f087e        12 days ago         378MB</span><br><span class="line">... 略 ...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 
@@ -330,11 +293,6 @@ kubectl port-forward svc/grafana  3000:3000
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2019/03/17/Container/Admin-Maintenance-And-Troubleshooting-K8s/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -359,7 +317,7 @@ kubectl port-forward svc/grafana  3000:3000
         <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
 
 		
-		   <li class="next"><a href="/2019/03/17/Container/Install-Addons-For-K8s/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+		   <li class="next"><a href="/2019/03/17/Container/Install-K8s-with-Kubeadm/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
         
 	
 </ul>
@@ -367,26 +325,6 @@ kubectl port-forward svc/grafana  3000:3000
 
 					</center>
 				</div>
-
-
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2019/03/17/Container/Admin-Maintenance-And-Troubleshooting-K8s/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
 
 
 			</div>
@@ -398,6 +336,7 @@ kubectl port-forward svc/grafana  3000:3000
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -444,7 +383,7 @@ kubectl port-forward svc/grafana  3000:3000
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/VMWare/" style="color: white">VMWare <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/Kubernetes/" style="color: white">Kubernetes <span class="badge">14</span></a></span> <span class="label label-success"><a href="/tags/K8s/" style="color: white">K8s <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/kubeadm/" style="color: white">kubeadm <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/kubelet/" style="color: white">kubelet <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Proxmox/" style="color: white">Proxmox <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/CNI/" style="color: white">CNI <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CRI/" style="color: white">CRI <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Ubuntu/" style="color: white">Ubuntu <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Ubuntu-16-04/" style="color: white">Ubuntu 16.04 <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Ubuntu-18-04/" style="color: white">Ubuntu 18.04 <span class="badge">3</span></a></span>
+  <span class="label label-success"><a href="/tags/Kubernetes/" style="color: white">Kubernetes <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/VMWare/" style="color: white">VMWare <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/K8s/" style="color: white">K8s <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/Ubuntu/" style="color: white">Ubuntu <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Ubuntu-16-04/" style="color: white">Ubuntu 16.04 <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/kubeadm/" style="color: white">kubeadm <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/kubelet/" style="color: white">kubelet <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CNI/" style="color: white">CNI <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CRI/" style="color: white">CRI <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Proxmox/" style="color: white">Proxmox <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Ubuntu-18-04/" style="color: white">Ubuntu 18.04 <span class="badge">3</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -456,6 +395,7 @@ kubectl port-forward svc/grafana  3000:3000
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -471,8 +411,10 @@ kubectl port-forward svc/grafana  3000:3000
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -482,8 +424,10 @@ kubectl port-forward svc/grafana  3000:3000
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -517,6 +461,7 @@ kubectl port-forward svc/grafana  3000:3000
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -570,6 +515,7 @@ kubectl port-forward svc/grafana  3000:3000
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -607,6 +553,7 @@ kubectl port-forward svc/grafana  3000:3000
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -622,6 +569,7 @@ kubectl port-forward svc/grafana  3000:3000
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

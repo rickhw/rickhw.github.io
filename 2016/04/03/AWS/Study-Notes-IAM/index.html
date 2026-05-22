@@ -68,31 +68,13 @@ JSON 是資料結構語言 (Data-structured L">
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -116,7 +98,7 @@ JSON 是資料結構語言 (Data-structured L">
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -128,7 +110,7 @@ JSON 是資料結構語言 (Data-structured L">
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -252,25 +234,6 @@ JSON 是資料結構語言 (Data-structured L">
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2016%2F04%2F03%2FAWS%2FStudy-Notes-IAM%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2016/04/03/AWS/Study-Notes-IAM/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2016/04/03/AWS/Study-Notes-IAM/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>AWS Identity and Access Management (IAM) Policy 的整理.</p>
 <span id="more"></span>
 
@@ -302,7 +265,7 @@ JSON 是資料結構語言 (Data-structured L">
 <li>針對什麼資源: Resource &#x2F; NotResource</li>
 </ul>
 <p>一個 Policy 可以有多個 Statement，描述不同的目的，像是把 AWS Service 分開描述權限。</p>
-<h2 id="Principal-x2F-NotPrincipal"><a href="#Principal-x2F-NotPrincipal" class="headerlink" title="Principal &#x2F; NotPrincipal"></a>Principal &#x2F; NotPrincipal</h2><p>可以是 IAM User, AWS User, 或者是 AWS Service. 用 <a target="_blank" rel="noopener" href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN (AWS Resource Names) 或者 AWS Service Namespaces</a> 描述。</p>
+<h2 id="Principal-NotPrincipal"><a href="#Principal-NotPrincipal" class="headerlink" title="Principal &#x2F; NotPrincipal"></a>Principal &#x2F; NotPrincipal</h2><p>可以是 IAM User, AWS User, 或者是 AWS Service. 用 <a target="_blank" rel="noopener" href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN (AWS Resource Names) 或者 AWS Service Namespaces</a> 描述。</p>
 <p>ARN 的資料結構:</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arn<span class="punctuation">:</span>partition<span class="punctuation">:</span>service<span class="punctuation">:</span>region<span class="punctuation">:</span>account-id<span class="punctuation">:</span>resource</span><br><span class="line">arn<span class="punctuation">:</span>partition<span class="punctuation">:</span>service<span class="punctuation">:</span>region<span class="punctuation">:</span>account-id<span class="punctuation">:</span>resourcetype/resource</span><br><span class="line">arn<span class="punctuation">:</span>partition<span class="punctuation">:</span>service<span class="punctuation">:</span>region<span class="punctuation">:</span>account-id<span class="punctuation">:</span>resourcetype<span class="punctuation">:</span>resource</span><br></pre></td></tr></table></figure>
 
@@ -311,7 +274,7 @@ JSON 是資料結構語言 (Data-structured L">
 
 
 <p>IAM Policy 可以跨不同的 AWS account, 用在不同的環境 (Development, Test, Production), 需要存取資料的時候，就可以利用 IAM Role 設定。</p>
-<h2 id="Action-x2F-NotAction"><a href="#Action-x2F-NotAction" class="headerlink" title="Action &#x2F; NotAction"></a>Action &#x2F; NotAction</h2><p>Action 命名規則：動詞 + 受詞</p>
+<h2 id="Action-NotAction"><a href="#Action-NotAction" class="headerlink" title="Action &#x2F; NotAction"></a>Action &#x2F; NotAction</h2><p>Action 命名規則：動詞 + 受詞</p>
 <ul>
 <li>動詞: Associate, Describe, Delete, Disable, Modify, Revoke, Run, Reset … etc.</li>
 <li>受詞: Instance, Image, Endpoint, KeyPair,</li>
@@ -340,7 +303,7 @@ JSON 是資料結構語言 (Data-structured L">
 <blockquote>
 <p>因為沒有 IDE support content assistant &#x2F; auto-complete. orz…</p>
 </blockquote>
-<h2 id="Resource-x2F-NotResource"><a href="#Resource-x2F-NotResource" class="headerlink" title="Resource &#x2F; NotResource"></a>Resource &#x2F; NotResource</h2><p>— 待整理 —</p>
+<h2 id="Resource-NotResource"><a href="#Resource-NotResource" class="headerlink" title="Resource &#x2F; NotResource"></a>Resource &#x2F; NotResource</h2><p>— 待整理 —</p>
 <h2 id="Condition"><a href="#Condition" class="headerlink" title="Condition"></a>Condition</h2><p><img src="/images/AWS/IAM/Condition_Block.png"></p>
 <p>Condition 邏輯我參考 Redmine 的 Filter 的設計來理解，如下圖查詢：</p>
 <p><img src="/images/AWS/IAM/Condition_Redmine.png"></p>
@@ -370,11 +333,6 @@ JSON 是資料結構語言 (Data-structured L">
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2016/04/03/AWS/Study-Notes-IAM/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -409,26 +367,6 @@ JSON 是資料結構語言 (Data-structured L">
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2016/04/03/AWS/Study-Notes-IAM/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -438,6 +376,7 @@ JSON 是資料結構語言 (Data-structured L">
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -454,7 +393,7 @@ JSON 是資料結構語言 (Data-structured L">
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#IAM-Policy"><span class="toc-article-text">IAM Policy</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#IAM-Policy-Structure"><span class="toc-article-text">IAM Policy Structure</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#IAM-Policy-Elements"><span class="toc-article-text">IAM Policy Elements</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Statement"><span class="toc-article-text">Statement</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Principal-x2F-NotPrincipal"><span class="toc-article-text">Principal &#x2F; NotPrincipal</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Action-x2F-NotAction"><span class="toc-article-text">Action &#x2F; NotAction</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Resource-x2F-NotResource"><span class="toc-article-text">Resource &#x2F; NotResource</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Condition"><span class="toc-article-text">Condition</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E5%BB%B6%E4%BC%B8"><span class="toc-article-text">站內延伸</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84-Reference"><span class="toc-article-text">常用的 Reference</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#IAM-Policy"><span class="toc-article-text">IAM Policy</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#IAM-Policy-Structure"><span class="toc-article-text">IAM Policy Structure</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#IAM-Policy-Elements"><span class="toc-article-text">IAM Policy Elements</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Statement"><span class="toc-article-text">Statement</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Principal-NotPrincipal"><span class="toc-article-text">Principal &#x2F; NotPrincipal</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Action-NotAction"><span class="toc-article-text">Action &#x2F; NotAction</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Resource-NotResource"><span class="toc-article-text">Resource &#x2F; NotResource</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Condition"><span class="toc-article-text">Condition</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E5%BB%B6%E4%BC%B8"><span class="toc-article-text">站內延伸</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84-Reference"><span class="toc-article-text">常用的 Reference</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -484,7 +423,7 @@ JSON 是資料結構語言 (Data-structured L">
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/IAM/" style="color: white">IAM <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/IAM-Policy/" style="color: white">IAM Policy <span class="badge">2</span></a></span>
+  <span class="label label-success"><a href="/tags/IAM/" style="color: white">IAM <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/IAM-Policy/" style="color: white">IAM Policy <span class="badge">2</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -496,6 +435,7 @@ JSON 是資料結構語言 (Data-structured L">
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -511,8 +451,10 @@ JSON 是資料結構語言 (Data-structured L">
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -522,8 +464,10 @@ JSON 是資料結構語言 (Data-structured L">
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -557,6 +501,7 @@ JSON 是資料結構語言 (Data-structured L">
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -610,6 +555,7 @@ JSON 是資料結構語言 (Data-structured L">
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -647,6 +593,7 @@ JSON 是資料結構語言 (Data-structured L">
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -662,6 +609,7 @@ JSON 是資料結構語言 (Data-structured L">
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

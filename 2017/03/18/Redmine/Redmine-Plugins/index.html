@@ -66,31 +66,13 @@ Install and UnstallPlugins 安裝依照 Redmine 官方文件，大部分的 Redm
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -114,7 +96,7 @@ Install and UnstallPlugins 安裝依照 Redmine 官方文件，大部分的 Redm
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -126,7 +108,7 @@ Install and UnstallPlugins 安裝依照 Redmine 官方文件，大部分的 Redm
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -250,25 +232,6 @@ Install and UnstallPlugins 安裝依照 Redmine 官方文件，大部分的 Redm
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2017%2F03%2F18%2FRedmine%2FRedmine-Plugins%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2017/03/18/Redmine/Redmine-Plugins/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2017/03/18/Redmine/Redmine-Plugins/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>整理一些不錯的 Redmine Plugins and Themes。</p>
 <span id="more"></span>
 
@@ -287,11 +250,14 @@ Install and UnstallPlugins 安裝依照 Redmine 官方文件，大部分的 Redm
 <li>都在 <code>[REDMINE_HOME]</code> 執行: <code>bundle exec rake redmine:plugins:migrate RAILS_ENV=production</code></li>
 </ol>
 <p>完整步驟大概如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="variable">$REDMINE_HOME</span></span><br><span class="line"></span><br><span class="line">bundle install</span><br><span class="line"></span><br><span class="line"><span class="comment">## migrate database schema to production</span></span><br><span class="line">rake db:migrate RAILS_ENV=production</span><br><span class="line"></span><br><span class="line"><span class="comment">## Install plugins to production</span></span><br><span class="line">rake redmine:plugins:migrate RAILS_ENV=production</span><br><span class="line"></span><br><span class="line">sudo systemctl restart nginx</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="variable">$REDMINE_HOME</span></span><br><span class="line"></span><br><span class="line">bundle install</span><br><span class="line"></span><br><span class="line"><span class="comment">## migrate database schema to production</span></span><br><span class="line">rake db:migrate RAILS_ENV=production</span><br><span class="line"></span><br><span class="line"><span class="comment">## Install plugins to production</span></span><br><span class="line">rake redmine:plugins:migrate RAILS_ENV=production</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> systemctl restart nginx</span><br></pre></td></tr></table></figure>
 
 
 <h2 id="刪除-Plugins"><a href="#刪除-Plugins" class="headerlink" title="刪除 Plugins"></a>刪除 Plugins</h2><ol>
-<li>Downgrade database schema, 記得更改 <code>&lt;plugin_name&gt;</code>, <code>&lt;version&gt;</code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bundle <span class="built_in">exec</span> rake redmine:plugins:migrate NAME=&lt;plugin_name&gt; VERSION=0 RAILS_ENV=production</span><br></pre></td></tr></table></figure></li>
+<li>Downgrade database schema, 記得更改 <code>&lt;plugin_name&gt;</code>, <code>&lt;version&gt;</code></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bundle <span class="built_in">exec</span> rake redmine:plugins:migrate NAME=&lt;plugin_name&gt; VERSION=0 RAILS_ENV=production</span><br></pre></td></tr></table></figure>
+<ol>
 <li>刪除 {REDMINE_HOME}&#x2F;plugins 裡的 plugins</li>
 <li>重啟 redmine</li>
 </ol>
@@ -388,11 +354,6 @@ Install and UnstallPlugins 安裝依照 Redmine 官方文件，大部分的 Redm
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2017/03/18/Redmine/Redmine-Plugins/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -427,26 +388,6 @@ Install and UnstallPlugins 安裝依照 Redmine 官方文件，大部分的 Redm
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2017/03/18/Redmine/Redmine-Plugins/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -456,6 +397,7 @@ Install and UnstallPlugins 安裝依照 Redmine 官方文件，大部分的 Redm
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -514,6 +456,7 @@ Install and UnstallPlugins 安裝依照 Redmine 官方文件，大部分的 Redm
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -529,8 +472,10 @@ Install and UnstallPlugins 安裝依照 Redmine 官方文件，大部分的 Redm
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -540,8 +485,10 @@ Install and UnstallPlugins 安裝依照 Redmine 官方文件，大部分的 Redm
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -575,6 +522,7 @@ Install and UnstallPlugins 安裝依照 Redmine 官方文件，大部分的 Redm
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -628,6 +576,7 @@ Install and UnstallPlugins 安裝依照 Redmine 官方文件，大部分的 Redm
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -665,6 +614,7 @@ Install and UnstallPlugins 安裝依照 Redmine 官方文件，大部分的 Redm
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -680,6 +630,7 @@ Install and UnstallPlugins 安裝依照 Redmine 官方文件，大部分的 Redm
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

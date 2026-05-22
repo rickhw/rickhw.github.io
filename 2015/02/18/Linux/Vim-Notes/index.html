@@ -62,31 +62,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -110,7 +92,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -122,7 +104,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -246,25 +228,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2015%2F02%2F18%2FLinux%2FVim-Notes%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2015/02/18/Linux/Vim-Notes/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2015/02/18/Linux/Vim-Notes/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>因為經常在 unix&#x2F;linux 環境工作，<code>vi</code> 一直都是最習慣的 editor。不過用了很多年，其實沒有很認真的把功能都很熟悉過，趁著年假空閒之餘，整理一些個人常用的筆記。</p>
 <p>寫 code 或寫文章的過程，其實我不太喜歡在鍵盤跟滑鼠 (or touch pad) 之間跑來跑去，所以看過我寫 code 或者寫文章的人會發現，我習慣記很多 shortcut or hotkey，然後直接在 keyboard 上飛奔，也就是專注在思考做事的內容。套句以前老師說的話，一個 developer 最好把滑鼠剪掉，否則你的工作是沒有效率的。</p>
 <blockquote>
@@ -288,9 +251,9 @@
 </ul>
 </li>
 <li>段落: 文章的段落是以空白行做區分<ul>
-<li><code>&#125;</code>: 下一個段落</li>
-<li><code>&#123;</code>: 前一個段落</li>
-<li>可以加數字，表示移動的段落數，像是到下兩個段落 <code>2&#125;</code></li>
+<li><code>}</code>: 下一個段落</li>
+<li><code>{</code>: 前一個段落</li>
+<li>可以加數字，表示移動的段落數，像是到下兩個段落 <code>2}</code></li>
 </ul>
 </li>
 <li>翻頁 page down &#x2F; up<ul>
@@ -321,7 +284,7 @@
 <p>上下左右的設計是因為當時開發 vi 時，使用的機器 ADM-3A 就是用這四個字母做方向鍵，設計者只是沿用。相關參考： <a target="_blank" rel="noopener" href="http://blog.jobbole.com/18650/">为什么 Vim 使用 HJKL 键作为方向键</a></p>
 </blockquote>
 <hr>
-<h1 id="基本編輯"><a href="#基本編輯" class="headerlink" title="基本編輯"></a>基本編輯</h1><h2 id="copy-amp-paste-line-mode"><a href="#copy-amp-paste-line-mode" class="headerlink" title="copy &amp; paste: line mode"></a>copy &amp; paste: line mode</h2><p>緩衝區複製, 貼上</p>
+<h1 id="基本編輯"><a href="#基本編輯" class="headerlink" title="基本編輯"></a>基本編輯</h1><h2 id="copy-paste-line-mode"><a href="#copy-paste-line-mode" class="headerlink" title="copy &amp; paste: line mode"></a>copy &amp; paste: line mode</h2><p>緩衝區複製, 貼上</p>
 <ol>
 <li><code>yy</code>: 複製目前位, 整行資料. <code>2yy</code> 複製兩行, 他配其他 cursor 定位, 做大範圍複製:<ul>
 <li><code>y$</code>: 複製目前座標到行尾</li>
@@ -334,10 +297,10 @@
 <li><code>cc</code>: 剪下一行</li>
 </ol>
 <p>經常用的就是 <code>yy</code>, <code>p</code>, <code>cc</code> … 記住這幾個就可以做很多事了</p>
-<h2 id="copy-amp-paste-block-mode"><a href="#copy-amp-paste-block-mode" class="headerlink" title="copy &amp; paste: block mode"></a>copy &amp; paste: block mode</h2><p>透過選擇區域 (block), 然後進行複製貼上, 以下是使用步驟</p>
+<h2 id="copy-paste-block-mode"><a href="#copy-paste-block-mode" class="headerlink" title="copy &amp; paste: block mode"></a>copy &amp; paste: block mode</h2><p>透過選擇區域 (block), 然後進行複製貼上, 以下是使用步驟</p>
 <ol>
 <li><code>v</code>: visual mode, 選擇要複製的區域<ul>
-<li>快速選擇目前位置到某個位置, 搭配 cursor 定位使用, 像是到檔尾 <code>vG</code>, 到下段 <code>v&#125;</code></li>
+<li>快速選擇目前位置到某個位置, 搭配 cursor 定位使用, 像是到檔尾 <code>vG</code>, 到下段 <code>v}</code></li>
 </ul>
 </li>
 <li>用 <code>jkhl</code> 移動 cursor</li>
@@ -394,9 +357,9 @@
 <li><code>x</code>, <code>dd</code> 都可以配合數字使用, 表示刪除多少單位, 像是 <code>5dd</code> 表示刪除五行, <code>5x</code> 表示刪除五個字</li>
 </ul>
 </li>
-<li>配合文章定位位置, 做大段落刪除: <code>gg</code>, <code>G</code>, <code>&#123;</code>, <code>&#125;</code><ul>
+<li>配合文章定位位置, 做大段落刪除: <code>gg</code>, <code>G</code>, <code>{</code>, <code>}</code><ul>
 <li><code>dG</code>: 刪除現在位置到檔尾</li>
-<li><code>d&#125;</code>: 刪除現在位置到下一段位置</li>
+<li><code>d}</code>: 刪除現在位置到下一段位置</li>
 <li>其他類推</li>
 </ul>
 </li>
@@ -440,11 +403,6 @@
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2015/02/18/Linux/Vim-Notes/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -479,26 +437,6 @@
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2015/02/18/Linux/Vim-Notes/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -508,6 +446,7 @@
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -524,7 +463,7 @@
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#vi-and-vim"><span class="toc-article-text">vi and vim</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#vi-%E7%9A%84%E6%A8%A1%E5%BC%8F"><span class="toc-article-text">vi 的模式</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#cursor-%E7%A7%BB%E5%8B%95%EF%BC%8C%E5%AE%9A%E4%BD%8D"><span class="toc-article-text">cursor 移動，定位</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%9F%BA%E6%9C%AC%E7%B7%A8%E8%BC%AF"><span class="toc-article-text">基本編輯</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#copy-amp-paste-line-mode"><span class="toc-article-text">copy &amp; paste: line mode</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#copy-amp-paste-block-mode"><span class="toc-article-text">copy &amp; paste: block mode</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#find-by-keyword"><span class="toc-article-text">find by keyword</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#find-and-replace"><span class="toc-article-text">find and replace</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%87%8D%E8%A4%87"><span class="toc-article-text">重複</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B7%A8%E8%BC%AF%E9%A1%AF%E7%A4%BA%E8%BC%94%E5%8A%A9"><span class="toc-article-text">編輯顯示輔助</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%88%AA%E9%99%A4"><span class="toc-article-text">刪除</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Convert-tab-to-space"><span class="toc-article-text">Convert tab to space</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Repeat"><span class="toc-article-text">Repeat</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%88%86%E5%89%B2%E7%95%AB%E9%9D%A2-split-screen"><span class="toc-article-text">分割畫面 (split screen)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%B0%B4%E5%B9%B3%E5%88%86%E5%89%B2-horizontal-screen"><span class="toc-article-text">水平分割 (horizontal screen)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9E%82%E7%9B%B4%E5%88%86%E5%89%B2-vertical-screen"><span class="toc-article-text">垂直分割 (vertical screen)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-article-text">其他</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Auto-Complete"><span class="toc-article-text">Auto-Complete</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80-%E7%AB%99%E5%85%A7"><span class="toc-article-text">延伸閱讀 (站內)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#vi-and-vim"><span class="toc-article-text">vi and vim</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#vi-%E7%9A%84%E6%A8%A1%E5%BC%8F"><span class="toc-article-text">vi 的模式</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#cursor-%E7%A7%BB%E5%8B%95%EF%BC%8C%E5%AE%9A%E4%BD%8D"><span class="toc-article-text">cursor 移動，定位</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%9F%BA%E6%9C%AC%E7%B7%A8%E8%BC%AF"><span class="toc-article-text">基本編輯</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#copy-paste-line-mode"><span class="toc-article-text">copy &amp; paste: line mode</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#copy-paste-block-mode"><span class="toc-article-text">copy &amp; paste: block mode</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#find-by-keyword"><span class="toc-article-text">find by keyword</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#find-and-replace"><span class="toc-article-text">find and replace</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%87%8D%E8%A4%87"><span class="toc-article-text">重複</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B7%A8%E8%BC%AF%E9%A1%AF%E7%A4%BA%E8%BC%94%E5%8A%A9"><span class="toc-article-text">編輯顯示輔助</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%88%AA%E9%99%A4"><span class="toc-article-text">刪除</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Convert-tab-to-space"><span class="toc-article-text">Convert tab to space</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Repeat"><span class="toc-article-text">Repeat</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%88%86%E5%89%B2%E7%95%AB%E9%9D%A2-split-screen"><span class="toc-article-text">分割畫面 (split screen)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%B0%B4%E5%B9%B3%E5%88%86%E5%89%B2-horizontal-screen"><span class="toc-article-text">水平分割 (horizontal screen)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9E%82%E7%9B%B4%E5%88%86%E5%89%B2-vertical-screen"><span class="toc-article-text">垂直分割 (vertical screen)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-article-text">其他</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Auto-Complete"><span class="toc-article-text">Auto-Complete</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80-%E7%AB%99%E5%85%A7"><span class="toc-article-text">延伸閱讀 (站內)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -566,6 +505,7 @@
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -581,8 +521,10 @@
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -592,8 +534,10 @@
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -627,6 +571,7 @@
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -680,6 +625,7 @@
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -717,6 +663,7 @@
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -732,6 +679,7 @@
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

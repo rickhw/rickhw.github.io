@@ -62,31 +62,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -110,7 +92,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -122,7 +104,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -246,25 +228,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2021%2F01%2F03%2FLinux%2FShell-and-Bash-Concepts%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2021/01/03/Linux/Shell-and-Bash-Concepts/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2021/01/03/Linux/Shell-and-Bash-Concepts/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Shell_(computing)">Shell</a> 是使用者與作業系統溝通的介面，人機介面的形式分成 CLI 與 GUI 兩種。CLI (Command Line Interface) 讓一堆指令可以透過 <code>指令搞 (command script)</code> 變成自動化 <code>程序 (procedure)</code>，提高工作效能，這樣的指令搞我們把它稱為 <code>shell scripts</code>，中文通常翻譯成 <code>程式化腳本</code>、<code>Shell 指令搞</code>。</p>
 <p>Shell 本身也是一個程式，但是他並沒有一個表準的型態，不同作業系統使用的也不盡相同。Unix-like 上最基本的 Shell 叫做 <code>sh</code>，全名是 <code>Bouren Shell</code>，是個 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/POSIX">POSIX</a> 標準。Bash 全名是 <code>Bourne Again Shell</code>，是 sh 的 superset。sh 與 bash 有點像 vi vs vim 的關係。</p>
 <p>Unix &#x2F; Linux 上很常用 Bash Script 做一些工作，本文整理 Linux 上的 Shell 和 Bash Script 重要的概念 … 等 <code>外在因子</code>。</p>
@@ -458,10 +421,10 @@
 <p>crontab 與 ssh, su 切換身份時，先確認他們是用什麼方式登入。</p>
 <h3 id="使用-su-切換身份"><a href="#使用-su-切換身份" class="headerlink" title="使用 su 切換身份"></a>使用 su 切換身份</h3><p>延續前面提到的問題，以下整理使用 su 要注意的觀念。</p>
 <p>SysOp 常需要用 sudo 配合 su 切換身份到 root，很常看到下這樣的指令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo su</span><br><span class="line">root@lab99:/home/ubuntu<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">sudo</span> su</span><br><span class="line">root@lab99:/home/ubuntu#</span><br></pre></td></tr></table></figure>
 
 <p>之後，就開始直接用 root 身份做事情，同樣的切換方法，有時候也會看到以下的切法：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo su -</span><br><span class="line">root@lab99:~<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">sudo</span> su -</span><br><span class="line">root@lab99:~#</span><br></pre></td></tr></table></figure>
 
 <p>這兩個有什麼差別？注意切換之後的 #提示訊息 (prompt) 以及現在位置 (pwd)，觀察兩者 #環境變數 (env) 的差異。<br>寫 script 需要直接切換身份執行該身份的指令，通常會是：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ su &lt;username&gt; -c <span class="string">&quot;your_script.sh or cli&quot;</span></span><br><span class="line">~$ su - &lt;username&gt; -c <span class="string">&quot;your_script.sh or cli&quot;</span></span><br></pre></td></tr></table></figure>
@@ -472,7 +435,7 @@
 <p>For backward compatibility, su defaults to not change the current directory and to only set the environment variables HOME and SHELL (plus USER and LOGNAME if the target user is not root).  It is recommended to always use the –login option (instead of its shortcut -) to avoid side effects caused by mixing environments.</p>
 </blockquote>
 <h3 id="如何知道現在是哪一種方式？"><a href="#如何知道現在是哪一種方式？" class="headerlink" title="如何知道現在是哪一種方式？"></a>如何知道現在是哪一種方式？</h3><p>除了 prompt 可以觀察，要用什麼方式知道現在的 login shell？可以透過以下方式確認現在是用哪一種方式：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">echo</span> <span class="variable">$0</span></span><br><span class="line">-bash <span class="comment"># 有 hyphen - 開頭，是 login shell</span></span><br><span class="line">~$ sudo su -</span><br><span class="line">~$ <span class="built_in">echo</span> <span class="variable">$0</span></span><br><span class="line">-su <span class="comment"># sudo su - 切換 login shell</span></span><br><span class="line">~$ <span class="built_in">echo</span> <span class="variable">$0</span></span><br><span class="line">bash <span class="comment"># 沒有 hyphen - 開頭，是 non login shell</span></span><br><span class="line">~$ sudo su</span><br><span class="line">~$ <span class="built_in">echo</span> <span class="variable">$0</span></span><br><span class="line">su <span class="comment"># sudo su 切換 non login shell</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">echo</span> <span class="variable">$0</span></span><br><span class="line">-bash <span class="comment"># 有 hyphen - 開頭，是 login shell</span></span><br><span class="line">~$ <span class="built_in">sudo</span> su -</span><br><span class="line">~$ <span class="built_in">echo</span> <span class="variable">$0</span></span><br><span class="line">-su <span class="comment"># sudo su - 切換 login shell</span></span><br><span class="line">~$ <span class="built_in">echo</span> <span class="variable">$0</span></span><br><span class="line">bash <span class="comment"># 沒有 hyphen - 開頭，是 non login shell</span></span><br><span class="line">~$ <span class="built_in">sudo</span> su</span><br><span class="line">~$ <span class="built_in">echo</span> <span class="variable">$0</span></span><br><span class="line">su <span class="comment"># sudo su 切換 non login shell</span></span><br></pre></td></tr></table></figure>
 
 
 <!--
@@ -544,7 +507,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -al /bin/sh</span><br><span class="line">-rwxr-xr-x  1 root  wheel  31440 Sep 22 08:30 /bin/sh</span><br><span class="line"><span class="built_in">ls</span> -al /bin/bash</span><br><span class="line">-r-xr-xr-x  1 root  wheel  623472 Sep 22 08:30 /bin/bash</span><br></pre></td></tr></table></figure>
 
 <p>從 ubuntu 18.04 查看：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~<span class="comment"># ls -l /bin/sh</span></span><br><span class="line">lrwxrwxrwx 1 root root 4 Jul 25  2018 /bin/sh -&gt; dash</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~# <span class="built_in">ls</span> -l /bin/sh</span><br><span class="line">lrwxrwxrwx 1 root root 4 Jul 25  2018 /bin/sh -&gt; dash</span><br></pre></td></tr></table></figure>
 
 <p>dash 是 ubuntu 預設的 shell，全名是 <code>Debian Almquist Shell</code>。</p>
 <h2 id="這年代還需要-Shell-Programming？"><a href="#這年代還需要-Shell-Programming？" class="headerlink" title="這年代還需要 Shell Programming？"></a>這年代還需要 Shell Programming？</h2><p>雲端流行的時代，很多高階工具 (像是 AWS CDK)、宣告式 (Ansible、IaC、K8s) 概念流行，有人就會問：</p>
@@ -623,11 +586,6 @@
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2021/01/03/Linux/Shell-and-Bash-Concepts/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -662,26 +620,6 @@
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2021/01/03/Linux/Shell-and-Bash-Concepts/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -691,6 +629,7 @@
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -737,7 +676,7 @@
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Linux/" style="color: white">Linux <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Operating-Systems/" style="color: white">Operating Systems <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/bash/" style="color: white">bash <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Shell/" style="color: white">Shell <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/IPC/" style="color: white">IPC <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/pipe/" style="color: white">pipe <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/process/" style="color: white">process <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/POSIX/" style="color: white">POSIX <span class="badge">1</span></a></span>
+  <span class="label label-success"><a href="/tags/Operating-Systems/" style="color: white">Operating Systems <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/Linux/" style="color: white">Linux <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/bash/" style="color: white">bash <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Shell/" style="color: white">Shell <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/IPC/" style="color: white">IPC <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/pipe/" style="color: white">pipe <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/process/" style="color: white">process <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/POSIX/" style="color: white">POSIX <span class="badge">1</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -749,6 +688,7 @@
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -764,8 +704,10 @@
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -775,8 +717,10 @@
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -810,6 +754,7 @@
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -863,6 +808,7 @@
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -900,6 +846,7 @@
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -915,6 +862,7 @@
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

@@ -71,31 +71,13 @@ Rest API：取得一筆資料
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -119,7 +101,7 @@ Rest API：取得一筆資料
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -131,7 +113,7 @@ Rest API：取得一筆資料
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -255,25 +237,6 @@ Rest API：取得一筆資料
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2018%2F04%2F21%2FAWS%2FStudy-Notes-API-Gateway-as-DynamoDB-Proxy%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2018/04/21/AWS/Study-Notes-API-Gateway-as-DynamoDB-Proxy/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2018/04/21/AWS/Study-Notes-API-Gateway-as-DynamoDB-Proxy/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>整理如何使用 <a href="/2018/01/24/DistributedSystems/Overview-API-Gateway/">Amazon API Gateway</a> 當作 Proxy 直接存取 <a href="/2016/08/17/AWS/Study-Notes-DynamoDB/">DynamoDB</a>，而不需要透過 Lambda。</p>
 <span id="more"></span>
 
@@ -287,7 +250,7 @@ Rest API：取得一筆資料
 <h1 id="1-想法緣由"><a href="#1-想法緣由" class="headerlink" title="1. 想法緣由"></a>1. 想法緣由</h1><p>一開始我要規劃一對 APIs 對 DynamoDB 存取資料，規劃如下：</p>
 <ul>
 <li><code>POST /comment</code>: 寫入一筆 Comment 到 DynamoDB</li>
-<li><code>GET /comment/&#123;id&#125;</code>: 從 DynamoDB 取得一筆 Comment</li>
+<li><code>GET /comment/{id}</code>: 從 DynamoDB 取得一筆 Comment</li>
 <li>在 Amazon API Gateway 建立 Rest API 如下圖：<br><img src="/images/AWS/API-Gateway/As-DynamoDB-Proxy/00_RestAPI.png"></li>
 </ul>
 <p>大部分的設計直覺就是用 Lambda 實作存取 DynamoDB，然後 API Gateway Call Lambda，如下圖：</p>
@@ -327,21 +290,26 @@ Rest API：取得一筆資料
 <li>Action: <code>PutItem</code></li>
 <li>Execution role: 2-2 建立的 IAM Role ARN, 他應該長這樣 <code>arn:aws:iam::123456789:role/Mixo-Dominant-Proxy-Role</code></li>
 <li>其他保持預設值</li>
-<li>配置如下圖：<img style="float: left;" src="/images/AWS/API-Gateway/As-DynamoDB-Proxy/01-1-1_Integration-Request.png"></li>
+<li>配置如下圖：</li>
 </ul>
+<img style="float: left;" src="/images/AWS/API-Gateway/As-DynamoDB-Proxy/01-1-1_Integration-Request.png">
+
 <p>同樣在 <code>Integration Request</code> 設定畫面的下方 <code>Body Mapping Templates</code> 設定如下：</p>
 <ul>
 <li>Request body passthrough 選擇 recommanded</li>
 <li>點選 <code>Add mapping template</code>，增加 <code>application/json</code></li>
-<li>點選剛剛增加的 <code>application/json</code> 後，底下的 template 放入以下 JSON，這是給 DynamoDB 的 payload<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;TableName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Comments&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Item&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;commentId&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;S&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$context.requestId&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;subject&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;S&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$input.path(&#x27;$.subject&#x27;)&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;author&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;S&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$input.path(&#x27;$.author&#x27;)&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;message&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;S&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$input.path(&#x27;$.message&#x27;)&quot;</span> <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-操作設定如下圖：</li>
+<li>點選剛剛增加的 <code>application/json</code> 後，底下的 template 放入以下 JSON，這是給 DynamoDB 的 payload</li>
 </ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;TableName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Comments&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Item&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;commentId&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;S&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$context.requestId&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;subject&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;S&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$input.path(&#x27;$.subject&#x27;)&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;author&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;S&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$input.path(&#x27;$.author&#x27;)&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;message&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;S&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$input.path(&#x27;$.message&#x27;)&quot;</span> <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>操作設定如下圖：</p>
 <p><img src="/images/AWS/API-Gateway/As-DynamoDB-Proxy/01-1-2_Integration-Request_BodyMappingTemplates.png"></p>
 <h2 id="3-2-Integration-Response"><a href="#3-2-Integration-Response" class="headerlink" title="3-2. Integration Response"></a>3-2. Integration Response</h2><ol>
 <li>回到 Rest API, 點選右下角的 <code>Integration Response</code></li>
 <li>展開 <code>Method response status</code> 為 <code>200</code> 的選項，操作設定如下圖：<br><img src="/images/AWS/API-Gateway/As-DynamoDB-Proxy/01-2-1_Integration-Response.png"></li>
-<li>展開 <code>Body Mapping Templates</code> -&gt; 點選 <code>Add mapping template</code> -&gt; 新增 <code>application/json</code> -&gt; 設定 Template 如下：<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#set($inputRoot = $input.path(&#x27;$&#x27;))</span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;Status&quot;</span><span class="punctuation">:</span> <span class="number">200</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Message&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Success&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li>展開 <code>Body Mapping Templates</code> -&gt; 點選 <code>Add mapping template</code> -&gt; 新增 <code>application/json</code> -&gt; 設定 Template 如下：</li>
 </ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#set($inputRoot = $input.path(&#x27;$&#x27;))</span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;Status&quot;</span><span class="punctuation">:</span> <span class="number">200</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Message&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Success&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
 <p>操作設定如下圖：<br><img src="/images/AWS/API-Gateway/As-DynamoDB-Proxy/01-2-2_Integration-Response_BodyMappingTemplates.png"></p>
 <h2 id="3-3-Test-before-deployment"><a href="#3-3-Test-before-deployment" class="headerlink" title="3-3. Test before deployment"></a>3-3. Test before deployment</h2><p>在 Rest API 畫面，點選 Test，Request Body 填入以下：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;message&quot;</span><span class="punctuation">:</span> <span class="string">&quot;How are you today?&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;author&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Jack&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;subject&quot;</span><span class="punctuation">:</span> <span class="string">&quot;這是一個新聞&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
@@ -352,22 +320,25 @@ Rest API：取得一筆資料
 <p>到 DynamoDB 確認是否有資料新增。</p>
 <hr>
 <h1 id="4-取得一筆資料-Get-an-Item"><a href="#4-取得一筆資料-Get-an-Item" class="headerlink" title="4. 取得一筆資料 (Get an Item)"></a>4. 取得一筆資料 (Get an Item)</h1><ol>
-<li>建立 ResourceName: <code>/comment/&#123;id&#125;</code></li>
+<li>建立 ResourceName: <code>/comment/{id}</code></li>
 <li>新增 Method: <code>GET</code></li>
 </ol>
-<h2 id="4-1-Integration-Request-96"><a href="#4-1-Integration-Request-96" class="headerlink" title="4-1. Integration Request&#96;"></a>4-1. Integration Request&#96;</h2><p>基本步驟同 <code>3-1</code> 描述，注意以下設定：</p>
+<h2 id="4-1-Integration-Request"><a href="#4-1-Integration-Request" class="headerlink" title="4-1. Integration Request&#96;"></a>4-1. Integration Request&#96;</h2><p>基本步驟同 <code>3-1</code> 描述，注意以下設定：</p>
 <ul>
 <li>AWS Service: <code>DynamoDB</code></li>
 <li>Action: <code>GetItem</code></li>
-<li>Body Mapping Template 如下：<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;TableName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Comments&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Key&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;commentId&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;S&quot;</span><span class="punctuation">:</span><span class="string">&quot;$input.params(&#x27;id&#x27;)&quot;</span> <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li>Body Mapping Template 如下：</li>
 </ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;TableName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Comments&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Key&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;commentId&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;S&quot;</span><span class="punctuation">:</span><span class="string">&quot;$input.params(&#x27;id&#x27;)&quot;</span> <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
 <h2 id="4-2-Integration-Response"><a href="#4-2-Integration-Response" class="headerlink" title="4-2. Integration Response"></a>4-2. Integration Response</h2><p>步驟同 <code>3-1</code> 描述，Body Mapping Template 如下，重新 Format DynamoDB 回傳結果：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#set($inputRoot = $input.path(&#x27;$&#x27;))</span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;message&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$inputRoot.Item.message.S&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;author&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$inputRoot.Item.author.S&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;subject&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$inputRoot.Item.subject.S&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>Body Mapping Template 使用 <a target="_blank" rel="noopener" href="http://velocity.apache.org/engine/devel/vtl-reference.html">Apache Velocity Template Language (VTL)</a> 做資料轉換</p>
 </blockquote>
-<h2 id="4-3-Test-before-deployment"><a href="#4-3-Test-before-deployment" class="headerlink" title="4-3. Test before deployment"></a>4-3. Test before deployment</h2><p>在 <code>&#123;id&#125;</code> 填入 <code>test-invoke-request</code>，執行應該會取得以下結果：</p>
+<h2 id="4-3-Test-before-deployment"><a href="#4-3-Test-before-deployment" class="headerlink" title="4-3. Test before deployment"></a>4-3. Test before deployment</h2><p>在 <code>{id}</code> 填入 <code>test-invoke-request</code>，執行應該會取得以下結果：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;message&quot;</span><span class="punctuation">:</span> <span class="string">&quot;How are you today?&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;author&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Jack&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;subject&quot;</span><span class="punctuation">:</span> <span class="string">&quot;這是一個新聞&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 
 <hr>
@@ -403,17 +374,21 @@ Rest API：取得一筆資料
 <!--
 # Troubleshooting
 
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;__type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;com.amazon.coral.validate#ValidationException&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;message&quot;</span><span class="punctuation">:</span> <span class="string">&quot;The provided key element does not match the schema&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;__type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;com.amazon.coral.service#AccessDeniedException&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Message&quot;</span><span class="punctuation">:</span> <span class="string">&quot;User: arn:aws:sts::123456789:assumed-role/Mixo-Dominant-Proxy-Role/BackplaneAssumeRoleSession is not authorized to perform: dynamodb:GetItem on resource: arn:aws:dynamodb:us-west-2:123456789:table/Comments&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-<p>–&gt;</p>
+```json
+&#123;
+  "__type": "com.amazon.coral.validate#ValidationException",
+  "message": "The provided key element does not match the schema"
+&#125;
 
+&#123;
+    "__type": "com.amazon.coral.service#AccessDeniedException",
+    "Message": "User: arn:aws:sts::123456789:assumed-role/Mixo-Dominant-Proxy-Role/BackplaneAssumeRoleSession is not authorized to perform: dynamodb:GetItem on resource: arn:aws:dynamodb:us-west-2:123456789:table/Comments"
+&#125;
+```
+-->
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2018/04/21/AWS/Study-Notes-API-Gateway-as-DynamoDB-Proxy/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -448,26 +423,6 @@ Rest API：取得一筆資料
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2018/04/21/AWS/Study-Notes-API-Gateway-as-DynamoDB-Proxy/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -477,6 +432,7 @@ Rest API：取得一筆資料
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -493,7 +449,7 @@ Rest API：取得一筆資料
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#1-%E6%83%B3%E6%B3%95%E7%B7%A3%E7%94%B1"><span class="toc-article-text">1. 想法緣由</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2-%E6%BA%96%E5%82%99%E5%B7%A5%E4%BD%9C"><span class="toc-article-text">2. 準備工作</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-1-%E5%BB%BA%E7%AB%8B-DynamoDB-Table"><span class="toc-article-text">2-1. 建立 DynamoDB Table</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-2-%E9%85%8D%E7%BD%AE%E6%AC%8A%E9%99%90-IAM-Role"><span class="toc-article-text">2-2. 配置權限 IAM Role</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#3-%E5%AF%AB%E5%85%A5%E4%B8%80%E7%AD%86%E8%B3%87%E6%96%99-Put-an-Item"><span class="toc-article-text">3. 寫入一筆資料 (Put an Item)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-1-Integration-Request"><span class="toc-article-text">3-1. Integration Request</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-2-Integration-Response"><span class="toc-article-text">3-2. Integration Response</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-3-Test-before-deployment"><span class="toc-article-text">3-3. Test before deployment</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#4-%E5%8F%96%E5%BE%97%E4%B8%80%E7%AD%86%E8%B3%87%E6%96%99-Get-an-Item"><span class="toc-article-text">4. 取得一筆資料 (Get an Item)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#4-1-Integration-Request-96"><span class="toc-article-text">4-1. Integration Request&#96;</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#4-2-Integration-Response"><span class="toc-article-text">4-2. Integration Response</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#4-3-Test-before-deployment"><span class="toc-article-text">4-3. Test before deployment</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#5-%E6%B8%AC%E8%A9%A6"><span class="toc-article-text">5. 測試</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0"><span class="toc-article-text">系列文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E5%BB%B6%E4%BC%B8"><span class="toc-article-text">站內延伸</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#1-%E6%83%B3%E6%B3%95%E7%B7%A3%E7%94%B1"><span class="toc-article-text">1. 想法緣由</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2-%E6%BA%96%E5%82%99%E5%B7%A5%E4%BD%9C"><span class="toc-article-text">2. 準備工作</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-1-%E5%BB%BA%E7%AB%8B-DynamoDB-Table"><span class="toc-article-text">2-1. 建立 DynamoDB Table</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-2-%E9%85%8D%E7%BD%AE%E6%AC%8A%E9%99%90-IAM-Role"><span class="toc-article-text">2-2. 配置權限 IAM Role</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#3-%E5%AF%AB%E5%85%A5%E4%B8%80%E7%AD%86%E8%B3%87%E6%96%99-Put-an-Item"><span class="toc-article-text">3. 寫入一筆資料 (Put an Item)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-1-Integration-Request"><span class="toc-article-text">3-1. Integration Request</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-2-Integration-Response"><span class="toc-article-text">3-2. Integration Response</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-3-Test-before-deployment"><span class="toc-article-text">3-3. Test before deployment</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#4-%E5%8F%96%E5%BE%97%E4%B8%80%E7%AD%86%E8%B3%87%E6%96%99-Get-an-Item"><span class="toc-article-text">4. 取得一筆資料 (Get an Item)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#4-1-Integration-Request"><span class="toc-article-text">4-1. Integration Request&#96;</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#4-2-Integration-Response"><span class="toc-article-text">4-2. Integration Response</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#4-3-Test-before-deployment"><span class="toc-article-text">4-3. Test before deployment</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#5-%E6%B8%AC%E8%A9%A6"><span class="toc-article-text">5. 測試</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0"><span class="toc-article-text">系列文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E5%BB%B6%E4%BC%B8"><span class="toc-article-text">站內延伸</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol>
 		</div>
 	
 	</div>
@@ -535,6 +491,7 @@ Rest API：取得一筆資料
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -550,8 +507,10 @@ Rest API：取得一筆資料
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -561,8 +520,10 @@ Rest API：取得一筆資料
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -596,6 +557,7 @@ Rest API：取得一筆資料
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -649,6 +611,7 @@ Rest API：取得一筆資料
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -686,6 +649,7 @@ Rest API：取得一筆資料
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -701,6 +665,7 @@ Rest API：取得一筆資料
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

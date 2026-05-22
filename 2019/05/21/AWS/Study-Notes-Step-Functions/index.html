@@ -67,31 +67,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -115,7 +97,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -127,7 +109,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -251,25 +233,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2019%2F05%2F21%2FAWS%2FStudy-Notes-Step-Functions%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2019/05/21/AWS/Study-Notes-Step-Functions/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2019/05/21/AWS/Study-Notes-Step-Functions/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>Step Functions 在 2016 re:Invent 發佈後我就一直放在心裡，他是令人興奮的功能。本文整理 Step Functions 的學習筆記。</p>
 <!--
 * 基本概念：State Machine、Activity
@@ -353,25 +316,32 @@
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;Comment&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Bug Flow&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;StartAt&quot;</span><span class="punctuation">:</span> <span class="string">&quot;HelloWorld&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;States&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;State1&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;Type&quot;</span><span class="punctuation">:</span> <span class="string">&quot; ... &quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;State2&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;Type&quot;</span><span class="punctuation">:</span> <span class="string">&quot; ... &quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 
 
-<h2 id="範例-Feature-x2F-Bug-Workflow"><a href="#範例-Feature-x2F-Bug-Workflow" class="headerlink" title="範例 - Feature &#x2F; Bug Workflow"></a>範例 - Feature &#x2F; Bug Workflow</h2><p>底下兩張圖是我用 ASL 設計的流程 ，主要用來呈現 <code>Feature</code> 與 <code>Defect</code> or <code>Bug</code> 的工作流程，以此開始作為學習之路。</p>
+<h2 id="範例-Feature-Bug-Workflow"><a href="#範例-Feature-Bug-Workflow" class="headerlink" title="範例 - Feature &#x2F; Bug Workflow"></a>範例 - Feature &#x2F; Bug Workflow</h2><p>底下兩張圖是我用 ASL 設計的流程 ，主要用來呈現 <code>Feature</code> 與 <code>Defect</code> or <code>Bug</code> 的工作流程，以此開始作為學習之路。</p>
 <p><img src="/images/AWS/Step-Functions/Redmine-Feature.png"><br><img src="/images/AWS/Step-Functions/Redmine-Bug-Defect.png"></p>
 <!--
 ## States Fields
 
 狀態這個欄位的基本格式如下：
 
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;FirstState&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">   <span class="attr">&quot;Type&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;Task&quot;</span><span class="punctuation">,</span></span><br><span class="line">   ...</span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;SecondState&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">   <span class="attr">&quot;Type&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;Task&quot;</span><span class="punctuation">,</span></span><br><span class="line">   ...</span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
+```json
+"FirstState" : &#123;
+   "Type" : "Task",
+   ...
+&#125;,
+"SecondState" : &#123;
+   "Type" : "Task",
+   ...
+&#125;,
+```
 
-<ul>
-<li>Common State Fields</li>
-<li>執行單元：Task</li>
-<li>流程：Sequence, Parallel, Choice, Wait, Pass</li>
-<li>結尾：Succeed, Fail<ul>
-<li>狀態結尾，一定會結束，沒有 “End”</li>
-</ul>
-</li>
-</ul>
-<p>–&gt;</p>
+* Common State Fields
+* 執行單元：Task
+* 流程：Sequence, Parallel, Choice, Wait, Pass
+* 結尾：Succeed, Fail
+    * 狀態結尾，一定會結束，沒有 "End"
+
+-->
+
 <!--
 ## 程序控制器 (Flow Controller)
 
@@ -419,7 +389,7 @@ CloudWatch Event Rule
 
 
 <h2 id="Hands-on"><a href="#Hands-on" class="headerlink" title="Hands-on"></a>Hands-on</h2><p>準備 State Machine Definition，檔名存成 <code>hello_world.json</code>，如下：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;Comment&quot;</span><span class="punctuation">:</span> <span class="string">&quot;A Hello World example of the Amazon States Language using a Pass state&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;StartAt&quot;</span><span class="punctuation">:</span> <span class="string">&quot;HelloWorld&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;States&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;HelloWorld&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;Type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Pass&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Result&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Hello World!&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;End&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;Comment&quot;</span><span class="punctuation">:</span> <span class="string">&quot;A Hello World example of the Amazon States Language using a Pass state&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;StartAt&quot;</span><span class="punctuation">:</span> <span class="string">&quot;HelloWorld&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;States&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;HelloWorld&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;Type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Pass&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Result&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Hello World!&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;End&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>建立 State Machine Definition</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">FUNC_NAME=<span class="string">&quot;hello_world&quot;</span></span><br><span class="line">TS=$(<span class="built_in">date</span> +<span class="string">&quot;%Y%m%d-%H%M&quot;</span>)</span><br><span class="line">DEFINITION=<span class="string">&quot;file://<span class="variable">$&#123;FUNC_NAME&#125;</span>.json&quot;</span></span><br><span class="line">ROLE_ARN=<span class="string">&quot;arn:aws:iam::[YOUR_AWS_ACCOUNT_ID]:role/[STEP_FUNCTION_ROLE]&quot;</span></span><br><span class="line"></span><br><span class="line">aws stepfunctions create-state-machine \</span><br><span class="line">    --name <span class="string">&quot;<span class="variable">$&#123;FUNC_NAME&#125;</span>&quot;</span> \</span><br><span class="line">    --definition <span class="variable">$&#123;DEFINITION&#125;</span> \</span><br><span class="line">    --role-arn <span class="string">&quot;<span class="variable">$&#123;ROLE_ARN&#125;</span>&quot;</span>  \</span><br><span class="line">    --tags key=Purpose,value=Lab key=Date,value=<span class="variable">$&#123;TS&#125;</span></span><br></pre></td></tr></table></figure>
@@ -478,11 +448,6 @@ CloudWatch Event Rule
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2019/05/21/AWS/Study-Notes-Step-Functions/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -517,26 +482,6 @@ CloudWatch Event Rule
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2019/05/21/AWS/Study-Notes-Step-Functions/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -546,6 +491,7 @@ CloudWatch Event Rule
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -562,7 +508,7 @@ CloudWatch Event Rule
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%EF%BC%9A%E7%8B%80%E6%85%8B%E6%A9%9F"><span class="toc-article-text">核心概念：狀態機</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%87%89%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="toc-article-text">應用案例</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%9F%BA%E7%A4%8E%E5%8A%9F%E8%83%BD"><span class="toc-article-text">基礎功能</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Amazon-States-Language"><span class="toc-article-text">Amazon States Language</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AF%84%E4%BE%8B-Feature-x2F-Bug-Workflow"><span class="toc-article-text">範例 - Feature &#x2F; Bug Workflow</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9F%B7%E8%A1%8C-Execution"><span class="toc-article-text">執行 (Execution)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Hands-on"><span class="toc-article-text">Hands-on</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%95%8F%E8%88%87%E7%AD%94"><span class="toc-article-text">問與答</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E9%97%9C%E6%96%BC%E9%9D%9E%E5%90%8C%E6%AD%A5%E6%9E%B6%E6%A7%8B"><span class="toc-article-text">關於非同步架構</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E5%BB%B6%E4%BC%B8"><span class="toc-article-text">站內延伸</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%AE%98%E6%96%B9%E6%96%87%E4%BB%B6"><span class="toc-article-text">官方文件</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E8%B3%87%E6%96%99"><span class="toc-article-text">相關資料</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%AE%98%E6%96%B9%E6%9B%B4%E6%96%B0"><span class="toc-article-text">官方更新</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%EF%BC%9A%E7%8B%80%E6%85%8B%E6%A9%9F"><span class="toc-article-text">核心概念：狀態機</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%87%89%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="toc-article-text">應用案例</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%9F%BA%E7%A4%8E%E5%8A%9F%E8%83%BD"><span class="toc-article-text">基礎功能</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Amazon-States-Language"><span class="toc-article-text">Amazon States Language</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AF%84%E4%BE%8B-Feature-Bug-Workflow"><span class="toc-article-text">範例 - Feature &#x2F; Bug Workflow</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9F%B7%E8%A1%8C-Execution"><span class="toc-article-text">執行 (Execution)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Hands-on"><span class="toc-article-text">Hands-on</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%95%8F%E8%88%87%E7%AD%94"><span class="toc-article-text">問與答</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E9%97%9C%E6%96%BC%E9%9D%9E%E5%90%8C%E6%AD%A5%E6%9E%B6%E6%A7%8B"><span class="toc-article-text">關於非同步架構</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E5%BB%B6%E4%BC%B8"><span class="toc-article-text">站內延伸</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%AE%98%E6%96%B9%E6%96%87%E4%BB%B6"><span class="toc-article-text">官方文件</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E8%B3%87%E6%96%99"><span class="toc-article-text">相關資料</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%AE%98%E6%96%B9%E6%9B%B4%E6%96%B0"><span class="toc-article-text">官方更新</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -592,7 +538,7 @@ CloudWatch Event Rule
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/API-Gateway/" style="color: white">API Gateway <span class="badge">18</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">33</span></a></span> <span class="label label-success"><a href="/tags/DynamoDB/" style="color: white">DynamoDB <span class="badge">10</span></a></span> <span class="label label-success"><a href="/tags/Serverless/" style="color: white">Serverless <span class="badge">14</span></a></span> <span class="label label-success"><a href="/tags/Finite-State-Machine/" style="color: white">Finite-State Machine <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Lambda/" style="color: white">Lambda <span class="badge">17</span></a></span> <span class="label label-success"><a href="/tags/SQS/" style="color: white">SQS <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Logs/" style="color: white">CloudWatch Logs <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/SNS/" style="color: white">SNS <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Step-Functions/" style="color: white">Step Functions <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Message-Queue/" style="color: white">Message Queue <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Message-Broker/" style="color: white">Message Broker <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Workflow/" style="color: white">Workflow <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Batch-Process/" style="color: white">Batch Process <span class="badge">2</span></a></span>
+  <span class="label label-success"><a href="/tags/API-Gateway/" style="color: white">API Gateway <span class="badge">18</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">33</span></a></span> <span class="label label-success"><a href="/tags/DynamoDB/" style="color: white">DynamoDB <span class="badge">10</span></a></span> <span class="label label-success"><a href="/tags/Serverless/" style="color: white">Serverless <span class="badge">14</span></a></span> <span class="label label-success"><a href="/tags/Lambda/" style="color: white">Lambda <span class="badge">17</span></a></span> <span class="label label-success"><a href="/tags/SQS/" style="color: white">SQS <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch-Logs/" style="color: white">CloudWatch Logs <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/SNS/" style="color: white">SNS <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Step-Functions/" style="color: white">Step Functions <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Message-Queue/" style="color: white">Message Queue <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Message-Broker/" style="color: white">Message Broker <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Finite-State-Machine/" style="color: white">Finite-State Machine <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Workflow/" style="color: white">Workflow <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Batch-Process/" style="color: white">Batch Process <span class="badge">2</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -604,6 +550,7 @@ CloudWatch Event Rule
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -619,8 +566,10 @@ CloudWatch Event Rule
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -630,8 +579,10 @@ CloudWatch Event Rule
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -665,6 +616,7 @@ CloudWatch Event Rule
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -718,6 +670,7 @@ CloudWatch Event Rule
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -755,6 +708,7 @@ CloudWatch Event Rule
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -770,6 +724,7 @@ CloudWatch Event Rule
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

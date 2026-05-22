@@ -63,31 +63,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -111,7 +93,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -123,7 +105,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -247,25 +229,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2019%2F06%2F05%2FDevOps%2FGithub-Incident-Analysis%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2019/06/05/DevOps/Github-Incident-Analysis/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2019/06/05/DevOps/Github-Incident-Analysis/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>2018&#x2F;10&#x2F;21 GitHub 發生重大的異常，服務中斷超過 24h。事後官方釋出完整的事件分析報告，包含非常詳盡的事件過程、架構、應變等。這篇是我當時整理在 SRE 社群的簡譯，<a target="_blank" rel="noopener" href="https://www.facebook.com/groups/sre.taiwan/permalink/1176448732521029/">原始連結</a>。</p>
 <p>如同電影 <code>薩利機長</code>，SRE 應該要多閱讀 <code>異常事件報告</code>，從中學習應變的方法與經驗，同時也了解別人的 <code>系統架構</code> 為何如此設計，有什麼問題？</p>
 <p>這個事件，讓 Github 整個組織認真思考 Site Reliability Engineering 的重要性。</p>
@@ -279,34 +242,34 @@
 <p><img src="/images/SRE/Github-Incident-2018/normal-topology.webp"></p>
 <hr>
 <h1 id="事件時間軸"><a href="#事件時間軸" class="headerlink" title="事件時間軸"></a>事件時間軸</h1><p>時間軸的摘要如下 (文長，沒照翻 …):</p>
-<h2 id="10-x2F-21-22-52-UTC-DB-從美東-failover-到美西"><a href="#10-x2F-21-22-52-UTC-DB-從美東-failover-到美西" class="headerlink" title="10&#x2F;21 22:52 UTC: DB 從美東 failover 到美西"></a>10&#x2F;21 22:52 UTC: DB 從美東 failover 到美西</h2><p>更換 100G 光纖設備的常規維護工作，導致 US East 海岸網路接口與 US East 資料中心短暫中斷 43 秒。這中斷的過程，原本在 US East 負責 Master DB 無法將資料同步到 US West 的資料中心。此時負責 管理 MySQL Cluster 的機制 (<a target="_blank" rel="noopener" href="https://www.infoq.com/news/2018/11/github-incident-analysis">Orchestrator</a>) 自動處理 failover，重導網路流量到 US West，也就是 Master 原本在 US East 改為 US West 資料中心。</p>
+<h2 id="10-21-22-52-UTC-DB-從美東-failover-到美西"><a href="#10-21-22-52-UTC-DB-從美東-failover-到美西" class="headerlink" title="10&#x2F;21 22:52 UTC: DB 從美東 failover 到美西"></a>10&#x2F;21 22:52 UTC: DB 從美東 failover 到美西</h2><p>更換 100G 光纖設備的常規維護工作，導致 US East 海岸網路接口與 US East 資料中心短暫中斷 43 秒。這中斷的過程，原本在 US East 負責 Master DB 無法將資料同步到 US West 的資料中心。此時負責 管理 MySQL Cluster 的機制 (<a target="_blank" rel="noopener" href="https://www.infoq.com/news/2018/11/github-incident-analysis">Orchestrator</a>) 自動處理 failover，重導網路流量到 US West，也就是 Master 原本在 US East 改為 US West 資料中心。</p>
 <blockquote>
 <p>Orchestrator 是 MySQL HA and Replication 的管理服務，他使用 <a target="_blank" rel="noopener" href="https://github.com/github/orchestrator">Raft</a> 一致演算法實作分區容錯與共識機制。</p>
 </blockquote>
-<h2 id="10-x2F-21-22-54-UTC-事件後兩分鐘-定位事故肇因"><a href="#10-x2F-21-22-54-UTC-事件後兩分鐘-定位事故肇因" class="headerlink" title="10&#x2F;21 22:54 UTC (事件後兩分鐘): 定位事故肇因"></a>10&#x2F;21 22:54 UTC (事件後兩分鐘): 定位事故肇因</h2><p>內部監控系統監控到數個異常訊息，發出內部 Alert ，好幾位工程師進入處理狀態。23:02 (事件後 10 分鐘) 確認是 資料庫叢集的拓墣問題。</p>
-<h2 id="10-x2F-21-23-07-UTC-事件後-15-分-定義事件等級"><a href="#10-x2F-21-23-07-UTC-事件後-15-分-定義事件等級" class="headerlink" title="10&#x2F;21 23:07 UTC (事件後 15 分): 定義事件等級"></a>10&#x2F;21 23:07 UTC (事件後 15 分): 定義事件等級</h2><p>Responding Team 決定手動暫停 (Lock) 所有部署程序，避免額外的問題。23:09 (事件後 17 分) Responding Team 把網站狀態燈調整成<a target="_blank" rel="noopener" href="https://www.infoq.com/news/2018/11/github-incident-analysis">黃燈</a>，三分後 (23:11) <code>事故協調小組</code> 加入，兩分鐘後決定調整狀態為<a target="_blank" rel="noopener" href="https://twitter.com/githubstatus/status/1054147648930897920">紅燈</a>。</p>
-<h2 id="10-x2F-21-23-13-UTC-事件後-21-分-恢復資料庫配置，確認資料差異"><a href="#10-x2F-21-23-13-UTC-事件後-21-分-恢復資料庫配置，確認資料差異" class="headerlink" title="10&#x2F;21 23:13 UTC (事件後 21 分): 恢復資料庫配置，確認資料差異"></a>10&#x2F;21 23:13 UTC (事件後 21 分): 恢復資料庫配置，確認資料差異</h2><p>確認問題原因，Database Engineering Team 進來，主要研究有哪一些配置需要手動調整，讓 US East Database 重新配置成 Master ，同時要把 Cluster 的 Slave 從 US West 抄完，這段時間 US West 已經寫入 40 分鐘的資料了。此外，已經有一些資料寫入 US East ，但還沒被寫回 US West，這同時還要避免又從 US West 重新寫回 US East … (好亂啊 orz …)</p>
+<h2 id="10-21-22-54-UTC-事件後兩分鐘-定位事故肇因"><a href="#10-21-22-54-UTC-事件後兩分鐘-定位事故肇因" class="headerlink" title="10&#x2F;21 22:54 UTC (事件後兩分鐘): 定位事故肇因"></a>10&#x2F;21 22:54 UTC (事件後兩分鐘): 定位事故肇因</h2><p>內部監控系統監控到數個異常訊息，發出內部 Alert ，好幾位工程師進入處理狀態。23:02 (事件後 10 分鐘) 確認是 資料庫叢集的拓墣問題。</p>
+<h2 id="10-21-23-07-UTC-事件後-15-分-定義事件等級"><a href="#10-21-23-07-UTC-事件後-15-分-定義事件等級" class="headerlink" title="10&#x2F;21 23:07 UTC (事件後 15 分): 定義事件等級"></a>10&#x2F;21 23:07 UTC (事件後 15 分): 定義事件等級</h2><p>Responding Team 決定手動暫停 (Lock) 所有部署程序，避免額外的問題。23:09 (事件後 17 分) Responding Team 把網站狀態燈調整成<a target="_blank" rel="noopener" href="https://www.infoq.com/news/2018/11/github-incident-analysis">黃燈</a>，三分後 (23:11) <code>事故協調小組</code> 加入，兩分鐘後決定調整狀態為<a target="_blank" rel="noopener" href="https://twitter.com/githubstatus/status/1054147648930897920">紅燈</a>。</p>
+<h2 id="10-21-23-13-UTC-事件後-21-分-恢復資料庫配置，確認資料差異"><a href="#10-21-23-13-UTC-事件後-21-分-恢復資料庫配置，確認資料差異" class="headerlink" title="10&#x2F;21 23:13 UTC (事件後 21 分): 恢復資料庫配置，確認資料差異"></a>10&#x2F;21 23:13 UTC (事件後 21 分): 恢復資料庫配置，確認資料差異</h2><p>確認問題原因，Database Engineering Team 進來，主要研究有哪一些配置需要手動調整，讓 US East Database 重新配置成 Master ，同時要把 Cluster 的 Slave 從 US West 抄完，這段時間 US West 已經寫入 40 分鐘的資料了。此外，已經有一些資料寫入 US East ，但還沒被寫回 US West，這同時還要避免又從 US West 重新寫回 US East … (好亂啊 orz …)</p>
 <p><img src="/images/SRE/Github-Incident-2018/invalid-topology.webp"></p>
-<h2 id="10-x2F-21-23-19-UTC-事件後-27-分-提高資料完整性、系統降級"><a href="#10-x2F-21-23-19-UTC-事件後-27-分-提高資料完整性、系統降級" class="headerlink" title="10&#x2F;21 23:19 UTC (事件後 27 分): 提高資料完整性、系統降級"></a>10&#x2F;21 23:19 UTC (事件後 27 分): 提高資料完整性、系統降級</h2><p>確認有一些 DB 查詢動作，像是 Push 要先暫停，研究過後決定執行部分的降級 (degrade)，包含了 webhook delivery、GitHub Page Build。選擇的策略就是以資料完整性高於功能的易用性。</p>
-<h2 id="10-x2F-22-00-05-UTC-事件後-01h13m-解決資料不一致計畫，資料庫還原"><a href="#10-x2F-22-00-05-UTC-事件後-01h13m-解決資料不一致計畫，資料庫還原" class="headerlink" title="10&#x2F;22 00:05 UTC (事件後 01h13m): 解決資料不一致計畫，資料庫還原"></a>10&#x2F;22 00:05 UTC (事件後 01h13m): 解決資料不一致計畫，資料庫還原</h2><p>在 Incident Response Team 裡的工程師們，開始規劃 <code>解決資料不一致</code> 以及 MySQL failover 的實踐。計畫是從備份還原資料、同步在兩個資料中心的副本資料、回到正常服務的資料庫拓墣架構、還原暫停在 Queue 裡的排程任務。這時候對外公告上述的 <a target="_blank" rel="noopener" href="https://twitter.com/githubstatus/status/1054161818652946433">計畫</a></p>
+<h2 id="10-21-23-19-UTC-事件後-27-分-提高資料完整性、系統降級"><a href="#10-21-23-19-UTC-事件後-27-分-提高資料完整性、系統降級" class="headerlink" title="10&#x2F;21 23:19 UTC (事件後 27 分): 提高資料完整性、系統降級"></a>10&#x2F;21 23:19 UTC (事件後 27 分): 提高資料完整性、系統降級</h2><p>確認有一些 DB 查詢動作，像是 Push 要先暫停，研究過後決定執行部分的降級 (degrade)，包含了 webhook delivery、GitHub Page Build。選擇的策略就是以資料完整性高於功能的易用性。</p>
+<h2 id="10-22-00-05-UTC-事件後-01h13m-解決資料不一致計畫，資料庫還原"><a href="#10-22-00-05-UTC-事件後-01h13m-解決資料不一致計畫，資料庫還原" class="headerlink" title="10&#x2F;22 00:05 UTC (事件後 01h13m): 解決資料不一致計畫，資料庫還原"></a>10&#x2F;22 00:05 UTC (事件後 01h13m): 解決資料不一致計畫，資料庫還原</h2><p>在 Incident Response Team 裡的工程師們，開始規劃 <code>解決資料不一致</code> 以及 MySQL failover 的實踐。計畫是從備份還原資料、同步在兩個資料中心的副本資料、回到正常服務的資料庫拓墣架構、還原暫停在 Queue 裡的排程任務。這時候對外公告上述的 <a target="_blank" rel="noopener" href="https://twitter.com/githubstatus/status/1054161818652946433">計畫</a></p>
 <p>MySQL 每四個小時備份一次，這樣的資料存在公有雲好幾年了（沒寫哪朵雲）。資料回復的量有好幾個 TB，也就要花好幾個小時。主要的時間都花費在資料傳輸，做資料完整的檢查 (checksum, prepare, load, test …)。在這意外之前，我們從不需要重蓋整個資料庫叢集，和回覆整個資料。</p>
 <p><img src="/images/SRE/Github-Incident-2018/recovery-flow.webp"></p>
-<h2 id="10-x2F-22-00-41-UTC-事件後-01h49m-開始執行還原"><a href="#10-x2F-22-00-41-UTC-事件後-01h49m-開始執行還原" class="headerlink" title="10&#x2F;22 00:41 UTC (事件後 01h49m): 開始執行還原"></a>10&#x2F;22 00:41 UTC (事件後 01h49m): 開始執行還原</h2><p>還原程序開始執行，工程師監控執行程序。其他團隊開始研究如何加速還原。</p>
+<h2 id="10-22-00-41-UTC-事件後-01h49m-開始執行還原"><a href="#10-22-00-41-UTC-事件後-01h49m-開始執行還原" class="headerlink" title="10&#x2F;22 00:41 UTC (事件後 01h49m): 開始執行還原"></a>10&#x2F;22 00:41 UTC (事件後 01h49m): 開始執行還原</h2><p>還原程序開始執行，工程師監控執行程序。其他團隊開始研究如何加速還原。</p>
 <blockquote>
 <p>共花了六小時還原！</p>
 </blockquote>
-<h2 id="10-x2F-22-06-51-UTC-事件後-07h59m-提升系統讀取效能"><a href="#10-x2F-22-06-51-UTC-事件後-07h59m-提升系統讀取效能" class="headerlink" title="10&#x2F;22 06:51 UTC (事件後 07h59m): 提升系統讀取效能"></a>10&#x2F;22 06:51 UTC (事件後 07h59m): 提升系統讀取效能</h2><p>US East 資料中心，好幾座資料庫叢集已經還原，然後開始從 US West 抄寫新資料回來。這會導致頁面讀取資料非常的慢，因為如果讀取新的資料 (US East 還沒有)，那麼就要先等資料從 US West 寫回來之後，但這段資料傳輸是跨美西到美東的網路。</p>
+<h2 id="10-22-06-51-UTC-事件後-07h59m-提升系統讀取效能"><a href="#10-22-06-51-UTC-事件後-07h59m-提升系統讀取效能" class="headerlink" title="10&#x2F;22 06:51 UTC (事件後 07h59m): 提升系統讀取效能"></a>10&#x2F;22 06:51 UTC (事件後 07h59m): 提升系統讀取效能</h2><p>US East 資料中心，好幾座資料庫叢集已經還原，然後開始從 US West 抄寫新資料回來。這會導致頁面讀取資料非常的慢，因為如果讀取新的資料 (US East 還沒有)，那麼就要先等資料從 US West 寫回來之後，但這段資料傳輸是跨美西到美東的網路。</p>
 <p>這時候團隊發現可以直接從 US West 資料中心還原資料，不會被下載的速度限制。同時可以利用 Replication 抄寫機制，這時候在 Twitter <a target="_blank" rel="noopener" href="https://twitter.com/githubstatus/status/1054264047250608130">對外公告還要兩小時 (如下圖)</a> 完成。</p>
 <p><img src="/images/SRE/Github-Incident-2018/1022-0651.png"></p>
-<h2 id="10-x2F-22-07-46-UTC-事件後-08h54m-對外公告"><a href="#10-x2F-22-07-46-UTC-事件後-08h54m-對外公告" class="headerlink" title="10&#x2F;22 07:46 UTC (事件後 08h54m): 對外公告"></a>10&#x2F;22 07:46 UTC (事件後 08h54m): 對外公告</h2><p>在 GitHub Blog 發佈一篇 <a target="_blank" rel="noopener" href="https://github.blog/2018-10-21-october21-incident-report/">異常公告訊息 (如下圖)</a>，說明異常原因是因為網路區段異常，造成資料不一致現象。為了確保資料完整性，暫停了部分功能和內部發佈程序。</p>
+<h2 id="10-22-07-46-UTC-事件後-08h54m-對外公告"><a href="#10-22-07-46-UTC-事件後-08h54m-對外公告" class="headerlink" title="10&#x2F;22 07:46 UTC (事件後 08h54m): 對外公告"></a>10&#x2F;22 07:46 UTC (事件後 08h54m): 對外公告</h2><p>在 GitHub Blog 發佈一篇 <a target="_blank" rel="noopener" href="https://github.blog/2018-10-21-october21-incident-report/">異常公告訊息 (如下圖)</a>，說明異常原因是因為網路區段異常，造成資料不一致現象。為了確保資料完整性，暫停了部分功能和內部發佈程序。</p>
 <p><img src="/images/SRE/Github-Incident-2018/1022-0746.png"></p>
-<h2 id="10-x2F-22-11-12-UTC-事件後-12h20m-處理資料不一致"><a href="#10-x2F-22-11-12-UTC-事件後-12h20m-處理資料不一致" class="headerlink" title="10&#x2F;22 11:12 UTC (事件後 12h20m): 處理資料不一致"></a>10&#x2F;22 11:12 UTC (事件後 12h20m): 處理資料不一致</h2><p>Master 資料庫已經切回 US East，讓網站的響應速度變快，但是因為有部分的副本 (Slave) 還是落後幾個小時的資料，這個延遲造成使用者發現資料不一致。實際上副本寫入是非線性的，所以將讀取的請求分散到各個副本，讓資料慢慢一致。</p>
+<h2 id="10-22-11-12-UTC-事件後-12h20m-處理資料不一致"><a href="#10-22-11-12-UTC-事件後-12h20m-處理資料不一致" class="headerlink" title="10&#x2F;22 11:12 UTC (事件後 12h20m): 處理資料不一致"></a>10&#x2F;22 11:12 UTC (事件後 12h20m): 處理資料不一致</h2><p>Master 資料庫已經切回 US East，讓網站的響應速度變快，但是因為有部分的副本 (Slave) 還是落後幾個小時的資料，這個延遲造成使用者發現資料不一致。實際上副本寫入是非線性的，所以將讀取的請求分散到各個副本，讓資料慢慢一致。</p>
 <p>寫入的負載程度會開始在歐洲和美洲的上班時間，所以還原花費的時間會比原本預估的還要長</p>
-<h2 id="10-x2F-22-13-15-UTC-事件後-14h23m-尖峰時間，增加複本"><a href="#10-x2F-22-13-15-UTC-事件後-14h23m-尖峰時間，增加複本" class="headerlink" title="10&#x2F;22 13:15 UTC (事件後 14h23m): 尖峰時間，增加複本"></a>10&#x2F;22 13:15 UTC (事件後 14h23m): 尖峰時間，增加複本</h2><p>這是 Github.com 流量尖峰，網站的回應速度變慢。事件回應小組針對這個狀況持續討論。事件之前已經決定在 US East 公有雲上增加副本。只要這些機器就緒，就可以提供更多服務。</p>
-<h2 id="10-x2F-22-16-24-UTC-事件後-17h32m-資料持續複製中"><a href="#10-x2F-22-16-24-UTC-事件後-17h32m-資料持續複製中" class="headerlink" title="10&#x2F;22 16:24 UTC (事件後 17h32m): 資料持續複製中"></a>10&#x2F;22 16:24 UTC (事件後 17h32m): 資料持續複製中</h2><p>一但複本同步完成，將執行故障移轉回到原本的拓墣架構，解決延遲和可用性問題。當我們還在處理這些資料的時候，覺得資料完整性優先，所以保持服務為<a target="_blank" rel="noopener" href="https://twitter.com/githubstatus/status/1054408042836606977">紅燈</a>。</p>
-<h2 id="10-x2F-22-16-45-UTC-事件後-17h53m-系統效能恢復，關閉降級，開始執行非同步作業。"><a href="#10-x2F-22-16-45-UTC-事件後-17h53m-系統效能恢復，關閉降級，開始執行非同步作業。" class="headerlink" title="10&#x2F;22 16:45 UTC (事件後 17h53m): 系統效能恢復，關閉降級，開始執行非同步作業。"></a>10&#x2F;22 16:45 UTC (事件後 17h53m): 系統效能恢復，關閉降級，開始執行非同步作業。</h2><p>到這個時間，已經完成恢復，提升回應，服務幾乎 100% 恢復。但是還有五百萬的 hook 事件、八萬的 Page 建置在 Queue 裡。開始處理這些資料，約有 20 萬的 webhook 因為 TTL 過期了，所以我們找出了這些 event，條整 TTL 重新執行。</p>
+<h2 id="10-22-13-15-UTC-事件後-14h23m-尖峰時間，增加複本"><a href="#10-22-13-15-UTC-事件後-14h23m-尖峰時間，增加複本" class="headerlink" title="10&#x2F;22 13:15 UTC (事件後 14h23m): 尖峰時間，增加複本"></a>10&#x2F;22 13:15 UTC (事件後 14h23m): 尖峰時間，增加複本</h2><p>這是 Github.com 流量尖峰，網站的回應速度變慢。事件回應小組針對這個狀況持續討論。事件之前已經決定在 US East 公有雲上增加副本。只要這些機器就緒，就可以提供更多服務。</p>
+<h2 id="10-22-16-24-UTC-事件後-17h32m-資料持續複製中"><a href="#10-22-16-24-UTC-事件後-17h32m-資料持續複製中" class="headerlink" title="10&#x2F;22 16:24 UTC (事件後 17h32m): 資料持續複製中"></a>10&#x2F;22 16:24 UTC (事件後 17h32m): 資料持續複製中</h2><p>一但複本同步完成，將執行故障移轉回到原本的拓墣架構，解決延遲和可用性問題。當我們還在處理這些資料的時候，覺得資料完整性優先，所以保持服務為<a target="_blank" rel="noopener" href="https://twitter.com/githubstatus/status/1054408042836606977">紅燈</a>。</p>
+<h2 id="10-22-16-45-UTC-事件後-17h53m-系統效能恢復，關閉降級，開始執行非同步作業。"><a href="#10-22-16-45-UTC-事件後-17h53m-系統效能恢復，關閉降級，開始執行非同步作業。" class="headerlink" title="10&#x2F;22 16:45 UTC (事件後 17h53m): 系統效能恢復，關閉降級，開始執行非同步作業。"></a>10&#x2F;22 16:45 UTC (事件後 17h53m): 系統效能恢復，關閉降級，開始執行非同步作業。</h2><p>到這個時間，已經完成恢復，提升回應，服務幾乎 100% 恢復。但是還有五百萬的 hook 事件、八萬的 Page 建置在 Queue 裡。開始處理這些資料，約有 20 萬的 webhook 因為 TTL 過期了，所以我們找出了這些 event，條整 TTL 重新執行。</p>
 <p>為了避免這個問題，未來會先進入 degrated 狀態，確認服務恢復了，在開始啟動這些 event 處理的程序，確保系統效能不被影響。</p>
-<h2 id="10-x2F-22-23-03-UTC-事件後-01d01h11m-確認系統狀態，改變燈號。"><a href="#10-x2F-22-23-03-UTC-事件後-01d01h11m-確認系統狀態，改變燈號。" class="headerlink" title="10&#x2F;22 23:03 UTC (事件後 01d01h11m): 確認系統狀態，改變燈號。"></a>10&#x2F;22 23:03 UTC (事件後 01d01h11m): 確認系統狀態，改變燈號。</h2><p>所有暫停的 webhook 和 Page Build 已經處理完了，所有系統狀態確認正常運作。<a target="_blank" rel="noopener" href="https://twitter.com/githubstatus/status/1054508689560870912">切換裝態為綠燈</a>。</p>
+<h2 id="10-22-23-03-UTC-事件後-01d01h11m-確認系統狀態，改變燈號。"><a href="#10-22-23-03-UTC-事件後-01d01h11m-確認系統狀態，改變燈號。" class="headerlink" title="10&#x2F;22 23:03 UTC (事件後 01d01h11m): 確認系統狀態，改變燈號。"></a>10&#x2F;22 23:03 UTC (事件後 01d01h11m): 確認系統狀態，改變燈號。</h2><p>所有暫停的 webhook 和 Page Build 已經處理完了，所有系統狀態確認正常運作。<a target="_blank" rel="noopener" href="https://twitter.com/githubstatus/status/1054508689560870912">切換裝態為綠燈</a>。</p>
 <hr>
 <h1 id="想法"><a href="#想法" class="headerlink" title="想法"></a>想法</h1><h2 id="扁鵲三兄弟的故事"><a href="#扁鵲三兄弟的故事" class="headerlink" title="扁鵲三兄弟的故事"></a>扁鵲三兄弟的故事</h2><p>扁鵲是中國古代歷史上非常著名的故事，這個故事最早出於《鶡冠子·卷下·世賢第十六》中卓襄王與龐暖的問答。原文如下：</p>
 <blockquote>
@@ -346,11 +309,6 @@
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2019/06/05/DevOps/Github-Incident-Analysis/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -385,26 +343,6 @@
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2019/06/05/DevOps/Github-Incident-Analysis/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -414,6 +352,7 @@
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -430,7 +369,7 @@
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E8%83%8C%E6%99%AF%E6%91%98%E8%A6%81"><span class="toc-article-text">背景摘要</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%BA%8B%E4%BB%B6%E6%99%82%E9%96%93%E8%BB%B8"><span class="toc-article-text">事件時間軸</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-x2F-21-22-52-UTC-DB-%E5%BE%9E%E7%BE%8E%E6%9D%B1-failover-%E5%88%B0%E7%BE%8E%E8%A5%BF"><span class="toc-article-text">10&#x2F;21 22:52 UTC: DB 從美東 failover 到美西</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-x2F-21-22-54-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C%E5%85%A9%E5%88%86%E9%90%98-%E5%AE%9A%E4%BD%8D%E4%BA%8B%E6%95%85%E8%82%87%E5%9B%A0"><span class="toc-article-text">10&#x2F;21 22:54 UTC (事件後兩分鐘): 定位事故肇因</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-x2F-21-23-07-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-15-%E5%88%86-%E5%AE%9A%E7%BE%A9%E4%BA%8B%E4%BB%B6%E7%AD%89%E7%B4%9A"><span class="toc-article-text">10&#x2F;21 23:07 UTC (事件後 15 分): 定義事件等級</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-x2F-21-23-13-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-21-%E5%88%86-%E6%81%A2%E5%BE%A9%E8%B3%87%E6%96%99%E5%BA%AB%E9%85%8D%E7%BD%AE%EF%BC%8C%E7%A2%BA%E8%AA%8D%E8%B3%87%E6%96%99%E5%B7%AE%E7%95%B0"><span class="toc-article-text">10&#x2F;21 23:13 UTC (事件後 21 分): 恢復資料庫配置，確認資料差異</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-x2F-21-23-19-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-27-%E5%88%86-%E6%8F%90%E9%AB%98%E8%B3%87%E6%96%99%E5%AE%8C%E6%95%B4%E6%80%A7%E3%80%81%E7%B3%BB%E7%B5%B1%E9%99%8D%E7%B4%9A"><span class="toc-article-text">10&#x2F;21 23:19 UTC (事件後 27 分): 提高資料完整性、系統降級</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-x2F-22-00-05-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-01h13m-%E8%A7%A3%E6%B1%BA%E8%B3%87%E6%96%99%E4%B8%8D%E4%B8%80%E8%87%B4%E8%A8%88%E7%95%AB%EF%BC%8C%E8%B3%87%E6%96%99%E5%BA%AB%E9%82%84%E5%8E%9F"><span class="toc-article-text">10&#x2F;22 00:05 UTC (事件後 01h13m): 解決資料不一致計畫，資料庫還原</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-x2F-22-00-41-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-01h49m-%E9%96%8B%E5%A7%8B%E5%9F%B7%E8%A1%8C%E9%82%84%E5%8E%9F"><span class="toc-article-text">10&#x2F;22 00:41 UTC (事件後 01h49m): 開始執行還原</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-x2F-22-06-51-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-07h59m-%E6%8F%90%E5%8D%87%E7%B3%BB%E7%B5%B1%E8%AE%80%E5%8F%96%E6%95%88%E8%83%BD"><span class="toc-article-text">10&#x2F;22 06:51 UTC (事件後 07h59m): 提升系統讀取效能</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-x2F-22-07-46-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-08h54m-%E5%B0%8D%E5%A4%96%E5%85%AC%E5%91%8A"><span class="toc-article-text">10&#x2F;22 07:46 UTC (事件後 08h54m): 對外公告</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-x2F-22-11-12-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-12h20m-%E8%99%95%E7%90%86%E8%B3%87%E6%96%99%E4%B8%8D%E4%B8%80%E8%87%B4"><span class="toc-article-text">10&#x2F;22 11:12 UTC (事件後 12h20m): 處理資料不一致</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-x2F-22-13-15-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-14h23m-%E5%B0%96%E5%B3%B0%E6%99%82%E9%96%93%EF%BC%8C%E5%A2%9E%E5%8A%A0%E8%A4%87%E6%9C%AC"><span class="toc-article-text">10&#x2F;22 13:15 UTC (事件後 14h23m): 尖峰時間，增加複本</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-x2F-22-16-24-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-17h32m-%E8%B3%87%E6%96%99%E6%8C%81%E7%BA%8C%E8%A4%87%E8%A3%BD%E4%B8%AD"><span class="toc-article-text">10&#x2F;22 16:24 UTC (事件後 17h32m): 資料持續複製中</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-x2F-22-16-45-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-17h53m-%E7%B3%BB%E7%B5%B1%E6%95%88%E8%83%BD%E6%81%A2%E5%BE%A9%EF%BC%8C%E9%97%9C%E9%96%89%E9%99%8D%E7%B4%9A%EF%BC%8C%E9%96%8B%E5%A7%8B%E5%9F%B7%E8%A1%8C%E9%9D%9E%E5%90%8C%E6%AD%A5%E4%BD%9C%E6%A5%AD%E3%80%82"><span class="toc-article-text">10&#x2F;22 16:45 UTC (事件後 17h53m): 系統效能恢復，關閉降級，開始執行非同步作業。</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-x2F-22-23-03-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-01d01h11m-%E7%A2%BA%E8%AA%8D%E7%B3%BB%E7%B5%B1%E7%8B%80%E6%85%8B%EF%BC%8C%E6%94%B9%E8%AE%8A%E7%87%88%E8%99%9F%E3%80%82"><span class="toc-article-text">10&#x2F;22 23:03 UTC (事件後 01d01h11m): 確認系統狀態，改變燈號。</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%83%B3%E6%B3%95"><span class="toc-article-text">想法</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%89%81%E9%B5%B2%E4%B8%89%E5%85%84%E5%BC%9F%E7%9A%84%E6%95%85%E4%BA%8B"><span class="toc-article-text">扁鵲三兄弟的故事</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%A0%90%E9%98%B2%E5%8B%9D%E6%96%BC%E6%B2%BB%E7%99%82"><span class="toc-article-text">預防勝於治療</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E6%96%87%E7%AB%A0-%E7%AB%99%E5%85%A7"><span class="toc-article-text">相關文章 (站內)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SRE-%E7%9B%B8%E9%97%9C"><span class="toc-article-text">SRE 相關</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E8%83%8C%E6%99%AF%E6%91%98%E8%A6%81"><span class="toc-article-text">背景摘要</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%BA%8B%E4%BB%B6%E6%99%82%E9%96%93%E8%BB%B8"><span class="toc-article-text">事件時間軸</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-21-22-52-UTC-DB-%E5%BE%9E%E7%BE%8E%E6%9D%B1-failover-%E5%88%B0%E7%BE%8E%E8%A5%BF"><span class="toc-article-text">10&#x2F;21 22:52 UTC: DB 從美東 failover 到美西</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-21-22-54-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C%E5%85%A9%E5%88%86%E9%90%98-%E5%AE%9A%E4%BD%8D%E4%BA%8B%E6%95%85%E8%82%87%E5%9B%A0"><span class="toc-article-text">10&#x2F;21 22:54 UTC (事件後兩分鐘): 定位事故肇因</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-21-23-07-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-15-%E5%88%86-%E5%AE%9A%E7%BE%A9%E4%BA%8B%E4%BB%B6%E7%AD%89%E7%B4%9A"><span class="toc-article-text">10&#x2F;21 23:07 UTC (事件後 15 分): 定義事件等級</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-21-23-13-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-21-%E5%88%86-%E6%81%A2%E5%BE%A9%E8%B3%87%E6%96%99%E5%BA%AB%E9%85%8D%E7%BD%AE%EF%BC%8C%E7%A2%BA%E8%AA%8D%E8%B3%87%E6%96%99%E5%B7%AE%E7%95%B0"><span class="toc-article-text">10&#x2F;21 23:13 UTC (事件後 21 分): 恢復資料庫配置，確認資料差異</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-21-23-19-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-27-%E5%88%86-%E6%8F%90%E9%AB%98%E8%B3%87%E6%96%99%E5%AE%8C%E6%95%B4%E6%80%A7%E3%80%81%E7%B3%BB%E7%B5%B1%E9%99%8D%E7%B4%9A"><span class="toc-article-text">10&#x2F;21 23:19 UTC (事件後 27 分): 提高資料完整性、系統降級</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-22-00-05-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-01h13m-%E8%A7%A3%E6%B1%BA%E8%B3%87%E6%96%99%E4%B8%8D%E4%B8%80%E8%87%B4%E8%A8%88%E7%95%AB%EF%BC%8C%E8%B3%87%E6%96%99%E5%BA%AB%E9%82%84%E5%8E%9F"><span class="toc-article-text">10&#x2F;22 00:05 UTC (事件後 01h13m): 解決資料不一致計畫，資料庫還原</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-22-00-41-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-01h49m-%E9%96%8B%E5%A7%8B%E5%9F%B7%E8%A1%8C%E9%82%84%E5%8E%9F"><span class="toc-article-text">10&#x2F;22 00:41 UTC (事件後 01h49m): 開始執行還原</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-22-06-51-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-07h59m-%E6%8F%90%E5%8D%87%E7%B3%BB%E7%B5%B1%E8%AE%80%E5%8F%96%E6%95%88%E8%83%BD"><span class="toc-article-text">10&#x2F;22 06:51 UTC (事件後 07h59m): 提升系統讀取效能</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-22-07-46-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-08h54m-%E5%B0%8D%E5%A4%96%E5%85%AC%E5%91%8A"><span class="toc-article-text">10&#x2F;22 07:46 UTC (事件後 08h54m): 對外公告</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-22-11-12-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-12h20m-%E8%99%95%E7%90%86%E8%B3%87%E6%96%99%E4%B8%8D%E4%B8%80%E8%87%B4"><span class="toc-article-text">10&#x2F;22 11:12 UTC (事件後 12h20m): 處理資料不一致</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-22-13-15-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-14h23m-%E5%B0%96%E5%B3%B0%E6%99%82%E9%96%93%EF%BC%8C%E5%A2%9E%E5%8A%A0%E8%A4%87%E6%9C%AC"><span class="toc-article-text">10&#x2F;22 13:15 UTC (事件後 14h23m): 尖峰時間，增加複本</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-22-16-24-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-17h32m-%E8%B3%87%E6%96%99%E6%8C%81%E7%BA%8C%E8%A4%87%E8%A3%BD%E4%B8%AD"><span class="toc-article-text">10&#x2F;22 16:24 UTC (事件後 17h32m): 資料持續複製中</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-22-16-45-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-17h53m-%E7%B3%BB%E7%B5%B1%E6%95%88%E8%83%BD%E6%81%A2%E5%BE%A9%EF%BC%8C%E9%97%9C%E9%96%89%E9%99%8D%E7%B4%9A%EF%BC%8C%E9%96%8B%E5%A7%8B%E5%9F%B7%E8%A1%8C%E9%9D%9E%E5%90%8C%E6%AD%A5%E4%BD%9C%E6%A5%AD%E3%80%82"><span class="toc-article-text">10&#x2F;22 16:45 UTC (事件後 17h53m): 系統效能恢復，關閉降級，開始執行非同步作業。</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-22-23-03-UTC-%E4%BA%8B%E4%BB%B6%E5%BE%8C-01d01h11m-%E7%A2%BA%E8%AA%8D%E7%B3%BB%E7%B5%B1%E7%8B%80%E6%85%8B%EF%BC%8C%E6%94%B9%E8%AE%8A%E7%87%88%E8%99%9F%E3%80%82"><span class="toc-article-text">10&#x2F;22 23:03 UTC (事件後 01d01h11m): 確認系統狀態，改變燈號。</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%83%B3%E6%B3%95"><span class="toc-article-text">想法</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%89%81%E9%B5%B2%E4%B8%89%E5%85%84%E5%BC%9F%E7%9A%84%E6%95%85%E4%BA%8B"><span class="toc-article-text">扁鵲三兄弟的故事</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%A0%90%E9%98%B2%E5%8B%9D%E6%96%BC%E6%B2%BB%E7%99%82"><span class="toc-article-text">預防勝於治療</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E6%96%87%E7%AB%A0-%E7%AB%99%E5%85%A7"><span class="toc-article-text">相關文章 (站內)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SRE-%E7%9B%B8%E9%97%9C"><span class="toc-article-text">SRE 相關</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -472,6 +411,7 @@
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -487,8 +427,10 @@
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -498,8 +440,10 @@
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -533,6 +477,7 @@
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -586,6 +531,7 @@
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -623,6 +569,7 @@
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -638,6 +585,7 @@
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

@@ -75,31 +75,13 @@ Q: 如何知道現在的 Client 連到哪個 Ed">
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -123,7 +105,7 @@ Q: 如何知道現在的 Client 連到哪個 Ed">
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -135,7 +117,7 @@ Q: 如何知道現在的 Client 連到哪個 Ed">
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -259,25 +241,6 @@ Q: 如何知道現在的 Client 連到哪個 Ed">
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2019%2F11%2F02%2FAWS%2FStudy-Notes-CloudFront%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2019/11/02/AWS/Study-Notes-CloudFront/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2019/11/02/AWS/Study-Notes-CloudFront/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>CloudFront 是 AWS 非常重要的服務，用了幾年，斷斷續續有一些心得與想法，這次換個方式整理筆記，先全部用 Q and A 方式記錄學習。</p>
 <blockquote>
 <p>本文整理的 Delivery Method 以 Web 為主</p>
@@ -445,7 +408,7 @@ com.amazonaws.services.cloudfront.model.CNAMEAlreadyExistsException: One or more
 <li>利用 IP 再反查到 domain</li>
 <li>透過 Domain 的資訊知道現在存取的 Edge</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">~$ nslookup d2iqjn78bwc7cy.cloudfront.net</span><br><span class="line">Server:		8.8.8.8</span><br><span class="line">Address:	8.8.8.8<span class="comment">#53</span></span><br><span class="line"></span><br><span class="line">Non-authoritative answer:</span><br><span class="line">Name:	d2iqjn78bwc7cy.cloudfront.net</span><br><span class="line">Address: 13.35.37.77</span><br><span class="line">Name:	d2iqjn78bwc7cy.cloudfront.net</span><br><span class="line">Address: 13.35.37.44</span><br><span class="line"></span><br><span class="line">~$ nslookup 13.35.37.44</span><br><span class="line">Server:		8.8.8.8</span><br><span class="line">Address:	8.8.8.8<span class="comment">#53</span></span><br><span class="line"></span><br><span class="line">Non-authoritative answer:</span><br><span class="line">44.37.35.13.in-addr.arpa	name = server-13-35-37-44.tpe51.r.cloudfront.net.</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">~$ nslookup d2iqjn78bwc7cy.cloudfront.net</span><br><span class="line">Server:		8.8.8.8</span><br><span class="line">Address:	8.8.8.8#53</span><br><span class="line"></span><br><span class="line">Non-authoritative answer:</span><br><span class="line">Name:	d2iqjn78bwc7cy.cloudfront.net</span><br><span class="line">Address: 13.35.37.77</span><br><span class="line">Name:	d2iqjn78bwc7cy.cloudfront.net</span><br><span class="line">Address: 13.35.37.44</span><br><span class="line"></span><br><span class="line">~$ nslookup 13.35.37.44</span><br><span class="line">Server:		8.8.8.8</span><br><span class="line">Address:	8.8.8.8#53</span><br><span class="line"></span><br><span class="line">Non-authoritative answer:</span><br><span class="line">44.37.35.13.in-addr.arpa	name = server-13-35-37-44.tpe51.r.cloudfront.net.</span><br></pre></td></tr></table></figure>
 
 <p>這個名字 <code>server-13-35-37-44.tpe51.r.cloudfront.net.</code> 可以看到 <code>TPE51</code>，這是機場代號，這個網站可以查到這些 Edge 的代號以及位置：<a target="_blank" rel="noopener" href="https://www.feitsui.com/en/blog/page/3">CloudFront CDN Edge Locations</a></p>
 <p>最常出現的狀況就是 ISP 因為維護，暫時改變 Routing Table，所以可能會找到的是日本的 NRT (成田機場) 的 Edge。</p>
@@ -455,7 +418,7 @@ com.amazonaws.services.cloudfront.model.CNAMEAlreadyExistsException: One or more
 <li>CloudFront 可以用 Geo Restriction，限制特定的國家，像是來自台灣、日本</li>
 <li>透過 AWS WAF 則可以做更多更細緻的限制，像是 IP Address、String Pattern (HTTP header, URI, Query …)、Geo Location … 等。</li>
 </ul>
-<h2 id="Q-Behavior-裡-Object-Caching-的-Min-x2F-Max-x2F-Default-TTL-有什麼差別？"><a href="#Q-Behavior-裡-Object-Caching-的-Min-x2F-Max-x2F-Default-TTL-有什麼差別？" class="headerlink" title="Q: Behavior 裡 Object Caching 的 Min &#x2F; Max &#x2F; Default TTL 有什麼差別？"></a>Q: Behavior 裡 Object Caching 的 Min &#x2F; Max &#x2F; Default TTL 有什麼差別？</h2><p>Object Caching 意思是：</p>
+<h2 id="Q-Behavior-裡-Object-Caching-的-Min-Max-Default-TTL-有什麼差別？"><a href="#Q-Behavior-裡-Object-Caching-的-Min-Max-Default-TTL-有什麼差別？" class="headerlink" title="Q: Behavior 裡 Object Caching 的 Min &#x2F; Max &#x2F; Default TTL 有什麼差別？"></a>Q: Behavior 裡 Object Caching 的 Min &#x2F; Max &#x2F; Default TTL 有什麼差別？</h2><p>Object Caching 意思是：</p>
 <blockquote>
 <p>從 Origin (像是 S3 or EC2, ELB …) 拿回的物件資料，存放在 CloudFront Edge 的保留時間。</p>
 </blockquote>
@@ -538,11 +501,6 @@ X-Forwarded-For
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2019/11/02/AWS/Study-Notes-CloudFront/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -577,26 +535,6 @@ X-Forwarded-For
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2019/11/02/AWS/Study-Notes-CloudFront/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -606,6 +544,7 @@ X-Forwarded-For
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -622,7 +561,7 @@ X-Forwarded-For
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Q-and-A"><span class="toc-article-text">Q and A</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-%E5%A6%82%E4%BD%95%E7%9F%A5%E9%81%93%E7%8F%BE%E5%9C%A8%E7%9A%84-Client-%E9%80%A3%E5%88%B0%E5%93%AA%E5%80%8B-Edge-%E5%8E%BB%E4%BA%86%EF%BC%9F"><span class="toc-article-text">Q: 如何知道現在的 Client 連到哪個 Edge 去了？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-%E5%A6%82%E4%BD%95%E9%99%90%E5%88%B6-CloudFront-%E5%AD%98%E5%8F%96%E4%BE%86%E6%BA%90%EF%BC%9F%E4%BE%8B%E5%A6%82%E9%99%90%E5%88%B6%E7%89%B9%E5%AE%9A%E4%BE%86%E6%BA%90-IP%EF%BC%9F%E9%99%90%E5%AE%9A%E7%89%B9%E5%AE%9A%E5%8D%80%E5%9F%9F%EF%BC%88%E5%BA%A7%E6%A8%99%EF%BC%89%EF%BC%9F"><span class="toc-article-text">Q: 如何限制 CloudFront 存取來源？例如限制特定來源 IP？限定特定區域（座標）？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-Behavior-%E8%A3%A1-Object-Caching-%E7%9A%84-Min-x2F-Max-x2F-Default-TTL-%E6%9C%89%E4%BB%80%E9%BA%BC%E5%B7%AE%E5%88%A5%EF%BC%9F"><span class="toc-article-text">Q: Behavior 裡 Object Caching 的 Min &#x2F; Max &#x2F; Default TTL 有什麼差別？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-%E5%A6%82%E4%BD%95%E5%BC%B7%E5%88%B6%E6%9B%B4%E6%96%B0-%E7%89%B9%E5%AE%9A%E7%9A%84-Object-%EF%BC%9F%E4%BE%8B%E5%A6%82%EF%BC%8C%E5%BE%8C%E7%AB%AF%E6%9C%89%E8%B3%87%E6%96%99%E6%9B%B4%E6%96%B0%E5%88%B0-S3-%E4%BA%86%EF%BC%8C%E5%90%8C%E6%99%82%E6%9B%B4%E6%96%B0-CloudFront-%E7%9A%84-Cache-TTL%EF%BC%9F"><span class="toc-article-text">Q: 如何強制更新 特定的 Object ？例如，後端有資料更新到 S3 了，同時更新 CloudFront 的 Cache TTL？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-CloudFront-%E7%94%A8-S3-%E7%95%B6-Origin-%E6%99%82%EF%BC%8CS3-%E8%A6%81%E5%81%9A%E4%BB%80%E9%BA%BC%E8%A8%AD%E5%AE%9A%EF%BC%9F"><span class="toc-article-text">Q: CloudFront 用 S3 當 Origin 時，S3 要做什麼設定？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-%E4%B8%80%E5%80%8B-Distribution-%E5%8F%AF%E4%BB%A5%E6%8E%9B%E5%B9%BE%E5%80%8B-Alternate-Domain-Names%EF%BC%9F"><span class="toc-article-text">Q: 一個 Distribution 可以掛幾個 Alternate Domain Names？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-%E6%80%8E%E6%A8%A3%E8%BF%BD%E8%B9%A4%E4%B8%80%E5%80%8B%E8%AB%8B%E6%B1%82%EF%BC%9F"><span class="toc-article-text">Q: 怎樣追蹤一個請求？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-Origin-%E5%8F%AF%E4%B8%8D%E5%8F%AF%E4%BB%A5%E9%99%90%E5%88%B6-Edge-%E4%BE%86%E6%BA%90%E5%AD%98%E5%8F%96%EF%BC%9F"><span class="toc-article-text">Q: Origin 可不可以限制 Edge 來源存取？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-%E6%9C%89%E6%B2%92%E6%9C%89%E4%BB%80%E9%BA%BC%E5%B7%A5%E5%85%B7%E5%8F%AF%E4%BB%A5%E6%B8%AC%E8%A9%A6%E5%90%84%E5%9C%B0%E5%8D%80%E5%AD%98%E5%8F%96%E7%9A%84%E9%80%9F%E5%BA%A6%EF%BC%9F"><span class="toc-article-text">Q: 有沒有什麼工具可以測試各地區存取的速度？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-CloudFront-%E5%A6%82%E4%BD%95%E9%96%8B%E5%95%9F-CORS%EF%BC%9F"><span class="toc-article-text">Q: CloudFront 如何開啟 CORS？</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E5%BB%B6%E4%BC%B8"><span class="toc-article-text">站內延伸</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#AWS-re-Invent"><span class="toc-article-text">AWS re:Invent</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Q-and-A"><span class="toc-article-text">Q and A</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-%E5%A6%82%E4%BD%95%E7%9F%A5%E9%81%93%E7%8F%BE%E5%9C%A8%E7%9A%84-Client-%E9%80%A3%E5%88%B0%E5%93%AA%E5%80%8B-Edge-%E5%8E%BB%E4%BA%86%EF%BC%9F"><span class="toc-article-text">Q: 如何知道現在的 Client 連到哪個 Edge 去了？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-%E5%A6%82%E4%BD%95%E9%99%90%E5%88%B6-CloudFront-%E5%AD%98%E5%8F%96%E4%BE%86%E6%BA%90%EF%BC%9F%E4%BE%8B%E5%A6%82%E9%99%90%E5%88%B6%E7%89%B9%E5%AE%9A%E4%BE%86%E6%BA%90-IP%EF%BC%9F%E9%99%90%E5%AE%9A%E7%89%B9%E5%AE%9A%E5%8D%80%E5%9F%9F%EF%BC%88%E5%BA%A7%E6%A8%99%EF%BC%89%EF%BC%9F"><span class="toc-article-text">Q: 如何限制 CloudFront 存取來源？例如限制特定來源 IP？限定特定區域（座標）？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-Behavior-%E8%A3%A1-Object-Caching-%E7%9A%84-Min-Max-Default-TTL-%E6%9C%89%E4%BB%80%E9%BA%BC%E5%B7%AE%E5%88%A5%EF%BC%9F"><span class="toc-article-text">Q: Behavior 裡 Object Caching 的 Min &#x2F; Max &#x2F; Default TTL 有什麼差別？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-%E5%A6%82%E4%BD%95%E5%BC%B7%E5%88%B6%E6%9B%B4%E6%96%B0-%E7%89%B9%E5%AE%9A%E7%9A%84-Object-%EF%BC%9F%E4%BE%8B%E5%A6%82%EF%BC%8C%E5%BE%8C%E7%AB%AF%E6%9C%89%E8%B3%87%E6%96%99%E6%9B%B4%E6%96%B0%E5%88%B0-S3-%E4%BA%86%EF%BC%8C%E5%90%8C%E6%99%82%E6%9B%B4%E6%96%B0-CloudFront-%E7%9A%84-Cache-TTL%EF%BC%9F"><span class="toc-article-text">Q: 如何強制更新 特定的 Object ？例如，後端有資料更新到 S3 了，同時更新 CloudFront 的 Cache TTL？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-CloudFront-%E7%94%A8-S3-%E7%95%B6-Origin-%E6%99%82%EF%BC%8CS3-%E8%A6%81%E5%81%9A%E4%BB%80%E9%BA%BC%E8%A8%AD%E5%AE%9A%EF%BC%9F"><span class="toc-article-text">Q: CloudFront 用 S3 當 Origin 時，S3 要做什麼設定？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-%E4%B8%80%E5%80%8B-Distribution-%E5%8F%AF%E4%BB%A5%E6%8E%9B%E5%B9%BE%E5%80%8B-Alternate-Domain-Names%EF%BC%9F"><span class="toc-article-text">Q: 一個 Distribution 可以掛幾個 Alternate Domain Names？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-%E6%80%8E%E6%A8%A3%E8%BF%BD%E8%B9%A4%E4%B8%80%E5%80%8B%E8%AB%8B%E6%B1%82%EF%BC%9F"><span class="toc-article-text">Q: 怎樣追蹤一個請求？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-Origin-%E5%8F%AF%E4%B8%8D%E5%8F%AF%E4%BB%A5%E9%99%90%E5%88%B6-Edge-%E4%BE%86%E6%BA%90%E5%AD%98%E5%8F%96%EF%BC%9F"><span class="toc-article-text">Q: Origin 可不可以限制 Edge 來源存取？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-%E6%9C%89%E6%B2%92%E6%9C%89%E4%BB%80%E9%BA%BC%E5%B7%A5%E5%85%B7%E5%8F%AF%E4%BB%A5%E6%B8%AC%E8%A9%A6%E5%90%84%E5%9C%B0%E5%8D%80%E5%AD%98%E5%8F%96%E7%9A%84%E9%80%9F%E5%BA%A6%EF%BC%9F"><span class="toc-article-text">Q: 有沒有什麼工具可以測試各地區存取的速度？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-CloudFront-%E5%A6%82%E4%BD%95%E9%96%8B%E5%95%9F-CORS%EF%BC%9F"><span class="toc-article-text">Q: CloudFront 如何開啟 CORS？</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E5%BB%B6%E4%BC%B8"><span class="toc-article-text">站內延伸</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#AWS-re-Invent"><span class="toc-article-text">AWS re:Invent</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -664,6 +603,7 @@ X-Forwarded-For
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -679,8 +619,10 @@ X-Forwarded-For
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -690,8 +632,10 @@ X-Forwarded-For
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -725,6 +669,7 @@ X-Forwarded-For
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -778,6 +723,7 @@ X-Forwarded-For
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -815,6 +761,7 @@ X-Forwarded-For
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -830,6 +777,7 @@ X-Forwarded-For
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

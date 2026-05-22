@@ -62,31 +62,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -110,7 +92,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -122,7 +104,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -246,25 +228,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2022%2F05%2F06%2FCoding%2FDesigning-Configuration-Loading-Strategies%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2022/05/06/Coding/Designing-Configuration-Loading-Strategies/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2022/05/06/Coding/Designing-Configuration-Loading-Strategies/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>應用程式 在啟動 or 初始化 (Initial &#x2F; Startup)的時候，配置 (Configuration) 載入的流程經過這麼多年的發展，基本上已經有一個常見的策略模式了，這些概念很重要，卻也很常被忽略，最後系統上線後只能夠透過改 Code 重新部署才能處理問題，好的設計應該是改配置就能滿足需求。</p>
 <p>這篇原文是寫在 SRE 社群的一篇 <a target="_blank" rel="noopener" href="https://www.facebook.com/groups/sre.taiwan/posts/2287745194724705/">筆記</a>，借保哥的 <a target="_blank" rel="noopener" href="https://blog.miniasp.com/post/2022/05/02/Dont-use-ERR_UNSAFE_PORT-for-your-website">整理</a> 發揮另一個常見的東西：<code>配置與設定的讀取策略設計</code></p>
 <span id="more"></span>
@@ -427,11 +390,6 @@ https://docs.google.com/presentation/d/14oEOfWYvl6DJF1wzeYt0Fxm0wQPeEvzgS36FHlUq
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2022/05/06/Coding/Designing-Configuration-Loading-Strategies/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -466,26 +424,6 @@ https://docs.google.com/presentation/d/14oEOfWYvl6DJF1wzeYt0Fxm0wQPeEvzgS36FHlUq
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2022/05/06/Coding/Designing-Configuration-Loading-Strategies/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -495,6 +433,7 @@ https://docs.google.com/presentation/d/14oEOfWYvl6DJF1wzeYt0Fxm0wQPeEvzgS36FHlUq
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -511,7 +450,7 @@ https://docs.google.com/presentation/d/14oEOfWYvl6DJF1wzeYt0Fxm0wQPeEvzgS36FHlUq
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%A8%AD%E8%A8%88%E6%91%98%E8%A6%81"><span class="toc-article-text">設計摘要</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%90%8D%E8%A9%9E%E5%AE%9A%E7%BE%A9"><span class="toc-article-text">名詞定義</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E8%AE%80%E5%8F%96%E7%AD%96%E7%95%A5"><span class="toc-article-text">讀取策略</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%B3%A8%E5%85%A5%E4%BE%86%E6%BA%90"><span class="toc-article-text">注入來源</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%92%B0%E5%A2%83%E8%AE%8A%E6%95%B8%E7%9A%84%E6%87%89%E7%94%A8"><span class="toc-article-text">環境變數的應用</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%8F%83%E6%95%B8%E7%9A%84%E8%A8%AD%E8%A8%88"><span class="toc-article-text">參數的設計</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E9%A0%90%E8%A8%AD%E5%80%BC"><span class="toc-article-text">預設值</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Application-Interface-Spec"><span class="toc-article-text">Application Interface Spec</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%A8%AD%E8%A8%88%E6%91%98%E8%A6%81"><span class="toc-article-text">設計摘要</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%90%8D%E8%A9%9E%E5%AE%9A%E7%BE%A9"><span class="toc-article-text">名詞定義</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E8%AE%80%E5%8F%96%E7%AD%96%E7%95%A5"><span class="toc-article-text">讀取策略</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%B3%A8%E5%85%A5%E4%BE%86%E6%BA%90"><span class="toc-article-text">注入來源</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%92%B0%E5%A2%83%E8%AE%8A%E6%95%B8%E7%9A%84%E6%87%89%E7%94%A8"><span class="toc-article-text">環境變數的應用</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%8F%83%E6%95%B8%E7%9A%84%E8%A8%AD%E8%A8%88"><span class="toc-article-text">參數的設計</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E9%A0%90%E8%A8%AD%E5%80%BC"><span class="toc-article-text">預設值</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Application-Interface-Spec"><span class="toc-article-text">Application Interface Spec</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a></li></ol>
 		</div>
 	
 	</div>
@@ -541,7 +480,7 @@ https://docs.google.com/presentation/d/14oEOfWYvl6DJF1wzeYt0Fxm0wQPeEvzgS36FHlUq
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/DI/" style="color: white">DI <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Application-Interface-Spec/" style="color: white">Application Interface Spec <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Configuration/" style="color: white">Configuration <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/Dependency-Injection/" style="color: white">Dependency Injection <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Dependency-Inversion/" style="color: white">Dependency Inversion <span class="badge">1</span></a></span>
+  <span class="label label-success"><a href="/tags/Application-Interface-Spec/" style="color: white">Application Interface Spec <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Configuration/" style="color: white">Configuration <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/DI/" style="color: white">DI <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Dependency-Injection/" style="color: white">Dependency Injection <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Dependency-Inversion/" style="color: white">Dependency Inversion <span class="badge">1</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -553,6 +492,7 @@ https://docs.google.com/presentation/d/14oEOfWYvl6DJF1wzeYt0Fxm0wQPeEvzgS36FHlUq
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -568,8 +508,10 @@ https://docs.google.com/presentation/d/14oEOfWYvl6DJF1wzeYt0Fxm0wQPeEvzgS36FHlUq
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -579,8 +521,10 @@ https://docs.google.com/presentation/d/14oEOfWYvl6DJF1wzeYt0Fxm0wQPeEvzgS36FHlUq
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -614,6 +558,7 @@ https://docs.google.com/presentation/d/14oEOfWYvl6DJF1wzeYt0Fxm0wQPeEvzgS36FHlUq
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -667,6 +612,7 @@ https://docs.google.com/presentation/d/14oEOfWYvl6DJF1wzeYt0Fxm0wQPeEvzgS36FHlUq
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -704,6 +650,7 @@ https://docs.google.com/presentation/d/14oEOfWYvl6DJF1wzeYt0Fxm0wQPeEvzgS36FHlUq
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -719,6 +666,7 @@ https://docs.google.com/presentation/d/14oEOfWYvl6DJF1wzeYt0Fxm0wQPeEvzgS36FHlUq
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

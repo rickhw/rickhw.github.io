@@ -63,31 +63,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -111,7 +93,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -123,7 +105,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -247,25 +229,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2019%2F01%2F08%2FDevOps%2FGossip-DevOps%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2019/01/08/DevOps/Gossip-DevOps/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2019/01/08/DevOps/Gossip-DevOps/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>這篇整理我 2018 年在 <a target="_blank" rel="noopener" href="https://www.facebook.com/groups/DevOpsTaiwan/search/?query=Rick%20Hwang&epa=SEARCH_BOX">DevOps Taiwan</a> 發言過的文字，談論到的包含軟體測試、持續交付、Artifact Management、軟體開發流程、維運 … 等，主要是記錄一些想法、觀念、觀察、經驗分享，然後截圖作紀錄。</p>
 <p>這些文字發文的時間大多在上下班的公車路上，可以集中精神的狀況留下的，一些想法都是透過討論以及問題激盪出來的。</p>
 <blockquote>
@@ -289,7 +252,7 @@
 -->
 
 <hr>
-<h1 id="2018-x2F-04-x2F-11-討論-CI-x2F-CD-的品質"><a href="#2018-x2F-04-x2F-11-討論-CI-x2F-CD-的品質" class="headerlink" title="2018&#x2F;04&#x2F;11: 討論 CI&#x2F;CD 的品質"></a>2018&#x2F;04&#x2F;11: 討論 CI&#x2F;CD 的品質</h1><p><img src="/images/DevOps/Gossip-DevOps/20180411-1.png"><br><img src="/images/DevOps/Gossip-DevOps/20180411-2.png"></p>
+<h1 id="2018-04-11-討論-CI-CD-的品質"><a href="#2018-04-11-討論-CI-CD-的品質" class="headerlink" title="2018&#x2F;04&#x2F;11: 討論 CI&#x2F;CD 的品質"></a>2018&#x2F;04&#x2F;11: 討論 CI&#x2F;CD 的品質</h1><p><img src="/images/DevOps/Gossip-DevOps/20180411-1.png"><br><img src="/images/DevOps/Gossip-DevOps/20180411-2.png"></p>
 <p>相關文章：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.facebook.com/groups/DevOpsTaiwan/permalink/1644205315666508/">原文連結</a></li>
@@ -298,7 +261,7 @@
 <li>2017&#x2F;11&#x2F;14: <a href="/2017/11/14/DevOps/Go-Live/">Go Live</a></li>
 </ul>
 <hr>
-<h1 id="2018-x2F-05-x2F-23-談-QA-與-Tester-的差異"><a href="#2018-x2F-05-x2F-23-談-QA-與-Tester-的差異" class="headerlink" title="2018&#x2F;05&#x2F;23: 談 QA 與 Tester 的差異"></a>2018&#x2F;05&#x2F;23: 談 QA 與 Tester 的差異</h1><p><img src="/images/DevOps/Gossip-DevOps/20180523-1.png"><br><img src="/images/DevOps/Gossip-DevOps/20180523-2.png"><br><img src="/images/DevOps/Gossip-DevOps/20180523-3.png"></p>
+<h1 id="2018-05-23-談-QA-與-Tester-的差異"><a href="#2018-05-23-談-QA-與-Tester-的差異" class="headerlink" title="2018&#x2F;05&#x2F;23: 談 QA 與 Tester 的差異"></a>2018&#x2F;05&#x2F;23: 談 QA 與 Tester 的差異</h1><p><img src="/images/DevOps/Gossip-DevOps/20180523-1.png"><br><img src="/images/DevOps/Gossip-DevOps/20180523-2.png"><br><img src="/images/DevOps/Gossip-DevOps/20180523-3.png"></p>
 <p>相關文章：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.facebook.com/groups/DevOpsTaiwan/permalink/1684387898314916/">原文連結</a></li>
@@ -306,7 +269,7 @@
 <li>2015&#x2F;10&#x2F;11: <a href="/2015/10/11/SQA/How-To-Be-An-SQA/">Software QA 的職能條件</a></li>
 </ul>
 <hr>
-<h1 id="2018-x2F-06-x2F-22-維運、運維？"><a href="#2018-x2F-06-x2F-22-維運、運維？" class="headerlink" title="2018&#x2F;06&#x2F;22: 維運、運維？"></a>2018&#x2F;06&#x2F;22: 維運、運維？</h1><p><img src="/images/DevOps/Gossip-DevOps/20180622-1.png"><br><img src="/images/DevOps/Gossip-DevOps/20180622-2.png"></p>
+<h1 id="2018-06-22-維運、運維？"><a href="#2018-06-22-維運、運維？" class="headerlink" title="2018&#x2F;06&#x2F;22: 維運、運維？"></a>2018&#x2F;06&#x2F;22: 維運、運維？</h1><p><img src="/images/DevOps/Gossip-DevOps/20180622-1.png"><br><img src="/images/DevOps/Gossip-DevOps/20180622-2.png"></p>
 <p>相關文章：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.facebook.com/groups/DevOpsTaiwan/permalink/1718751581545214/">原文連結</a></li>
@@ -317,7 +280,7 @@
 <li>2016&#x2F;07&#x2F;29: <a href="/2016/07/29/AWS/AWS-Certified-SysOps-Administrator/">AWS Certified SysOps Administrator - Associate 準備心得</a></li>
 </ul>
 <hr>
-<h1 id="2018-x2F-07-x2F-06-分享軟體開發生命週期"><a href="#2018-x2F-07-x2F-06-分享軟體開發生命週期" class="headerlink" title="2018&#x2F;07&#x2F;06: 分享軟體開發生命週期"></a>2018&#x2F;07&#x2F;06: 分享軟體開發生命週期</h1><p><img src="/images/DevOps/Gossip-DevOps/20180706-1.png"><br><img src="/images/DevOps/Gossip-DevOps/20180706-2.png"></p>
+<h1 id="2018-07-06-分享軟體開發生命週期"><a href="#2018-07-06-分享軟體開發生命週期" class="headerlink" title="2018&#x2F;07&#x2F;06: 分享軟體開發生命週期"></a>2018&#x2F;07&#x2F;06: 分享軟體開發生命週期</h1><p><img src="/images/DevOps/Gossip-DevOps/20180706-1.png"><br><img src="/images/DevOps/Gossip-DevOps/20180706-2.png"></p>
 <p>相關文章：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.facebook.com/groups/DevOpsTaiwan/permalink/1740298009390571/">原文連結</a></li>
@@ -326,7 +289,7 @@
 <li>2015&#x2F;03&#x2F;31: <a href="/2015/03/31/Management/Perspective-in-Your-Life/">人生的視野</a></li>
 </ul>
 <hr>
-<h1 id="2018-x2F-07-x2F-14-討論測試的反模式"><a href="#2018-x2F-07-x2F-14-討論測試的反模式" class="headerlink" title="2018&#x2F;07&#x2F;14: 討論測試的反模式"></a>2018&#x2F;07&#x2F;14: 討論測試的反模式</h1><p><img src="/images/DevOps/Gossip-DevOps/20180714-1.png"><br><img src="/images/DevOps/Gossip-DevOps/20180714-2.png"></p>
+<h1 id="2018-07-14-討論測試的反模式"><a href="#2018-07-14-討論測試的反模式" class="headerlink" title="2018&#x2F;07&#x2F;14: 討論測試的反模式"></a>2018&#x2F;07&#x2F;14: 討論測試的反模式</h1><p><img src="/images/DevOps/Gossip-DevOps/20180714-1.png"><br><img src="/images/DevOps/Gossip-DevOps/20180714-2.png"></p>
 <p>相關文章：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.facebook.com/groups/DevOpsTaiwan/permalink/1751917104895328/">原文連結</a></li>
@@ -335,7 +298,7 @@
 <li>2014&#x2F;05&#x2F;09: <a href="/2014/05/09/SQA/Problems_In-Software-Autotest/">軟體自動化測試常見的問題</a></li>
 </ul>
 <hr>
-<h1 id="2018-x2F-08-x2F-03-談-Artifact-的重要性"><a href="#2018-x2F-08-x2F-03-談-Artifact-的重要性" class="headerlink" title="2018&#x2F;08&#x2F;03: 談 Artifact 的重要性"></a>2018&#x2F;08&#x2F;03: 談 Artifact 的重要性</h1><p><img src="/images/DevOps/Gossip-DevOps/20180803-1.png"><br><img src="/images/DevOps/Gossip-DevOps/20180803-2.png"></p>
+<h1 id="2018-08-03-談-Artifact-的重要性"><a href="#2018-08-03-談-Artifact-的重要性" class="headerlink" title="2018&#x2F;08&#x2F;03: 談 Artifact 的重要性"></a>2018&#x2F;08&#x2F;03: 談 Artifact 的重要性</h1><p><img src="/images/DevOps/Gossip-DevOps/20180803-1.png"><br><img src="/images/DevOps/Gossip-DevOps/20180803-2.png"></p>
 <p>相關文章：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.facebook.com/groups/DevOpsTaiwan/permalink/1784559398297765/">原文連結</a></li>
@@ -343,7 +306,7 @@
 <li>2017&#x2F;02&#x2F;11: <a href="/2017/02/11/DevOps/Resource-Provisioning-and-DevOps/">Resource Provisioning and DevOps</a></li>
 </ul>
 <hr>
-<h1 id="2018-x2F-08-x2F-21-談環境建置與配置管理的重要性"><a href="#2018-x2F-08-x2F-21-談環境建置與配置管理的重要性" class="headerlink" title="2018&#x2F;08&#x2F;21: 談環境建置與配置管理的重要性"></a>2018&#x2F;08&#x2F;21: 談環境建置與配置管理的重要性</h1><p><img src="/images/DevOps/Gossip-DevOps/20180821-1.png"><br><img src="/images/DevOps/Gossip-DevOps/20180821-2.png"></p>
+<h1 id="2018-08-21-談環境建置與配置管理的重要性"><a href="#2018-08-21-談環境建置與配置管理的重要性" class="headerlink" title="2018&#x2F;08&#x2F;21: 談環境建置與配置管理的重要性"></a>2018&#x2F;08&#x2F;21: 談環境建置與配置管理的重要性</h1><p><img src="/images/DevOps/Gossip-DevOps/20180821-1.png"><br><img src="/images/DevOps/Gossip-DevOps/20180821-2.png"></p>
 <p>相關文章：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.facebook.com/groups/DevOpsTaiwan/permalink/1815984381821933/">原文連結</a></li>
@@ -354,11 +317,6 @@
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2019/01/08/DevOps/Gossip-DevOps/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -377,7 +335,7 @@
 <ul class="pagination">
 	 
 				
-    	<li class="prev"><a href="/2019/01/10/About/Thinkin-2018H2/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+    	<li class="prev"><a href="/2019/01/10/About/Thinkin-2018H1/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
   		
 
         <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
@@ -393,26 +351,6 @@
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2019/01/08/DevOps/Gossip-DevOps/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -422,6 +360,7 @@
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -438,7 +377,7 @@
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2018-x2F-04-x2F-11-%E8%A8%8E%E8%AB%96-CI-x2F-CD-%E7%9A%84%E5%93%81%E8%B3%AA"><span class="toc-article-text">2018&#x2F;04&#x2F;11: 討論 CI&#x2F;CD 的品質</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2018-x2F-05-x2F-23-%E8%AB%87-QA-%E8%88%87-Tester-%E7%9A%84%E5%B7%AE%E7%95%B0"><span class="toc-article-text">2018&#x2F;05&#x2F;23: 談 QA 與 Tester 的差異</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2018-x2F-06-x2F-22-%E7%B6%AD%E9%81%8B%E3%80%81%E9%81%8B%E7%B6%AD%EF%BC%9F"><span class="toc-article-text">2018&#x2F;06&#x2F;22: 維運、運維？</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2018-x2F-07-x2F-06-%E5%88%86%E4%BA%AB%E8%BB%9F%E9%AB%94%E9%96%8B%E7%99%BC%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F"><span class="toc-article-text">2018&#x2F;07&#x2F;06: 分享軟體開發生命週期</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2018-x2F-07-x2F-14-%E8%A8%8E%E8%AB%96%E6%B8%AC%E8%A9%A6%E7%9A%84%E5%8F%8D%E6%A8%A1%E5%BC%8F"><span class="toc-article-text">2018&#x2F;07&#x2F;14: 討論測試的反模式</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2018-x2F-08-x2F-03-%E8%AB%87-Artifact-%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7"><span class="toc-article-text">2018&#x2F;08&#x2F;03: 談 Artifact 的重要性</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2018-x2F-08-x2F-21-%E8%AB%87%E7%92%B0%E5%A2%83%E5%BB%BA%E7%BD%AE%E8%88%87%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7"><span class="toc-article-text">2018&#x2F;08&#x2F;21: 談環境建置與配置管理的重要性</span></a></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2018-04-11-%E8%A8%8E%E8%AB%96-CI-CD-%E7%9A%84%E5%93%81%E8%B3%AA"><span class="toc-article-text">2018&#x2F;04&#x2F;11: 討論 CI&#x2F;CD 的品質</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2018-05-23-%E8%AB%87-QA-%E8%88%87-Tester-%E7%9A%84%E5%B7%AE%E7%95%B0"><span class="toc-article-text">2018&#x2F;05&#x2F;23: 談 QA 與 Tester 的差異</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2018-06-22-%E7%B6%AD%E9%81%8B%E3%80%81%E9%81%8B%E7%B6%AD%EF%BC%9F"><span class="toc-article-text">2018&#x2F;06&#x2F;22: 維運、運維？</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2018-07-06-%E5%88%86%E4%BA%AB%E8%BB%9F%E9%AB%94%E9%96%8B%E7%99%BC%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F"><span class="toc-article-text">2018&#x2F;07&#x2F;06: 分享軟體開發生命週期</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2018-07-14-%E8%A8%8E%E8%AB%96%E6%B8%AC%E8%A9%A6%E7%9A%84%E5%8F%8D%E6%A8%A1%E5%BC%8F"><span class="toc-article-text">2018&#x2F;07&#x2F;14: 討論測試的反模式</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2018-08-03-%E8%AB%87-Artifact-%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7"><span class="toc-article-text">2018&#x2F;08&#x2F;03: 談 Artifact 的重要性</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2018-08-21-%E8%AB%87%E7%92%B0%E5%A2%83%E5%BB%BA%E7%BD%AE%E8%88%87%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7"><span class="toc-article-text">2018&#x2F;08&#x2F;21: 談環境建置與配置管理的重要性</span></a></li></ol>
 		</div>
 	
 	</div>
@@ -480,6 +419,7 @@
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -495,8 +435,10 @@
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -506,8 +448,10 @@
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -541,6 +485,7 @@
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -594,6 +539,7 @@
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -631,6 +577,7 @@
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -646,6 +593,7 @@
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

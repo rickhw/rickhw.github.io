@@ -71,31 +71,13 @@ Theme 目錄結構、CSS 微調
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -119,7 +101,7 @@ Theme 目錄結構、CSS 微調
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -131,7 +113,7 @@ Theme 目錄結構、CSS 微調
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -255,25 +237,6 @@ Theme 目錄結構、CSS 微調
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2015%2F01%2F24%2FBlog%2FHexo-Tuning%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2015/01/24/Blog/Hexo-Tuning/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2015/01/24/Blog/Hexo-Tuning/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>我試著調整 Hexo 的一些細節，包含了解 Themes 結構、修改 CSS、加入 Facebook 的功能、RSS、了解 Plugin 的概念等等。把這些過程心得，都記錄在這裡。調整部分大概如下：</p>
 <ul>
 <li>寫文章的小技巧</li>
@@ -299,7 +262,7 @@ Theme 目錄結構、CSS 微調
 <h2 id="Editing-and-debugging"><a href="#Editing-and-debugging" class="headerlink" title="Editing and debugging"></a>Editing and debugging</h2><p>hexo 可以在本地開啟 node.js 來測試，就是 <code>hexo server</code>。除了測試之外，其實也是可以直接 debug 的。</p>
 <p>我現在都是直接開著 server ，然後開始寫文章，除了用 <a target="_blank" rel="noopener" href="http://macdown.uranusjr.com/">MacDown</a> 這種 editor 寫，同時也可以在 browser 直接 preview。</p>
 <p>另外如果在編輯過程中，改了 <code>_config.yml</code>，那麼是需要重啟 hexo server 的。</p>
-<h1 id="Themes-x2F-CSS-調整"><a href="#Themes-x2F-CSS-調整" class="headerlink" title="Themes &#x2F; CSS 調整"></a>Themes &#x2F; CSS 調整</h1><h2 id="目錄結構"><a href="#目錄結構" class="headerlink" title="目錄結構"></a>目錄結構</h2><p>整個 theme 的目錄結構跟 hexo 原始結構差不多，也是以 <code>_config.yml</code> 做主要設定檔。我是拿 <a target="_blank" rel="noopener" href="http://github.com/wzpan/Blog-theme-freemind/">Freemind</a> 做基礎，然後做基本配置的調整。</p>
+<h1 id="Themes-CSS-調整"><a href="#Themes-CSS-調整" class="headerlink" title="Themes &#x2F; CSS 調整"></a>Themes &#x2F; CSS 調整</h1><h2 id="目錄結構"><a href="#目錄結構" class="headerlink" title="目錄結構"></a>目錄結構</h2><p>整個 theme 的目錄結構跟 hexo 原始結構差不多，也是以 <code>_config.yml</code> 做主要設定檔。我是拿 <a target="_blank" rel="noopener" href="http://github.com/wzpan/Blog-theme-freemind/">Freemind</a> 做基礎，然後做基本配置的調整。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ theme</span><br><span class="line">   |-- _config.yml</span><br><span class="line">   |-- languages/ 語言翻譯檔</span><br><span class="line">   |-- layout/ 主要面板 template 都在這裡, 檔案都是 .ejs</span><br><span class="line">   |   |-- _partial/</span><br><span class="line">   |   |   |-- post/</span><br><span class="line">   |   |-- _widget/ 小組件，像是 categories, tagcloud 等</span><br><span class="line">   |-- LICENSE</span><br><span class="line">   |-- README.md</span><br><span class="line">   |-- source</span><br><span class="line">   |   |-- css/</span><br><span class="line">   |   |-- fancybox/</span><br><span class="line">   |   |-- fonts/ 一些 icon, freemind 使用 Font-Awesome</span><br><span class="line">   |   |-- img/</span><br><span class="line">   |   |-- js/</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -337,11 +300,6 @@ Theme 目錄結構、CSS 微調
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2015/01/24/Blog/Hexo-Tuning/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -376,26 +334,6 @@ Theme 目錄結構、CSS 微調
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2015/01/24/Blog/Hexo-Tuning/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -405,6 +343,7 @@ Theme 目錄結構、CSS 微調
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -421,7 +360,7 @@ Theme 目錄結構、CSS 微調
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%AF%AB%E6%96%87%E7%AB%A0%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="toc-article-text">寫文章的小技巧</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#toc"><span class="toc-article-text">toc</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%95%B0%E5%9C%B0%E7%B7%A8%E8%BC%AF"><span class="toc-article-text">異地編輯</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Editing-and-debugging"><span class="toc-article-text">Editing and debugging</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Themes-x2F-CSS-%E8%AA%BF%E6%95%B4"><span class="toc-article-text">Themes &#x2F; CSS 調整</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%AE%E9%8C%84%E7%B5%90%E6%A7%8B"><span class="toc-article-text">目錄結構</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#ejs-template"><span class="toc-article-text">ejs template</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Font-Awesome"><span class="toc-article-text">Font-Awesome</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Bootstrap"><span class="toc-article-text">Bootstrap</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%85%B6%E4%BB%96%E8%AA%BF%E6%95%B4"><span class="toc-article-text">其他調整</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%A5%BD%E7%94%A8%E7%9A%84-Hexo-Plugins"><span class="toc-article-text">好用的 Hexo Plugins</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80-%E7%AB%99%E5%85%A7"><span class="toc-article-text">延伸閱讀 (站內)</span></a></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%AF%AB%E6%96%87%E7%AB%A0%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="toc-article-text">寫文章的小技巧</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#toc"><span class="toc-article-text">toc</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%95%B0%E5%9C%B0%E7%B7%A8%E8%BC%AF"><span class="toc-article-text">異地編輯</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Editing-and-debugging"><span class="toc-article-text">Editing and debugging</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Themes-CSS-%E8%AA%BF%E6%95%B4"><span class="toc-article-text">Themes &#x2F; CSS 調整</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%AE%E9%8C%84%E7%B5%90%E6%A7%8B"><span class="toc-article-text">目錄結構</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#ejs-template"><span class="toc-article-text">ejs template</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Font-Awesome"><span class="toc-article-text">Font-Awesome</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Bootstrap"><span class="toc-article-text">Bootstrap</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%85%B6%E4%BB%96%E8%AA%BF%E6%95%B4"><span class="toc-article-text">其他調整</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%A5%BD%E7%94%A8%E7%9A%84-Hexo-Plugins"><span class="toc-article-text">好用的 Hexo Plugins</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80-%E7%AB%99%E5%85%A7"><span class="toc-article-text">延伸閱讀 (站內)</span></a></li></ol>
 		</div>
 	
 	</div>
@@ -463,6 +402,7 @@ Theme 目錄結構、CSS 微調
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -478,8 +418,10 @@ Theme 目錄結構、CSS 微調
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -489,8 +431,10 @@ Theme 目錄結構、CSS 微調
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -524,6 +468,7 @@ Theme 目錄結構、CSS 微調
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -577,6 +522,7 @@ Theme 目錄結構、CSS 微調
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -614,6 +560,7 @@ Theme 目錄結構、CSS 微調
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -629,6 +576,7 @@ Theme 目錄結構、CSS 微調
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

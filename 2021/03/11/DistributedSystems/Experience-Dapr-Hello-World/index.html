@@ -62,31 +62,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -110,7 +92,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -122,7 +104,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -246,25 +228,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2021%2F03%2F11%2FDistributedSystems%2FExperience-Dapr-Hello-World%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2021/03/11/DistributedSystems/Experience-Dapr-Hello-World/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2021/03/11/DistributedSystems/Experience-Dapr-Hello-World/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p><a target="_blank" rel="noopener" href="https://dapr.io/">Dapr</a> 是微軟開發的 Distributed Application Framework。核心概念是 Sidecar 模式，搭配 <a target="_blank" rel="noopener" href="https://docs.dapr.io/concepts/building-blocks-concept/">Building Blocks</a>、<a target="_blank" rel="noopener" href="https://docs.dapr.io/concepts/components-concept/">Components</a> 等類似 Middleware &#x2F; Pipeline 的概念，以及 <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/">K8s CRD (Custom Resource Definition)</a> 的 擴充 Extensions &#x2F; Plugins 的機制，以這些為主要設計的結構，然後完善大部分分散式系統 (或者說 Microservice) 所必要的基礎建設、開發體驗、維運考量、及架構擴展的需求。</p>
 <p>這些概念與特性疊加起來實在是非常吸引我，加上 Dapr 本身很輕量，版本也已經到了 1.0 版，官方宣稱 production ready，可以一試了！底下是探索性的整理使用體驗。</p>
 <blockquote>
@@ -370,7 +333,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> https://github.com/dapr/quickstarts.git</span><br><span class="line">~$ <span class="built_in">cd</span> quickstarts/hello-world</span><br><span class="line">~$ npm install</span><br><span class="line">~$ dapr run --app-id nodeapp --app-port 3000 --dapr-http-port 3500 node app.js</span><br></pre></td></tr></table></figure>
 
 <p>同前面的 myapp 一樣，會出現一堆 log，大部分都大同小異，只有最後面會出現這樣的訊息：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">❯ dapr run --app-id nodeapp --app-port 3000 --dapr-http-port 3500 node app.js</span><br><span class="line"></span><br><span class="line">ℹ️  Starting Dapr with <span class="built_in">id</span> nodeapp. HTTP Port: 3500. gRPC Port: 63958</span><br><span class="line">INFO[0000] starting Dapr Runtime -- version 1.0.0 -- commit 6314733  app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.runtime <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line">INFO[0000] <span class="built_in">log</span> level <span class="built_in">set</span> to: info                        app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.runtime <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line">INFO[0000] metrics server started on :63959/             app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.metrics <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line">INFO[0000] standalone mode configured                    app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.runtime <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line">INFO[0000] app <span class="built_in">id</span>: nodeapp                               app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.runtime <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line"></span><br><span class="line">... 略 ...</span><br><span class="line"></span><br><span class="line">INFO[0000] internal gRPC server is running on port 63963  app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.runtime <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line">INFO[0000] application protocol: http. waiting on port 3000.  This will block until the app is listening on that port.  app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.runtime <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line">== APP == Node App listening on port 3000!</span><br><span class="line"></span><br><span class="line">INFO[0000] application discovered on port 3000           app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.runtime <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line">INFO[0000] application configuration loaded              app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.runtime <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line">INFO[0000] actor runtime started. actor idle <span class="built_in">timeout</span>: 1h0m0s. actor scan interval: 30s  app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.runtime.actor <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line">INFO[0000] dapr initialized. Status: Running. Init Elapsed 65.36200000000001ms  app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.runtime <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line">INFO[0000] placement tables updated, version: 0          app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.runtime.actor.internal.placement <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line">ℹ️  Updating metadata <span class="keyword">for</span> app <span class="built_in">command</span>: node app.js</span><br><span class="line">✅  You<span class="string">&#x27;re up and running! Both Dapr and your app logs will appear here.</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">❯ dapr run --app-id nodeapp --app-port 3000 --dapr-http-port 3500 node app.js</span><br><span class="line"></span><br><span class="line">ℹ️  Starting Dapr with <span class="built_in">id</span> nodeapp. HTTP Port: 3500. gRPC Port: 63958</span><br><span class="line">INFO[0000] starting Dapr Runtime -- version 1.0.0 -- commit 6314733  app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.runtime <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line">INFO[0000] <span class="built_in">log</span> level <span class="built_in">set</span> to: info                        app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.runtime <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line">INFO[0000] metrics server started on :63959/             app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.metrics <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line">INFO[0000] standalone mode configured                    app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.runtime <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line">INFO[0000] app <span class="built_in">id</span>: nodeapp                               app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.runtime <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line"></span><br><span class="line">... 略 ...</span><br><span class="line"></span><br><span class="line">INFO[0000] internal gRPC server is running on port 63963  app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.runtime <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line">INFO[0000] application protocol: http. waiting on port 3000.  This will block <span class="keyword">until</span> the app is listening on that port.  app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.runtime <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line">== APP == Node App listening on port 3000!</span><br><span class="line"></span><br><span class="line">INFO[0000] application discovered on port 3000           app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.runtime <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line">INFO[0000] application configuration loaded              app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.runtime <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line">INFO[0000] actor runtime started. actor idle <span class="built_in">timeout</span>: 1h0m0s. actor scan interval: 30s  app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.runtime.actor <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line">INFO[0000] dapr initialized. Status: Running. Init Elapsed 65.36200000000001ms  app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.runtime <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line">INFO[0000] placement tables updated, version: 0          app_id=nodeapp instance=iStar.<span class="built_in">local</span> scope=dapr.runtime.actor.internal.placement <span class="built_in">type</span>=<span class="built_in">log</span> ver=1.0.0</span><br><span class="line">ℹ️  Updating metadata <span class="keyword">for</span> app <span class="built_in">command</span>: node app.js</span><br><span class="line">✅  You<span class="string">&#x27;re up and running! Both Dapr and your app logs will appear here.</span></span><br></pre></td></tr></table></figure>
 
 <p>這次和上次不一樣，多了 <code>== APP == Node App listening on port 3000!</code> 這段訊息，其他差不多都一樣。</p>
 <h3 id="Post-Message"><a href="#Post-Message" class="headerlink" title="Post Message"></a>Post Message</h3><p>透過 curl 發送訊息：</p>
@@ -392,7 +355,7 @@
 <li>這個結構的規則是如下：</li>
 </ol>
 <blockquote>
-<p>POST&#x2F;GET&#x2F;PUT&#x2F;DELETE <a href="http://localhost:&lt;daprPort&gt;/v1.0/invoke/&lt;appId&gt;/method/&lt;method-name&gt;">http://localhost:&lt;daprPort&gt;/v1.0/invoke/&lt;appId&gt;/method/&lt;method-name&gt;</a></p>
+<p>POST&#x2F;GET&#x2F;PUT&#x2F;DELETE <a href="http://localhost:&lt;daprPort>/v1.0/invoke/&lt;appId>/method/&lt;method-name>">http://localhost:&lt;daprPort&gt;/v1.0/invoke/&lt;appId&gt;/method/&lt;method-name&gt;</a></p>
 </blockquote>
 <p>這是透過 dapr runtime (sidecar) 的 HTTP API 打指定的 app 的 method，其中主要的機制是 <code>Service Invocation</code> 的實作。</p>
 <p>詳細的規格參考 <a target="_blank" rel="noopener" href="https://docs.dapr.io/reference/api/service_invocation_api/">Service invoction API reference</a></p>
@@ -448,11 +411,6 @@
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2021/03/11/DistributedSystems/Experience-Dapr-Hello-World/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -487,26 +445,6 @@
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2021/03/11/DistributedSystems/Experience-Dapr-Hello-World/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -516,6 +454,7 @@
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -574,6 +513,7 @@
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -589,8 +529,10 @@
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -600,8 +542,10 @@
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -635,6 +579,7 @@
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -688,6 +633,7 @@
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -725,6 +671,7 @@
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -740,6 +687,7 @@
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

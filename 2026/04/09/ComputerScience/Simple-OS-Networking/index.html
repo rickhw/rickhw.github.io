@@ -62,31 +62,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -110,7 +92,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -122,7 +104,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -246,25 +228,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2026%2F04%2F09%2FComputerScience%2FSimple-OS-Networking%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2026/04/09/ComputerScience/Simple-OS-Networking/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2026/04/09/ComputerScience/Simple-OS-Networking/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p><a href="/2026/03/27/ComputerScience/Simple-OS/">自幹作業系統 - SimpleOS</a> 完成第一階段之後，感覺意猶未竟，有很多東西想繼續玩玩看，所以開啟了第二階段，其中最複雜也數最有趣的是 <code>網路基礎 (Networking Fundamentals)</code> 部分，從最底層硬體 PCI Bus 掃描，實作驅動程式 (RTL8139)、到 Ethernet Layer (L2)、IPv4、ARP、ARP Table、UDP、TCP … 一路打上去，最後用 ping、host、wget、udprecv、tcptest 等 User Space 封裝的應用程式做驗收。</p>
 <p>下圖是我請 Gemini 幫我畫的總結，總結第二階段網路部分的學習。</p>
 <p><img src="/images/ComputerScience/SimpleOS/NetworkOverview_20260408.png"></p>
@@ -376,7 +339,7 @@
 </li>
 </ul>
 <hr>
-<h3 id="Phase-10：Conquering-TCP-x2F-UDP-amp-Web-Exploration"><a href="#Phase-10：Conquering-TCP-x2F-UDP-amp-Web-Exploration" class="headerlink" title="Phase 10：Conquering TCP&#x2F;UDP &amp; Web Exploration"></a>Phase 10：Conquering TCP&#x2F;UDP &amp; Web Exploration</h3><p><strong>目標：實作 TCP&#x2F;UDP，解析 DNS，最終驗收 <code>wget</code>。(約 8-9 天)</strong><br>有了 IP 之後，我們要實作網路層之上的傳輸層，挑戰最困難的 TCP 狀態機，讓 OS 能夠與全世界的 Web Server 溝通。</p>
+<h3 id="Phase-10：Conquering-TCP-UDP-Web-Exploration"><a href="#Phase-10：Conquering-TCP-UDP-Web-Exploration" class="headerlink" title="Phase 10：Conquering TCP&#x2F;UDP &amp; Web Exploration"></a>Phase 10：Conquering TCP&#x2F;UDP &amp; Web Exploration</h3><p><strong>目標：實作 TCP&#x2F;UDP，解析 DNS，最終驗收 <code>wget</code>。(約 8-9 天)</strong><br>有了 IP 之後，我們要實作網路層之上的傳輸層，挑戰最困難的 TCP 狀態機，讓 OS 能夠與全世界的 Web Server 溝通。</p>
 <ul>
 <li><strong>Day 90-92：UDP 協定與 Socket 接收器 (UDP Protocol &amp; Socket Receiver)</strong><ul>
 <li>實作 UDP 無狀態傳輸，建立 Kernel 級別的 Port 綁定 (Bind) 信箱機制。</li>
@@ -436,11 +399,6 @@
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2026/04/09/ComputerScience/Simple-OS-Networking/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -475,26 +433,6 @@
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2026/04/09/ComputerScience/Simple-OS-Networking/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -504,6 +442,7 @@
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -520,7 +459,7 @@
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%AF%A6%E4%BD%9C%E5%85%A7%E5%AE%B9"><span class="toc-article-text">實作內容</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Day81-83-%E6%8E%83%E6%8F%8F-PCI-Bus%EF%BC%8C%E9%A9%85%E5%8B%95%E7%B6%B2%E8%B7%AF%E5%8D%A1-RTL8139"><span class="toc-article-text">Day81-83: 掃描 PCI Bus，驅動網路卡 RTL8139</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Day84-%E6%8E%A5%E6%94%B6%E7%B6%B2%E8%B7%AF%E5%8D%A1%E6%94%B6%E5%88%B0%E7%9A%84%E5%B0%81%E5%8C%85"><span class="toc-article-text">Day84: 接收網路卡收到的封包</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Day85-86-%E9%80%81%E5%87%BA-ARP-%E5%BB%A3%E6%92%AD%E5%B0%81%E5%8C%85%EF%BC%8C%E6%9A%AB%E5%AD%98%E5%9C%A8-ARP-Table"><span class="toc-article-text">Day85-86: 送出 ARP 廣播封包，暫存在 ARP Table</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Day87-89-IPv4-ICMP-Ping-User-Space"><span class="toc-article-text">Day87-89: IPv4, ICMP, Ping (User Space)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Day90-92-UDP-receive-and-Socket-API"><span class="toc-article-text">Day90-92: UDP receive and Socket API</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Day93-95-TCP-3-Way-Handshake-Connection"><span class="toc-article-text">Day93-95: TCP, 3-Way Handshake, Connection</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Day96-98-DNS-Wget"><span class="toc-article-text">Day96-98: DNS, Wget</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%87%8D%E6%A7%8B"><span class="toc-article-text">重構</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%AA%B2%E7%A8%8B%E6%B8%85%E5%96%AE"><span class="toc-article-text">課程清單</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Phase-9%EF%BC%9ANetwork-Awakening-From-Hardware-Scan-to-ICMP"><span class="toc-article-text">Phase 9：Network Awakening: From Hardware Scan to ICMP</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Phase-10%EF%BC%9AConquering-TCP-x2F-UDP-amp-Web-Exploration"><span class="toc-article-text">Phase 10：Conquering TCP&#x2F;UDP &amp; Web Exploration</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-article-text">小結</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%9B%9E%E9%A6%AC%E6%A7%8D%EF%BC%9AAI"><span class="toc-article-text">回馬槍：AI?</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E8%87%AA%E5%B9%B9%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1-%E7%B3%BB%E5%88%97"><span class="toc-article-text">自幹作業系統 系列</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%AF%A6%E4%BD%9C%E5%85%A7%E5%AE%B9"><span class="toc-article-text">實作內容</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Day81-83-%E6%8E%83%E6%8F%8F-PCI-Bus%EF%BC%8C%E9%A9%85%E5%8B%95%E7%B6%B2%E8%B7%AF%E5%8D%A1-RTL8139"><span class="toc-article-text">Day81-83: 掃描 PCI Bus，驅動網路卡 RTL8139</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Day84-%E6%8E%A5%E6%94%B6%E7%B6%B2%E8%B7%AF%E5%8D%A1%E6%94%B6%E5%88%B0%E7%9A%84%E5%B0%81%E5%8C%85"><span class="toc-article-text">Day84: 接收網路卡收到的封包</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Day85-86-%E9%80%81%E5%87%BA-ARP-%E5%BB%A3%E6%92%AD%E5%B0%81%E5%8C%85%EF%BC%8C%E6%9A%AB%E5%AD%98%E5%9C%A8-ARP-Table"><span class="toc-article-text">Day85-86: 送出 ARP 廣播封包，暫存在 ARP Table</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Day87-89-IPv4-ICMP-Ping-User-Space"><span class="toc-article-text">Day87-89: IPv4, ICMP, Ping (User Space)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Day90-92-UDP-receive-and-Socket-API"><span class="toc-article-text">Day90-92: UDP receive and Socket API</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Day93-95-TCP-3-Way-Handshake-Connection"><span class="toc-article-text">Day93-95: TCP, 3-Way Handshake, Connection</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Day96-98-DNS-Wget"><span class="toc-article-text">Day96-98: DNS, Wget</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%87%8D%E6%A7%8B"><span class="toc-article-text">重構</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%AA%B2%E7%A8%8B%E6%B8%85%E5%96%AE"><span class="toc-article-text">課程清單</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Phase-9%EF%BC%9ANetwork-Awakening-From-Hardware-Scan-to-ICMP"><span class="toc-article-text">Phase 9：Network Awakening: From Hardware Scan to ICMP</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Phase-10%EF%BC%9AConquering-TCP-UDP-Web-Exploration"><span class="toc-article-text">Phase 10：Conquering TCP&#x2F;UDP &amp; Web Exploration</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-article-text">小結</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%9B%9E%E9%A6%AC%E6%A7%8D%EF%BC%9AAI"><span class="toc-article-text">回馬槍：AI?</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E8%87%AA%E5%B9%B9%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1-%E7%B3%BB%E5%88%97"><span class="toc-article-text">自幹作業系統 系列</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -534,7 +473,7 @@
     <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
       <div>
   <!--<li>-->
-    <span class="label label-info"><a href="/categories/Computer-Science/" style="color: white">Computer Science <span class="badge">11</span></a></span>
+    <span class="label label-info"><a href="/categories/Computer-Science/" style="color: white">Computer Science <span class="badge">12</span></a></span>
   <!--</li>-->
 </div>
     <!--</ul>-->
@@ -550,7 +489,7 @@
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Just-for-Fun/" style="color: white">Just for Fun <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/DNS/" style="color: white">DNS <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Networking/" style="color: white">Networking <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/IPv4/" style="color: white">IPv4 <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Operating-Systems/" style="color: white">Operating Systems <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Mac-Address/" style="color: white">Mac Address <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/TCP/" style="color: white">TCP <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/ARP/" style="color: white">ARP <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/HTTP/" style="color: white">HTTP <span class="badge">2</span></a></span>
+  <span class="label label-success"><a href="/tags/Operating-Systems/" style="color: white">Operating Systems <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/Just-for-Fun/" style="color: white">Just for Fun <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/DNS/" style="color: white">DNS <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Networking/" style="color: white">Networking <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/Mac-Address/" style="color: white">Mac Address <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/IPv4/" style="color: white">IPv4 <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/TCP/" style="color: white">TCP <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/ARP/" style="color: white">ARP <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/HTTP/" style="color: white">HTTP <span class="badge">2</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -562,6 +501,7 @@
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -577,8 +517,10 @@
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -588,8 +530,10 @@
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -623,6 +567,7 @@
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -676,6 +621,7 @@
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -713,6 +659,7 @@
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -728,6 +675,7 @@
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

@@ -62,31 +62,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -110,7 +92,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -122,7 +104,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -246,25 +228,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2026%2F04%2F28%2FComputerScience%2FSimple-OS-Context-Switch%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2026/04/28/ComputerScience/Simple-OS-Context-Switch/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2026/04/28/ComputerScience/Simple-OS-Context-Switch/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p><a href="/2026/03/27/ComputerScience/Simple-OS/">自幹作業系統 - Simple OS</a> 學習筆記來到第五篇，上一篇整理了 <a href="/2026/04/17/ComputerScience/Simple-OS-Task-and-Scheduler/">Task 的定義、排程器概念、以及排程演算法</a>，順著這樣的思路，往下深挖一個很重要的概念：<code>Context Switch</code>，中文翻譯成 <strong>上下文切換</strong>、<strong>內容轉換</strong>、<strong>環境切換</strong>，我自己習慣翻譯 <code>上下文切換</code> 。對應到 <a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/main/course/README.md">課程大綱</a> 大約在 day31 ~ 36 的範圍。</p>
 <p>本文將整理以下內容：</p>
 <ol>
@@ -309,9 +272,15 @@
 </blockquote>
 <h3 id="觸發時機"><a href="#觸發時機" class="headerlink" title="觸發時機"></a>觸發時機</h3><p>在 Simple OS 裡，Context Switch 有兩種觸發方式：</p>
 <ol>
-<li><strong>搶佔式 (Preemptive)</strong> ：由 <a href="/2026/04/12/ComputerScience/Simple-OS-Timer/">PIT (可程式化間隔計時器，8254 晶片)</a> 每 10ms 產生一次 IRQ0 中斷，強制叫醒 <code>排程器 (Scheduler)</code>。這讓任何一個行程 (Process) 都不能霸佔 CPU，即使它是個無限迴圈如下 <a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/main/src/kernel/arch/x86/timer.c#L87">timer.c</a>，更多參閱 <a href="/2026/04/12/ComputerScience/Simple-OS-Timer/">自幹作業系統 - 初探 Timer 原理</a> 的詳細介紹。<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// timer.c — 每一個 tick (10ms) 就強制執行一次排程</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">timer_handler</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    tick++;</span><br><span class="line">    <span class="comment">// ... 略 ...</span></span><br><span class="line">    outb(<span class="number">0x20</span>, <span class="number">0x20</span>); <span class="comment">// 通知 PIC：中斷處理完畢 (EOI) </span></span><br><span class="line">    schedule();       <span class="comment">// 強制切換，實現搶佔式多工</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><strong>主動讓出 (Voluntary)</strong> ：行程呼叫 <a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/main/src/kernel/kernel/task.c#L547">sys_wait()</a>、<a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/main/src/kernel/kernel/task.c#L654">sys_sleep()</a> 等 syscall，自願放棄 CPU 使用權。<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">sys_sleep</span><span class="params">(<span class="type">uint32_t</span> ms)</span> &#123;</span><br><span class="line">    <span class="comment">// ... 略 ...</span></span><br><span class="line">    current_task-&gt;wake_up_tick = tick + ticks_to_sleep;</span><br><span class="line">    current_task-&gt;state = TASK_SLEEPING;</span><br><span class="line"></span><br><span class="line">    schedule();       <span class="comment">// 讓出 CPU，schedule 處理 cli/sti</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><strong>搶佔式 (Preemptive)</strong> ：由 <a href="/2026/04/12/ComputerScience/Simple-OS-Timer/">PIT (可程式化間隔計時器，8254 晶片)</a> 每 10ms 產生一次 IRQ0 中斷，強制叫醒 <code>排程器 (Scheduler)</code>。這讓任何一個行程 (Process) 都不能霸佔 CPU，即使它是個無限迴圈如下 <a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/main/src/kernel/arch/x86/timer.c#L87">timer.c</a>，更多參閱 <a href="/2026/04/12/ComputerScience/Simple-OS-Timer/">自幹作業系統 - 初探 Timer 原理</a> 的詳細介紹。</li>
 </ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// timer.c — 每一個 tick (10ms) 就強制執行一次排程</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">timer_handler</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    tick++;</span><br><span class="line">    <span class="comment">// ... 略 ...</span></span><br><span class="line">    outb(<span class="number">0x20</span>, <span class="number">0x20</span>); <span class="comment">// 通知 PIC：中斷處理完畢 (EOI) </span></span><br><span class="line">    schedule();       <span class="comment">// 強制切換，實現搶佔式多工</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><strong>主動讓出 (Voluntary)</strong> ：行程呼叫 <a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/main/src/kernel/kernel/task.c#L547">sys_wait()</a>、<a target="_blank" rel="noopener" href="https://github.com/rickhw/simple-operating-systems/blob/main/src/kernel/kernel/task.c#L654">sys_sleep()</a> 等 syscall，自願放棄 CPU 使用權。</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">sys_sleep</span><span class="params">(<span class="type">uint32_t</span> ms)</span> &#123;</span><br><span class="line">    <span class="comment">// ... 略 ...</span></span><br><span class="line">    current_task-&gt;wake_up_tick = tick + ticks_to_sleep;</span><br><span class="line">    current_task-&gt;state = TASK_SLEEPING;</span><br><span class="line"></span><br><span class="line">    schedule();       <span class="comment">// 讓出 CPU，schedule 處理 cli/sti</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 <h3 id="成本分析"><a href="#成本分析" class="headerlink" title="成本分析"></a>成本分析</h3><p>Context Switch 不是免費的，它的代價主要來自三個層面：</p>
 <ol>
 <li><strong>暫存器存取</strong>: <code>pusha</code> &#x2F; <code>popa</code> 指令需要讀寫 8 個通用暫存器，加上 <code>EFLAGS</code></li>
@@ -363,7 +332,7 @@
 <hr>
 <h2 id="整體流程回顧"><a href="#整體流程回顧" class="headerlink" title="整體流程回顧"></a>整體流程回顧</h2><p>Context Switch 最神奇的地方在於：</p>
 <blockquote>
-<p>對每一個行程來說，它從未「感覺」自己被暫停過：它只是<strong>「從 <code>switch_task</code> 的呼叫點返回了」</strong>，而這個返回，可能已經過了幾十個 tick、幾百個毫秒。</p>
+<p>對每一個行程來說，它從未「感覺」自己被暫停過：它只是**「從 <code>switch_task</code> 的呼叫點返回了」**，而這個返回，可能已經過了幾十個 tick、幾百個毫秒。</p>
 </blockquote>
 <p>下圖是用 ChatGPT 整理的整體流程：</p>
 <p><img src="/images/ComputerScience/SimpleOS/Context-Switch/Context-Switch-Flow.png"></p>
@@ -507,7 +476,7 @@ switch_task(prev_esp, next_esp, next_cr3)   ← 跳入組合語言
 <p><strong>Anthropic Claude Code (Claude Agent SDK)</strong> ：通用型 Harness 的標竿代表，採用極簡的信任模型哲學。提供三級記憶層級、Git-based 的檢查點回溯機制，內建檔案操作、終端機指令、程式碼修改等生產級工具。最讓人驚艷的是 checkpoint 機制，寫到一半發現方向錯了可以直接 git revert，Agent 不會迷失。</p>
 <p><strong>OpenAI Agents SDK &#x2F; 內部 Codex 管控框架</strong> ：採用程式碼優先設計，支援多種狀態儲存與運行模式。OpenAI 內部用同一套理念，<strong>5-7 名工程師、5 個月內、用 AI 生成與維護超過百萬行程式碼</strong>的大型應用。這個數字蠻誇張的，等於每人每月平均產出 25,000+ 行有效程式碼。</p>
 <p><strong>LangChain LangGraph 與 DeepAgents</strong> ：把 Harness 建模為明確的<strong>狀態圖結構</strong>，支援中斷後恢復甚至「時光倒流」式除錯。前面提過他們在 TerminalBench 2.0 純靠 Harness 優化從 30 名外衝到第 5 名，這就是最直接的證據。</p>
-<p><strong>CrewAI 與 AutoGen (微軟)<strong>：兩個走不同路線。CrewAI 主打</strong>基於角色的多 Agent 協作</strong> — 像是組一個團隊，有 PM、有 engineer、有 reviewer，適合需要分工的場景。AutoGen 則是<strong>對話驅動的協作協議</strong> — Agents 之間透過對話達成共識，適合開放式互動。</p>
+<p><strong>CrewAI 與 AutoGen (微軟)</strong>：兩個走不同路線。CrewAI 主打<strong>基於角色的多 Agent 協作</strong> — 像是組一個團隊，有 PM、有 engineer、有 reviewer，適合需要分工的場景。AutoGen 則是<strong>對話驅動的協作協議</strong> — Agents 之間透過對話達成共識，適合開放式互動。</p>
 <p><strong>Manus 與 Vercel 內部系統</strong>：這兩個團隊實踐了 Harness Engineering 中很反直覺的原則 — <strong>「為刪除而建 (Build for Deletion)」</strong>。Manus 在半年內<strong>重構五次 Harness</strong> 來移除剛性假設；Vercel 砍掉 80% 的手工工具。結果反而是 token 消耗更少、任務成功率更高。這個現象其實跟我做作業系統研究的觀察一樣 — 好的抽象往往是「拿掉了什麼」，而不是「加了什麼」。</p>
 <h3 id="小結-1"><a href="#小結-1" class="headerlink" title="小結"></a>小結</h3><p>整體看下來，Harness Engineering 還在很早期的階段，現在大家在做的事情，比較像是 1970 年代各家在探索作業系統該長什麼樣子。等到這個領域成熟，可能會出現類似 POSIX 那樣的標準介面，讓不同 Harness 之間可以互通。但在那之前，每個團隊都還在用自己的方式試，這也是這個領域目前最有趣的地方。</p>
 <p>我正在整理 <a href="/2026/03/27/ComputerScience/Simple-OS/">自幹作業系統</a> 的相關學習筆記時，也剛好在思考，是否要把 POSIX 標準加入 (真的只是想想而已 XD)，其實也是同樣的過程。寫 OS 的人，學的是「怎麼建立穩定可靠的執行環境」這套思維。而 Harness Engineering 本質上就是把這套思維搬到 LLM 上：</p>
@@ -564,11 +533,6 @@ World Model 這派學說的代表人物楊立昆 (Yann LeCun, 2018年圖靈獎)�
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2026/04/28/ComputerScience/Simple-OS-Context-Switch/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -603,26 +567,6 @@ World Model 這派學說的代表人物楊立昆 (Yann LeCun, 2018年圖靈獎)�
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2026/04/28/ComputerScience/Simple-OS-Context-Switch/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -632,6 +576,7 @@ World Model 這派學說的代表人物楊立昆 (Yann LeCun, 2018年圖靈獎)�
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -662,7 +607,7 @@ World Model 這派學說的代表人物楊立昆 (Yann LeCun, 2018年圖靈獎)�
     <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
       <div>
   <!--<li>-->
-    <span class="label label-info"><a href="/categories/Computer-Science/" style="color: white">Computer Science <span class="badge">11</span></a></span>
+    <span class="label label-info"><a href="/categories/Computer-Science/" style="color: white">Computer Science <span class="badge">12</span></a></span>
   <!--</li>-->
 </div>
     <!--</ul>-->
@@ -678,7 +623,7 @@ World Model 這派學說的代表人物楊立昆 (Yann LeCun, 2018年圖靈獎)�
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Just-for-Fun/" style="color: white">Just for Fun <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Operating-Systems/" style="color: white">Operating Systems <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Task/" style="color: white">Task <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Scheduler/" style="color: white">Scheduler <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Process/" style="color: white">Process <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Context-Switch/" style="color: white">Context Switch <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Harness-Engineering/" style="color: white">Harness Engineering <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/World-Model/" style="color: white">World Model <span class="badge">1</span></a></span>
+  <span class="label label-success"><a href="/tags/Harness-Engineering/" style="color: white">Harness Engineering <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Operating-Systems/" style="color: white">Operating Systems <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/Just-for-Fun/" style="color: white">Just for Fun <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Task/" style="color: white">Task <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Scheduler/" style="color: white">Scheduler <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Process/" style="color: white">Process <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Context-Switch/" style="color: white">Context Switch <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/World-Model/" style="color: white">World Model <span class="badge">1</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -690,6 +635,7 @@ World Model 這派學說的代表人物楊立昆 (Yann LeCun, 2018年圖靈獎)�
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -705,8 +651,10 @@ World Model 這派學說的代表人物楊立昆 (Yann LeCun, 2018年圖靈獎)�
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -716,8 +664,10 @@ World Model 這派學說的代表人物楊立昆 (Yann LeCun, 2018年圖靈獎)�
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -751,6 +701,7 @@ World Model 這派學說的代表人物楊立昆 (Yann LeCun, 2018年圖靈獎)�
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -804,6 +755,7 @@ World Model 這派學說的代表人物楊立昆 (Yann LeCun, 2018年圖靈獎)�
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -841,6 +793,7 @@ World Model 這派學說的代表人物楊立昆 (Yann LeCun, 2018年圖靈獎)�
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -856,6 +809,7 @@ World Model 這派學說的代表人物楊立昆 (Yann LeCun, 2018年圖靈獎)�
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

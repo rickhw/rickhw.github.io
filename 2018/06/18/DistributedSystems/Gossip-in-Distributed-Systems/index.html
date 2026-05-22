@@ -62,31 +62,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -110,7 +92,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -122,7 +104,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -246,25 +228,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2018%2F06%2F18%2FDistributedSystems%2FGossip-in-Distributed-Systems%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2018/06/18/DistributedSystems/Gossip-in-Distributed-Systems/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2018/06/18/DistributedSystems/Gossip-in-Distributed-Systems/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>整理資料，回顧之前寫的東西，常常覺得這些就是要不斷地拿出來提，特別是 <code>分散式系統 (Distributed Systems)</code> 已經是現代架構的常態，他就跟組織一樣，要面對各式各樣 <code>依賴性</code>、<code>內外聚合</code>、<code>可控性</code>、<code>可治理</code>、<code>可觀測</code>、<code>網路拓墣</code>、<code>效能</code>、<code>快取</code>、<code>事件處理</code> … 等問題，這些問題不只可以對應到系統，也可以對應到人、組織 (<code>康威定律</code>)。</p>
 <ul>
 <li>一、分散式系統核心問題</li>
@@ -546,7 +509,7 @@
 </li>
 </ul>
 <hr>
-<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><h2 id="書籍-x2F-論文"><a href="#書籍-x2F-論文" class="headerlink" title="書籍 &#x2F; 論文"></a>書籍 &#x2F; 論文</h2><ul>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><h2 id="書籍-論文"><a href="#書籍-論文" class="headerlink" title="書籍 &#x2F; 論文"></a>書籍 &#x2F; 論文</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://azure.microsoft.com/en-us/resources/designing-distributed-systems/">Designing Distributed Systems</a>, <a target="_blank" rel="noopener" href="https://www.usenix.org/system/files/conference/hotcloud16/hotcloud16_burns.pdf">Design patterns for container-based distributed systems</a> by Brendan Burns, David Oppenheimer (Google)</li>
 <li><a target="_blank" rel="noopener" href="https://www.confluent.io/designing-event-driven-systems">Designing Event-Driven Systems</a> - Free</li>
 <li><a target="_blank" rel="noopener" href="https://www.oreilly.com/webops-perf/free/chaos-engineering.csp">Chaos Engineering</a> - Free</li>
@@ -595,11 +558,6 @@
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2018/06/18/DistributedSystems/Gossip-in-Distributed-Systems/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -634,26 +592,6 @@
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2018/06/18/DistributedSystems/Gossip-in-Distributed-Systems/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -663,6 +601,7 @@
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -679,7 +618,7 @@
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%B8%80%E3%80%81%E5%88%86%E6%95%A3%E5%BC%8F%E7%B3%BB%E7%B5%B1%E6%A0%B8%E5%BF%83%E5%95%8F%E9%A1%8C"><span class="toc-article-text">一、分散式系統核心問題</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%88%86%E6%95%A3%E5%BC%8F%E7%B3%BB%E7%B5%B1%E7%9A%84%E8%AC%AC%E8%AB%96-Fallacies-of-distributed-computing"><span class="toc-article-text">分散式系統的謬論 (Fallacies of distributed computing)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%BA%8C%E3%80%81%E7%90%86%E8%AB%96%E5%9F%BA%E7%A4%8E%E8%88%87%E6%96%B9%E6%B3%95%E6%A6%82%E5%BF%B5"><span class="toc-article-text">二、理論基礎與方法概念</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%90%86%E8%AB%96%E5%9F%BA%E7%A4%8E"><span class="toc-article-text">理論基礎</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E8%AB%96%E6%96%87%E8%88%87%E4%BB%A3%E8%A1%A8%E4%BA%BA%E7%89%A9"><span class="toc-article-text">相關論文與代表人物</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%88%86%E6%95%A3%E5%BC%8F%E7%B3%BB%E7%B5%B1-%E7%99%BC%E5%B1%95%E5%8F%B2-%E8%88%87-%E7%90%86%E8%AB%96%E8%AB%96%E6%96%87"><span class="toc-article-text">分散式系統 發展史 與 理論論文</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%B8%89%E3%80%81%E7%95%B6%E4%BB%A3%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95%E8%88%87%E5%AF%A6%E8%B8%90"><span class="toc-article-text">三、當代工程方法與實踐</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%AF%A6%E8%B8%90%E5%88%86%E6%95%A3%E5%BC%8F%E6%9E%B6%E6%A7%8B%E7%9A%84%E5%85%A7%E5%A4%96%E5%BF%83%E6%B3%95"><span class="toc-article-text">實踐分散式架構的內外心法</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E8%AD%B0%E9%A1%8C%EF%BC%9A%E5%8F%AF%E9%9D%A0%E6%80%A7%E5%B7%A5%E7%A8%8B%E7%9A%84%E6%9E%B6%E6%A7%8B"><span class="toc-article-text">相關議題：可靠性工程的架構</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BE%AE%E6%9C%8D%E5%8B%99%E6%9E%B6%E6%A7%8B%EF%BC%8F%E5%88%86%E6%95%A3%E5%BC%8F%E6%9E%B6%E6%A7%8B"><span class="toc-article-text">微服務架構／分散式架構</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%97%9C%E8%81%AF%E5%AD%97-or-Buzzwords"><span class="toc-article-text">關聯字 or Buzzwords</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%9B%9B%E3%80%81%E5%88%86%E6%95%A3%E5%BC%8F%E7%B3%BB%E7%B5%B1%E3%80%81%E7%B5%84%E7%B9%94%E9%81%8B%E4%BD%9C%E3%80%81%E8%85%A6%E7%A7%91%E5%AD%B8%E3%80%81%E5%AE%87%E5%AE%99%E3%80%81%E6%84%8F%E8%AD%98"><span class="toc-article-text">四、分散式系統、組織運作、腦科學、宇宙、意識</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BA%BA%E9%A1%9E%E5%A4%A7%E8%85%A6%E7%9A%84%E9%81%8B%E4%BD%9C"><span class="toc-article-text">人類大腦的運作</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BA%BA%E9%A1%9E%E7%BE%A4%E9%AB%94%E7%A4%BE%E6%9C%83%E7%9A%84%E9%81%8B%E4%BD%9C"><span class="toc-article-text">人類群體社會的運作</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80-%E7%AB%99%E5%85%A7"><span class="toc-article-text">延伸閱讀 (站內)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%88%86%E6%95%A3%E5%BC%8F%E7%B3%BB%E7%B5%B1%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0"><span class="toc-article-text">分散式系統系列文章</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%9B%B8%E7%B1%8D-x2F-%E8%AB%96%E6%96%87"><span class="toc-article-text">書籍 &#x2F; 論文</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B6%B2%E7%AB%99%E6%96%87%E7%AB%A0"><span class="toc-article-text">網站文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%AD%B8%E7%BF%92%E8%B3%87%E6%BA%90"><span class="toc-article-text">學習資源</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%81%AF%E6%83%B3%E5%8F%83%E8%80%83"><span class="toc-article-text">聯想參考</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%95%B0%E5%8B%95%E7%B4%80%E9%8C%84"><span class="toc-article-text">異動紀錄</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%B8%80%E3%80%81%E5%88%86%E6%95%A3%E5%BC%8F%E7%B3%BB%E7%B5%B1%E6%A0%B8%E5%BF%83%E5%95%8F%E9%A1%8C"><span class="toc-article-text">一、分散式系統核心問題</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%88%86%E6%95%A3%E5%BC%8F%E7%B3%BB%E7%B5%B1%E7%9A%84%E8%AC%AC%E8%AB%96-Fallacies-of-distributed-computing"><span class="toc-article-text">分散式系統的謬論 (Fallacies of distributed computing)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%BA%8C%E3%80%81%E7%90%86%E8%AB%96%E5%9F%BA%E7%A4%8E%E8%88%87%E6%96%B9%E6%B3%95%E6%A6%82%E5%BF%B5"><span class="toc-article-text">二、理論基礎與方法概念</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%90%86%E8%AB%96%E5%9F%BA%E7%A4%8E"><span class="toc-article-text">理論基礎</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E8%AB%96%E6%96%87%E8%88%87%E4%BB%A3%E8%A1%A8%E4%BA%BA%E7%89%A9"><span class="toc-article-text">相關論文與代表人物</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%88%86%E6%95%A3%E5%BC%8F%E7%B3%BB%E7%B5%B1-%E7%99%BC%E5%B1%95%E5%8F%B2-%E8%88%87-%E7%90%86%E8%AB%96%E8%AB%96%E6%96%87"><span class="toc-article-text">分散式系統 發展史 與 理論論文</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%B8%89%E3%80%81%E7%95%B6%E4%BB%A3%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95%E8%88%87%E5%AF%A6%E8%B8%90"><span class="toc-article-text">三、當代工程方法與實踐</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%AF%A6%E8%B8%90%E5%88%86%E6%95%A3%E5%BC%8F%E6%9E%B6%E6%A7%8B%E7%9A%84%E5%85%A7%E5%A4%96%E5%BF%83%E6%B3%95"><span class="toc-article-text">實踐分散式架構的內外心法</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E8%AD%B0%E9%A1%8C%EF%BC%9A%E5%8F%AF%E9%9D%A0%E6%80%A7%E5%B7%A5%E7%A8%8B%E7%9A%84%E6%9E%B6%E6%A7%8B"><span class="toc-article-text">相關議題：可靠性工程的架構</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BE%AE%E6%9C%8D%E5%8B%99%E6%9E%B6%E6%A7%8B%EF%BC%8F%E5%88%86%E6%95%A3%E5%BC%8F%E6%9E%B6%E6%A7%8B"><span class="toc-article-text">微服務架構／分散式架構</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%97%9C%E8%81%AF%E5%AD%97-or-Buzzwords"><span class="toc-article-text">關聯字 or Buzzwords</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%9B%9B%E3%80%81%E5%88%86%E6%95%A3%E5%BC%8F%E7%B3%BB%E7%B5%B1%E3%80%81%E7%B5%84%E7%B9%94%E9%81%8B%E4%BD%9C%E3%80%81%E8%85%A6%E7%A7%91%E5%AD%B8%E3%80%81%E5%AE%87%E5%AE%99%E3%80%81%E6%84%8F%E8%AD%98"><span class="toc-article-text">四、分散式系統、組織運作、腦科學、宇宙、意識</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BA%BA%E9%A1%9E%E5%A4%A7%E8%85%A6%E7%9A%84%E9%81%8B%E4%BD%9C"><span class="toc-article-text">人類大腦的運作</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BA%BA%E9%A1%9E%E7%BE%A4%E9%AB%94%E7%A4%BE%E6%9C%83%E7%9A%84%E9%81%8B%E4%BD%9C"><span class="toc-article-text">人類群體社會的運作</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80-%E7%AB%99%E5%85%A7"><span class="toc-article-text">延伸閱讀 (站內)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%88%86%E6%95%A3%E5%BC%8F%E7%B3%BB%E7%B5%B1%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0"><span class="toc-article-text">分散式系統系列文章</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%9B%B8%E7%B1%8D-%E8%AB%96%E6%96%87"><span class="toc-article-text">書籍 &#x2F; 論文</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B6%B2%E7%AB%99%E6%96%87%E7%AB%A0"><span class="toc-article-text">網站文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%AD%B8%E7%BF%92%E8%B3%87%E6%BA%90"><span class="toc-article-text">學習資源</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%81%AF%E6%83%B3%E5%8F%83%E8%80%83"><span class="toc-article-text">聯想參考</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%95%B0%E5%8B%95%E7%B4%80%E9%8C%84"><span class="toc-article-text">異動紀錄</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -709,7 +648,7 @@
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/API-Gateway/" style="color: white">API Gateway <span class="badge">18</span></a></span> <span class="label label-success"><a href="/tags/OOD/" style="color: white">OOD <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">16</span></a></span> <span class="label label-success"><a href="/tags/Event-Driven/" style="color: white">Event-Driven <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Chaos-Engineering/" style="color: white">Chaos Engineering <span class="badge">10</span></a></span> <span class="label label-success"><a href="/tags/Kubernetes/" style="color: white">Kubernetes <span class="badge">14</span></a></span> <span class="label label-success"><a href="/tags/Design-Patterns/" style="color: white">Design Patterns <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/OOP/" style="color: white">OOP <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Microservices/" style="color: white">Microservices <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/K8s/" style="color: white">K8s <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/Service-Discovery/" style="color: white">Service Discovery <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Service-Mesh/" style="color: white">Service Mesh <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/CAP/" style="color: white">CAP <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/BASE/" style="color: white">BASE <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Message-Queue/" style="color: white">Message Queue <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Consensus/" style="color: white">Distributed Consensus <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/ACID/" style="color: white">ACID <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Consensus-Protocol/" style="color: white">Consensus Protocol <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Conway-s-Law/" style="color: white">Conway's Law <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/DDD/" style="color: white">DDD <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Agile/" style="color: white">Agile <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/System-Thinking/" style="color: white">System Thinking <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Resilience/" style="color: white">Resilience <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Antifragile/" style="color: white">Antifragile <span class="badge">5</span></a></span>
+  <span class="label label-success"><a href="/tags/API-Gateway/" style="color: white">API Gateway <span class="badge">18</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">17</span></a></span> <span class="label label-success"><a href="/tags/Event-Driven/" style="color: white">Event-Driven <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Chaos-Engineering/" style="color: white">Chaos Engineering <span class="badge">10</span></a></span> <span class="label label-success"><a href="/tags/Kubernetes/" style="color: white">Kubernetes <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/Design-Patterns/" style="color: white">Design Patterns <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/OOP/" style="color: white">OOP <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Microservices/" style="color: white">Microservices <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/OOD/" style="color: white">OOD <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/K8s/" style="color: white">K8s <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/Service-Discovery/" style="color: white">Service Discovery <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Service-Mesh/" style="color: white">Service Mesh <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/CAP/" style="color: white">CAP <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/BASE/" style="color: white">BASE <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Message-Queue/" style="color: white">Message Queue <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Antifragile/" style="color: white">Antifragile <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Resilience/" style="color: white">Resilience <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Consensus/" style="color: white">Distributed Consensus <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Conway-s-Law/" style="color: white">Conway's Law <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/ACID/" style="color: white">ACID <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Consensus-Protocol/" style="color: white">Consensus Protocol <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/DDD/" style="color: white">DDD <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Agile/" style="color: white">Agile <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/System-Thinking/" style="color: white">System Thinking <span class="badge">2</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -721,6 +660,7 @@
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -736,8 +676,10 @@
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -747,8 +689,10 @@
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -782,6 +726,7 @@
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -835,6 +780,7 @@
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -872,6 +818,7 @@
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -887,6 +834,7 @@
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

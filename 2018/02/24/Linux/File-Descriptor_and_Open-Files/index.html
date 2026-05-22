@@ -70,31 +70,13 @@ File De">
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -118,7 +100,7 @@ File De">
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -130,7 +112,7 @@ File De">
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -254,25 +236,6 @@ File De">
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2018%2F02%2F24%2FLinux%2FFile-Descriptor_and_Open-Files%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2018/02/24/Linux/File-Descriptor_and_Open-Files/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2018/02/24/Linux/File-Descriptor_and_Open-Files/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>春節前一週個週末，因為一個服務系統異常，讓我又重新 review 關於 <code>File Descriptor</code> (以下簡稱 FD) 的概念。<a href="/2016/02/20/Linux/Open-File-Limit/">上次整理</a> 已經是兩年前的，再重新讀了相關資料，整理以下部分：</p>
 <ul>
 <li>FD 基本概念</li>
@@ -291,7 +254,7 @@ File De">
 </ol>
 <p>在 terminal 每一個指令在執行的時候，都會產生 process 以及對應的 <code>PID</code>。這些 process 執行的時候，他們相關的資料，在 Linux 會存放在 <code>/proc/PID/</code> 底下。</p>
 <p>底下是取的 PID 相關資訊的方法：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 取的當前的 PID</span></span><br><span class="line">~$ <span class="built_in">echo</span> $$</span><br><span class="line">25737</span><br><span class="line"></span><br><span class="line"><span class="comment">## find process runtime variables.</span></span><br><span class="line">~$ <span class="built_in">ls</span> /proc/25737</span><br><span class="line">attr/       coredump_filter  gid_map     mem         oom_adj        <span class="built_in">sched</span>      statm</span><br><span class="line">autogroup   cpuset           io          mountinfo   oom_score      schedstat  status</span><br><span class="line">auxv        cwd@             latency     mounts      oom_score_adj  sessionid  syscall</span><br><span class="line">cgroup      environ          limits      mountstats  pagemap        setgroups  task/</span><br><span class="line">clear_refs  exe@             loginuid    net/        personality    smaps      timers</span><br><span class="line">cmdline     fd/              map_files/  ns/         projid_map     stack      uid_map</span><br><span class="line"><span class="built_in">comm</span>        fdinfo/          maps        numa_maps   root@          <span class="built_in">stat</span>       wchan</span><br><span class="line"></span><br><span class="line"><span class="comment"># ls FD</span></span><br><span class="line">~$ <span class="built_in">ls</span> /proc/25737/fd</span><br><span class="line">0  1  2  255</span><br><span class="line"></span><br><span class="line"><span class="comment"># find limit of process</span></span><br><span class="line">~$ <span class="built_in">cat</span> /proc/25737/limits</span><br><span class="line">Limit                     Soft Limit           Hard Limit           Units</span><br><span class="line">Max cpu time              unlimited            unlimited            seconds</span><br><span class="line">Max file size             unlimited            unlimited            bytes</span><br><span class="line">Max data size             unlimited            unlimited            bytes</span><br><span class="line">Max stack size            8388608              unlimited            bytes</span><br><span class="line">Max core file size        0                    unlimited            bytes</span><br><span class="line">Max resident <span class="built_in">set</span>          unlimited            unlimited            bytes</span><br><span class="line">Max processes             7862                 7862                 processes</span><br><span class="line">Max open files            1024                 4096                 files</span><br><span class="line">Max locked memory         65536                65536                bytes</span><br><span class="line">Max address space         unlimited            unlimited            bytes</span><br><span class="line">Max file locks            unlimited            unlimited            locks</span><br><span class="line">Max pending signals       7862                 7862                 signals</span><br><span class="line">Max msgqueue size         819200               819200               bytes</span><br><span class="line">Max <span class="built_in">nice</span> priority         0                    0</span><br><span class="line">Max realtime priority     0                    0</span><br><span class="line">Max realtime <span class="built_in">timeout</span>      unlimited            unlimited            us</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 取的當前的 PID</span></span><br><span class="line">~$ <span class="built_in">echo</span> $$</span><br><span class="line">25737</span><br><span class="line"></span><br><span class="line"><span class="comment">## find process runtime variables.</span></span><br><span class="line">~$ <span class="built_in">ls</span> /proc/25737</span><br><span class="line">attr/       coredump_filter  gid_map     mem         oom_adj        <span class="built_in">sched</span>      statm</span><br><span class="line">autogroup   cpuset           io          mountinfo   oom_score      schedstat  status</span><br><span class="line">auxv        cwd@             latency     mounts      oom_score_adj  sessionid  syscall</span><br><span class="line">cgroup      environ          limits      mountstats  pagemap        setgroups  task/</span><br><span class="line">clear_refs  exe@             loginuid    net/        personality    smaps      timers</span><br><span class="line">cmdline     fd/              map_files/  ns/         projid_map     stack      uid_map</span><br><span class="line"><span class="built_in">comm</span>        fdinfo/          maps        numa_maps   root@          <span class="built_in">stat</span>       wchan</span><br><span class="line"></span><br><span class="line"><span class="comment"># ls FD</span></span><br><span class="line">~$ <span class="built_in">ls</span> /proc/25737/fd</span><br><span class="line">0  1  2  255</span><br><span class="line"></span><br><span class="line"><span class="comment"># find limit of process</span></span><br><span class="line">~$ <span class="built_in">cat</span> /proc/25737/limits</span><br><span class="line">Limit                     Soft Limit           Hard Limit           Units</span><br><span class="line">Max cpu <span class="keyword">time</span>              unlimited            unlimited            seconds</span><br><span class="line">Max file size             unlimited            unlimited            bytes</span><br><span class="line">Max data size             unlimited            unlimited            bytes</span><br><span class="line">Max stack size            8388608              unlimited            bytes</span><br><span class="line">Max core file size        0                    unlimited            bytes</span><br><span class="line">Max resident <span class="built_in">set</span>          unlimited            unlimited            bytes</span><br><span class="line">Max processes             7862                 7862                 processes</span><br><span class="line">Max open files            1024                 4096                 files</span><br><span class="line">Max locked memory         65536                65536                bytes</span><br><span class="line">Max address space         unlimited            unlimited            bytes</span><br><span class="line">Max file locks            unlimited            unlimited            locks</span><br><span class="line">Max pending signals       7862                 7862                 signals</span><br><span class="line">Max msgqueue size         819200               819200               bytes</span><br><span class="line">Max <span class="built_in">nice</span> priority         0                    0</span><br><span class="line">Max realtime priority     0                    0</span><br><span class="line">Max realtime <span class="built_in">timeout</span>      unlimited            unlimited            us</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>透過 <code>/proc/PID</code> 裡的資訊，可以知道很多 process 的資訊，通常找問題，或者資源不足時，可以先從這裡下手。</p>
 <hr>
@@ -402,7 +365,7 @@ File De">
 
 <hr>
 <h2 id="查詢某個-Process-的-FD-Limit"><a href="#查詢某個-Process-的-FD-Limit" class="headerlink" title="查詢某個 Process 的 FD Limit"></a>查詢某個 Process 的 FD Limit</h2><p>直接查詢 <code>/proc/[PID]/limits</code> 就可以知道，設定是否正確被 process 吃到，如下 <code>Max open files</code> 的值就是修改後的：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">cat</span> /proc/26643/limits</span><br><span class="line"></span><br><span class="line">Limit                     Soft Limit           Hard Limit           Units</span><br><span class="line">Max cpu time              unlimited            unlimited            seconds</span><br><span class="line">Max file size             unlimited            unlimited            bytes</span><br><span class="line">Max data size             unlimited            unlimited            bytes</span><br><span class="line">Max stack size            8388608              unlimited            bytes</span><br><span class="line">Max core file size        0                    unlimited            bytes</span><br><span class="line">Max resident <span class="built_in">set</span>          unlimited            unlimited            bytes</span><br><span class="line">Max processes             65535                65535                processes</span><br><span class="line">Max open files            65535                65535                files</span><br><span class="line">Max locked memory         65536                65536                bytes</span><br><span class="line">Max address space         unlimited            unlimited            bytes</span><br><span class="line">Max file locks            unlimited            unlimited            locks</span><br><span class="line">Max pending signals       15741                15741                signals</span><br><span class="line">Max msgqueue size         819200               819200               bytes</span><br><span class="line">Max <span class="built_in">nice</span> priority         0                    0</span><br><span class="line">Max realtime priority     0                    0</span><br><span class="line">Max realtime <span class="built_in">timeout</span>      unlimited            unlimited            us</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">cat</span> /proc/26643/limits</span><br><span class="line"></span><br><span class="line">Limit                     Soft Limit           Hard Limit           Units</span><br><span class="line">Max cpu <span class="keyword">time</span>              unlimited            unlimited            seconds</span><br><span class="line">Max file size             unlimited            unlimited            bytes</span><br><span class="line">Max data size             unlimited            unlimited            bytes</span><br><span class="line">Max stack size            8388608              unlimited            bytes</span><br><span class="line">Max core file size        0                    unlimited            bytes</span><br><span class="line">Max resident <span class="built_in">set</span>          unlimited            unlimited            bytes</span><br><span class="line">Max processes             65535                65535                processes</span><br><span class="line">Max open files            65535                65535                files</span><br><span class="line">Max locked memory         65536                65536                bytes</span><br><span class="line">Max address space         unlimited            unlimited            bytes</span><br><span class="line">Max file locks            unlimited            unlimited            locks</span><br><span class="line">Max pending signals       15741                15741                signals</span><br><span class="line">Max msgqueue size         819200               819200               bytes</span><br><span class="line">Max <span class="built_in">nice</span> priority         0                    0</span><br><span class="line">Max realtime priority     0                    0</span><br><span class="line">Max realtime <span class="built_in">timeout</span>      unlimited            unlimited            us</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 <hr>
@@ -445,11 +408,6 @@ File De">
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2018/02/24/Linux/File-Descriptor_and_Open-Files/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -484,26 +442,6 @@ File De">
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2018/02/24/Linux/File-Descriptor_and_Open-Files/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -513,6 +451,7 @@ File De">
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -571,6 +510,7 @@ File De">
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -586,8 +526,10 @@ File De">
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -597,8 +539,10 @@ File De">
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -632,6 +576,7 @@ File De">
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -685,6 +630,7 @@ File De">
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -722,6 +668,7 @@ File De">
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -737,6 +684,7 @@ File De">
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

@@ -68,31 +68,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -116,7 +98,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -128,7 +110,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -252,25 +234,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2018%2F10%2F08%2FDevOps%2FChaos-Engineering%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2018/10/08/DevOps/Chaos-Engineering/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2018/10/08/DevOps/Chaos-Engineering/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>整理一些關於 Chaos Engineering 的資料。</p>
 <span id="more"></span>
 
@@ -300,7 +263,7 @@ Chaos 中文意思是 `混沌`、`混亂`
 <p>By Tammy, she is<br>    - Principal Site Reliability Engineer at #remlin<br>    - former <code>Senior SRE Manager</code> at Dropbox<br>    - and co-founder of <code>GirlGeekAcademy</code></p>
 <p>Published: 2018&#x2F;02&#x2F;06</p>
 <hr>
-<h2 id="Chaos-Engineering-Compaines-People-Tools-amp-Practices"><a href="#Chaos-Engineering-Compaines-People-Tools-amp-Practices" class="headerlink" title="Chaos Engineering: Compaines, People, Tools &amp; Practices"></a><a target="_blank" rel="noopener" href="https://coggle.it/diagram/5a229c7860c0c20001ae6caf/t/chaos-engineering-companies%2C-people%2C-tools-practices/1960e86c369b09c4deac3227885bb073ae258e637b1b9e57be274125ac6e57b2">Chaos Engineering: Compaines, People, Tools &amp; Practices</a></h2><p>一張很大的 mindmap (如下圖) 呈現 Chaos Engineering 相關的公司、推廣的人、工具、實踐原則 … 等資訊</p>
+<h2 id="Chaos-Engineering-Compaines-People-Tools-Practices"><a href="#Chaos-Engineering-Compaines-People-Tools-Practices" class="headerlink" title="Chaos Engineering: Compaines, People, Tools &amp; Practices"></a><a target="_blank" rel="noopener" href="https://coggle.it/diagram/5a229c7860c0c20001ae6caf/t/chaos-engineering-companies%2C-people%2C-tools-practices/1960e86c369b09c4deac3227885bb073ae258e637b1b9e57be274125ac6e57b2">Chaos Engineering: Compaines, People, Tools &amp; Practices</a></h2><p>一張很大的 mindmap (如下圖) 呈現 Chaos Engineering 相關的公司、推廣的人、工具、實踐原則 … 等資訊</p>
 <p><img src="/images/ChaosEngineering/CHAOS_ENGINEERING_Companies_People_Tools__Practices_20181008.png"></p>
 <hr>
 <h2 id="Awesome-Chaos-Engineering"><a href="#Awesome-Chaos-Engineering" class="headerlink" title="Awesome Chaos Engineering"></a><a target="_blank" rel="noopener" href="https://github.com/dastergon/awesome-chaos-engineering">Awesome Chaos Engineering</a></h2><p>如標題，我只能用 Awesome 來形容！這個 github 上整理了大部分 Chaos Engineering 的經典資料，包含文化面、書本、教育、工具、論文、Blog、新聞、研討會 … 等，幾乎想得到的，都可以在這裡找到。如果想要深入了解 Chaos Engineering 到底是什麼，把這裡的文章爬過就得到了！</p>
@@ -440,11 +403,6 @@ Chaos 中文意思是 `混沌`、`混亂`
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2018/10/08/DevOps/Chaos-Engineering/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -479,26 +437,6 @@ Chaos 中文意思是 `混沌`、`混亂`
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2018/10/08/DevOps/Chaos-Engineering/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -508,6 +446,7 @@ Chaos 中文意思是 `混沌`、`混亂`
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -524,7 +463,7 @@ Chaos 中文意思是 `混沌`、`混亂`
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-article-text">前言</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B6%93%E5%85%B8%E5%A5%BD%E6%96%87"><span class="toc-article-text">經典好文</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Intro-to-Chaos-Engineering"><span class="toc-article-text">Intro to Chaos Engineering</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Chaos-Engineering-Compaines-People-Tools-amp-Practices"><span class="toc-article-text">Chaos Engineering: Compaines, People, Tools &amp; Practices</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Awesome-Chaos-Engineering"><span class="toc-article-text">Awesome Chaos Engineering</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%B7%B7%E6%B2%8C%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5%E7%BB%8F%E9%AA%8C%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AE%A9%E7%B3%BB%E7%BB%9F%E5%9C%A8%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E4%B8%AD%E7%A8%B3%E5%AE%9A%E5%8F%AF%E9%9D%A0"><span class="toc-article-text">混沌工程实践经验：如何让系统在生产环境中稳定可靠</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Chaos-Engineering%E7%9A%84%E5%8E%86%E5%8F%B2%E3%80%81%E5%8E%9F%E5%88%99%E4%BB%A5%E5%8F%8A%E5%AE%9E%E8%B7%B5"><span class="toc-article-text">Chaos Engineering的历史、原则以及实践</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Chaos-Engineering-for-the-Business"><span class="toc-article-text">Chaos Engineering for the Business</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Adrian-Hornsby"><span class="toc-article-text">Adrian Hornsby</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E8%A9%9E%E5%BD%99"><span class="toc-article-text">相關詞彙</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%85%B6%E4%BB%96%E8%B3%87%E8%A8%8A"><span class="toc-article-text">其他資訊</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%9B%B4%E6%96%B0%E7%B4%80%E9%8C%84"><span class="toc-article-text">更新紀錄</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-article-text">前言</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B6%93%E5%85%B8%E5%A5%BD%E6%96%87"><span class="toc-article-text">經典好文</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Intro-to-Chaos-Engineering"><span class="toc-article-text">Intro to Chaos Engineering</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Chaos-Engineering-Compaines-People-Tools-Practices"><span class="toc-article-text">Chaos Engineering: Compaines, People, Tools &amp; Practices</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Awesome-Chaos-Engineering"><span class="toc-article-text">Awesome Chaos Engineering</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%B7%B7%E6%B2%8C%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5%E7%BB%8F%E9%AA%8C%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AE%A9%E7%B3%BB%E7%BB%9F%E5%9C%A8%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E4%B8%AD%E7%A8%B3%E5%AE%9A%E5%8F%AF%E9%9D%A0"><span class="toc-article-text">混沌工程实践经验：如何让系统在生产环境中稳定可靠</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Chaos-Engineering%E7%9A%84%E5%8E%86%E5%8F%B2%E3%80%81%E5%8E%9F%E5%88%99%E4%BB%A5%E5%8F%8A%E5%AE%9E%E8%B7%B5"><span class="toc-article-text">Chaos Engineering的历史、原则以及实践</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Chaos-Engineering-for-the-Business"><span class="toc-article-text">Chaos Engineering for the Business</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Adrian-Hornsby"><span class="toc-article-text">Adrian Hornsby</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E8%A9%9E%E5%BD%99"><span class="toc-article-text">相關詞彙</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%85%B6%E4%BB%96%E8%B3%87%E8%A8%8A"><span class="toc-article-text">其他資訊</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%9B%B4%E6%96%B0%E7%B4%80%E9%8C%84"><span class="toc-article-text">更新紀錄</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -554,7 +493,7 @@ Chaos 中文意思是 `混沌`、`混亂`
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/SRE/" style="color: white">SRE <span class="badge">33</span></a></span> <span class="label label-success"><a href="/tags/Chaos-Engineering/" style="color: white">Chaos Engineering <span class="badge">10</span></a></span> <span class="label label-success"><a href="/tags/Disaster-Recovery/" style="color: white">Disaster Recovery <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Resilience/" style="color: white">Resilience <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Antifragile/" style="color: white">Antifragile <span class="badge">5</span></a></span>
+  <span class="label label-success"><a href="/tags/SRE/" style="color: white">SRE <span class="badge">33</span></a></span> <span class="label label-success"><a href="/tags/Chaos-Engineering/" style="color: white">Chaos Engineering <span class="badge">10</span></a></span> <span class="label label-success"><a href="/tags/Disaster-Recovery/" style="color: white">Disaster Recovery <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Antifragile/" style="color: white">Antifragile <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Resilience/" style="color: white">Resilience <span class="badge">3</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -566,6 +505,7 @@ Chaos 中文意思是 `混沌`、`混亂`
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -581,8 +521,10 @@ Chaos 中文意思是 `混沌`、`混亂`
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -592,8 +534,10 @@ Chaos 中文意思是 `混沌`、`混亂`
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -627,6 +571,7 @@ Chaos 中文意思是 `混沌`、`混亂`
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -680,6 +625,7 @@ Chaos 中文意思是 `混沌`、`混亂`
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -717,6 +663,7 @@ Chaos 中文意思是 `混沌`、`混亂`
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -732,6 +679,7 @@ Chaos 中文意思是 `混沌`、`混亂`
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

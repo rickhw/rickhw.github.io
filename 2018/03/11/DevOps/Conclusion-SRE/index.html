@@ -66,31 +66,13 @@ Part I Introduction
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -114,7 +96,7 @@ Part I Introduction
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -126,7 +108,7 @@ Part I Introduction
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -250,25 +232,6 @@ Part I Introduction
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2018%2F03%2F11%2FDevOps%2FConclusion-SRE%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2018/03/11/DevOps/Conclusion-SRE/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2018/03/11/DevOps/Conclusion-SRE/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>SRE 這本書並不是很容易入門的，書中有不少東西是滿技術性的，但也很多屬於觀念、原則、經驗方法。所以如果非技術背景或者管理階層的朋友，想要閱讀 SRE，推薦閱讀以下章節，可以了解一些原則與概念。</p>
 <p>太技術性的章節我先過濾掉，以下是原文的 Link (英文)。</p>
 <ul>
@@ -337,7 +300,7 @@ Part I Introduction
 <h2 id="SRE-CH28-Accelerating-SREs-to-On-Call-and-Beyond"><a href="#SRE-CH28-Accelerating-SREs-to-On-Call-and-Beyond" class="headerlink" title="SRE CH28 - Accelerating SREs to On-Call and Beyond"></a>SRE CH28 - Accelerating SREs to On-Call and Beyond</h2><iframe src="//www.slideshare.net/slideshow/embed_code/key/8XYWV2rcVtWoB2" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/rickhwang/sre-ch28-accelerating-sres-to-oncall-and-beyond" title="SRE CH28 - Accelerating SREs to On-Call and Beyond" target="_blank">SRE CH28 - Accelerating SREs to On-Call and Beyond</a> </strong> from <strong><a href="https://www.slideshare.net/rickhwang" target="_blank">Rick Hwang</a></strong> </div>
 
 
-<h2 id="SRE-CH33-x2F-CH34-Lessons-Learned-from-Other-Industries-x2F-Conclusion"><a href="#SRE-CH33-x2F-CH34-Lessons-Learned-from-Other-Industries-x2F-Conclusion" class="headerlink" title="SRE CH33&#x2F;CH34 - Lessons Learned from Other Industries&#x2F;Conclusion"></a>SRE CH33&#x2F;CH34 - Lessons Learned from Other Industries&#x2F;Conclusion</h2><p>在公司 SRE 讀書會最後的章節，這是原稿，不是實際分享的版本。我引用一些緊急事件處理的想法，來強調 SRE 的觀念，特別是『地震』、『核災』有關的。</p>
+<h2 id="SRE-CH33-CH34-Lessons-Learned-from-Other-Industries-Conclusion"><a href="#SRE-CH33-CH34-Lessons-Learned-from-Other-Industries-Conclusion" class="headerlink" title="SRE CH33&#x2F;CH34 - Lessons Learned from Other Industries&#x2F;Conclusion"></a>SRE CH33&#x2F;CH34 - Lessons Learned from Other Industries&#x2F;Conclusion</h2><p>在公司 SRE 讀書會最後的章節，這是原稿，不是實際分享的版本。我引用一些緊急事件處理的想法，來強調 SRE 的觀念，特別是『地震』、『核災』有關的。</p>
 <p>另外也用『音樂』的角度來看待這件事情，夠跳痛的 XD</p>
 <iframe src="//www.slideshare.net/slideshow/embed_code/key/rbRJpVGOXsjpJg" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/rickhwang/sre-ch33ch34-lessons-learned-from-other-industriesconclusion-90165433" title="SRE CH33/CH34 - Lessons Learned from Other Industries/Conclusion" target="_blank">SRE CH33/CH34 - Lessons Learned from Other Industries/Conclusion</a> </strong> from <strong><a href="https://www.slideshare.net/rickhwang" target="_blank">Rick Hwang</a></strong> </div>
 
@@ -399,11 +362,6 @@ Part I Introduction
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2018/03/11/DevOps/Conclusion-SRE/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -438,26 +396,6 @@ Part I Introduction
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2018/03/11/DevOps/Conclusion-SRE/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -467,6 +405,7 @@ Part I Introduction
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -483,7 +422,7 @@ Part I Introduction
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Slogan"><span class="toc-article-text">Slogan</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Study-Notes-in-Slideshare"><span class="toc-article-text">Study Notes in Slideshare</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SRE-Opening-and-CH1"><span class="toc-article-text">SRE Opening and CH1</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SRE-CH2-3-4"><span class="toc-article-text">SRE CH2,3,4</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SRE-CH12-Effective-Troubleshooting"><span class="toc-article-text">SRE CH12 - Effective Troubleshooting</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SRE-CH13-Emergency-Response"><span class="toc-article-text">SRE CH13 - Emergency Response</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SRE-CH25-Data-Processing-Pipelines"><span class="toc-article-text">SRE CH25 - Data Processing Pipelines</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SRE-CH27-Reliable-Product-Launches-at-Scale"><span class="toc-article-text">SRE CH27 - Reliable Product Launches at Scale</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SRE-CH28-Accelerating-SREs-to-On-Call-and-Beyond"><span class="toc-article-text">SRE CH28 - Accelerating SREs to On-Call and Beyond</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SRE-CH33-x2F-CH34-Lessons-Learned-from-Other-Industries-x2F-Conclusion"><span class="toc-article-text">SRE CH33&#x2F;CH34 - Lessons Learned from Other Industries&#x2F;Conclusion</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B8%BD%E7%B5%90"><span class="toc-article-text">總結</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#class-SRE-implements-DevOps"><span class="toc-article-text">class SRE implements DevOps</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E8%B7%9F-SRE-%E4%B8%BB%E9%A1%8C%E8%81%AF%E6%83%B3"><span class="toc-article-text">跟 SRE 主題聯想</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E6%96%87%E7%AB%A0-%E7%AB%99%E5%85%A7"><span class="toc-article-text">相關文章 (站內)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E7%90%86%E8%AB%96%E7%A7%91%E5%AD%B8"><span class="toc-article-text">相關理論科學</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C-FB-%E7%A4%BE%E7%BE%A4"><span class="toc-article-text">相關 FB 社群</span></a>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Slogan"><span class="toc-article-text">Slogan</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Study-Notes-in-Slideshare"><span class="toc-article-text">Study Notes in Slideshare</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SRE-Opening-and-CH1"><span class="toc-article-text">SRE Opening and CH1</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SRE-CH2-3-4"><span class="toc-article-text">SRE CH2,3,4</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SRE-CH12-Effective-Troubleshooting"><span class="toc-article-text">SRE CH12 - Effective Troubleshooting</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SRE-CH13-Emergency-Response"><span class="toc-article-text">SRE CH13 - Emergency Response</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SRE-CH25-Data-Processing-Pipelines"><span class="toc-article-text">SRE CH25 - Data Processing Pipelines</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SRE-CH27-Reliable-Product-Launches-at-Scale"><span class="toc-article-text">SRE CH27 - Reliable Product Launches at Scale</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SRE-CH28-Accelerating-SREs-to-On-Call-and-Beyond"><span class="toc-article-text">SRE CH28 - Accelerating SREs to On-Call and Beyond</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SRE-CH33-CH34-Lessons-Learned-from-Other-Industries-Conclusion"><span class="toc-article-text">SRE CH33&#x2F;CH34 - Lessons Learned from Other Industries&#x2F;Conclusion</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B8%BD%E7%B5%90"><span class="toc-article-text">總結</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#class-SRE-implements-DevOps"><span class="toc-article-text">class SRE implements DevOps</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E8%B7%9F-SRE-%E4%B8%BB%E9%A1%8C%E8%81%AF%E6%83%B3"><span class="toc-article-text">跟 SRE 主題聯想</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E6%96%87%E7%AB%A0-%E7%AB%99%E5%85%A7"><span class="toc-article-text">相關文章 (站內)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E7%90%86%E8%AB%96%E7%A7%91%E5%AD%B8"><span class="toc-article-text">相關理論科學</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C-FB-%E7%A4%BE%E7%BE%A4"><span class="toc-article-text">相關 FB 社群</span></a></li></ol>
 		</div>
 	
 	</div>
@@ -513,7 +452,7 @@ Part I Introduction
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/溝通/" style="color: white">溝通 <span class="badge">25</span></a></span> <span class="label label-success"><a href="/tags/Ops/" style="color: white">Ops <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/SRE/" style="color: white">SRE <span class="badge">33</span></a></span> <span class="label label-success"><a href="/tags/Monitoring/" style="color: white">Monitoring <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/Chaos-Engineering/" style="color: white">Chaos Engineering <span class="badge">10</span></a></span> <span class="label label-success"><a href="/tags/三體問題/" style="color: white">三體問題 <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/蝴蝶效應/" style="color: white">蝴蝶效應 <span class="badge">1</span></a></span>
+  <span class="label label-success"><a href="/tags/溝通/" style="color: white">溝通 <span class="badge">27</span></a></span> <span class="label label-success"><a href="/tags/Monitoring/" style="color: white">Monitoring <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/Ops/" style="color: white">Ops <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/SRE/" style="color: white">SRE <span class="badge">33</span></a></span> <span class="label label-success"><a href="/tags/Chaos-Engineering/" style="color: white">Chaos Engineering <span class="badge">10</span></a></span> <span class="label label-success"><a href="/tags/三體問題/" style="color: white">三體問題 <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/蝴蝶效應/" style="color: white">蝴蝶效應 <span class="badge">1</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -525,6 +464,7 @@ Part I Introduction
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -540,8 +480,10 @@ Part I Introduction
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -551,8 +493,10 @@ Part I Introduction
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -586,6 +530,7 @@ Part I Introduction
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -639,6 +584,7 @@ Part I Introduction
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -676,6 +622,7 @@ Part I Introduction
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -691,6 +638,7 @@ Part I Introduction
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

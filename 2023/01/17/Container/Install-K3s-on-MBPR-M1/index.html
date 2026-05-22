@@ -66,31 +66,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -114,7 +96,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -126,7 +108,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -250,25 +232,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2023%2F01%2F17%2FContainer%2FInstall-K3s-on-MBPR-M1%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2023/01/17/Container/Install-K3s-on-MBPR-M1/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2023/01/17/Container/Install-K3s-on-MBPR-M1/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>在 Macbook Pro M1 (Apple Silicon) 安裝 K3s 的筆記。</p>
 <span id="more"></span>
 
@@ -314,11 +277,11 @@
 
 <p>不管是 Intel or Apple Silicon 都是。</p>
 <h2 id="在-VM-裡面安裝-K3s"><a href="#在-VM-裡面安裝-K3s" class="headerlink" title="在 VM 裡面安裝 K3s"></a>在 VM 裡面安裝 K3s</h2><p>透過 multipass 裝起好一台 VM 之後，進去裡面再安裝 K3s 就可以了。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 在虛擬機裡面</span></span><br><span class="line">root@k3s:~<span class="comment"># curl -sfL https://get.k3s.io | sh -</span></span><br><span class="line">[INFO]  Finding release <span class="keyword">for</span> channel stable</span><br><span class="line">[INFO]  Using v1.25.5+k3s2 as release</span><br><span class="line">[INFO]  Downloading <span class="built_in">hash</span> https://github.com/k3s-io/k3s/releases/download/v1.25.5+k3s2/sha256sum-arm64.txt</span><br><span class="line">[INFO]  Downloading binary https://github.com/k3s-io/k3s/releases/download/v1.25.5+k3s2/k3s-arm64</span><br><span class="line">[INFO]  Verifying binary download</span><br><span class="line">[INFO]  Installing k3s to /usr/local/bin/k3s</span><br><span class="line">[INFO]  Skipping installation of SELinux RPM</span><br><span class="line">[INFO]  Creating /usr/local/bin/kubectl symlink to k3s</span><br><span class="line">[INFO]  Creating /usr/local/bin/crictl symlink to k3s</span><br><span class="line">[INFO]  Creating /usr/local/bin/ctr symlink to k3s</span><br><span class="line">[INFO]  Creating killall script /usr/local/bin/k3s-killall.sh</span><br><span class="line">[INFO]  Creating uninstall script /usr/local/bin/k3s-uninstall.sh</span><br><span class="line">[INFO]  <span class="built_in">env</span>: Creating environment file /etc/systemd/system/k3s.service.env</span><br><span class="line">[INFO]  systemd: Creating service file /etc/systemd/system/k3s.service</span><br><span class="line">[INFO]  systemd: Enabling k3s unit</span><br><span class="line">Created symlink /etc/systemd/system/multi-user.target.wants/k3s.service → /etc/systemd/system/k3s.service.</span><br><span class="line">[INFO]  systemd: Starting k3se</span><br><span class="line"></span><br><span class="line"><span class="comment">## 確認 K8s 安裝的狀況</span></span><br><span class="line">ubuntu@k3s-main:~$ sudo kubectl get po,no --all-namespaces</span><br><span class="line">NAMESPACE     NAME                                          READY   STATUS      RESTARTS   AGE</span><br><span class="line">kube-system   pod/local-path-provisioner-79f67d76f8-w946b   1/1     Running     0          8m15s</span><br><span class="line">kube-system   pod/coredns-597584b69b-9mx2w                  1/1     Running     0          8m15s</span><br><span class="line">kube-system   pod/metrics-server-5f9f776df5-p826z           1/1     Running     0          8m15s</span><br><span class="line">kube-system   pod/helm-install-traefik-crd-bq27h            0/1     Completed   0          8m15s</span><br><span class="line">kube-system   pod/helm-install-traefik-b6vb4                0/1     Completed   1          8m15s</span><br><span class="line">kube-system   pod/svclb-traefik-09095d96-v9fpk              2/2     Running     0          7m45s</span><br><span class="line">kube-system   pod/traefik-66c46d954f-r48tq                  1/1     Running     0          7m45s</span><br><span class="line"></span><br><span class="line">NAMESPACE   NAME            STATUS   ROLES                  AGE     VERSION</span><br><span class="line">            node/k3s-main   Ready    control-plane,master   8m31s   v1.25.5+k3s2</span><br><span class="line"></span><br><span class="line">ubuntu@k3s-main:~$ sudo kubectl api-resources</span><br><span class="line">NAME                              SHORTNAMES   APIVERSION                             NAMESPACED   KIND</span><br><span class="line">bindings                                       v1                                     <span class="literal">true</span>         Binding</span><br><span class="line">componentstatuses                 cs           v1                                     <span class="literal">false</span>        ComponentStatus</span><br><span class="line">configmaps                        cm           v1                                     <span class="literal">true</span>         ConfigMap</span><br><span class="line">endpoints                         ep           v1                                     <span class="literal">true</span>         Endpoints</span><br><span class="line">events                            ev           v1                                     <span class="literal">true</span>         Event</span><br><span class="line">... 略 ...</span><br><span class="line"></span><br><span class="line">ubuntu@k3s-main:~$ sudo kubectl get rs --all-namespaces</span><br><span class="line">NAMESPACE     NAME                                DESIRED   CURRENT   READY   AGE</span><br><span class="line">kube-system   local-path-provisioner-79f67d76f8   1         1         1       10m</span><br><span class="line">kube-system   coredns-597584b69b                  1         1         1       10m</span><br><span class="line">kube-system   metrics-server-5f9f776df5           1         1         1       10m</span><br><span class="line">kube-system   traefik-66c46d954f                  1         1         1       10m</span><br><span class="line"></span><br><span class="line"><span class="comment">## 在 Host Machine，取得 K8s 的 Node Token</span></span><br><span class="line">❯ multipass <span class="built_in">exec</span> k3s-main sudo <span class="built_in">cat</span> /var/lib/rancher/k3s/server/node-token</span><br><span class="line">K1082f1ce868a513c55999a7eba68ab888dc2035baf2323131466364f65bf5f0220::server:27b105f74351819669c0481da7c87baa</span><br><span class="line"></span><br><span class="line"><span class="comment">## 在 Master Node 裏取得 KubeConfig</span></span><br><span class="line"><span class="comment">## 如果要在 Master Node 之外使用，複製檔案內容後，</span></span><br><span class="line"><span class="comment">## 記得把 server: https://127.0.0.1:6443 改成 Master Node 的 IP</span></span><br><span class="line"><span class="built_in">cat</span> /etc/rancher/k3s/k3s.yaml</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 在虛擬機裡面</span></span><br><span class="line">root@k3s:~# curl -sfL https://get.k3s.io | sh -</span><br><span class="line">[INFO]  Finding release <span class="keyword">for</span> channel stable</span><br><span class="line">[INFO]  Using v1.25.5+k3s2 as release</span><br><span class="line">[INFO]  Downloading <span class="built_in">hash</span> https://github.com/k3s-io/k3s/releases/download/v1.25.5+k3s2/sha256sum-arm64.txt</span><br><span class="line">[INFO]  Downloading binary https://github.com/k3s-io/k3s/releases/download/v1.25.5+k3s2/k3s-arm64</span><br><span class="line">[INFO]  Verifying binary download</span><br><span class="line">[INFO]  Installing k3s to /usr/local/bin/k3s</span><br><span class="line">[INFO]  Skipping installation of SELinux RPM</span><br><span class="line">[INFO]  Creating /usr/local/bin/kubectl symlink to k3s</span><br><span class="line">[INFO]  Creating /usr/local/bin/crictl symlink to k3s</span><br><span class="line">[INFO]  Creating /usr/local/bin/ctr symlink to k3s</span><br><span class="line">[INFO]  Creating killall script /usr/local/bin/k3s-killall.sh</span><br><span class="line">[INFO]  Creating uninstall script /usr/local/bin/k3s-uninstall.sh</span><br><span class="line">[INFO]  <span class="built_in">env</span>: Creating environment file /etc/systemd/system/k3s.service.env</span><br><span class="line">[INFO]  systemd: Creating service file /etc/systemd/system/k3s.service</span><br><span class="line">[INFO]  systemd: Enabling k3s unit</span><br><span class="line">Created symlink /etc/systemd/system/multi-user.target.wants/k3s.service → /etc/systemd/system/k3s.service.</span><br><span class="line">[INFO]  systemd: Starting k3se</span><br><span class="line"></span><br><span class="line"><span class="comment">## 確認 K8s 安裝的狀況</span></span><br><span class="line">ubuntu@k3s-main:~$ <span class="built_in">sudo</span> kubectl get po,no --all-namespaces</span><br><span class="line">NAMESPACE     NAME                                          READY   STATUS      RESTARTS   AGE</span><br><span class="line">kube-system   pod/local-path-provisioner-79f67d76f8-w946b   1/1     Running     0          8m15s</span><br><span class="line">kube-system   pod/coredns-597584b69b-9mx2w                  1/1     Running     0          8m15s</span><br><span class="line">kube-system   pod/metrics-server-5f9f776df5-p826z           1/1     Running     0          8m15s</span><br><span class="line">kube-system   pod/helm-install-traefik-crd-bq27h            0/1     Completed   0          8m15s</span><br><span class="line">kube-system   pod/helm-install-traefik-b6vb4                0/1     Completed   1          8m15s</span><br><span class="line">kube-system   pod/svclb-traefik-09095d96-v9fpk              2/2     Running     0          7m45s</span><br><span class="line">kube-system   pod/traefik-66c46d954f-r48tq                  1/1     Running     0          7m45s</span><br><span class="line"></span><br><span class="line">NAMESPACE   NAME            STATUS   ROLES                  AGE     VERSION</span><br><span class="line">            node/k3s-main   Ready    control-plane,master   8m31s   v1.25.5+k3s2</span><br><span class="line"></span><br><span class="line">ubuntu@k3s-main:~$ <span class="built_in">sudo</span> kubectl api-resources</span><br><span class="line">NAME                              SHORTNAMES   APIVERSION                             NAMESPACED   KIND</span><br><span class="line">bindings                                       v1                                     <span class="literal">true</span>         Binding</span><br><span class="line">componentstatuses                 cs           v1                                     <span class="literal">false</span>        ComponentStatus</span><br><span class="line">configmaps                        cm           v1                                     <span class="literal">true</span>         ConfigMap</span><br><span class="line">endpoints                         ep           v1                                     <span class="literal">true</span>         Endpoints</span><br><span class="line">events                            ev           v1                                     <span class="literal">true</span>         Event</span><br><span class="line">... 略 ...</span><br><span class="line"></span><br><span class="line">ubuntu@k3s-main:~$ <span class="built_in">sudo</span> kubectl get rs --all-namespaces</span><br><span class="line">NAMESPACE     NAME                                DESIRED   CURRENT   READY   AGE</span><br><span class="line">kube-system   local-path-provisioner-79f67d76f8   1         1         1       10m</span><br><span class="line">kube-system   coredns-597584b69b                  1         1         1       10m</span><br><span class="line">kube-system   metrics-server-5f9f776df5           1         1         1       10m</span><br><span class="line">kube-system   traefik-66c46d954f                  1         1         1       10m</span><br><span class="line"></span><br><span class="line"><span class="comment">## 在 Host Machine，取得 K8s 的 Node Token</span></span><br><span class="line">❯ multipass <span class="built_in">exec</span> k3s-main <span class="built_in">sudo</span> <span class="built_in">cat</span> /var/lib/rancher/k3s/server/node-token</span><br><span class="line">K1082f1ce868a513c55999a7eba68ab888dc2035baf2323131466364f65bf5f0220::server:27b105f74351819669c0481da7c87baa</span><br><span class="line"></span><br><span class="line"><span class="comment">## 在 Master Node 裏取得 KubeConfig</span></span><br><span class="line"><span class="comment">## 如果要在 Master Node 之外使用，複製檔案內容後，</span></span><br><span class="line"><span class="comment">## 記得把 server: https://127.0.0.1:6443 改成 Master Node 的 IP</span></span><br><span class="line"><span class="built_in">cat</span> /etc/rancher/k3s/k3s.yaml</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h2 id="新增-Worker-Node"><a href="#新增-Worker-Node" class="headerlink" title="新增 Worker Node"></a>新增 Worker Node</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">multipass launch --name k3s-worker1 --mem 2G --disk 20G</span><br><span class="line">multipass launch --name k3s-worker2 --mem 2G --disk 20G</span><br><span class="line"></span><br><span class="line">multipass shell k3s-worker1</span><br><span class="line">multipass shell k3s-worker2</span><br><span class="line"></span><br><span class="line"><span class="comment">## 進去 VM 裡</span></span><br><span class="line">curl -sfL https://get.k3s.io | K3S_URL=https://192.168.64.3:6443 K3S_TOKEN=<span class="string">&quot;K102a46f234cf614bd49a50092389d8e03fed00618846936782fbdae904c32ee9d5::server:5fc3190151a2de0126199cc6fbd94acf&quot;</span> sh -</span><br><span class="line"></span><br><span class="line"><span class="comment">## 在 Master Node</span></span><br><span class="line">ubuntu@k3s-main:~$ sudo kubectl get no</span><br><span class="line">NAME          STATUS   ROLES                  AGE   VERSION</span><br><span class="line">k3s-main      Ready    control-plane,master   65m   v1.25.5+k3s2</span><br><span class="line">k3s-worker1   Ready    &lt;none&gt;                 75s   v1.25.5+k3s2</span><br><span class="line">k3s-worker2   Ready    &lt;none&gt;                 2s    v1.25.5+k3s2</span><br></pre></td></tr></table></figure>
+<h2 id="新增-Worker-Node"><a href="#新增-Worker-Node" class="headerlink" title="新增 Worker Node"></a>新增 Worker Node</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">multipass launch --name k3s-worker1 --mem 2G --disk 20G</span><br><span class="line">multipass launch --name k3s-worker2 --mem 2G --disk 20G</span><br><span class="line"></span><br><span class="line">multipass shell k3s-worker1</span><br><span class="line">multipass shell k3s-worker2</span><br><span class="line"></span><br><span class="line"><span class="comment">## 進去 VM 裡</span></span><br><span class="line">curl -sfL https://get.k3s.io | K3S_URL=https://192.168.64.3:6443 K3S_TOKEN=<span class="string">&quot;K102a46f234cf614bd49a50092389d8e03fed00618846936782fbdae904c32ee9d5::server:5fc3190151a2de0126199cc6fbd94acf&quot;</span> sh -</span><br><span class="line"></span><br><span class="line"><span class="comment">## 在 Master Node</span></span><br><span class="line">ubuntu@k3s-main:~$ <span class="built_in">sudo</span> kubectl get no</span><br><span class="line">NAME          STATUS   ROLES                  AGE   VERSION</span><br><span class="line">k3s-main      Ready    control-plane,master   65m   v1.25.5+k3s2</span><br><span class="line">k3s-worker1   Ready    &lt;none&gt;                 75s   v1.25.5+k3s2</span><br><span class="line">k3s-worker2   Ready    &lt;none&gt;                 2s    v1.25.5+k3s2</span><br></pre></td></tr></table></figure>
 
-<h2 id="移除-Worker-Node"><a href="#移除-Worker-Node" class="headerlink" title="移除 Worker Node"></a>移除 Worker Node</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kubectl drain k3s-worker --delete-emptydir-data --force --ignore-daemonsets</span><br><span class="line"></span><br><span class="line">root@k3s:~<span class="comment"># kubectl delete node k3s-worker</span></span><br><span class="line">node <span class="string">&quot;k3s-worker&quot;</span> deleted</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="移除-Worker-Node"><a href="#移除-Worker-Node" class="headerlink" title="移除 Worker Node"></a>移除 Worker Node</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kubectl drain k3s-worker --delete-emptydir-data --force --ignore-daemonsets</span><br><span class="line"></span><br><span class="line">root@k3s:~# kubectl delete node k3s-worker</span><br><span class="line">node <span class="string">&quot;k3s-worker&quot;</span> deleted</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 <hr>
@@ -339,7 +302,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~$ curl localhost:80</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;<span class="built_in">head</span>&gt;</span><br><span class="line">  &lt;title&gt;Hello World!&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;Hello World!&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 
 <hr>
-<h1 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q &amp; A"></a>Q &amp; A</h1><h2 id="Q-可以把-master-和-worker-node-裝在同一台-VM"><a href="#Q-可以把-master-和-worker-node-裝在同一台-VM" class="headerlink" title="Q: 可以把 master 和 worker node 裝在同一台 VM?"></a>Q: 可以把 master 和 worker node 裝在同一台 VM?</h2><p>不可以，Port 會出現衝突，要裝在同一台 VM，就用 K3d</p>
+<h1 id="Q-A"><a href="#Q-A" class="headerlink" title="Q &amp; A"></a>Q &amp; A</h1><h2 id="Q-可以把-master-和-worker-node-裝在同一台-VM"><a href="#Q-可以把-master-和-worker-node-裝在同一台-VM" class="headerlink" title="Q: 可以把 master 和 worker node 裝在同一台 VM?"></a>Q: 可以把 master 和 worker node 裝在同一台 VM?</h2><p>不可以，Port 會出現衝突，要裝在同一台 VM，就用 K3d</p>
 <p>如果已經執行了，記得跑 <code>k3s-agent-uninstall.sh</code> 或者 <code>k3s-uninstall.sh</code> 刪掉造成衝突的一方，然後重新啟動 service 即可:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start k3s.service</span><br><span class="line">systemctl status k3s.service</span><br></pre></td></tr></table></figure>
 
@@ -351,8 +314,67 @@
 
 如果想透過
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">❯ curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash</span><br><span class="line"></span><br><span class="line">Preparing to install k3d into /usr/local/bin</span><br><span class="line">Password:</span><br><span class="line">k3d installed into /usr/local/bin/k3d</span><br><span class="line">Run <span class="string">&#x27;k3d --help&#x27;</span> to see what you can <span class="keyword">do</span> with it.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 建立 Cluster -- 有啟動 docker</span></span><br><span class="line">❯ k3d cluster create mycluster</span><br><span class="line">INFO[0000] Prep: Network</span><br><span class="line">INFO[0000] Created network <span class="string">&#x27;k3d-mycluster&#x27;</span></span><br><span class="line">INFO[0000] Created image volume k3d-mycluster-images</span><br><span class="line">INFO[0000] Starting new tools node...</span><br><span class="line">INFO[0001] Creating node <span class="string">&#x27;k3d-mycluster-server-0&#x27;</span></span><br><span class="line">INFO[0002] Pulling image <span class="string">&#x27;ghcr.io/k3d-io/k3d-tools:5.4.6&#x27;</span></span><br><span class="line">INFO[0004] Pulling image <span class="string">&#x27;docker.io/rancher/k3s:v1.24.4-k3s1&#x27;</span></span><br><span class="line">INFO[0016] Creating LoadBalancer <span class="string">&#x27;k3d-mycluster-serverlb&#x27;</span></span><br><span class="line">INFO[0018] Pulling image <span class="string">&#x27;ghcr.io/k3d-io/k3d-proxy:5.4.6&#x27;</span></span><br><span class="line">INFO[0027] Starting Node <span class="string">&#x27;k3d-mycluster-tools&#x27;</span></span><br><span class="line">INFO[0028] Using the k3d-tools node to gather environment information</span><br><span class="line">INFO[0028] Starting new tools node...</span><br><span class="line">INFO[0028] Starting Node <span class="string">&#x27;k3d-mycluster-tools&#x27;</span></span><br><span class="line">INFO[0030] Starting cluster <span class="string">&#x27;mycluster&#x27;</span></span><br><span class="line">INFO[0030] Starting servers...</span><br><span class="line">INFO[0030] Starting Node <span class="string">&#x27;k3d-mycluster-server-0&#x27;</span></span><br><span class="line">INFO[0033] All agents already running.</span><br><span class="line">INFO[0033] Starting helpers...</span><br><span class="line">INFO[0033] Starting Node <span class="string">&#x27;k3d-mycluster-serverlb&#x27;</span></span><br><span class="line">INFO[0039] Injecting records <span class="keyword">for</span> hostAliases (incl. host.k3d.internal) and <span class="keyword">for</span> 3 network members into CoreDNS configmap...</span><br><span class="line">INFO[0042] Cluster <span class="string">&#x27;mycluster&#x27;</span> created successfully!</span><br><span class="line">INFO[0042] You can now use it like this:</span><br><span class="line">kubectl cluster-info</span><br><span class="line"></span><br><span class="line"><span class="comment">## 建立 Cluster -- 沒有啟動 docker</span></span><br><span class="line">❯ k3d cluster create mycluster</span><br><span class="line">ERRO[0000] Failed to get nodes <span class="keyword">for</span> cluster <span class="string">&#x27;mycluster&#x27;</span>: docker failed to get containers with labels <span class="string">&#x27;map[k3d.cluster:mycluster]&#x27;</span>: failed to list containers: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?</span><br><span class="line">INFO[0000] Prep: Network</span><br><span class="line">ERRO[0000] Failed Cluster Preparation: Failed Network Preparation: failed to create cluster network: failed to check <span class="keyword">for</span> duplicate docker networks: docker failed to list networks: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?</span><br><span class="line">ERRO[0000] Failed to create cluster &gt;&gt;&gt; Rolling Back</span><br><span class="line">INFO[0000] Deleting cluster <span class="string">&#x27;mycluster&#x27;</span></span><br><span class="line">ERRO[0000] Failed to get nodes <span class="keyword">for</span> cluster <span class="string">&#x27;mycluster&#x27;</span>: docker failed to get containers with labels <span class="string">&#x27;map[k3d.cluster:mycluster]&#x27;</span>: failed to list containers: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?</span><br><span class="line">ERRO[0000] failed to get cluster: No nodes found <span class="keyword">for</span> given cluster</span><br><span class="line">FATA[0000] Cluster creation FAILED, also FAILED to rollback changes!</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 刪除 K3d cluster</span></span><br><span class="line">❯ k3d cluster delete mycluster</span><br><span class="line">INFO[0000] Deleting cluster <span class="string">&#x27;mycluster&#x27;</span></span><br><span class="line">INFO[0000] Deleting cluster network <span class="string">&#x27;k3d-mycluster&#x27;</span></span><br><span class="line">INFO[0000] Deleting 2 attached volumes...</span><br><span class="line">WARN[0000] Failed to delete volume <span class="string">&#x27;k3d-mycluster-images&#x27;</span> of cluster <span class="string">&#x27;mycluster&#x27;</span>: failed to find volume <span class="string">&#x27;k3d-mycluster-images&#x27;</span>: Error: No such volume: k3d-mycluster-images -&gt; Try to delete it manually</span><br><span class="line">INFO[0000] Removing cluster details from default kubeconfig...</span><br><span class="line">INFO[0000] Removing standalone kubeconfig file (<span class="keyword">if</span> there is one)...</span><br><span class="line">INFO[0000] Successfully deleted cluster mycluster!</span><br></pre></td></tr></table></figure>
-<p>–&gt;</p>
+```bash
+❯ curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+
+Preparing to install k3d into /usr/local/bin
+Password:
+k3d installed into /usr/local/bin/k3d
+Run 'k3d --help' to see what you can do with it.
+
+
+## 建立 Cluster -- 有啟動 docker
+❯ k3d cluster create mycluster
+INFO[0000] Prep: Network
+INFO[0000] Created network 'k3d-mycluster'
+INFO[0000] Created image volume k3d-mycluster-images
+INFO[0000] Starting new tools node...
+INFO[0001] Creating node 'k3d-mycluster-server-0'
+INFO[0002] Pulling image 'ghcr.io/k3d-io/k3d-tools:5.4.6'
+INFO[0004] Pulling image 'docker.io/rancher/k3s:v1.24.4-k3s1'
+INFO[0016] Creating LoadBalancer 'k3d-mycluster-serverlb'
+INFO[0018] Pulling image 'ghcr.io/k3d-io/k3d-proxy:5.4.6'
+INFO[0027] Starting Node 'k3d-mycluster-tools'
+INFO[0028] Using the k3d-tools node to gather environment information
+INFO[0028] Starting new tools node...
+INFO[0028] Starting Node 'k3d-mycluster-tools'
+INFO[0030] Starting cluster 'mycluster'
+INFO[0030] Starting servers...
+INFO[0030] Starting Node 'k3d-mycluster-server-0'
+INFO[0033] All agents already running.
+INFO[0033] Starting helpers...
+INFO[0033] Starting Node 'k3d-mycluster-serverlb'
+INFO[0039] Injecting records for hostAliases (incl. host.k3d.internal) and for 3 network members into CoreDNS configmap...
+INFO[0042] Cluster 'mycluster' created successfully!
+INFO[0042] You can now use it like this:
+kubectl cluster-info
+
+## 建立 Cluster -- 沒有啟動 docker
+❯ k3d cluster create mycluster
+ERRO[0000] Failed to get nodes for cluster 'mycluster': docker failed to get containers with labels 'map[k3d.cluster:mycluster]': failed to list containers: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+INFO[0000] Prep: Network
+ERRO[0000] Failed Cluster Preparation: Failed Network Preparation: failed to create cluster network: failed to check for duplicate docker networks: docker failed to list networks: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+ERRO[0000] Failed to create cluster >>> Rolling Back
+INFO[0000] Deleting cluster 'mycluster'
+ERRO[0000] Failed to get nodes for cluster 'mycluster': docker failed to get containers with labels 'map[k3d.cluster:mycluster]': failed to list containers: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+ERRO[0000] failed to get cluster: No nodes found for given cluster
+FATA[0000] Cluster creation FAILED, also FAILED to rollback changes!
+
+
+## 刪除 K3d cluster
+❯ k3d cluster delete mycluster
+INFO[0000] Deleting cluster 'mycluster'
+INFO[0000] Deleting cluster network 'k3d-mycluster'
+INFO[0000] Deleting 2 attached volumes...
+WARN[0000] Failed to delete volume 'k3d-mycluster-images' of cluster 'mycluster': failed to find volume 'k3d-mycluster-images': Error: No such volume: k3d-mycluster-images -> Try to delete it manually
+INFO[0000] Removing cluster details from default kubeconfig...
+INFO[0000] Removing standalone kubeconfig file (if there is one)...
+INFO[0000] Successfully deleted cluster mycluster!
+```
+-->
+
+
+
 <hr>
 <h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="站內文章：K8s-相關"><a href="#站內文章：K8s-相關" class="headerlink" title="站內文章：K8s 相關"></a>站內文章：K8s 相關</h2><ul>
 <li><a href="/2017/07/15/Container/Experience-minikube/">Experience minikube</a></li>
@@ -379,11 +401,6 @@
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2023/01/17/Container/Install-K3s-on-MBPR-M1/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -418,26 +435,6 @@
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2023/01/17/Container/Install-K3s-on-MBPR-M1/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -447,6 +444,7 @@
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -463,7 +461,7 @@
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%91%98%E8%A6%81"><span class="toc-article-text">摘要</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#K3d-vs-K3s"><span class="toc-article-text">K3d vs K3s</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Multipasss"><span class="toc-article-text">Multipasss</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%AE%89%E8%A3%9D-multipass"><span class="toc-article-text">安裝 multipass</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%95%9F%E5%8B%95%E8%99%9B%E6%93%AC%E6%A9%9F"><span class="toc-article-text">啟動虛擬機</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%AE%89%E8%A3%9D-K3s"><span class="toc-article-text">安裝 K3s</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B4%E6%8E%A5%E5%AE%89%E8%A3%9D"><span class="toc-article-text">直接安裝</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9C%A8-VM-%E8%A3%A1%E9%9D%A2%E5%AE%89%E8%A3%9D-K3s"><span class="toc-article-text">在 VM 裡面安裝 K3s</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%96%B0%E5%A2%9E-Worker-Node"><span class="toc-article-text">新增 Worker Node</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%A7%BB%E9%99%A4-Worker-Node"><span class="toc-article-text">移除 Worker Node</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%B8%AC%E8%A9%A6"><span class="toc-article-text">測試</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Q-amp-A"><span class="toc-article-text">Q &amp; A</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-%E5%8F%AF%E4%BB%A5%E6%8A%8A-master-%E5%92%8C-worker-node-%E8%A3%9D%E5%9C%A8%E5%90%8C%E4%B8%80%E5%8F%B0-VM"><span class="toc-article-text">Q: 可以把 master 和 worker node 裝在同一台 VM?</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%91%98%E8%A6%81"><span class="toc-article-text">摘要</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#K3d-vs-K3s"><span class="toc-article-text">K3d vs K3s</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Multipasss"><span class="toc-article-text">Multipasss</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%AE%89%E8%A3%9D-multipass"><span class="toc-article-text">安裝 multipass</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%95%9F%E5%8B%95%E8%99%9B%E6%93%AC%E6%A9%9F"><span class="toc-article-text">啟動虛擬機</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%AE%89%E8%A3%9D-K3s"><span class="toc-article-text">安裝 K3s</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B4%E6%8E%A5%E5%AE%89%E8%A3%9D"><span class="toc-article-text">直接安裝</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9C%A8-VM-%E8%A3%A1%E9%9D%A2%E5%AE%89%E8%A3%9D-K3s"><span class="toc-article-text">在 VM 裡面安裝 K3s</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%96%B0%E5%A2%9E-Worker-Node"><span class="toc-article-text">新增 Worker Node</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%A7%BB%E9%99%A4-Worker-Node"><span class="toc-article-text">移除 Worker Node</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%B8%AC%E8%A9%A6"><span class="toc-article-text">測試</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Q-A"><span class="toc-article-text">Q &amp; A</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-%E5%8F%AF%E4%BB%A5%E6%8A%8A-master-%E5%92%8C-worker-node-%E8%A3%9D%E5%9C%A8%E5%90%8C%E4%B8%80%E5%8F%B0-VM"><span class="toc-article-text">Q: 可以把 master 和 worker node 裝在同一台 VM?</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0%EF%BC%9AK8s-%E7%9B%B8%E9%97%9C"><span class="toc-article-text">站內文章：K8s 相關</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#VPC-%E7%B6%B2%E8%B7%AF%E8%A6%8F%E5%8A%83"><span class="toc-article-text">VPC - 網路規劃</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -493,7 +491,7 @@
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Kubernetes/" style="color: white">Kubernetes <span class="badge">14</span></a></span> <span class="label label-success"><a href="/tags/K8s/" style="color: white">K8s <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/Ubuntu/" style="color: white">Ubuntu <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Macbook-Pro-M1/" style="color: white">Macbook Pro M1 <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Apple-Silicon/" style="color: white">Apple Silicon <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/multipass/" style="color: white">multipass <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/docker/" style="color: white">docker <span class="badge">1</span></a></span>
+  <span class="label label-success"><a href="/tags/Kubernetes/" style="color: white">Kubernetes <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/K8s/" style="color: white">K8s <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/Ubuntu/" style="color: white">Ubuntu <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Macbook-Pro-M1/" style="color: white">Macbook Pro M1 <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Apple-Silicon/" style="color: white">Apple Silicon <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/multipass/" style="color: white">multipass <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/docker/" style="color: white">docker <span class="badge">1</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -505,6 +503,7 @@
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -520,8 +519,10 @@
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -531,8 +532,10 @@
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -566,6 +569,7 @@
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -619,6 +623,7 @@
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -656,6 +661,7 @@
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -671,6 +677,7 @@
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

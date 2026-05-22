@@ -67,31 +67,13 @@ Cluster AutoScaler: Worker Node 的 AutoScale
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -115,7 +97,7 @@ Cluster AutoScaler: Worker Node 的 AutoScale
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -127,7 +109,7 @@ Cluster AutoScaler: Worker Node 的 AutoScale
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -251,25 +233,6 @@ Cluster AutoScaler: Worker Node 的 AutoScale
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2019%2F10%2F19%2FAWS%2FStudy-Notes-EKS_Networking%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2019/10/19/AWS/Study-Notes-EKS_Networking/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2019/10/19/AWS/Study-Notes-EKS_Networking/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>整理 EKS 的 Networking 相關的問題，主要有規劃、管理 … 等觀測，如下：</p>
 <ul>
 <li>VPC Consideration: 規劃的考量</li>
@@ -361,9 +324,18 @@ Cluster AutoScaler: Worker Node 的 AutoScale
 <p><img src="/images/AWS/EKS/Cluster-AutoScaler/Pod-Cannot-Expends.png" alt="c5.xlarge ENIs"></p>
 <p>K8s 的解法：<a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/eks/latest/userguide/cluster-autoscaler.html">Cluster Autoscaler</a>。步驟大概如下：</p>
 <ol>
-<li>設定 Worker Node 的權限，主要是讓他可以對 ASG 操作，另外記得打開 ASG CloudWatch Metrics。<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;Version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2012-10-17&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Statement&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;Action&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;autoscaling:DescribeAutoScalingGroups&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;autoscaling:DescribeAutoScalingInstances&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;autoscaling:DescribeLaunchConfigurations&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;autoscaling:DescribeTags&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;autoscaling:SetDesiredCapacity&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;autoscaling:TerminateInstanceInAutoScalingGroup&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;ec2:DescribeLaunchTemplateVersions&quot;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Resource&quot;</span><span class="punctuation">:</span> <span class="string">&quot;*&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Effect&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Allow&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
-<li>依序執行以下：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 部署 cluster-autoscaler</span></span><br><span class="line">kubectl apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment">## 修改 annotate</span></span><br><span class="line">kubectl -n kube-system \</span><br><span class="line">    annotate deployment.apps/cluster-autoscaler cluster-autoscaler.kubernetes.io/safe-to-evict=<span class="string">&quot;false&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 指定 image 版本, 要與 k8s 版本符合，本實驗的 k8s 是 1.14.6，所以使用 1.14.x</span></span><br><span class="line">kubectl -n kube-system \</span><br><span class="line">    <span class="built_in">set</span> image deployment.apps/cluster-autoscaler \</span><br><span class="line">    cluster-autoscaler=k8s.gcr.io/cluster-autoscaler:v1.14.6</span><br></pre></td></tr></table></figure></li>
-<li>綁定 autoscaler 與 ASG 的關聯，執行 <code>kubectl -n kube-system edit deployment.apps/cluster-autoscaler</code>，找到以下做修改，其中 <code>&lt;YOUR CLUSTER NAME&gt;</code> 換成 EKS Cluster Name<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">command:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">./cluster-autoscaler</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">--v=4</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">--stderrthreshold=info</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">--cloud-provider=aws</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">--skip-nodes-with-local-storage=false</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">--expander=least-waste</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">--node-group-auto-discovery=asg:tag=k8s.io/cluster-autoscaler/enabled,k8s.io/cluster-autoscaler/&lt;YOUR</span> <span class="string">CLUSTER</span> <span class="string">NAME&gt;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">--balance-similar-node-groups</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">--skip-nodes-with-system-pods=false</span></span><br></pre></td></tr></table></figure></li>
+<li>設定 Worker Node 的權限，主要是讓他可以對 ASG 操作，另外記得打開 ASG CloudWatch Metrics。</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;Version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2012-10-17&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Statement&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;Action&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;autoscaling:DescribeAutoScalingGroups&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;autoscaling:DescribeAutoScalingInstances&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;autoscaling:DescribeLaunchConfigurations&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;autoscaling:DescribeTags&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;autoscaling:SetDesiredCapacity&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;autoscaling:TerminateInstanceInAutoScalingGroup&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;ec2:DescribeLaunchTemplateVersions&quot;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Resource&quot;</span><span class="punctuation">:</span> <span class="string">&quot;*&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Effect&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Allow&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>依序執行以下：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 部署 cluster-autoscaler</span></span><br><span class="line">kubectl apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment">## 修改 annotate</span></span><br><span class="line">kubectl -n kube-system \</span><br><span class="line">    annotate deployment.apps/cluster-autoscaler cluster-autoscaler.kubernetes.io/safe-to-evict=<span class="string">&quot;false&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 指定 image 版本, 要與 k8s 版本符合，本實驗的 k8s 是 1.14.6，所以使用 1.14.x</span></span><br><span class="line">kubectl -n kube-system \</span><br><span class="line">    <span class="built_in">set</span> image deployment.apps/cluster-autoscaler \</span><br><span class="line">    cluster-autoscaler=k8s.gcr.io/cluster-autoscaler:v1.14.6</span><br></pre></td></tr></table></figure>
+<ol>
+<li>綁定 autoscaler 與 ASG 的關聯，執行 <code>kubectl -n kube-system edit deployment.apps/cluster-autoscaler</code>，找到以下做修改，其中 <code>&lt;YOUR CLUSTER NAME&gt;</code> 換成 EKS Cluster Name</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">command:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">./cluster-autoscaler</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">--v=4</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">--stderrthreshold=info</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">--cloud-provider=aws</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">--skip-nodes-with-local-storage=false</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">--expander=least-waste</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">--node-group-auto-discovery=asg:tag=k8s.io/cluster-autoscaler/enabled,k8s.io/cluster-autoscaler/&lt;YOUR</span> <span class="string">CLUSTER</span> <span class="string">NAME&gt;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">--balance-similar-node-groups</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">--skip-nodes-with-system-pods=false</span></span><br></pre></td></tr></table></figure>
+<ol>
 <li>查詢 log: <code>kubectl -n kube-system logs -f deployment.apps/cluster-autoscaler</code></li>
 </ol>
 <p>到此完成設定。</p>
@@ -385,7 +357,7 @@ Cluster AutoScaler: Worker Node 的 AutoScale
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">I1019 05:58:09.678245       1 static_autoscaler.go:138] Starting main loop</span><br><span class="line">I1019 05:58:15.083305       1 reflector.go:370] k8s.io/client-go/informers/factory.go:132: Watch close - *v1.Node total 18 items received</span><br><span class="line">I1019 05:59:23.290859       1 reflector.go:370] k8s.io/client-go/informers/factory.go:132: Watch close - *v1beta1.PodDisruptionBudget total 0 items received</span><br><span class="line">I1019 05:59:37.183316       1 reflector.go:370] k8s.io/client-go/informers/factory.go:132: Watch close - *v1.ReplicationController total 0 items received</span><br><span class="line">I1019 05:59:48.378083       1 reflector.go:370] k8s.io/autoscaler/cluster-autoscaler/utils/kubernetes/listers.go:215: Watch close - *v1.Pod total 0 items received</span><br><span class="line">I1019 05:59:48.394497       1 reflector.go:370] k8s.io/autoscaler/cluster-autoscaler/utils/kubernetes/listers.go:253: Watch close - *v1.Node total 27 items received</span><br><span class="line">I1019 06:00:06.291909       1 reflector.go:370] k8s.io/autoscaler/cluster-autoscaler/utils/kubernetes/listers.go:319: Watch close - *v1.DaemonSet total 0 items received</span><br><span class="line">E1019 06:00:10.278115       1 aws_manager.go:259] Failed to regenerate ASG cache: cannot autodiscover ASGs: RequestError: send request failed</span><br><span class="line">caused by: Post https://autoscaling.us-west-2.amazonaws.com/: dial tcp: i/o <span class="built_in">timeout</span></span><br><span class="line">E1019 06:00:10.278134       1 static_autoscaler.go:158] Failed to refresh cloud provider config: cannot autodiscover ASGs: RequestError: send request failed</span><br><span class="line">caused by: Post https://autoscaling.us-west-2.amazonaws.com/: dial tcp: i/o <span class="built_in">timeout</span></span><br><span class="line">I1019 06:00:10.278145       1 metrics.go:269] Function main took 2m0.59991858s to complete</span><br><span class="line">I1019 06:00:18.290439       1 reflector.go:370] k8s.io/autoscaler/cluster-autoscaler/utils/kubernetes/listers.go:359: Watch close - *v1.StatefulSet total 0 items received</span><br></pre></td></tr></table></figure>
 
 <p>到 pod 裡檢查，發現無法反查 DNS</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">~$ k <span class="built_in">exec</span> -it cluster-autoscaler-db8ccb5d5-fc65n -n kube-system sh</span><br><span class="line"><span class="comment"># ping cluster-autoscaler-db8ccb5d5-fc65n</span></span><br><span class="line">PING cluster-autoscaler-db8ccb5d5-fc65n (172.31.0.175) 56(84) bytes of data.</span><br><span class="line">64 bytes from cluster-autoscaler-db8ccb5d5-fc65n (172.31.0.175): icmp_seq=1 ttl=255 time=0.018 ms</span><br><span class="line">64 bytes from cluster-autoscaler-db8ccb5d5-fc65n (172.31.0.175): icmp_seq=2 ttl=255 time=0.021 ms</span><br><span class="line">^C</span><br><span class="line">--- cluster-autoscaler-db8ccb5d5-fc65n ping statistics ---</span><br><span class="line">2 packets transmitted, 2 received, 0% packet loss, time 1067ms</span><br><span class="line">rtt min/avg/max/mdev = 0.018/0.019/0.021/0.004 ms</span><br><span class="line"><span class="comment"># ping autoscaling.us-west-2.amazonaws.com</span></span><br><span class="line">^C</span><br><span class="line"><span class="comment"># cat /etc/resolv.conf</span></span><br><span class="line">nameserver 10.100.0.10</span><br><span class="line">search kube-system.svc.cluster.local svc.cluster.local cluster.local us-west-2.compute.internal</span><br><span class="line">options ndots:5</span><br><span class="line"><span class="comment"># ping autoscaling.us-west-2.amazonaws.com</span></span><br><span class="line">^C</span><br><span class="line"><span class="comment"># ping 8.8.8.8</span></span><br><span class="line">PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.</span><br><span class="line">64 bytes from 8.8.8.8: icmp_seq=1 ttl=42 time=7.14 ms</span><br><span class="line">64 bytes from 8.8.8.8: icmp_seq=2 ttl=42 time=7.11 ms</span><br><span class="line">^C</span><br><span class="line">--- 8.8.8.8 ping statistics ---</span><br><span class="line">2 packets transmitted, 2 received, 0% packet loss, time 1001ms</span><br><span class="line">rtt min/avg/max/mdev = 7.117/7.132/7.147/0.015 ms</span><br><span class="line"><span class="comment"># ping www.google.com</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">~$ k <span class="built_in">exec</span> -it cluster-autoscaler-db8ccb5d5-fc65n -n kube-system sh</span><br><span class="line"><span class="comment"># ping cluster-autoscaler-db8ccb5d5-fc65n</span></span><br><span class="line">PING cluster-autoscaler-db8ccb5d5-fc65n (172.31.0.175) 56(84) bytes of data.</span><br><span class="line">64 bytes from cluster-autoscaler-db8ccb5d5-fc65n (172.31.0.175): icmp_seq=1 ttl=255 <span class="keyword">time</span>=0.018 ms</span><br><span class="line">64 bytes from cluster-autoscaler-db8ccb5d5-fc65n (172.31.0.175): icmp_seq=2 ttl=255 <span class="keyword">time</span>=0.021 ms</span><br><span class="line">^C</span><br><span class="line">--- cluster-autoscaler-db8ccb5d5-fc65n ping statistics ---</span><br><span class="line">2 packets transmitted, 2 received, 0% packet loss, <span class="keyword">time</span> 1067ms</span><br><span class="line">rtt min/avg/max/mdev = 0.018/0.019/0.021/0.004 ms</span><br><span class="line"><span class="comment"># ping autoscaling.us-west-2.amazonaws.com</span></span><br><span class="line">^C</span><br><span class="line"><span class="comment"># cat /etc/resolv.conf</span></span><br><span class="line">nameserver 10.100.0.10</span><br><span class="line">search kube-system.svc.cluster.local svc.cluster.local cluster.local us-west-2.compute.internal</span><br><span class="line">options ndots:5</span><br><span class="line"><span class="comment"># ping autoscaling.us-west-2.amazonaws.com</span></span><br><span class="line">^C</span><br><span class="line"><span class="comment"># ping 8.8.8.8</span></span><br><span class="line">PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.</span><br><span class="line">64 bytes from 8.8.8.8: icmp_seq=1 ttl=42 <span class="keyword">time</span>=7.14 ms</span><br><span class="line">64 bytes from 8.8.8.8: icmp_seq=2 ttl=42 <span class="keyword">time</span>=7.11 ms</span><br><span class="line">^C</span><br><span class="line">--- 8.8.8.8 ping statistics ---</span><br><span class="line">2 packets transmitted, 2 received, 0% packet loss, <span class="keyword">time</span> 1001ms</span><br><span class="line">rtt min/avg/max/mdev = 7.117/7.132/7.147/0.015 ms</span><br><span class="line"><span class="comment"># ping www.google.com</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>問題待解。</p>
 <hr>
@@ -398,7 +370,7 @@ Cluster AutoScaler: Worker Node 的 AutoScale
 <li><a href="/2019/10/13/AWS/Study-Notes-EKS_Provision-Cluster/">EKS 學習筆記 - 基礎安裝篇</a></li>
 <li><a href="/2019/10/19/AWS/Study-Notes-EKS_Networking/">EKS 學習筆記 - 網路規劃與管理篇</a></li>
 </ul>
-<h2 id="VPC-amp-EC2"><a href="#VPC-amp-EC2" class="headerlink" title="VPC &amp; EC2"></a>VPC &amp; EC2</h2><ul>
+<h2 id="VPC-EC2"><a href="#VPC-EC2" class="headerlink" title="VPC &amp; EC2"></a>VPC &amp; EC2</h2><ul>
 <li><a href="/2016/02/21/AWS/Study-Notes-VPC/">Study Notes - Virtual Private Cloud (VPC)</a></li>
 <li><a href="/2018/04/08/GCP/Building-a-VPN-Between-GCP-and-AWS/">Building a VPN Between GCP and AWS</a></li>
 <li><a href="/2017/02/04/AWS/Study-Notes-EC2-Auto-Scaling/">Study Notes - EC2 Auto Scaling 基礎介紹</a></li>
@@ -417,11 +389,6 @@ Cluster AutoScaler: Worker Node 的 AutoScale
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2019/10/19/AWS/Study-Notes-EKS_Networking/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -456,26 +423,6 @@ Cluster AutoScaler: Worker Node 的 AutoScale
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2019/10/19/AWS/Study-Notes-EKS_Networking/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -485,6 +432,7 @@ Cluster AutoScaler: Worker Node 的 AutoScale
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -501,7 +449,7 @@ Cluster AutoScaler: Worker Node 的 AutoScale
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E8%A6%8F%E5%8A%83"><span class="toc-article-text">規劃</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#VPC-Consideration"><span class="toc-article-text">VPC Consideration</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B6%AD%E9%81%8B"><span class="toc-article-text">維運</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#VPC-CNI-Utilization%EF%BC%9A%E5%A6%82%E4%BD%95%E7%9B%A3%E6%8E%A7-ENI-%E8%88%87-IP-Address-%E4%BD%BF%E7%94%A8%E7%8B%80%E6%B3%81"><span class="toc-article-text">VPC-CNI Utilization：如何監控 ENI 與 IP Address 使用狀況</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Cluster-AutoScaler"><span class="toc-article-text">Cluster AutoScaler</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Scale-Out"><span class="toc-article-text">Scale Out</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Scale-In"><span class="toc-article-text">Scale In</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#K8s-%E7%9B%B8%E9%97%9C"><span class="toc-article-text">K8s 相關</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#VPC-amp-EC2"><span class="toc-article-text">VPC &amp; EC2</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E8%A6%8F%E5%8A%83"><span class="toc-article-text">規劃</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#VPC-Consideration"><span class="toc-article-text">VPC Consideration</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B6%AD%E9%81%8B"><span class="toc-article-text">維運</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#VPC-CNI-Utilization%EF%BC%9A%E5%A6%82%E4%BD%95%E7%9B%A3%E6%8E%A7-ENI-%E8%88%87-IP-Address-%E4%BD%BF%E7%94%A8%E7%8B%80%E6%B3%81"><span class="toc-article-text">VPC-CNI Utilization：如何監控 ENI 與 IP Address 使用狀況</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Cluster-AutoScaler"><span class="toc-article-text">Cluster AutoScaler</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Scale-Out"><span class="toc-article-text">Scale Out</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Scale-In"><span class="toc-article-text">Scale In</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#K8s-%E7%9B%B8%E9%97%9C"><span class="toc-article-text">K8s 相關</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#VPC-EC2"><span class="toc-article-text">VPC &amp; EC2</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -531,7 +479,7 @@ Cluster AutoScaler: Worker Node 的 AutoScale
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/VPC/" style="color: white">VPC <span class="badge">21</span></a></span> <span class="label label-success"><a href="/tags/Kubernetes/" style="color: white">Kubernetes <span class="badge">14</span></a></span> <span class="label label-success"><a href="/tags/kubeadm/" style="color: white">kubeadm <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/kubelet/" style="color: white">kubelet <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CNI/" style="color: white">CNI <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CRI/" style="color: white">CRI <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/EKS/" style="color: white">EKS <span class="badge">4</span></a></span>
+  <span class="label label-success"><a href="/tags/VPC/" style="color: white">VPC <span class="badge">21</span></a></span> <span class="label label-success"><a href="/tags/Kubernetes/" style="color: white">Kubernetes <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/EKS/" style="color: white">EKS <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/kubeadm/" style="color: white">kubeadm <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/kubelet/" style="color: white">kubelet <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CNI/" style="color: white">CNI <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CRI/" style="color: white">CRI <span class="badge">6</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -543,6 +491,7 @@ Cluster AutoScaler: Worker Node 的 AutoScale
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -558,8 +507,10 @@ Cluster AutoScaler: Worker Node 的 AutoScale
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -569,8 +520,10 @@ Cluster AutoScaler: Worker Node 的 AutoScale
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -604,6 +557,7 @@ Cluster AutoScaler: Worker Node 的 AutoScale
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -657,6 +611,7 @@ Cluster AutoScaler: Worker Node 的 AutoScale
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -694,6 +649,7 @@ Cluster AutoScaler: Worker Node 的 AutoScale
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -709,6 +665,7 @@ Cluster AutoScaler: Worker Node 的 AutoScale
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

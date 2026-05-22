@@ -63,31 +63,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -111,7 +93,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -123,7 +105,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -247,25 +229,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2016%2F08%2F17%2FAWS%2FStudy-Notes-DynamoDB%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2016/08/17/AWS/Study-Notes-DynamoDB/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2016/08/17/AWS/Study-Notes-DynamoDB/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>DynamoDB 設計理想源自於 Amazon 的論文： <a target="_blank" rel="noopener" href="http://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf">Dynamo: Amazon’s Highly Available Key-value Store, 2007</a>，被稱為是 <a target="_blank" rel="noopener" href="http://www.infoq.com/cn/articles/nosql-dynamo">NoSQL 代表之作</a>。</p>
 <p>這篇由 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Werner_Vogels">Werner Vogels</a> (AWS CTO) 寫的 Blog: <a target="_blank" rel="noopener" href="http://www.allthingsdistributed.com/2012/01/amazon-dynamodb.html">Amazon DynamoDB – a Fast and Scalable NoSQL Database Service Designed for Internet Scale Applications</a>，提到了 DynamoDB 背後設計的歷史、包含以前的 SimpleDB，文章提到幾個設計的重點：</p>
 <ul>
@@ -358,7 +321,7 @@ DynamoDB 辦到了！
 <p>更多最終一致性模型，參閱 <a href="/2018/12/09/DistributedSystems/Eventually-Consistent-Dynamo-NWR/">Eventually Consistent 與 Dynamo NWR 模型</a>。</p>
 <h2 id="Global-Tables"><a href="#Global-Tables" class="headerlink" title="Global Tables"></a>Global Tables</h2><p>— 待整理 —</p>
 <hr>
-<h1 id="Read-x2F-Write-Capacity-Mode"><a href="#Read-x2F-Write-Capacity-Mode" class="headerlink" title="Read&#x2F;Write Capacity Mode"></a>Read&#x2F;Write Capacity Mode</h1><h2 id="Provisioned-Mode"><a href="#Provisioned-Mode" class="headerlink" title="Provisioned Mode"></a>Provisioned Mode</h2><p>DynamoDB 每個 Table 都有讀寫能力單元 (Capacity Units) 的設定，稱作 <code>Read Capacity Units (RCU)</code>、<code>Write Capacity Units (WCU)</code>.</p>
+<h1 id="Read-Write-Capacity-Mode"><a href="#Read-Write-Capacity-Mode" class="headerlink" title="Read&#x2F;Write Capacity Mode"></a>Read&#x2F;Write Capacity Mode</h1><h2 id="Provisioned-Mode"><a href="#Provisioned-Mode" class="headerlink" title="Provisioned Mode"></a>Provisioned Mode</h2><p>DynamoDB 每個 Table 都有讀寫能力單元 (Capacity Units) 的設定，稱作 <code>Read Capacity Units (RCU)</code>、<code>Write Capacity Units (WCU)</code>.</p>
 <ul>
 <li><code>Read Capacity Units (RCU)</code>: 每次讀取單位為 <code>4K</code><ul>
 <li>Strongly Consistent Reads 每秒讀一次</li>
@@ -527,7 +490,7 @@ DnamoDB 的 adaptive throughput
 <li><a target="_blank" rel="noopener" href="https://aws.amazon.com/blogs/aws/dynamodb-local-for-desktop-development/">DynamoDB Local for Desktop Development</a></li>
 <li><a target="_blank" rel="noopener" href="http://razorsql.com/articles/razorsql_amazon_dynamodb.html">RazorSQL Database GUI Tool for Amazon DynamoDB</a></li>
 </ul>
-<h2 id="NoSQL-Workbench-Preview-updated-2019-x2F-09-x2F-17"><a href="#NoSQL-Workbench-Preview-updated-2019-x2F-09-x2F-17" class="headerlink" title="NoSQL Workbench Preview (updated: 2019&#x2F;09&#x2F;17)"></a>NoSQL Workbench Preview (updated: 2019&#x2F;09&#x2F;17)</h2><p>AWS 總算提供了 <a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.settingup.html">NoSQL Workbench</a> ，主要提供以下功能：</p>
+<h2 id="NoSQL-Workbench-Preview-updated-2019-09-17"><a href="#NoSQL-Workbench-Preview-updated-2019-09-17" class="headerlink" title="NoSQL Workbench Preview (updated: 2019&#x2F;09&#x2F;17)"></a>NoSQL Workbench Preview (updated: 2019&#x2F;09&#x2F;17)</h2><p>AWS 總算提供了 <a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.settingup.html">NoSQL Workbench</a> ，主要提供以下功能：</p>
 <ul>
 <li>Data Modeling</li>
 <li>Data Visualization</li>
@@ -639,11 +602,6 @@ DnamoDB 的 adaptive throughput
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2016/08/17/AWS/Study-Notes-DynamoDB/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -678,26 +636,6 @@ DnamoDB 的 adaptive throughput
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2016/08/17/AWS/Study-Notes-DynamoDB/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -707,6 +645,7 @@ DnamoDB 的 adaptive throughput
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -723,7 +662,7 @@ DnamoDB 的 adaptive throughput
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%A0%B8%E5%BF%83%E5%85%83%E4%BB%B6-Core-Components"><span class="toc-article-text">核心元件 (Core Components)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Primary-Key"><span class="toc-article-text">Primary Key</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Secondary-Indexes"><span class="toc-article-text">Secondary Indexes</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Data-Type"><span class="toc-article-text">Data Type</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Read-Consistency-%E8%AE%80%E5%8F%96%E4%B8%80%E8%87%B4%E6%80%A7%E6%A8%A1%E5%9E%8B"><span class="toc-article-text">Read Consistency (讀取一致性模型)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Global-Tables"><span class="toc-article-text">Global Tables</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Read-x2F-Write-Capacity-Mode"><span class="toc-article-text">Read&#x2F;Write Capacity Mode</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Provisioned-Mode"><span class="toc-article-text">Provisioned Mode</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#On-Demand-Mode"><span class="toc-article-text">On-Demand Mode</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Guidelines-for-Working-with-Tables"><span class="toc-article-text">Guidelines for Working with Tables</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Partition-Behavior-of-Table"><span class="toc-article-text">Partition Behavior of Table</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Partition-Split"><span class="toc-article-text">Partition Split</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Increased-Provisioned-Throughput-Settings"><span class="toc-article-text">Increased Provisioned Throughput Settings</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Increased-Storage-Requirements"><span class="toc-article-text">Increased Storage Requirements</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Use-Burst-Capacity-Sparingly"><span class="toc-article-text">Use Burst Capacity Sparingly</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Cache-Popular-Items"><span class="toc-article-text">Cache Popular Items</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Limitation"><span class="toc-article-text">Limitation</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Development-with-DynamoDB"><span class="toc-article-text">Development with DynamoDB</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#local-development-using-docker"><span class="toc-article-text">local development using docker</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#NoSQL-Workbench-Preview-updated-2019-x2F-09-x2F-17"><span class="toc-article-text">NoSQL Workbench Preview (updated: 2019&#x2F;09&#x2F;17)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%BD%BF%E7%94%A8%E6%99%82%E6%A9%9F"><span class="toc-article-text">使用時機</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Design-Patterns-and-Best-Practice"><span class="toc-article-text">Design Patterns and Best Practice</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%8E%A8%E8%96%A6%E9%96%B1%E8%AE%80"><span class="toc-article-text">推薦閱讀</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E5%BB%B6%E4%BC%B8"><span class="toc-article-text">站內延伸</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%8E%A8%E8%96%A6%E7%A0%94%E8%AE%80"><span class="toc-article-text">推薦研讀</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%9B%B4%E6%96%B0%E7%B4%80%E9%8C%84"><span class="toc-article-text">更新紀錄</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%A0%B8%E5%BF%83%E5%85%83%E4%BB%B6-Core-Components"><span class="toc-article-text">核心元件 (Core Components)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Primary-Key"><span class="toc-article-text">Primary Key</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Secondary-Indexes"><span class="toc-article-text">Secondary Indexes</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Data-Type"><span class="toc-article-text">Data Type</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Read-Consistency-%E8%AE%80%E5%8F%96%E4%B8%80%E8%87%B4%E6%80%A7%E6%A8%A1%E5%9E%8B"><span class="toc-article-text">Read Consistency (讀取一致性模型)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Global-Tables"><span class="toc-article-text">Global Tables</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Read-Write-Capacity-Mode"><span class="toc-article-text">Read&#x2F;Write Capacity Mode</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Provisioned-Mode"><span class="toc-article-text">Provisioned Mode</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#On-Demand-Mode"><span class="toc-article-text">On-Demand Mode</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Guidelines-for-Working-with-Tables"><span class="toc-article-text">Guidelines for Working with Tables</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Partition-Behavior-of-Table"><span class="toc-article-text">Partition Behavior of Table</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Partition-Split"><span class="toc-article-text">Partition Split</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Increased-Provisioned-Throughput-Settings"><span class="toc-article-text">Increased Provisioned Throughput Settings</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Increased-Storage-Requirements"><span class="toc-article-text">Increased Storage Requirements</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Use-Burst-Capacity-Sparingly"><span class="toc-article-text">Use Burst Capacity Sparingly</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Cache-Popular-Items"><span class="toc-article-text">Cache Popular Items</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Limitation"><span class="toc-article-text">Limitation</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Development-with-DynamoDB"><span class="toc-article-text">Development with DynamoDB</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#local-development-using-docker"><span class="toc-article-text">local development using docker</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#NoSQL-Workbench-Preview-updated-2019-09-17"><span class="toc-article-text">NoSQL Workbench Preview (updated: 2019&#x2F;09&#x2F;17)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%BD%BF%E7%94%A8%E6%99%82%E6%A9%9F"><span class="toc-article-text">使用時機</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Design-Patterns-and-Best-Practice"><span class="toc-article-text">Design Patterns and Best Practice</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%8E%A8%E8%96%A6%E9%96%B1%E8%AE%80"><span class="toc-article-text">推薦閱讀</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E5%BB%B6%E4%BC%B8"><span class="toc-article-text">站內延伸</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%8E%A8%E8%96%A6%E7%A0%94%E8%AE%80"><span class="toc-article-text">推薦研讀</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%9B%B4%E6%96%B0%E7%B4%80%E9%8C%84"><span class="toc-article-text">更新紀錄</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -753,7 +692,7 @@ DnamoDB 的 adaptive throughput
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/DynamoDB/" style="color: white">DynamoDB <span class="badge">10</span></a></span> <span class="label label-success"><a href="/tags/Serverless/" style="color: white">Serverless <span class="badge">14</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">16</span></a></span> <span class="label label-success"><a href="/tags/NoSQL/" style="color: white">NoSQL <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/CAP/" style="color: white">CAP <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/BASE/" style="color: white">BASE <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Eventually-Consistent/" style="color: white">Eventually Consistent <span class="badge">3</span></a></span>
+  <span class="label label-success"><a href="/tags/DynamoDB/" style="color: white">DynamoDB <span class="badge">10</span></a></span> <span class="label label-success"><a href="/tags/Serverless/" style="color: white">Serverless <span class="badge">14</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">17</span></a></span> <span class="label label-success"><a href="/tags/NoSQL/" style="color: white">NoSQL <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/CAP/" style="color: white">CAP <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/BASE/" style="color: white">BASE <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Eventually-Consistent/" style="color: white">Eventually Consistent <span class="badge">3</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -765,6 +704,7 @@ DnamoDB 的 adaptive throughput
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -780,8 +720,10 @@ DnamoDB 的 adaptive throughput
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -791,8 +733,10 @@ DnamoDB 的 adaptive throughput
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -826,6 +770,7 @@ DnamoDB 的 adaptive throughput
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -879,6 +824,7 @@ DnamoDB 的 adaptive throughput
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -916,6 +862,7 @@ DnamoDB 的 adaptive throughput
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -931,6 +878,7 @@ DnamoDB 的 adaptive throughput
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

@@ -66,31 +66,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -114,7 +96,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -126,7 +108,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -250,25 +232,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2017%2F06%2F17%2FAWS%2FTemporary-Credential_Using_Cross-Account-Roles%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2017/06/17/AWS/Temporary-Credential_Using_Cross-Account-Roles/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2017/06/17/AWS/Temporary-Credential_Using_Cross-Account-Roles/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>AWS 跨帳號權限需要透過 <code>Cross Account Roles</code> 的方式來做，可以達到權責分離，不需要每個人在每個 AWS Account 開 IAM 帳號，達到管理便利的平衡。</p>
 <span id="more"></span>
 
@@ -298,7 +261,7 @@
 
 <p>也可以在 IAM User &#x2F; Group 新增 Policy，讓 Developer 可以在 workstation 測試。</p>
 <h1 id="使用-Temporary-Credential"><a href="#使用-Temporary-Credential" class="headerlink" title="使用 Temporary Credential"></a>使用 Temporary Credential</h1><h2 id="取的臨時的-Credential-and-Session-Token"><a href="#取的臨時的-Credential-and-Session-Token" class="headerlink" title="取的臨時的 Credential and Session Token"></a>取的臨時的 Credential and Session Token</h2><p>SSH 到 Jenkins 的 EC2 裡面，執行以下 CLI。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root:<span class="comment"># date</span></span><br><span class="line">Sat Jun 17 06:23:10 UTC 2017</span><br><span class="line">root:<span class="comment"># aws sts assume-role \</span></span><br><span class="line">&gt;   --role-arn <span class="string">&quot;arn:aws:iam::&#123;PRODUCTION_ACCOUNT_NUM&#125;:role/CA_ServiceDeployer&quot;</span> \</span><br><span class="line">&gt;   --role-session-name <span class="string">&quot;Ops_JenkinsService&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root:# <span class="built_in">date</span></span><br><span class="line">Sat Jun 17 06:23:10 UTC 2017</span><br><span class="line">root:# aws sts assume-role \</span><br><span class="line">&gt;   --role-arn <span class="string">&quot;arn:aws:iam::&#123;PRODUCTION_ACCOUNT_NUM&#125;:role/CA_ServiceDeployer&quot;</span> \</span><br><span class="line">&gt;   --role-session-name <span class="string">&quot;Ops_JenkinsService&quot;</span></span><br></pre></td></tr></table></figure>
 
 
 <p>取得臨時的 Credential 和 STS token，有效期限一個小時，資訊如下：</p>
@@ -310,7 +273,7 @@
 
 
 
-<h2 id="使用臨時-Credential-amp-STS-Token-切換-Role"><a href="#使用臨時-Credential-amp-STS-Token-切換-Role" class="headerlink" title="使用臨時 Credential &amp; STS Token 切換 Role"></a>使用臨時 Credential &amp; STS Token 切換 Role</h2><p>以下使用 CLI 做例子，使用 SDK 也是一樣的。先更改 AWS CLI 環境變數，export 臨時的 credential &amp; token</p>
+<h2 id="使用臨時-Credential-STS-Token-切換-Role"><a href="#使用臨時-Credential-STS-Token-切換-Role" class="headerlink" title="使用臨時 Credential &amp; STS Token 切換 Role"></a>使用臨時 Credential &amp; STS Token 切換 Role</h2><p>以下使用 CLI 做例子，使用 SDK 也是一樣的。先更改 AWS CLI 環境變數，export 臨時的 credential &amp; token</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export AWS_ACCESS_KEY_ID=ASIAI26ILHxxxxxxxxxxxxx</span><br><span class="line">export AWS_SECRET_ACCESS_KEY=i7dxPRu7xTAkWMxxxxxxxxxxx</span><br><span class="line">export AWS_SESSION_TOKEN=xxxxxxxxxYXdzEEAaDC6sE7hlNRoyce7a6CLVAVleA==</span><br></pre></td></tr></table></figure>
 
 <p>執行動作：</p>
@@ -332,11 +295,6 @@
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2017/06/17/AWS/Temporary-Credential_Using_Cross-Account-Roles/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -371,26 +329,6 @@
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2017/06/17/AWS/Temporary-Credential_Using_Cross-Account-Roles/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -400,6 +338,7 @@
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -416,7 +355,7 @@
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%BD%BF%E7%94%A8%E5%A0%B4%E6%99%AF"><span class="toc-article-text">使用場景</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E8%A8%AD%E5%AE%9A-IAM-Role-Trust-Relationship"><span class="toc-article-text">設定 IAM Role, Trust Relationship</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#1-%E8%A8%AD%E5%AE%9A-CA-ServiceDeployer-Role-in-Production-Account"><span class="toc-article-text">1. 設定 CA_ServiceDeployer Role in Production Account</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-%E8%A8%AD%E5%AE%9A-Operation-%E7%9A%84-JenkinsService-Role"><span class="toc-article-text">2. 設定 Operation 的 JenkinsService Role</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%BD%BF%E7%94%A8-Temporary-Credential"><span class="toc-article-text">使用 Temporary Credential</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%96%E7%9A%84%E8%87%A8%E6%99%82%E7%9A%84-Credential-and-Session-Token"><span class="toc-article-text">取的臨時的 Credential and Session Token</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BD%BF%E7%94%A8%E8%87%A8%E6%99%82-Credential-amp-STS-Token-%E5%88%87%E6%8F%9B-Role"><span class="toc-article-text">使用臨時 Credential &amp; STS Token 切換 Role</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%BD%BF%E7%94%A8%E5%A0%B4%E6%99%AF"><span class="toc-article-text">使用場景</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E8%A8%AD%E5%AE%9A-IAM-Role-Trust-Relationship"><span class="toc-article-text">設定 IAM Role, Trust Relationship</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#1-%E8%A8%AD%E5%AE%9A-CA-ServiceDeployer-Role-in-Production-Account"><span class="toc-article-text">1. 設定 CA_ServiceDeployer Role in Production Account</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-%E8%A8%AD%E5%AE%9A-Operation-%E7%9A%84-JenkinsService-Role"><span class="toc-article-text">2. 設定 Operation 的 JenkinsService Role</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%BD%BF%E7%94%A8-Temporary-Credential"><span class="toc-article-text">使用 Temporary Credential</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%96%E7%9A%84%E8%87%A8%E6%99%82%E7%9A%84-Credential-and-Session-Token"><span class="toc-article-text">取的臨時的 Credential and Session Token</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BD%BF%E7%94%A8%E8%87%A8%E6%99%82-Credential-STS-Token-%E5%88%87%E6%8F%9B-Role"><span class="toc-article-text">使用臨時 Credential &amp; STS Token 切換 Role</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol>
 		</div>
 	
 	</div>
@@ -446,7 +385,7 @@
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/IAM/" style="color: white">IAM <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/AWS-CLI/" style="color: white">AWS CLI <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/IAM-Role/" style="color: white">IAM Role <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/IAM-Access-Key/" style="color: white">IAM Access Key <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/STS/" style="color: white">STS <span class="badge">1</span></a></span>
+  <span class="label label-success"><a href="/tags/IAM/" style="color: white">IAM <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/AWS-CLI/" style="color: white">AWS CLI <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/IAM-Role/" style="color: white">IAM Role <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/IAM-Access-Key/" style="color: white">IAM Access Key <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/STS/" style="color: white">STS <span class="badge">1</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -458,6 +397,7 @@
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -473,8 +413,10 @@
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -484,8 +426,10 @@
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -519,6 +463,7 @@
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -572,6 +517,7 @@
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -609,6 +555,7 @@
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -624,6 +571,7 @@
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

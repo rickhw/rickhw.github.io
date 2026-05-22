@@ -66,31 +66,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -114,7 +96,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -126,7 +108,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -250,25 +232,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2018%2F02%2F21%2FAWS%2FStudy-Notes-VPC-Inter-Region-VPC-Peering%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2018/02/21/AWS/Study-Notes-VPC-Inter-Region-VPC-Peering/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2018/02/21/AWS/Study-Notes-VPC-Inter-Region-VPC-Peering/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>來自 <a target="_blank" rel="noopener" href="https://aws.amazon.com/about-aws/whats-new/2018/02/Study-Notes-VPC-Inter-Region-VPC-Peering-is-now-available-in-nine-additional-aws-regions/">AWS News</a> 的訊息，<code>Inter-Region VPC Peering</code> 多了九個 Region，而且總算有亞洲了！不用再自己幹 Site to Site VPN 了！</p>
 <p>整理基本資訊、實測的數據、規劃上的考量等。</p>
 <span id="more"></span>
@@ -350,7 +313,7 @@
 <li>傳檔案: 10MB, 100MB, 1000MB</li>
 </ol>
 <p>先在兩邊 EC2 Instance 準備以下資料：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Install iperf3</span></span><br><span class="line">sudo yum install iperf3</span><br><span class="line">sudo apt-get install iperf3</span><br><span class="line"></span><br><span class="line"><span class="comment">## generate the dummy files</span></span><br><span class="line"><span class="built_in">truncate</span> -s 10M 10M.dummy</span><br><span class="line"><span class="built_in">truncate</span> -s 100M 100M.dummy</span><br><span class="line"><span class="built_in">truncate</span> -s 1000M 1000M.dummy</span><br><span class="line"></span><br><span class="line"><span class="comment">## Confirm size</span></span><br><span class="line">~$ <span class="built_in">ls</span> -l *.dummy</span><br><span class="line">-rw-r--r-- 1 root root 1048576000 Feb 22 14:28 1000M.dummy</span><br><span class="line">-rw-r--r-- 1 root root  104857600 Feb 22 14:28 100M.dummy</span><br><span class="line">-rw-r--r-- 1 root root   10485760 Feb 22 14:23 10M.dummy</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Install iperf3</span></span><br><span class="line"><span class="built_in">sudo</span> yum install iperf3</span><br><span class="line"><span class="built_in">sudo</span> apt-get install iperf3</span><br><span class="line"></span><br><span class="line"><span class="comment">## generate the dummy files</span></span><br><span class="line"><span class="built_in">truncate</span> -s 10M 10M.dummy</span><br><span class="line"><span class="built_in">truncate</span> -s 100M 100M.dummy</span><br><span class="line"><span class="built_in">truncate</span> -s 1000M 1000M.dummy</span><br><span class="line"></span><br><span class="line"><span class="comment">## Confirm size</span></span><br><span class="line">~$ <span class="built_in">ls</span> -l *.dummy</span><br><span class="line">-rw-r--r-- 1 root root 1048576000 Feb 22 14:28 1000M.dummy</span><br><span class="line">-rw-r--r-- 1 root root  104857600 Feb 22 14:28 100M.dummy</span><br><span class="line">-rw-r--r-- 1 root root   10485760 Feb 22 14:23 10M.dummy</span><br></pre></td></tr></table></figure>
 
 <p>因為我本來就有開一台 <code>t2.micro</code>，所以弄了另外一組，測了以下兩個組合：</p>
 <ol>
@@ -360,7 +323,7 @@
 <p>因為東京還沒有 c5 可以測，所以預期上限會在 c4.xlarge.</p>
 <h3 id="t2-micro-us-east-1-to-c4-xlarge-ap-northeast-1"><a href="#t2-micro-us-east-1-to-c4-xlarge-ap-northeast-1" class="headerlink" title="t2.micro (us-east-1) to c4.xlarge (ap-northeast-1)"></a>t2.micro (us-east-1) to c4.xlarge (ap-northeast-1)</h3><p>東京：c4.xlarge, Network High<br>美東：t2.micro, Network Low</p>
 <p>實測:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">root@ip-172-30-3-94:~<span class="comment"># iperf3 -c 172.40.0.73</span></span><br><span class="line">Connecting to host 172.40.0.73, port 5201</span><br><span class="line">[  4] <span class="built_in">local</span> 172.30.3.94 port 39869 connected to 172.40.0.73 port 5201</span><br><span class="line">[ ID] Interval           Transfer     Bandwidth       Retr  Cwnd</span><br><span class="line">[  4]   0.00-1.00   sec  1.88 MBytes  15.8 Mbits/sec    0    433 KBytes</span><br><span class="line">[  4]   1.00-2.00   sec  6.13 MBytes  51.4 Mbits/sec  763   1.70 MBytes</span><br><span class="line">[  4]   2.00-3.00   sec  8.68 MBytes  72.8 Mbits/sec  418    998 KBytes</span><br><span class="line">[  4]   3.00-4.00   sec  5.94 MBytes  49.8 Mbits/sec    0   1.04 MBytes</span><br><span class="line">[  4]   4.00-5.00   sec  5.96 MBytes  50.0 Mbits/sec    0   1.09 MBytes</span><br><span class="line">[  4]   5.00-6.00   sec  7.19 MBytes  60.3 Mbits/sec    0   1.12 MBytes</span><br><span class="line">[  4]   6.00-7.00   sec  5.88 MBytes  49.3 Mbits/sec   57    857 KBytes</span><br><span class="line">[  4]   7.00-8.00   sec  4.53 MBytes  38.0 Mbits/sec    0    909 KBytes</span><br><span class="line">[  4]   8.00-9.00   sec  5.78 MBytes  48.5 Mbits/sec    0    945 KBytes</span><br><span class="line">[  4]   9.00-10.00  sec  5.96 MBytes  50.0 Mbits/sec    0    967 KBytes</span><br><span class="line">- - - - - - - - - - - - - - - - - - - - - - - - -</span><br><span class="line">[ ID] Interval           Transfer     Bandwidth       Retr</span><br><span class="line">[  4]   0.00-10.00  sec  57.9 MBytes  48.6 Mbits/sec  1238             sender</span><br><span class="line">[  4]   0.00-10.00  sec  55.8 MBytes  46.8 Mbits/sec                  receiver</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">root@ip-172-30-3-94:~# iperf3 -c 172.40.0.73</span><br><span class="line">Connecting to host 172.40.0.73, port 5201</span><br><span class="line">[  4] <span class="built_in">local</span> 172.30.3.94 port 39869 connected to 172.40.0.73 port 5201</span><br><span class="line">[ ID] Interval           Transfer     Bandwidth       Retr  Cwnd</span><br><span class="line">[  4]   0.00-1.00   sec  1.88 MBytes  15.8 Mbits/sec    0    433 KBytes</span><br><span class="line">[  4]   1.00-2.00   sec  6.13 MBytes  51.4 Mbits/sec  763   1.70 MBytes</span><br><span class="line">[  4]   2.00-3.00   sec  8.68 MBytes  72.8 Mbits/sec  418    998 KBytes</span><br><span class="line">[  4]   3.00-4.00   sec  5.94 MBytes  49.8 Mbits/sec    0   1.04 MBytes</span><br><span class="line">[  4]   4.00-5.00   sec  5.96 MBytes  50.0 Mbits/sec    0   1.09 MBytes</span><br><span class="line">[  4]   5.00-6.00   sec  7.19 MBytes  60.3 Mbits/sec    0   1.12 MBytes</span><br><span class="line">[  4]   6.00-7.00   sec  5.88 MBytes  49.3 Mbits/sec   57    857 KBytes</span><br><span class="line">[  4]   7.00-8.00   sec  4.53 MBytes  38.0 Mbits/sec    0    909 KBytes</span><br><span class="line">[  4]   8.00-9.00   sec  5.78 MBytes  48.5 Mbits/sec    0    945 KBytes</span><br><span class="line">[  4]   9.00-10.00  sec  5.96 MBytes  50.0 Mbits/sec    0    967 KBytes</span><br><span class="line">- - - - - - - - - - - - - - - - - - - - - - - - -</span><br><span class="line">[ ID] Interval           Transfer     Bandwidth       Retr</span><br><span class="line">[  4]   0.00-10.00  sec  57.9 MBytes  48.6 Mbits/sec  1238             sender</span><br><span class="line">[  4]   0.00-10.00  sec  55.8 MBytes  46.8 Mbits/sec                  receiver</span><br></pre></td></tr></table></figure>
 
 <p>傳檔案：us-east-1 to ap-northeast-1</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scp -i gtcafe-dev.japan.lab.pem 10M.dummy ec2-user@172.40.0.73:/tmp</span><br><span class="line">10M.dummy                             100%   10MB   5.0MB/s   00:02</span><br><span class="line"></span><br><span class="line">scp -i gtcafe-dev.japan.lab.pem 100M.dummy ec2-user@172.40.0.73:/tmp</span><br><span class="line">100M.dummy                            100%  100MB   6.3MB/s   00:16</span><br><span class="line"></span><br><span class="line">scp -i gtcafe-dev.japan.lab.pem 1000M.dummy ec2-user@172.40.0.73:/tmp</span><br><span class="line">1000M.dummy                           100% 1000MB   6.5MB/s   02:35</span><br></pre></td></tr></table></figure>
@@ -425,11 +388,6 @@
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2018/02/21/AWS/Study-Notes-VPC-Inter-Region-VPC-Peering/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -464,26 +422,6 @@
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2018/02/21/AWS/Study-Notes-VPC-Inter-Region-VPC-Peering/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -493,6 +431,7 @@
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -509,7 +448,7 @@
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%9F%BA%E6%9C%AC%E8%B3%87%E8%A8%8A"><span class="toc-article-text">基本資訊</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%BA%E7%AB%8B-VPC-Peering-Connections"><span class="toc-article-text">建立 VPC Peering Connections</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BB%BA%E7%AB%8B-Peering-Connection-Requester"><span class="toc-article-text">建立 Peering Connection Requester</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%8E%A5%E5%8F%97-Peering-Connection-Requester"><span class="toc-article-text">接受 Peering Connection Requester</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#AWS-CLI-Reference"><span class="toc-article-text">AWS CLI Reference</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%AA%BF%E6%95%B4-Route-Table"><span class="toc-article-text">調整 Route Table</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%AA%BF%E6%95%B4-Security-Groups"><span class="toc-article-text">調整 Security Groups</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%AA%BF%E6%95%B4-Network-ACLs"><span class="toc-article-text">調整 Network ACLs</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%B8%AC%E8%A9%A6%E5%82%B3%E8%BC%B8%E9%80%9F%E5%BA%A6"><span class="toc-article-text">測試傳輸速度</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#t2-micro-us-east-1-to-c4-xlarge-ap-northeast-1"><span class="toc-article-text">t2.micro (us-east-1) to c4.xlarge (ap-northeast-1)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#c5-large-us-east-1-to-c4-xlarge-ap-northeast-1"><span class="toc-article-text">c5.large (us-east-1) to c4.xlarge (ap-northeast-1)</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E8%A6%8F%E5%8A%83%E7%9A%84%E8%80%83%E9%87%8F"><span class="toc-article-text">規劃的考量</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0"><span class="toc-article-text">系列文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E6%96%87%E7%AB%A0"><span class="toc-article-text">相關文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E8%B3%87%E6%96%99"><span class="toc-article-text">相關資料</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%9F%BA%E6%9C%AC%E8%B3%87%E8%A8%8A"><span class="toc-article-text">基本資訊</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%BA%E7%AB%8B-VPC-Peering-Connections"><span class="toc-article-text">建立 VPC Peering Connections</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BB%BA%E7%AB%8B-Peering-Connection-Requester"><span class="toc-article-text">建立 Peering Connection Requester</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%8E%A5%E5%8F%97-Peering-Connection-Requester"><span class="toc-article-text">接受 Peering Connection Requester</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#AWS-CLI-Reference"><span class="toc-article-text">AWS CLI Reference</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%AA%BF%E6%95%B4-Route-Table"><span class="toc-article-text">調整 Route Table</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%AA%BF%E6%95%B4-Security-Groups"><span class="toc-article-text">調整 Security Groups</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%AA%BF%E6%95%B4-Network-ACLs"><span class="toc-article-text">調整 Network ACLs</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%B8%AC%E8%A9%A6%E5%82%B3%E8%BC%B8%E9%80%9F%E5%BA%A6"><span class="toc-article-text">測試傳輸速度</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#t2-micro-us-east-1-to-c4-xlarge-ap-northeast-1"><span class="toc-article-text">t2.micro (us-east-1) to c4.xlarge (ap-northeast-1)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#c5-large-us-east-1-to-c4-xlarge-ap-northeast-1"><span class="toc-article-text">c5.large (us-east-1) to c4.xlarge (ap-northeast-1)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E8%A6%8F%E5%8A%83%E7%9A%84%E8%80%83%E9%87%8F"><span class="toc-article-text">規劃的考量</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0"><span class="toc-article-text">系列文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E6%96%87%E7%AB%A0"><span class="toc-article-text">相關文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E8%B3%87%E6%96%99"><span class="toc-article-text">相關資料</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -551,6 +490,7 @@
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -566,8 +506,10 @@
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -577,8 +519,10 @@
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -612,6 +556,7 @@
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -665,6 +610,7 @@
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -702,6 +648,7 @@
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -717,6 +664,7 @@
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

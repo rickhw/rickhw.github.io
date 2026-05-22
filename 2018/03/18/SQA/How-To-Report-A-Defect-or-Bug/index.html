@@ -63,31 +63,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -111,7 +93,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -123,7 +105,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -247,25 +229,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2018%2F03%2F18%2FSQA%2FHow-To-Report-A-Defect-or-Bug%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2018/03/18/SQA/How-To-Report-A-Defect-or-Bug/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2018/03/18/SQA/How-To-Report-A-Defect-or-Bug/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>整理前一個工作做教育訓練的資料，本來對象是給 <code>SQA (Software QA)</code> Team 的教育訓練，後來發現這個題目，所有人都要會，也就是 <code>如何有效的回報問題</code>。</p>
 <p><code>所有人</code> 指的是：團隊裡的每一個人。實務上很難，所以要一起討論、學習。以測試角度來看，就是 <code>如何有效的回報 Defect / Bug</code>，底下的截圖是以前教育訓練的資料，隨著時間的演進，現在看起來還是有一些參考價值吧？</p>
 <blockquote>
@@ -338,7 +301,7 @@
 </ul>
 <p>問題的重現 (re-produce) 通常是 <code>有序性</code> 的，而現象，通常會是 <code>無序性</code> 的。有時候也會反過來，所以 QA 再回報問題的時候，要很清楚知道，問題的次序性是什麼。</p>
 <p>這常寫 <code>Markdown</code> 的人應該會 (要) 很清楚。</p>
-<h2 id="回報問題的案例"><a href="#回報問題的案例" class="headerlink" title="回報問題的案例"></a>回報問題的案例</h2><h3 id="案例一：iPad-問題-Updated-2018-x2F-08-x2F-04"><a href="#案例一：iPad-問題-Updated-2018-x2F-08-x2F-04" class="headerlink" title="案例一：iPad 問題  (Updated: 2018&#x2F;08&#x2F;04)"></a>案例一：iPad 問題  (Updated: 2018&#x2F;08&#x2F;04)</h3><p>這事情發生在 2018&#x2F;08&#x2F;04，剛好跟這篇有關係，我就做了個例子。</p>
+<h2 id="回報問題的案例"><a href="#回報問題的案例" class="headerlink" title="回報問題的案例"></a>回報問題的案例</h2><h3 id="案例一：iPad-問題-Updated-2018-08-04"><a href="#案例一：iPad-問題-Updated-2018-08-04" class="headerlink" title="案例一：iPad 問題  (Updated: 2018&#x2F;08&#x2F;04)"></a>案例一：iPad 問題  (Updated: 2018&#x2F;08&#x2F;04)</h3><p>這事情發生在 2018&#x2F;08&#x2F;04，剛好跟這篇有關係，我就做了個例子。</p>
 <p>我一早就被 iOS (疑似, iPad Only) 的 Bug 吵醒，釐清了一些狀況，錄了這段，按照本文回報問題的方式，整理了以下問題的回報範本：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Environment</span></span><br><span class="line"></span><br><span class="line">- iOS 11.4.1</span><br><span class="line">- iPad Air 128Gb.</span><br><span class="line"></span><br><span class="line"><span class="comment">## How to reproduce?</span></span><br><span class="line"></span><br><span class="line">1. connect the power adapter to iPad</span><br><span class="line">2. open Click app, tap Timer, <span class="built_in">set</span> a countdown <span class="keyword">in</span> 5s</span><br><span class="line">3. start the countdown</span><br><span class="line">4-1: stop the sound by tab Home button,</span><br><span class="line">4-2: stop the sound by swiping up notification</span><br><span class="line"></span><br><span class="line"><span class="comment">## Expected Result</span></span><br><span class="line"></span><br><span class="line">Sound should be stopped.</span><br><span class="line"></span><br><span class="line"><span class="comment">## Acturl Result</span></span><br><span class="line"></span><br><span class="line">Sound keeps playbacking, unstoppable.</span><br><span class="line"></span><br><span class="line"><span class="comment">## Notes</span></span><br><span class="line">- Remove power adapter to fix the issue.</span><br><span class="line">- No issue on iPhone6</span><br></pre></td></tr></table></figure>
 
@@ -398,7 +361,7 @@
 <li><code>3) 優先權 (PM/PO)</code>。</li>
 </ul>
 <p>修復問題後，可以依照此報告，有效率、精準的驗證。</p>
-<h2 id="有效地描述問題-Updated-2019-x2F-11-x2F-16"><a href="#有效地描述問題-Updated-2019-x2F-11-x2F-16" class="headerlink" title="有效地描述問題 (Updated: 2019&#x2F;11&#x2F;16)"></a>有效地描述問題 (Updated: 2019&#x2F;11&#x2F;16)</h2><p>一直以來，<code>怎樣描述一個問題</code> 本身就是個問題。常常會因為無法有效地描述問題，造成誤判，或者額外的溝通成本。</p>
+<h2 id="有效地描述問題-Updated-2019-11-16"><a href="#有效地描述問題-Updated-2019-11-16" class="headerlink" title="有效地描述問題 (Updated: 2019&#x2F;11&#x2F;16)"></a>有效地描述問題 (Updated: 2019&#x2F;11&#x2F;16)</h2><p>一直以來，<code>怎樣描述一個問題</code> 本身就是個問題。常常會因為無法有效地描述問題，造成誤判，或者額外的溝通成本。</p>
 <p>描述問題常用的情境：</p>
 <ul>
 <li>系統線上問題的回報 (客戶 to 公司)</li>
@@ -432,11 +395,6 @@
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2018/03/18/SQA/How-To-Report-A-Defect-or-Bug/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -471,26 +429,6 @@
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2018/03/18/SQA/How-To-Report-A-Defect-or-Bug/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -500,6 +438,7 @@
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -516,7 +455,7 @@
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%A6%82%E4%BD%95%E6%8F%8F%E8%BF%B0%E5%95%8F%E9%A1%8C"><span class="toc-article-text">如何描述問題</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%A6%82%E4%BD%95%E6%9C%89%E6%95%88%E7%9A%84%E9%8C%AF%E8%AA%A4%E5%A0%B1%E5%91%8A"><span class="toc-article-text">如何有效的錯誤報告</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9B%9E%E5%A0%B1%E5%95%8F%E9%A1%8C%E7%9A%84%E6%A1%88%E4%BE%8B"><span class="toc-article-text">回報問題的案例</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%A1%88%E4%BE%8B%E4%B8%80%EF%BC%9AiPad-%E5%95%8F%E9%A1%8C-Updated-2018-x2F-08-x2F-04"><span class="toc-article-text">案例一：iPad 問題  (Updated: 2018&#x2F;08&#x2F;04)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%A1%88%E4%BE%8B%E4%BA%8C%EF%BC%9APositive-Grid-Spark-40-Updated-20230422"><span class="toc-article-text">案例二：Positive Grid Spark 40 (Updated: 20230422)</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%8F%90%E5%95%8F%E7%9A%84%E6%99%BA%E6%85%A7"><span class="toc-article-text">提問的智慧</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%BC%95%E9%87%8D%E7%B7%A9%E6%80%A5"><span class="toc-article-text">輕重緩急</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%93%81%E8%B3%AA%EF%BC%9F"><span class="toc-article-text">品質？</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%9C%89%E6%95%88%E5%9C%B0%E6%8F%8F%E8%BF%B0%E5%95%8F%E9%A1%8C-Updated-2019-x2F-11-x2F-16"><span class="toc-article-text">有效地描述問題 (Updated: 2019&#x2F;11&#x2F;16)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E5%BB%B6%E4%BC%B8"><span class="toc-article-text">站內延伸</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%95%B0%E5%8B%95%E7%B4%80%E9%8C%84"><span class="toc-article-text">異動紀錄</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%A6%82%E4%BD%95%E6%8F%8F%E8%BF%B0%E5%95%8F%E9%A1%8C"><span class="toc-article-text">如何描述問題</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%A6%82%E4%BD%95%E6%9C%89%E6%95%88%E7%9A%84%E9%8C%AF%E8%AA%A4%E5%A0%B1%E5%91%8A"><span class="toc-article-text">如何有效的錯誤報告</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9B%9E%E5%A0%B1%E5%95%8F%E9%A1%8C%E7%9A%84%E6%A1%88%E4%BE%8B"><span class="toc-article-text">回報問題的案例</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%A1%88%E4%BE%8B%E4%B8%80%EF%BC%9AiPad-%E5%95%8F%E9%A1%8C-Updated-2018-08-04"><span class="toc-article-text">案例一：iPad 問題  (Updated: 2018&#x2F;08&#x2F;04)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%A1%88%E4%BE%8B%E4%BA%8C%EF%BC%9APositive-Grid-Spark-40-Updated-20230422"><span class="toc-article-text">案例二：Positive Grid Spark 40 (Updated: 20230422)</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%8F%90%E5%95%8F%E7%9A%84%E6%99%BA%E6%85%A7"><span class="toc-article-text">提問的智慧</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%BC%95%E9%87%8D%E7%B7%A9%E6%80%A5"><span class="toc-article-text">輕重緩急</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%93%81%E8%B3%AA%EF%BC%9F"><span class="toc-article-text">品質？</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%9C%89%E6%95%88%E5%9C%B0%E6%8F%8F%E8%BF%B0%E5%95%8F%E9%A1%8C-Updated-2019-11-16"><span class="toc-article-text">有效地描述問題 (Updated: 2019&#x2F;11&#x2F;16)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E5%BB%B6%E4%BC%B8"><span class="toc-article-text">站內延伸</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%95%B0%E5%8B%95%E7%B4%80%E9%8C%84"><span class="toc-article-text">異動紀錄</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -546,7 +485,7 @@
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/溝通/" style="color: white">溝通 <span class="badge">25</span></a></span> <span class="label label-success"><a href="/tags/Software-Test/" style="color: white">Software Test <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/SQA/" style="color: white">SQA <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Published/" style="color: white">Published <span class="badge">1</span></a></span>
+  <span class="label label-success"><a href="/tags/溝通/" style="color: white">溝通 <span class="badge">27</span></a></span> <span class="label label-success"><a href="/tags/Software-Test/" style="color: white">Software Test <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/SQA/" style="color: white">SQA <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Published/" style="color: white">Published <span class="badge">1</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -558,6 +497,7 @@
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -573,8 +513,10 @@
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -584,8 +526,10 @@
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -619,6 +563,7 @@
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -672,6 +617,7 @@
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -709,6 +655,7 @@
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -724,6 +671,7 @@
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

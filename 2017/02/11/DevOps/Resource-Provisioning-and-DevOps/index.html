@@ -67,31 +67,13 @@ Rapid Application Deployment
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -115,7 +97,7 @@ Rapid Application Deployment
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -127,7 +109,7 @@ Rapid Application Deployment
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -251,25 +233,6 @@ Rapid Application Deployment
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2017%2F02%2F11%2FDevOps%2FResource-Provisioning-and-DevOps%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2017/02/11/DevOps/Resource-Provisioning-and-DevOps/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2017/02/11/DevOps/Resource-Provisioning-and-DevOps/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>在 <a target="_blank" rel="noopener" href="https://www.facebook.com/groups/DevOpsTaiwan/">DevOps Taiwan Group</a> 看到有人分享這篇文章：<a target="_blank" rel="noopener" href="https://martinfowler.com/bliki/MicroservicePrerequisites.html">Microservice Prerequisites</a>，其中的重點有三：</p>
 <ul>
 <li>Rapid Provisioning</li>
@@ -442,7 +405,7 @@ Rapid Application Deployment
 <p>工廠導入 (NPI) 同樣是建制整套完整的環境，提供整個生產環境可以做快速的驗證，最後達到 OQC 與生產流程最佳化的需求。</p>
 <p>往往老闆都會求快，東西能動就上，但是卻忘了，『快』的本質是建立在精準、清楚的架構、完整驗證 等基本功之上，而且真正的快不是只有開發快而已，而是『精準』掌握市場動向，一刀斃命、一針見血，這才是快，否則就只是煙霧彈。</p>
 <p>跟練琴一樣，<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/2009/12/blog-post_19.html">速度</a> 是建立在正確且扎實的技巧之上。聽起來很快，但卻很糊的聲音是上不了檯面的。</p>
-<h2 id="補充-2017-x2F-12-x2F-12"><a href="#補充-2017-x2F-12-x2F-12" class="headerlink" title="補充 (2017&#x2F;12&#x2F;12)"></a>補充 (2017&#x2F;12&#x2F;12)</h2><p>我把『環境建置速度與完整性』當成是軟體開發流程成熟度的指標。</p>
+<h2 id="補充-2017-12-12"><a href="#補充-2017-12-12" class="headerlink" title="補充 (2017&#x2F;12&#x2F;12)"></a>補充 (2017&#x2F;12&#x2F;12)</h2><p>我把『環境建置速度與完整性』當成是軟體開發流程成熟度的指標。</p>
 <blockquote>
 <p>環境建置完整性 &#x3D; 具備可測性 &#x3D; 品質的 Baseline &#x3D; 清楚的架構<br>環境建置的速度 &#x3D; 快速交付與驗證 &#x3D; 自動化測試的基礎</p>
 </blockquote>
@@ -476,11 +439,6 @@ Rapid Application Deployment
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2017/02/11/DevOps/Resource-Provisioning-and-DevOps/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -499,7 +457,7 @@ Rapid Application Deployment
 <ul class="pagination">
 	 
 				
-    	<li class="prev"><a href="/2017/03/02/AWS/Study-Notes-CloudWatch/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+    	<li class="prev"><a href="/2017/03/02/AWS/Study-Notes-CloudWatch-Core-Functions/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
   		
 
         <li><a href="/categories"><i class="fa fa-archive"></i>Archive</a></li>
@@ -515,26 +473,6 @@ Rapid Application Deployment
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2017/02/11/DevOps/Resource-Provisioning-and-DevOps/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -544,6 +482,7 @@ Rapid Application Deployment
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -560,7 +499,7 @@ Rapid Application Deployment
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%AA%9E%E6%84%8F"><span class="toc-article-text">語意</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%AE%9A%E7%BE%A9"><span class="toc-article-text">定義</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Provisioning-%E5%BE%88%E9%87%8D%E8%A6%81%EF%BC%9F"><span class="toc-article-text">Provisioning 很重要？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B7%A5%E5%85%B7%E7%AF%87"><span class="toc-article-text">工具篇</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BE%8C%E8%A9%B1"><span class="toc-article-text">後話</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%A3%9C%E5%85%85-2017-x2F-12-x2F-12"><span class="toc-article-text">補充 (2017&#x2F;12&#x2F;12)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E5%BB%B6%E4%BC%B8"><span class="toc-article-text">站內延伸</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%AA%9E%E6%84%8F"><span class="toc-article-text">語意</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%AE%9A%E7%BE%A9"><span class="toc-article-text">定義</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Provisioning-%E5%BE%88%E9%87%8D%E8%A6%81%EF%BC%9F"><span class="toc-article-text">Provisioning 很重要？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B7%A5%E5%85%B7%E7%AF%87"><span class="toc-article-text">工具篇</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BE%8C%E8%A9%B1"><span class="toc-article-text">後話</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%A3%9C%E5%85%85-2017-12-12"><span class="toc-article-text">補充 (2017&#x2F;12&#x2F;12)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E5%BB%B6%E4%BC%B8"><span class="toc-article-text">站內延伸</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -590,7 +529,7 @@ Rapid Application Deployment
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/CloudFormation/" style="color: white">CloudFormation <span class="badge">10</span></a></span> <span class="label label-success"><a href="/tags/Provisioning/" style="color: white">Provisioning <span class="badge">16</span></a></span> <span class="label label-success"><a href="/tags/DevOps/" style="color: white">DevOps <span class="badge">25</span></a></span> <span class="label label-success"><a href="/tags/Published-SRE1/" style="color: white">Published-SRE1 <span class="badge">22</span></a></span> <span class="label label-success"><a href="/tags/Microservices/" style="color: white">Microservices <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/AWS-SDK/" style="color: white">AWS SDK <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Ops-as-Code/" style="color: white">Ops as Code <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/Infra-as-Code/" style="color: white">Infra as Code <span class="badge">5</span></a></span>
+  <span class="label label-success"><a href="/tags/CloudFormation/" style="color: white">CloudFormation <span class="badge">10</span></a></span> <span class="label label-success"><a href="/tags/Provisioning/" style="color: white">Provisioning <span class="badge">16</span></a></span> <span class="label label-success"><a href="/tags/DevOps/" style="color: white">DevOps <span class="badge">25</span></a></span> <span class="label label-success"><a href="/tags/Published-SRE1/" style="color: white">Published-SRE1 <span class="badge">22</span></a></span> <span class="label label-success"><a href="/tags/Microservices/" style="color: white">Microservices <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/Ops-as-Code/" style="color: white">Ops as Code <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/AWS-SDK/" style="color: white">AWS SDK <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Infra-as-Code/" style="color: white">Infra as Code <span class="badge">5</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -602,6 +541,7 @@ Rapid Application Deployment
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -617,8 +557,10 @@ Rapid Application Deployment
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -628,8 +570,10 @@ Rapid Application Deployment
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -663,6 +607,7 @@ Rapid Application Deployment
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -716,6 +661,7 @@ Rapid Application Deployment
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -753,6 +699,7 @@ Rapid Application Deployment
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -768,6 +715,7 @@ Rapid Application Deployment
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

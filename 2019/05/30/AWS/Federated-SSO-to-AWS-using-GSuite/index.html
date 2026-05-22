@@ -62,31 +62,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -110,7 +92,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -122,7 +104,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -246,25 +228,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2019%2F05%2F30%2FAWS%2FFederated-SSO-to-AWS-using-GSuite%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2019/05/30/AWS/Federated-SSO-to-AWS-using-GSuite/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2019/05/30/AWS/Federated-SSO-to-AWS-using-GSuite/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>整理如何設定 AWS SSO 的流程，主要參考： <a target="_blank" rel="noopener" href="https://aws.amazon.com/blogs/security/how-to-set-up-federated-single-sign-on-to-aws-using-google-apps/">How to Set Up Federated Single Sign-On to AWS Using Google Apps</a> 這篇文章，用 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%AE%89%E5%85%A8%E6%96%AD%E8%A8%80%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80">SAML 2.0 (Security Assertion Markup Language)</a> 協議做使用者的 <code>認證管理 (Authentication)</code>，並且延伸管理上實際遇到的問題。</p>
 <span id="more"></span>
 
@@ -290,7 +253,7 @@
 <h1 id="前提與主要流程"><a href="#前提與主要流程" class="headerlink" title="前提與主要流程"></a>前提與主要流程</h1><p>設定之前，先要有以下的條件：</p>
 <ul>
 <li>有 G Guite Admin 的權限<ul>
-<li>準備幾個可使用帳號 (非群組)，像是 <a href="mailto:&#114;&#x69;&#99;&#107;&#x40;&#97;&#98;&#99;&#x2e;&#99;&#111;&#x6d;">&#114;&#x69;&#99;&#107;&#x40;&#97;&#98;&#99;&#x2e;&#99;&#111;&#x6d;</a>, <a href="mailto:&#106;&#x61;&#99;&#x6b;&#64;&#97;&#x62;&#99;&#46;&#x63;&#x6f;&#x6d;">&#106;&#x61;&#99;&#x6b;&#64;&#97;&#x62;&#99;&#46;&#x63;&#x6f;&#x6d;</a></li>
+<li>準備幾個可使用帳號 (非群組)，像是 <a href="mailto:&#x72;&#x69;&#x63;&#107;&#x40;&#x61;&#98;&#x63;&#x2e;&#99;&#x6f;&#x6d;">rick@abc.com</a>, <a href="mailto:&#106;&#x61;&#x63;&#x6b;&#64;&#x61;&#98;&#x63;&#46;&#99;&#111;&#x6d;">jack@abc.com</a></li>
 <li>這些帳號模擬不同角色，像是團隊、Tech leader、Read Only … etc.</li>
 </ul>
 </li>
@@ -347,7 +310,7 @@
 <p><img src="/images/AWS/IAM/SSO-Using-GSuite/03-1_Create-Role.png"></p>
 <p>另外要注意的是 Role Naming，名稱是以使用者面向命名，以便未來使用者方便知道現在在哪個 AWS Account。下圖中的範例，我的命名規則是這樣：</p>
 <blockquote>
-<p>SSO-<code>&#123;AWS_ACCOUNT_NAME&#125;</code>-<code>&#123;ROLE_NAME&#125;</code></p>
+<p>SSO-<code>{AWS_ACCOUNT_NAME}</code>-<code>{ROLE_NAME}</code></p>
 </blockquote>
 <ul>
 <li>以 <code>SSO-</code> 做命名的前置詞，識別是哪一種登入方式。其他像是跨帳號 (Cross Account) 則使用 <code>CA-</code> 開頭</li>
@@ -364,10 +327,12 @@
 <li><code>customerId</code>: 填入第一步取得的 <code>idpid</code></li>
 <li><code>Request Body</code> 填入以下範例。<ul>
 <li><code>schemaName</code> 是參考名稱，後面會使用。<code>建議標記上時間以及用途</code>，以便未來識別。</li>
-<li><code>displayName</code> 是 field 的顯示名稱，沒填後面步驟會選不到。<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;SSO for AWS v2019/08/19&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;schemaName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;SSO-AWS-20190819&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;fields&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;fieldName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;role&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;fieldType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;STRING&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;readAccessType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ADMINS_AND_SELF&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;multiValued&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Role&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;fieldName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;SessionDuration&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;fieldType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;INT64&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;readAccessType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ADMINS_AND_SELF&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;multiValued&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Session Duration&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li><code>displayName</code> 是 field 的顯示名稱，沒填後面步驟會選不到。</li>
 </ul>
 </li>
 </ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;SSO for AWS v2019/08/19&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;schemaName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;SSO-AWS-20190819&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;fields&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;fieldName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;role&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;fieldType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;STRING&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;readAccessType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ADMINS_AND_SELF&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;multiValued&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Role&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;fieldName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;SessionDuration&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;fieldType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;INT64&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;readAccessType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ADMINS_AND_SELF&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;multiValued&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Session Duration&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
 <p>這個動作增加了兩個字定義的欄位 (Field)：<code>Role</code>、<code>Session Duration</code></p>
 <ul>
 <li><code>Role</code>：用來關聯 AWS IAM Role &#x2F; Id Provider 的欄位，允許多個。</li>
@@ -418,8 +383,10 @@
 <p>點 <a target="_blank" rel="noopener" href="https://developers.google.com/admin-sdk/directory/v1/reference/users/patch">Users:Patch</a> 開啟 Google Admin API。</p>
 <ul>
 <li><code>userKey</code>: 填入 G Guite 上的使用者帳號，像是 <code>rick@abc.com</code></li>
-<li><code>Request Body</code>: 這裡會關聯到前步驟建立的 <code>schema</code>，同時關聯使用者對應到 AWS 哪一個 SSO Provider 與 IAM Role，基本的格式如下：<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;customSchemas&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;SSO-AWS-20190819&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;role&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;value&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&lt;IAM_ROLE_ARN&gt;,&lt;PROVIDER_ARN&gt;&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;customType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;work&quot;</span></span><br><span class="line">                <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;SessionDuration&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&lt;SessionDurationBySec&gt;&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li><code>Request Body</code>: 這裡會關聯到前步驟建立的 <code>schema</code>，同時關聯使用者對應到 AWS 哪一個 SSO Provider 與 IAM Role，基本的格式如下：</li>
 </ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;customSchemas&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;SSO-AWS-20190819&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;role&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;value&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&lt;IAM_ROLE_ARN&gt;,&lt;PROVIDER_ARN&gt;&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;customType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;work&quot;</span></span><br><span class="line">                <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;SessionDuration&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&lt;SessionDurationBySec&gt;&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
 <p>注意：</p>
 <ul>
 <li>SchemaName 要填步驟一個名字，範例是 <code>SSO-AWS-20190819</code></li>
@@ -438,7 +405,7 @@
 <h2 id="Debug-筆記"><a href="#Debug-筆記" class="headerlink" title="Debug 筆記"></a>Debug 筆記</h2><p>設定過程，如果要 Debug，或者有些 Payload 不知道要填什麼，可以透過 Google Admin API 取得相關資訊。</p>
 <p>例如一開始我不知道 CustomSchema 裡的 Custom Fields 設定後，使用 <code>User.Patch</code> 不知道要塞怎樣的資料結構，官方文件也沒詳細說明細節，所以在 Admin Console 設定後，反過去 Admin API 用 <code>User.Get</code> 取得完整的 Payload。SessionDuration 就是這樣反推出來的。</p>
 <p>另外是設定過程，需要有 G Suite 最大權限 SuperAdmin，不然 SSO &#x2F; SAML 都會看不到資訊。</p>
-<h2 id="Operation-Certifiction-Expire-updated-2024-x2F-10-x2F-04"><a href="#Operation-Certifiction-Expire-updated-2024-x2F-10-x2F-04" class="headerlink" title="Operation: Certifiction Expire (updated: 2024&#x2F;10&#x2F;04)"></a>Operation: Certifiction Expire (updated: 2024&#x2F;10&#x2F;04)</h2><p>最近用 Google SSO 登入 AWS Console，出現 Certificate 過期的問題，紀錄處理的過程。</p>
+<h2 id="Operation-Certifiction-Expire-updated-2024-10-04"><a href="#Operation-Certifiction-Expire-updated-2024-10-04" class="headerlink" title="Operation: Certifiction Expire (updated: 2024&#x2F;10&#x2F;04)"></a>Operation: Certifiction Expire (updated: 2024&#x2F;10&#x2F;04)</h2><p>最近用 Google SSO 登入 AWS Console，出現 Certificate 過期的問題，紀錄處理的過程。</p>
 <h3 id="1-登入失敗，出現-Invalid-Certificte-訊息"><a href="#1-登入失敗，出現-Invalid-Certificte-訊息" class="headerlink" title="1. 登入失敗，出現 Invalid Certificte 訊息"></a>1. 登入失敗，出現 <code>Invalid Certificte</code> 訊息</h3><p><img src="/images/AWS/IAM/SSO-Using-GSuite/expired/01-SSO-certification-error.png"></p>
 <h3 id="2-產生新的-Certificate"><a href="#2-產生新的-Certificate" class="headerlink" title="2. 產生新的 Certificate:"></a>2. <code>產生新的 Certificate</code>:</h3><ul>
 <li>登入 Google Workspace –&gt; Security –&gt; SSO with Google as SAML IdP</li>
@@ -483,7 +450,7 @@
 </blockquote>
 <p>Q: 透過 Federated SSO 登入，一小時就過期了，可以延長？</p>
 <blockquote>
-<pre><code class="在">
+<pre><code class="language-在">
 Updated 2019/08/20: 上述方法實際驗證過後不行，一定要透過 SAML 定義的 SessionDuration 這個 Attribute 才可以。注意時間最大只有 12 小時。
 </code></pre>
 </blockquote>
@@ -569,11 +536,6 @@ Q: 可以隨意進出已知的 AWS 帳號與角色？
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2019/05/30/AWS/Federated-SSO-to-AWS-using-GSuite/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -608,26 +570,6 @@ Q: 可以隨意進出已知的 AWS 帳號與角色？
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2019/05/30/AWS/Federated-SSO-to-AWS-using-GSuite/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -637,6 +579,7 @@ Q: 可以隨意進出已知的 AWS 帳號與角色？
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -653,7 +596,7 @@ Q: 可以隨意進出已知的 AWS 帳號與角色？
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E9%9C%80%E6%B1%82%E8%83%8C%E6%99%AF"><span class="toc-article-text">需求背景</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%89%8D%E6%8F%90%E8%88%87%E4%B8%BB%E8%A6%81%E6%B5%81%E7%A8%8B"><span class="toc-article-text">前提與主要流程</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E8%A8%AD%E5%AE%9A%E6%AD%A5%E9%A9%9F"><span class="toc-article-text">設定步驟</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%80%E3%80%81%E5%8F%96%E5%BE%97-IdP-metadata"><span class="toc-article-text">一、取得 IdP metadata</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BA%8C%E3%80%81%E5%9C%A8-AWS-IAM-%E6%96%B0%E5%A2%9E-Identity-Providers"><span class="toc-article-text">二、在 AWS IAM 新增 Identity Providers</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%89%E3%80%81%E5%9C%A8-AWS-%E5%BB%BA%E7%AB%8B%E7%99%BB%E5%85%A5%E7%9A%84%E8%A7%92%E8%89%B2-Role-%E8%88%87%E6%AC%8A%E9%99%90"><span class="toc-article-text">三、在 AWS 建立登入的角色 Role 與權限</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9B%9B%E3%80%81%E5%9C%A8-G-Suite-Admin-%E8%A8%AD%E5%AE%9A-Custom-Schema-for-User-profile"><span class="toc-article-text">四、在 G Suite Admin 設定 Custom Schema for User profile</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BA%94%E3%80%81%E5%9C%A8-G-Suite-%E8%A8%AD%E5%AE%9A-SAML-app"><span class="toc-article-text">五、在 G Suite 設定 SAML app</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%85%AD%E3%80%81%E4%BD%BF%E7%94%A8%E8%80%85%E8%88%87-AWS-Role-%E7%9A%84%E7%B6%81%E5%AE%9A"><span class="toc-article-text">六、使用者與 AWS Role 的綁定</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#G-Suite-Admin-Console"><span class="toc-article-text">G Suite Admin Console</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Google-Admin-API"><span class="toc-article-text">Google Admin API</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%83%E3%80%81%E4%BD%BF%E7%94%A8-SSO-%E7%99%BB%E5%85%A5-AWS-Console"><span class="toc-article-text">七、使用 SSO 登入 AWS Console</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Debug-%E7%AD%86%E8%A8%98"><span class="toc-article-text">Debug 筆記</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Operation-Certifiction-Expire-updated-2024-x2F-10-x2F-04"><span class="toc-article-text">Operation: Certifiction Expire (updated: 2024&#x2F;10&#x2F;04)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#1-%E7%99%BB%E5%85%A5%E5%A4%B1%E6%95%97%EF%BC%8C%E5%87%BA%E7%8F%BE-Invalid-Certificte-%E8%A8%8A%E6%81%AF"><span class="toc-article-text">1. 登入失敗，出現 Invalid Certificte 訊息</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#2-%E7%94%A2%E7%94%9F%E6%96%B0%E7%9A%84-Certificate"><span class="toc-article-text">2. 產生新的 Certificate:</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#3-%E6%9B%B4%E6%96%B0-Google-APP-AWS-%E7%9A%84-Service-Provider-Certificate"><span class="toc-article-text">3. 更新 Google APP (AWS) 的 Service Provider - Certificate</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#4-%E6%9B%B4%E6%96%B0-IAM-IdP-Provider"><span class="toc-article-text">4. 更新 IAM IdP Provider</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#5-%E9%A9%97%E8%AD%89"><span class="toc-article-text">5. 驗證</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%95%8F%E7%AD%94"><span class="toc-article-text">問答</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E8%B3%87%E6%96%99"><span class="toc-article-text">站內資料</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%9B%B4%E6%96%B0%E7%B4%80%E9%8C%84"><span class="toc-article-text">更新紀錄</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E9%9C%80%E6%B1%82%E8%83%8C%E6%99%AF"><span class="toc-article-text">需求背景</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%89%8D%E6%8F%90%E8%88%87%E4%B8%BB%E8%A6%81%E6%B5%81%E7%A8%8B"><span class="toc-article-text">前提與主要流程</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E8%A8%AD%E5%AE%9A%E6%AD%A5%E9%A9%9F"><span class="toc-article-text">設定步驟</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%80%E3%80%81%E5%8F%96%E5%BE%97-IdP-metadata"><span class="toc-article-text">一、取得 IdP metadata</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BA%8C%E3%80%81%E5%9C%A8-AWS-IAM-%E6%96%B0%E5%A2%9E-Identity-Providers"><span class="toc-article-text">二、在 AWS IAM 新增 Identity Providers</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%89%E3%80%81%E5%9C%A8-AWS-%E5%BB%BA%E7%AB%8B%E7%99%BB%E5%85%A5%E7%9A%84%E8%A7%92%E8%89%B2-Role-%E8%88%87%E6%AC%8A%E9%99%90"><span class="toc-article-text">三、在 AWS 建立登入的角色 Role 與權限</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9B%9B%E3%80%81%E5%9C%A8-G-Suite-Admin-%E8%A8%AD%E5%AE%9A-Custom-Schema-for-User-profile"><span class="toc-article-text">四、在 G Suite Admin 設定 Custom Schema for User profile</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BA%94%E3%80%81%E5%9C%A8-G-Suite-%E8%A8%AD%E5%AE%9A-SAML-app"><span class="toc-article-text">五、在 G Suite 設定 SAML app</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%85%AD%E3%80%81%E4%BD%BF%E7%94%A8%E8%80%85%E8%88%87-AWS-Role-%E7%9A%84%E7%B6%81%E5%AE%9A"><span class="toc-article-text">六、使用者與 AWS Role 的綁定</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#G-Suite-Admin-Console"><span class="toc-article-text">G Suite Admin Console</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Google-Admin-API"><span class="toc-article-text">Google Admin API</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%83%E3%80%81%E4%BD%BF%E7%94%A8-SSO-%E7%99%BB%E5%85%A5-AWS-Console"><span class="toc-article-text">七、使用 SSO 登入 AWS Console</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Debug-%E7%AD%86%E8%A8%98"><span class="toc-article-text">Debug 筆記</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Operation-Certifiction-Expire-updated-2024-10-04"><span class="toc-article-text">Operation: Certifiction Expire (updated: 2024&#x2F;10&#x2F;04)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#1-%E7%99%BB%E5%85%A5%E5%A4%B1%E6%95%97%EF%BC%8C%E5%87%BA%E7%8F%BE-Invalid-Certificte-%E8%A8%8A%E6%81%AF"><span class="toc-article-text">1. 登入失敗，出現 Invalid Certificte 訊息</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#2-%E7%94%A2%E7%94%9F%E6%96%B0%E7%9A%84-Certificate"><span class="toc-article-text">2. 產生新的 Certificate:</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#3-%E6%9B%B4%E6%96%B0-Google-APP-AWS-%E7%9A%84-Service-Provider-Certificate"><span class="toc-article-text">3. 更新 Google APP (AWS) 的 Service Provider - Certificate</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#4-%E6%9B%B4%E6%96%B0-IAM-IdP-Provider"><span class="toc-article-text">4. 更新 IAM IdP Provider</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#5-%E9%A9%97%E8%AD%89"><span class="toc-article-text">5. 驗證</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%95%8F%E7%AD%94"><span class="toc-article-text">問答</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E8%B3%87%E6%96%99"><span class="toc-article-text">站內資料</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%9B%B4%E6%96%B0%E7%B4%80%E9%8C%84"><span class="toc-article-text">更新紀錄</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -683,7 +626,7 @@ Q: 可以隨意進出已知的 AWS 帳號與角色？
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/IAM/" style="color: white">IAM <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/SSO/" style="color: white">SSO <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/G-Suite/" style="color: white">G Suite <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/SMAL/" style="color: white">SMAL <span class="badge">1</span></a></span>
+  <span class="label label-success"><a href="/tags/IAM/" style="color: white">IAM <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/G-Suite/" style="color: white">G Suite <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/SMAL/" style="color: white">SMAL <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/SSO/" style="color: white">SSO <span class="badge">3</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -695,6 +638,7 @@ Q: 可以隨意進出已知的 AWS 帳號與角色？
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -710,8 +654,10 @@ Q: 可以隨意進出已知的 AWS 帳號與角色？
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -721,8 +667,10 @@ Q: 可以隨意進出已知的 AWS 帳號與角色？
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -756,6 +704,7 @@ Q: 可以隨意進出已知的 AWS 帳號與角色？
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -809,6 +758,7 @@ Q: 可以隨意進出已知的 AWS 帳號與角色？
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -846,6 +796,7 @@ Q: 可以隨意進出已知的 AWS 帳號與角色？
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -861,6 +812,7 @@ Q: 可以隨意進出已知的 AWS 帳號與角色？
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

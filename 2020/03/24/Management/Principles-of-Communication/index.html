@@ -64,31 +64,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -112,7 +94,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -124,7 +106,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -248,25 +230,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2020%2F03%2F24%2FManagement%2FPrinciples-of-Communication%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2020/03/24/Management/Principles-of-Communication/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2020/03/24/Management/Principles-of-Communication/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>溝通就是把資訊從自己腦袋裡挖出來，然後透過載體，像是用語言、文字、圖畫、藝術、肢體 …. 傳達給另一個人，讓對方知道你在想啥。溝通的理想結果是彼此 100% 知道彼此的感受、體驗、想法，藉由此相互的理解，然後進一步的合作、協作、或者是情感交流。一般透過語言的溝通程序大概如下圖：</p>
 <p><img src="/images/Management/Principles-of-Communication/Process.png"></p>
 <p>整個過程有幾個階段：</p>
@@ -305,7 +268,7 @@
 <p>有了理解，接下是整個程序反過來。把理解的變成想說的、說出來的、對方聽到的、對方理解的，如此循環。實際上這整個過程，的進行不見得是同步的，他可能是非同步的，多執行緒的。也就是對方還沒說完，我還沒理解，對方繼續長篇大論，最後就是資訊爆炸，或者只理解片面的訊息。</p>
 <p>很常見的現象，就是跨部門會議中，簡報者滔滔不絕的講了三十分鐘，然後才讓大家問問題。通常這種很容易沈默一片，因為三十分鐘的內容，除非大家都有背景知識、資訊，否則就是獨角戲，因為大部分的人都聽不懂，或者只有片段聽得懂。</p>
 <p>理想的溝通，會是一去、一回，要停下來等待，確認對方有理解，如果對方不理解，那就要持續解釋。這概念有點像是 <a href="/2019/02/27/ComputerScience/IO-Models/">I&#x2F;O Model</a> 裡的 <code>Non-Blocking I/O (NIO)</code> 模式 (如下圖)。這才是有效的溝通。</p>
-<p><img src="/images/Management/Principles-of-Communication/6-2_Nonblocking.png" alt="Non-Blocking I/O (NIO)"></p>
+<p><img src="/images/Management/Principles-of-Communication/6-2_Nonblocking.png" alt="Non-Blocking I&#x2F;O (NIO)"></p>
 <p>還有個很常見的現象，也是我自己很常犯的錯誤，就是在 IM (Facebook Messager、Line) 上的溝通。雖然都是文字、且一對一的溝通，但有的時候，我很容易開太多主題 (Thread)，變成單一流水聊天的形式，卻同時有兩個主題交叉在討論。有些朋友可以跟得上，會自己去 Match 前後文具的對應，但有些朋友是無法的。這我要提醒我自己。</p>
 <h2 id="相同原理的類比"><a href="#相同原理的類比" class="headerlink" title="相同原理的類比"></a>相同原理的類比</h2><p>人類的溝通，跟兩個物理質能轉換的現象很類似：</p>
 <ol>
@@ -329,11 +292,6 @@
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2020/03/24/Management/Principles-of-Communication/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -368,26 +326,6 @@
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2020/03/24/Management/Principles-of-Communication/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -397,6 +335,7 @@
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -413,7 +352,7 @@
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%80%E3%80%81%E4%BD%A0%E6%83%B3%E8%AA%AA%E7%9A%84"><span class="toc-article-text">一、你想說的</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BA%8C%E3%80%81%E4%BD%A0%E8%AA%AA%E5%87%BA%E4%BE%86%E7%9A%84"><span class="toc-article-text">二、你說出來的</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%89%E3%80%81%E6%88%91%E8%81%BD%E5%88%B0%E7%9A%84"><span class="toc-article-text">三、我聽到的</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9B%9B%E3%80%81%E6%88%91%E7%90%86%E8%A7%A3%E7%9A%84"><span class="toc-article-text">四、我理解的</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E5%90%8C%E5%8E%9F%E7%90%86%E7%9A%84%E9%A1%9E%E6%AF%94"><span class="toc-article-text">相同原理的類比</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%80%E3%80%81%E4%BD%A0%E6%83%B3%E8%AA%AA%E7%9A%84"><span class="toc-article-text">一、你想說的</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BA%8C%E3%80%81%E4%BD%A0%E8%AA%AA%E5%87%BA%E4%BE%86%E7%9A%84"><span class="toc-article-text">二、你說出來的</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%89%E3%80%81%E6%88%91%E8%81%BD%E5%88%B0%E7%9A%84"><span class="toc-article-text">三、我聽到的</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9B%9B%E3%80%81%E6%88%91%E7%90%86%E8%A7%A3%E7%9A%84"><span class="toc-article-text">四、我理解的</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E5%90%8C%E5%8E%9F%E7%90%86%E7%9A%84%E9%A1%9E%E6%AF%94"><span class="toc-article-text">相同原理的類比</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a></li></ol>
 		</div>
 	
 	</div>
@@ -443,7 +382,7 @@
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/溝通/" style="color: white">溝通 <span class="badge">25</span></a></span> <span class="label label-success"><a href="/tags/Meetings/" style="color: white">Meetings <span class="badge">14</span></a></span> <span class="label label-success"><a href="/tags/主管/" style="color: white">主管 <span class="badge">46</span></a></span>
+  <span class="label label-success"><a href="/tags/溝通/" style="color: white">溝通 <span class="badge">27</span></a></span> <span class="label label-success"><a href="/tags/Meetings/" style="color: white">Meetings <span class="badge">14</span></a></span> <span class="label label-success"><a href="/tags/主管/" style="color: white">主管 <span class="badge">46</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -455,6 +394,7 @@
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -470,8 +410,10 @@
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -481,8 +423,10 @@
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -516,6 +460,7 @@
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -569,6 +514,7 @@
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -606,6 +552,7 @@
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -621,6 +568,7 @@
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

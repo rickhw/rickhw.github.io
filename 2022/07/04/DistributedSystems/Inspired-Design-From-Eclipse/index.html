@@ -63,31 +63,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -111,7 +93,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -123,7 +105,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -247,25 +229,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2022%2F07%2F04%2FDistributedSystems%2FInspired-Design-From-Eclipse%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2022/07/04/DistributedSystems/Inspired-Design-From-Eclipse/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2022/07/04/DistributedSystems/Inspired-Design-From-Eclipse/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>整理關於 SaaS 架構設計的想法，部分是來自於 Eclipse 這個著名 Java IED 的設計概念。</p>
 <p>大約從 2018 之後，VSCode 可以算是統一 Open Source 的 IDE 了，之前由 GitHub 開發的 Atom 在微軟收購了 GitHub 之後，已經將在 December 15, 2022 落下了句點，其他 Editors (還不到 IDE) 大多還是屬於輔助性質，像是 Notepad++ 。</p>
 <p>而 VSCode 主要的設計者 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Erich_Gamma">Erich Gamma</a> 則是著名的 Design Pattern 的共同作者之一 (又稱 GoF)，而這個理論背後源自於他的實作，也是著名的 Java IDE - <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Eclipse_(software)">Eclipse</a>，Erich Gamma 負責最核心的 JDT (Java development Tooling) 的設計。</p>
@@ -274,7 +237,7 @@
 <span id="more"></span>
 
 <hr>
-<h1 id="Eclipse-設計摘要"><a href="#Eclipse-設計摘要" class="headerlink" title="Eclipse 設計摘要"></a>Eclipse 設計摘要</h1><h2 id="SDK-x2F-Platform"><a href="#SDK-x2F-Platform" class="headerlink" title="SDK &#x2F; Platform"></a>SDK &#x2F; Platform</h2><p>下圖是 Eclipse Platform 的架構圖：</p>
+<h1 id="Eclipse-設計摘要"><a href="#Eclipse-設計摘要" class="headerlink" title="Eclipse 設計摘要"></a>Eclipse 設計摘要</h1><h2 id="SDK-Platform"><a href="#SDK-Platform" class="headerlink" title="SDK &#x2F; Platform"></a>SDK &#x2F; Platform</h2><p>下圖是 Eclipse Platform 的架構圖：</p>
 <p><img src="/images/Coding/Inspired-Design-From-Eclipse/Platform-Architecture.png"><br>圖檔出處：<a target="_blank" rel="noopener" href="https://help.eclipse.org/latest/index.jsp?topic=/org.eclipse.platform.doc.isv/reference/api/org/eclipse/ui/class-use/IViewPart.html">Platform architecture</a></p>
 <p>Eclipse SDK 由一組完整的 Platform 元件組成，包含 <a target="_blank" rel="noopener" href="https://docs.osgi.org/specification/osgi.core/7.0.0/">Platform Runtime (OSGi)</a>、Workspace、UI 元件 (SWT &#x2F; Workbench &#x2F; JFace)、文件 (Help)、協作 (Team) … 組成。基於這些基元延展的兩個重要應用則是 <code>JDT (Java Development Tooling)</code> 和 <code>PDE (Plug-in Developer Environment)</code>。JDT 是給 Java 開發者用的整合開發環境，後者則是為了讓 Eclipse 具備延伸能力的開發環境。</p>
 <h2 id="Runtime-OSGi"><a href="#Runtime-OSGi" class="headerlink" title="Runtime: OSGi"></a>Runtime: OSGi</h2><p>Eclipse Platform 使用 <a target="_blank" rel="noopener" href="https://docs.osgi.org/specification/osgi.core/7.0.0/">OSGi (Open Service Gateway Initiative)</a> 作為主要的 Runtime 標準。OSGi 是一個標準協議組織 (OSGi Alliance)，也是一個標準服務平台 (Service Platform)。規範定義了應用程式生命週期與服務註冊、框架通訊、擴充機制 … 等等，如下圖所示。</p>
@@ -284,7 +247,7 @@
 <p>整個架構背後透過 Jobs、IStatus、IJobManager、IJobChangeListener、IJobChangeEvent、IProgressMonitor … 等介面組成。</p>
 <h2 id="Extension-Point"><a href="#Extension-Point" class="headerlink" title="Extension Point"></a>Extension Point</h2><p>如圖中描述的概念，其中的 PDE 為了讓開發者可以依照 Platform 開發延伸應用程式，Platform 本身要提供一些介面做接點，這個界面稱為 <code>Extension Point</code>，而接入 Eclipse Platform 的動作稱為 <code>Registry</code>。從使用介面 (UI) 來看，有幾個主要的組成概念。</p>
 <p><img src="/images/Coding/Inspired-Design-From-Eclipse/Workbench.png"><br>圖檔出處：<a target="_blank" rel="noopener" href="https://help.eclipse.org/latest/index.jsp?topic=/org.eclipse.platform.doc.isv/reference/api/org/eclipse/ui/class-use/IViewPart.html">Plugging into the workbench</a></p>
-<h3 id="Workbench-Window-x2F-Page"><a href="#Workbench-Window-x2F-Page" class="headerlink" title="Workbench Window &#x2F; Page"></a>Workbench Window &#x2F; Page</h3><p>最上層容器，裡面包涵視窗的 MenuBar &#x2F; ToolBar、多個 Page，每個 Page 裡可以有一個 Editor Window + 多個 Viewer Window。Page 則是第二層的容器，主要是提供不同的 Perspective 用途。</p>
+<h3 id="Workbench-Window-Page"><a href="#Workbench-Window-Page" class="headerlink" title="Workbench Window &#x2F; Page"></a>Workbench Window &#x2F; Page</h3><p>最上層容器，裡面包涵視窗的 MenuBar &#x2F; ToolBar、多個 Page，每個 Page 裡可以有一個 Editor Window + 多個 Viewer Window。Page 則是第二層的容器，主要是提供不同的 Perspective 用途。</p>
 <h3 id="Editor-and-View"><a href="#Editor-and-View" class="headerlink" title="Editor and View"></a>Editor and View</h3><p>Editor 是使用者輸入的主要 Window，通常是預設的 Focus 地方，使用者會在這裡做主要的輸入。實作上透過 Eclipse Platform 提供的 JFace 以及 EMF (Eclipse Modeling Framework) 處理，讓開發者可以自行開發符合各種語言特性需要的 Editor。</p>
 <p>而 View 則是用來輔助呈現資訊的視窗，預設是檔案結構，在 Eclipse 裡稱為 Navigator View</p>
 <ul>
@@ -539,11 +502,6 @@
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2022/07/04/DistributedSystems/Inspired-Design-From-Eclipse/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -578,26 +536,6 @@
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2022/07/04/DistributedSystems/Inspired-Design-From-Eclipse/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -607,6 +545,7 @@
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -623,7 +562,7 @@
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Eclipse-%E8%A8%AD%E8%A8%88%E6%91%98%E8%A6%81"><span class="toc-article-text">Eclipse 設計摘要</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SDK-x2F-Platform"><span class="toc-article-text">SDK &#x2F; Platform</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Runtime-OSGi"><span class="toc-article-text">Runtime: OSGi</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Concurrency-Infrastructure"><span class="toc-article-text">Concurrency Infrastructure</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Extension-Point"><span class="toc-article-text">Extension Point</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Workbench-Window-x2F-Page"><span class="toc-article-text">Workbench Window &#x2F; Page</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Editor-and-View"><span class="toc-article-text">Editor and View</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Perspective"><span class="toc-article-text">Perspective</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BE%9E-Eclipse-%E5%AD%B8%E5%88%B0%E7%9A%84%E5%88%86%E6%95%A3%E5%BC%8F%E6%9E%B6%E6%A7%8B%E5%95%9F%E7%99%BC"><span class="toc-article-text">從 Eclipse 學到的分散式架構啟發</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#1-%E9%80%9A%E8%A8%8A%E6%A8%A1%E5%BC%8F%EF%BC%9AConcurrency-Infrastructure"><span class="toc-article-text">1. 通訊模式：Concurrency Infrastructure</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-%E5%88%86%E6%95%A3%E5%BC%8F%E6%9E%B6%E6%A7%8B%E7%9A%84%E6%93%B4%E5%85%85%E8%88%87%E5%BB%B6%E4%BC%B8%E6%9E%B6%E6%A7%8B"><span class="toc-article-text">2. 分散式架構的擴充與延伸架構</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-%E5%A4%9A%E7%A7%9F%E6%88%B6%E6%9E%B6%E6%A7%8B%E8%88%87%E6%A8%A1%E5%9E%8B"><span class="toc-article-text">3. 多租戶架構與模型</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Eclipse-%E8%A8%AD%E8%A8%88%E6%91%98%E8%A6%81"><span class="toc-article-text">Eclipse 設計摘要</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#SDK-Platform"><span class="toc-article-text">SDK &#x2F; Platform</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Runtime-OSGi"><span class="toc-article-text">Runtime: OSGi</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Concurrency-Infrastructure"><span class="toc-article-text">Concurrency Infrastructure</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Extension-Point"><span class="toc-article-text">Extension Point</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Workbench-Window-Page"><span class="toc-article-text">Workbench Window &#x2F; Page</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Editor-and-View"><span class="toc-article-text">Editor and View</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Perspective"><span class="toc-article-text">Perspective</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BE%9E-Eclipse-%E5%AD%B8%E5%88%B0%E7%9A%84%E5%88%86%E6%95%A3%E5%BC%8F%E6%9E%B6%E6%A7%8B%E5%95%9F%E7%99%BC"><span class="toc-article-text">從 Eclipse 學到的分散式架構啟發</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#1-%E9%80%9A%E8%A8%8A%E6%A8%A1%E5%BC%8F%EF%BC%9AConcurrency-Infrastructure"><span class="toc-article-text">1. 通訊模式：Concurrency Infrastructure</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-%E5%88%86%E6%95%A3%E5%BC%8F%E6%9E%B6%E6%A7%8B%E7%9A%84%E6%93%B4%E5%85%85%E8%88%87%E5%BB%B6%E4%BC%B8%E6%9E%B6%E6%A7%8B"><span class="toc-article-text">2. 分散式架構的擴充與延伸架構</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-%E5%A4%9A%E7%A7%9F%E6%88%B6%E6%9E%B6%E6%A7%8B%E8%88%87%E6%A8%A1%E5%9E%8B"><span class="toc-article-text">3. 多租戶架構與模型</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -665,6 +604,7 @@
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -680,8 +620,10 @@
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -691,8 +633,10 @@
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -726,6 +670,7 @@
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -779,6 +724,7 @@
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -816,6 +762,7 @@
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -831,6 +778,7 @@
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>

@@ -62,31 +62,13 @@
 
 
 
-  <!-- Facebook SDK -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!-- @rickd 2022/02/24
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1554905741423841&autoLogAppEvents=1"></script>
-  -->
-  <!-- @ricka 2022/02/24 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <!--
+  <!-- Facebook SDK (for fb-page sidebar widget) -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v13.0&appId=1554905741423841&autoLogAppEvents=1"
-    nonce="bd9r2mJp"></script>
-  -->
-
-  <!-- @ricka 2022/09/06 -->
-  <!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841&autoLogAppEvents=1"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1554905741423841"
     nonce="opf2Gext"></script>
 
-
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -110,7 +92,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>1</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -122,7 +104,7 @@
 						
 						<li><a href="/categories/Coding/">Coding <sup>10</sup></a></li>
 						
-						<li><a href="/categories/Computer-Science/">Computer Science <sup>11</sup></a></li>
+						<li><a href="/categories/Computer-Science/">Computer Science <sup>12</sup></a></li>
 						
 						<li><a href="/categories/Container/">Container <sup>9</sup></a></li>
 						
@@ -246,25 +228,6 @@
 
 			<!-- content -->
 			<div class="mypage">
-				<!-- ref: https://developers.facebook.com/docs/plugins/like-button -->
-				<!-- Facebook in front of page -->
-				<!--
-				<iframe
-					src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frickhw.github.io%2F2019%2F02%2F27%2FComputerScience%2FIO-Models%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=1554905741423841"
-					width="450" height="80"
-					style="border:none;overflow:hidden"
-					scrolling="no" frameborder="0"
-					allowTransparency="true" allow="encrypted-media"></iframe>
-				-->
-
-				<!-- <div class="fb-like" data-href="https://rickhw.github.io/2019/02/27/ComputerScience/IO-Models/" data-layout="standard"
-					data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>-->
-
-				<div class="fb-like" data-href="https://rickhw.github.io/2019/02/27/ComputerScience/IO-Models/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
-
 				<p>很久以前在研究 nginx 時，過程針對他的 I&#x2F;O Model 有了初步的了解，但是追本朔源還是經典著作 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/UNIX_Network_Programming">UNIX Network Programming</a> <code>Chapter 6. I/O Multiplexing</code>，本文整理 BIO、NIO、AIO 等著名的 I&#x2F;O Models 筆記。</p>
 <blockquote>
 <p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/W._Richard_Stevens">W. Richard Stevens</a> 美國電腦科學家，有多本經典著作，像是 <code>UNIX Network Programming</code>、<code>TCP/IP Illustrated 系列</code>。</p>
@@ -318,7 +281,7 @@ parallel
 
 
 <hr>
-<h1 id="I-x2F-O-Models"><a href="#I-x2F-O-Models" class="headerlink" title="I&#x2F;O Models"></a>I&#x2F;O Models</h1><p>利用 <a target="_blank" rel="noopener" href="https://www.google.com/search?q=I/O+Models&oq=I/O+Models&aqs=chrome..69i57j69i60j69i61j69i58j0l2.134j0j7&sourceid=chrome&ie=UTF-8">I&#x2F;O Models</a> 當關鍵字，可以找到很多篇文章在整理這些概念。下面的圖是我重新整理的 I&#x2F;O Models 矩陣，依據 Blocking &#x2F; Non-Blocking、Synchronize &#x2F; Asynchronous 的組合，產生的四個象限如下圖：</p>
+<h1 id="I-O-Models"><a href="#I-O-Models" class="headerlink" title="I&#x2F;O Models"></a>I&#x2F;O Models</h1><p>利用 <a target="_blank" rel="noopener" href="https://www.google.com/search?q=I/O+Models&oq=I/O+Models&aqs=chrome..69i57j69i60j69i61j69i58j0l2.134j0j7&sourceid=chrome&ie=UTF-8">I&#x2F;O Models</a> 當關鍵字，可以找到很多篇文章在整理這些概念。下面的圖是我重新整理的 I&#x2F;O Models 矩陣，依據 Blocking &#x2F; Non-Blocking、Synchronize &#x2F; Asynchronous 的組合，產生的四個象限如下圖：</p>
 <p><img src="/images/ComputerScience/IO-Multiplexing/IO-Multiplexing_CompleteThink.png"></p>
 <p>搭配書本提到的五種方式：</p>
 <ol>
@@ -344,14 +307,14 @@ parallel
 </ol>
 <p>這兩個階段的些微差異，產生了這五種 I&#x2F;O Models。</p>
 <p>依照我自己的理解，重新繪製了他們的時序圖，然後用我自己的語言重新解釋圖中的意思，整理如下。</p>
-<h2 id="1-Blocking-I-x2F-O-Model-BIO"><a href="#1-Blocking-I-x2F-O-Model-BIO" class="headerlink" title="1. Blocking I&#x2F;O Model (BIO)"></a>1. Blocking I&#x2F;O Model (BIO)</h2><p>阻塞發生在執行緒 (Thread) 處於執行中，無法處理其他任務造成的現象，除非滿足特定條件讓 Thread 繼續做事。最常見的例子就是寫入資料的操作，需要等到 I&#x2F;O 結束，才能繼續下一個動作。</p>
+<h2 id="1-Blocking-I-O-Model-BIO"><a href="#1-Blocking-I-O-Model-BIO" class="headerlink" title="1. Blocking I&#x2F;O Model (BIO)"></a>1. Blocking I&#x2F;O Model (BIO)</h2><p>阻塞發生在執行緒 (Thread) 處於執行中，無法處理其他任務造成的現象，除非滿足特定條件讓 Thread 繼續做事。最常見的例子就是寫入資料的操作，需要等到 I&#x2F;O 結束，才能繼續下一個動作。</p>
 <p><img src="/images/ComputerScience/IO-Multiplexing/6-1_Blocking.png"></p>
 <p>Blocking I&#x2F;O 的特性：</p>
 <ul>
 <li>應用程式的程序不會詢問 Kernel 資料是否已經準備好了，直到 Kernel 回覆給應用程式。</li>
 <li>Java 的 FileInputStream、FileOutputStream、Socket R&#x2F;W 都是 BIO.</li>
 </ul>
-<h2 id="2-Non-Blocking-I-x2F-O-NIO"><a href="#2-Non-Blocking-I-x2F-O-NIO" class="headerlink" title="2. Non-Blocking I&#x2F;O (NIO)"></a>2. Non-Blocking I&#x2F;O (NIO)</h2><p>執行過程與 BIO 一樣，如果無法完成，則返回 <code>EAGIN</code> 或 <code>EWOULDBLOCK</code>。</p>
+<h2 id="2-Non-Blocking-I-O-NIO"><a href="#2-Non-Blocking-I-O-NIO" class="headerlink" title="2. Non-Blocking I&#x2F;O (NIO)"></a>2. Non-Blocking I&#x2F;O (NIO)</h2><p>執行過程與 BIO 一樣，如果無法完成，則返回 <code>EAGIN</code> 或 <code>EWOULDBLOCK</code>。</p>
 <p><img src="/images/ComputerScience/IO-Multiplexing/6-2_Nonblocking.png"></p>
 <p>Non-Blocking I&#x2F;O 的特性：</p>
 <ul>
@@ -363,7 +326,7 @@ parallel
 -->
 
 
-<h2 id="3-I-x2F-O-Multiplexing"><a href="#3-I-x2F-O-Multiplexing" class="headerlink" title="3. I&#x2F;O Multiplexing"></a>3. I&#x2F;O Multiplexing</h2><p><code>多工 (Multiplexing, 或翻譯成多路複用)</code>，在矩陣中屬於 Blocking、Asynchronous 的組合。</p>
+<h2 id="3-I-O-Multiplexing"><a href="#3-I-O-Multiplexing" class="headerlink" title="3. I&#x2F;O Multiplexing"></a>3. I&#x2F;O Multiplexing</h2><p><code>多工 (Multiplexing, 或翻譯成多路複用)</code>，在矩陣中屬於 Blocking、Asynchronous 的組合。</p>
 <p><img src="/images/ComputerScience/IO-Multiplexing/6-3_IO-Multiplexing.png"></p>
 <p>最常見的 I&#x2F;O Multiplexing 實作:</p>
 <ul>
@@ -375,9 +338,9 @@ parallel
 </ul>
 </li>
 </ul>
-<h2 id="4-Signal-driven-I-x2F-O"><a href="#4-Signal-driven-I-x2F-O" class="headerlink" title="4. Signal-driven I&#x2F;O"></a>4. Signal-driven I&#x2F;O</h2><p>跟 Kernel 說，當資料準備好的時候，送一個 SIGIO 信號給 Application，稱為 Singal-Driven I&#x2F;O。</p>
+<h2 id="4-Signal-driven-I-O"><a href="#4-Signal-driven-I-O" class="headerlink" title="4. Signal-driven I&#x2F;O"></a>4. Signal-driven I&#x2F;O</h2><p>跟 Kernel 說，當資料準備好的時候，送一個 SIGIO 信號給 Application，稱為 Singal-Driven I&#x2F;O。</p>
 <p><img src="/images/ComputerScience/IO-Multiplexing/6-4_Signal-Driven_IO-Model.png"></p>
-<h2 id="5-Asynchronous-I-x2F-O"><a href="#5-Asynchronous-I-x2F-O" class="headerlink" title="5. Asynchronous I&#x2F;O"></a>5. Asynchronous I&#x2F;O</h2><ol>
+<h2 id="5-Asynchronous-I-O"><a href="#5-Asynchronous-I-O" class="headerlink" title="5. Asynchronous I&#x2F;O"></a>5. Asynchronous I&#x2F;O</h2><ol>
 <li>應用程式的程序告訴 Kernel 做一個操作 (Operation)，不等 Kernel 回覆，程序繼續執行。</li>
 <li>Kernel 完成整個操作，包含取的資料，複製到 Buffer 之後，通知程序 (deliver signal specified in aio_read)</li>
 </ol>
@@ -396,7 +359,7 @@ parallel
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/62682475">AIO 的新歸宿：io_uring</a></li>
 </ul>
 </blockquote>
-<h2 id="Comparison-of-the-I-x2F-O-Models"><a href="#Comparison-of-the-I-x2F-O-Models" class="headerlink" title="Comparison of the I&#x2F;O Models"></a>Comparison of the I&#x2F;O Models</h2><p>最後整理原文中畫的一份比較表，前面五種都分成兩個階段，都會被 blocked，最後的 AIO 則一次處理兩個階段。</p>
+<h2 id="Comparison-of-the-I-O-Models"><a href="#Comparison-of-the-I-O-Models" class="headerlink" title="Comparison of the I&#x2F;O Models"></a>Comparison of the I&#x2F;O Models</h2><p>最後整理原文中畫的一份比較表，前面五種都分成兩個階段，都會被 blocked，最後的 AIO 則一次處理兩個階段。</p>
 <p><img src="/images/ComputerScience/IO-Multiplexing/6-6_Comparsion-of-the-five-models.png"></p>
 <hr>
 <h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>程式語言的 I&#x2F;O 通常都會依賴於 OS，例如：</p>
@@ -404,7 +367,7 @@ parallel
 <li>Java 不同平台的 JRE 使用不同方式實作 I&#x2F;O Multiplexing</li>
 <li>Node.js 則依賴於 <a target="_blank" rel="noopener" href="https://github.com/libuv/libuv">libuv</a></li>
 </ul>
-<h2 id="生活中的-I-x2F-O-Model"><a href="#生活中的-I-x2F-O-Model" class="headerlink" title="生活中的 I&#x2F;O Model"></a>生活中的 I&#x2F;O Model</h2><p>解釋阻塞、非阻塞、同步、非同步很常用到便利商店排隊的例子。</p>
+<h2 id="生活中的-I-O-Model"><a href="#生活中的-I-O-Model" class="headerlink" title="生活中的 I&#x2F;O Model"></a>生活中的 I&#x2F;O Model</h2><p>解釋阻塞、非阻塞、同步、非同步很常用到便利商店排隊的例子。</p>
 <p>可以這樣想像，Blocking 與否，代表著客人的狀態，而 Sync 與否代表店員的處理方式。</p>
 <ul>
 <li><code>Blocking I/O</code>：一堆人去便利商店買咖啡，第一個人跟店員點完咖啡後，站在櫃檯前等待店員煮好咖啡，然後下一個接著點 …<ul>
@@ -463,11 +426,6 @@ Nonblocking 與 AIO 的差異：
 
 				<hr />
 
-				<!-- Facebook in bend of page -->
-				<div class="fb-like" data-href="https://rickhw.github.io/2019/02/27/ComputerScience/IO-Models/" data-width="" data-layout="button_count"
-					data-action="like" data-size="small" data-share="true"></div>
-
-				<hr />
 
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
@@ -502,26 +460,6 @@ Nonblocking 與 AIO 的差異：
 				</div>
 
 
-				<!-- comment -->
-				
-<section id="comment">
-  <h2 class="title">Comments</h2>
-
-	<!-- @rick add for facebook -->
-	<!-- <div class='fb-comments' data-num-posts='10' data-width='100%' expr:href='data:post.url'/> -->
-  <!-- @ricka 2022/09/06, ref: https://developers.facebook.com/docs/plugins/comments/ -->
-  <div class="fb-comments" data-order-by="reverse-time" data-href="https://rickhw.github.io/2019/02/27/ComputerScience/IO-Models/" data-width="100%" data-numposts="10"></div>
-
-  
-
-
-</section>
-
-
-
-
-
-
 			</div>
 
 
@@ -531,6 +469,7 @@ Nonblocking 與 AIO 的差異：
 		
 		<!-- meta in right -->
 		<div class="col-md-3">
+<div id="sidebar">
 
 	<!-- date -->
 	
@@ -547,7 +486,7 @@ Nonblocking 與 AIO 的差異：
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%90%8D%E8%A9%9E"><span class="toc-article-text">名詞</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%98%BB%E5%A1%9E-Blocking-%E8%88%87%E9%9D%9E%E9%98%BB%E5%A1%9E-Non-Blocking"><span class="toc-article-text">阻塞 (Blocking) 與非阻塞 (Non-Blocking)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%90%8C%E6%AD%A5-Synchronous-%E8%88%87-%E9%9D%9E%E5%90%8C%E6%AD%A5-Asynchronous"><span class="toc-article-text">同步 (Synchronous) 與 非同步 (Asynchronous)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#I-x2F-O-Models"><span class="toc-article-text">I&#x2F;O Models</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#1-Blocking-I-x2F-O-Model-BIO"><span class="toc-article-text">1. Blocking I&#x2F;O Model (BIO)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-Non-Blocking-I-x2F-O-NIO"><span class="toc-article-text">2. Non-Blocking I&#x2F;O (NIO)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-I-x2F-O-Multiplexing"><span class="toc-article-text">3. I&#x2F;O Multiplexing</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#4-Signal-driven-I-x2F-O"><span class="toc-article-text">4. Signal-driven I&#x2F;O</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#5-Asynchronous-I-x2F-O"><span class="toc-article-text">5. Asynchronous I&#x2F;O</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Comparison-of-the-I-x2F-O-Models"><span class="toc-article-text">Comparison of the I&#x2F;O Models</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%94%9F%E6%B4%BB%E4%B8%AD%E7%9A%84-I-x2F-O-Model"><span class="toc-article-text">生活中的 I&#x2F;O Model</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%AF%94%E8%BC%83-epoll-select-poll-kqueue"><span class="toc-article-text">比較 epoll, select, poll, kqueue</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BE%8C%E8%A8%98"><span class="toc-article-text">後記</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%90%8D%E8%A9%9E"><span class="toc-article-text">名詞</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%98%BB%E5%A1%9E-Blocking-%E8%88%87%E9%9D%9E%E9%98%BB%E5%A1%9E-Non-Blocking"><span class="toc-article-text">阻塞 (Blocking) 與非阻塞 (Non-Blocking)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%90%8C%E6%AD%A5-Synchronous-%E8%88%87-%E9%9D%9E%E5%90%8C%E6%AD%A5-Asynchronous"><span class="toc-article-text">同步 (Synchronous) 與 非同步 (Asynchronous)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#I-O-Models"><span class="toc-article-text">I&#x2F;O Models</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#1-Blocking-I-O-Model-BIO"><span class="toc-article-text">1. Blocking I&#x2F;O Model (BIO)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-Non-Blocking-I-O-NIO"><span class="toc-article-text">2. Non-Blocking I&#x2F;O (NIO)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-I-O-Multiplexing"><span class="toc-article-text">3. I&#x2F;O Multiplexing</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#4-Signal-driven-I-O"><span class="toc-article-text">4. Signal-driven I&#x2F;O</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#5-Asynchronous-I-O"><span class="toc-article-text">5. Asynchronous I&#x2F;O</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Comparison-of-the-I-O-Models"><span class="toc-article-text">Comparison of the I&#x2F;O Models</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%94%9F%E6%B4%BB%E4%B8%AD%E7%9A%84-I-O-Model"><span class="toc-article-text">生活中的 I&#x2F;O Model</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%AF%94%E8%BC%83-epoll-select-poll-kqueue"><span class="toc-article-text">比較 epoll, select, poll, kqueue</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BE%8C%E8%A8%98"><span class="toc-article-text">後記</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -561,7 +500,7 @@ Nonblocking 與 AIO 的差異：
     <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
       <div>
   <!--<li>-->
-    <span class="label label-info"><a href="/categories/Computer-Science/" style="color: white">Computer Science <span class="badge">11</span></a></span>
+    <span class="label label-info"><a href="/categories/Computer-Science/" style="color: white">Computer Science <span class="badge">12</span></a></span>
   <!--</li>-->
 </div>
     <!--</ul>-->
@@ -577,7 +516,7 @@ Nonblocking 與 AIO 的差異：
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/I-O-Models/" style="color: white">I/O Models <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Non-Blocking/" style="color: white">Non-Blocking <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Asynchronous/" style="color: white">Asynchronous <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Synchronous/" style="color: white">Synchronous <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Blocking/" style="color: white">Blocking <span class="badge">1</span></a></span>
+  <span class="label label-success"><a href="/tags/Asynchronous/" style="color: white">Asynchronous <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Blocking/" style="color: white">Blocking <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/I-O-Models/" style="color: white">I/O Models <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Non-Blocking/" style="color: white">Non-Blocking <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Synchronous/" style="color: white">Synchronous <span class="badge">1</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
@@ -589,6 +528,7 @@ Nonblocking 與 AIO 的差異：
 	<div class="meta-widget">
 		<!-- v4 -->
 		<h4>About</h4>
+		<ul>
 		
 			<li><a href="/2035/01/21/Index/">全站索引</a></li>
 		
@@ -604,8 +544,10 @@ Nonblocking 與 AIO 的差異：
 		
 			<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
 		
+		</ul>
 
 		<h4>著作</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786264142335">共同著作：軟體品質全面思維 (2025)</a></li>
 		
@@ -615,8 +557,10 @@ Nonblocking 與 AIO 的差異：
 		
 			<li><a href="/2019/05/17/About/DDS-zh_TW/">譯著：分散式系統設計 (2019)</a></li>
 		
+		</ul>
 
 		<h4>演講</h4>
+		<ul>
 		
 			<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL63J1r2PBvoiKFC40HTdSrGSQVBqOutOf">演講錄影 @ Youtube</a></li>
 		
@@ -650,6 +594,7 @@ Nonblocking 與 AIO 的差異：
 		
 			<li><a href="/2017/06/21/AWS/Stategies-System-Monitor_and_CloudWatch/">淺談系統監控與 CloudWatch 的應用</a></li>
 		
+		</ul>
 
 		<!-- v3 -->
 		<!--
@@ -703,6 +648,7 @@ Nonblocking 與 AIO 的差異：
 	</div>
 
 	<hr />
+</div><!-- sidebar -->
 </div><!-- col-md-3 -->
 
 		
@@ -740,6 +686,7 @@ Nonblocking 與 AIO 的差異：
 
   <!-- <h4>About</h4> -->
 
+  <ul>
   
     <li><a href="/2035/01/21/Index/">全站索引</a></li>
   
@@ -755,6 +702,7 @@ Nonblocking 與 AIO 的差異：
   
     <li><a href="/2014/10/26/Management/Classified-Philosophy/">分類哲學</a></li>
   
+  </ul>
 
   <a href="#">▲ TOP ▲ </a>
 </div>
