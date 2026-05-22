@@ -297,7 +297,7 @@
 </li>
 <li><strong>排除的應用層變數：</strong><ul>
 <li>為了單純測試網路與 HTTP Stack 的極限，明確排除了任何可能消耗 CPU 的業務邏輯，<strong>不進實作以下部分</strong>，以利找到理想值，包含：資料庫查詢、logging、資料壓縮、JSON 序列化、Payload 隨機生成，也排除了 TLS&#x2F;HTTPS 的影響。</li>
-<li>註：之後的 Lab 基於這次時間的數據，另外實測 API Server + RDB + Cache 完整 Stack 的實測，找到理想 RPS。</li>
+<li>註：之後的 Lab 基於這次時間的數據，另外實測 API Server + RDB + Cache + Queue 完整 Stack 的實測，找到理想 RPS。</li>
 </ul>
 </li>
 <li><strong>通訊協定行為：</strong><ul>
@@ -421,12 +421,12 @@
 <blockquote>
 <p>測試結果顯示，不論是<code>單連線</code> 或 <code>4 Stream 並行</code>、<code>雙向 TCP</code> 吞吐量皆穩定達到 <code>941 Mbits/sec</code>，Retransmits 為 0。這證明了低成本的實體網路環境極為穩定。</p>
 </blockquote>
-<h3 id="Stage-1-最小化-HTTP-基準測試-1"><a href="#Stage-1-最小化-HTTP-基準測試-1" class="headerlink" title="Stage 1: 最小化 HTTP 基準測試"></a>Stage 1: 最小化 HTTP 基準測試</h3><p>這個部分測試 HTTP 傳輸的部分，直覺上會問 1Gbps 這樣的 RPS (Request Per Second) 會是多少？但很多人都忽略掉一件事情，影響 RPS 背後的因素有幾個：</p>
+<h3 id="Stage-1-最小化-HTTP-基準測試-1"><a href="#Stage-1-最小化-HTTP-基準測試-1" class="headerlink" title="Stage 1: 最小化 HTTP 基準測試"></a>Stage 1: 最小化 HTTP 基準測試</h3><p>這個部分測試 HTTP 傳輸的部分，直覺上會問 1Gbps 這樣的 RPS (Request Per Second) 會是多少？影響 RPS 背後的因素有幾個：</p>
 <ol>
 <li><code>商業邏輯運算</code>: 通常就是去 DB &#x2F; Cache &#x2F; Queue 拿資料、拿出來之後做各種計算合併商業邏輯、最後寫回去 DB&#x2F;Cache&#x2F;Queue，然後組成一個結果返回給使用者。</li>
 <li><code>回傳資料大小</code>: 完成 1) 之後，要返回去資料大小就像是網路購物後，出貨包裹的大小，貨車或者航運能裝的數量是固定的。一次能運送的數量 (RPS) 包裹大小 (Payload Size) 就很關鍵。</li>
 </ol>
-<p>這次的實驗不考慮 1) 的部分，所以我們考慮 2) 的大小，結果摘要如下：</p>
+<p>第一個是大部分的人會著眼的重點，而第二個會被普遍的人忽略。這次的實驗反而不考慮 1) 的部分，只著眼在 2) 的結果，摘要如下：</p>
 <table>
 <thead>
 <tr>
@@ -684,7 +684,7 @@ Go benchmark client:
 
 
 <hr>
-<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>這個測試，我在思考的第一性原理，以及背後目的：</p>
+<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>這個實驗，我在思考的第一性原理，以及背後目的：</p>
 <ol>
 <li>這兩台機器的成本約 新台幣 50,000 元 (28k + 20k)，撇除硬體可靠性問題，他們能否真的當 Server 使用？<ul>
 <li>28K 那台 Mini PC 現在已經漲到 <a target="_blank" rel="noopener" href="https://24h.pchome.com.tw/prod/DSAAOR-A900IGSXL">68K</a> 了 …</li>
@@ -694,7 +694,7 @@ Go benchmark client:
 </ol>
 <p>價值 5 萬塊錢的基本算力，在最單純的條件之下，不包含網路成本、網路設備成本、人力成本，大概可以處理多少 <code>價值</code>。</p>
 <p>當然實際上在業務場景，這樣的考慮實際上是不夠的。但是用同心圓的思路，工程要考慮的事情，就是讓現有資源做到資源利用率的最佳化 (Optimization)，這才是真正的價值！</p>
-<p>如果是完整的 Backend Stack (API Server + RDB + Cache)，那麼極限值其實已經知道了。</p>
+<p>如果是完整的 Backend Stack (API Server + RDB + Cache + Queue)，那麼極限值其實已經知道了。</p>
 <h3 id="窮和尚與富和尚"><a href="#窮和尚與富和尚" class="headerlink" title="窮和尚與富和尚"></a>窮和尚與富和尚</h3><p>文章開頭提到的 <strong>「第二個思路：以系統資源做基準值，找到理想值 &#x2F; 基準值」</strong>，就是我常說 <code>窮和尚與富和尚取經</code> 的故事：</p>
 <blockquote>
 <p>四川的邊遠地區有兩個和尚，一個窮，一個富。</p>
@@ -862,7 +862,7 @@ Go benchmark client:
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Throughput/" style="color: white">Throughput <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/RPS/" style="color: white">RPS <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/c10k/" style="color: white">c10k <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Concurrency/" style="color: white">Concurrency <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Blocking/" style="color: white">Blocking <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/TCP-Connection/" style="color: white">TCP Connection <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Latency/" style="color: white">Latency <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/HomeLab/" style="color: white">HomeLab <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Benchmark/" style="color: white">Benchmark <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Rate-Limit/" style="color: white">Rate Limit <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">17</span></a></span> <span class="label label-success"><a href="/tags/利特爾法則/" style="color: white">利特爾法則 <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Little-s-Law/" style="color: white">Little's Law <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/第一性原理/" style="color: white">第一性原理 <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Capacity-Unit/" style="color: white">Capacity Unit <span class="badge">1</span></a></span>
+  <span class="label label-success"><a href="/tags/Benchmark/" style="color: white">Benchmark <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Throughput/" style="color: white">Throughput <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/RPS/" style="color: white">RPS <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/c10k/" style="color: white">c10k <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Concurrency/" style="color: white">Concurrency <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Blocking/" style="color: white">Blocking <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/TCP-Connection/" style="color: white">TCP Connection <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Latency/" style="color: white">Latency <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/HomeLab/" style="color: white">HomeLab <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Rate-Limit/" style="color: white">Rate Limit <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">17</span></a></span> <span class="label label-success"><a href="/tags/利特爾法則/" style="color: white">利特爾法則 <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Little-s-Law/" style="color: white">Little's Law <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/第一性原理/" style="color: white">第一性原理 <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Capacity-Unit/" style="color: white">Capacity Unit <span class="badge">1</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
