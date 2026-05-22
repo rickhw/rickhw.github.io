@@ -230,7 +230,7 @@
 			<div class="mypage">
 				<p>在 <a href="/2019/09/20/SQA/How-to-Measure-System-Capacity/">《如何量測系統的容量？》</a> 一文有提到量測的方法與概念，開頭提到思路有三種，其中 <strong>「第二個思路：以系統資源做基準值，找到理想值 &#x2F; 基準值」</strong> 是該文章主要提供的論述。類似概念我在工作上也很常使用，去年 (2025) 在高雄師範大學分享的 <a target="_blank" rel="noopener" href="https://speakerdeck.com/rickhwang/cong-ying-yong-cheng-shi-inside-out-chu-fa-de-web-ke-kao-xing-she-ji-tai-wan-ruan-ti-gong-cheng-xie-hui-gao-xiong-shi-fan-da-xue-20250628">《從應用程式 Inside-Out 出發的 Web 可靠性設計》</a> 概念，其實本質也是類似。</p>
 <p>去年 (2015) 記憶體還沒漲價前，我買了幾台 Mini PC，規格大概是記憶體 64GB、SSD 2TB、Ethernet 1Gbps 的規格。這主要是我的 HomeLab 的 Lab Machine，用來做各種實驗，取代原本在 NAS 上跑 VM、<a href="/2019/03/17/Container/Install-K8s-with-Kubeadm/">《學習 K8s (kubeadm 手動安裝)》</a>，這用法曾在 <a href="/2024/03/16/Data/Data-Backup-And-Recovery-Principles-1-DataTier/">《資料備份還原 - 第一原則 資料分層》</a> 提到的。</p>
-<p>買了 Mini PC 除了跑現在流行的龍蝦、或者開發我個人工具，「效能」與「資源」之間的平衡，一直是我很有興趣的題目。自從搞定 <a target="_blank" rel="noopener" href="https://speakerdeck.com/rickhwang/cong-ying-yong-cheng-shi-inside-out-chu-fa-de-web-ke-kao-xing-she-ji-tai-wan-ruan-ti-gong-cheng-xie-hui-gao-xiong-shi-fan-da-xue-20250628">《從應用程式 Inside-Out 出發的 Web 可靠性設計》</a> 裡提到類似 <a href="/2016/08/17/AWS/Study-Notes-DynamoDB/">《AWS DynamoDB》</a> RCU &#x2F; WCU 的 Capacity Unit 設計概念之後，我對於如何「榨乾」眼前的硬體資源，取得效能極致與最佳化，一直是很感興趣的。</p>
+<p>買了 Mini PC 除了跑現在流行的龍蝦、或者開發我個人工具，「效能」與「資源」之間的平衡，一直是我很有興趣的題目。自從搞定 <a target="_blank" rel="noopener" href="https://speakerdeck.com/rickhwang/cong-ying-yong-cheng-shi-inside-out-chu-fa-de-web-ke-kao-xing-she-ji-tai-wan-ruan-ti-gong-cheng-xie-hui-gao-xiong-shi-fan-da-xue-20250628">《從應用程式 Inside-Out 出發的 Web 可靠性設計》</a> 裡提到類似 <a href="/2016/08/17/AWS/Study-Notes-DynamoDB/">《AWS DynamoDB》</a> RCU &#x2F; WCU 的 Capacity Unit 設計與實作，，我對於如何「榨乾」眼前的硬體資源，取得效能極致與最佳化，一直是很感興趣的。像是 <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=W4EwfEU8CGA">Let’s Handle 1 Million Requests per Second, It’s Scarier Than You Think!</a> 這樣的題目。</p>
 <p>我想要知道幾件事情：</p>
 <ol>
 <li>1Gbps 網路的理論值與實際值的差異 </li>
@@ -238,10 +238,10 @@
 <li>承上，內觀的來看，Payload Size 與 RPS &#x2F; Concurrency &#x2F; Connection &#x2F; Latency 之間關係？</li>
 <li>基於 1Gbps 以及 MiniPC 的硬體規格，<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/C10k_problem">c10k</a> 實測的狀況，能再上去？極限會是多少？瓶頸在哪？</li>
 </ol>
-<p>整個量測的執行第一次透過 Codex 運行、第二次我手動執行，結果則透過 ChatGPT &#x2F; Gemini Pro 整理。</p>
+<p>整個量測的執行第一次透過 Codex 運行、第二次我手動執行，結果主要透過 ChatGPT 整理，Gemini Pro 為輔。</p>
 <p>實驗最後預期會得到一張表，成為 Backend Server Stack 效能上限值，這張表可以作為大部分 Backend Server 量測容量的基準線 (Baseline)，或者理想值。</p>
 <blockquote>
-<p>註：為了不要讓文章看起來 AI 味很重，我盡量不要用 AI 生圖或者文字。但是這種實驗數據的整理，其實 AI 反而很適合，所以權衡之下，我在實驗結果章節，用 ChatGPT &#x2F; NotebookLM 整理幾張圖總結。</p>
+<p>註一：為了不要讓文章看起來 AI 味，原則上不使用 AI 文字。但是這種實驗數據的整理，其實 AI 生圖反而很適合。權衡之下，我在實驗結果章節，用 ChatGPT &#x2F; NotebookLM 整理幾張圖總結。<br>註二：<code>Concurrency</code> 翻譯使用 <code>並行</code> 非 <code>併發</code></p>
 </blockquote>
 <span id="more"></span>
 
@@ -259,6 +259,11 @@
 <li>兩台 Mini PC 的控制連線 (Macbook Pro) 走 WiFi 進去，Client &#x2F; Server 實測連線則走 Ethernet</li>
 <li>兩台 Mini PC 作業系統都是 Ubuntu 24.04，同時並沒有特別調整過相關參數 (ex: ulimit, fd)</li>
 </ol>
+<hr>
+<h2 id="背景資訊-C10K"><a href="#背景資訊-C10K" class="headerlink" title="背景資訊: C10K"></a>背景資訊: C10K</h2><p>C10K 是「一台伺服器能不能同時維持一萬個連線」的經典問題。這裡的連線通常指 TCP connection，不一定代表每個連線都在高速傳資料，而是大量 client 同時連上 server、保持連線、偶爾送出請求。</p>
+<p>早期 Web Server 常用 <code>一個連線對應一個 thread/process</code> 的模型。當連線數變多時，OS 需要管理大量 thread、context switch、記憶體 stack、file descriptor，CPU 還沒真正處理業務邏輯，就先被 <code>排程</code> 與 <code>I/O</code> 等待拖垮。</p>
+<p>C10K 的核心挑戰不是「頻寬不夠」，而是 <strong>如何有效管理大量空閒或低流量連線</strong>。後來 Linux <code>epoll</code>、BSD <code>kqueue</code>、<code>事件驅動架構</code>，以及 Nginx、Netty、Node.js、Go runtime 等技術成熟後，C10K 已經不是特別困難的問題。</p>
+<p>現在業界更常討論的是 C100K、C1M，或在大量連線下同時處理 TLS、低延遲、<code>Rate Limit</code>、<code>觀測性</code> 與 <code>資源隔離 (Isolation)</code>。簡單說，C10K 是現代高並行網路服務設計的入門門檻。</p>
 <hr>
 <h2 id="推論方法"><a href="#推論方法" class="headerlink" title="推論方法"></a>推論方法</h2><p>實驗的推論方法是這樣的：</p>
 <blockquote>
@@ -303,8 +308,8 @@
 <h3 id="可控變因-Controllable-Variables"><a href="#可控變因-Controllable-Variables" class="headerlink" title="可控變因 (Controllable Variables)"></a>可控變因 (Controllable Variables)</h3><p>為了找出系統在不同條件下的極限與瓶頸，實驗中操作了以下可控變因，也作為最後結果的參考依據：</p>
 <ul>
 <li><strong>負載大小 (Payload Size)：</strong> 測試時將 API 回傳的 Payload Size 動態調整為 1KB、4KB、10KB 與 100KB 四個級別，用以觀察資料大小對 RPS (每秒請求數) 與網路吞吐量之間的關係。</li>
-<li><strong>併發連線數 (Concurrency)：</strong> <ul>
-<li>將同時發起請求的連線數量從低到高進行調整 (包含 16, 64, 128, 256, 512, 1024)，以觀察增加併發數對整體吞吐量以及排隊延遲 (p99 Latency) 的影響。</li>
+<li><strong>並行連線數 (Concurrency)：</strong> <ul>
+<li>將同時發起請求的連線數量從低到高進行調整 (包含 16, 64, 128, 256, 512, 1024)，以觀察增加並行數對整體吞吐量以及排隊延遲 (p99 Latency) 的影響。</li>
 <li>在 C10K 階段進一步將連線數推升至 1,000、5,000、10,000 甚至是 20,000 條。</li>
 </ul>
 </li>
@@ -314,7 +319,7 @@
 <li><code>Active</code>: 所有連線盡全力發送請求</li>
 </ul>
 </li>
-<li><strong>系統資源限制 (OS Limits)：</strong> 在探測極端高併發時，將作業系統的 File Descriptor (fd) 限制 (<code>ulimit -n</code>) 從預設值大幅提升至 200,000，藉此排除 OS 限制干擾，讓測試能觸及真實的應用程式或網路瓶頸。</li>
+<li><strong>系統資源限制 (OS Limits)：</strong> 在探測極端高並行時，將作業系統的 File Descriptor (fd) 限制 (<code>ulimit -n</code>) 從預設值大幅提升至 200,000，藉此排除 OS 限制干擾，讓測試能觸及真實的應用程式或網路瓶頸。</li>
 <li><strong>壓測工具種類：</strong> <ul>
 <li>根據測試階段的目的更換發壓工具，例如 Stage 0 裸網路測試使用 <code>iperf3</code>；</li>
 <li>Stage 1 與 Stage 2 基礎 HTTP 測試切換為 <code>wrk</code> 與 <code>oha</code> (為了取得詳細延遲分佈)；</li>
@@ -353,8 +358,8 @@
 </ul>
 </li>
 <li><code>並行數 (Concurrency) 影響</code>：<ul>
-<li>初步推論在低併發下吞吐量可能不足但延遲穩定；</li>
-<li>高併發可能提升吞吐量，但長尾延遲 (p95&#x2F;p99 latency) 預期會開始惡化。</li>
+<li>初步推論在低並行下吞吐量可能不足但延遲穩定；</li>
+<li>高並行可能提升吞吐量，但長尾延遲 (p95&#x2F;p99 latency) 預期會開始惡化。</li>
 </ul>
 </li>
 <li><code>連線數 (Connection) 影響</code>：<ul>
@@ -366,15 +371,15 @@
 </ul>
 <h3 id="Stage-2-HTTP-矩陣測試"><a href="#Stage-2-HTTP-矩陣測試" class="headerlink" title="Stage 2: HTTP 矩陣測試"></a>Stage 2: HTTP 矩陣測試</h3><p>延續 Stage 1 的驗證，展開 <code>實驗矩陣 Experimental Matrix</code>：</p>
 <blockquote>
-<p><code>Payload 大小 (1KB - 100KB)</code> x <code>Concurrency 併發數 (c16 - c1024)</code></p>
+<p><code>Payload 大小 (1KB - 100KB)</code> x <code>Concurrency 並行數 (c16 - c1024)</code></p>
 </blockquote>
 <p>找到效能邊界與關係。</p>
 <ul>
-<li><code>1KB Payload</code>：預期 RPS 最高，消耗的 Server CPU 資源最大，且需要較高的併發數才能將頻寬打滿，同時高併發會導致 p95&#x2F;p99 延遲惡化。</li>
+<li><code>1KB Payload</code>：預期 RPS 最高，消耗的 Server CPU 資源最大，且需要較高的並行數才能將頻寬打滿，同時高並行會導致 p95&#x2F;p99 延遲惡化。</li>
 <li><code>4KB Payload</code>：預期比 1KB 容易打滿頻寬，且 CPU 消耗會隨之降低。</li>
 <li><code>10KB / 100KB Payload</code>：<ul>
-<li>預期在<strong>低到中等併發數 (如 c16)</strong> 即可輕鬆觸及物理網路極限 (Network-bound)。</li>
-<li>超過這個平衡點後，<strong>盲目推高併發數將無助於提升吞吐量，只會引發嚴重的排隊效應 (Queueing)</strong>，讓延遲數據變得極差。</li>
+<li>預期在<strong>低到中等並行數 (如 c16)</strong> 即可輕鬆觸及物理網路極限 (Network-bound)。</li>
+<li>超過這個平衡點後，<strong>盲目推高並行數將無助於提升吞吐量，只會引發嚴重的排隊效應 (Queueing)</strong>，讓延遲數據變得極差。</li>
 </ul>
 </li>
 </ul>
@@ -700,7 +705,7 @@ Go benchmark client:
 <p>一年以後，富和尚還在為祖賃船隻籌錢，窮和尚卻已經從南海朝聖回來了。</p>
 </blockquote>
 <p>用最少資源，做到最大的價值！</p>
-<h3 id="延伸問題"><a href="#延伸問題" class="headerlink" title="延伸問題"></a>延伸問題</h3><p>礙於篇幅與長度，底下問題先保留，簡單整理問題的想法，之後有空再整理。</p>
+<h3 id="延伸問題"><a href="#延伸問題" class="headerlink" title="延伸問題"></a>延伸問題</h3><p>礙於篇幅與長度，底下問題先保留，簡單整理問題的想法，之後有空再整理成獨立篇章。</p>
 <ul>
 <li>Q1: 只用這兩台 Mini PC 可否突破 C10K？例如 C1M，如果可以，為什麼？要怎麼做？<ul>
 <li>A: 技術上可以，但維持連線的成本以及效益要思考。</li>
@@ -717,7 +722,7 @@ Go benchmark client:
 <li>Q3 的結論其實已經回答了 Q1 的問題</li>
 </ul>
 </li>
-<li>Q4: 這個實驗其實跟 Disk I&#x2F;O, 以及 IOPS 其實很像</li>
+<li>Q4: 這個實驗其實跟 Disk I&#x2F;O，以及 IOPS 概念其實很像</li>
 </ul>
 <h3 id="K8s-內部頻寬"><a href="#K8s-內部頻寬" class="headerlink" title="K8s 內部頻寬"></a>K8s 內部頻寬</h3><p>我在 <a href="/2019/03/17/Container/Install-K8s-with-Kubeadm/">《學習 K8s (kubeadm 手動安裝)》</a> 時，曾經做過一個吞吐量的實驗，結果有保留 (如下圖)，但沒有整理過程。</p>
 <p>這個測試的是 兩個 pod 裡面透過 iperf 測試吞吐量，情境有兩種：</p>
@@ -743,6 +748,7 @@ Go benchmark client:
 <li><a href="/2016/08/17/AWS/Study-Notes-DynamoDB/">Study Notes - DynamoDB 學習筆記</a></li>
 <li><a href="/2026/04/09/ComputerScience/Simple-OS-Networking/">自幹作業系統 - Networking Fundamentals</a></li>
 <li><a href="/2026/03/27/ComputerScience/Simple-OS/">自幹作業系統 - Simple OS</a></li>
+<li><a href="/2019/02/27/ComputerScience/IO-Models/">Study Notes - I&#x2F;O Models</a></li>
 </ul>
 <h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><ul>
 <li>Benchmark Tools<ul>
@@ -826,7 +832,7 @@ Go benchmark client:
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%83%8C%E6%99%AF%E6%A2%9D%E4%BB%B6"><span class="toc-article-text">背景條件</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%8E%A8%E8%AB%96%E6%96%B9%E6%B3%95"><span class="toc-article-text">推論方法</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%9B%BA%E5%AE%9A%E5%9B%A0%E5%AD%90-Fixed-Factors"><span class="toc-article-text">固定因子 (Fixed Factors)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%8F%AF%E6%8E%A7%E8%AE%8A%E5%9B%A0-Controllable-Variables"><span class="toc-article-text">可控變因 (Controllable Variables)</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%A0%90%E6%9C%9F%E7%B5%90%E6%9E%9C"><span class="toc-article-text">預期結果</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Stage-0-%E7%B6%B2%E8%B7%AF%E5%9F%BA%E6%BA%96%E6%B8%AC%E8%A9%A6"><span class="toc-article-text">Stage 0: 網路基準測試</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Stage-1-%E6%9C%80%E5%B0%8F%E5%8C%96-HTTP-%E5%9F%BA%E6%BA%96%E6%B8%AC%E8%A9%A6"><span class="toc-article-text">Stage 1: 最小化 HTTP 基準測試</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Stage-2-HTTP-%E7%9F%A9%E9%99%A3%E6%B8%AC%E8%A9%A6"><span class="toc-article-text">Stage 2: HTTP 矩陣測試</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Stage-3-C10K-%E9%80%A3%E7%B7%9A%E6%B8%AC%E8%A9%A6"><span class="toc-article-text">Stage 3: C10K 連線測試</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%AF%A6%E6%B8%AC%E7%B5%90%E6%9E%9C"><span class="toc-article-text">實測結果</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Stage-0-%E7%B6%B2%E8%B7%AF%E5%9F%BA%E6%BA%96%E6%B8%AC%E8%A9%A6-1"><span class="toc-article-text">Stage 0: 網路基準測試</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Stage-1-%E6%9C%80%E5%B0%8F%E5%8C%96-HTTP-%E5%9F%BA%E6%BA%96%E6%B8%AC%E8%A9%A6-1"><span class="toc-article-text">Stage 1: 最小化 HTTP 基準測試</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Stage-2-HTTP-%E7%9F%A9%E9%99%A3%E6%B8%AC%E8%A9%A6-1"><span class="toc-article-text">Stage 2: HTTP 矩陣測試</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Stage-3-C10K-%E9%80%A3%E7%B7%9A%E6%B8%AC%E8%A9%A6-1"><span class="toc-article-text">Stage 3: C10K 連線測試</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B8%BD%E7%B5%90"><span class="toc-article-text">總結</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%95%B8%E5%AD%B8%E6%A8%A1%E6%80%A7"><span class="toc-article-text">數學模性</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%87%BA%E8%B2%A8%E4%B8%AD%E5%BF%83"><span class="toc-article-text">出貨中心</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#NotebookLM-%E6%95%B4%E7%90%86"><span class="toc-article-text">NotebookLM 整理</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-article-text">小結</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E5%95%8F%E9%A1%8C"><span class="toc-article-text">延伸問題</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#K8s-%E5%85%A7%E9%83%A8%E9%A0%BB%E5%AF%AC"><span class="toc-article-text">K8s 內部頻寬</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E7%9B%B8%E9%97%9C%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內相關文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B7%A5%E5%85%B7"><span class="toc-article-text">工具</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%83%8C%E6%99%AF%E6%A2%9D%E4%BB%B6"><span class="toc-article-text">背景條件</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%83%8C%E6%99%AF%E8%B3%87%E8%A8%8A-C10K"><span class="toc-article-text">背景資訊: C10K</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%8E%A8%E8%AB%96%E6%96%B9%E6%B3%95"><span class="toc-article-text">推論方法</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%9B%BA%E5%AE%9A%E5%9B%A0%E5%AD%90-Fixed-Factors"><span class="toc-article-text">固定因子 (Fixed Factors)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%8F%AF%E6%8E%A7%E8%AE%8A%E5%9B%A0-Controllable-Variables"><span class="toc-article-text">可控變因 (Controllable Variables)</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%A0%90%E6%9C%9F%E7%B5%90%E6%9E%9C"><span class="toc-article-text">預期結果</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Stage-0-%E7%B6%B2%E8%B7%AF%E5%9F%BA%E6%BA%96%E6%B8%AC%E8%A9%A6"><span class="toc-article-text">Stage 0: 網路基準測試</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Stage-1-%E6%9C%80%E5%B0%8F%E5%8C%96-HTTP-%E5%9F%BA%E6%BA%96%E6%B8%AC%E8%A9%A6"><span class="toc-article-text">Stage 1: 最小化 HTTP 基準測試</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Stage-2-HTTP-%E7%9F%A9%E9%99%A3%E6%B8%AC%E8%A9%A6"><span class="toc-article-text">Stage 2: HTTP 矩陣測試</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Stage-3-C10K-%E9%80%A3%E7%B7%9A%E6%B8%AC%E8%A9%A6"><span class="toc-article-text">Stage 3: C10K 連線測試</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%AF%A6%E6%B8%AC%E7%B5%90%E6%9E%9C"><span class="toc-article-text">實測結果</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Stage-0-%E7%B6%B2%E8%B7%AF%E5%9F%BA%E6%BA%96%E6%B8%AC%E8%A9%A6-1"><span class="toc-article-text">Stage 0: 網路基準測試</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Stage-1-%E6%9C%80%E5%B0%8F%E5%8C%96-HTTP-%E5%9F%BA%E6%BA%96%E6%B8%AC%E8%A9%A6-1"><span class="toc-article-text">Stage 1: 最小化 HTTP 基準測試</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Stage-2-HTTP-%E7%9F%A9%E9%99%A3%E6%B8%AC%E8%A9%A6-1"><span class="toc-article-text">Stage 2: HTTP 矩陣測試</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Stage-3-C10K-%E9%80%A3%E7%B7%9A%E6%B8%AC%E8%A9%A6-1"><span class="toc-article-text">Stage 3: C10K 連線測試</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B8%BD%E7%B5%90"><span class="toc-article-text">總結</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%95%B8%E5%AD%B8%E6%A8%A1%E6%80%A7"><span class="toc-article-text">數學模性</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%87%BA%E8%B2%A8%E4%B8%AD%E5%BF%83"><span class="toc-article-text">出貨中心</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#NotebookLM-%E6%95%B4%E7%90%86"><span class="toc-article-text">NotebookLM 整理</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-article-text">小結</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E5%95%8F%E9%A1%8C"><span class="toc-article-text">延伸問題</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#K8s-%E5%85%A7%E9%83%A8%E9%A0%BB%E5%AF%AC"><span class="toc-article-text">K8s 內部頻寬</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E7%9B%B8%E9%97%9C%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內相關文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B7%A5%E5%85%B7"><span class="toc-article-text">工具</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -856,7 +862,7 @@ Go benchmark client:
     <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">17</span></a></span> <span class="label label-success"><a href="/tags/Benchmark/" style="color: white">Benchmark <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Rate-Limit/" style="color: white">Rate Limit <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Throughput/" style="color: white">Throughput <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/RPS/" style="color: white">RPS <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/c10k/" style="color: white">c10k <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Concurrency/" style="color: white">Concurrency <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Blocking/" style="color: white">Blocking <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/TCP-Connection/" style="color: white">TCP Connection <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Latency/" style="color: white">Latency <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/HomeLab/" style="color: white">HomeLab <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/利特爾法則/" style="color: white">利特爾法則 <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Little-s-Law/" style="color: white">Little's Law <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/第一性原理/" style="color: white">第一性原理 <span class="badge">2</span></a></span>
+  <span class="label label-success"><a href="/tags/Rate-Limit/" style="color: white">Rate Limit <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Distributed-Systems/" style="color: white">Distributed Systems <span class="badge">17</span></a></span> <span class="label label-success"><a href="/tags/Benchmark/" style="color: white">Benchmark <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Blocking/" style="color: white">Blocking <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Throughput/" style="color: white">Throughput <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/RPS/" style="color: white">RPS <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/c10k/" style="color: white">c10k <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Concurrency/" style="color: white">Concurrency <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/TCP-Connection/" style="color: white">TCP Connection <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Latency/" style="color: white">Latency <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/HomeLab/" style="color: white">HomeLab <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/利特爾法則/" style="color: white">利特爾法則 <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Little-s-Law/" style="color: white">Little's Law <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/第一性原理/" style="color: white">第一性原理 <span class="badge">2</span></a></span>
 	  </div>
     <!--</ul>-->
 	</div>
