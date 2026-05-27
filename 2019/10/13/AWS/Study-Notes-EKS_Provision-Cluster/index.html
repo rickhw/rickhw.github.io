@@ -493,44 +493,38 @@
 				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%BA%96%E5%82%99-Preparation"><span class="toc-article-text">準備 (Preparation)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%BA%96%E5%82%99%E5%B7%A5%E5%85%B7"><span class="toc-article-text">準備工具</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#VPC-Consideration"><span class="toc-article-text">VPC Consideration</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%A6%8F%E5%8A%83%E6%AC%8A%E9%99%90"><span class="toc-article-text">規劃權限</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#config-sh"><span class="toc-article-text">config.sh</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%BA%E7%BD%AE-Provisioning"><span class="toc-article-text">建置 (Provisioning)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BB%BA%E7%BD%AE-Master-Nodes"><span class="toc-article-text">建置 Master Nodes</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E9%85%8D%E7%BD%AE-kubeconfig"><span class="toc-article-text">配置 kubeconfig</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%A2%BA%E8%AA%8D-Cluster-Status"><span class="toc-article-text">確認 Cluster Status</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%85%8D%E7%BD%AE-ConfigMap-for-EKS-Auth"><span class="toc-article-text">配置 ConfigMap for EKS Auth</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#CNI"><span class="toc-article-text">CNI</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BB%BA%E7%BD%AE-Worker-Nodes"><span class="toc-article-text">建置 Worker Nodes</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%BB%BA%E7%AB%8B-Launch-Configuration"><span class="toc-article-text">建立 Launch Configuration</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%BB%BA%E7%AB%8B-EC2-ASG"><span class="toc-article-text">建立 EC2 ASG</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%AE%8C%E6%88%90"><span class="toc-article-text">完成</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%88%AA%E9%99%A4-EKS-Cluster"><span class="toc-article-text">刪除 EKS Cluster</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Q-and-A"><span class="toc-article-text">Q and A</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-%E6%9C%AC%E6%96%87%E4%BD%BF%E7%94%A8%E7%9A%84%E8%BA%AB%E4%BB%BD%E6%98%AF-au-eks-admin%EF%BC%8C%E5%A6%82%E4%BD%95%E8%AE%93%E5%85%B6%E4%BB%96-IAM-%E8%BA%AB%E4%BB%BD%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E6%AD%A4-Cluster%EF%BC%9F"><span class="toc-article-text">Q: 本文使用的身份是 au-eks-admin，如何讓其他 IAM 身份可以使用此 Cluster？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-Worker-Node-%E4%B8%80%E5%AE%9A%E8%A6%81%E7%AD%89-Master-Node-%E5%BB%BA%E5%A5%BD%E6%89%8D%E8%83%BD%E5%BB%BA%EF%BC%9F"><span class="toc-article-text">Q: Worker Node 一定要等 Master Node 建好才能建？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-Worker-Node-%E6%B2%92%E6%9C%89%E5%8A%A0%E5%85%A5-Cluster%EF%BC%9F"><span class="toc-article-text">Q: Worker Node 沒有加入 Cluster？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-%E5%87%BA%E7%8F%BE%E9%80%99%E6%A8%A3%E7%9A%84-Error-%E8%A9%B2%E6%80%8E%E9%BA%BC%E8%99%95%E7%90%86%EF%BC%9A-error-You-must-be-logged-in-to-the-server-Unauthorized"><span class="toc-article-text">Q: 出現這樣的 Error 該怎麼處理： error: You must be logged in to the server (Unauthorized)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-%E9%81%8E%E7%A8%8B%E7%82%BA%E4%BB%80%E9%BA%BC%E8%A6%81%E8%87%AA%E5%B7%B1%E6%89%8B%E5%8B%95%E5%BB%BA%E7%AB%8B-Worker-Nodes-%E8%80%8C%E4%B8%8D%E4%BD%BF%E7%94%A8-CloudFormation%EF%BC%9F"><span class="toc-article-text">Q: 過程為什麼要自己手動建立 Worker Nodes 而不使用 CloudFormation？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-Pod-%E7%9A%84-Log-%E8%A6%81%E5%A6%82%E4%BD%95%E6%9C%89%E6%95%88%E5%9C%B0%E8%92%90%E9%9B%86%E4%BB%A5%E5%8F%8A%E7%AE%A1%E7%90%86%EF%BC%9F"><span class="toc-article-text">Q: Pod 的 Log 要如何有效地蒐集以及管理？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q-EKS-%E8%A6%81%E6%94%AF%E6%8F%B4-HPA-Horizontal-Pod-Autoscaler-%E8%A6%81%E5%85%88%E6%BA%96%E5%82%99%E5%A5%BD%E4%BB%80%E9%BA%BC%EF%BC%9F"><span class="toc-article-text">Q: EKS 要支援 HPA (Horizontal Pod Autoscaler) 要先準備好什麼？</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#K8s-%E7%9B%B8%E9%97%9C"><span class="toc-article-text">K8s 相關</span></a></li></ol></li></ol>
 		</div>
 	
+	<hr />
 	</div>
 
-	<hr />
+
 
 	<!-- categories -->
     
 	<div class="meta-widget">
 		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
-    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
       <div>
   <!--<li>-->
     <span class="label label-info"><a href="/categories/AWS/" style="color: white">AWS <span class="badge">82</span></a></span>
   <!--</li>-->
 </div>
-    <!--</ul>-->
 	</div>
+	<hr />
 	
 
-	<hr />
 
 	<!-- tags -->
 	
 	<div class="meta-widget">
 		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
-    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
   <span class="label label-success"><a href="/tags/EKS/" style="color: white">EKS <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Kubernetes/" style="color: white">Kubernetes <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/kubeadm/" style="color: white">kubeadm <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/kubelet/" style="color: white">kubelet <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CNI/" style="color: white">CNI <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CRI/" style="color: white">CRI <span class="badge">6</span></a></span>
 	  </div>
-    <!--</ul>-->
 	</div>
+	<hr />
 	
 
-
-    <hr />
-
 	<div class="meta-widget">
-		<!-- v4 -->
 		<h4>About</h4>
 		<ul>
 		
@@ -600,50 +594,10 @@
 		
 		</ul>
 
-		<!-- v3 -->
-		<!--
-		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
-		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
-		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
-		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
-		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
-		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
-		-->
-
-		<!-- v2 -->
-		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
-
-		<!-- v1 -->
-		<!--
-		<li>Software Developer</li>
-		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
-		<li><a href="/categories/DevOps/">Operation Manager</a></li>
-		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
-		<li>
-			<ol>
-				<li>Management</li>
-				<li>Cloud / Distributed Systems</li>
-				<li>DevOps / SRE / </li>
-			</ol>
-		</li>
-		-->
-
-		<!--
-		<h4>Donate</h4>
-		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-		<input type="hidden" name="cmd" value="_s-xclick" />
-		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
-		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
-		</form>
-		-->
-
 		<h4>Facebook</h4>
-
 		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
 
-		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
-				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
 
 		<h4>AWS Certifications</h4>
 		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>

@@ -1235,44 +1235,38 @@ https://docs.aws.amazon.com/AmazonS3/latest/dev/LoggingWebsiteTraffic.html
 				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5-Concepts"><span class="toc-article-text">一、基本概念 (Concepts)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Bucket"><span class="toc-article-text">Bucket</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Bucket-%E5%90%8D%E7%A8%B1%E7%9A%84%E5%91%BD%E5%90%8D%E8%A6%8F%E5%89%87"><span class="toc-article-text">Bucket 名稱的命名規則</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Dual-Stack-IPv6"><span class="toc-article-text">Dual Stack (IPv6)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%8A%9F%E8%83%BD%E5%85%A8%E8%B2%8C"><span class="toc-article-text">功能全貌</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Objects"><span class="toc-article-text">Objects</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Object-Keys"><span class="toc-article-text">Object Keys</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Version-Id"><span class="toc-article-text">Version Id</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Object-Metadata"><span class="toc-article-text">Object Metadata</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Storage-Classes"><span class="toc-article-text">Storage Classes</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Regions"><span class="toc-article-text">Regions</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Data-Consistency-Model-%E8%B3%87%E6%96%99%E4%B8%80%E8%87%B4%E6%80%A7%E6%A8%A1%E5%BC%8F"><span class="toc-article-text">Data Consistency Model (資料一致性模式)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%BA%8C%E3%80%81%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD-Core-Functions"><span class="toc-article-text">二、核心功能 (Core Functions)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Static-Website-Hosting"><span class="toc-article-text">Static Website Hosting</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#S3-Bucket-Route53"><span class="toc-article-text">S3 Bucket + Route53</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Endpoints-of-Path-Style-and-Virtual-Hosted-Style"><span class="toc-article-text">Endpoints of Path-Style and Virtual-Hosted Style</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Event-Notifications"><span class="toc-article-text">Event Notifications</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Lifecycle-Management"><span class="toc-article-text">Lifecycle Management</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Monitoring"><span class="toc-article-text">Monitoring</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Others"><span class="toc-article-text">Others</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%B8%89%E3%80%81%E5%AD%98%E5%8F%96%E6%AC%8A%E9%99%90-Access-Control"><span class="toc-article-text">三、存取權限 (Access Control)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Resource-based-Policies"><span class="toc-article-text">Resource-based Policies</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#User-policy"><span class="toc-article-text">User policy</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#S3-%E5%A6%82%E4%BD%95%E8%99%95%E7%90%86%E6%8E%88%E6%AC%8A%E8%AB%8B%E6%B1%82%EF%BC%9F"><span class="toc-article-text">S3 如何處理授權請求？</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%9B%9B%E3%80%81%E8%B3%87%E6%96%99%E4%BF%9D%E8%AD%B7-Data-Protection"><span class="toc-article-text">四、資料保護 (Data Protection)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Data-Encryption-At-Rest"><span class="toc-article-text">Data Encryption (At Rest)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Versioning"><span class="toc-article-text">Versioning</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%BA%94%E3%80%81%E6%9C%8D%E5%8B%99%E9%99%90%E5%88%B6-Limitiation"><span class="toc-article-text">五、服務限制 (Limitiation)</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%85%AD%E3%80%81%E9%96%8B%E7%99%BC-Development"><span class="toc-article-text">六、開發 (Development)</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%B8%83%E3%80%81%E6%88%90%E6%9C%AC-Cost"><span class="toc-article-text">七、成本 (Cost)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%84%B2%E5%AD%98%E8%B2%BB%E7%94%A8"><span class="toc-article-text">儲存費用</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%AB%8B%E6%B1%82%E6%88%90%E6%9C%AC"><span class="toc-article-text">請求成本</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%85%AB%E3%80%81%E6%87%89%E7%94%A8%E5%A0%B4%E6%99%AF-User-Scenarios"><span class="toc-article-text">八、應用場景 (User Scenarios)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%B7%A8%E5%B8%B3%E8%99%9F%E5%AD%98%E5%8F%96-S3-Bucket"><span class="toc-article-text">跨帳號存取 S3 Bucket</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9C%A8-EC2-%E4%BD%BF%E7%94%A8-S3-%E7%95%B6%E4%BD%9C%E5%BB%B6%E4%BC%B8%E7%A3%81%E7%A2%9F"><span class="toc-article-text">在 EC2 使用 S3 當作延伸磁碟</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Bucket-List"><span class="toc-article-text">Bucket List</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E4%B9%9D%E3%80%81%E5%B8%B8%E8%A6%8B%E5%95%8F%E7%AD%94-FAQ"><span class="toc-article-text">九、常見問答 (FAQ)</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-article-text">結語</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E5%BB%B6%E4%BC%B8"><span class="toc-article-text">站內延伸</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%AE%98%E6%96%B9%E6%96%87%E4%BB%B6"><span class="toc-article-text">官方文件</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Deep-Dive-and-Whitepapers"><span class="toc-article-text">Deep Dive and Whitepapers</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#S3-%E6%96%B0%E5%8A%9F%E8%83%BD-New-Feature"><span class="toc-article-text">S3 新功能 (New Feature)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%9B%B4%E6%96%B0%E7%B4%80%E9%8C%84"><span class="toc-article-text">更新紀錄</span></a></li></ol></li></ol>
 		</div>
 	
+	<hr />
 	</div>
 
-	<hr />
+
 
 	<!-- categories -->
     
 	<div class="meta-widget">
 		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
-    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
       <div>
   <!--<li>-->
     <span class="label label-info"><a href="/categories/AWS/" style="color: white">AWS <span class="badge">82</span></a></span>
   <!--</li>-->
 </div>
-    <!--</ul>-->
 	</div>
+	<hr />
 	
 
-	<hr />
 
 	<!-- tags -->
 	
 	<div class="meta-widget">
 		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
-    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
   <span class="label label-success"><a href="/tags/EC2/" style="color: white">EC2 <span class="badge">20</span></a></span> <span class="label label-success"><a href="/tags/S3/" style="color: white">S3 <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/IAM/" style="color: white">IAM <span class="badge">12</span></a></span> <span class="label label-success"><a href="/tags/CloudWatch/" style="color: white">CloudWatch <span class="badge">33</span></a></span> <span class="label label-success"><a href="/tags/Lifecycle/" style="color: white">Lifecycle <span class="badge">28</span></a></span> <span class="label label-success"><a href="/tags/Lambda/" style="color: white">Lambda <span class="badge">17</span></a></span> <span class="label label-success"><a href="/tags/SQS/" style="color: white">SQS <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/CloudFront/" style="color: white">CloudFront <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/ACM/" style="color: white">ACM <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Athena/" style="color: white">Athena <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/SNS/" style="color: white">SNS <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/Eventually-Consistent/" style="color: white">Eventually Consistent <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/KMS/" style="color: white">KMS <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Storage-Gateway/" style="color: white">Storage Gateway <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/QuickSight/" style="color: white">QuickSight <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/AES/" style="color: white">AES <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/read-after-write/" style="color: white">read-after-write <span class="badge">1</span></a></span>
 	  </div>
-    <!--</ul>-->
 	</div>
+	<hr />
 	
 
-
-    <hr />
-
 	<div class="meta-widget">
-		<!-- v4 -->
 		<h4>About</h4>
 		<ul>
 		
@@ -1342,50 +1336,10 @@ https://docs.aws.amazon.com/AmazonS3/latest/dev/LoggingWebsiteTraffic.html
 		
 		</ul>
 
-		<!-- v3 -->
-		<!--
-		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
-		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
-		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
-		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
-		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
-		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
-		-->
-
-		<!-- v2 -->
-		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
-
-		<!-- v1 -->
-		<!--
-		<li>Software Developer</li>
-		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
-		<li><a href="/categories/DevOps/">Operation Manager</a></li>
-		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
-		<li>
-			<ol>
-				<li>Management</li>
-				<li>Cloud / Distributed Systems</li>
-				<li>DevOps / SRE / </li>
-			</ol>
-		</li>
-		-->
-
-		<!--
-		<h4>Donate</h4>
-		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-		<input type="hidden" name="cmd" value="_s-xclick" />
-		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
-		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
-		</form>
-		-->
-
 		<h4>Facebook</h4>
-
 		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
 
-		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
-				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
 
 		<h4>AWS Certifications</h4>
 		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>

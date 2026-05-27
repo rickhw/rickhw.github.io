@@ -236,7 +236,7 @@
 
 <hr>
 <h1 id="準備"><a href="#準備" class="headerlink" title="準備"></a>準備</h1><ul>
-<li><code>客服信箱</code>：準備一個信箱，通常是 客服專用的，例如 <a href="mailto:&#x73;&#117;&#112;&#112;&#111;&#x72;&#x74;&#64;&#x61;&#x62;&#x63;&#x2e;&#x63;&#x6f;&#x6d;">support@abc.com</a><ul>
+<li><code>客服信箱</code>：準備一個信箱，通常是 客服專用的，例如 <a href="mailto:&#x73;&#x75;&#112;&#112;&#x6f;&#x72;&#x74;&#64;&#x61;&#98;&#x63;&#x2e;&#x63;&#x6f;&#109;">support@abc.com</a><ul>
 <li>範例使用 IMAP 協議，所以這個信箱必須是 <code>使用者帳戶</code>，而不是 <code>群組帳戶</code></li>
 <li>使用 GMail 做範例，設定 IMAP 請參閱 <a target="_blank" rel="noopener" href="https://support.google.com/mail/answer/7126229?hl=zh-Hant">GMail IMAP 設定</a></li>
 <li>建立兩個 LABEL：<code>ACCEPTED</code>、<code>REJECTED</code></li>
@@ -261,7 +261,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RAKEFILE=<span class="string">&quot;[REDMINE_HOME]/Rakefile&quot;</span></span><br><span class="line">IMAP_HOST=<span class="string">&quot;imap.gmail.com&quot;</span></span><br><span class="line">USERNAME=<span class="string">&quot;&lt;EMAIL&gt;&quot;</span></span><br><span class="line">PASSWORD=<span class="string">&quot;&lt;PASSWORD&gt;&quot;</span></span><br></pre></td></tr></table></figure>
 
 
-<h2 id="一、確認可以收信"><a href="#一、確認可以收信" class="headerlink" title="一、確認可以收信"></a>一、確認可以收信</h2><p>送一封測試信 (標題: test 1)，到客服信箱 (<a href="mailto:&#115;&#x75;&#112;&#x70;&#x6f;&#x72;&#x74;&#64;&#x61;&#98;&#x63;&#x2e;&#99;&#x6f;&#x6d;">support@abc.com</a>)，到 GMail 確認已經收到。然後使用 redmine 身份，執行以下：</p>
+<h2 id="一、確認可以收信"><a href="#一、確認可以收信" class="headerlink" title="一、確認可以收信"></a>一、確認可以收信</h2><p>送一封測試信 (標題: test 1)，到客服信箱 (<a href="mailto:&#x73;&#x75;&#112;&#112;&#x6f;&#114;&#x74;&#x40;&#x61;&#98;&#x63;&#46;&#x63;&#111;&#x6d;">support@abc.com</a>)，到 GMail 確認已經收到。然後使用 redmine 身份，執行以下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rake -f <span class="variable">$&#123;RAKEFILE&#125;</span> redmine:email:receive_imap \</span><br><span class="line">    RAILS_ENV=production \</span><br><span class="line">    host=<span class="variable">$&#123;IMAP_HOST&#125;</span> port=993 ssl=<span class="literal">true</span> \</span><br><span class="line">    username=<span class="variable">$&#123;USERNAME&#125;</span> \</span><br><span class="line">    password=<span class="variable">$&#123;PASSWORD&#125;</span> \</span><br><span class="line">    folder=Inbox \</span><br><span class="line">    --trace</span><br></pre></td></tr></table></figure>
 
 <p>順利的話，檢查 <code>[REDMINE_HOME]/log/production.log</code> 會看到以下訊息：</p>
@@ -435,44 +435,38 @@
 				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%BA%96%E5%82%99"><span class="toc-article-text">準備</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E8%A8%AD%E5%AE%9A"><span class="toc-article-text">設定</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%80%E3%80%81%E7%A2%BA%E8%AA%8D%E5%8F%AF%E4%BB%A5%E6%94%B6%E4%BF%A1"><span class="toc-article-text">一、確認可以收信</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BA%8C%E3%80%81%E8%A8%AD%E5%AE%9A-ACCEPTED-%E5%92%8C-REJECTED"><span class="toc-article-text">二、設定 ACCEPTED 和 REJECTED</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%89%E3%80%81Receive-Message-from-Anonymous-User"><span class="toc-article-text">三、Receive Message from Anonymous User</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Receive-Message-and-Create-a-New-User"><span class="toc-article-text">Receive Message and Create a New User</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9B%9B%E3%80%81ACCEPT-Message"><span class="toc-article-text">四、ACCEPT Message</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%A8%AD%E5%AE%9A%E9%81%8E%E7%A8%8B%E5%A6%82%E4%BD%95-Debug"><span class="toc-article-text">設定過程如何 Debug</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%80%E4%BA%9B%E9%8C%AF%E8%AA%A4%E8%A8%8A%E6%81%AF"><span class="toc-article-text">一些錯誤訊息</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0"><span class="toc-article-text">系列文章</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
 		</div>
 	
+	<hr />
 	</div>
 
-	<hr />
+
 
 	<!-- categories -->
     
 	<div class="meta-widget">
 		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
-    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
       <div>
   <!--<li>-->
     <span class="label label-info"><a href="/categories/Redmine/" style="color: white">Redmine <span class="badge">6</span></a></span>
   <!--</li>-->
 </div>
-    <!--</ul>-->
 	</div>
+	<hr />
 	
 
-	<hr />
 
 	<!-- tags -->
 	
 	<div class="meta-widget">
 		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
-    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
   <span class="label label-success"><a href="/tags/Redmine/" style="color: white">Redmine <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/Project-Management/" style="color: white">Project Management <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/IMAP/" style="color: white">IMAP <span class="badge">1</span></a></span>
 	  </div>
-    <!--</ul>-->
 	</div>
+	<hr />
 	
 
-
-    <hr />
-
 	<div class="meta-widget">
-		<!-- v4 -->
 		<h4>About</h4>
 		<ul>
 		
@@ -542,50 +536,10 @@
 		
 		</ul>
 
-		<!-- v3 -->
-		<!--
-		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
-		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
-		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
-		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
-		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
-		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
-		-->
-
-		<!-- v2 -->
-		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
-
-		<!-- v1 -->
-		<!--
-		<li>Software Developer</li>
-		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
-		<li><a href="/categories/DevOps/">Operation Manager</a></li>
-		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
-		<li>
-			<ol>
-				<li>Management</li>
-				<li>Cloud / Distributed Systems</li>
-				<li>DevOps / SRE / </li>
-			</ol>
-		</li>
-		-->
-
-		<!--
-		<h4>Donate</h4>
-		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-		<input type="hidden" name="cmd" value="_s-xclick" />
-		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
-		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
-		</form>
-		-->
-
 		<h4>Facebook</h4>
-
 		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
 
-		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
-				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
 
 		<h4>AWS Certifications</h4>
 		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>

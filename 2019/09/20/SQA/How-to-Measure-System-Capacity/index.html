@@ -884,44 +884,38 @@ Beanchmark = HTTP request 數量 x (API Handler) / (4core, 8g)
 				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96%EF%BC%9A%E4%B8%89%E7%A8%AE%E9%87%8F%E6%B8%AC%E7%9A%84%E7%AD%96%E7%95%A5"><span class="toc-article-text">結論：三種量測的策略</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%AE%9A%E7%BE%A9"><span class="toc-article-text">定義</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%8E%A8%E6%BC%94%E6%96%B9%E6%B3%95%E8%AB%96"><span class="toc-article-text">推演方法論</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%80%E3%80%81%E6%BA%96%E5%82%99%E5%B7%A5%E4%BD%9C%EF%BC%9A%E5%AE%9A%E7%BE%A9%E8%BC%B8%E5%85%A5%E3%80%81%E8%BC%B8%E5%87%BA%E3%80%81%E5%BE%85%E6%B8%AC%E7%9B%AE%E6%A8%99%E3%80%81%E9%87%8F%E6%B8%AC%E5%B7%A5%E5%85%B7"><span class="toc-article-text">一、準備工作：定義輸入、輸出、待測目標、量測工具</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BA%8C%E3%80%81%E6%89%BE%E5%88%B0%E5%8F%AF%E8%83%BD%E7%9A%84%E5%AE%B9%E9%87%8F-Capacity-%E8%88%87%E8%B3%87%E6%BA%90%E7%9A%84%E5%9F%BA%E6%BA%96%E7%B7%9A-Baseline"><span class="toc-article-text">二、找到可能的容量 (Capacity) 與資源的基準線 (Baseline)</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%89%E3%80%81%E9%A9%97%E8%AD%89-Capacity-%E6%98%AF%E5%90%A6%E7%82%BA%E7%B7%9A%E6%80%A7%E9%97%9C%E4%BF%82%EF%BC%9F"><span class="toc-article-text">三、驗證 Capacity 是否為線性關係？</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Q-and-A"><span class="toc-article-text">Q and A</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q1-Capactiy-%E8%B7%9F-Load-Test%E3%80%81Stress-Test-%E6%9C%89%E4%BB%80%E9%BA%BC%E4%B8%8D%E4%B8%80%E6%A8%A3%EF%BC%9F"><span class="toc-article-text">Q1: Capactiy 跟 Load Test、Stress Test 有什麼不一樣？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q2-%E6%89%BF%E4%B8%8A%EF%BC%8C%E9%82%A3-%E5%A3%93%E6%B8%AC-%E8%B7%9F%E4%BD%A0%E8%AA%AA%E7%9A%84%E5%AE%B9%E9%87%8F%E9%87%8F%E6%B8%AC-%E6%9C%89%E5%95%A5%E4%B8%8D%E4%B8%80%E6%A8%A3%EF%BC%9F"><span class="toc-article-text">Q2: 承上，那 壓測 跟你說的容量量測 有啥不一樣？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q3-%E5%A6%82%E6%9E%9C%E6%9C%89%E7%9B%B8%E4%BE%9D%E6%80%A7%EF%BC%8C%E8%AB%8B%E5%95%8F%E6%80%8E%E9%BA%BC%E9%87%8F%E6%B8%AC%EF%BC%9F"><span class="toc-article-text">Q3: 如果有相依性，請問怎麼量測？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q4-%E5%A6%82%E6%9E%9C%E9%87%8F%E6%B8%AC%E7%9A%84%E6%98%AF%E5%A4%96%E9%83%A8%E4%BE%9D%E8%B3%B4%EF%BC%8C%E9%82%A3%E8%A6%81%E6%80%8E%E9%BA%BC%E5%81%9A%EF%BC%9F"><span class="toc-article-text">Q4: 如果量測的是外部依賴，那要怎麼做？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q5-%E6%88%91%E5%80%91%E7%9A%84%E7%B3%BB%E7%B5%B1%E5%BE%88%E8%A4%87%E9%9B%9C%EF%BC%8C%E8%A6%81%E6%80%8E%E9%BA%BC%E5%81%9A%E5%89%8D%E8%BF%B0%E7%9A%84%E9%87%8F%E6%B8%AC%EF%BC%9F"><span class="toc-article-text">Q5: 我們的系統很複雜，要怎麼做前述的量測？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q6-%E6%89%BF%E4%B8%8A%EF%BC%8C%E4%BD%A0%E5%9C%A8-%E8%81%8A%E8%81%8A%E5%88%86%E6%95%A3%E5%BC%8F%E7%B3%BB%E7%B5%B1-%E6%9C%89%E4%B8%80%E5%BC%B5%E5%BE%AE%E6%9C%8D%E5%8B%99%E6%9E%B6%E6%A7%8B%E5%9C%96%EF%BC%8C%E9%80%99%E5%BC%B5%E5%9C%96%E7%9A%84%E6%9E%B6%E6%A7%8B%E8%A6%81%E6%80%8E%E9%BA%BC%E9%87%8F%E6%B8%AC%EF%BC%9F"><span class="toc-article-text">Q6: 承上，你在 聊聊分散式系統 有一張微服務架構圖，這張圖的架構要怎麼量測？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q7-%E5%A6%82%E6%9E%9C%E6%B2%92%E6%9C%89%E8%B6%B3%E5%A4%A0%E8%B3%87%E6%BA%90%E8%88%87%E6%99%82%E9%96%93%EF%BC%8C%E6%80%8E%E6%A8%A3%E5%BF%AB%E9%80%9F%E8%A9%95%E4%BC%B0%E7%B3%BB%E7%B5%B1%E5%AE%B9%E9%87%8F%EF%BC%9F"><span class="toc-article-text">Q7: 如果沒有足夠資源與時間，怎樣快速評估系統容量？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q8-%E6%AD%A5%E9%A9%9F%E4%B8%89%E6%8F%8F%E8%BF%B0%E7%9A%84%E7%B5%90%E6%9E%9C%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%98%AF%E9%9D%9E%E7%B7%9A%E6%80%A7%E6%80%8E%E9%BA%BC%E8%BE%A6%EF%BC%9F"><span class="toc-article-text">Q8: 步驟三描述的結果，如果是非線性怎麼辦？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q9-CI-CD-%E6%B5%81%E7%A8%8B%E8%A6%81%E6%95%B4%E5%90%88%E6%95%88%E8%83%BD%E6%B8%AC%E8%A9%A6%EF%BC%9F"><span class="toc-article-text">Q9: CI &#x2F; CD 流程要整合效能測試？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q10-%E4%BD%A0%E5%9C%A8-%E6%B7%BA%E8%AB%87%E6%95%88%E8%83%BD%E6%B8%AC%E8%A9%A6-%E6%8F%90%E5%88%B0%E6%9C%89%E4%B8%89%E7%A8%AE%EF%BC%8C%E5%93%AA%E4%B8%80%E7%A8%AE%E6%AF%94%E8%BC%83%E9%87%8D%E8%A6%81%EF%BC%9F"><span class="toc-article-text">Q10: 你在 淺談效能測試 提到有三種，哪一種比較重要？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q11-%E9%80%99%E5%80%8B%E9%A1%8C%E7%9B%AE%E7%82%BA%E5%95%A5%E6%98%AF%E6%94%BE%E5%9C%A8-SQA-%E9%80%99%E5%80%8B%E5%88%86%E9%A1%9E%E8%A3%A1%EF%BC%9F"><span class="toc-article-text">Q11: 這個題目為啥是放在 SQA 這個分類裡？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q12-%E9%9B%96%E7%84%B6%E4%BD%A0%E4%B8%80%E9%96%8B%E5%A7%8B%E8%AA%AA%E4%B8%8D%E6%8E%A8%E8%96%A6%E5%B7%A5%E5%85%B7%EF%BC%8C%E4%BD%86%E9%82%84%E6%98%AF%E5%8F%AF%E4%BB%A5%E6%8E%A8%E8%96%A6%E4%B8%80%E4%B8%8B%E5%97%8E%EF%BC%9F"><span class="toc-article-text">Q12: 雖然你一開始說不推薦工具，但還是可以推薦一下嗎？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q13-%E6%88%91%E5%80%91%E7%9A%84%E7%B3%BB%E7%B5%B1%E6%9C%89%E7%94%A8-EC2-Auto-Scaling%EF%BC%8C%E9%82%A3%E8%A6%81%E6%80%8E%E9%BA%BC%E6%B8%AC%E9%87%8F%E4%BD%A0%E8%AA%AA%E7%9A%84%E5%AE%B9%E9%87%8F%EF%BC%9F"><span class="toc-article-text">Q13: 我們的系統有用 EC2 Auto Scaling，那要怎麼測量你說的容量？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q14-%E7%9E%AC%E9%96%93%E6%B5%81%E9%87%8F%EF%BC%8C%E8%A6%81%E6%80%8E%E9%BA%BC%E9%87%8F%E6%B8%AC%EF%BC%9F%E5%83%8F%E6%98%AF%E9%9B%99%E5%8D%81%E4%B8%80%E9%82%A3%E7%A8%AE%E7%9A%84%E3%80%82"><span class="toc-article-text">Q14: 瞬間流量，要怎麼量測？像是雙十一那種的。</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q15-Database-%E7%9A%84%E6%B8%AC%E9%87%8F%E8%A6%81%E6%80%8E%E9%BA%BC%E5%81%9A%EF%BC%9F"><span class="toc-article-text">Q15: Database 的測量要怎麼做？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q16-Cache-Redis-%E7%9A%84%E9%87%8F%E6%B8%AC%E8%A6%81%E6%80%8E%E9%BA%BC%E5%81%9A%EF%BC%9F"><span class="toc-article-text">Q16: Cache (Redis) 的量測要怎麼做？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q17-%E5%9F%BA%E6%96%BC%E7%89%B9%E5%AE%9A%E8%83%8C%E6%99%AF%EF%BC%8C%E4%BE%8B%E5%A6%82%E5%9B%BA%E5%AE%9A%E6%9C%89-1000-rps-%E7%9A%84%E6%B5%81%E9%87%8F%E4%B9%8B%E4%B8%8B%EF%BC%8C%E7%84%B6%E5%BE%8C%E5%9C%A8%E6%AD%A4%E6%A2%9D%E4%BB%B6%E7%9A%84%E5%89%8D%E6%8F%90%EF%BC%8C%E5%86%8D%E5%81%9A%E5%A3%93%E5%8A%9B%E6%B8%AC%E8%A9%A6%E7%AE%97%E5%9C%A8%E4%BD%A0%E8%AA%AA%E7%9A%84%E7%AF%84%E7%96%87%EF%BC%9F"><span class="toc-article-text">Q17: 基於特定背景，例如固定有 1000 rps 的流量之下，然後在此條件的前提，再做壓力測試算在你說的範疇？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q96-%E7%B3%BB%E7%B5%B1%E5%AE%B9%E9%87%8F%E6%9C%89%E6%B2%92%E6%9C%89%E4%BB%80%E9%BA%BC%E7%AD%96%E7%95%A5%E6%80%A7%E9%81%B8%E6%93%87%E5%8F%AF%E4%BB%A5%E5%8F%83%E8%80%83%EF%BC%8C%E7%95%B6%E5%81%9A%E5%88%87%E5%85%A5%E9%BB%9E%EF%BC%9F"><span class="toc-article-text">Q96: 系統容量有沒有什麼策略性選擇可以參考，當做切入點？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q97-%E5%A6%82%E6%9E%9C%E7%B3%BB%E7%B5%B1%E6%98%AF%E8%B7%91%E5%9C%A8-K8s-%E4%B8%8A%EF%BC%8C%E9%80%99%E5%80%8B%E6%A6%82%E5%BF%B5%E4%B9%9F%E6%98%AF%E4%B8%80%E6%A8%A3%EF%BC%9F"><span class="toc-article-text">Q97: 如果系統是跑在 K8s 上，這個概念也是一樣？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q98-%E6%9C%89%E6%B2%92%E6%9C%89%E5%AF%A6%E9%9A%9B%E6%A1%88%E4%BE%8B%E5%8F%AF%E4%BB%A5%E5%88%86%E4%BA%AB%EF%BC%9F"><span class="toc-article-text">Q98: 有沒有實際案例可以分享？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Q99-%E5%8F%AF%E4%BB%A5%E7%B8%BD%E7%B5%90%EF%BC%8C%E9%87%8F%E6%B8%AC%E5%AE%B9%E9%87%8F%E7%9A%84%E5%89%8D%E6%8F%90%E8%88%87%E6%BA%96%E5%82%99%E5%B7%A5%E4%BD%9C%EF%BC%9F"><span class="toc-article-text">Q99: 可以總結，量測容量的前提與準備工作？</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-article-text">結論</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80-%E7%AB%99%E5%85%A7"><span class="toc-article-text">延伸閱讀 (站內)</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%BB%9F%E9%AB%94%E6%B8%AC%E8%A9%A6"><span class="toc-article-text">軟體測試</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#DevOps-SRE"><span class="toc-article-text">DevOps &#x2F; SRE</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B"><span class="toc-article-text">系統架構</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%9B%B8%E9%97%9C%E4%BA%8B%E4%BB%B6"><span class="toc-article-text">相關事件</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%9B%B4%E6%96%B0%E7%B4%80%E9%8C%84"><span class="toc-article-text">更新紀錄</span></a></li></ol></li></ol>
 		</div>
 	
+	<hr />
 	</div>
 
-	<hr />
+
 
 	<!-- categories -->
     
 	<div class="meta-widget">
 		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
-    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
       <div>
   <!--<li>-->
     <span class="label label-info"><a href="/categories/軟體測試/" style="color: white">軟體測試 <span class="badge">14</span></a></span>
   <!--</li>-->
 </div>
-    <!--</ul>-->
 	</div>
+	<hr />
 	
 
-	<hr />
 
 	<!-- tags -->
 	
 	<div class="meta-widget">
 		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
-    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
   <span class="label label-success"><a href="/tags/Rate-Limit/" style="color: white">Rate Limit <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Software-Test/" style="color: white">Software Test <span class="badge">15</span></a></span> <span class="label label-success"><a href="/tags/Benchmark/" style="color: white">Benchmark <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Reliability/" style="color: white">Reliability <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Published-SQA1/" style="color: white">Published-SQA1 <span class="badge">8</span></a></span> <span class="label label-success"><a href="/tags/System-Test/" style="color: white">System Test <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Performance-Test/" style="color: white">Performance Test <span class="badge">4</span></a></span> <span class="label label-success"><a href="/tags/Capacity/" style="color: white">Capacity <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Stability/" style="color: white">Stability <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Load-Test/" style="color: white">Load Test <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Stress-Test/" style="color: white">Stress Test <span class="badge">2</span></a></span>
 	  </div>
-    <!--</ul>-->
 	</div>
+	<hr />
 	
 
-
-    <hr />
-
 	<div class="meta-widget">
-		<!-- v4 -->
 		<h4>About</h4>
 		<ul>
 		
@@ -991,50 +985,10 @@ Beanchmark = HTTP request 數量 x (API Handler) / (4core, 8g)
 		
 		</ul>
 
-		<!-- v3 -->
-		<!--
-		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
-		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
-		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
-		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
-		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
-		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
-		-->
-
-		<!-- v2 -->
-		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
-
-		<!-- v1 -->
-		<!--
-		<li>Software Developer</li>
-		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
-		<li><a href="/categories/DevOps/">Operation Manager</a></li>
-		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
-		<li>
-			<ol>
-				<li>Management</li>
-				<li>Cloud / Distributed Systems</li>
-				<li>DevOps / SRE / </li>
-			</ol>
-		</li>
-		-->
-
-		<!--
-		<h4>Donate</h4>
-		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-		<input type="hidden" name="cmd" value="_s-xclick" />
-		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
-		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
-		</form>
-		-->
-
 		<h4>Facebook</h4>
-
 		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
 
-		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
-				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
 
 		<h4>AWS Certifications</h4>
 		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
