@@ -98,9 +98,9 @@
       <name>Rick Hwang</name>
     </author>
     <category term="Computer Science" scheme="https://rickhw.github.io/categories/Computer-Science/"/>
-    <category term="Benchmark" scheme="https://rickhw.github.io/tags/Benchmark/"/>
-    <category term="Distributed Systems" scheme="https://rickhw.github.io/tags/Distributed-Systems/"/>
     <category term="Rate Limit" scheme="https://rickhw.github.io/tags/Rate-Limit/"/>
+    <category term="Distributed Systems" scheme="https://rickhw.github.io/tags/Distributed-Systems/"/>
+    <category term="Benchmark" scheme="https://rickhw.github.io/tags/Benchmark/"/>
     <category term="Throughput" scheme="https://rickhw.github.io/tags/Throughput/"/>
     <category term="RPS" scheme="https://rickhw.github.io/tags/RPS/"/>
     <category term="c10k" scheme="https://rickhw.github.io/tags/c10k/"/>
@@ -255,8 +255,8 @@
     </author>
     <category term="Computer Science" scheme="https://rickhw.github.io/categories/Computer-Science/"/>
     <category term="Operating Systems" scheme="https://rickhw.github.io/tags/Operating-Systems/"/>
-    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
     <category term="Finite-State Machine" scheme="https://rickhw.github.io/tags/Finite-State-Machine/"/>
+    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
     <category term="Task" scheme="https://rickhw.github.io/tags/Task/"/>
     <category term="Scheduler" scheme="https://rickhw.github.io/tags/Scheduler/"/>
     <category term="Process" scheme="https://rickhw.github.io/tags/Process/"/>
@@ -315,8 +315,8 @@
     </author>
     <category term="Computer Science" scheme="https://rickhw.github.io/categories/Computer-Science/"/>
     <category term="Operating Systems" scheme="https://rickhw.github.io/tags/Operating-Systems/"/>
-    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
     <category term="DNS" scheme="https://rickhw.github.io/tags/DNS/"/>
+    <category term="Just for Fun" scheme="https://rickhw.github.io/tags/Just-for-Fun/"/>
     <category term="Networking" scheme="https://rickhw.github.io/tags/Networking/"/>
     <category term="IPv4" scheme="https://rickhw.github.io/tags/IPv4/"/>
     <category term="Mac Address" scheme="https://rickhw.github.io/tags/Mac-Address/"/>
@@ -446,8 +446,8 @@
     </author>
     <category term="System Design" scheme="https://rickhw.github.io/categories/System-Design/"/>
     <category term="API Gateway" scheme="https://rickhw.github.io/tags/API-Gateway/"/>
-    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     <category term="Finite-State Machine" scheme="https://rickhw.github.io/tags/Finite-State-Machine/"/>
+    <category term="API First" scheme="https://rickhw.github.io/tags/API-First/"/>
     <category term="RESTful" scheme="https://rickhw.github.io/tags/RESTful/"/>
     <category term="API" scheme="https://rickhw.github.io/tags/API/"/>
     <category term="API Design" scheme="https://rickhw.github.io/tags/API-Design/"/>
@@ -481,10 +481,10 @@
       <name>Rick Hwang</name>
     </author>
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
+    <category term="Docker" scheme="https://rickhw.github.io/tags/Docker/"/>
     <category term="Java" scheme="https://rickhw.github.io/tags/Java/"/>
     <category term="macOS" scheme="https://rickhw.github.io/tags/macOS/"/>
     <category term="VSCode" scheme="https://rickhw.github.io/tags/VSCode/"/>
-    <category term="Docker" scheme="https://rickhw.github.io/tags/Docker/"/>
     <category term="Docker-Compose" scheme="https://rickhw.github.io/tags/Docker-Compose/"/>
     <content>
       <![CDATA[<p>整理一下我個人開發環境的資訊。</p><span id="more"></span><h2 id="Programming-Language"><a href="#Programming-Language" class="headerlink" title="Programming Language"></a>Programming Language</h2><p>以 Java 為主，主要是透過 <a href="/2019/04/07/Coding/Java-Version-Manager/">SDK</a> 這個 Java Version Manager 為主，底下是我安裝的部分：</p><ol><li>各種 Provider 和版本的 JDK，像是 Amazon 的 Corretto, OpenJDK, Oracle 的 GraalVM CE, Zulu … 等</li><li>安裝 maven, gradle 等</li><li>Framework: Spring Boot, </li><li>Performance: jmeter, VisualVM</li></ol><p>SDK 本身支援很多 Java 社群常見的開發工具，我在 Ubuntu or macOS 都會使用。</p><h2 id="OS-macOS-Linux-Ubuntu"><a href="#OS-macOS-Linux-Ubuntu" class="headerlink" title="OS: macOS, Linux - Ubuntu"></a>OS: macOS, Linux - Ubuntu</h2><p>我習慣開發時應用程式的 runtime 跟 Production 一致，所以開發時會盡可能讓應用程式一開始就跑在 Linux 為主的環境，避免未來一些因為 OS 造成的問題。</p><p>但是人機界面，macOS 其實還是比較順手，當然現在 Ubuntu 的 GNOME 其實也很不錯。所以環境我大概都會這樣搭配：</p><ol><li>IDE: 放在 macOS or Windows</li><li>Runtime: 放在 remote 的 linux or container<ul><li>透過 VM 的方式開一台 Linux (Ubuntu)</li><li>用 docker-compose 開啟相關的依賴元件，像是 MySQL</li></ul></li></ol><h2 id="IDE"><a href="#IDE" class="headerlink" title="IDE"></a>IDE</h2><p>主力 IDE 的選擇以通用性高的為原則，目前主要是用 VSCode，也搭配一些像是 Copilot 之類。</p><p>其他新的 Cursor &#x2F; Windsurf 目前處於嚐鮮狀態。</p><p>VSCode 使用方式有兩種，完全在 macOS 上，和透過 Remote Explorer + UTM 開一台 Ubuntu.</p><p>我現在比較少用 <a href="/2022/07/04/DistributedSystems/Inspired-Design-From-Eclipse/">Eclipse</a>, 或者 IntelliJ, 主要是任務大多是 PoC 目的，所以 IDE 盡可能簡單。</p><h3 id="完全在-macOS-開發-目前"><a href="#完全在-macOS-開發-目前" class="headerlink" title="完全在 macOS 開發 (目前)"></a>完全在 macOS 開發 (目前)</h3><p>IDE 和 docker-compose 都在本機跑，docker 則是使用 <a href="https://orbstack.dev/">orbstack</a>.</p><ul><li>優點：開發效率很好，效能也最佳</li><li>缺點：有些問題在 linux 會發生的，會晚一點發現，像是 docker-compose 的權限問題</li></ul><h3 id="Remote-Development-IDE-在-macOS-runtime-都在-VM"><a href="#Remote-Development-IDE-在-macOS-runtime-都在-VM" class="headerlink" title="Remote Development: IDE 在 macOS, runtime 都在 VM"></a>Remote Development: IDE 在 macOS, runtime 都在 VM</h3><p>VS Code 跑在 macOS，然後透過 Remote Explorer 的 SSH Tunnel 連到 UTM 裡的 Ubuntu 開發。</p><p>docker-compose 的 stack 和 application 都跑在 ubuntu 上。</p><ul><li>優點：問題會提早發現，可以提早修復</li><li>缺點：效能沒有全部都跑在本機好，相關可以參閱 <a href="/2024/10/13/Coding/Virtualization-Performance/">VMWare and UTM Performance Benchmark</a></li></ul><h2 id="System-Stack-docker-compose"><a href="#System-Stack-docker-compose" class="headerlink" title="System Stack: docker-compose"></a>System Stack: docker-compose</h2><p>最近在開發的環境，大量使用 docker-compose 建立相關資源，如下：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">❯ docker-compose up -d</span><br><span class="line">[+] Running 12/12</span><br><span class="line"> ✔ Container asimov-cache-adminer_phpRedisAdmin-1  Started                                                              0.5s</span><br><span class="line"> ✔ Container asimov-rdb_mariadb-1                  Healthy                                                             30.7s</span><br><span class="line"> ✔ Container asimov-cache_redis-1                  Started                                                              0.3s</span><br><span class="line"> ✔ Container asimov-queue_rabbitmq-1               Started                                                              0.5s</span><br><span class="line"> ✔ Container asimov-dashboard_grafana-1            Started                                                              0.7s</span><br><span class="line"> ✔ Container asimov-search_elasticsearch-1         Started                                                              0.5s</span><br><span class="line"> ✔ Container asimov-metric_prometheus-1            Started                                                              0.3s</span><br><span class="line"> ✔ Container asimov-node-exporter-1                Started                                                              0.6s</span><br><span class="line"> ✔ Container asimov-rdb-adminer_phpmyadmin-1       Started                                                             31.0s</span><br><span class="line"> ✔ Container asimov-api-gateway_apache-apisix-1    Started                                                              0.5s</span><br><span class="line"> ✔ Container asimov-dashboard_kibana-1             Started                                                              0.9s</span><br><span class="line"> ✔ Container asimov-logshipper_webapi-filebeat-1   Started</span><br></pre></td></tr></table></figure><p>總共 12 個 container，不包含應用程式本身。其中包含了：</p><ul><li>data<ul><li>Relational Database: MySQL, MariaDB</li><li>Message Queue: RabbitMQ</li><li>Cache: Redis</li></ul></li><li>Logging<ul><li>Elasticsearch</li><li>Filebeat</li></ul></li><li>Dashboard<ul><li>Kibana</li><li>Grafana</li></ul></li><li>Metric<ul><li>Prometheus</li><li>Node Exporter</li></ul></li><li>Networking<ul><li>APISix (API Gateway)</li></ul></li></ul><p>這些東西都以最小配置為原則，主要是開發過程 functional test 使用，跑起來約要消費掉 10GiB 的記憶體。</p><p>加上 IDE 佔用的資源 (3GiB) ，基礎消費約 13GiB，加上一倍的 buffer，建議至少要有 32GiB 的記憶體。這不包含開發時會同時開 Browser 或者 Ollama (LLM) 找資源問問題所需要的記憶體。</p><h2 id="資源分配"><a href="#資源分配" class="headerlink" title="資源分配"></a>資源分配</h2><p>比較好的開發資源分配，我會想把 system stack 部分都跑在其他獨立的機器，然後 macOS 只跑 IDE，這樣整體開發的平橫性會好很多。</p><p>不然就要弄一台規格很好的 MacBook Pro，然後所有東西都跑在上面。</p><h2 id="理想的開發資源"><a href="#理想的開發資源" class="headerlink" title="理想的開發資源"></a>理想的開發資源</h2><p>資源牽涉到成本問題，所以還是要先說一下主要用途：</p><ol><li>開發應用程式</li><li>模擬測試、效能測試</li></ol><p>單純開發應用程式，其實需要的資源不多。但要跑一些模擬測試，或者效能測試，就會需要比較多的資源，像是：</p><ol><li>分散式資料庫的一致性驗證</li><li>K8s Cluster</li><li>模擬大量使用者 Client 需要的資源.</li></ol><p>所以摘要理想的資源需要：</p><ol><li>開發功能：最少 32GiB，最好 64GiB，或者分開兩台機器，兩台都 64 GiB</li><li>測試：64G 三台以上，分別擔任開發 &#x2F; 測試 Client &#x2F; System Stack 部署三個部分</li></ol><hr><h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><ul><li><a href="/2019/04/07/Coding/Java-Version-Manager/">SDK - Java Version Manager</a></li><li><a href="/2024/10/13/Coding/Virtualization-Performance/">VMWare and UTM Performance Benchmark</a></li><li><a href="/2023/01/17/Container/Install-K3s-on-MBPR-M1/">K8s 學習筆記 - 在 MacBook Pro M1 安裝 K3s</a></li><li><a href="/2022/07/04/DistributedSystems/Inspired-Design-From-Eclipse/">摘要 Eclipse 設計的啟發：當代 SaaS 分散式架構的關鍵設計</a></li></ul>]]>
@@ -503,9 +503,9 @@
       <name>Rick Hwang</name>
     </author>
     <category term="Coding" scheme="https://rickhw.github.io/categories/Coding/"/>
+    <category term="VMWare" scheme="https://rickhw.github.io/tags/VMWare/"/>
     <category term="Linux" scheme="https://rickhw.github.io/tags/Linux/"/>
     <category term="Virtualization" scheme="https://rickhw.github.io/tags/Virtualization/"/>
-    <category term="VMWare" scheme="https://rickhw.github.io/tags/VMWare/"/>
     <category term="Development Environment" scheme="https://rickhw.github.io/tags/Development-Environment/"/>
     <category term="Benchmark" scheme="https://rickhw.github.io/tags/Benchmark/"/>
     <content>
