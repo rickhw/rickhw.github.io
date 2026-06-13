@@ -92,7 +92,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>4</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -223,6 +223,8 @@
 	
 	<div class="col-md-9">
 		
+
+            <hr />
 
 			
 
@@ -531,9 +533,6 @@ World Model 這派學說的代表人物楊立昆 (Yann LeCun, 2018年圖靈獎)�
 </ul>
 
 
-				<hr />
-
-
 				<!-- LikeCoin -->
 				<!-- @rickd 2022/09/06 -->
 				<!--
@@ -543,6 +542,19 @@ World Model 這派學說的代表人物楊立昆 (Yann LeCun, 2018年圖靈獎)�
 				</iframe>
 				<br />
 				-->
+
+				<hr />
+
+                <!-- @ricka uriel 2026/05/25 -->
+                <h2>Comments</h2>
+                <div id="uriel-comment"></div>
+                <script
+                    src="https://uriel.gtcafelab.com/embed/comment.js"
+                    data-site="complete-think"
+                    data-url="/2026/04/28/ComputerScience/Simple-OS-Context-Switch/"
+                    data-target="#uriel-comment"
+                    async
+                ></script>
 
 				<div>
 					<center>
@@ -566,7 +578,6 @@ World Model 這派學說的代表人物楊立昆 (Yann LeCun, 2018年圖靈獎)�
 					</center>
 				</div>
 
-
 			</div>
 
 
@@ -586,6 +597,16 @@ World Model 這派學說的代表人物楊立昆 (Yann LeCun, 2018年圖靈獎)�
 	</div>
 	
 
+    <!-- @ricka uriel 2026/05/25 -->
+    <div id="uriel-like"></div>
+    <script
+        src="https://uriel.gtcafelab.com/embed/like.js"
+        data-site="complete-think"
+        data-url="/2026/04/28/ComputerScience/Simple-OS-Context-Switch/"
+        data-target="#uriel-like"
+        async
+    ></script>
+
 	<hr />
 
 	<!-- toc -->
@@ -596,44 +617,38 @@ World Model 這派學說的代表人物楊立昆 (Yann LeCun, 2018年圖靈獎)�
 				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%80%E3%80%81%E4%BB%80%E9%BA%BC%E6%98%AF-Context-Switch%EF%BC%9F%E5%AE%83%E5%B8%B6%E4%BE%86%E7%9A%84%E6%88%90%E6%9C%AC-%E8%B2%A0%E6%93%94-Overhead-%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F"><span class="toc-article-text">一、什麼是 Context Switch？它帶來的成本 負擔 (Overhead) 是什麼？</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%AE%9A%E7%BE%A9"><span class="toc-article-text">定義</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E8%A7%B8%E7%99%BC%E6%99%82%E6%A9%9F"><span class="toc-article-text">觸發時機</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%88%90%E6%9C%AC%E5%88%86%E6%9E%90"><span class="toc-article-text">成本分析</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BA%8C%E3%80%81%E6%8E%92%E7%A8%8B%E5%99%A8%E5%A6%82%E4%BD%95%E6%B1%BA%E5%AE%9A%E3%80%8C%E5%88%87%E6%8F%9B%E7%B5%A6%E8%AA%B0%E3%80%8D%EF%BC%9F"><span class="toc-article-text">二、排程器如何決定「切換給誰」？</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%AD%A5%E9%A9%9F-1%EF%BC%9A%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6-%E5%96%9A%E9%86%92%E7%9D%A1%E7%9C%A0%E4%BB%BB%E5%8B%99"><span class="toc-article-text">步驟 1：垃圾回收 + 喚醒睡眠任務</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%AD%A5%E9%A9%9F-2%EF%BC%9ARound-Robin-%E8%BC%AA%E8%BD%89%E6%89%BE%E4%B8%8B%E4%B8%80%E5%80%8B%E8%A1%8C%E7%A8%8B"><span class="toc-article-text">步驟 2：Round-Robin 輪轉找下一個行程</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%AD%A5%E9%A9%9F-3%EF%BC%9A%E5%9F%B7%E8%A1%8C-Context-Switch"><span class="toc-article-text">步驟 3：執行 Context Switch</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%89%E3%80%81%E7%B5%84%E5%90%88%E8%AA%9E%E8%A8%80%E5%A6%82%E4%BD%95%E5%AE%8C%E6%88%90%E6%9C%80%E5%BE%8C%E4%B8%80%E6%AD%A5%E5%88%87%E6%8F%9B%EF%BC%9F"><span class="toc-article-text">三、組合語言如何完成最後一步切換？</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E9%9C%80%E8%A6%81%E7%B5%84%E5%90%88%E8%AA%9E%E8%A8%80%EF%BC%9F"><span class="toc-article-text">為什麼需要組合語言？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#switch-task-S-%E9%80%90%E8%A1%8C%E8%A7%A3%E6%9E%90"><span class="toc-article-text">switch_task.S 逐行解析</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%96%B0%E8%A1%8C%E7%A8%8B%E7%AC%AC%E4%B8%80%E6%AC%A1%E8%A2%AB%E6%8E%92%E7%A8%8B%EF%BC%9Achild-ret-stub"><span class="toc-article-text">新行程第一次被排程：child_ret_stub</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%95%B4%E9%AB%94%E6%B5%81%E7%A8%8B%E5%9B%9E%E9%A1%A7"><span class="toc-article-text">整體流程回顧</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-article-text">小結</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%BF%83%E5%BE%97%E7%AD%86%E8%A8%98"><span class="toc-article-text">心得筆記</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%94%A8-AI-%E5%AD%B8%E7%BF%92%E7%9A%84%E9%81%8E%E7%A8%8B%EF%BC%8C%E6%9C%89%E6%B2%92%E9%81%87%E5%88%B0%E5%B9%BB%E8%A6%BA%E5%95%8F%E9%A1%8C%EF%BC%9F"><span class="toc-article-text">用 AI 學習的過程，有沒遇到幻覺問題？</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%96%92%E8%81%8A-AI-Harness-Engineering"><span class="toc-article-text">閒聊 AI - Harness Engineering</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#1-Harness-Engineering-%E8%A7%A3%E6%B1%BA%E7%9A%84%E5%95%8F%E9%A1%8C%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F"><span class="toc-article-text">1) Harness Engineering 解決的問題是什麼？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#2-%E5%AE%83%E5%A6%82%E4%BD%95%E8%A7%A3%E6%B1%BA%EF%BC%9F"><span class="toc-article-text">2) 它如何解決？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#3-%E7%8F%BE%E5%9C%A8%E6%9C%89%E5%93%AA%E4%BA%9B%E7%94%A8-Harness-Engineering-%E5%AF%A6%E4%BD%9C%E7%9A%84%E7%B3%BB%E7%B5%B1%EF%BC%9F"><span class="toc-article-text">3) 現在有哪些用 Harness Engineering 實作的系統？</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90-1"><span class="toc-article-text">小結</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E8%87%AA%E5%B9%B9%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1-%E7%B3%BB%E5%88%97"><span class="toc-article-text">自幹作業系統 系列</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%AB%99%E5%85%A7%E6%96%87%E7%AB%A0"><span class="toc-article-text">站內文章</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
 		</div>
 	
+	<hr />
 	</div>
 
-	<hr />
+
 
 	<!-- categories -->
-  
+    
 	<div class="meta-widget">
 		<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i> Categories</a>
-    <!--<ul id="categorys" class="tag_box list-unstyled collapse in">-->
       <div>
   <!--<li>-->
     <span class="label label-info"><a href="/categories/Computer-Science/" style="color: white">Computer Science <span class="badge">12</span></a></span>
   <!--</li>-->
 </div>
-    <!--</ul>-->
 	</div>
+	<hr />
 	
 
-	<hr />
 
 	<!-- tags -->
 	
 	<div class="meta-widget">
 		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
-    <!--<ul id="tags" class="tag_box list-unstyled collapse in">-->
     <div>
 	  	
   <span class="label label-success"><a href="/tags/Harness-Engineering/" style="color: white">Harness Engineering <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Operating-Systems/" style="color: white">Operating Systems <span class="badge">7</span></a></span> <span class="label label-success"><a href="/tags/Just-for-Fun/" style="color: white">Just for Fun <span class="badge">6</span></a></span> <span class="label label-success"><a href="/tags/Task/" style="color: white">Task <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Scheduler/" style="color: white">Scheduler <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Process/" style="color: white">Process <span class="badge">5</span></a></span> <span class="label label-success"><a href="/tags/Context-Switch/" style="color: white">Context Switch <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/World-Model/" style="color: white">World Model <span class="badge">1</span></a></span>
 	  </div>
-    <!--</ul>-->
 	</div>
+	<hr />
 	
 
-
-  <hr />
-
 	<div class="meta-widget">
-		<!-- v4 -->
 		<h4>About</h4>
 		<ul>
 		
@@ -703,50 +718,10 @@ World Model 這派學說的代表人物楊立昆 (Yann LeCun, 2018年圖靈獎)�
 		
 		</ul>
 
-		<!-- v3 -->
-		<!--
-		<li><a href="/2018/07/08/Index/">部落格索引</a></li>
-		<li><a href="/2017/12/29/About/About-This-Blog/">關於這個部落格</a></li>
-		<li><a href="/2017/12/29/About/About-Author/">關於作者</a></li>
-		<li><a href="/2017/09/20/About/Learning-Approaches/">學習法則</a></li>
-		<li><a href="/2014/12/27/Management/經營之道/">經營之道</a></li>
-		<li><a href="/2017/12/02/About/Epiphany/">一些領悟</a></li>
-		-->
-
-		<!-- v2 -->
-		<!-- <a href="/2017/07/01/Management/Developer-or-Engineer/">軟體開發者 (Software Developer)</a>、<a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">音樂愛好者</a>，工作角色經歷 DevOps 三個圈圈職務: Dev / <a href="/categories/軟體測試/">QA</a> / <a href="/categories/DevOps/">Ops</a>。這幾年專注在經營管理、<a href="/2016/10/01/AWS-Study-Roadmap/">AWS</a> / GCP、分散式架構、<a href="/categories/DevOps/">維運、DevOps / SRE</a> 等領域，並活躍於各大社群的活動、演講，著有技術部落格：<a href="https://rickhw.github.io/">Complete Think</a>。工作之外也是業餘音樂愛好者，專注在 吉他、鍵盤、編曲、教學，著有音樂部落格：<a target="_blank" rel="noopener" href="https://rickmidi.blogspot.com/">喝咖啡聊音樂</a>。 -->
-
-		<!-- v1 -->
-		<!--
-		<li>Software Developer</li>
-		<li><a href="/categories/軟體測試/">SQA Manager</a></li>
-		<li><a href="/categories/DevOps/">Operation Manager</a></li>
-		<li><a target="_blank" rel="noopener" href="http://rickmidi.blogspot.com/">Musician and Guitarist</a></li>
-		<li>
-			<ol>
-				<li>Management</li>
-				<li>Cloud / Distributed Systems</li>
-				<li>DevOps / SRE / </li>
-			</ol>
-		</li>
-		-->
-
-		<!--
-		<h4>Donate</h4>
-		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-		<input type="hidden" name="cmd" value="_s-xclick" />
-		<input type="hidden" name="hosted_button_id" value="UUMSV7TXWT2AJ" />
-		<input type="image" src="https://www.paypalobjects.com/en_US/TW/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-		<img alt="" border="0" src="https://www.paypal.com/en_TW/i/scr/pixel.gif" width="1" height="1" />
-		</form>
-		-->
-
 		<h4>Facebook</h4>
-
 		<div class="fb-page" data-href="https://www.facebook.com/completethink/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/completethink/" class="fb-xfbml-parse-ignore"><a target="_blank" rel="noopener" href="https://www.facebook.com/completethink/">Complete Think</a></blockquote></div>
 
-		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img
-				src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
+		<a target="_blank" rel="noopener" href="https://aws.amazon.com/developer/community/heroes/rick-hwang/"><img src="/images/About/AWS-Hero/community-heroes_logo.png"></a>
 
 		<h4>AWS Certifications</h4>
 		<a href="/2016/04/22/AWS/AWS-Certified-Solutions-Architect_Associate/"><img src="/images/About/Solutions_Architect-Associate.jpg"></a>
@@ -761,6 +736,7 @@ World Model 這派學說的代表人物楊立昆 (Yann LeCun, 2018年圖靈獎)�
 		
 
 	</div><!-- row -->
+
 
 
     </div>
