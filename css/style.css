@@ -689,7 +689,7 @@ p {
 hr {
   /* 通常下邊界會接文章標題，所以距離多一點 */
   margin-top: 20px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 
   border: 5;
   height: 2px;
