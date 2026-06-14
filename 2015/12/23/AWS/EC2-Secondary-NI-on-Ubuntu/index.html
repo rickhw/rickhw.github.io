@@ -91,7 +91,7 @@
 						<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'><i class="fa fa-folder"></i>Categories <span class='caret'/></span></a>
 		            	<ul class='dropdown-menu' role='menu'>
 		            	
-						<li><a href="/categories/AI/">AI <sup>3</sup></a></li>
+						<li><a href="/categories/AI/">AI <sup>4</sup></a></li>
 						
 						<li><a href="/categories/AWS/">AWS <sup>82</sup></a></li>
 						
@@ -227,6 +227,16 @@
 
 			
 
+            <!-- @ricka uriel 2026/05/25 -->
+            <div id="uriel-like"></div>
+            <script
+                src="https://uriel.gtcafelab.com/embed/like.js"
+                data-site="complete-think"
+                data-url="/2015/12/23/AWS/EC2-Secondary-NI-on-Ubuntu/"
+                data-target="#uriel-like"
+                async
+            ></script>
+
 			<!-- content -->
 			<div class="mypage">
 				<p>因為 <a href="/2015/12/22/Linux/Config-Secure-Apache-with-Lets-Encrypt-on-Ubuntu14.04/">這個</a> 需求，我先在自己的機器實驗成功後，到公司 AWS EC2 設定。公司 AWS 架構比較複雜，所有的機器都在 VPC 裡面，如果要能夠讓外面進來，只有兩個選擇：ELB 或者是 加掛 EIP。 要讓 EIP 可以出去，就必須走 Internet Gateway (IGW)，如果 EC2 Instance 放在 VPC 裡，那麼預設都是走 VGW (Virtual Gateway)。要讓這台機器可以同時在 VGW &#x2F; IGW 兩端游走，後來想到的方法就是加掛另一張網卡 ENI，只是這張網卡的 CIDR 是在 IGW 的 Subnet。他們的關係大概長這樣：</p>
@@ -329,16 +339,6 @@
 		2015/12/23 20:33:00
 	</div>
 	
-
-    <!-- @ricka uriel 2026/05/25 -->
-    <div id="uriel-like"></div>
-    <script
-        src="https://uriel.gtcafelab.com/embed/like.js"
-        data-site="complete-think"
-        data-url="/2015/12/23/AWS/EC2-Secondary-NI-on-Ubuntu/"
-        data-target="#uriel-like"
-        async
-    ></script>
 
 	<hr />
 
