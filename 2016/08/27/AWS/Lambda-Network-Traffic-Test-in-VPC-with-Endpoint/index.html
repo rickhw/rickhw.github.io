@@ -12,13 +12,18 @@
 
 推論基礎是：都在 LAN 裡的傳輸，會比出去到 WAN">
   
-  
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
 
   <!-- properties -->
   <meta property="og:title" content="Lambda Network Traffic Test in VPC w/ or w/o Endpoint"/>
+  <meta property="og:description" content="有人在問 Lambda 抓取 S3 資料出現下載時間過大 (latency) 的問題，我做了這樣的假設：
+
+把 Lambda 放在 VPC 裡
+把 VPC endpoint 打開，指定到 Lambda subnet 的 Route Table
+
+推論基礎是：都在 LAN 裡的傳輸，會比出去到 WAN"/>
   <meta property="og:site_name" content="Complete Think"/>
   <meta property="og:type"      content="website" />
   <meta property="og:url" content="https://rickhw.github.io/2016/08/27/AWS/Lambda-Network-Traffic-Test-in-VPC-with-Endpoint/"/>
