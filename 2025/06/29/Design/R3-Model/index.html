@@ -5,11 +5,8 @@
   <title>R3 Model | Complete Think</title>
 
   <meta name="author" content="Rick Hwang">
-  <meta name="description" content="C4 model 是一個 2018 年之後發展出來的 架構描述方式，我在 2017 年底也在組織內部弄了類似概念的表達架構方式，很巧不巧，概念很 C4 model 很像，這段想法在我的著作 SRE實踐與開發平台指南 有提到，底下用 FB 寫的草稿，讓 ChatGPT 幫我整理的想法～
-
-
-
-R3 M">
+  <meta name="description" content="C4 model 是一個 2018 年之後發展出來的 架構描述方式。
+我在 2017 年底也在組織內部弄了類似概念的表達架構方式 (稱 R3 Model)，很巧不巧，概念很 C4 model 很像，這段想法在我的著作 SRE實踐與開發平台指南 有提到，我在各種公開演講、部落格畫圖時的原則就是遵守 R">
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -17,11 +14,8 @@ R3 M">
 
   <!-- properties -->
   <meta property="og:title" content="R3 Model"/>
-  <meta property="og:description" content="C4 model 是一個 2018 年之後發展出來的 架構描述方式，我在 2017 年底也在組織內部弄了類似概念的表達架構方式，很巧不巧，概念很 C4 model 很像，這段想法在我的著作 SRE實踐與開發平台指南 有提到，底下用 FB 寫的草稿，讓 ChatGPT 幫我整理的想法～
-
-
-
-R3 M"/>
+  <meta property="og:description" content="C4 model 是一個 2018 年之後發展出來的 架構描述方式。
+我在 2017 年底也在組織內部弄了類似概念的表達架構方式 (稱 R3 Model)，很巧不巧，概念很 C4 model 很像，這段想法在我的著作 SRE實踐與開發平台指南 有提到，我在各種公開演講、部落格畫圖時的原則就是遵守 R"/>
   <meta property="og:site_name" content="Complete Think"/>
   <meta property="og:type"      content="website" />
   <meta property="og:url" content="https://rickhw.github.io/2025/06/29/Design/R3-Model/"/>
@@ -249,75 +243,127 @@ R3 M"/>
 
 			<!-- content -->
 			<div class="mypage">
-				<p>C4 model 是一個 2018 年之後發展出來的 架構描述方式，我在 2017 年底也在組織內部弄了類似概念的表達架構方式，很巧不巧，概念很 C4 model 很像，這段想法在我的著作 <a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">SRE實踐與開發平台指南</a> 有提到，底下用 <a target="_blank" rel="noopener" href="https://www.facebook.com/rick.kyhwang/posts/pfbid03m9Fg2scvvNxH6VoFTmwDE2uVWDWoFbP5t2TZ9KZ9efGPqX5HpLFrKzrtT2sgFzNl?notif_id=1750850826246248&notif_t=feedback_reaction_generic&ref=notif">FB</a> 寫的草稿，讓 ChatGPT 幫我整理的想法～</p>
+				<p>C4 model 是一個 2018 年之後發展出來的 架構描述方式。</p>
+<p>我在 2017 年底也在組織內部弄了類似概念的表達架構方式 (稱 R3 Model)，很巧不巧，概念很 C4 model 很像，這段想法在我的著作 <a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">SRE實踐與開發平台指南</a> 有提到，我在各種公開演講、部落格畫圖時的原則就是遵守 R3 Model 的思路。</p>
+<p>底下整理寫在 <a target="_blank" rel="noopener" href="https://www.facebook.com/rick.kyhwang/posts/pfbid03m9Fg2scvvNxH6VoFTmwDE2uVWDWoFbP5t2TZ9KZ9efGPqX5HpLFrKzrtT2sgFzNl?notif_id=1750850826246248&notif_t=feedback_reaction_generic&ref=notif">FB</a> 的原文。</p>
 <span id="more"></span>
 
 <hr>
-<h1 id="R3-Model：以角色與責任為核心的系統架構分層模型"><a href="#R3-Model：以角色與責任為核心的系統架構分層模型" class="headerlink" title="R3 Model：以角色與責任為核心的系統架構分層模型"></a>R3 Model：以角色與責任為核心的系統架構分層模型</h1><p>在實務架構設計中，筆者長期關注的核心議題不僅僅是系統如何組合與部署，更在於這些系統元件在組織中的角色（Role）與責任（Responsibility）劃分。本文所介紹的 <strong>R3 Model</strong>，即是在此思維脈絡下逐步形成的一套架構視角，旨在協助團隊以一致的語意與責任邊界思考系統設計。</p>
-<p>R3 Model 的核心觀點源自於物件導向設計（OOP）的封裝與介面觀念，並輔以康威定律（Conway’s Law）對組織結構與系統設計互為鏡像的洞見。模型共分為三層：</p>
-<ol>
-<li>High Level View（高層次視圖）</li>
-<li>Logical View（邏輯視圖）</li>
-<li>Physical View（實體視圖）</li>
-</ol>
-<p>以下針對各層做詳細說明。</p>
-<hr>
-<h2 id="1-High-Level-View：策略與邊界的呈現"><a href="#1-High-Level-View：策略與邊界的呈現" class="headerlink" title="1. High Level View：策略與邊界的呈現"></a>1. High Level View：策略與邊界的呈現</h2><p>High Level View 對應於 C4 Model 的 Context Layer，目的在於提供非技術利害關係人（如產品負責人、業務主管、決策者）一個宏觀且清晰的系統全貌。其主要包含：</p>
-<ul>
-<li>使用者角色與互動關係</li>
-<li>系統間的整合與依賴關係</li>
-<li>存取控制（Access Control, ACL）設計</li>
-</ul>
-<p>特別的是，R3 Model 在此層明確引入 ACL 的概念，靈感來自 OOP 中的 <code>public</code>、<code>protected</code>、<code>private</code> 權限修飾詞，藉以呈現不同系統元件之間的依賴強度與邊界彈性。此舉有助於促進治理層面的討論，例如系統間是否應建立明確 API 合約、資料是否應有等級存取等。</p>
-<hr>
-<h2 id="2-Logical-View：系統角色與責任的定義"><a href="#2-Logical-View：系統角色與責任的定義" class="headerlink" title="2. Logical View：系統角色與責任的定義"></a>2. Logical View：系統角色與責任的定義</h2><p>Logical View 對應 C4 Model 的 Container Layer，然其設計目標更偏重於揭示 <strong>系統內部職責的合理劃分</strong>，而非僅僅著眼於運行時的容器部署。其關注焦點包括：</p>
-<ul>
-<li>系統角色分類：Web、API Gateway、Database、Queue、Cache 等</li>
-<li>各角色的責任範疇與 ACL 規則</li>
-<li>搭配 User Story 或 User Scenario，描繪資料流的走向與行為密度</li>
-</ul>
-<p>本層設計亦受敏捷開發團隊組成啟發：如 Scrum Team 中的 PO、Dev、QA、Ops、Designer 等多元角色，系統亦應具備清晰的「誰該做什麼」配置。</p>
-<p>此外，筆者進一步將資料流的特性定義為：</p>
-<ul>
-<li><strong>資料密度（Density）</strong>：代表資料處理的吞吐量需求</li>
-<li><strong>資料溫度（Temperature）</strong>：代表資料互動的頻率或即時性</li>
-</ul>
-<p>透過這樣的維度，架構師與業務人員能更直觀地理解每個子系統的重要性與資源配置優先順序。</p>
+<h1 id="R3-Model-原文"><a href="#R3-Model-原文" class="headerlink" title="R3 Model: 原文"></a>R3 Model: 原文</h1><p>紀錄跟朋友聊到系統架構的想法, 然後跟 C4 model 作比較.</p>
+<p>我的觀點一直都是跟 #組織職責 對應的概念，也就是要談 #邊界 與 R&amp;R (Role &amp; Responsibility), 或者把 #康威定律 偷偷塞進去。無關於用什麼方式表達架構 (ex: C4 model).</p>
+<p>我的邏輯源頭 OOP&#x2F;D 的概念, interface &amp; implementation, 封裝. 而 OOP 的 Class or Interface 我就會直接解讀成 R&amp;R, 也就是誰 (Role) 應該做什麼 (Responsibility).</p>
+<p>跟 C4 model 比較起來, 我的概念只有三層: 1) High Level View; 2) Logical View; 3) Physical View, 其實我這三層概念跟 C4 model 比起來差不多是前面三層: context, container, component. </p>
+<h2 id="High-Level-View"><a href="#High-Level-View" class="headerlink" title="High Level View"></a>High Level View</h2><p>C4 的第一層 Context 跟我的 High level view 概念基本上 87 成一樣, 給非業務單位&#x2F;老闆看的, 有定義使用者, 以及內外部系統依賴的概念. 我的表達則多了一層 ACL (Access Control), 表達各個系統之間的關係的操作性, 設計緣由則是 OOP 的 public &#x2F; protected &#x2F; private 這三個關鍵字, 代表可存取性與依賴性.</p>
+<h2 id="Logic-View"><a href="#Logic-View" class="headerlink" title="Logic View"></a>Logic View</h2><p>C4 model 第二層稱為 Container, 我稱為 Logical View, 背後核心是展開系統的職責, 也就是 R&amp;R. 常見的 Role 有 Web, Console, Database, Cache, Queue … etc. 每個 Role 之間同樣有依賴與 ACL (還是在描述 OOP 封裝的特性). 跟 C4 model 不一樣, 我設計的這個 view 會搭配 User Story &#x2F; Scenario 一起看, 透過 Story or Scenario 來描述 Data Flow. 我的定義包含資料流的 #密度 (吞吐量) &#x2F; #溫度 (頻率), 用來表述操作頻率與系統的重要性.</p>
+<p>這樣設計的概念也有引用 敏捷經常討論的 Scrum Team, 一個 Scrum Team 要有 各種角色 (Roles), 像是 PO &#x2F; Dev &#x2F; QA &#x2F; Ops &#x2F; Designer … etc; 或者一個樂團要有歌手 &#x2F; 吉他手 &#x2F; 鼓手 &#x2F; 貝士手 &#x2F; 鍵盤手 … etc. 所以一個系統角色很多或很少, 代表 “架構” 的複雜度.</p>
+<p>#Role 這個詞整個核心概念, 背後帶出的就是 Responsiblity, 在系統裡應該做什麼. 經常有人會討論 API Gateway, Load Balancer, Reverse Proxy 之間的差異? 這背後本質就是在討論 R&amp;R. 看起來技術很像, 實際上在架構裡 (組織裡) 的 R&amp;R 是不一樣的.</p>
+<p>這個 Logical View (空間) 通常也是對內對外都可以拿來直接溝通討論使用, 需要了解技術的人可以看, 不太懂技術的人也可以看, 搭配 User Story, User Scenario (時間) 看. </p>
 <blockquote>
-<p>本層的設計核心，在於<strong>建立跨部門對齊的語意圖譜</strong>，以利溝通與討論，而非立即導向實作技術。</p>
+<p>這層的重點不是實作, 而是要對齊目標, 確認大家對於系統 &#x2F; 業務的理解是一致的.</p>
 </blockquote>
-<hr>
-<h2 id="3-Physical-View：落實部署與營運觀點"><a href="#3-Physical-View：落實部署與營運觀點" class="headerlink" title="3. Physical View：落實部署與營運觀點"></a>3. Physical View：落實部署與營運觀點</h2><p>Physical View 在概念上並非完全等同於 C4 的 Component Layer，而更接近於部署層級（Deployment Architecture）與營運可行性分析。本層的設計聚焦於：</p>
-<ul>
-<li>各邏輯角色的部署實例數（副本）、伸縮策略與監控點配置</li>
-<li>實作技術選型：如使用 Spring Boot、FastAPI、Node.js，資料庫採用 MySQL、PostgreSQL，訊息中介為 RabbitMQ、SQS、NATS 等</li>
-<li>Infrastructure 與 Observability 架構的結合，例如搭配 Prometheus&#x2F;Grafana、ELK Stack、Tracing 工具等</li>
-</ul>
-<p>此層的設計使得系統可以與運維層有效對接，並作為 DevOps 團隊針對容量規劃、可用性分析、資安設計等核心議題的工作依據。</p>
-<blockquote>
-<p>R3 Model 發展初衷之一，即為解決觀測性不足所導致的部署與維運斷層問題。</p>
-</blockquote>
-<hr>
-<h2 id="關於-Code-Layer-的補充"><a href="#關於-Code-Layer-的補充" class="headerlink" title="關於 Code Layer 的補充"></a>關於 Code Layer 的補充</h2><p>相較於 C4 Model 的第四層 Code Layer，R3 Model 並未進一步延伸至原始碼層級。此設計選擇源於筆者於設計本模型時，主要視角為系統架構與基礎建設層，並非針對單一服務的程式細節。然而，若需補足此層，亦可透過：</p>
-<ul>
-<li>Sequence Diagram（時序圖）</li>
-<li>State Machine Diagram（狀態機）</li>
-</ul>
-<p>來進行行為與狀態的補充建模，支撐跨服務協作或狀態變化之設計需求。</p>
-<hr>
-<h2 id="命名與緣起：R3-Model-的實務脈絡"><a href="#命名與緣起：R3-Model-的實務脈絡" class="headerlink" title="命名與緣起：R3 Model 的實務脈絡"></a>命名與緣起：R3 Model 的實務脈絡</h2><p>R3 Model 並非源自於既有理論，而是在筆者於 2017 年左右，歷經多個實務系統架構案中逐步形成與歸納。直到多年後接觸到 C4 Model 時，才發現兩者前三層有高度相似性。</p>
-<p>為求記憶與溝通方便，筆者將其命名為 R3，意指：</p>
-<ol>
-<li><strong>High Level View</strong> — 界定邊界與溝通語意</li>
-<li><strong>Service Definition (Logical View)</strong> — 描述系統責任分工</li>
-<li><strong>Go Live (Physical View)</strong> — 對應部署與營運策略</li>
-</ol>
-<p>目前此模型已在多個系統設計與導入中實證可行，並持續迭代中。雖未有廣泛使用者，但對於具有 Infra 或架構主導責任的工程師與架構師而言，R3 Model 可視為一套清晰的架構推演工具。</p>
-<hr>
-<h2 id="圖示說明"><a href="#圖示說明" class="headerlink" title="圖示說明"></a>圖示說明</h2><p>以下圖像呈現 R3 Model 的三層架構概念：</p>
-<p><img src="/images/Design/R3-model/R3-model_by-ChatGPT_20250630.png"></p>
-<hr>
-<p>如果你對此模型有共鳴，或希望引入團隊實踐中，歡迎交流與討論，或協助擴充此模型在其他場景的應用。</p>
+<h2 id="Physical-View"><a href="#Physical-View" class="headerlink" title="Physical View"></a>Physical View</h2><p>C4 的第三層稱為 Component ，他這層跟我的 Physical View 概念就全然不一樣了. 我的說法是延續 Logical View, 往下深入已 Process 為概念展開, 可以對應到 K8s 的 POD 與 container 的想法, 簡言之就是很多人常說的 #部署架構 (Deployment Architecture). 也就是在 Logical View 中的每個角色, 實際上 runtime 都會有 N 個以上的副本, 基於這樣的考慮展開的架構.</p>
+<p>這個結構 R&amp;R 已經很清楚了, 只是可能會有多個副本. 就像 Scrum Team 裡可能會有多個 Dev or 多個 QA (這是癡心妄想?) 的概念. 同樣的會套用各種 ACL, 同時對應到更實際的成本問題.</p>
+<p>Physical View 除了副本的概念, 更直接的就是談實作 &#x2F; Solution, 例如 API Server 這個角色用 node.js&#x2F;express, python&#x2F;fastAPI, java&#x2F;springboot … etc; database 則是用 MySQL&#x2F;PgSQL, HA 作法; Queue 是 RabbitMQ&#x2F;SQS&#x2F;NATS …</p>
+<p>這層更多是為了 Operation 做準備, 所有 O11y 都需要有這一層的資訊才能有效地展開, 否則 metric &#x2F; logging &#x2F; tracing 都會有遺漏. O11y 這個目的也是當時我設計這個三階層的動機之一.</p>
+<h2 id="第四層？"><a href="#第四層？" class="headerlink" title="第四層？"></a>第四層？</h2><p>C4 model 還有第四層 Code, 我的設計沒有這一層. 當時我設計的時空背景是以 infra 的角度切入, 所以沒有針對 Code Level 做啥表示, 但順著上面三層的設計, 基本上搭配 sequence diagram &#x2F; state machine 其實就很夠了.</p>
+<h2 id="命名"><a href="#命名" class="headerlink" title="命名"></a>命名</h2><p>我沒有為我的方法取啥炫砲&#x2F;簡潔的名稱, 當時 (2017?) 發想的起點都是從 OOP &#x2F; 封裝切入, c4 model 是我這個 model run 好幾年之後, 套了數十個系統架構, 才知道有的東西. </p>
+<p>跟個風就叫 R3 model 好了 XDDD</p>
+<p>整個概念有整理在我的書裡, 三階有個名稱: 1) High Level View; 2) Service Definition; 3) Go Live</p>
+<p>這概念應該只剩下我自己在用 XD</p>
+<h2 id="補充一個自問自答-為啥我要自己造一個輪子？"><a href="#補充一個自問自答-為啥我要自己造一個輪子？" class="headerlink" title="補充一個自問自答: 為啥我要自己造一個輪子？"></a>補充一個自問自答: 為啥我要自己造一個輪子？</h2><p>A: C4 Model 發表於 <a target="_blank" rel="noopener" href="https://www.infoq.com/articles/C4-architecture-model/">2018 年</a>，我構思 R3 Model 的時間約在 2017Q4，整個雛形完成在 2017&#x2F;12 月，之後在公司裡從自己團隊的系統開始用這個方法，然後往外散。</p>
+<p>我知道 C4 Model 大概已經是 2020 年，一個概念在網路上流傳起來到眾人皆知，三年差不多。所以不是為了造輪子，是當時的背景需要一個方法，有效「溝通」</p>
+<!--
+
+
+# R3 Model：以角色與責任為核心的系統架構分層模型
+
+在實務架構設計中，筆者長期關注的核心議題不僅僅是系統如何組合與部署，更在於這些系統元件在組織中的角色（Role）與責任（Responsibility）劃分。本文所介紹的 **R3 Model**，即是在此思維脈絡下逐步形成的一套架構視角，旨在協助團隊以一致的語意與責任邊界思考系統設計。
+
+R3 Model 的核心觀點源自於物件導向設計（OOP）的封裝與介面觀念，並輔以康威定律（Conway’s Law）對組織結構與系統設計互為鏡像的洞見。模型共分為三層：
+
+1. High Level View（高層次視圖）
+2. Logical View（邏輯視圖）
+3. Physical View（實體視圖）
+
+以下針對各層做詳細說明。
+
+---
+
+## 1. High Level View：策略與邊界的呈現
+
+High Level View 對應於 C4 Model 的 Context Layer，目的在於提供非技術利害關係人（如產品負責人、業務主管、決策者）一個宏觀且清晰的系統全貌。其主要包含：
+
+* 使用者角色與互動關係
+* 系統間的整合與依賴關係
+* 存取控制（Access Control, ACL）設計
+
+特別的是，R3 Model 在此層明確引入 ACL 的概念，靈感來自 OOP 中的 `public`、`protected`、`private` 權限修飾詞，藉以呈現不同系統元件之間的依賴強度與邊界彈性。此舉有助於促進治理層面的討論，例如系統間是否應建立明確 API 合約、資料是否應有等級存取等。
+
+---
+
+## 2. Logical View：系統角色與責任的定義
+
+Logical View 對應 C4 Model 的 Container Layer，然其設計目標更偏重於揭示 **系統內部職責的合理劃分**，而非僅僅著眼於運行時的容器部署。其關注焦點包括：
+
+* 系統角色分類：Web、API Gateway、Database、Queue、Cache 等
+* 各角色的責任範疇與 ACL 規則
+* 搭配 User Story 或 User Scenario，描繪資料流的走向與行為密度
+
+本層設計亦受敏捷開發團隊組成啟發：如 Scrum Team 中的 PO、Dev、QA、Ops、Designer 等多元角色，系統亦應具備清晰的「誰該做什麼」配置。
+
+此外，筆者進一步將資料流的特性定義為：
+
+* **資料密度（Density）**：代表資料處理的吞吐量需求
+* **資料溫度（Temperature）**：代表資料互動的頻率或即時性
+
+透過這樣的維度，架構師與業務人員能更直觀地理解每個子系統的重要性與資源配置優先順序。
+
+> 本層的設計核心，在於**建立跨部門對齊的語意圖譜**，以利溝通與討論，而非立即導向實作技術。
+
+---
+
+## 3. Physical View：落實部署與營運觀點
+
+Physical View 在概念上並非完全等同於 C4 的 Component Layer，而更接近於部署層級（Deployment Architecture）與營運可行性分析。本層的設計聚焦於：
+
+* 各邏輯角色的部署實例數（副本）、伸縮策略與監控點配置
+* 實作技術選型：如使用 Spring Boot、FastAPI、Node.js，資料庫採用 MySQL、PostgreSQL，訊息中介為 RabbitMQ、SQS、NATS 等
+* Infrastructure 與 Observability 架構的結合，例如搭配 Prometheus/Grafana、ELK Stack、Tracing 工具等
+
+此層的設計使得系統可以與運維層有效對接，並作為 DevOps 團隊針對容量規劃、可用性分析、資安設計等核心議題的工作依據。
+
+> R3 Model 發展初衷之一，即為解決觀測性不足所導致的部署與維運斷層問題。
+
+---
+
+## 關於 Code Layer 的補充
+
+相較於 C4 Model 的第四層 Code Layer，R3 Model 並未進一步延伸至原始碼層級。此設計選擇源於筆者於設計本模型時，主要視角為系統架構與基礎建設層，並非針對單一服務的程式細節。然而，若需補足此層，亦可透過：
+
+* Sequence Diagram（時序圖）
+* State Machine Diagram（狀態機）
+
+來進行行為與狀態的補充建模，支撐跨服務協作或狀態變化之設計需求。
+
+---
+
+## 命名與緣起：R3 Model 的實務脈絡
+
+R3 Model 並非源自於既有理論，而是在筆者於 2017 年左右，歷經多個實務系統架構案中逐步形成與歸納。直到多年後接觸到 C4 Model 時，才發現兩者前三層有高度相似性。
+
+為求記憶與溝通方便，筆者將其命名為 R3，意指：
+
+1. **High Level View** — 界定邊界與溝通語意
+2. **Service Definition (Logical View)** — 描述系統責任分工
+3. **Go Live (Physical View)** — 對應部署與營運策略
+
+目前此模型已在多個系統設計與導入中實證可行，並持續迭代中。雖未有廣泛使用者，但對於具有 Infra 或架構主導責任的工程師與架構師而言，R3 Model 可視為一套清晰的架構推演工具。
+
+
+-->
+
+<h2 id="圖示說明"><a href="#圖示說明" class="headerlink" title="圖示說明"></a>圖示說明</h2><p>下圖用 ChatGPT 畫的 R3 Model 概念：</p>
+<p><img src="/images/Design/R3-model/R3-model_by-ChatGPT_20260628.png"></p>
 <hr>
 <h1 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h1><h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Conway%27s_law">康威定律：系統設計如何映照組織結構</a></li>
@@ -396,7 +442,7 @@ R3 M"/>
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#R3-Model%EF%BC%9A%E4%BB%A5%E8%A7%92%E8%89%B2%E8%88%87%E8%B2%AC%E4%BB%BB%E7%82%BA%E6%A0%B8%E5%BF%83%E7%9A%84%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B%E5%88%86%E5%B1%A4%E6%A8%A1%E5%9E%8B"><span class="toc-article-text">R3 Model：以角色與責任為核心的系統架構分層模型</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#1-High-Level-View%EF%BC%9A%E7%AD%96%E7%95%A5%E8%88%87%E9%82%8A%E7%95%8C%E7%9A%84%E5%91%88%E7%8F%BE"><span class="toc-article-text">1. High Level View：策略與邊界的呈現</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-Logical-View%EF%BC%9A%E7%B3%BB%E7%B5%B1%E8%A7%92%E8%89%B2%E8%88%87%E8%B2%AC%E4%BB%BB%E7%9A%84%E5%AE%9A%E7%BE%A9"><span class="toc-article-text">2. Logical View：系統角色與責任的定義</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-Physical-View%EF%BC%9A%E8%90%BD%E5%AF%A6%E9%83%A8%E7%BD%B2%E8%88%87%E7%87%9F%E9%81%8B%E8%A7%80%E9%BB%9E"><span class="toc-article-text">3. Physical View：落實部署與營運觀點</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%97%9C%E6%96%BC-Code-Layer-%E7%9A%84%E8%A3%9C%E5%85%85"><span class="toc-article-text">關於 Code Layer 的補充</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%91%BD%E5%90%8D%E8%88%87%E7%B7%A3%E8%B5%B7%EF%BC%9AR3-Model-%E7%9A%84%E5%AF%A6%E5%8B%99%E8%84%88%E7%B5%A1"><span class="toc-article-text">命名與緣起：R3 Model 的實務脈絡</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9C%96%E7%A4%BA%E8%AA%AA%E6%98%8E"><span class="toc-article-text">圖示說明</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#R3-Model-%E5%8E%9F%E6%96%87"><span class="toc-article-text">R3 Model: 原文</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#High-Level-View"><span class="toc-article-text">High Level View</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Logic-View"><span class="toc-article-text">Logic View</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Physical-View"><span class="toc-article-text">Physical View</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AC%AC%E5%9B%9B%E5%B1%A4%EF%BC%9F"><span class="toc-article-text">第四層？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%91%BD%E5%90%8D"><span class="toc-article-text">命名</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%A3%9C%E5%85%85%E4%B8%80%E5%80%8B%E8%87%AA%E5%95%8F%E8%87%AA%E7%AD%94-%E7%82%BA%E5%95%A5%E6%88%91%E8%A6%81%E8%87%AA%E5%B7%B1%E9%80%A0%E4%B8%80%E5%80%8B%E8%BC%AA%E5%AD%90%EF%BC%9F"><span class="toc-article-text">補充一個自問自答: 為啥我要自己造一個輪子？</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%9C%96%E7%A4%BA%E8%AA%AA%E6%98%8E"><span class="toc-article-text">圖示說明</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="toc-article-text">延伸閱讀</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-article-text">參考資料</span></a></li></ol></li></ol>
 		</div>
 	
 	<hr />
