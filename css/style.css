@@ -571,14 +571,19 @@ h4 {
    ========================================================================== */
 
 table {
-  border-collapse: separate;
+  border-collapse: collapse;
   border-spacing: 0;
   vertical-align: middle;
+  border: 1px solid #d0d7de;
+  margin: 1em 0;
 }
 
 th {
   padding: 12px 10px 12px 10px;
-  border-bottom: 1px dashed #4088b8;
+  border: 1px solid #d0d7de;
+  border-bottom: 2px solid #4088b8;
+  background-color: #f6f8fa;
+  text-align: left;
 }
 
 td {
@@ -586,6 +591,11 @@ td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
+  border: 1px solid #d0d7de;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9fafb;
 }
 
 /**
