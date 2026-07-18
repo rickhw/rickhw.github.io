@@ -9,7 +9,7 @@
 
 員工被要求執行某些流程，卻不知道這些流程為何存在。
 
-有些人可能一直在等待審核，或是花很多時間處理看似沒有意義的程序。這一集引用的是馬斯克的工作五布演算法，討論工作上 SOP 的必要性以及常發生的問題。
+有些人可能一直在等待審核，或是花很多時間處理看似沒有意義的程序。這一集引用的是馬斯克的工作五步演算法，討論工作上 SOP 的必要性以及常發生的問題。
 不過，我對">
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -22,7 +22,7 @@
 
 員工被要求執行某些流程，卻不知道這些流程為何存在。
 
-有些人可能一直在等待審核，或是花很多時間處理看似沒有意義的程序。這一集引用的是馬斯克的工作五布演算法，討論工作上 SOP 的必要性以及常發生的問題。
+有些人可能一直在等待審核，或是花很多時間處理看似沒有意義的程序。這一集引用的是馬斯克的工作五步演算法，討論工作上 SOP 的必要性以及常發生的問題。
 不過，我對"/>
   <meta property="og:site_name" content="Complete Think"/>
   <meta property="og:type"      content="website" />
@@ -255,12 +255,12 @@
 <blockquote>
 <p>員工被要求執行某些流程，卻不知道這些流程為何存在。</p>
 </blockquote>
-<p>有些人可能一直在等待審核，或是花很多時間處理看似沒有意義的程序。這一集引用的是馬斯克的工作五布演算法，討論工作上 SOP 的必要性以及常發生的問題。</p>
+<p>有些人可能一直在等待審核，或是花很多時間處理看似沒有意義的程序。這一集引用的是馬斯克的工作五步演算法，討論工作上 SOP 的必要性以及常發生的問題。</p>
 <p>不過，我對這個問題有另外一個角度的看法。</p>
 <span id="more"></span>
 
-
-<h2 id="平台團隊的治理角色"><a href="#平台團隊的治理角色" class="headerlink" title="平台團隊的治理角色"></a>平台團隊的治理角色</h2><p>以前我是負責 Cloud Infrastructure Platform 的工作，提供 K8s、AWS 等基礎設施給公司內部團隊使用。這些細節，在我的書 <a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">《SRE 實踐與開發平台指南》</a> 有詳細介紹。</p>
+<hr>
+<h2 id="平台團隊的治理角色"><a href="#平台團隊的治理角色" class="headerlink" title="平台團隊的治理角色"></a>平台團隊的治理角色</h2><p>以前我是負責 Infrastructure and Cloud, Operation and Platform 的工作，提供 IT 資源、 AWS、K8s 等 IT 基礎設施給公司內部團隊使用，大概就是節目中提到那個設計流程的角色。這些細節，在我的書 <a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">《SRE 實踐與開發平台指南》</a> 有詳細介紹。</p>
 <p>從管理平台的角度來看，我們是治理單位，負責制定規則、執行辦法、落地，有點像政府機關。但矛盾點在於，我們本身不是生產單位，在公司的能見度與話語權比產品團隊低。這是實際上的隱性衝突點。</p>
 <p>當我們制定規則並要求其他團隊遵守時，就很容易遇到節目中提到的問題：</p>
 <p>「為什麼一定要遵守這個 SOP？」</p>
@@ -272,7 +272,7 @@
 <p>我們會在 Policy 裡清楚寫下，這項規定是在哪一年、哪一天，因為哪一個系統 &#x2F; 服務、哪一次事故而產生，然後為什麼要這樣做。當時曾經有團隊把 Redis 放在 K8s 裡，但環境沒有完整支援持久化儲存。Pod 發生漂移或重新建立後，Volume 裡的資料消失，整個服務因此掛掉。</p>
 <p>那次的事故影響非常大，促成制定這項規則的原因。當然這只是其中一個。</p>
 <blockquote>
-<p>註：那次事件也促成我的團隊接管整個公司的 K8s 維運，促成 K8s 平台架構。那大概適在 2017 ~ 2020 年間發生的事。</p>
+<p>註一：那次事件也促成我的團隊接管整個公司的 K8s 維運，促成 K8s 平台架構。那大概適在 2017 ~ 2020 年間發生的事。<br>註二：有些公司是允許在 K8s 跑 Stateful 的，但實務上通常會很慘。</p>
 </blockquote>
 <h3 id="架構審查的目的"><a href="#架構審查的目的" class="headerlink" title="架構審查的目的"></a>架構審查的目的</h3><p>架構審查並不是單純增加一道關卡，而是協助開發團隊提發現出問題。</p>
 <p>系統的架構層次包含系統設計是否符合既有的 Policy、協助網路設計、防火牆規則、K8s 架構如何規劃、應用程式要如何對外提供服務或與內部系統連接。除了架構層次，也包括成本估算、監控設計、Log 收集、告警串接 (Slack) 與維運方式等問題。</p>
@@ -291,6 +291,26 @@
 <p>以前這些事情都要靠人工處理，所以公司還在起步前期 (&lt;200人) 時，整個 Infra &#x2F; IT &#x2F; Platform 的 Policy 都是我寫起草的，後來我也逐漸培養其他人獨立撰寫，而我只負責 Review。</p>
 <p>現在有了 AI，這件事情反而更容易做，因為 Policy 相對適合被文件化、結構化與管理，也比較容易透過 AI 協助整理歷史背景、檢查一致性與提醒更新。</p>
 <p>所以，大部分員工在執行任務或 SOP 時卡關，我認為這通常是公司各階層管理者的問題。真正有問題的未必是 Policy 本身，而是管理 Policy 的方法，也就是 <code>IT 治理</code> 。</p>
+<h3 id="白紙黑字"><a href="#白紙黑字" class="headerlink" title="白紙黑字"></a>白紙黑字</h3><p>如何有效管理 Policy？</p>
+<p>對我來講，「人」要面對自身實際的問題：<code>記憶力不可靠</code></p>
+<p>職涯中，我遇過很多聰明人、很聰明的、頂大名校、世界級名校的，記憶力超好，但是他們終究是人。只要是人就會有實際的問題：記憶錯亂</p>
+<p>特別是當主管之後，Context Switch 很多，記憶力經常性的錯亂、上週才說過的，這週從來沒映像。</p>
+<p>我不是聰明的人，但我很早就認知這一切，也很早就在面對。</p>
+<p>有次跟朋友聊天，聊到主管很忙的時候、心很亂的時候，我怎麼靜下來？我回答：</p>
+<blockquote>
+<p>寫文件</p>
+</blockquote>
+<p>寫文件可以讓我去深思很多事情，然後從文字中組織心裡的思緒與脈絡。所以那段時間，我隨手寫下很多類似的心得與想法。目的都是透過文字，輔助人類記憶力不可靠這件事。</p>
+<p>一家公司政治問題多或者少，我會從 「員工如何取的政策、政令的管道」來判斷，都是「聽說」、「誰說」、「某某高管說」，這種的，大概都是治理還很不成熟。如果員工都知道，執行的方向是遵循哪個規範，規範在哪都知道，那代表這家公司的管理層在治理上有做到位。</p>
+<p>相關「寫文件」的文章整理如下：</p>
+<ul>
+<li><a href="/2017/06/29/Management/Why-Document/">為什麼寫文件？</a></li>
+<li><a href="/2019/04/03/Management/Write-Document/">再談『為什麼寫文件？』</a></li>
+<li><a href="/2019/03/10/DevOps/Continuous-Delivery-Docs/">文件的持續交付</a></li>
+<li><a href="/2020/05/09/Management/Problems-in-Documentation/">寫文件常見的問題</a></li>
+<li><a href="/2014/10/26/Management/Classified-Philosophy/">分類的哲學</a></li>
+<li><a href="/2019/06/08/About/Spotlight-Phenomenon/">Spotlight 現象</a></li>
+</ul>
 <hr>
 <h2 id="開發團隊應如何處理不合理流程"><a href="#開發團隊應如何處理不合理流程" class="headerlink" title="開發團隊應如何處理不合理流程"></a>開發團隊應如何處理不合理流程</h2><p>換一個角度來看，假如你是開發團隊，在執行流程時遇到這些問題，應該怎麼辦？</p>
 <p>首先，要把可能造成的損失、風險與責任想清楚，講出來。</p>
@@ -301,6 +321,20 @@
 <p>員工必須有意識地讓主管知道，這是主管需要承擔的管理責任，而不只是執行者個人的問題。</p>
 <p>當然，員工也可以向前多跨一步，先整理 Stakeholder、背景資料與簡單分析，再和主管討論。因為有些主管不一定具備這種意識，也未必知道這原本就是他的工作。</p>
 <p>這個過程，也可以看得出來主管的跨團隊協作能力、政治手段、以及是否誠信正直。</p>
+<h3 id="大型企業的狀況"><a href="#大型企業的狀況" class="headerlink" title="大型企業的狀況"></a>大型企業的狀況</h3><p>我上述的經驗是在規模約 200 - 600 人的公司，我也在超過 80,000 人規模的公司服務過，本質上問題是一樣的。只是執行的過程，需要更有制度化、更加 Top down 的授權，讓組織之間不會踢皮球、或者能夠處理一些可能虛假的訊息。</p>
+<p>像是大公司裡最常出現的現象就是：</p>
+<p>「某某 VP 曾說過，如何如合 。。。」</p>
+<p>「某某長官說如何如何。。。」</p>
+<p>「某次事件後，某長官說以後如何如何。。。」</p>
+<p>這些話，只要一句話就可以確認：</p>
+<blockquote>
+<p>請問具體的書面以及行政命令證據在哪？或者 Email？</p>
+</blockquote>
+<p>一個有治理、有管理的組織，如果是會議決策，那就應該有行政命令管道，最後落下白紙黑字，讓所有人知道前因後果，以及誰下的決策、什麼時候。以及，應該要有專屬的團隊，去不斷的改善 Policy 的內容，讓 policy 可以與時俱進。例如「<a href="/2020/10/18/DevOps/Deploy-on-Friday-or-Not/">星期五不能部署</a>」，為什麼？而不是一堆傳說、聽說。</p>
+<p>同時這個團隊也有義務要協助，因為 Policy 更動，執行團隊需要處理的汰舊換新流程。像是 OSS 過去十幾年，出現過幾次條款改變，從 Open Source 變成不是，最著名的就是 Redis 換 ValKey。這種東西的汰換，要有專屬政策團隊決策是否要更換，以及更換的目標時間，但是也有義務，協助已經使用 Redis 的團隊如何下車。否則只會變成民怨製造者。</p>
+<p>沒有這個「行政程序」，最後就會變成節目中大家在討論的，很多不知道為什麼的流程，然後又要跨很多單位協作，各單位又有各自的立場與時程，整個就會卡住。</p>
+<p>上述我只是簡單整理，這種 IT 治理、政策更迭在大公司裡是非常必要的，但我鮮少看到做到白紙黑字，維護得很完整的。大多都是一封 Email、一個簡報到處亂送就當作已經通知了。剩下就是直接壓 Schedule 要所有單位配合。最後附上一句話說這是 OO VP 的要求。</p>
+<p>其實是很不及格的。</p>
 <hr>
 <h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>這段紀錄，是我在爬山時，聽 Podcast 當下，透過 Voice Memo 記錄下來的想法。</p>
 <p>我講的故事以及經驗，都在 <a href="/2023/07/17/About/2023-SRE-Practice-and-IDP/">《SRE 實踐與開發平台指南》</a> 有完整介紹，其中 <a href="/2025/06/29/Design/R3-Model/">R3 Model</a> 也是當時催生的制度。</p>
@@ -379,7 +413,7 @@
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i> Table of Content</a>
 	   <div id="toc" class="toc collapse in">
-				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B9%B3%E5%8F%B0%E5%9C%98%E9%9A%8A%E7%9A%84%E6%B2%BB%E7%90%86%E8%A7%92%E8%89%B2"><span class="toc-article-text">平台團隊的治理角色</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E8%A6%8F%E5%89%87%E5%BF%85%E9%A0%88-%E7%99%BD%E7%B4%99%E9%BB%91%E5%AD%97-%E7%95%99%E4%B8%8B%E6%AD%B7%E5%8F%B2%E8%83%8C%E6%99%AF"><span class="toc-article-text">規則必須 白紙黑字 留下歷史背景</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%9E%B6%E6%A7%8B%E5%AF%A9%E6%9F%A5%E7%9A%84%E7%9B%AE%E7%9A%84"><span class="toc-article-text">架構審查的目的</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Policy-%E6%9C%AC%E8%BA%AB%E4%B9%9F%E9%9C%80%E8%A6%81-Policy-Governance"><span class="toc-article-text">Policy 本身也需要 Policy - Governance</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%96%8B%E7%99%BC%E5%9C%98%E9%9A%8A%E6%87%89%E5%A6%82%E4%BD%95%E8%99%95%E7%90%86%E4%B8%8D%E5%90%88%E7%90%86%E6%B5%81%E7%A8%8B"><span class="toc-article-text">開發團隊應如何處理不合理流程</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E8%A9%B2%E7%94%B1%E4%B8%BB%E7%AE%A1%E6%89%BF%E6%93%94%E7%9A%84%E8%B2%AC%E4%BB%BB"><span class="toc-article-text">該由主管承擔的責任</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-article-text">小結</span></a></li></ol>
+				<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B9%B3%E5%8F%B0%E5%9C%98%E9%9A%8A%E7%9A%84%E6%B2%BB%E7%90%86%E8%A7%92%E8%89%B2"><span class="toc-article-text">平台團隊的治理角色</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E8%A6%8F%E5%89%87%E5%BF%85%E9%A0%88-%E7%99%BD%E7%B4%99%E9%BB%91%E5%AD%97-%E7%95%99%E4%B8%8B%E6%AD%B7%E5%8F%B2%E8%83%8C%E6%99%AF"><span class="toc-article-text">規則必須 白紙黑字 留下歷史背景</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%9E%B6%E6%A7%8B%E5%AF%A9%E6%9F%A5%E7%9A%84%E7%9B%AE%E7%9A%84"><span class="toc-article-text">架構審查的目的</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Policy-%E6%9C%AC%E8%BA%AB%E4%B9%9F%E9%9C%80%E8%A6%81-Policy-Governance"><span class="toc-article-text">Policy 本身也需要 Policy - Governance</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%99%BD%E7%B4%99%E9%BB%91%E5%AD%97"><span class="toc-article-text">白紙黑字</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%96%8B%E7%99%BC%E5%9C%98%E9%9A%8A%E6%87%89%E5%A6%82%E4%BD%95%E8%99%95%E7%90%86%E4%B8%8D%E5%90%88%E7%90%86%E6%B5%81%E7%A8%8B"><span class="toc-article-text">開發團隊應如何處理不合理流程</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E8%A9%B2%E7%94%B1%E4%B8%BB%E7%AE%A1%E6%89%BF%E6%93%94%E7%9A%84%E8%B2%AC%E4%BB%BB"><span class="toc-article-text">該由主管承擔的責任</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%A4%A7%E5%9E%8B%E4%BC%81%E6%A5%AD%E7%9A%84%E7%8B%80%E6%B3%81"><span class="toc-article-text">大型企業的狀況</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-article-text">小結</span></a></li></ol>
 		</div>
 	
 	<hr />
