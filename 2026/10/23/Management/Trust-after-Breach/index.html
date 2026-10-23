@@ -301,6 +301,9 @@
 <p>我認為可以從 DevSecOps 的角度，重新檢視 Secret Management、Credential Lifecycle、Least Privilege，以及 Network Segmentation。</p>
 <p>例如，敏感憑證可以透過獨立的 Secret Vault 或其他適當的集中管理機制處理，降低長期憑證暴露的風險。CI&#x2F;CD 流程需要操作正式環境，不代表 CI 主機就應該長期擁有廣泛的資料庫存取權限。網路連線、帳號權限、憑證有效期限與操作範圍，都應該有明確限制。</p>
 <p>更重要的是，這些不應只是在發生事故之後才補強，而應該在 <a href="/2025/06/29/Design/R3-Model/">架構設計與 Review</a> 階段，就成為團隊共同遵循的安全原則。</p>
+<blockquote>
+<p>註：更進一步則是 Zero Trust 架構，也就是所有內部系統之間的操作都需要有嚴謹的信任機制，這部分也是我在架構部門時倡議的做法之一。</p>
+</blockquote>
 <h3 id="第二個是-資料預警機制"><a href="#第二個是-資料預警機制" class="headerlink" title="第二個是 資料預警機制"></a>第二個是 <code>資料預警機制</code></h3><p>電商系統與銀行有一些相似的地方。Commerce Cloud 的核心包含訂單、會員、商品與交易等資料。這些資訊具有高度商業價值，也可能成為攻擊者想要竊取的目標。傳統資安防護常把重點放在阻止攻擊者進入系統，但我認為還有另一個同樣重要的問題：</p>
 <blockquote>
 <p>如果攻擊者真的進來了，我們能不能及早發現資料正在被異常存取？</p>
@@ -355,6 +358,7 @@
 <ul>
 <li>註一：91APP 同仁私下稱呼這樣叫何董 - “台北何先生”</li>
 <li>註二：本文依截至 2026&#x2F;10&#x2F;23 已公開的資料整理，事件調查與後續處理結果仍應以正式公告為準。</li>
+<li>註三：</li>
 </ul>
 
 
@@ -457,7 +461,7 @@
 		<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"> Tags</i></a>
     <div>
 	  	
-  <span class="label label-success"><a href="/tags/Chaos-Engineering/" style="color: white">Chaos Engineering <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/SaaS/" style="color: white">SaaS <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/DevSecOps/" style="color: white">DevSecOps <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/Incident-Management/" style="color: white">Incident Management <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/91APP/" style="color: white">91APP <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Cybersecurity/" style="color: white">Cybersecurity <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Security-Incident/" style="color: white">Security Incident <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/AI-Security/" style="color: white">AI Security <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Corporate-Governance/" style="color: white">Corporate Governance <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Trust-Integrity/" style="color: white">Trust & Integrity <span class="badge">1</span></a></span>
+  <span class="label label-success"><a href="/tags/Chaos-Engineering/" style="color: white">Chaos Engineering <span class="badge">11</span></a></span> <span class="label label-success"><a href="/tags/DevSecOps/" style="color: white">DevSecOps <span class="badge">2</span></a></span> <span class="label label-success"><a href="/tags/SaaS/" style="color: white">SaaS <span class="badge">3</span></a></span> <span class="label label-success"><a href="/tags/Incident-Management/" style="color: white">Incident Management <span class="badge">9</span></a></span> <span class="label label-success"><a href="/tags/91APP/" style="color: white">91APP <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Cybersecurity/" style="color: white">Cybersecurity <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Security-Incident/" style="color: white">Security Incident <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/AI-Security/" style="color: white">AI Security <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Corporate-Governance/" style="color: white">Corporate Governance <span class="badge">1</span></a></span> <span class="label label-success"><a href="/tags/Trust-Integrity/" style="color: white">Trust & Integrity <span class="badge">1</span></a></span>
 	  </div>
 	</div>
 	<hr />
